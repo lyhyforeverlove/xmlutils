@@ -19,13 +19,13 @@
 
    <!--  <context:property-placeholder location="classpath*:/conf/**/*.properties"/> -->
 
-	 <bean id="propertyConfig" class="com.eeduspace.uuims.comm.util.PropertyPlaceholderConfigurerExt"> 
+	 <!-- <bean id="propertyConfig" class="com.eeduspace.uuims.comm.util.PropertyPlaceholderConfigurerExt"> 
                 <property name="locations"> 
                         <list> 
 							<value>file:/etc/eeduspace/conf/cibntv_management_config.properties</value>
                         </list> 
                 </property> 
-        </bean> 
+        </bean>  -->
     <!--添加spring 校验-->
     <mvc:annotation-driven validator="validator" conversion-service="conversion_service">
         <mvc:message-converters register-defaults="true">
