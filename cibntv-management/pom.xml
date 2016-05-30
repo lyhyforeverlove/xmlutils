@@ -9,14 +9,7 @@
   	<version>0.0.1-SNAPSHOT</version>
   	<packaging>war</packaging>
     
-    <!-- <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.0.0.RELEASE</spring.version>
-    </properties> -->
-    
-    
     <dependencies>
-        
         <dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
@@ -72,17 +65,33 @@
             <artifactId>uuims-comm-util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.eeduspace</groupId>
-            <artifactId>uuims-java-sdk</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.eeduspace</groupId>
-            <artifactId>uuims-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <!-- 引用uuims 结束 -->
+        
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.2.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.28</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <artifactId>uuims-comm-util</artifactId>
+            <groupId>com.eeduspace</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         
     </dependencies>
 
