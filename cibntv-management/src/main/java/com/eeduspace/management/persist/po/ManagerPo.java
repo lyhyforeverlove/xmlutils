@@ -1,15 +1,19 @@
 package com.eeduspace.management.persist.po;
 
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.util.UIDGenerator;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
-import javax.persistence.*;
-
-import java.util.Date;
 
 /**
  * Author: dingran
@@ -17,7 +21,7 @@ import java.util.Date;
  * Description:管理员实体类
  */
 @Entity
-@Table(name = "cibn_auth_manager")
+@Table(name = "cibn_manager")
 public class ManagerPo {
     //用户id
     @Id
@@ -31,7 +35,6 @@ public class ManagerPo {
     @Column( nullable = false,unique = true)
     private String phone;
     //用户登陆密码
-    @Column( nullable = false)
     private String password;
     //创建该用户的管理员ID
     @Column(name = "create_manager_id")
@@ -41,20 +44,13 @@ public class ManagerPo {
     //邮箱
     private String email;
     //公钥
-    @Column( unique = true,name = "access_key",nullable = false)
+    @Column( unique = true,name = "access_key")
     private String accessKey;
     //秘钥
-    @Column( unique = true,name = "secret_key",nullable = false)
+    @Column( unique = true,name = "secret_key")
     private String secretKey;
     //状态
-    @Column(nullable = false)
     private UserEnum.Status status;
-    //所属角色
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    @org.hibernate.annotations.ForeignKey(name = "none")
-    @NotFound(action= NotFoundAction.IGNORE)
-    private RolePo rolePo;
     //扩展字段
     private String extend_;
     @Column(name = "last_login_time")
@@ -146,14 +142,6 @@ public class ManagerPo {
 
     public void setStatus(UserEnum.Status status) {
         this.status = status;
-    }
-
-    public RolePo getRolePo() {
-        return rolePo;
-    }
-
-    public void setRolePo(RolePo rolePo) {
-        this.rolePo = rolePo;
     }
 
     public String getExtend_() {

@@ -1,7 +1,130 @@
 package com.eeduspace.management.persist.po;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.eeduspace.management.persist.enumeration.RoleEnum;
+import com.eeduspace.management.util.UIDGenerator;
+
+@Entity
+@Table(name = "cibn_permission")
 public class PermissionPo {
-	
+	 	@Id
+	    @GeneratedValue(strategy = GenerationType.AUTO)
+	    @Column(updatable = false)
+	    private Long id;
+	    //唯一标识
+	    @Column(unique = true)
+	    private String uuid = UIDGenerator.getUUID();
+	    //名称
+	    private String name;
+	    //类型
+	    @Column(unique = false)
+	    private int type;
+	    //状态
+	    private RoleEnum.Status status;
+	    //描述
+	    private String description;
+	    //创建时间
+	    @Temporal(TemporalType.TIMESTAMP)
+	    @Column(updatable = false,name = "create_time")
+	    private Date createDate = new Date();
+	    //更新时间
+	    @Temporal(TemporalType.TIMESTAMP)
+	    @Column(name = "update_time")
+	    private Date updateDate = new Date();
+	    
+	    private String groups;
+	    private Long functionId;
+	    
+	    public Long getId() {
+	        return id;
+	    }
+
+	    public String getUuid() {
+	        return uuid;
+	    }
+
+	    public void setUuid(String uuid) {
+	        this.uuid = uuid;
+	    }
+
+	    public RoleEnum.Status getStatus() {
+	        return status;
+	    }
+
+	    public void setStatus(RoleEnum.Status status) {
+	        this.status = status;
+	    }
+
+	    public void setId(Long id) {
+	        this.id = id;
+	    }
+
+	    public String getName() {
+	        return name;
+	    }
+
+	    public void setName(String name) {
+	        this.name = name;
+	    }
+
+
+	    public String getDescription() {
+	        return description;
+	    }
+
+	    public void setDescription(String description) {
+	        this.description = description;
+	    }
+
+	    public Date getCreateDate() {
+	        return createDate;
+	    }
+
+	    public void setCreateDate(Date createDate) {
+	        this.createDate = createDate;
+	    }
+
+	    public Date getUpdateDate() {
+	        return updateDate;
+	    }
+
+	    public void setUpdateDate(Date updateDate) {
+	        this.updateDate = updateDate;
+	    }
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
+		}
+
+		public String getGroups() {
+			return groups;
+		}
+
+		public void setGroups(String groups) {
+			this.groups = groups;
+		}
+
+		public Long getFunctionId() {
+			return functionId;
+		}
+
+		public void setFunctionId(Long functionId) {
+			this.functionId = functionId;
+		}
 	
 
 }

@@ -1,5 +1,6 @@
 package com.eeduspace.management.persist.enumeration;
 
+
 /**
  * Author: dingran
  * Date: 2015/11/3
@@ -9,6 +10,7 @@ public class RoleEnum {
 
     private Type type;
     private Status status;
+    private CibnTvType cibnTvType;
 
     public enum Type {
         Test(0),
@@ -39,6 +41,24 @@ public class RoleEnum {
             this.value = value;
         }
     }
+    
+    public enum CibnTvType {
+        Test(0),
+        Management(1),//用户管理
+        Order(2),//订单管理
+        VIP(3),//VIP管理
+        Permission(4);//权限管理
+        
+        private final int value;
+
+        public int getValue() {
+            return value;
+        }
+
+        CibnTvType(int value) {
+            this.value = value;
+        }
+    }
 
     public Type getType() {
         return type;
@@ -55,4 +75,16 @@ public class RoleEnum {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+	public CibnTvType getCibnTvType() {
+		return cibnTvType;
+	}
+
+	public void setCibnTvType(CibnTvType cibnTvType) {
+		this.cibnTvType = cibnTvType;
+	}
+    
+    
+    
+    
 }

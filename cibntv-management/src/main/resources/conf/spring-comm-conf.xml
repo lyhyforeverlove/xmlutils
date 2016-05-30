@@ -14,7 +14,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <!--<context:property-placeholder location="file:/etc/ezcloud/conf/ezcloud-portal-manager.properties"/>-->
+    <context:property-placeholder location="file:/etc/eeduspace/conf/cibntv_management_config.properties"/>
 
     <!-- 任务调度器 -->
     <task:scheduler id="scheduler" pool-size="10"/>

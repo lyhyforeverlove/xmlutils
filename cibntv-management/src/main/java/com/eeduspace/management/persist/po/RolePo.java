@@ -1,10 +1,18 @@
 package com.eeduspace.management.persist.po;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.util.UIDGenerator;
-
-import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Author: dingran
@@ -12,7 +20,7 @@ import java.util.Date;
  * Description:
  */
 @Entity
-@Table(name = "auth_role")
+@Table(name = "cibn_role")
 public class RolePo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,13 +30,11 @@ public class RolePo {
     @Column(unique = true)
     private String uuid = UIDGenerator.getUUID();
     //名称
-    @Column(nullable = false)
     private String name;
     //类型
-    @Column(nullable = false,unique = false)
-    private RoleEnum.Type type;
+    @Column(unique = false)
+    private RoleEnum.CibnTvType type;
     //状态
-    @Column(nullable = false)
     private RoleEnum.Status status;
     //描述
     private String description;
@@ -53,15 +59,15 @@ public class RolePo {
         this.uuid = uuid;
     }
 
-    public RoleEnum.Type getType() {
-        return type;
-    }
+    public RoleEnum.CibnTvType getType() {
+		return type;
+	}
 
-    public void setType(RoleEnum.Type type) {
-        this.type = type;
-    }
+	public void setType(RoleEnum.CibnTvType type) {
+		this.type = type;
+	}
 
-    public RoleEnum.Status getStatus() {
+	public RoleEnum.Status getStatus() {
         return status;
     }
 
