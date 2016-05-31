@@ -87,12 +87,6 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
-            <artifactId>uuims-comm-util</artifactId>
-            <groupId>com.eeduspace</groupId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        
     </dependencies>
 
     <build>
