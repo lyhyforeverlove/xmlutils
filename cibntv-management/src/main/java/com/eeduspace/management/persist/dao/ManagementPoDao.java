@@ -8,7 +8,7 @@ import com.eeduspace.management.persist.po.ManagerPo;
 
 public interface ManagementPoDao extends CrudRepository<ManagerPo, Long>{
 	
-	Page<ManagerPo> findByStatusPage(int status,Pageable pageable);
+	Page<ManagerPo> findByStatus(int status,Pageable pageable);
 	
 	ManagerPo findByStatus();
 }
