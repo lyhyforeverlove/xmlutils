@@ -3,7 +3,7 @@ package com.eeduspace.management.convert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.eeduspace.management.model.ManagementModel;
+import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.RolePo;
@@ -18,12 +18,12 @@ import com.eeduspace.management.persist.po.RolePo;
 public class CIBNManagementConvert {
 	//    private static final Logger logger = LoggerFactory.getLogger(CIBNManagementConvert.class);
 
-	public static ManagementModel fromManagerPo(ManagerPo managerPo){
-		ManagementModel mm = new ManagementModel();
+	public static ManagerModel fromManagerPo(ManagerPo managerPo){
+		ManagerModel mm = new ManagerModel();
 
 		return mm;
 	}
-	public static ManagerPo fromManagerModel(ManagementModel managementModel){
+	public static ManagerPo fromManagerModel(ManagerModel managerModel){
 		ManagerPo po = new ManagerPo();
 
 		return po;
