@@ -27,8 +27,7 @@ public class PermissionPo {
 	    //名称
 	    private String name;
 	    //类型
-	    @Column(unique = false)
-	    private int type;
+	    private RoleEnum.CibnTvType type;
 	    //状态
 	    private RoleEnum.Status status;
 	    //描述
@@ -102,11 +101,11 @@ public class PermissionPo {
 	        this.updateDate = updateDate;
 	    }
 
-		public int getType() {
+		public RoleEnum.CibnTvType getType() {
 			return type;
 		}
 
-		public void setType(int type) {
+		public void setType(RoleEnum.CibnTvType type) {
 			this.type = type;
 		}
 

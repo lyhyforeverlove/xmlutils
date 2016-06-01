@@ -1,5 +1,7 @@
 package com.eeduspace.management.model;
 
+import java.util.List;
+
 import com.eeduspace.management.persist.enumeration.RoleEnum;
 
 public class RoleModel {
@@ -13,7 +15,7 @@ public class RoleModel {
 	    private String createDate;
 	    private String updateDate;
 	    
-	    private PermissionModel permissionModel;
+	    private List<PermissionModel> permissionModels;
 		public Long getId() {
 			return id;
 		}
@@ -62,11 +64,11 @@ public class RoleModel {
 		public void setUpdateDate(String updateDate) {
 			this.updateDate = updateDate;
 		}
-		public PermissionModel getPermissionModel() {
-			return permissionModel;
+		public List<PermissionModel> getPermissionModels() {
+			return permissionModels;
 		}
-		public void setPermissionModel(PermissionModel permissionModel) {
-			this.permissionModel = permissionModel;
+		public void setPermissionModels(List<PermissionModel> permissionModels) {
+			this.permissionModels = permissionModels;
 		}
 	    
 	    

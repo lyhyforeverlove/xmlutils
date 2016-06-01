@@ -32,7 +32,6 @@ public class RolePo {
     //名称
     private String name;
     //类型
-    @Column(unique = false)
     private RoleEnum.CibnTvType type;
     //状态
     private RoleEnum.Status status;

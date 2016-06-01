@@ -72,9 +72,8 @@ public class ManagerServiceImpl implements ManagerService {
 				managerPoDao.save(CIBNManagementConvert.fromManagerModel(managerModel));
 				ManagerAndRolePo managerAndRolePo = new ManagerAndRolePo();
 				managerAndRolePo.setManagerUuid(managerModel.getUuid());
-				
+				managerAndRolePo.setRoleUuid(managerModel.getRoleModel().getUuid());
 				managerAndRolePoDao.save(managerAndRolePo);
-				
 			}else{
 				managerPo.setStatus(managerModel.getStatus());
 				managerPoDao.save(managerPo);

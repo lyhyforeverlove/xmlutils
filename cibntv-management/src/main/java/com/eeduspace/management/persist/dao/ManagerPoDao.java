@@ -18,7 +18,7 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>{
 	//暂时不用
 	@Modifying
 	@Query("update ManagerPo m set m.status = ?1 where m.uuid = ?2")
-	ManagerPo updateManager(String status,String uuid);
+	ManagerPo updateManager(int status,String uuid);
 	
 	
 }
