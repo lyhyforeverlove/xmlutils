@@ -13,36 +13,37 @@ import javax.persistence.Table;
  * Description:
  */
 @Entity
-@Table(name = "cibn_management_role")
-public class ManagementAndRolePo {
+@Table(name = "cibn_manager_role")
+public class ManagerAndRolePo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
     //唯一标识
-    @Column(nullable = false,name = "role_id")
-    private Long roleId ;
+    @Column(nullable = false,name = "role_uuid")
+    private Long roleUuid ;
     //名称
-    @Column(nullable = false,name = "management_id")
-    private Long managementId;
+    @Column(nullable = false,name = "manager_uuid")
+    private Long managerUuid;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getRoleId() {
-		return roleId;
+	public Long getRoleUuid() {
+		return roleUuid;
 	}
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
+	public void setRoleUuid(Long roleUuid) {
+		this.roleUuid = roleUuid;
 	}
-	public Long getManagementId() {
-		return managementId;
+	public Long getManagerUuid() {
+		return managerUuid;
 	}
-	public void setManagementId(Long managementId) {
-		this.managementId = managementId;
+	public void setManagerUuid(Long managerUuid) {
+		this.managerUuid = managerUuid;
 	}
+	
     
   
 }

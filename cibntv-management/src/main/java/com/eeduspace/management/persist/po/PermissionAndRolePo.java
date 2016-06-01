@@ -19,29 +19,30 @@ public class PermissionAndRolePo {
     @Column(updatable = false)
     private Long id;
     //唯一标识
-    @Column(nullable = false,name = "role_id")
-    private Long roleId ;
+    @Column(nullable = false,name = "role_uuid")
+    private Long roleUuid ;
     //名称
-    @Column(nullable = false,name = "permission_id")
-    private Long permissionId;
+    @Column(nullable = false,name = "permission_uuid")
+    private Long permissionUuid;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getRoleId() {
-		return roleId;
+	public Long getRoleUuid() {
+		return roleUuid;
 	}
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
+	public void setRoleUuid(Long roleUuid) {
+		this.roleUuid = roleUuid;
 	}
-	public Long getPermissionId() {
-		return permissionId;
+	public Long getPermissionUuid() {
+		return permissionUuid;
 	}
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
+	public void setPermissionUuid(Long permissionUuid) {
+		this.permissionUuid = permissionUuid;
 	}
+	
 	
     
   

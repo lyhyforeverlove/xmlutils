@@ -1,8 +1,10 @@
 package com.eeduspace.management.model;
 
+import org.springframework.data.domain.PageRequest;
+
 import com.eeduspace.management.persist.enumeration.UserEnum;
 
-public class ManagementModel {
+public class ManagerModel {
 	
     protected Long id;
     private String uuid;
@@ -22,6 +24,8 @@ public class ManagementModel {
     private RoleModel roleModel;
     
     private PermissionModel permissionModel;
+    //分页
+    private  PageRequest pageRequest;
 
 	public Long getId() {
 		return id;
@@ -149,6 +153,14 @@ public class ManagementModel {
 
 	public void setPermissionModel(PermissionModel permissionModel) {
 		this.permissionModel = permissionModel;
+	}
+
+	public PageRequest getPageRequest() {
+		return pageRequest;
+	}
+
+	public void setPageRequest(PageRequest pageRequest) {
+		this.pageRequest = pageRequest;
 	}
     
     
