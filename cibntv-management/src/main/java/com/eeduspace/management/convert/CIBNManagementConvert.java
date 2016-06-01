@@ -1,7 +1,9 @@
 package com.eeduspace.management.convert;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.Null;
@@ -13,9 +15,12 @@ import org.springframework.util.StringUtils;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
+import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
+import com.eeduspace.management.persist.po.UserPo;
+import com.eeduspace.uuims.comm.util.base.DateUtils;
 
 
 /**
@@ -96,4 +101,28 @@ public class CIBNManagementConvert {
 		}
 		return permissionModels;
 	}
+	  public static UserModel fromUserPo(UserPo userPo) {
+	        UserModel userModel = new UserModel();
+	        if(userPo!=null){
+	            userModel.setUserCode(userPo.getUserCode());
+	            userModel.setUserName(userPo.getUserName());
+	            userModel.setEmail(userPo.getEmail());
+	            userModel.setMobile(userPo.getMobile());
+	            userModel.setVIPExpireDays(0l);
+	            userModel.setOverdue(true);
+	            userModel.setVIPExpireTime(null);
+	            if(!StringUtils.isEmpty(userPo.getVIPExpireTime())){
+	                userModel.setVIPExpireTime(DateUtils.getTimeStampStr(userPo.getVIPExpireTime()));
+	                Date dateNow=new Date();
+	                if(userPo.getVIPExpireTime().after(dateNow)){
+	                    userModel.setOverdue(false);
+	                    userModel.setVIPExpireDays(DateUtils.daysBetween(new Timestamp(dateNow.getTime()), new Timestamp(userPo.getVIPExpireTime().getTime()))+1);
+	                }
+	            }
+	            userModel.setVip(userPo.isVIP());
+	            userModel.setCreateDate(DateUtils.getTimeStampStr(userPo.getCreateDate()));
+	        }
+
+	        return userModel;
+	    }
 }
