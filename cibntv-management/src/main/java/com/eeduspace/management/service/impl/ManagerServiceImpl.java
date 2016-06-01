@@ -58,11 +58,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public ManagerModel replaceManagerModel(ManagerModel managerModel) {
+	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) {
 		ManagerPo managerPo = new ManagerPo();
 		if(!StringUtils.isEmpty(managerModel)){
 			managerPo = managerPoDao.findByUuid(managerModel.getUuid());
 			if(StringUtils.isEmpty(managerPo)){
+				//
 				managerPoDao.save(CIBNManagementConvert.fromManagerModel(managerModel));
 			}else{
 				managerPo.setStatus(managerModel.getStatus());

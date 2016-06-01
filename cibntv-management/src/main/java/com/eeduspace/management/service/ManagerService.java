@@ -26,6 +26,6 @@ public interface ManagerService {
 	 * @param managerModel  管理员模型
 	 * @return
 	 */
-	public ManagerModel replaceManagerModel(ManagerModel managerModel);
+	public ManagerModel saveOrReplaceManager(ManagerModel managerModel);
 
 }

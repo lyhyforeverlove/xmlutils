@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.eeduspace.management.persist.po.ManagerAndRolePo;
 import com.eeduspace.management.persist.po.ManagerPo;
 
 public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>{
@@ -19,5 +20,5 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>{
 	@Modifying
 	@Query("update ManagerPo m set m.status = ?1 where m.uuid = ?2")
 	ManagerPo updateManager(String status,String uuid);
-	 
+	
 }
