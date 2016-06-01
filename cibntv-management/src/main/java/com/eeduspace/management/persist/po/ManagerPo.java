@@ -30,7 +30,7 @@ public class ManagerPo {
     protected Long id;
     //用户uuid
     @Column(unique = true)
-    private String uuid = UIDGenerator.getUUID();
+    private String uuid = UIDGenerator.getUUID().toString().replace("-", "");
     //手机号
     @Column( nullable = false,unique = true)
     private String phone;

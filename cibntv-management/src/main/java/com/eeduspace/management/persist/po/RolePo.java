@@ -28,7 +28,7 @@ public class RolePo {
     private Long id;
     //唯一标识
     @Column(unique = true)
-    private String uuid = UIDGenerator.getUUID();
+    private String uuid = UIDGenerator.getUUID().toString().replace("-", "");
     //名称
     private String name;
     //类型
