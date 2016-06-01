@@ -21,26 +21,26 @@ public class ManagerAndRolePo {
     private Long id;
     //唯一标识
     @Column(nullable = false,name = "role_uuid")
-    private Long roleUuid ;
+    private String roleUuid ;
     //名称
     @Column(nullable = false,name = "manager_uuid")
-    private Long managerUuid;
+    private String managerUuid;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getRoleUuid() {
+	public String getRoleUuid() {
 		return roleUuid;
 	}
-	public void setRoleUuid(Long roleUuid) {
+	public void setRoleUuid(String roleUuid) {
 		this.roleUuid = roleUuid;
 	}
-	public Long getManagerUuid() {
+	public String getManagerUuid() {
 		return managerUuid;
 	}
-	public void setManagerUuid(Long managerUuid) {
+	public void setManagerUuid(String managerUuid) {
 		this.managerUuid = managerUuid;
 	}
 	

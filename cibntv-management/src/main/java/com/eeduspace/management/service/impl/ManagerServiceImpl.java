@@ -17,9 +17,13 @@ import org.springframework.util.StringUtils;
 
 
 
+
+
 import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.ManagerModel;
+import com.eeduspace.management.persist.dao.ManagerAndRolePoDao;
 import com.eeduspace.management.persist.dao.ManagerPoDao;
+import com.eeduspace.management.persist.po.ManagerAndRolePo;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.service.ManagerService;
 
@@ -30,6 +34,8 @@ public class ManagerServiceImpl implements ManagerService {
 	
 	@Inject
 	private ManagerPoDao managerPoDao;
+	@Inject
+	private ManagerAndRolePoDao managerAndRolePoDao;
 
 	@Override
 	public Page<ManagerModel> getPage(String status, Pageable pageable) {
@@ -63,8 +69,12 @@ public class ManagerServiceImpl implements ManagerService {
 		if(!StringUtils.isEmpty(managerModel)){
 			managerPo = managerPoDao.findByUuid(managerModel.getUuid());
 			if(StringUtils.isEmpty(managerPo)){
-				//
 				managerPoDao.save(CIBNManagementConvert.fromManagerModel(managerModel));
+				ManagerAndRolePo managerAndRolePo = new ManagerAndRolePo();
+				managerAndRolePo.setManagerUuid(managerModel.getUuid());
+				
+				managerAndRolePoDao.save(managerAndRolePo);
+				
 			}else{
 				managerPo.setStatus(managerModel.getStatus());
 				managerPoDao.save(managerPo);
