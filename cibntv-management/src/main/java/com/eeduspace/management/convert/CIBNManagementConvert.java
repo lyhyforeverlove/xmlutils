@@ -16,10 +16,12 @@ import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.UserModel;
+import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
 import com.eeduspace.management.persist.po.UserPo;
+import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.uuims.comm.util.base.DateUtils;
 
 
@@ -125,4 +127,19 @@ public class CIBNManagementConvert {
 
 	        return userModel;
 	    }
+	  public static VipOrderModel fromVipBuyRecord(VipBuyRecord vipBuyRecord){
+			VipOrderModel model=new VipOrderModel();
+			model.setOrderName(vipBuyRecord.getOrderName());
+			model.setOrderUUID(vipBuyRecord.getUuid());
+			model.setBuyType(vipBuyRecord.getBuyType());
+			model.setBuyDate(DateUtils.toString(vipBuyRecord.getCreateDate(), DateUtils.DATE_FORMAT_DATEONLY));
+			model.setDiagnosticUUID(vipBuyRecord.getDiagnositcUUID());
+			model.setOrderPrice(vipBuyRecord.getVipPrice());
+			model.setOrderSn(vipBuyRecord.getOrderSN());
+			model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
+			model.setUserCode(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getUserCode());
+			model.setVipDays(vipBuyRecord.getVipDays());
+			model.setVipOrderType(vipBuyRecord.getVipType());
+			return model;
+	  }
 }
