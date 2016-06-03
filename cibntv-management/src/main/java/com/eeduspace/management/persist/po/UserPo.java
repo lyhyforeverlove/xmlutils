@@ -3,6 +3,8 @@ package com.eeduspace.management.persist.po;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.ForeignKey;
+
 import com.eeduspace.management.persist.enumeration.UserEnum;
 
 import java.io.Serializable;
@@ -27,7 +29,7 @@ public class UserPo  implements Serializable {
     /**
      * 是否黑名单 true 是  false 否
      */
-    @Column(name="is_blacklist")
+    @Column(name="is_blacklist",columnDefinition="INT default 0")
     private boolean isBlacklist;
     @Column(name = "user_name")
     private String userName;

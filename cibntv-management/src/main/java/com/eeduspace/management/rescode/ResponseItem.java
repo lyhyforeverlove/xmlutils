@@ -16,7 +16,22 @@ public class ResponseItem implements Serializable {
     private String code;
     private String message;
     private String httpCode;
-
+    /**
+     * 当前页
+     */
+    private int currentPage;
+    /**
+     * 显示条数
+     */
+    private int size;
+    /**
+     * 总页数
+     */
+    private int totalPage;
+    /**
+     * 总记录条数
+     */
+    private Long totalRecords;
     private java.lang.Long iTotalRecords;
     private java.lang.Long iTotalDisplayRecords;
     private java.lang.Object data;
@@ -132,4 +147,44 @@ public class ResponseItem implements Serializable {
         return (T)response;
     }
 
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+
+	public int getSize() {
+		return size;
+	}
+
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+
+	public Long getTotalRecords() {
+		return totalRecords;
+	}
+
+
+	public void setTotalRecords(Long totalRecords) {
+		this.totalRecords = totalRecords;
+	}
+    
 }

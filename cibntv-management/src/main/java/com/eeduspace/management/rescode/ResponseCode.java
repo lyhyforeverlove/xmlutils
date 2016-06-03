@@ -20,7 +20,6 @@ public enum ResponseCode {
     //service error , 500 begin
     SERVICE_ERROR("Service.Error", "500", "The request service process error."),
     //server end
-
     //client error, 400 begin
     UNKNOWN_OPERATION("Operation.UnKnown","40001","The request operation is unsupported."),
     PARAMETER_MISS("Parameter.Miss", "40002","The request parameter is miss."),
