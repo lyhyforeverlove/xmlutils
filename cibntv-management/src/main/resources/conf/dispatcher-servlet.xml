@@ -11,10 +11,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:annotation-config/>
-
-    <context:component-scan base-package="com.eeduspace.management.*">
+    <context:component-scan base-package="com.eeduspace.management.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
    <!--  <context:property-placeholder location="classpath*:/conf/**/*.properties"/> -->

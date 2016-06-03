@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/data/jpa
        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" />
     <jpa:repositories base-package="com.eeduspace.management"
                       query-lookup-strategy="create-if-not-found"
                       repository-impl-postfix="Impl"

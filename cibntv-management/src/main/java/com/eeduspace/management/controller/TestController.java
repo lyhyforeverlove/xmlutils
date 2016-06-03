@@ -14,7 +14,7 @@ public class TestController {
 	@RequestMapping("/test")
 	public String testController(){
 		System.out.println("测试Controller层~~~");
-		return "index";
+		return "userupdateaccount";
 		
 	}
 	
