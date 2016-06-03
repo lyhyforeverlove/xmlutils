@@ -142,7 +142,6 @@ public class VipPackController {
 	@ResponseBody
 	public ResponseItem  vipPackCreate(@RequestParam("file")MultipartFile file ,@ModelAttribute VipPackModel vipPackModel,HttpServletRequest request,HttpServletResponse response){
 		ResponseItem ri  = new ResponseItem();
-		if(vipPackModel.get)
 		try{
 	    // 获取图片的文件名
         String fileName = file.getOriginalFilename();
