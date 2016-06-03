@@ -144,12 +144,15 @@ public class CIBNManagementConvert {
 			VipPackModel vipPackModel=new VipPackModel();
 			vipPackModel.setVipDesc(vipPack.getVipDesc());
 			vipPackModel.setBackgroundimg(vipPack.getBackgroundimg());
-			vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
-			vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
 			vipPackModel.setVipPrice(vipPack.getVipPrice());
 			vipPackModel.setVipType(vipPack.getVipType());
-			vipPackModel.setVipSale(vipPack.getVipSale());
 			vipPackModel.setIsRelease(vipPack.isRelease());
+			vipPackModel.setVipSale(vipPack.getVipSale());
+			if(DateUtils.isBetween(new Date(), vipPack.getDiscountStartDate(), vipPack.getDiscountEndDate(), 1)){
+				vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
+				vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
+				vipPackModel.setIsDiscount(true);
+			}
 			return vipPackModel;
 		}
 }
