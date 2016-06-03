@@ -146,6 +146,7 @@ public class CIBNManagementConvert {
 			vipPackModel.setBackgroundimg(vipPack.getBackgroundimg());
 			vipPackModel.setVipPrice(vipPack.getVipPrice());
 			vipPackModel.setVipType(vipPack.getVipType());
+			vipPackModel.setUuid(vipPack.getUuid());
 			vipPackModel.setIsRelease(vipPack.isRelease());
 			if(DateUtils.isBetween(new Date(), vipPack.getDiscountStartDate(), vipPack.getDiscountEndDate(), 1)){
 				vipPackModel.setVipSale(vipPack.getVipSale());
