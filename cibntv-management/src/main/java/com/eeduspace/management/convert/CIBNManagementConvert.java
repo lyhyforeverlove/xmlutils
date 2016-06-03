@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Null;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.model.ManagerModel;
@@ -17,10 +13,12 @@ import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
+import com.eeduspace.management.model.VipPackModel;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
 import com.eeduspace.management.persist.po.UserPo;
+import com.eeduspace.management.persist.po.VIPPack;
 import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.uuims.comm.util.base.DateUtils;
 
@@ -142,4 +140,16 @@ public class CIBNManagementConvert {
 			model.setVipOrderType(vipBuyRecord.getVipType());
 			return model;
 	  }
+	  public static VipPackModel fromVipPackPo(VIPPack vipPack){
+			VipPackModel vipPackModel=new VipPackModel();
+			vipPackModel.setVipDesc(vipPack.getVipDesc());
+			vipPackModel.setBackgroundimg(vipPack.getBackgroundimg());
+			vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
+			vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
+			vipPackModel.setVipPrice(vipPack.getVipPrice());
+			vipPackModel.setVipType(vipPack.getVipType());
+			vipPackModel.setVipSale(vipPack.getVipSale());
+			vipPackModel.setIsRelease(vipPack.isRelease());
+			return vipPackModel;
+		}
 }
