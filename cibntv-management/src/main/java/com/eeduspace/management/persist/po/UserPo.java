@@ -22,7 +22,7 @@ public class UserPo  implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
-    @Column(name = "user_code")
+    @Column(name = "user_code",unique=true)
     private String userCode;//用户唯一标识
     private String email;
     private String mobile;

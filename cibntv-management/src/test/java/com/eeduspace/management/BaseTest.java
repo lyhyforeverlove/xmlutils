@@ -1,11 +1,19 @@
 package com.eeduspace.management;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.eeduspace.management.persist.dao.VipBuyRecordDao;
+import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
+import com.eeduspace.management.persist.po.UserPo;
+import com.eeduspace.management.persist.po.VipBuyRecord;
+import com.eeduspace.management.service.UserService;
 import com.google.gson.Gson;
 
+import org.apache.poi.xwpf.usermodel.BodyElementType;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +21,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 /**
@@ -23,7 +32,10 @@ import javax.inject.Inject;
 public abstract class BaseTest {
     @Inject
     protected AbstractApplicationContext context;
-
+    @Resource
+    private VipBuyRecordDao vipDao;
+    @Inject
+    private UserService userService;
     protected Gson gson=new Gson();
 
     @Before
@@ -43,4 +55,11 @@ public abstract class BaseTest {
 		}
 		System.out.println(gson.toJson(map));
 	}
+    
+    @Test
+    public void testVip(){
+    	UserPo userPo=userService.findByUserCode("df6548d1fd534b90aa18939af7e1f052");
+    	List<VipBuyRecord> list=vipDao.findByUserPoAndIsPayAndBuyType(userPo, true, BuyTypeEnum.VIP);
+    	System.out.println(list.size());
+    }
 }

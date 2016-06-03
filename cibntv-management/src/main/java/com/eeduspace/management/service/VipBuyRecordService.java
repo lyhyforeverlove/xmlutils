@@ -1,5 +1,6 @@
 package com.eeduspace.management.service;
 
+import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -69,5 +70,15 @@ public interface VipBuyRecordService {
 	VipBuyRecord findByOrderSn(String orderSn);
 	
 	List<VipBuyRecord> findByUserCodeAndIsPay(String  userCode,boolean isPay,BuyTypeEnum buyTypeEnum);
-	
+	List<VipBuyRecord> findByUserCodeAndIsPay(UserPo  userPo,boolean isPay,BuyTypeEnum buyTypeEnum);
+	/**
+	 * 订单导出
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月3日 下午4:37:33
+	 * @param userPos
+	 * @param titles
+	 * @param outputStream
+	 */
+	void ExportOrderExcle(List<VipBuyRecord> orders,String[] titles,OutputStream outputStream);
 }

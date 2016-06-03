@@ -1,9 +1,13 @@
 package com.eeduspace.management.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -42,6 +46,8 @@ public class VipOrderController {
 	private Gson gson=new Gson();
 	@Inject
 	private VipBuyRecordService vipBuyRecordService;
+	@Inject
+	private UserService userService;
 	@RequestMapping("/user_vip_order")
 	@ResponseBody
 	public ResponseItem userOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
@@ -53,6 +59,7 @@ public class VipOrderController {
 			return item;
 		}
 		try {
+			//UserPo userPo=userService.findByUserCode("df6548d1fd534b90aa18939af7e1f052");
 			List<VipBuyRecord> vipBuyRecords=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.VIP);
 			List<VipBuyRecord> diagnosticOrder=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.DIAGNOSTIC);
 			UserOrderModel userOrderModel=new UserOrderModel();
@@ -99,6 +106,21 @@ public class VipOrderController {
 	@ResponseBody
 	public ResponseItem getOrderInfo(){
 		ResponseItem item=new ResponseItem();
+		item.setMessage("success");
+		return item;
+	}
+	
+	@RequestMapping("/order_excel_export")
+	@ResponseBody
+	public ResponseItem orderExcelExport(HttpServletResponse response,@ModelAttribute OrderQueryModel orderQueryModel) throws IOException{
+		ResponseItem item = new ResponseItem();
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		OutputStream outputStream = response.getOutputStream();
+		String[] tableHeader = { "订单号", "流水号", "手机号", "商品类型", "商品名称", "价格", "支付方式", "交易时间", "状态" };
+		String fileName = new String(("order_list").getBytes(), "utf-8");
+		response.setHeader("Content-disposition", "attachment; filename="+ fileName + ".xlsx");// 组装附件名称和格式
+		Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
+		vipBuyRecordService.ExportOrderExcle(pageList.getContent(), tableHeader, outputStream);
 		item.setMessage("success");
 		return item;
 	}

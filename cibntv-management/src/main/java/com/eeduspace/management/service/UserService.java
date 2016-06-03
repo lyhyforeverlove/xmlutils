@@ -1,12 +1,14 @@
 package com.eeduspace.management.service;
 
 
+import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.UserQueryModel;
 import com.eeduspace.management.persist.po.UserPo;
 
@@ -64,5 +66,15 @@ public interface UserService {
 	 * @return
 	 */
 	UserPo changeBlacklist(String userCode,Boolean isBlacklist);
+	/**
+	 * 导出用户excel
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月3日 下午3:03:49
+	 * @param userPos 查询数据
+	 * @param titles  表头
+	 * @param outputStream 
+	 */
+	void ExportUserExcle(List<UserPo> userPos,String[] titles,OutputStream outputStream);
 
 }

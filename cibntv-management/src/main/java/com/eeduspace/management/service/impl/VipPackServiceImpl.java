@@ -44,6 +44,10 @@ public class VipPackServiceImpl implements VipPackService{
 	public int updateAllVipPackSale(VipPackModel vipPackModel) throws ParseException {
 		return vipPackDao.updateAllVipPackSale(vipPackModel.getVipSale(), DateUtils.parseDate(vipPackModel.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME), DateUtils.parseDate(vipPackModel.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
 	}
+	@Override
+	public VIPPack saveVipPack(VIPPack pack) {
+		return vipPackDao.save(pack);
+	}
 	
 
 }

@@ -1,12 +1,14 @@
 package com.eeduspace.management.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,4 +110,17 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value="/user_excel_export")
+	@ResponseBody
+	public ResponseItem userExcelExport(HttpServletResponse response,@ModelAttribute UserQueryModel userQueryModel) throws IOException{
+		ResponseItem item=new ResponseItem();
+		Pageable pageable=new PageRequest(0, Integer.MAX_VALUE);
+		OutputStream outputStream = response.getOutputStream(); 
+		 String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
+		 String fileName = new String(("userlist").getBytes(), "utf-8");  
+         response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
+		Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
+		userService.ExportUserExcle(pageList.getContent(), tableHeader, outputStream);
+		return item;
+	}
 }

@@ -142,29 +142,34 @@ public class VipPackController {
 	@ResponseBody
 	public ResponseItem  vipPackCreate(@RequestParam("file")MultipartFile file ,@ModelAttribute VipPackModel vipPackModel,HttpServletRequest request,HttpServletResponse response){
 		ResponseItem ri  = new ResponseItem();
+		logger.debug("vipPackCreate request param:{}",gson.toJson(vipPackModel));
 		try{
-	    // 获取图片的文件名
-        String fileName = file.getOriginalFilename();
-        // 获取图片的扩展名
-        String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
-        // 新的图片文件名 = 获取时间戳+"."图片扩展名
-        String newFileName = String.valueOf(System.currentTimeMillis())+ "." + extensionName;
-	    String  realPath = request.getSession().getServletContext().getRealPath("");
-	    String fileUrls = realPath.replace("\\","/");
-        String replaceAll = fileUrls.substring(0,fileUrls.lastIndexOf("/"));
-        String fileUrl="";
-        try {
-			 fileUrl  = saveFile(newFileName, file,replaceAll+"/upload");
-			 logger.debug("上传路径   fileUrl:{}"+fileUrl);
-        } catch (Exception e) {
-            logger.error("上传图片失败.");
-  		    return ResponseItem.responseWithName(ri, ResponseCode.SERVICE_ERROR.toString(), ".IMGUPLOAD Exception");        	
-        }
-        fileUrl ="/upload/"+newFileName;
-		return ri;
+			String fileUrl = "";
+			if(!file.isEmpty()){
+				// 获取图片的文件名
+				String fileName = file.getOriginalFilename();
+				// 获取图片的扩展名
+				String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
+				// 新的图片文件名 = 获取时间戳+"."图片扩展名
+				String newFileName = String.valueOf(System.currentTimeMillis())+ "." + extensionName;
+				String realPath = request.getSession().getServletContext().getRealPath("");
+				String fileUrls = realPath.replace("\\", "/");
+				String replaceAll = fileUrls.substring(0, fileUrls.lastIndexOf("/"));
+				fileUrl = saveFile(newFileName, file, replaceAll + "/upload");
+				logger.debug("上传路径   fileUrl:{}" + fileUrl);
+				fileUrl = "/upload/" + newFileName;
+			}
+			VIPPack vipPack = new VIPPack();
+			vipPack.setBackgroundimg(fileUrl);
+			vipPack.setVipDesc(vipPackModel.getVipDesc());
+			vipPack.setVipType(vipPackModel.getVipType());
+			vipPack.setVipPrice(vipPackModel.getVipPrice());
+			vipPackService.saveVipPack(vipPack);
+			ri.setMessage("success");
+			return ri;
 	  }catch (Exception e) {
-          logger.error("USER FINDBYCODE Exception:", e);
-          return ResponseItem.responseWithName(ri, ResponseCode.SERVICE_ERROR.toString(), "USER FINDBYCODE Exception");
+          logger.error("USER vipPackCreate Exception:", e);
+          return ResponseItem.responseWithName(ri, ResponseCode.SERVICE_ERROR.toString(), "vipPackCreate  Exception");
       }
 	
 	}

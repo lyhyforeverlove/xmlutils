@@ -1,5 +1,7 @@
 package com.eeduspace.management.service.impl;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +16,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,6 +34,7 @@ import com.eeduspace.management.persist.dao.UserDao;
 import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.management.service.UserService;
+import com.eeduspace.management.util.ExcelExportUtil;
 import com.eeduspace.uuims.comm.util.base.DateUtils;
 
 /**
@@ -122,4 +130,78 @@ public class UserServiceImpl implements UserService{
 			}
 		};
     }
+
+	@Override
+	public void ExportUserExcle(List<UserPo> userPos, String[] titles,
+			OutputStream outputStream) {
+		 // 创建一个workbook 对应一个excel应用文件  
+        XSSFWorkbook workBook = new XSSFWorkbook();  
+        // 在workbook中添加一个sheet,对应Excel文件中的sheet  
+        XSSFSheet sheet = workBook.createSheet("用户列表");  
+        ExcelExportUtil exportUtil = new ExcelExportUtil(workBook, sheet);  
+        XSSFCellStyle headStyle = exportUtil.getHeadStyle();  
+        XSSFCellStyle bodyStyle = exportUtil.getBodyStyle();  
+        // 构建表头  
+        XSSFRow headRow = sheet.createRow(0);  
+        XSSFCell cell = null;  
+        for (int i = 0; i < titles.length; i++)  
+        {  
+            cell = headRow.createCell(i);  
+            cell.setCellStyle(headStyle);  
+            cell.setCellValue(titles[i]);  
+        }  
+        // 构建表体数据  
+        if (userPos != null && userPos.size() > 0)  
+        {  
+            for (int j = 0; j < userPos.size(); j++)  
+            {  
+                XSSFRow bodyRow = sheet.createRow(j + 1);  
+                UserPo userPo = userPos.get(j);  
+  
+                cell = bodyRow.createCell(0);  
+                cell.setCellStyle(bodyStyle);  
+                cell.setCellValue(userPo.getUserName());  
+  
+                cell = bodyRow.createCell(1);  
+                cell.setCellStyle(bodyStyle);  
+                cell.setCellValue(userPo.getMobile());  
+  
+                cell = bodyRow.createCell(2);  
+                cell.setCellStyle(bodyStyle);  
+                if(userPo.isVIP()){
+                	cell.setCellValue("是"); 
+                }else{
+                	cell.setCellValue("否"); 
+                }
+                
+                cell = bodyRow.createCell(3);  
+                cell.setCellStyle(bodyStyle);  
+                cell.setCellValue(DateUtils.toString(userPo.getCreateDate(),DateUtils.DATE_FORMAT_DATETIME));
+                
+            }  
+        }  
+        try  
+        {  
+            workBook.write(outputStream);  
+            outputStream.flush();  
+            outputStream.close();  
+        }  
+        catch (IOException e)  
+        {  
+            e.printStackTrace();  
+        }  
+        finally  
+        {  
+            try  
+            {  
+                outputStream.close();  
+            }  
+            catch (IOException e)  
+            {  
+                e.printStackTrace();  
+            }  
+        }  
+  
+    }  
+		
 }
