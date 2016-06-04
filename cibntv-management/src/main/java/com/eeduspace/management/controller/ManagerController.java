@@ -120,17 +120,17 @@ public class ManagerController {
 	/**修改管理员密码
 	 * @return
 	 */
-	@RequestMapping(value="/manageChange",method=RequestMethod.GET)
+	@RequestMapping(value="/pwdChange",method=RequestMethod.GET)
 	@ResponseBody
-	public ResponseItem managerChange(HttpServletRequest request,ManagerModel managerModel){
+	public ResponseItem pwdChange(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
 			if (StringUtils.isBlank(managerModel.getUuid())) {
-				logger.error("managerChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
+				logger.error("pwdChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
 			}
 			if (StringUtils.isBlank(managerModel.getPassword())) {
-				logger.error("managerChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPassword");
+				logger.error("pwdChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPassword");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPassword");
 			}
 			ResponseItem responseItem = new ResponseItem();
@@ -140,30 +140,30 @@ public class ManagerController {
 			responseItem.setData(model);
 			return responseItem;
 		} catch (Exception e) {
-			logger.error("managerChange  Exception:", e);
-			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerChange exception");
+			logger.error("pwdChange  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "pwdChange exception");
 		}
 	}
 
 	/**手机号唯一性验证
 	 * @return
 	 */
-	@RequestMapping(value="/manageChange",method=RequestMethod.GET)
+	@RequestMapping(value="/validatePhone",method=RequestMethod.GET)
 	@ResponseBody
-	public ResponseItem mPhoneChange(HttpServletRequest request,ManagerModel managerModel){
+	public ResponseItem validatePhone(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
 			ResponseItem responseItem = new ResponseItem();
 			if (StringUtils.isBlank(managerModel.getPhone())) {
-				logger.error("mPhoneChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPhone");
+				logger.error("validatePhone ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPhone");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPhone");
 			}
 			boolean flag = managerService.validate(managerModel.getPhone());
 			responseItem.setData(flag);
 			return responseItem;
 		} catch (Exception e) {
-			logger.error("mPhoneChange  Exception:", e);
-			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "mPhoneChange exception");
+			logger.error("validatePhone  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "validatePhone exception");
 		}
 	}
 

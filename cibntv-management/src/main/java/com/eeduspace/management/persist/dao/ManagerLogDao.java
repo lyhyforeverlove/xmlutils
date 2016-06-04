@@ -36,6 +36,6 @@ public interface ManagerLogDao extends CrudRepository<ManagerLogPo, Long> {
      * @param endDate
      * @return
      */
-    @Query("select m as totalCount m from ManagerLogPo m where m.action='create' and m.module='user' and m.createDate>=?1 and m.createDate<=?2 ")
+    @Query("select m from ManagerLogPo m where m.action='create' and m.module='user' and m.createDate>=?1 and m.createDate<=?2 ")
     List<Object> findUsersRegisterData(Date startDate,Date endDate);
 }
