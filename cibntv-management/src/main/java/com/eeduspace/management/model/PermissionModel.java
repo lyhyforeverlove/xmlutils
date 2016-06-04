@@ -7,7 +7,7 @@ public class PermissionModel {
     private Long id;
     private String uuid;
     private String name;
-    private RoleEnum.CibnTvType type;
+    private RoleEnum.PermissionType type;
     private RoleEnum.Status status;
     private String description;
     private String createDate;
@@ -33,10 +33,10 @@ public class PermissionModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public RoleEnum.CibnTvType getType() {
+	public RoleEnum.PermissionType getType() {
 		return type;
 	}
-	public void setType(RoleEnum.CibnTvType type) {
+	public void setType(RoleEnum.PermissionType type) {
 		this.type = type;
 	}
 	public RoleEnum.Status getStatus() {

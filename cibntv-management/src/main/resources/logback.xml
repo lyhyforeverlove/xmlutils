@@ -25,10 +25,10 @@
     </appender>
 
     <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${Log_Path}/uuims-management-ws-error.log</file>
+        <file>${Log_Path}/cibntv-management-error.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>~/uuims-management-ws-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>~/cibntv-management-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
@@ -45,10 +45,10 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${Log_Path}/uuims-management-ws.log</file>
+        <file>${Log_Path}/cibntv-management.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>~/uuims-management-ws.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>~/cibntv-management.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>

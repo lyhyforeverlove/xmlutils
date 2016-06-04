@@ -10,11 +10,11 @@ import com.eeduspace.management.model.ManagerModel;
 public interface ManagerService {
 	
 	/** 管理员分页查询
-	 * @param status  管理员状态 0：未激活（NoActive）1：禁用（Disable）2：启用（Enable）3：已删除（IsDelete） 
+	 * @param managerModel  管理员model 
 	 * @param pageable  分页类
 	 * @return
 	 */
-	public Page<ManagerModel> getPage(String status,Pageable pageable);
+	public Page<ManagerModel> getPage(ManagerModel managerModel,Pageable pageable);
 	
 	/** 查询管理员详情
 	 * @param uuid  管理员uuid
@@ -22,10 +22,26 @@ public interface ManagerService {
 	 */
 	public ManagerModel getManagerModel(String uuid);
 	
-	/** 修改管理员状态
+	/** 新增或更新信息
 	 * @param managerModel  管理员模型
 	 * @return
 	 */
 	public ManagerModel saveOrReplaceManager(ManagerModel managerModel);
+	
+	/**管理员操作日志
+	 * 
+	 */
+	public void logSave();
+	
+	/**查询日志
+	 * 
+	 */
+	public void getLogs();
+	
+	/**验证手机号是否唯一
+	 * @param phone
+	 * @return
+	 */
+	public Boolean validate(String phone);
 
 }

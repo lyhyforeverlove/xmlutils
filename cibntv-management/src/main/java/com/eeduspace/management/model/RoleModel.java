@@ -2,15 +2,13 @@ package com.eeduspace.management.model;
 
 import java.util.List;
 
-import com.eeduspace.management.persist.enumeration.RoleEnum;
-
 public class RoleModel {
 	
 	    private Long id;
 	    private String uuid;
 	    private String name;
-	    private RoleEnum.CibnTvType type;
-	    private RoleEnum.Status status;
+	    private String type;
+	    private String status;
 	    private String description;
 	    private String createDate;
 	    private String updateDate;
@@ -34,16 +32,16 @@ public class RoleModel {
 		public void setName(String name) {
 			this.name = name;
 		}
-		public RoleEnum.CibnTvType getType() {
+		public String getType() {
 			return type;
 		}
-		public void setType(RoleEnum.CibnTvType type) {
+		public void setType(String type) {
 			this.type = type;
 		}
-		public RoleEnum.Status getStatus() {
+		public String getStatus() {
 			return status;
 		}
-		public void setStatus(RoleEnum.Status status) {
+		public void setStatus(String status) {
 			this.status = status;
 		}
 		public String getDescription() {

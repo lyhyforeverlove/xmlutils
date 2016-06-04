@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Null;
+
+import org.apache.poi.xslf.util.PPTX2PNG;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.model.ManagerModel;
@@ -14,6 +19,8 @@ import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Type;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
@@ -34,21 +41,51 @@ public class CIBNManagementConvert {
 
 	public static ManagerModel fromManagerPo(ManagerPo managerPo){
 		ManagerModel mm = new ManagerModel();
-
+		if (!StringUtils.isEmpty(managerPo)) {
+			mm.setAccessKey(managerPo.getAccessKey());
+			mm.setCreateDate(managerPo.getCreateDate());
+			mm.setCreateManagerId(managerPo.getCreateManagerId());
+			mm.setEmail(managerPo.getEmail());
+			mm.setExtend_(managerPo.getExtend_());
+			mm.setId(managerPo.getId());
+			mm.setIsFirst(managerPo.getIsFirst());
+			mm.setLastLoginDate(managerPo.getLastLoginDate());
+			mm.setName(managerPo.getName());
+			mm.setPassword(managerPo.getPassword());
+			mm.setPhone(managerPo.getPhone());
+			mm.setSecretKey(managerPo.getSecretKey());
+			mm.setStatus(managerPo.getStatus());
+			mm.setUpdateDate(managerPo.getUpdateDate());
+			mm.setUuid(managerPo.getUuid());
+			mm.setRoleModel(fromRolePo(managerPo.getRolePo()));
+		}
 		return mm;
 	}
 	public static ManagerPo fromManagerModel(ManagerModel managerModel){
 		ManagerPo po = new ManagerPo();
-
+		if (!StringUtils.isEmpty(managerModel)) {
+			po.setAccessKey(managerModel.getAccessKey());
+			po.setCreateDate(managerModel.getCreateDate());
+			po.setCreateManagerId(managerModel.getCreateManagerId());
+			po.setEmail(managerModel.getEmail());
+			po.setIsFirst(managerModel.getIsFirst());
+			po.setLastLoginDate(managerModel.getLastLoginDate());
+			po.setName(managerModel.getName());
+			po.setPassword(managerModel.getPassword());
+			po.setPhone(managerModel.getPhone());
+			po.setSecretKey(managerModel.getSecretKey());
+			po.setStatus(managerModel.getStatus());
+			po.setUpdateDate(managerModel.getUpdateDate());
+			po.setUuid(managerModel.getUuid());
+			po.setRolePo(fromRoleModel(managerModel.getRoleModel()));
+		}
 		return po;
 	}
 	public static RolePo fromRoleModel(RoleModel roleModel){
 		RolePo rolePo = new RolePo();
 		if (!StringUtils.isEmpty(roleModel)) {
 			rolePo.setDescription(roleModel.getDescription());
-			rolePo.setName(roleModel.getName());
-			rolePo.setStatus(roleModel.getStatus());
-			rolePo.setType(roleModel.getType());
+			rolePo.setR_name(roleModel.getName());
 			rolePo.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : rolePo.getUpdateDate());
 		}
 		return rolePo;
@@ -57,11 +94,11 @@ public class CIBNManagementConvert {
 		RoleModel roleModel = new RoleModel();
 		if (!StringUtils.isEmpty(rolePo)) {
 			roleModel.setId(rolePo.getId());
-			roleModel.setUuid(rolePo.getUuid());
+			roleModel.setUuid(rolePo.getR_uuid());
 			roleModel.setDescription(rolePo.getDescription());
-			roleModel.setName(rolePo.getName());
-			roleModel.setStatus(rolePo.getStatus());
-			roleModel.setType(rolePo.getType());
+			roleModel.setName(rolePo.getR_name());
+			roleModel.setStatus(String.valueOf(rolePo.getStatus()));
+			roleModel.setType(String.valueOf(rolePo.getType()));
 			roleModel.setCreateDate(StringUtils.isEmpty(rolePo.getCreateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(rolePo.getCreateDate()));
 			roleModel.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(rolePo.getUpdateDate()));
 		}
@@ -76,15 +113,28 @@ public class CIBNManagementConvert {
 		}
 		return roleModels;
 	}
+	public static PermissionPo fromPermissionModel(PermissionModel permissionModel){
+		PermissionPo permissionPo = new PermissionPo();
+		if (!StringUtils.isEmpty(permissionModel)) {
+			permissionPo.setDescription(permissionModel.getDescription());
+			permissionPo.setFunctionId(permissionModel.getFunctionId());
+			permissionPo.setGroups(permissionModel.getGroups());
+			permissionPo.setP_name(permissionModel.getName());
+			permissionPo.setStatus(permissionModel.getStatus());
+			permissionPo.setType(permissionModel.getType());
+		}
+		return permissionPo;
+	}
+	
 	public static PermissionModel fromPermissionPo(PermissionPo permissionPo){
 		PermissionModel permissionModel = new PermissionModel();
 		if(!StringUtils.isEmpty(permissionPo)){
 			permissionModel.setId(permissionPo.getId());
-			permissionModel.setUuid(permissionPo.getUuid());
+			permissionModel.setUuid(permissionPo.getP_uuid());
 			permissionModel.setDescription(permissionPo.getDescription());
 			permissionModel.setFunctionId(permissionPo.getFunctionId());
 			permissionModel.setGroups(permissionPo.getGroups());
-			permissionModel.setName(permissionPo.getName());
+			permissionModel.setName(permissionPo.getP_name());
 			permissionModel.setStatus(permissionPo.getStatus());
 			permissionModel.setType(permissionPo.getType());
 			permissionModel.setCreateDate(StringUtils.isEmpty(permissionPo.getCreateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(permissionPo.getCreateDate())) ;

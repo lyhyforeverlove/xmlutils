@@ -1,5 +1,6 @@
 package com.eeduspace.management.persist.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,18 +22,23 @@ import com.eeduspace.management.util.UIDGenerator;
  */
 @Entity
 @Table(name = "cibn_role")
-public class RolePo {
-    @Id
+public class RolePo implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
     //唯一标识
-    @Column(unique = true)
-    private String uuid = UIDGenerator.getUUID().toString().replace("-", "");
+    @Column(unique = true,name = "uuid")
+    private String r_uuid = UIDGenerator.getUUID().toString().replace("-", "");
     //名称
-    private String name;
+    @Column(name="name")
+    private String r_name;
     //类型
-    private RoleEnum.CibnTvType type;
+    private RoleEnum.Type type;
     //状态
     private RoleEnum.Status status;
     //描述
@@ -45,24 +51,21 @@ public class RolePo {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_time")
     private Date updateDate = new Date();
-
+    
     public Long getId() {
         return id;
     }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public RoleEnum.CibnTvType getType() {
+	public String getR_uuid() {
+		return r_uuid;
+	}
+	public void setR_uuid(String r_uuid) {
+		this.r_uuid = r_uuid;
+	}
+	public RoleEnum.Type getType() {
 		return type;
 	}
 
-	public void setType(RoleEnum.CibnTvType type) {
+	public void setType(RoleEnum.Type type) {
 		this.type = type;
 	}
 
@@ -77,17 +80,13 @@ public class RolePo {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public String getDescription() {
+    public String getR_name() {
+		return r_name;
+	}
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
+	}
+	public String getDescription() {
         return description;
     }
 
@@ -110,4 +109,6 @@ public class RolePo {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+    
+    
 }

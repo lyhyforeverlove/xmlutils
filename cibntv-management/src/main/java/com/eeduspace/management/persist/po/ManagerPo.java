@@ -1,6 +1,7 @@
 package com.eeduspace.management.persist.po;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,8 +25,12 @@ import com.eeduspace.management.util.UIDGenerator;
  */
 @Entity
 @Table(name = "cibn_manager")
-public class ManagerPo {
-    //用户id
+public class ManagerPo implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//用户id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
@@ -63,6 +70,13 @@ public class ManagerPo {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_time")
     private Date updateDate = new Date();
+    //是否是第一次登录
+    @Column(name = "is_first")
+    private Boolean isFirst;
+    
+    @OneToOne
+    @JoinColumn(name="r_uuid" ,referencedColumnName="uuid")
+    private RolePo rolePo;
 
     public Long getId() {
         return id;
@@ -175,4 +189,23 @@ public class ManagerPo {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
+	public Boolean getIsFirst() {
+		return isFirst;
+	}
+
+	public void setIsFirst(Boolean isFirst) {
+		this.isFirst = isFirst;
+	}
+
+	public RolePo getRolePo() {
+		return rolePo;
+	}
+
+	public void setRolePo(RolePo rolePo) {
+		this.rolePo = rolePo;
+	}
+    
+    
+    
 }

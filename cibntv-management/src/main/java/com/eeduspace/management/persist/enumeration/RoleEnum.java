@@ -10,12 +10,12 @@ public class RoleEnum {
 
     private Type type;
     private Status status;
-    private CibnTvType cibnTvType;
+    private PermissionType permissionType;
 
     public enum Type {
         Test(0),
-        Ordinary(1),//普通管理员
-        Product(2),//产品管理员
+        CustomerService(1),//客服管理员
+        Product(2),//运营管理员
         System (3);//系统管理员
         private final int value;
 
@@ -42,7 +42,7 @@ public class RoleEnum {
         }
     }
     
-    public enum CibnTvType {
+    public enum PermissionType {
         Test(0),
         Management(1),//用户管理
         Order(2),//订单管理
@@ -55,7 +55,7 @@ public class RoleEnum {
             return value;
         }
 
-        CibnTvType(int value) {
+        PermissionType(int value) {
             this.value = value;
         }
     }
@@ -76,12 +76,12 @@ public class RoleEnum {
         this.status = status;
     }
 
-	public CibnTvType getCibnTvType() {
-		return cibnTvType;
+	public PermissionType getPermissionType() {
+		return permissionType;
 	}
 
-	public void setCibnTvType(CibnTvType cibnTvType) {
-		this.cibnTvType = cibnTvType;
+	public void setPermissionType(PermissionType permissionType) {
+		this.permissionType = permissionType;
 	}
     
     

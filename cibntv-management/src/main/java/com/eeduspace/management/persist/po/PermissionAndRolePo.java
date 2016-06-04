@@ -20,27 +20,27 @@ public class PermissionAndRolePo {
     private Long id;
     //唯一标识
     @Column(nullable = false,name = "role_uuid")
-    private String roleUuid ;
+    private String r_uuid ;
     //名称
     @Column(nullable = false,name = "permission_uuid")
-    private String permissionUuid;
+    private String p_uuid;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getRoleUuid() {
-		return roleUuid;
+	public String getR_uuid() {
+		return r_uuid;
 	}
-	public void setRoleUuid(String roleUuid) {
-		this.roleUuid = roleUuid;
+	public void setR_uuid(String r_uuid) {
+		this.r_uuid = r_uuid;
 	}
-	public String getPermissionUuid() {
-		return permissionUuid;
+	public String getP_uuid() {
+		return p_uuid;
 	}
-	public void setPermissionUuid(String permissionUuid) {
-		this.permissionUuid = permissionUuid;
+	public void setP_uuid(String p_uuid) {
+		this.p_uuid = p_uuid;
 	}
 	
     

@@ -22,12 +22,13 @@ public class PermissionPo {
 	    @Column(updatable = false)
 	    private Long id;
 	    //唯一标识
-	    @Column(unique = true)
-	    private String uuid = UIDGenerator.getUUID().toString().replace("-", "");
+	    @Column(unique = true,name = "uuid")
+	    private String p_uuid = UIDGenerator.getUUID().toString().replace("-", "");
 	    //名称
-	    private String name;
+	    @Column(name="name")
+	    private String p_name;
 	    //类型
-	    private RoleEnum.CibnTvType type;
+	    private RoleEnum.PermissionType type;
 	    //状态
 	    private RoleEnum.Status status;
 	    //描述
@@ -47,16 +48,13 @@ public class PermissionPo {
 	    public Long getId() {
 	        return id;
 	    }
-
-	    public String getUuid() {
-	        return uuid;
-	    }
-
-	    public void setUuid(String uuid) {
-	        this.uuid = uuid;
-	    }
-
-	    public RoleEnum.Status getStatus() {
+	    public String getP_uuid() {
+			return p_uuid;
+		}
+		public void setP_uuid(String p_uuid) {
+			this.p_uuid = p_uuid;
+		}
+		public RoleEnum.Status getStatus() {
 	        return status;
 	    }
 
@@ -67,17 +65,13 @@ public class PermissionPo {
 	    public void setId(Long id) {
 	        this.id = id;
 	    }
-
-	    public String getName() {
-	        return name;
-	    }
-
-	    public void setName(String name) {
-	        this.name = name;
-	    }
-
-
-	    public String getDescription() {
+	    public String getP_name() {
+			return p_name;
+		}
+		public void setP_name(String p_name) {
+			this.p_name = p_name;
+		}
+		public String getDescription() {
 	        return description;
 	    }
 
@@ -101,11 +95,11 @@ public class PermissionPo {
 	        this.updateDate = updateDate;
 	    }
 
-		public RoleEnum.CibnTvType getType() {
+		public RoleEnum.PermissionType getType() {
 			return type;
 		}
 
-		public void setType(RoleEnum.CibnTvType type) {
+		public void setType(RoleEnum.PermissionType type) {
 			this.type = type;
 		}
 

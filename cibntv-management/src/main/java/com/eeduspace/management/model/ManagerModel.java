@@ -1,6 +1,12 @@
 package com.eeduspace.management.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.eeduspace.management.persist.enumeration.UserEnum;
 
@@ -17,15 +23,24 @@ public class ManagerModel {
     private String secretKey;
     private UserEnum.Status status;
     private String extend_;
-    private String lastLoginDate;
-    private String createDate;
-    private String updateDate;
-    
+    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastLoginDate;
+    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createDate;
+    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateDate;
+    private Boolean isFirst;
     private RoleModel roleModel;
     
-    private PermissionModel permissionModel;
-    //分页
-    private  PageRequest pageRequest;
+    /**当前页数**/
+	private int currentPage;
+	/**显示条数*/
+	private int size;
+	/**总页数**/
+	private int totalPage;
+	/**总条数*/
+	private int totalSize;
+    
 
 	public Long getId() {
 		return id;
@@ -114,28 +129,27 @@ public class ManagerModel {
 	public void setExtend_(String extend_) {
 		this.extend_ = extend_;
 	}
-
-	public String getLastLoginDate() {
+	public Date getLastLoginDate() {
 		return lastLoginDate;
 	}
 
-	public void setLastLoginDate(String lastLoginDate) {
+	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public String getUpdateDate() {
+	public Date getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(String updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -146,21 +160,45 @@ public class ManagerModel {
 	public void setRoleModel(RoleModel roleModel) {
 		this.roleModel = roleModel;
 	}
-
-	public PermissionModel getPermissionModel() {
-		return permissionModel;
+	
+	public Boolean getIsFirst() {
+		return isFirst;
 	}
 
-	public void setPermissionModel(PermissionModel permissionModel) {
-		this.permissionModel = permissionModel;
+	public void setIsFirst(Boolean isFirst) {
+		this.isFirst = isFirst;
 	}
 
-	public PageRequest getPageRequest() {
-		return pageRequest;
+	public int getCurrentPage() {
+		return currentPage;
 	}
 
-	public void setPageRequest(PageRequest pageRequest) {
-		this.pageRequest = pageRequest;
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getTotalSize() {
+		return totalSize;
+	}
+
+	public void setTotalSize(int totalSize) {
+		this.totalSize = totalSize;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
     
     
