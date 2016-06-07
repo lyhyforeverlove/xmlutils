@@ -16,6 +16,7 @@ import com.eeduspace.management.persist.dao.PermissionAndRolePoDao;
 import com.eeduspace.management.persist.dao.PermissionPoDao;
 import com.eeduspace.management.persist.dao.RolePoDao;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Type;
 import com.eeduspace.management.persist.po.PermissionAndRolePo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
@@ -51,6 +52,9 @@ public class RoleServiceImpl implements RoleService {
 	public RoleModel saveModel(RoleModel roleModel) {
 		if (StringUtils.isEmpty(roleModel)) {
 			return null;
+		}
+		if (StringUtils.isEmpty(roleModel.getType())) {
+			roleModel.setType(String.valueOf(Type.Test));
 		}
 		RolePo rolePo = CIBNManagementConvert.fromRoleModel(roleModel);
 		rolePo.setStatus(Status.Enable);

@@ -59,9 +59,9 @@ public class RoleController {
 			permissionModels = ;
 			roleModel.setName("test");
 			roleModel.setPermissionModels(permissionModels);*/
-			if (StringUtils.isEmpty(roleModel)) {
-				logger.error("roleSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".roleModel");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".roleModel");
+			if (StringUtils.isEmpty(roleModel.getName())) {
+				logger.error("roleSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".roleModel.getName");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".roleModel.getName");
 			}
 			if (roleModel.getPermissionModels().size() <= 0) {
 				logger.error("roleSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".roleModel.getPermissionModels");

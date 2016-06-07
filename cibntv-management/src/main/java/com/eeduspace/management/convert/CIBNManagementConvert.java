@@ -6,11 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Null;
-
-import org.apache.poi.xslf.util.PPTX2PNG;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.model.ManagerModel;
@@ -19,8 +14,6 @@ import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
-import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
-import com.eeduspace.management.persist.enumeration.RoleEnum.Type;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
@@ -49,15 +42,19 @@ public class CIBNManagementConvert {
 			mm.setExtend_(managerPo.getExtend_());
 			mm.setId(managerPo.getId());
 			mm.setIsFirst(managerPo.getIsFirst());
+			mm.setIsDel(managerPo.getIsDel());
 			mm.setLastLoginDate(managerPo.getLastLoginDate());
 			mm.setName(managerPo.getName());
+			mm.setRealName(managerPo.getRealName());
 			mm.setPassword(managerPo.getPassword());
 			mm.setPhone(managerPo.getPhone());
 			mm.setSecretKey(managerPo.getSecretKey());
 			mm.setStatus(managerPo.getStatus());
 			mm.setUpdateDate(managerPo.getUpdateDate());
 			mm.setUuid(managerPo.getUuid());
-			mm.setRoleModel(fromRolePo(managerPo.getRolePo()));
+			mm.setrUuid(managerPo.getR_uuid());
+			mm.setrName(managerPo.getR_name());
+			mm.setType(managerPo.getType());
 		}
 		return mm;
 	}
@@ -65,19 +62,29 @@ public class CIBNManagementConvert {
 		ManagerPo po = new ManagerPo();
 		if (!StringUtils.isEmpty(managerModel)) {
 			po.setAccessKey(managerModel.getAccessKey());
-			po.setCreateDate(managerModel.getCreateDate());
+			if (!StringUtils.isEmpty(managerModel.getCreateDate())) {
+				po.setCreateDate(managerModel.getCreateDate());
+			}
 			po.setCreateManagerId(managerModel.getCreateManagerId());
 			po.setEmail(managerModel.getEmail());
 			po.setIsFirst(managerModel.getIsFirst());
-			po.setLastLoginDate(managerModel.getLastLoginDate());
+			po.setIsDel(managerModel.getIsDel());
+			if (!StringUtils.isEmpty(managerModel.getLastLoginDate())) {
+				po.setLastLoginDate(managerModel.getLastLoginDate());
+			}
 			po.setName(managerModel.getName());
+			po.setRealName(managerModel.getRealName());
 			po.setPassword(managerModel.getPassword());
 			po.setPhone(managerModel.getPhone());
 			po.setSecretKey(managerModel.getSecretKey());
 			po.setStatus(managerModel.getStatus());
 			po.setUpdateDate(managerModel.getUpdateDate());
-			po.setUuid(managerModel.getUuid());
-			po.setRolePo(fromRoleModel(managerModel.getRoleModel()));
+			if (!StringUtils.isEmpty(managerModel.getUuid())) {
+				po.setUuid(managerModel.getUuid());
+			}
+			po.setR_uuid(managerModel.getrUuid());
+			po.setR_name(managerModel.getrName());
+			po.setType(managerModel.getType());
 		}
 		return po;
 	}
@@ -86,6 +93,9 @@ public class CIBNManagementConvert {
 		if (!StringUtils.isEmpty(roleModel)) {
 			rolePo.setDescription(roleModel.getDescription());
 			rolePo.setR_name(roleModel.getName());
+			if(!StringUtils.isEmpty(roleModel.getUuid())){
+				rolePo.setR_uuid(roleModel.getUuid());
+			}
 			rolePo.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : rolePo.getUpdateDate());
 		}
 		return rolePo;
@@ -99,8 +109,8 @@ public class CIBNManagementConvert {
 			roleModel.setName(rolePo.getR_name());
 			roleModel.setStatus(String.valueOf(rolePo.getStatus()));
 			roleModel.setType(String.valueOf(rolePo.getType()));
-			roleModel.setCreateDate(StringUtils.isEmpty(rolePo.getCreateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(rolePo.getCreateDate()));
-			roleModel.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(rolePo.getUpdateDate()));
+			roleModel.setCreateDate(StringUtils.isEmpty(rolePo.getCreateDate()) ? null : rolePo.getCreateDate());
+			roleModel.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : rolePo.getUpdateDate());
 		}
 		return roleModel;
 	}

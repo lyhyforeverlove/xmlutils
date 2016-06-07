@@ -1,8 +1,5 @@
 package com.eeduspace.management.persist.dao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +12,6 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>,JpaSpecifi
 	//删除操作，查询过滤到删除标识
 	
 	
-	Page<ManagerPo> findAll(Specification<ManagerPo> specification,Pageable pageable);
 	
 	ManagerPo findByUuid(String uuid);
 	

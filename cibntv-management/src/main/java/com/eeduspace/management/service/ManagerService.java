@@ -42,6 +42,12 @@ public interface ManagerService {
 	 * @param phone
 	 * @return
 	 */
-	public Boolean validate(String phone);
+	public Boolean validatePhone(String phone);
+	
+	/**密码是否是旧密码；新密码是否与旧密码相同
+	 * @param phone
+	 * @return
+	 */
+	public Boolean validatePassword(ManagerModel managerModel);
 
 }

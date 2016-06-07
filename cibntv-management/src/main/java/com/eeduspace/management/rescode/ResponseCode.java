@@ -30,6 +30,7 @@ public enum ResponseCode {
     RESOURCE_DUPLICATE("Resource.Duplicate", "40007", "The request resource is duplicate."),
     RESOURCE_LIMITEXCEEDED("Resource.LimitExceeded", "40008", "The request resource is limitExceeded."),
 
+    PARAMETER_ERROR("Parameter.Error", "400010", "The request parameter is error."),
 
     FORBIDDEN_AUTHFAILURE("Forbidden.AuthFailure", "40301", "The request credentials is unauthorized，please check your credentials."),
 

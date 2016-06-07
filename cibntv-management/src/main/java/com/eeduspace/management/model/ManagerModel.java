@@ -2,12 +2,10 @@ package com.eeduspace.management.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-
-import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.persist.enumeration.UserEnum;
 
 public class ManagerModel {
@@ -18,6 +16,7 @@ public class ManagerModel {
     private String password;
     private Long createManagerId;
     private String name;
+    private String realName;
     private String email;
     private String accessKey;
     private String secretKey;
@@ -30,7 +29,13 @@ public class ManagerModel {
     @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateDate;
     private Boolean isFirst;
+    private Boolean isDel;
     private RoleModel roleModel;
+    private String rUuid;
+    private String rName;
+    private RoleEnum.Type type;
+    //其他状态
+    private RoleEnum.Status otherStatus;
     
     /**当前页数**/
 	private int currentPage;
@@ -40,6 +45,10 @@ public class ManagerModel {
 	private int totalPage;
 	/**总条数*/
 	private int totalSize;
+	//查询参数
+	private String queryName;
+	//新密码
+	private String oldPassword;
     
 
 	public Long getId() {
@@ -199,6 +208,70 @@ public class ManagerModel {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public RoleEnum.Status getOtherStatus() {
+		return otherStatus;
+	}
+
+	public void setOtherStatus(RoleEnum.Status otherStatus) {
+		this.otherStatus = otherStatus;
+	}
+
+	public Boolean getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Boolean isDel) {
+		this.isDel = isDel;
+	}
+
+	public String getrUuid() {
+		return rUuid;
+	}
+
+	public void setrUuid(String rUuid) {
+		this.rUuid = rUuid;
+	}
+
+	public String getrName() {
+		return rName;
+	}
+
+	public void setrName(String rName) {
+		this.rName = rName;
+	}
+
+	public RoleEnum.Type getType() {
+		return type;
+	}
+
+	public void setType(RoleEnum.Type type) {
+		this.type = type;
+	}
+
+	public String getQueryName() {
+		return queryName;
+	}
+
+	public void setQueryName(String queryName) {
+		this.queryName = queryName;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
     
     

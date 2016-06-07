@@ -1,6 +1,10 @@
 package com.eeduspace.management.model;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class RoleModel {
 	
@@ -10,8 +14,9 @@ public class RoleModel {
 	    private String type;
 	    private String status;
 	    private String description;
-	    private String createDate;
-	    private String updateDate;
+	    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	    private Date createDate;
+	    private Date updateDate;
 	    
 	    private List<PermissionModel> permissionModels;
 		public Long getId() {
@@ -50,16 +55,16 @@ public class RoleModel {
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		public String getCreateDate() {
+		public Date getCreateDate() {
 			return createDate;
 		}
-		public void setCreateDate(String createDate) {
+		public void setCreateDate(Date createDate) {
 			this.createDate = createDate;
 		}
-		public String getUpdateDate() {
+		public Date getUpdateDate() {
 			return updateDate;
 		}
-		public void setUpdateDate(String updateDate) {
+		public void setUpdateDate(Date updateDate) {
 			this.updateDate = updateDate;
 		}
 		public List<PermissionModel> getPermissionModels() {

@@ -4,6 +4,7 @@ package com.eeduspace.management.persist.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.util.UIDGenerator;
 
@@ -39,7 +41,7 @@ public class ManagerPo implements Serializable{
     @Column(unique = true)
     private String uuid = UIDGenerator.getUUID().toString().replace("-", "");
     //手机号
-    @Column( nullable = false,unique = true)
+    @Column(unique = true)
     private String phone;
     //用户登陆密码
     private String password;
@@ -48,6 +50,9 @@ public class ManagerPo implements Serializable{
     private Long createManagerId;
     //用户登录名
     private String name;
+    //管理员真实姓名
+    @Column(name="real_name")
+    private String realName;
     //邮箱
     private String email;
     //公钥
@@ -73,10 +78,16 @@ public class ManagerPo implements Serializable{
     //是否是第一次登录
     @Column(name = "is_first")
     private Boolean isFirst;
+    //删除状态
+    @Column(name = "is_del")
+    private Boolean isDel;
     
-    @OneToOne
-    @JoinColumn(name="r_uuid" ,referencedColumnName="uuid")
-    private RolePo rolePo;
+    /*@OneToOne(cascade ={CascadeType.MERGE,CascadeType.REFRESH})
+    @JoinColumn(name="r_uuid" ,referencedColumnName="uuid")*/
+    
+    private String r_uuid;
+    private String r_name;
+    private RoleEnum.Type type;
 
     public Long getId() {
         return id;
@@ -198,12 +209,44 @@ public class ManagerPo implements Serializable{
 		this.isFirst = isFirst;
 	}
 
-	public RolePo getRolePo() {
-		return rolePo;
+	public String getRealName() {
+		return realName;
 	}
 
-	public void setRolePo(RolePo rolePo) {
-		this.rolePo = rolePo;
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public Boolean getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Boolean isDel) {
+		this.isDel = isDel;
+	}
+
+	public String getR_uuid() {
+		return r_uuid;
+	}
+
+	public void setR_uuid(String r_uuid) {
+		this.r_uuid = r_uuid;
+	}
+
+	public String getR_name() {
+		return r_name;
+	}
+
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
+	}
+
+	public RoleEnum.Type getType() {
+		return type;
+	}
+
+	public void setType(RoleEnum.Type type) {
+		this.type = type;
 	}
     
     
