@@ -11,12 +11,14 @@ import org.springframework.util.StringUtils;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
+import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
+import com.eeduspace.management.persist.po.SmsPo;
 import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.persist.po.VIPPack;
 import com.eeduspace.management.persist.po.VipBuyRecord;
@@ -135,7 +137,7 @@ public class CIBNManagementConvert {
 		}
 		return permissionPo;
 	}
-	
+
 	public static PermissionModel fromPermissionPo(PermissionPo permissionPo){
 		PermissionModel permissionModel = new PermissionModel();
 		if(!StringUtils.isEmpty(permissionPo)){
@@ -161,59 +163,75 @@ public class CIBNManagementConvert {
 		}
 		return permissionModels;
 	}
-	  public static UserModel fromUserPo(UserPo userPo) {
-	        UserModel userModel = new UserModel();
-	        if(userPo!=null){
-	            userModel.setUserCode(userPo.getUserCode());
-	            userModel.setUserName(userPo.getUserName());
-	            userModel.setEmail(userPo.getEmail());
-	            userModel.setMobile(userPo.getMobile());
-	            userModel.setVIPExpireDays(0l);
-	            userModel.setOverdue(true);
-	            userModel.setVIPExpireTime(null);
-	            if(!StringUtils.isEmpty(userPo.getVIPExpireTime())){
-	                userModel.setVIPExpireTime(DateUtils.getTimeStampStr(userPo.getVIPExpireTime()));
-	                Date dateNow=new Date();
-	                if(userPo.getVIPExpireTime().after(dateNow)){
-	                    userModel.setOverdue(false);
-	                    userModel.setVIPExpireDays(DateUtils.daysBetween(new Timestamp(dateNow.getTime()), new Timestamp(userPo.getVIPExpireTime().getTime()))+1);
-	                }
-	            }
-	            userModel.setVip(userPo.isVIP());
-	            userModel.setCreateDate(DateUtils.getTimeStampStr(userPo.getCreateDate()));
-	        }
-
-	        return userModel;
-	    }
-	  public static VipOrderModel fromVipBuyRecord(VipBuyRecord vipBuyRecord){
-			VipOrderModel model=new VipOrderModel();
-			model.setOrderName(vipBuyRecord.getOrderName());
-			model.setOrderUUID(vipBuyRecord.getUuid());
-			model.setBuyType(vipBuyRecord.getBuyType());
-			model.setBuyDate(DateUtils.toString(vipBuyRecord.getCreateDate(), DateUtils.DATE_FORMAT_DATEONLY));
-			model.setDiagnosticUUID(vipBuyRecord.getDiagnositcUUID());
-			model.setOrderPrice(vipBuyRecord.getVipPrice());
-			model.setOrderSn(vipBuyRecord.getOrderSN());
-			model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
-			model.setUserCode(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getUserCode());
-			model.setVipDays(vipBuyRecord.getVipDays());
-			model.setVipOrderType(vipBuyRecord.getVipType());
-			return model;
-	  }
-	  public static VipPackModel fromVipPackPo(VIPPack vipPack){
-			VipPackModel vipPackModel=new VipPackModel();
-			vipPackModel.setVipDesc(vipPack.getVipDesc());
-			vipPackModel.setBackgroundimg(vipPack.getBackgroundimg());
-			vipPackModel.setVipPrice(vipPack.getVipPrice());
-			vipPackModel.setVipType(vipPack.getVipType());
-			vipPackModel.setUuid(vipPack.getUuid());
-			vipPackModel.setIsRelease(vipPack.isRelease());
-			if(DateUtils.isBetween(new Date(), vipPack.getDiscountStartDate(), vipPack.getDiscountEndDate(), 1)){
-				vipPackModel.setVipSale(vipPack.getVipSale());
-				vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
-				vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
-				vipPackModel.setIsDiscount(true);
+	public static UserModel fromUserPo(UserPo userPo) {
+		UserModel userModel = new UserModel();
+		if(userPo!=null){
+			userModel.setUserCode(userPo.getUserCode());
+			userModel.setUserName(userPo.getUserName());
+			userModel.setEmail(userPo.getEmail());
+			userModel.setMobile(userPo.getMobile());
+			userModel.setVIPExpireDays(0l);
+			userModel.setOverdue(true);
+			userModel.setVIPExpireTime(null);
+			if(!StringUtils.isEmpty(userPo.getVIPExpireTime())){
+				userModel.setVIPExpireTime(DateUtils.getTimeStampStr(userPo.getVIPExpireTime()));
+				Date dateNow=new Date();
+				if(userPo.getVIPExpireTime().after(dateNow)){
+					userModel.setOverdue(false);
+					userModel.setVIPExpireDays(DateUtils.daysBetween(new Timestamp(dateNow.getTime()), new Timestamp(userPo.getVIPExpireTime().getTime()))+1);
+				}
 			}
-			return vipPackModel;
+			userModel.setVip(userPo.isVIP());
+			userModel.setCreateDate(DateUtils.getTimeStampStr(userPo.getCreateDate()));
 		}
+
+		return userModel;
+	}
+	public static VipOrderModel fromVipBuyRecord(VipBuyRecord vipBuyRecord){
+		VipOrderModel model=new VipOrderModel();
+		model.setOrderName(vipBuyRecord.getOrderName());
+		model.setOrderUUID(vipBuyRecord.getUuid());
+		model.setBuyType(vipBuyRecord.getBuyType());
+		model.setBuyDate(DateUtils.toString(vipBuyRecord.getCreateDate(), DateUtils.DATE_FORMAT_DATEONLY));
+		model.setDiagnosticUUID(vipBuyRecord.getDiagnositcUUID());
+		model.setOrderPrice(vipBuyRecord.getVipPrice());
+		model.setOrderSn(vipBuyRecord.getOrderSN());
+		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
+		model.setUserCode(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getUserCode());
+		model.setVipDays(vipBuyRecord.getVipDays());
+		model.setVipOrderType(vipBuyRecord.getVipType());
+		return model;
+	}
+	public static VipPackModel fromVipPackPo(VIPPack vipPack){
+		VipPackModel vipPackModel=new VipPackModel();
+		vipPackModel.setVipDesc(vipPack.getVipDesc());
+		vipPackModel.setBackgroundimg(vipPack.getBackgroundimg());
+		vipPackModel.setVipPrice(vipPack.getVipPrice());
+		vipPackModel.setVipType(vipPack.getVipType());
+		vipPackModel.setUuid(vipPack.getUuid());
+		vipPackModel.setIsRelease(vipPack.isRelease());
+		if(DateUtils.isBetween(new Date(), vipPack.getDiscountStartDate(), vipPack.getDiscountEndDate(), 1)){
+			vipPackModel.setVipSale(vipPack.getVipSale());
+			vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
+			vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
+			vipPackModel.setIsDiscount(true);
+		}
+		return vipPackModel;
+	}
+
+	public static SmsModel fromSmsPo(SmsPo smsPo){
+		SmsModel smsModel = new SmsModel();
+		smsModel.setId(smsPo.getId());
+		smsModel.setUuid(smsPo.getUuid());
+		smsModel.setCreateTime(smsPo.getCreateTime());
+		smsModel.setPhone(smsPo.getPhone());
+		smsModel.setSmsCode(smsPo.getSmsCode());
+		return smsModel;
+	}
+	public static SmsPo fromSmsModel(SmsModel smsModel){
+		SmsPo smsPo = new SmsPo();
+		smsPo.setPhone(smsModel.getPhone());
+		smsPo.setSmsCode(smsModel.getSmsCode());
+		return smsPo;
+	}
 }

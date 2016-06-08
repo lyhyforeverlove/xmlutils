@@ -4,25 +4,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 
 import com.eeduspace.management.BaseTest;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
-import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
-import com.eeduspace.management.service.ManagerService;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
-import com.google.gson.Gson;
 
 public class ManagerControllerTest extends BaseTest {
-	
-	private Gson gson = new Gson();
-	@Inject
-	private ManagerService managerService;
-	
+
 	//跳转
 	@Test
 	public void mSkipTest(){
@@ -34,7 +25,7 @@ public class ManagerControllerTest extends BaseTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	//保存
 	@Test
@@ -53,56 +44,30 @@ public class ManagerControllerTest extends BaseTest {
 		paramMap.put("rUuid", roleModel.getUuid());
 		paramMap.put("type", roleModel.getType());
 		paramMap.put("createManagerId", 123123465);
-		
+
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
 			System.out.println("返回值为：" + response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-		//修改:角色；状态（停用，启用）；删除状态；密码修改
-		@Test
-		public void mUpdateTest(){
-			String url = "http://localhost:8070/cibntv-management/action/manager/manageReplace";
-			RoleModel roleModel = new RoleModel();
-//			String password = "123456";
-			String uuid = "78f4f4577480423eaf1c30f40dd5d725";
-			roleModel.setName("CustomerService");
-			roleModel.setUuid("1fca5e380a514e49ab708cd310c5f10c");
-			roleModel.setType(RoleEnum.Type.CustomerService.toString());
-			Map<String, Object> paramMap = new HashMap<>();
-//			paramMap.put("password", password);
-			paramMap.put("rName", roleModel.getName());
-			paramMap.put("rUuid", roleModel.getUuid());
-			paramMap.put("type", roleModel.getType());
-//			paramMap.put("createManagerId", 123123465);
-			paramMap.put("uuid", uuid);
-			
-			try {
-				String response = HTTPClientUtils.httpPostForm(url, paramMap);
-				System.out.println("返回值为：" + response);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
+
 	//详情
 	@Test
 	public void mDetail(){
 		String url = "http://localhost:8070/cibntv-management/action/manager/manageDetail";
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("uuid", "d3cec568f298449f9eaf98f70e604ebf");
-		
+
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
 			System.out.println("返回值为：" + response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	//列表
 	@Test
@@ -124,15 +89,42 @@ public class ManagerControllerTest extends BaseTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
- 	
+
+	//修改:角色；状态（停用，启用）；删除状态；密码修改
+	@Test
+	public void mUpdateTest(){
+		String url = "http://localhost:8070/cibntv-management/action/manager/manageReplace";
+		RoleModel roleModel = new RoleModel();
+//		String password = "123456";
+		String uuid = "78f4f4577480423eaf1c30f40dd5d725";
+		roleModel.setName("CustomerService");
+		roleModel.setUuid("1fca5e380a514e49ab708cd310c5f10c");
+		roleModel.setType(RoleEnum.Type.CustomerService.toString());
+		Map<String, Object> paramMap = new HashMap<>();
+//		paramMap.put("password", password);
+		paramMap.put("rName", roleModel.getName());
+		paramMap.put("rUuid", roleModel.getUuid());
+		paramMap.put("type", roleModel.getType());
+//		paramMap.put("createManagerId", 123123465);
+		paramMap.put("uuid", uuid);
+
+		try {
+			String response = HTTPClientUtils.httpPostForm(url, paramMap);
+			System.out.println("返回值为：" + response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public static void main(String[] args) {
 		ManagerControllerTest mct = new ManagerControllerTest();
-			mct.mUpdateTest();
-		
-		
+		mct.mUpdateTest();
+
+
 	}
-	
-	
+
+
 }

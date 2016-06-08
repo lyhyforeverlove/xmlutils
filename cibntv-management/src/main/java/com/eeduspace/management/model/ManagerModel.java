@@ -49,6 +49,8 @@ public class ManagerModel {
 	private String queryName;
 	//新密码
 	private String oldPassword;
+	//验证码
+	private String smsCode;
     
 
 	public Long getId() {
@@ -272,6 +274,14 @@ public class ManagerModel {
 
 	public void setOldPassword(String oldPassword) {
 		this.oldPassword = oldPassword;
+	}
+
+	public String getSmsCode() {
+		return smsCode;
+	}
+
+	public void setSmsCode(String smsCode) {
+		this.smsCode = smsCode;
 	}
     
     

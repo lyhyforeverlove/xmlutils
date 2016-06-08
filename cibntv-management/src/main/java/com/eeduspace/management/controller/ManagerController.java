@@ -23,12 +23,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.eeduspace.management.comm.Constants;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
+import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
 import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.ManagerService;
 import com.eeduspace.management.service.RoleService;
+import com.eeduspace.management.service.SmsService;
 import com.eeduspace.management.util.SMSUtil;
 import com.eeduspace.uuims.comm.util.base.encrypt.Digest;
 import com.google.gson.Gson;
@@ -51,6 +53,8 @@ public class ManagerController {
 	private ManagerService managerService;
 	@Inject
 	private RoleService roleService;
+	@Inject
+	private SmsService smsService;
 	@Inject
 	private SMSUtil smsUtil;
 	@Value("${cibn.sms.sendType}")
@@ -232,14 +236,44 @@ public class ManagerController {
 				logger.error("sendMessage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPhone");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPhone");
 			}
-			//存入本地数据库，来对比  验证码是否正确
 			String code = smsUtil.send(managerModel.getPhone(), sms_sendType);
+			SmsModel smsModel = new SmsModel();
+			smsModel.setPhone(managerModel.getPhone());
+			smsModel.setSmsCode(code);
+			//存入本地数据库，用来对比  验证码是否正确
+			smsModel = smsService.saveCode(smsModel);
 			ResponseItem responseItem = new ResponseItem();
-//			responseItem.setData(flag);
+			responseItem.setData(smsModel);
 			return responseItem;
 		} catch (Exception e) {
 			logger.error("sendMessage  Exception:", e);
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "sendMessage exception");
+		}
+	}
+	
+	/**验证输入的验证码
+	 * @return
+	 */
+	@RequestMapping(value="/validateSMS",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseItem validateMessage(HttpServletRequest request,ManagerModel managerModel){
+		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
+		try {
+			if (StringUtils.isBlank(managerModel.getPhone())) {
+				logger.error("validateMessage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPhone");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPhone");
+			}
+			if (StringUtils.isBlank(managerModel.getSmsCode())) {
+				logger.error("validateMessage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getSmsCode");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getSmsCode");
+			}
+			Boolean flag = smsService.validateSmsCode(managerModel.getPhone(),managerModel.getSmsCode());
+			ResponseItem responseItem = new ResponseItem();
+			responseItem.setData(flag);
+			return responseItem;
+		} catch (Exception e) {
+			logger.error("validateMessage  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "validateMessage exception");
 		}
 	}
 	

@@ -14,6 +14,11 @@ import javax.persistence.TemporalType;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.util.UIDGenerator;
 
+/**权限
+ * Author: songwei
+ * Date: 2016-06-03
+ * Description:
+ */
 @Entity
 @Table(name = "cibn_permission")
 public class PermissionPo {

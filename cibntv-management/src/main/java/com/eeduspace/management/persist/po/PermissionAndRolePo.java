@@ -7,8 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 /**
- * Author: dingran
- * Date: 2015/10/22
+ * Author: songwei
+ * Date: 2016-06-03
  * Description:
  */
 @Entity

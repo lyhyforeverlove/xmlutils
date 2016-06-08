@@ -15,9 +15,9 @@ import javax.persistence.TemporalType;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.util.UIDGenerator;
 
-/**
- * Author: dingran
- * Date: 2015/10/22
+/**角色
+ * Author: songwei
+ * Date: 2016-06-03
  * Description:
  */
 @Entity
