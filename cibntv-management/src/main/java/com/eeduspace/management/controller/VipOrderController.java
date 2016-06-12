@@ -48,9 +48,17 @@ public class VipOrderController {
 	private VipBuyRecordService vipBuyRecordService;
 	@Inject
 	private UserService userService;
+	/**
+	 * VIP订单分页列表
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:11:29
+	 * @param orderQueryModel
+	 * @return
+	 */
 	@RequestMapping("/user_vip_order")
 	@ResponseBody
-	public ResponseItem userOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
+	public ResponseItem userVIPOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
 		ResponseItem item=new ResponseItem();
 		logger.debug("userOrderList request param:{}",gson.toJson(orderQueryModel));
 		if(StringUtils.isBlank(orderQueryModel.getUserCode())){
@@ -59,11 +67,8 @@ public class VipOrderController {
 			return item;
 		}
 		try {
-			//UserPo userPo=userService.findByUserCode("df6548d1fd534b90aa18939af7e1f052");
 			List<VipBuyRecord> vipBuyRecords=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.VIP);
-			List<VipBuyRecord> diagnosticOrder=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.DIAGNOSTIC);
 			UserOrderModel userOrderModel=new UserOrderModel();
-			userOrderModel.setDiagnosticOrder(diagnosticOrder);
 			userOrderModel.setVipOrder(vipBuyRecords);
 			item.setMessage("success");
 			item.setData(userOrderModel);
@@ -74,6 +79,44 @@ public class VipOrderController {
 		}
 	}
 	
+	/**
+	 * 诊断订单分页列表
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:11:29
+	 * @param orderQueryModel
+	 * @return
+	 */
+	@RequestMapping("/user_diagnostic_order")
+	@ResponseBody
+	public ResponseItem userDiagnosticOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
+		ResponseItem item=new ResponseItem();
+		logger.debug("userOrderList request param:{}",gson.toJson(orderQueryModel));
+		if(StringUtils.isBlank(orderQueryModel.getUserCode())){
+			item.setMessage("UserCode参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		try {
+			List<VipBuyRecord> diagnosticOrder=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.DIAGNOSTIC);
+			UserOrderModel userOrderModel=new UserOrderModel();
+			userOrderModel.setDiagnosticOrder(diagnosticOrder);
+			item.setMessage("success");
+			item.setData(userOrderModel);
+			return item;
+		} catch (Exception e) {
+			  logger.error("userOrderList  Exception:", e);
+	           return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "userIndex exception");
+		}
+	}
+	/**
+	 * 订单列表
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:40:34
+	 * @param orderQueryModel
+	 * @return
+	 */
 	@RequestMapping("/order_list")
 	@ResponseBody
 	public ResponseItem getOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
@@ -102,6 +145,13 @@ public class VipOrderController {
 		}
 		
 	}
+	/**
+	 * 订单详情
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:15:49
+	 * @return
+	 */
 	@RequestMapping("/order_info")
 	@ResponseBody
 	public ResponseItem getOrderInfo(){
@@ -110,9 +160,20 @@ public class VipOrderController {
 		return item;
 	}
 	
+	/**
+	 * 订单导出
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:15:58
+	 * @param response
+	 * @param orderQueryModel
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/order_excel_export")
 	@ResponseBody
 	public ResponseItem orderExcelExport(HttpServletResponse response,@ModelAttribute OrderQueryModel orderQueryModel) throws IOException{
+		logger.debug("orderQueryModel:{}",gson.toJson(orderQueryModel));
 		ResponseItem item = new ResponseItem();
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		OutputStream outputStream = response.getOutputStream();

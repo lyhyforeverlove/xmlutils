@@ -41,7 +41,13 @@ public class VipPackController {
 	private Gson gson=new Gson();
 	@Inject
 	private VipPackService vipPackService;
-	
+	/**
+	 * 获取VIP包列表
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:17:27
+	 * @return
+	 */
 	@RequestMapping("/vip_pack_list")
 	@ResponseBody
 	public ResponseItem getPackList(){
@@ -62,6 +68,14 @@ public class VipPackController {
 	        return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "getPackList exception");
 		}
 	}
+	/**
+	 * 删除操作
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:17:14
+	 * @param vipUUID
+	 * @return
+	 */
 	@RequestMapping("/delete_vip_pack")
 	@ResponseBody
 	public ResponseItem deleteVipPack(String vipUUID){

@@ -44,6 +44,14 @@ public class UserController {
 	private Gson gson=new Gson();
 	@Inject
 	private UserService userService;
+	/**
+	 * 获取用户分页列表
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:09:01
+	 * @param userQueryModel
+	 * @return
+	 */
 	@RequestMapping(value="/userList",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem getUserList(@ModelAttribute UserQueryModel userQueryModel){
@@ -72,6 +80,14 @@ public class UserController {
 		}
 		
 	}
+	/**
+	 * 获取用户详情信息
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:09:16
+	 * @param userCode
+	 * @return
+	 */
 	@RequestMapping(value="/user_info",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem getUserInfo(@RequestParam String userCode){
@@ -88,6 +104,15 @@ public class UserController {
             return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "userPo exception");
 		}
 	}
+	/**
+	 * 用户拉黑操作
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:09:32
+	 * @param userCode
+	 * @param isBlacklist
+	 * @return
+	 */
 	@RequestMapping(value="/user_blacklist",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem userBlacklist(@RequestParam String userCode,@RequestParam Boolean isBlacklist){
@@ -109,16 +134,26 @@ public class UserController {
 		}
 		
 	}
-	
+	/**
+	 * 导出用户excel
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:10:11
+	 * @param response
+	 * @param userQueryModel
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/user_excel_export")
 	@ResponseBody
 	public ResponseItem userExcelExport(HttpServletResponse response,@ModelAttribute UserQueryModel userQueryModel) throws IOException{
+		logger.debug("userQueryModel:{}",gson.toJson(userQueryModel));
 		ResponseItem item=new ResponseItem();
 		Pageable pageable=new PageRequest(0, Integer.MAX_VALUE);
 		OutputStream outputStream = response.getOutputStream(); 
-		 String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
-		 String fileName = new String(("userlist").getBytes(), "utf-8");  
-         response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
+		String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
+		String fileName = new String(("userlist").getBytes(), "utf-8");  
+        response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
 		Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 		userService.ExportUserExcle(pageList.getContent(), tableHeader, outputStream);
 		return item;
