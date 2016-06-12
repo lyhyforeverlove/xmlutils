@@ -2,6 +2,8 @@ package com.eeduspace.management.model;
 
 import java.util.List;
 
+import com.eeduspace.management.model.PaperModel;
+
 
 
 
@@ -29,7 +31,20 @@ public class BaseDataModel {
 	private List<CourseVideoModel> reponseVedio;
 	//视频播放地址
 	private String urlWeVideo;
-
+	//试卷对象集合
+	private List<PaperModel> paperDatas;
+	
+	//分页属性
+	private Integer cp;
+	private Integer pageSize;
+	private Integer totalPage;
+	private Integer item;
+	
+	//查询属性
+	private String searchName;
+	private String searchValue;
+	private String paperType;
+	private String paperCode;
 	
 	public List<CourseVideoModel> getReponseVedio() {
 		return reponseVedio;
@@ -96,6 +111,60 @@ public class BaseDataModel {
 	}
 	public void setUnitCode(String unitCode) {
 		this.unitCode = unitCode;
+	}
+	public List<PaperModel> getPaperDatas() {
+		return paperDatas;
+	}
+	public void setPaperDatas(List<PaperModel> paperDatas) {
+		this.paperDatas = paperDatas;
+	}
+	public Integer getCp() {
+		return cp;
+	}
+	public void setCp(Integer cp) {
+		this.cp = cp;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+	public Integer getTotalPage() {
+		return totalPage;
+	}
+	public void setTotalPage(Integer totalPage) {
+		this.totalPage = totalPage;
+	}
+	public Integer getItem() {
+		return item;
+	}
+	public void setItem(Integer item) {
+		this.item = item;
+	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+	public String getSearchValue() {
+		return searchValue;
+	}
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+	public String getPaperType() {
+		return paperType;
+	}
+	public void setPaperType(String paperType) {
+		this.paperType = paperType;
+	}
+	public String getPaperCode() {
+		return paperCode;
+	}
+	public void setPaperCode(String paperCode) {
+		this.paperCode = paperCode;
 	}
 
 

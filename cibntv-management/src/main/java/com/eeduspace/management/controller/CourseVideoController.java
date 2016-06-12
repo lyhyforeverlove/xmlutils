@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 @RequestMapping("/video")
 @SessionAttributes(Constants.SESSION_ID)
 public class CourseVideoController {
-	private final Logger logger = LoggerFactory.getLogger(RoleController.class);
+	private final Logger logger = LoggerFactory.getLogger(CourseVideoController.class);
 	private Gson gson = new Gson();
 
 	@Inject

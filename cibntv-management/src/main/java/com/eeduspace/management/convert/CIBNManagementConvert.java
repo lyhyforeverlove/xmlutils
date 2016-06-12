@@ -6,17 +6,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.model.ManagerModel;
+import com.eeduspace.management.model.PaperTypeModel;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
+import com.eeduspace.management.persist.enumeration.PaperTypeEnum;
 import com.eeduspace.management.persist.po.ManagerPo;
+import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.persist.po.RolePo;
 import com.eeduspace.management.persist.po.SmsPo;
@@ -246,6 +248,28 @@ public class CIBNManagementConvert {
 		smsPo.setPhone(smsModel.getPhone());
 		smsPo.setSmsCode(smsModel.getSmsCode());
 		return smsPo;
+	}
+	public static PaperTypePo fromPaperTypeModel(PaperTypeModel paperTypeModel){
+		PaperTypePo po = new PaperTypePo();
+		po.setName(paperTypeModel.getName());
+		po.setType(PaperTypeEnum.valueOf(paperTypeModel.getType()));
+		po.setPrice(paperTypeModel.getPrice());
+		po.setDiscount(paperTypeModel.getDiscount());
+		po.setDateBef(paperTypeModel.getDateBef());
+		po.setDateAft(paperTypeModel.getDateAft());
+		return po;
+	}
+	public static PaperTypeModel fromPaperTypePo(PaperTypePo paperTypePo){
+		PaperTypeModel model = new PaperTypeModel();
+		model.setId(paperTypePo.getId());
+		model.setUuid(paperTypePo.getUuid());
+		model.setName(paperTypePo.getName());
+		model.setType(String.valueOf(paperTypePo.getType().getValue()));
+		model.setPrice(paperTypePo.getPrice());
+		model.setDiscount(paperTypePo.getDiscount());
+		model.setDateBef(paperTypePo.getDateBef());
+		model.setDateAft(paperTypePo.getDateAft());
+		return model;
 	}
 	
 	
