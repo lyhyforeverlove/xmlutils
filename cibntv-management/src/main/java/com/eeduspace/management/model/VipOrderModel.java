@@ -17,6 +17,10 @@ public class VipOrderModel {
 	private String orderUUID;
 	private BuyTypeEnum buyType;
 	/**
+	 * 订单状态
+	 */
+	private String orderState;
+	/**
 	 * 诊断报告的UUID
 	 */
 	private String diagnosticUUID;
@@ -140,6 +144,12 @@ public class VipOrderModel {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	public String getOrderState() {
+		return orderState;
+	}
+	public void setOrderState(String orderState) {
+		this.orderState = orderState;
 	}
 	
 }
