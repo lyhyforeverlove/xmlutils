@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.model.ManagerModel;
@@ -196,6 +197,16 @@ public class CIBNManagementConvert {
 		model.setDiagnosticUUID(vipBuyRecord.getDiagnositcUUID());
 		model.setOrderPrice(vipBuyRecord.getVipPrice());
 		model.setOrderSn(vipBuyRecord.getOrderSN());
+		if(vipBuyRecord.isPay()){
+			model.setOrderState("已成交");	
+		}else{
+			//当前时间大于 交易后2个小时 则视为订单过期
+			if(DateUtils.nowTimeMillis()>DateUtils.addHour(vipBuyRecord.getCreateDate(), 2).getTime()){
+				model.setOrderState("已过期");	
+			}else{
+				model.setOrderState("代付款");	
+			}
+		}
 		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
 		model.setUserCode(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getUserCode());
 		model.setVipDays(vipBuyRecord.getVipDays());
