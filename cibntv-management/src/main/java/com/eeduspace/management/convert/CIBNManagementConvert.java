@@ -221,11 +221,13 @@ public class CIBNManagementConvert {
 		vipPackModel.setVipType(vipPack.getVipType());
 		vipPackModel.setUuid(vipPack.getUuid());
 		vipPackModel.setIsRelease(vipPack.isRelease());
-		if(DateUtils.isBetween(new Date(), vipPack.getDiscountStartDate(), vipPack.getDiscountEndDate(), 1)){
-			vipPackModel.setVipSale(vipPack.getVipSale());
-			vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
-			vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
-			vipPackModel.setIsDiscount(true);
+		if (vipPack.getDiscountStartDate()!=null&&vipPack!=null) {
+			if(DateUtils.isBetween(new Date(), vipPack.getDiscountStartDate(), vipPack.getDiscountEndDate(), 1)){
+				vipPackModel.setVipSale(vipPack.getVipSale());
+				vipPackModel.setDiscountStartDate(DateUtils.toString(vipPack.getDiscountStartDate(), DateUtils.DATE_FORMAT_DATETIME));
+				vipPackModel.setDiscountEndDate(DateUtils.toString(vipPack.getDiscountEndDate(), DateUtils.DATE_FORMAT_DATETIME));
+				vipPackModel.setIsDiscount(true);
+			}
 		}
 		return vipPackModel;
 	}
@@ -245,4 +247,6 @@ public class CIBNManagementConvert {
 		smsPo.setSmsCode(smsModel.getSmsCode());
 		return smsPo;
 	}
+	
+	
 }
