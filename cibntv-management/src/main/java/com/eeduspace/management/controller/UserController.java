@@ -125,7 +125,6 @@ public class UserController {
 				item.setHttpCode(ResponseCode.RESOURCE_NOTFOUND.toString());
 			}else{
 				item.setMessage("success");
-				item.setData(userPo);
 			}
 			return item;
 		} catch (Exception e) {
@@ -150,12 +149,17 @@ public class UserController {
 		logger.debug("userQueryModel:{}",gson.toJson(userQueryModel));
 		ResponseItem item=new ResponseItem();
 		Pageable pageable=new PageRequest(0, Integer.MAX_VALUE);
-		OutputStream outputStream = response.getOutputStream(); 
-		String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
-		String fileName = new String(("userlist").getBytes(), "utf-8");  
-        response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
-		Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
-		userService.ExportUserExcle(pageList.getContent(), tableHeader, outputStream);
-		return item;
+		try {
+			OutputStream outputStream = response.getOutputStream(); 
+			String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
+			String fileName = new String(("userlist").getBytes(), "utf-8");  
+			response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
+			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
+			userService.ExportUserExcle(pageList.getContent(), tableHeader, outputStream);
+			return item;
+		} catch (Exception e) {
+			logger.error("userExcelExport error:{}",e);
+            return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "userExcelExport exception");
+		}
 	}
 }

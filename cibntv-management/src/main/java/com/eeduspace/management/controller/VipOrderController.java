@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eeduspace.management.convert.CIBNManagementConvert;
@@ -49,14 +50,14 @@ public class VipOrderController {
 	@Inject
 	private UserService userService;
 	/**
-	 * VIP订单分页列表
+	 * VIP订单列表
 	 * Author： zhuchaowei
 	 * e-mail:zhuchaowei@e-eduspace.com
 	 * 2016年6月12日 上午10:11:29
 	 * @param orderQueryModel
 	 * @return
 	 */
-	@RequestMapping("/user_vip_order")
+	@RequestMapping(value="/user_vip_order",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem userVIPOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
 		ResponseItem item=new ResponseItem();
@@ -68,10 +69,11 @@ public class VipOrderController {
 		}
 		try {
 			List<VipBuyRecord> vipBuyRecords=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.VIP);
-			UserOrderModel userOrderModel=new UserOrderModel();
-			userOrderModel.setVipOrder(vipBuyRecords);
+
+//			UserOrderModel userOrderModel=new UserOrderModel();
+//			userOrderModel.setVipOrder(vipBuyRecords);
 			item.setMessage("success");
-			item.setData(userOrderModel);
+			item.setDatas(vipBuyRecords);
 			return item;
 		} catch (Exception e) {
 			  logger.error("userOrderList  Exception:", e);
@@ -80,14 +82,14 @@ public class VipOrderController {
 	}
 	
 	/**
-	 * 诊断订单分页列表
+	 * 诊断订单列表
 	 * Author： zhuchaowei
 	 * e-mail:zhuchaowei@e-eduspace.com
 	 * 2016年6月12日 上午10:11:29
 	 * @param orderQueryModel
 	 * @return
 	 */
-	@RequestMapping("/user_diagnostic_order")
+	@RequestMapping(value="/user_diagnostic_order",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem userDiagnosticOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
 		ResponseItem item=new ResponseItem();
@@ -99,10 +101,10 @@ public class VipOrderController {
 		}
 		try {
 			List<VipBuyRecord> diagnosticOrder=vipBuyRecordService.findByUserCodeAndIsPay(orderQueryModel.getUserCode(), true,BuyTypeEnum.DIAGNOSTIC);
-			UserOrderModel userOrderModel=new UserOrderModel();
-			userOrderModel.setDiagnosticOrder(diagnosticOrder);
+//			UserOrderModel userOrderModel=new UserOrderModel();
+//			userOrderModel.setDiagnosticOrder(diagnosticOrder);
 			item.setMessage("success");
-			item.setData(userOrderModel);
+			item.setDatas(diagnosticOrder);
 			return item;
 		} catch (Exception e) {
 			  logger.error("userOrderList  Exception:", e);
@@ -110,18 +112,33 @@ public class VipOrderController {
 		}
 	}
 	/**
-	 * 订单列表
+	 * 订单分页列表
 	 * Author： zhuchaowei
 	 * e-mail:zhuchaowei@e-eduspace.com
 	 * 2016年6月12日 上午10:40:34
 	 * @param orderQueryModel
 	 * @return
 	 */
-	@RequestMapping("/order_list")
+	@RequestMapping(value="/order_list",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem getOrderList(@ModelAttribute OrderQueryModel orderQueryModel){
 		ResponseItem item=new ResponseItem();
 		logger.debug("getOrderList request param:{}",gson.toJson(orderQueryModel));
+		if(StringUtils.isBlank(orderQueryModel.getOrderType())){
+			item.setMessage("OrderType 参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(orderQueryModel.getCurrentPage()==null){
+			item.setMessage("CurrentPage 参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(orderQueryModel.getSize()==null){
+			item.setMessage("size 参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
 		try {
 			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage(), orderQueryModel.getSize());
 			Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
@@ -152,7 +169,7 @@ public class VipOrderController {
 	 * 2016年6月12日 上午10:15:49
 	 * @return
 	 */
-	@RequestMapping("/order_info")
+	@RequestMapping(value="/order_info",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem getOrderInfo(){
 		ResponseItem item=new ResponseItem();

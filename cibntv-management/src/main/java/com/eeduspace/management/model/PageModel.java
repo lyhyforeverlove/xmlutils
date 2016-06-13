@@ -4,35 +4,35 @@ public class PageModel {
 	 /**
      * 当前页
      */
-    private int currentPage;
+    private Integer currentPage;
     /**
      * 显示条数
      */
-    private int size;
+    private Integer size;
     /**
      * 总页数
      */
-    private int totalPage;
+    private Integer totalPage;
     /**
      * 总记录条数
      */
     private Long totalRecords;
-	public int getCurrentPage() {
+	public Integer getCurrentPage() {
 		return currentPage;
 	}
-	public void setCurrentPage(int currentPage) {
+	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
 	}
-	public int getSize() {
+	public Integer getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(Integer size) {
 		this.size = size;
 	}
-	public int getTotalPage() {
+	public Integer getTotalPage() {
 		return totalPage;
 	}
-	public void setTotalPage(int totalPage) {
+	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
 	}
 	public Long getTotalRecords() {

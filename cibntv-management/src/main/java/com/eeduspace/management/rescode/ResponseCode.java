@@ -58,7 +58,7 @@ public enum ResponseCode {
 
     @Override
     public String toString() {
-        return  code;
+        return  httpCode;
     }
 
     public static ResponseCode toEnum(String name) {
