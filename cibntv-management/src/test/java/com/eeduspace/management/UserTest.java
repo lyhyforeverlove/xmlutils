@@ -79,7 +79,7 @@ public class UserTest {
 //		map.put("endDate", "true");
 		map.put("orderType","VIP");
 		map.put("currentPage", "0");
-		map.put("size", "20");
+		map.put("size", "1");
 		String urlString="http://192.168.1.87:8181/action/vip_order/order_list";
 		System.out.println(HTTPClientUtils.httpPost(urlString,map));
 	}

@@ -22,8 +22,8 @@ public enum BuyTypeEnum {
 	  * @return
 	  */
 	 public static int toEnumValue(String enumName) {
-			for (DateTypeEnum an : DateTypeEnum.values()) {
-				if (an.toString().equalsIgnoreCase(enumName)) {
+			for (BuyTypeEnum an : BuyTypeEnum.values()) {
+				if (an.toString().equals(enumName)) {
 					return an.getValue();
 				}
 			}

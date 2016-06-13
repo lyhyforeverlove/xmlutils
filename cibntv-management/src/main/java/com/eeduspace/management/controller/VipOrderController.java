@@ -3,7 +3,9 @@ package com.eeduspace.management.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,6 +35,7 @@ import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.UserService;
 import com.eeduspace.management.service.VipBuyRecordService;
+import com.eeduspace.uuims.comm.util.base.DateUtils;
 import com.google.gson.Gson;
 /**\
  * 订单控制层
@@ -187,18 +190,32 @@ public class VipOrderController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/order_excel_export")
+	@RequestMapping(value="/order_excel_export",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public ResponseItem orderExcelExport(HttpServletResponse response,@ModelAttribute OrderQueryModel orderQueryModel) throws IOException{
 		logger.debug("orderQueryModel:{}",gson.toJson(orderQueryModel));
 		ResponseItem item = new ResponseItem();
+		if(StringUtils.isBlank(orderQueryModel.getOrderType())){
+			item.setMessage("OrderType 参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		OutputStream outputStream = response.getOutputStream();
-		String[] tableHeader = { "订单号", "流水号", "手机号", "商品类型", "商品名称", "价格", "支付方式", "交易时间", "状态" };
-		String fileName = new String(("order_list").getBytes(), "utf-8");
-		response.setHeader("Content-disposition", "attachment; filename="+ fileName + ".xlsx");// 组装附件名称和格式
+		String fileName ="诊断订单_"+DateUtils.toString(new Date(), DateUtils.DATE_FORMAT_DATEONLY);
+		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.VIP.toString())){
+			fileName="VIP订单_"+DateUtils.toString(new Date(), DateUtils.DATE_FORMAT_DATEONLY);
+		}
+		response.setHeader("Content-disposition", "attachment; filename="+URLEncoder.encode(fileName, "UTF-8") + ".xlsx");// 组装附件名称和格式
 		Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
-		vipBuyRecordService.ExportOrderExcle(pageList.getContent(), tableHeader, outputStream);
+		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.DIAGNOSTIC.toString())){
+			String[] tableHeader = { "订单号", "流水号", "手机号", "商品类型", "商品名称", "价格", "支付方式", "交易时间", "状态" };
+			vipBuyRecordService.ExportOrderExcle(pageList.getContent(), tableHeader, outputStream,orderQueryModel.getOrderType());
+
+		}else{
+			String[] vipOrderTableHeader = { "订单号", "流水号", "手机号", "VIP时长", "价格", "支付方式", "交易时间", "状态" };
+			vipBuyRecordService.ExportOrderExcle(pageList.getContent(), vipOrderTableHeader, outputStream,orderQueryModel.getOrderType());
+		}
 		item.setMessage("success");
 		return item;
 	}

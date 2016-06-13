@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import com.eeduspace.management.model.OrderQueryModel;
 import com.eeduspace.management.persist.dao.VipBuyRecordDao;
 import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
+import com.eeduspace.management.persist.enumeration.VipEnum.VipPackTypeEnum;
 import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.management.service.VipBuyRecordService;
@@ -152,7 +153,7 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
 
 	@Override
 	public void ExportOrderExcle(List<VipBuyRecord> orders, String[] titles,
-			OutputStream outputStream) {
+			OutputStream outputStream,String orderType) {
 
 		 // 创建一个workbook 对应一个excel应用文件  
        XSSFWorkbook workBook = new XSSFWorkbook();  
@@ -173,61 +174,117 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
        // 构建表体数据  
        if (orders != null && orders.size() > 0)  
        {  
-           for (int j = 0; j < orders.size(); j++)  
-           {  
-               XSSFRow bodyRow = sheet.createRow(j + 1);  
-               VipBuyRecord order = orders.get(j);  
- 
-               cell = bodyRow.createCell(0);  
-               cell.setCellStyle(bodyStyle);  
-               cell.setCellValue(order.getOrderSN());  
- 
-               cell = bodyRow.createCell(1);  
-               cell.setCellStyle(bodyStyle);  
-               cell.setCellValue(order.getTransactionId());  
- 
-               cell = bodyRow.createCell(2);  
-               cell.setCellStyle(bodyStyle);  
-               cell.setCellValue(order.getUserPo()==null?"":order.getUserPo().getMobile());
+    	   if (orderType.equals(BuyTypeEnum.DIAGNOSTIC.toString())) {
+    		   for (int j = 0; j < orders.size(); j++)  
+               {  
+                   XSSFRow bodyRow = sheet.createRow(j + 1);  
+                   VipBuyRecord order = orders.get(j);  
+     
+                   cell = bodyRow.createCell(0);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getOrderSN());  
+     
+                   cell = bodyRow.createCell(1);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getTransactionId());  
+     
+                   cell = bodyRow.createCell(2);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getUserPo()==null?"":order.getUserPo().getMobile());
+                   
+                   cell = bodyRow.createCell(3);  
+                   cell.setCellStyle(bodyStyle);  
+                   if(order.getBuyType().getValue()==0){
+                	   cell.setCellValue("VIP");
+                   }else{
+                	   cell.setCellValue("诊断");
+                   }
+                   
+                   cell = bodyRow.createCell(4);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getOrderName());
+                   
+                   cell = bodyRow.createCell(5);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getVipPrice());
+                   
+                   cell = bodyRow.createCell(6);  
+                   cell.setCellStyle(bodyStyle);  
+                   if(order.getPayType().equals("alipay")){
+                	   cell.setCellValue("支付宝");
+                   }else if(order.getPayType().equals("weixinpay")){
+                	   cell.setCellValue("微信");
+                   }else{
+                	   cell.setCellValue("其它");
+                   }
+                   
+                   cell = bodyRow.createCell(7);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(DateUtils.toString(order.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME));
+                   
+                   cell = bodyRow.createCell(8);  
+                   cell.setCellStyle(bodyStyle);  
+                   if(order.isPay()){
+                	   cell.setCellValue("已成交");	
+                   }else if(DateUtils.nowTimeMillis()>DateUtils.addHour(order.getCreateDate(), 2).getTime()){
+                	   cell.setCellValue("已过期");	
+                   }else{
+                	   cell.setCellValue("代付款");	
+                   }
+               } 
+    	   }else{
+    		   for (int j = 0; j < orders.size(); j++)  
+               {  
+                   XSSFRow bodyRow = sheet.createRow(j + 1);  
+                   VipBuyRecord order = orders.get(j);  
+     
+                   cell = bodyRow.createCell(0);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getOrderSN());  
+     
+                   cell = bodyRow.createCell(1);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getTransactionId());  
+     
+                   cell = bodyRow.createCell(2);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getUserPo()==null?"":order.getUserPo().getMobile());
+                   
+                   cell = bodyRow.createCell(3);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(VipPackTypeEnum.getDesc(order.getVipType()));
+                   
+                   
+                   cell = bodyRow.createCell(4);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(order.getVipPrice());
+                   
+                   cell = bodyRow.createCell(5);  
+                   cell.setCellStyle(bodyStyle);  
+                   if(order.getPayType().equals("alipay")){
+                	   cell.setCellValue("支付宝");
+                   }else if(order.getPayType().equals("weixinpay")){
+                	   cell.setCellValue("微信");
+                   }else{
+                	   cell.setCellValue("其它");
+                   }
+                   
+                   cell = bodyRow.createCell(6);  
+                   cell.setCellStyle(bodyStyle);  
+                   cell.setCellValue(DateUtils.toString(order.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME));
                
-               cell = bodyRow.createCell(3);  
-               cell.setCellStyle(bodyStyle);  
-               if(order.getBuyType().getValue()==0){
-            	   cell.setCellValue("VIP");
-               }else{
-            	   cell.setCellValue("诊断");
-               }
-               
-               cell = bodyRow.createCell(4);  
-               cell.setCellStyle(bodyStyle);  
-               cell.setCellValue(order.getOrderName());
-               
-               cell = bodyRow.createCell(5);  
-               cell.setCellStyle(bodyStyle);  
-               cell.setCellValue(order.getVipPrice());
-               
-               cell = bodyRow.createCell(6);  
-               cell.setCellStyle(bodyStyle);  
-               if(order.getPayType().equals("alipay")){
-            	   cell.setCellValue("支付宝");
-               }else if(order.getPayType().equals("weixinpay")){
-            	   cell.setCellValue("微信");
-               }else{
-            	   cell.setCellValue("其它");
-               }
-               
-               cell = bodyRow.createCell(7);  
-               cell.setCellStyle(bodyStyle);  
-               cell.setCellValue(DateUtils.toString(order.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME));
-               
-               cell = bodyRow.createCell(8);  
-               cell.setCellStyle(bodyStyle);  
-               if(order.isPay()){
-            	   cell.setCellValue("已付款");
-               }else{
-            	   cell.setCellValue("未付款");
-               }
-           }  
+                   cell = bodyRow.createCell(7);  
+                   cell.setCellStyle(bodyStyle); 
+                   if(order.isPay()){
+                	   cell.setCellValue("已成交");	
+                   }else if(DateUtils.nowTimeMillis()>DateUtils.addHour(order.getCreateDate(), 2).getTime()){
+                	   cell.setCellValue("已过期");	
+                   }else{
+                	   cell.setCellValue("代付款");	
+                   }
+               } 
+    	   }
+           
        }  
        try  
        {  

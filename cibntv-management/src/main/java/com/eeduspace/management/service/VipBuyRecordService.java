@@ -80,5 +80,5 @@ public interface VipBuyRecordService {
 	 * @param titles
 	 * @param outputStream
 	 */
-	void ExportOrderExcle(List<VipBuyRecord> orders,String[] titles,OutputStream outputStream);
+	void ExportOrderExcle(List<VipBuyRecord> orders,String[] titles,OutputStream outputStream,String orderType);
 }
