@@ -14,7 +14,7 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>,JpaSpecifi
 	
 	
 	ManagerPo findByUuid(String uuid);
-	
+	ManagerPo findByName(String name);
 	ManagerPo findByPhone(String phone);
 	//暂时不用
 	@Modifying

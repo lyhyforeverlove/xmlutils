@@ -26,13 +26,17 @@ public class SessionItem implements Serializable {
      * @param accessKey
      * @param secretKey
      */
-    public SessionItem(Long userId, String userName, String userEmail, String userPhone, String accessKey, String secretKey) {
+    public SessionItem(Long userId, String userName, String userEmail, String userPhone, String accessKey, String secretKey
+    		,String roleUUID,String type,Boolean isFirst) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
         this.accessKey = accessKey;
         this.secretKey = secretKey;
+        this.type=type;
+        this.roleUUID=roleUUID;
+        this.isFirst=isFirst;
     }
 
     private Long userId;
@@ -41,8 +45,31 @@ public class SessionItem implements Serializable {
     private String userPhone;
     private String accessKey;
     private String secretKey;
+    private String roleUUID;
+    private String type;
+    private Boolean isFirst;
 
-    @Override
+    public String getRoleUUID() {
+		return roleUUID;
+	}
+
+
+	public void setRoleUUID(String roleUUID) {
+		this.roleUUID = roleUUID;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -110,4 +137,14 @@ public class SessionItem implements Serializable {
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
     }
+
+
+	public Boolean getIsFirst() {
+		return isFirst;
+	}
+
+
+	public void setIsFirst(Boolean isFirst) {
+		this.isFirst = isFirst;
+	}
 }
