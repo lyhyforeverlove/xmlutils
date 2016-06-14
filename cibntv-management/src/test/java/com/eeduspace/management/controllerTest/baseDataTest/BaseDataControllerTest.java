@@ -64,8 +64,21 @@ public class BaseDataControllerTest extends BaseTest {
 		}
 	}
 	
+	@Test
+	public void testSubjectNO(){
+		String url = "http://localhost:8070/cibntv-management/action/baseData/subjectNO";
+//		String url ="http://101.200.155.215:8180/cibnws/baseData/subject";
+		Map<String, Object> paramMap = new HashMap<>();
+		try {
+			String response = HTTPClientUtils.httpPostForm(url, paramMap);
+			logger.debug(response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		BaseDataControllerTest baseDataTest = new BaseDataControllerTest();
-		baseDataTest.testBookType();
+		baseDataTest.testSubjectNO();
 	}
 }

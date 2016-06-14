@@ -2,7 +2,7 @@ package com.eeduspace.management.model;
 
 import java.util.List;
 
-public class ExamDataDetailBeanForResponse {
+public class ExamDataDetailModel {
   private String code;//试卷id
   private String examName;
   private String grade;
@@ -11,7 +11,7 @@ public class ExamDataDetailBeanForResponse {
   private double totalScore;
   private long   examTime;
   private String paperUUID;
-  private List<QuestionDataTemp> questions;
+  private List<QuestionDataTempModel> questions;
   
 public String getCode() {
 	return code;
@@ -55,10 +55,10 @@ public long getExamTime() {
 public void setExamTime(long examTime) {
 	this.examTime = examTime;
 }
-public List<QuestionDataTemp> getQuestions() {
+public List<QuestionDataTempModel> getQuestions() {
 	return questions;
 }
-public void setQuestions(List<QuestionDataTemp> questions) {
+public void setQuestions(List<QuestionDataTempModel> questions) {
 	this.questions = questions;
 }
 public String getPaperUUID() {

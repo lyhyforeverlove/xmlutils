@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.eeduspace.management.client.BaseDataClient;
 import com.eeduspace.management.comm.Constants;
 import com.eeduspace.management.model.BaseDataModel;
-import com.eeduspace.management.model.ExamDataDetailBeanForResponse;
+import com.eeduspace.management.model.ExamDataDetailModel;
 import com.eeduspace.management.model.OptModel;
-import com.eeduspace.management.model.PaperResponse;
-import com.eeduspace.management.model.QuestionDataTemp;
+import com.eeduspace.management.model.PaperResponseModel;
+import com.eeduspace.management.model.QuestionDataTempModel;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.PaperService;
@@ -73,7 +73,7 @@ public class PaperController {
 				map.put("searchName", baseDataModel.getSearchName());
 				map.put("searchValue", baseDataModel.getSearchValue());
 			}
-			PaperResponse response = paperService.getPaperPage(baseDataModel.getGradeCode(), baseDataModel.getSubjectCode(), baseDataModel.getBookTypeCode()
+			PaperResponseModel response = paperService.getPaperPage(baseDataModel.getGradeCode(), baseDataModel.getSubjectCode(), baseDataModel.getBookTypeCode()
 							, baseDataModel.getPaperType(), map, baseDataModel.getCp(), baseDataModel.getPageSize());
 			response.setStageCode(baseDataModel.getStageCode());
 			response.setGradeCode(baseDataModel.getGradeCode());
@@ -108,10 +108,10 @@ public class PaperController {
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getPaperCode");
 			}
 			ResponseItem responseItem = new ResponseItem();
-			ExamDataDetailBeanForResponse response = baseDataClient.getPaperDetail(baseDataModel.getPaperCode());
-			List<QuestionDataTemp> lists = response.getQuestions();
+			ExamDataDetailModel response = baseDataClient.getPaperDetail(baseDataModel.getPaperCode());
+			List<QuestionDataTempModel> lists = response.getQuestions();
 			if (lists.size() > 0) {
-				for (QuestionDataTemp questionDataTemp : lists) {
+				for (QuestionDataTempModel questionDataTemp : lists) {
 					List<OptModel> optionModels = gson.fromJson(questionDataTemp.getOption(), new TypeToken<List<OptModel>>(){}.getType());
 					questionDataTemp.setOptionModels(optionModels);
 					questionDataTemp.setOption(null);

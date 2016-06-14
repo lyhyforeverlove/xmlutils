@@ -155,6 +155,26 @@ public class BaseDataController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "bookTypeList exception");
 		}
 	}
+	/**无参数
+	 * 查询学科列表
+	 * */
+	@RequestMapping(value="/subjectNO",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseItem subjectNOList( HttpServletRequest request,BaseDataModel baseDataModel){
+		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(baseDataModel));
+		try {
+			List<BaseData> baseDatas = baseDataClient.getSubjectList();
+			ResponseItem responseItem = new ResponseItem();
+			responseItem.setData(baseDatas);
+			return responseItem;
+		} catch (JsonSyntaxException e) {
+			logger.error("subjectList  JsonSyntaxException:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "subjectList jsonSyntaxException");
+		} catch (Exception e) {
+			logger.error("subjectList  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "subjectList exception");
+		}
+	}
 	
 
 }

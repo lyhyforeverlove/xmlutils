@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.eeduspace.management.model.BaseData;
-import com.eeduspace.management.model.ExamDataDetailBeanForResponse;
+import com.eeduspace.management.model.CourseVideoResponseModel;
+import com.eeduspace.management.model.ExamDataDetailModel;
 import com.google.gson.JsonSyntaxException;
 
 
@@ -25,8 +26,9 @@ public interface BaseDataClient {
 	 * */
 	public List<BaseData> getGradeList(String stageCode) throws JsonSyntaxException;
 	/**
-	 * 学科
+	 * 学科(有)
 	 * */
+	public List<BaseData> getSubjectList() throws JsonSyntaxException;
 	public List<BaseData> getSubjectList(String gradeCode) throws JsonSyntaxException;
 	/**
 	 * 教材
@@ -39,13 +41,15 @@ public interface BaseDataClient {
 	/**
 	 * 试卷详情
 	 * */
-	public ExamDataDetailBeanForResponse getPaperDetail(String paperId) throws JsonSyntaxException;
+	public ExamDataDetailModel getPaperDetail(String paperId) throws JsonSyntaxException;
 	/**
 	 * 视频列表
 	 * */
-	public String getCourseVideoPage(String subject,String searchName) throws JsonSyntaxException,Exception;
+	public CourseVideoResponseModel getCourseVideoPage(String subject,String searchName,int page,int rows) throws JsonSyntaxException,Exception;
 	/**
 	 * 视频详情
 	 * */
-	public String getCourseVideoDetail(String courseCode) throws JsonSyntaxException;
+	public CourseVideoResponseModel getCourseVideoDetail(String courseCode) throws JsonSyntaxException;
+	
+	
 }
