@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -54,6 +55,16 @@ public class UserController {
 	public ResponseItem getUserList(@ModelAttribute UserQueryModel userQueryModel){
 		logger.debug("getUserList request param:{}",gson.toJson(userQueryModel));
 		ResponseItem item=new ResponseItem();
+		if(userQueryModel.getSize()==null){
+			item.setMessage("size参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(userQueryModel.getCurrentPage()==null){
+			item.setMessage("CurrentPage参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
 		try {
 			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage(), userQueryModel.getSize());
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
@@ -115,6 +126,16 @@ public class UserController {
 	public ResponseItem userBlacklist(@RequestParam String userCode,@RequestParam Boolean isBlacklist){
 		logger.debug("getUserInfo request param: userCode:{},isBlacklist:{}",userCode,isBlacklist);
 		ResponseItem item=new ResponseItem();
+		if(isBlacklist==null){
+			item.setMessage("isBlacklist参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(StringUtils.isBlank(userCode)){
+			item.setMessage("UserCode参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
 		try {
 			UserPo userPo=userService.changeBlacklist(userCode, isBlacklist);
 			if(userPo==null){
