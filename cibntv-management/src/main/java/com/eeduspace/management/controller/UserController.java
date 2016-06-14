@@ -3,9 +3,7 @@ package com.eeduspace.management.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +27,6 @@ import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.UserService;
-import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 import com.google.gson.Gson;
 /**
  * 用户控制层

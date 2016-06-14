@@ -10,12 +10,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -25,14 +22,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.eeduspace.management.model.UserQueryModel;
 import com.eeduspace.management.persist.dao.UserDao;
 import com.eeduspace.management.persist.po.UserPo;
-import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.management.service.UserService;
 import com.eeduspace.management.util.ExcelExportUtil;
 import com.eeduspace.uuims.comm.util.base.DateUtils;

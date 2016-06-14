@@ -6,9 +6,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
-import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.UserQueryModel;
 import com.eeduspace.management.persist.po.UserPo;
 

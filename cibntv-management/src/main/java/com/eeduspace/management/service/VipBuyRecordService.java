@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 
 import com.eeduspace.management.model.OrderQueryModel;
 import com.eeduspace.management.persist.enumeration.BuyTypeEnum;

@@ -10,11 +10,13 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,7 +50,7 @@ public class VipPackController {
 	 * 2016年6月12日 上午10:17:27
 	 * @return
 	 */
-	@RequestMapping("/vip_pack_list")
+	@RequestMapping(value="/vip_pack_list",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem getPackList(){
 		ResponseItem item=new ResponseItem();
@@ -98,7 +100,7 @@ public class VipPackController {
 	 * @param packUUID
 	 * @return
 	 */
-	@RequestMapping("/vip_pack_release")
+	@RequestMapping(value="/vip_pack_release",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem vipPackRelease(){
 		ResponseItem item=new ResponseItem();
@@ -125,6 +127,26 @@ public class VipPackController {
 	public ResponseItem vipPackSale(@ModelAttribute VipPackModel vipPackModel){
 		ResponseItem item=new ResponseItem();
 		logger.debug("vipPackSale request param:{}",gson.toJson(vipPackModel));
+		if(StringUtils.isBlank(vipPackModel.getUuid())){
+			item.setMessage("UUID参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(StringUtils.isBlank(vipPackModel.getDiscountStartDate())){
+			item.setMessage("DiscountStartDate参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(StringUtils.isBlank(vipPackModel.getDiscountEndDate())){
+			item.setMessage("DiscountEndDate参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
+		if(vipPackModel.getVipSale()==null){
+			item.setMessage("vipsale参数丢失");
+			item.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return item;
+		}
 		try {
 			if(vipPackModel.getUuid().equals("all")){
 				int s=vipPackService.updateAllVipPackSale(vipPackModel);
@@ -152,11 +174,21 @@ public class VipPackController {
 	 * @param response
 	 * @throws IOException 
 	 */
-	@RequestMapping("/vip_pack_create")
+	@RequestMapping(value="/vip_pack_create",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem  vipPackCreate(@RequestParam("file")MultipartFile file ,@ModelAttribute VipPackModel vipPackModel,HttpServletRequest request,HttpServletResponse response){
 		ResponseItem ri  = new ResponseItem();
 		logger.debug("vipPackCreate request param:{}",gson.toJson(vipPackModel));
+		if(vipPackModel.getVipPrice()==null){
+			ri.setMessage("VipPrice参数丢失");
+			ri.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return ri;
+		}
+		if(StringUtils.isBlank(vipPackModel.getVipType())){
+			ri.setMessage("VipType参数丢失");
+			ri.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return ri;
+		}
 		try{
 			String fileUrl = "";
 			if(!file.isEmpty()){

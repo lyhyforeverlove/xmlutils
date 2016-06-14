@@ -2,7 +2,6 @@ package com.eeduspace.management.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,11 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.OrderQueryModel;
-import com.eeduspace.management.model.UserModel;
-import com.eeduspace.management.model.UserOrderModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
-import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
@@ -190,7 +186,7 @@ public class VipOrderController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/order_excel_export",produces = "application/json; charset=utf-8")
+	@RequestMapping(value="/order_excel_export")
 	@ResponseBody
 	public ResponseItem orderExcelExport(HttpServletResponse response,@ModelAttribute OrderQueryModel orderQueryModel) throws IOException{
 		logger.debug("orderQueryModel:{}",gson.toJson(orderQueryModel));
