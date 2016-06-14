@@ -249,4 +249,27 @@ public class VipPackController {
         }
 		return fileUrl;
 	}
+	
+	/**
+	 * 获取VIP打折下拉框内容
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月12日 上午10:17:27
+	 * @return
+	 */
+	@RequestMapping(value="/vip_pack_select",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseItem getPackSelect(){
+		ResponseItem item=new ResponseItem();
+		try {
+			List<VipPackModel> packModels=vipPackService.findVipPackForSelect();
+			item.setDatas(packModels);
+			item.setMessage("success");
+			return item;
+		} catch (Exception e) {
+			logger.error("getPackSelect  Exception:", e);
+	        return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "getPackSelect exception");
+		}
+	}
+	
 }

@@ -1,6 +1,7 @@
 package com.eeduspace.management.service.impl;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.VipPackModel;
 import com.eeduspace.management.persist.dao.VipPackDao;
 import com.eeduspace.management.persist.po.VIPPack;
@@ -47,6 +49,16 @@ public class VipPackServiceImpl implements VipPackService{
 	@Override
 	public VIPPack saveVipPack(VIPPack pack) {
 		return vipPackDao.save(pack);
+	}
+	@Override
+	public List<VipPackModel> findVipPackForSelect() {
+		List<VIPPack> vipPacks=vipPackDao.findAll();
+		List<VipPackModel> models=new ArrayList<>();
+		for (VIPPack vipPack : vipPacks) {
+			VipPackModel vipPackModel=CIBNManagementConvert.fromVipPackPoForSelect(vipPack);
+			models.add(vipPackModel);
+		}
+		return models;
 	}
 	
 

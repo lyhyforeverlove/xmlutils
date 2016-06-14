@@ -96,4 +96,18 @@ public class UserTest {
 		String urlString="http://192.168.1.87:8181/action/vip_pack/vip_pack_list";
 		System.out.println(HTTPClientUtils.httpPost(urlString,map));
 	}
+	
+	@org.junit.Test
+	public  void  vipPackListSelect() throws IOException{
+		Map<String, String> map=new HashMap<String, String>();
+//		map.put("mobile", "186");
+//		map.put("orderSn", "true");
+//		map.put("startDate", "true");
+//		map.put("endDate", "true");
+//		map.put("orderType","VIP");
+//		map.put("currentPage", "0");
+//		map.put("size", "20");
+		String urlString="http://192.168.1.87:8181/action/vip_pack/vip_pack_select";
+		System.out.println(HTTPClientUtils.httpPost(urlString,map));
+	}
 }

@@ -232,6 +232,13 @@ public class CIBNManagementConvert {
 		}
 		return vipPackModel;
 	}
+	public static VipPackModel fromVipPackPoForSelect(VIPPack vipPack){
+		VipPackModel vipPackModel=new VipPackModel();
+		vipPackModel.setVipDesc(vipPack.getVipDesc());
+		vipPackModel.setVipType(vipPack.getVipType());
+		vipPackModel.setUuid(vipPack.getUuid());
+		return vipPackModel;
+	}
 
 	public static SmsModel fromSmsPo(SmsPo smsPo){
 		SmsModel smsModel = new SmsModel();

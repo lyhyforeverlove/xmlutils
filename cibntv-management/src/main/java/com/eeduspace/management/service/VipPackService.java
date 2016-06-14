@@ -14,4 +14,5 @@ public interface VipPackService {
 	public VIPPack  updateVipPackSale(VIPPack vipPack);
 	public int updateAllVipPackSale(VipPackModel vipPackModel) throws ParseException;
 	public VIPPack saveVipPack(VIPPack pack);
+	public List<VipPackModel> findVipPackForSelect();
 }
