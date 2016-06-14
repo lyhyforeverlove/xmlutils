@@ -2,8 +2,6 @@ package com.eeduspace.management.model;
 
 import java.util.List;
 
-import com.eeduspace.management.model.PaperModel;
-
 
 
 
@@ -29,10 +27,6 @@ public class BaseDataModel {
 	private String productionCode;
 	//视频对象集合
 	private List<CourseVideoModel> reponseVedio;
-	//视频播放地址
-	private String urlWeVideo;
-	//试卷对象集合
-	private List<PaperModel> paperDatas;
 	
 	//分页属性
 	private Integer cp;
@@ -57,12 +51,6 @@ public class BaseDataModel {
 	}
 	public void setCtbCode(String ctbCode) {
 		this.ctbCode = ctbCode;
-	}
-	public String getUrlWeVideo() {
-		return urlWeVideo;
-	}
-	public void setUrlWeVideo(String urlWeVideo) {
-		this.urlWeVideo = urlWeVideo;
 	}
 	public String getCourseCode() {
 		return courseCode;
@@ -111,12 +99,6 @@ public class BaseDataModel {
 	}
 	public void setUnitCode(String unitCode) {
 		this.unitCode = unitCode;
-	}
-	public List<PaperModel> getPaperDatas() {
-		return paperDatas;
-	}
-	public void setPaperDatas(List<PaperModel> paperDatas) {
-		this.paperDatas = paperDatas;
 	}
 	public Integer getCp() {
 		return cp;

@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.eeduspace.management.persist.enumeration.PaperTypeEnum;
 import com.eeduspace.management.util.UIDGenerator;
 
 @Entity
@@ -30,7 +29,7 @@ public class PaperTypePo implements Serializable{
     //属性名称
     private String name;
     //属性代码
-    private PaperTypeEnum type;
+    private int type;
     //价钱
     private String price;
     //折扣
@@ -62,10 +61,10 @@ public class PaperTypePo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public PaperTypeEnum getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(PaperTypeEnum type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public String getPrice() {

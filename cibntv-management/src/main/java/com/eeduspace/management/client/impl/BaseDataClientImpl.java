@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.eeduspace.management.client.BaseDataClient;
 import com.eeduspace.management.model.BaseData;
 import com.eeduspace.management.model.ExamDataDetailBeanForResponse;
-import com.eeduspace.management.model.PaperResponse;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -101,26 +100,24 @@ public class BaseDataClientImpl implements BaseDataClient {
 	}
 	
 	@Override
-	public PaperResponse getPaperPage(String grade, String subject, String bookType,String paperType, Map<String, String> searchMap,int cp,int size) throws JsonSyntaxException,Exception {
+	public String getPaperPage(String grade, String subject, String bookType,String paperType, Map<String, String> searchMap,int cp,int size) throws Exception {
 		String urlReq = papersUrl;
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("blurSname", "paperName");
-		map2.put("searchValue", searchMap.get("searchName"));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("gradeCode", grade);
 		map.put("subjectCode", subject);
-		map.put("booktypeCode", bookType);
+		map.put("booktype", bookType);
 		map.put("type", paperType);
 		map.put("cp", cp);
 		map.put("pageSize", size);
-		map.put("searchMap", map2);
+		if (StringUtils.isNotBlank(searchMap.get("searchValue"))) {
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("blurSname", "paperName");
+			map2.put("blurSvalue", searchMap.get("searchName"));
+			map.put("searchMap", map2);
+		}
 		String gsonResponse = HTTPClientUtils.httpPostRequestJson(urlReq, gson.toJson(map));
 		logger.debug("资源库返回数据：" + gsonResponse);
-		PaperResponse baseDatas = new PaperResponse();
-		if(StringUtils.isNotBlank(gsonResponse)){
-			baseDatas = gson.fromJson(gsonResponse, PaperResponse.class);
-		}
-		return baseDatas;
+		return gsonResponse;
 	}
 
 	@Override

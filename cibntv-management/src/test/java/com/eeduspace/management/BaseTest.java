@@ -4,14 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.eeduspace.management.persist.dao.VipBuyRecordDao;
-import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
-import com.eeduspace.management.persist.po.UserPo;
-import com.eeduspace.management.persist.po.VipBuyRecord;
-import com.eeduspace.management.service.UserService;
-import com.google.gson.Gson;
+import javax.annotation.Resource;
+import javax.inject.Inject;
 
-import org.apache.poi.xwpf.usermodel.BodyElementType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +16,12 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
+import com.eeduspace.management.persist.dao.VipBuyRecordDao;
+import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
+import com.eeduspace.management.persist.po.UserPo;
+import com.eeduspace.management.persist.po.VipBuyRecord;
+import com.eeduspace.management.service.UserService;
+import com.google.gson.Gson;
 
 /**
  * Created by zn on 13-12-22.

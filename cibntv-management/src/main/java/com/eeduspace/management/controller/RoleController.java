@@ -48,7 +48,7 @@ public class RoleController {
 	 * @param roleModel
 	 * @return
 	 */
-	@RequestMapping(value ="/roleSave",method = RequestMethod.GET)
+	@RequestMapping(value ="/roleSave",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem roleSave(HttpServletRequest request,@ModelAttribute RoleModel roleModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(roleModel));
@@ -81,7 +81,7 @@ public class RoleController {
 	 * @param roleModel
 	 * @return
 	 */
-	@RequestMapping(value ="/roleSkip",method = RequestMethod.GET)
+	@RequestMapping(value ="/roleSkip",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem roleSkip(HttpServletRequest request,@ModelAttribute RoleModel roleModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(roleModel));

@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.eeduspace.management.client.BaseDataClient;
@@ -23,6 +25,7 @@ import com.eeduspace.management.model.PaperResponse;
 import com.eeduspace.management.model.QuestionDataTemp;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
+import com.eeduspace.management.service.PaperService;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -36,11 +39,15 @@ public class PaperController {
 	
 	@Inject
 	private BaseDataClient baseDataClient;
+	@Inject
+	private PaperService paperService;
 	
 	/**
 	 * 查询试卷列表
 	 * @return
 	 * */
+	@RequestMapping(value="/paperPage",method=RequestMethod.POST)
+	@ResponseBody
 	public ResponseItem getPaperPage(HttpServletRequest request,BaseDataModel baseDataModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(baseDataModel));
 		try {
@@ -56,13 +63,27 @@ public class PaperController {
 				logger.error("getPaperPage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".baseDataModel.getBookTypeCode");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getBookTypeCode");
 			}
+			if (baseDataModel.getCp() < 0) {
+				logger.error("getPaperPage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".baseDataModel.getCp");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getCp");
+			}
 			ResponseItem responseItem = new ResponseItem();
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("searchName", baseDataModel.getSearchName());
-			map.put("searchValue", baseDataModel.getSearchValue());
-			PaperResponse response= baseDataClient.getPaperPage(baseDataModel.getGradeCode(), baseDataModel.getSubjectCode(), baseDataModel.getBookTypeCode()
+			if (StringUtils.isNotBlank(baseDataModel.getSearchName()) && StringUtils.isNotBlank(baseDataModel.getSearchValue())) {
+				map.put("searchName", baseDataModel.getSearchName());
+				map.put("searchValue", baseDataModel.getSearchValue());
+			}
+			PaperResponse response = paperService.getPaperPage(baseDataModel.getGradeCode(), baseDataModel.getSubjectCode(), baseDataModel.getBookTypeCode()
 							, baseDataModel.getPaperType(), map, baseDataModel.getCp(), baseDataModel.getPageSize());
-			
+			response.setStageCode(baseDataModel.getStageCode());
+			response.setGradeCode(baseDataModel.getGradeCode());
+			response.setSubjectCode(baseDataModel.getSubjectCode());
+			response.setBookTypeCode(baseDataModel.getBookTypeCode());
+			response.setPaperType(baseDataModel.getPaperType());
+			response.setCp(baseDataModel.getCp());
+			response.setPageSize(baseDataModel.getPageSize());
+			response.setSearchName(baseDataModel.getSearchName());
+			response.setSearchValue(baseDataModel.getSearchValue());
 			responseItem.setData(response);
 			return responseItem;
 		} catch (JsonSyntaxException e) {
@@ -77,6 +98,8 @@ public class PaperController {
 	 * 试卷详情
 	 * @return
 	 * */
+	@RequestMapping(value="/paperDetail",method=RequestMethod.POST)
+	@ResponseBody
 	public ResponseItem getPaperDetail(HttpServletRequest request,BaseDataModel baseDataModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(baseDataModel));
 		try {

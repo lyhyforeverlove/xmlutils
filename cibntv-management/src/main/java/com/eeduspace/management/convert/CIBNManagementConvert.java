@@ -16,7 +16,6 @@ import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
-import com.eeduspace.management.persist.enumeration.PaperTypeEnum;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.management.persist.po.PermissionPo;
@@ -252,7 +251,7 @@ public class CIBNManagementConvert {
 	public static PaperTypePo fromPaperTypeModel(PaperTypeModel paperTypeModel){
 		PaperTypePo po = new PaperTypePo();
 		po.setName(paperTypeModel.getName());
-		po.setType(PaperTypeEnum.valueOf(paperTypeModel.getType()));
+		po.setType(Integer.parseInt(paperTypeModel.getType()));
 		po.setPrice(paperTypeModel.getPrice());
 		po.setDiscount(paperTypeModel.getDiscount());
 		po.setDateBef(paperTypeModel.getDateBef());
@@ -264,7 +263,7 @@ public class CIBNManagementConvert {
 		model.setId(paperTypePo.getId());
 		model.setUuid(paperTypePo.getUuid());
 		model.setName(paperTypePo.getName());
-		model.setType(String.valueOf(paperTypePo.getType().getValue()));
+		model.setType(String.valueOf(paperTypePo.getType()));
 		model.setPrice(paperTypePo.getPrice());
 		model.setDiscount(paperTypePo.getDiscount());
 		model.setDateBef(paperTypePo.getDateBef());

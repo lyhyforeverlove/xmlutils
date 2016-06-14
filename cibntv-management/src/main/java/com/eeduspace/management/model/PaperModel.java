@@ -20,6 +20,12 @@ public class PaperModel {
 	 * 试卷属性（1：单元测试 2：期中考试 3：期末考试 4：中考模拟 5：高考真题）:待修改
 	 * */
 	private Map<String, String> type;
+	
+	private String paperType;
+	
+	private String typeName;
+	
+	private String price;
 	/**
 	 * 学期
 	 * */
@@ -67,6 +73,24 @@ public class PaperModel {
 	}
 	public void setCreateDateStr(String createDateStr) {
 		this.createDateStr = createDateStr;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	public String getPaperType() {
+		return paperType;
+	}
+	public void setPaperType(String paperType) {
+		this.paperType = paperType;
 	}
 	
 }

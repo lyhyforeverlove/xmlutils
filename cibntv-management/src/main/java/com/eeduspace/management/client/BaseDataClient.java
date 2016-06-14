@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.eeduspace.management.model.BaseData;
 import com.eeduspace.management.model.ExamDataDetailBeanForResponse;
-import com.eeduspace.management.model.PaperResponse;
 import com.google.gson.JsonSyntaxException;
 
 
@@ -36,7 +35,7 @@ public interface BaseDataClient {
 	/**
 	 * 试卷列表
 	 * */
-	public PaperResponse getPaperPage(String grade,String subject,String bookType,String paperType,Map<String, String> searchMap,int cp,int size) throws JsonSyntaxException,Exception;
+	public String getPaperPage(String grade,String subject,String bookType,String paperType,Map<String, String> searchMap,int cp,int size) throws Exception;
 	/**
 	 * 试卷详情
 	 * */
