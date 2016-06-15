@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CIBN好学生后台管理系统-用户第一次登录</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/login.css" />
+
+
+</head>
+<body id="loginBox">
+    <div class="login-enter-top">
+        <div class="login-enter-w"><img src="images/login_enter_logo.png" /></div>
+    </div>
+    <div class="login-enter-box">           
+        <form id="loginform" class="form-vertical" action="">
+    		<div class="control-group login-title"> <h3>为了您的账户安全，首次登录的时候请填写真实信息并修改密码</h3></div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on"><i class="icon-user">真实姓名</i></span><input type="text" placeholder="" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on"><i class="icon-lock">手机号码</i></span><input type="tel" placeholder="" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls send-code-controls">
+                    <div class="main_input_box">
+                        <span class="add-on"><i class="icon-lock">验证码</i></span><input type="text" placeholder="" />
+                        <input type="button" id="btn" value="发送验证码" class="send-code default" onclick="settime(this)" /> 
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on"><i class="icon-lock">新密码</i></span><input type="password" placeholder="" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on"><i class="icon-lock">确认密码</i></span><input type="password" placeholder="" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="controls">
+                    <div class="login_btn_box">
+                        <button type="button" class="btn btn-default" id="first-login-btn">确定</button>
+                    </div>
+                </div>
+            	
+            </div>
+        </form>
+        
+    </div> 
+    <script src="js/jquery.min.js"></script> 
+    <script src="js/popup.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+        /*首次登陆弹出框 
+        真实姓名一旦确定无法修改，慎重*/
+        var firstLoginBtn=$("first-login-btn");
+        firstLoginBtn.onclick=function(){
+            Prompt.init({
+                    title:" ",
+                    height: 320,
+                    html : "<img src='images/warn.png' /><p class='txt'>真是姓名一点确认无法修改，请慎重。</p>",
+                    ConfirmFun : confirm,
+                    CancelFun : cancel 
+                });
+        }
+        function confirm(){
+            location.href="index.html";
+        }
+
+        function cancel(){
+
+        }
+    </script>  
+</body>
+</html>
