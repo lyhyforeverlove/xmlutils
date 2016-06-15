@@ -163,4 +163,10 @@ public class ManagerServiceImpl implements ManagerService {
 		return CIBNManagementConvert.fromManagerPo(managerPo);
 	}
 
+	@Override
+	public ManagerModel getManager(String name) {
+		ManagerPo managerPo = managerPoDao.findByNameAndIsDel(name,true);
+		return CIBNManagementConvert.fromManagerPo(managerPo);
+	}
+
 }

@@ -86,7 +86,7 @@ public class PaperControllerTest extends BaseTest {
 	
 	public static void main(String[] args) {
 		PaperControllerTest pct = new PaperControllerTest();
-		pct.paperDetailTest();
+		pct.paperPageTest();
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("1", "单元测试");
 //		System.out.println(map.keySet().contains(String.valueOf(PaperTypeEnum.UINT.getValue())));

@@ -21,5 +21,7 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>,JpaSpecifi
 	@Query("update ManagerPo m set m.status = ?1 where m.uuid = ?2")
 	ManagerPo updateManager(RoleEnum.Status status,String uuid);
 	
+	ManagerPo findByNameAndIsDel(String name, boolean b);
+	
 	
 }

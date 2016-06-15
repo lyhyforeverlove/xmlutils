@@ -33,7 +33,6 @@ import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
-import com.eeduspace.management.persist.enumeration.SourceEnum.EquipmentType;
 import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
@@ -42,14 +41,13 @@ import com.eeduspace.management.service.RoleService;
 import com.eeduspace.management.service.SmsService;
 import com.eeduspace.management.util.SMSUtil;
 import com.eeduspace.uuims.comm.util.base.encrypt.Digest;
-import com.eeduspace.uuims.comm.util.base.json.GsonUtil;
 import com.google.gson.Gson;
 
 
 /**管理员操作
  * @author songwei
  * @Describe
- * @Date  
+ * @Date  2016-06-06
  */
 @Controller
 @RequestMapping("/manager")
@@ -139,6 +137,11 @@ public class ManagerController {
 			if (org.springframework.util.StringUtils.isEmpty(managerModel.getType())) {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getType");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getType");
+			}
+			ManagerModel model2 = managerService.getManager(managerModel.getName());
+			if (!org.springframework.util.StringUtils.isEmpty(model2)) {
+				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.RESOURCE_INUSE.toString() + ".managerModel.getName");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_INUSE.toString(), ".managerModel.getName");
 			}
 			ResponseItem responseItem = new ResponseItem();
 			managerModel.setPassword(Digest.md5Digest(managerModel.getPassword()));
