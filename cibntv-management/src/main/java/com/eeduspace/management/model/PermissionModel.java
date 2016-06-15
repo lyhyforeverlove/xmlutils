@@ -7,7 +7,7 @@ public class PermissionModel {
     private Long id;
     private String uuid;
     private String name;
-    private RoleEnum.PermissionType type;
+    private String type;
     private RoleEnum.Status status;
     private String description;
     private String createDate;
@@ -15,6 +15,7 @@ public class PermissionModel {
     
     private String groups;
     private Long functionId;
+    private String perUrl;
 	public Long getId() {
 		return id;
 	}
@@ -33,10 +34,10 @@ public class PermissionModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public RoleEnum.PermissionType getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(RoleEnum.PermissionType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public RoleEnum.Status getStatus() {
@@ -74,6 +75,12 @@ public class PermissionModel {
 	}
 	public void setFunctionId(Long functionId) {
 		this.functionId = functionId;
+	}
+	public String getPerUrl() {
+		return perUrl;
+	}
+	public void setPerUrl(String perUrl) {
+		this.perUrl = perUrl;
 	}
     
 

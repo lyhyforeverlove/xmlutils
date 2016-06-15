@@ -136,6 +136,7 @@ public class CIBNManagementConvert {
 			permissionPo.setP_name(permissionModel.getName());
 			permissionPo.setStatus(permissionModel.getStatus());
 			permissionPo.setType(permissionModel.getType());
+			permissionPo.setPerUrl(permissionModel.getPerUrl());
 		}
 		return permissionPo;
 	}
@@ -151,6 +152,7 @@ public class CIBNManagementConvert {
 			permissionModel.setName(permissionPo.getP_name());
 			permissionModel.setStatus(permissionPo.getStatus());
 			permissionModel.setType(permissionPo.getType());
+			permissionModel.setPerUrl(permissionPo.getPerUrl());
 			permissionModel.setCreateDate(StringUtils.isEmpty(permissionPo.getCreateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(permissionPo.getCreateDate())) ;
 			permissionModel.setUpdateDate(StringUtils.isEmpty(permissionPo.getUpdateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(permissionPo.getUpdateDate()));
 		}

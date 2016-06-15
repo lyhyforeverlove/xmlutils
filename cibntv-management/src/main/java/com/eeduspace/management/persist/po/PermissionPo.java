@@ -33,7 +33,10 @@ public class PermissionPo {
 	    @Column(name="name")
 	    private String p_name;
 	    //类型
-	    private RoleEnum.PermissionType type;
+	    private String type;
+	    //网址
+	    @Column(name="per_url")
+	    private String perUrl;
 	    //状态
 	    private RoleEnum.Status status;
 	    //描述
@@ -100,14 +103,12 @@ public class PermissionPo {
 	        this.updateDate = updateDate;
 	    }
 
-		public RoleEnum.PermissionType getType() {
+		public String getType() {
 			return type;
 		}
-
-		public void setType(RoleEnum.PermissionType type) {
+		public void setType(String type) {
 			this.type = type;
 		}
-
 		public String getGroups() {
 			return groups;
 		}
@@ -122,6 +123,12 @@ public class PermissionPo {
 
 		public void setFunctionId(Long functionId) {
 			this.functionId = functionId;
+		}
+		public String getPerUrl() {
+			return perUrl;
+		}
+		public void setPerUrl(String perUrl) {
+			this.perUrl = perUrl;
 		}
 	
 
