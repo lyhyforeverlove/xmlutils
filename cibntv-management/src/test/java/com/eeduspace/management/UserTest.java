@@ -12,7 +12,6 @@ public class UserTest {
 		//TestVipOrderList();
 		//testUserList();
 		//testUserOrder();
-		testUserList();
 	}
 	
 	public static void  TestVipOrderList() throws IOException{
@@ -25,13 +24,14 @@ public class UserTest {
 		String urlString="http://192.168.1.87:8181/action/vip_order/order_list";
 		System.out.println(HTTPClientUtils.httpPost(urlString,map));
 	}
-	public static void  testUserList() throws IOException{
+	@org.junit.Test
+	public  void  testUserList() throws IOException{
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("currentPage", "0");
-		map.put("size", "20");
+		//map.put("size", "20");
 		//map.put("userCode", "df6548d1fd534b90aa18939af7e1f052");
 		//map.put("mobile", "186");
-		String urlString="http://192.168.1.87:8181/action/user/userList";
+		String urlString="http://192.168.1.12:8180/action/user/userList";
 		System.out.println(HTTPClientUtils.httpPost(urlString,map));
 	}
 	@org.junit.Test
