@@ -49,5 +49,15 @@ public interface ManagerService {
 	 * @return
 	 */
 	public Boolean validatePassword(ManagerModel managerModel);
-
+	/**
+	 * 获取用户信息
+	 * Author： zhuchaowei
+	 * e-mail:zhuchaowei@e-eduspace.com
+	 * 2016年6月14日 下午5:06:48
+	 * @param userName
+	 * @return
+	 */
+	public ManagerModel getByUserName(String userName);
+	
+	public ManagerModel getManager(String name);
 }

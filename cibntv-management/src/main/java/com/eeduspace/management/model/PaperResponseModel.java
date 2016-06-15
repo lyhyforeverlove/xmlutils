@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.eeduspace.management.model.PaperModel;
 
-public class PaperResponse {
+public class PaperResponseModel {
 	private Integer cp;
 	private Integer pageSize;
 	private Integer totalPage;

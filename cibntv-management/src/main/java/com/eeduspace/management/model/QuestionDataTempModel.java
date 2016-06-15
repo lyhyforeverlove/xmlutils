@@ -2,7 +2,7 @@ package com.eeduspace.management.model;
 
 import java.util.List;
 
-public class QuestionDataTemp {
+public class QuestionDataTempModel {
 	private String id;
 	private String code;
 	private String createAt;

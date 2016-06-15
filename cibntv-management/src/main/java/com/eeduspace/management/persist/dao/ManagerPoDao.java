@@ -14,12 +14,14 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>,JpaSpecifi
 	
 	
 	ManagerPo findByUuid(String uuid);
-	
+	ManagerPo findByName(String name);
 	ManagerPo findByPhone(String phone);
 	//暂时不用
 	@Modifying
 	@Query("update ManagerPo m set m.status = ?1 where m.uuid = ?2")
 	ManagerPo updateManager(RoleEnum.Status status,String uuid);
+	
+	ManagerPo findByNameAndIsDel(String name, boolean b);
 	
 	
 }

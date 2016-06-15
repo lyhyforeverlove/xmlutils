@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.eeduspace.management.client.BaseDataClient;
 import com.eeduspace.management.model.PaperModel;
-import com.eeduspace.management.model.PaperResponse;
+import com.eeduspace.management.model.PaperResponseModel;
 import com.eeduspace.management.persist.dao.PaperTypePoDao;
 import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.management.service.PaperService;
@@ -31,13 +31,13 @@ public class PaperServiceImpl implements PaperService {
 	private PaperTypePoDao pTypePoDao;
 	
 	@Override
-	public PaperResponse getPaperPage(String grade, String subject,String bookType, String paperType, Map<String, String> searchMap,
+	public PaperResponseModel getPaperPage(String grade, String subject,String bookType, String paperType, Map<String, String> searchMap,
 			int cp, int size) throws JsonSyntaxException, Exception {
 		
 		String gsonResponse = baseDataClient.getPaperPage(grade, subject, bookType, paperType, searchMap, cp, size);
-		PaperResponse baseDatas = new PaperResponse();
+		PaperResponseModel baseDatas = new PaperResponseModel();
 		if(StringUtils.isNotBlank(gsonResponse)){
-			baseDatas = gson.fromJson(gsonResponse, PaperResponse.class);
+			baseDatas = gson.fromJson(gsonResponse, PaperResponseModel.class);
 		}
 		//业务处理
 		List<PaperTypePo> pTypePos= (List<PaperTypePo>) pTypePoDao.findAll();
