@@ -205,7 +205,7 @@ public class VipOrderController {
 		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.VIP.toString())){
 			fileName="VIP订单_"+DateUtils.toString(new Date(), DateUtils.DATE_FORMAT_DATEONLY);
 		}
-		response.setHeader("Content-disposition", "attachment; filename="+URLEncoder.encode(fileName, "UTF-8") + ".xls");// 组装附件名称和格式
+		response.setHeader("Content-disposition", "attachment; filename="+URLEncoder.encode(fileName, "UTF-8") + ".xlsx");// 组装附件名称和格式
 		Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
 		
 		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.DIAGNOSTIC.toString())){

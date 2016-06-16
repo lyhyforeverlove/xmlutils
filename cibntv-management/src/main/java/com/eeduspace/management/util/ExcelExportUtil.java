@@ -11,24 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.eeduspace.management.anntation.Excel;
-import com.eeduspace.management.persist.po.UserPo;
 
 public class ExcelExportUtil {
 	/** 
@@ -55,9 +47,9 @@ public class ExcelExportUtil {
 	            throw new Exception("传入参数不能为空！");  
 	        }  
 	        // 声明一个工作薄  
-	        Workbook workbook = new HSSFWorkbook();  
+	        XSSFWorkbook workbook = new XSSFWorkbook();  
 	        // 生成一个表格  
-	        Sheet sheet = workbook.createSheet(title);  
+	        XSSFSheet sheet = workbook.createSheet(title);  
 	  
 	        // 标题  
 	        List<String> exportFieldTitle = new ArrayList<String>();  
@@ -79,7 +71,6 @@ public class ExcelExportUtil {
 	               // exportFieldWidth.add(excel.exportFieldWidth());  
 	                // 添加到需要导出的字段的方法  
 	                String fieldname = field.getName();  
-	                // System.out.println(i+"列宽"+excel.exportName()+" "+excel.exportFieldWidth());  
 	                StringBuffer getMethodName = new StringBuffer("get");  
 	                getMethodName.append(fieldname.substring(0, 1)  
 	                        .toUpperCase());  
@@ -106,10 +97,10 @@ public class ExcelExportUtil {
 	        }  
 	        int index = 0;  
 	        // 产生表格标题行  
-	        Row row = sheet.createRow(index);  
+	        XSSFRow row = sheet.createRow(index);  
 	        for (int i = 0, exportFieldTitleSize = exportFieldTitle.size(); i < exportFieldTitleSize; i++) {  
-	            Cell cell = row.createCell(i);  
-	            RichTextString text = new HSSFRichTextString(exportFieldTitle  
+	        	XSSFCell cell = row.createCell(i);  
+	        	XSSFRichTextString text = new XSSFRichTextString(exportFieldTitle  
 	                    .get(i));  
 	            cell.setCellValue(text);  
 	        }  

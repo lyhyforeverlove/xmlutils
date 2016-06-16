@@ -173,7 +173,7 @@ public class UserController {
 			OutputStream outputStream = response.getOutputStream(); 
 			//String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
 			String fileName ="用户信息";  
-			response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xls");// 组装附件名称和格式  
+			response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");// 组装附件名称和格式  
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 			List<UserModel> userModels=new ArrayList<>();
 			for (UserPo userPo : pageList.getContent()) {
