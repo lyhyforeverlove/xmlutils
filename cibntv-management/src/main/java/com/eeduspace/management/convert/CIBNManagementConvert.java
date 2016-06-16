@@ -8,16 +8,19 @@ import java.util.List;
 
 import org.springframework.util.StringUtils;
 
+import com.eeduspace.management.model.DiaginsticExcelModel;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.PaperTypeModel;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.model.UserModel;
+import com.eeduspace.management.model.VipOrderExcelModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Type;
+import com.eeduspace.management.persist.enumeration.VipEnum.VipPackTypeEnum;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.management.persist.po.PermissionPo;
@@ -179,17 +182,17 @@ public class CIBNManagementConvert {
 			userModel.setEmail(userPo.getEmail());
 			userModel.setMobile(userPo.getMobile());
 			userModel.setVIPExpireDays(0l);
-			userModel.setOverdue(true);
+			userModel.setIsOverdue(true);
 			userModel.setVIPExpireTime(null);
 			if(!StringUtils.isEmpty(userPo.getVIPExpireTime())){
 				userModel.setVIPExpireTime(DateUtils.getTimeStampStr(userPo.getVIPExpireTime()));
 				Date dateNow=new Date();
 				if(userPo.getVIPExpireTime().after(dateNow)){
-					userModel.setOverdue(false);
+					userModel.setIsOverdue(false);
 					userModel.setVIPExpireDays(DateUtils.daysBetween(new Timestamp(dateNow.getTime()), new Timestamp(userPo.getVIPExpireTime().getTime()))+1);
 				}
 			}
-			userModel.setVip(userPo.isVIP());
+			userModel.setIsVip(userPo.isVIP());
 			userModel.setCreateDate(DateUtils.getTimeStampStr(userPo.getCreateDate()));
 		}
 
@@ -283,6 +286,64 @@ public class CIBNManagementConvert {
 		model.setDateAft(paperTypePo.getDateAft());
 		return model;
 	}
-	
+	public static VipOrderExcelModel toVipExcelModel(VipBuyRecord vipBuyRecord){
+		VipOrderExcelModel model=new VipOrderExcelModel();
+		model.setCreateDate(DateUtils.toString(vipBuyRecord.getCreateDate(), DateUtils.DATE_FORMAT_DATEONLY));
+		model.setOrderSN(vipBuyRecord.getOrderSN());
+		model.setVipPrice(vipBuyRecord.getVipPrice());
+		model.setVipDays(VipPackTypeEnum.getDesc(vipBuyRecord.getVipType()));
+		if(vipBuyRecord.isPay()){
+			model.setOrderState("已成交");	
+		}else{
+			//当前时间大于 交易后2个小时 则视为订单过期
+			if(DateUtils.nowTimeMillis()>DateUtils.addHour(vipBuyRecord.getCreateDate(), 2).getTime()){
+				model.setOrderState("已过期");	
+			}else{
+				model.setOrderState("代付款");	
+			}
+		}
+		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
+		if(vipBuyRecord.getPayType().equals("weixinpay")){
+			model.setPayType("微信");
+		}else if(vipBuyRecord.getPayType().equals("alipay")){
+			model.setPayType("支付宝");
+		}else{
+			model.setPayType("其它");
+		}
+			
+		return model;
+	}
+	public static DiaginsticExcelModel toDiagnosticExcelMode(VipBuyRecord vipBuyRecord){
+		DiaginsticExcelModel model=new DiaginsticExcelModel();
+		model.setCreateDate(DateUtils.toString(vipBuyRecord.getCreateDate(), DateUtils.DATE_FORMAT_DATEONLY));
+		model.setOrderSN(vipBuyRecord.getOrderSN());
+		model.setVipPrice(vipBuyRecord.getVipPrice());
+		model.setOrderName(vipBuyRecord.getOrderName());
+		if(vipBuyRecord.getBuyType().getValue()==0){
+			model.setBuyType("VIP");
+		}else{
+			model.setBuyType("诊断");
+		}
+		if(vipBuyRecord.isPay()){
+			model.setOrderState("已成交");	
+		}else{
+			//当前时间大于 交易后2个小时 则视为订单过期
+			if(DateUtils.nowTimeMillis()>DateUtils.addHour(vipBuyRecord.getCreateDate(), 2).getTime()){
+				model.setOrderState("已过期");	
+			}else{
+				model.setOrderState("代付款");	
+			}
+		}
+		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
+		if(vipBuyRecord.getPayType().equals("weixinpay")){
+			model.setPayType("微信");
+		}else if(vipBuyRecord.getPayType().equals("alipay")){
+			model.setPayType("支付宝");
+		}else{
+			model.setPayType("其它");
+		}
+			
+		return model;
+	}
 	
 }

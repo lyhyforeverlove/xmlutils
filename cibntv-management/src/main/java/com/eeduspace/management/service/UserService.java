@@ -64,15 +64,5 @@ public interface UserService {
 	 * @return
 	 */
 	UserPo changeBlacklist(String userCode,Boolean isBlacklist);
-	/**
-	 * 导出用户excel
-	 * Author： zhuchaowei
-	 * e-mail:zhuchaowei@e-eduspace.com
-	 * 2016年6月3日 下午3:03:49
-	 * @param userPos 查询数据
-	 * @param titles  表头
-	 * @param outputStream 
-	 */
-	void ExportUserExcle(List<UserPo> userPos,String[] titles,OutputStream outputStream);
 
 }

@@ -2,6 +2,7 @@ package com.eeduspace.management.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.UserService;
+import com.eeduspace.management.util.ExcelExportUtil;
 import com.google.gson.Gson;
 /**
  * 用户控制层
@@ -169,11 +171,16 @@ public class UserController {
 		Pageable pageable=new PageRequest(0, Integer.MAX_VALUE);
 		try {
 			OutputStream outputStream = response.getOutputStream(); 
-			String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
-			String fileName = new String(("userlist").getBytes(), "utf-8");  
-			response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
+			//String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
+			String fileName ="用户信息";  
+			response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xls");// 组装附件名称和格式  
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
-			userService.ExportUserExcle(pageList.getContent(), tableHeader, outputStream);
+			List<UserModel> userModels=new ArrayList<>();
+			for (UserPo userPo : pageList.getContent()) {
+				UserModel userModel=CIBNManagementConvert.fromUserPo(userPo); 
+				userModels.add(userModel);
+			}
+			ExcelExportUtil.exportExcel("用户信息导出", UserModel.class ,userModels, outputStream);
 			return item;
 		} catch (Exception e) {
 			logger.error("userExcelExport error:{}",e);

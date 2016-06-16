@@ -1,5 +1,7 @@
 package com.eeduspace.management.model;
 
+import com.eeduspace.management.anntation.Excel;
+
 /**
  * Author: dingran
  * Date: 2016/4/19
@@ -13,17 +15,30 @@ public class UserModel {
 	private String email;
 	private String userCode;
 	/**
-	 * 手机号
-	 */
-	private String mobile;
-	/**
 	 * 用户名称
 	 */
+	@Excel(exportName="用户名")
 	private String userName;
+	/**
+	 * 手机号
+	 */
+	@Excel(exportName="手机号")
+	private String mobile;
+	  /**
+     * 创建时间
+     */
+    @Excel(exportName="注册时间")
+    private String createDate;
+    /**
+     * 注册来源
+     */
+    @Excel(exportName="注册来源")
+    private String registerSource;
 	/**
 	 * 是否VIP
 	 */
-	private boolean isVip;
+	@Excel(exportName="是否VIP",exportConvertSign=true)
+	private Boolean isVip;
 	/**
 	 * VIP到期时间
 	 */
@@ -32,22 +47,20 @@ public class UserModel {
     /**
      * VIP到期天数
      */
+	@Excel(exportName="VIP剩余天数")
     private Long VIPExpireDays;
 	/**
 	 * VIP是否过期  true 过期  false 未过期
 	 */
-	private boolean isOverdue;
+	@Excel(exportName="VIP是否过期",exportConvertSign=true)
+	private Boolean isOverdue;
 
     /**
      * 登录时的扫码状态
      */
     private String scanStatus;
 
-    /**
-     * 创建时间
-     */
-    private String createDate;
-
+  
     /**
      * token 令牌
      */
@@ -65,6 +78,8 @@ public class UserModel {
      * 请求IP地址
      */
     private String ip;
+   
+    
 
 	public String getIp() {
 		return ip;
@@ -96,14 +111,24 @@ public class UserModel {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public boolean isVip() {
+
+    public Boolean getIsVip() {
 		return isVip;
 	}
-	public void setVip(boolean isVip) {
+    
+    public String getIsVipConvert() {
+    	if(isVip){
+    		return "是";
+    	}else{
+    		return "否";
+    	}
+	}
+    
+    
+	public void setIsVip(Boolean isVip) {
 		this.isVip = isVip;
 	}
-
-    public String getVIPExpireTime() {
+	public String getVIPExpireTime() {
         return VIPExpireTime;
     }
 
@@ -111,14 +136,20 @@ public class UserModel {
         this.VIPExpireTime = VIPExpireTime;
     }
 
-    public boolean isOverdue() {
+    public String getIsOverdueConvert(){
+    	if (isOverdue) {
+			return "过期";
+		}else{
+			return "未过期";
+		}
+    }
+    public Boolean getIsOverdue() {
 		return isOverdue;
 	}
-	public void setOverdue(boolean isOverdue) {
+	public void setIsOverdue(Boolean isOverdue) {
 		this.isOverdue = isOverdue;
 	}
-
-    public String getScanStatus() {
+	public String getScanStatus() {
         return scanStatus;
     }
 
@@ -165,4 +196,10 @@ public class UserModel {
     public void setVIPExpireDays(Long VIPExpireDays) {
         this.VIPExpireDays = VIPExpireDays;
     }
+	public String getRegisterSource() {
+		return registerSource;
+	}
+	public void setRegisterSource(String registerSource) {
+		this.registerSource = registerSource;
+	}
 }

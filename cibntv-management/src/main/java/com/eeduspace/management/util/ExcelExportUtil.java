@@ -1,10 +1,24 @@
 package com.eeduspace.management.util;
 
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.formula.functions.T;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -13,102 +27,123 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.eeduspace.management.anntation.Excel;
+import com.eeduspace.management.persist.po.UserPo;
+
 public class ExcelExportUtil {
-		private XSSFWorkbook wb = null;  
+	/** 
+	 *  
+	 * @param title     Sheet名字 
+	 * @param pojoClass Excel对象Class 
+	 * @param dataSet   Excel对象数据List 
+	 * @param out       输出流 
+	 */  
+	public static void exportExcel(String title, Class<?> pojoClass,  
+	        Collection<?> dataSet, OutputStream out) {  
+	    // 使用userModel模式实现的，当excel文档出现10万级别的大数据文件可能导致OOM内存溢出  
+	    exportExcelInUserModel(title, pojoClass, dataSet, out);  
+	}  
 	  
-	    private XSSFSheet sheet = null;  
+	private static void exportExcelInUserModel(String title, Class<?> pojoClass,  
+	        Collection<?> dataSet, OutputStream out) {  
+	    try {  
+	        // 首先检查数据看是否是正确的  
+	        if (dataSet == null || dataSet.size() == 0) {  
+	            throw new Exception("导出数据为空！");  
+	        }  
+	        if (title == null || out == null || pojoClass == null) {  
+	            throw new Exception("传入参数不能为空！");  
+	        }  
+	        // 声明一个工作薄  
+	        Workbook workbook = new HSSFWorkbook();  
+	        // 生成一个表格  
+	        Sheet sheet = workbook.createSheet(title);  
 	  
-	    /** 
-	     * @param wb 
-	     * @param sheet 
-	     */  
-	    public ExcelExportUtil(XSSFWorkbook wb, XSSFSheet sheet)  
-	    {  
-	        this.wb = wb;  
-	        this.sheet = sheet;  
-	    }  
+	        // 标题  
+	        List<String> exportFieldTitle = new ArrayList<String>();  
+	        List<Integer> exportFieldWidth = new ArrayList<Integer>();  
+	        // 拿到所有列名，以及导出的字段的get方法  
+	        List<Method> methodObj = new ArrayList<Method>();  
+	        Map<String, Method> convertMethod = new HashMap<String, Method>();  
+	        // 得到所有字段  
+	        Field fileds[] = pojoClass.getDeclaredFields();  
+	        // 遍历整个filed  
+	        for (int i = 0; i < fileds.length; i++) {  
+	            Field field = fileds[i];  
+	            Excel excel = field.getAnnotation(Excel.class);  
+	            // 如果设置了annottion  
+	            if (excel != null) {  
+	                // 添加到标题  
+	                exportFieldTitle.add(excel.exportName());  
+	                // 添加标题的列宽  
+	               // exportFieldWidth.add(excel.exportFieldWidth());  
+	                // 添加到需要导出的字段的方法  
+	                String fieldname = field.getName();  
+	                // System.out.println(i+"列宽"+excel.exportName()+" "+excel.exportFieldWidth());  
+	                StringBuffer getMethodName = new StringBuffer("get");  
+	                getMethodName.append(fieldname.substring(0, 1)  
+	                        .toUpperCase());  
+	                getMethodName.append(fieldname.substring(1));  
 	  
-	    /** 
-	     * 合并单元格后给合并后的单元格加边框 
-	     *  
-	     * @param region 
-	     * @param cs 
-	     */  
-	    public void setRegionStyle(CellRangeAddress region, XSSFCellStyle cs)  
-	    {  
-	        int toprowNum = region.getFirstRow();  
-	        for (int i = toprowNum; i <= region.getLastRow(); i++)  
-	        {  
-	            XSSFRow row = sheet.getRow(i);  
-	            for (int j = region.getFirstColumn(); j <= region.getLastColumn(); j++)  
-	            {  
-	                XSSFCell cell = row.getCell(j);// XSSFCellUtil.getCell(row,  
-	                                                // (short) j);  
-	                cell.setCellStyle(cs);  
+	                Method getMethod = pojoClass.getMethod(getMethodName  
+	                        .toString(), new Class[] {});  
+	  
+	                methodObj.add(getMethod);  
+	                if (excel.exportConvertSign()) {  
+	                    StringBuffer getConvertMethodName = new StringBuffer(  
+	                            "get");  
+	                    getConvertMethodName.append(fieldname.substring(0, 1)  
+	                            .toUpperCase());  
+	                    getConvertMethodName.append(fieldname.substring(1));  
+	                    getConvertMethodName.append("Convert");  
+	                    Method getConvertMethod = pojoClass  
+	                            .getMethod(getConvertMethodName.toString(),  
+	                                    new Class[] {});  
+	                    convertMethod.put(getMethodName.toString(),  
+	                            getConvertMethod);  
+	                }  
 	            }  
 	        }  
+	        int index = 0;  
+	        // 产生表格标题行  
+	        Row row = sheet.createRow(index);  
+	        for (int i = 0, exportFieldTitleSize = exportFieldTitle.size(); i < exportFieldTitleSize; i++) {  
+	            Cell cell = row.createCell(i);  
+	            RichTextString text = new HSSFRichTextString(exportFieldTitle  
+	                    .get(i));  
+	            cell.setCellValue(text);  
+	        }  
+	  
+	        // 设置每行的列宽  
+	        for (int i = 0; i < exportFieldWidth.size(); i++) {  
+	            // 256=65280/255  
+	            sheet.setColumnWidth(i, 256 * exportFieldWidth.get(i));  
+	        }  
+	        Iterator its = dataSet.iterator();  
+	        // 循环插入剩下的集合  
+	        while (its.hasNext()) {  
+	            // 从第二行开始写，第一行是标题  
+	            index++;  
+	            row = sheet.createRow(index);  
+	            Object t = its.next();  
+	            for (int k = 0, methodObjSize = methodObj.size(); k < methodObjSize; k++) {  
+	                Cell cell = row.createCell(k);  
+	                Method getMethod = methodObj.get(k);  
+	                Object value = null;  
+	                if (convertMethod.containsKey(getMethod.getName())) {  
+	                    Method cm = convertMethod.get(getMethod.getName());  
+	                    value = cm.invoke(t, new Object[] {});  
+	                } else {  
+	                    value = getMethod.invoke(t, new Object[] {});  
+	                }  
+	                cell.setCellValue(value == null ? "" : value.toString());  
+	            }  
+	        }  
+	  
+	        workbook.write(out);  
+	    } catch (Exception e) {  
+	        e.printStackTrace();  
 	    }  
 	  
-	    /** 
-	     * 设置表头的单元格样式 
-	     *  
-	     * @return 
-	     */  
-	    public XSSFCellStyle getHeadStyle()  
-	    {  
-	        // 创建单元格样式  
-	        XSSFCellStyle cellStyle = wb.createCellStyle();  
-	        // 设置单元格的背景颜色为淡蓝色  
-	        cellStyle.setFillForegroundColor(HSSFColor.PALE_BLUE.index);  
-	        cellStyle.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
-	        // 设置单元格居中对齐  
-	        cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);  
-	        // 设置单元格垂直居中对齐  
-	        cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);  
-	        // 创建单元格内容显示不下时自动换行  
-	        cellStyle.setWrapText(true);  
-	        // 设置单元格字体样式  
-	        XSSFFont font = wb.createFont();  
-	        // 设置字体加粗  
-	        font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
-	        font.setFontName("宋体");  
-	        font.setFontHeight((short) 200);  
-	        cellStyle.setFont(font);  
-	        // 设置单元格边框为细线条  
-	        cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);  
-	        cellStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);  
-	        cellStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);  
-	        cellStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);  
-	        return cellStyle;  
-	    }  
-	  
-	    /** 
-	     * 设置表体的单元格样式 
-	     *  
-	     * @return 
-	     */  
-	    public XSSFCellStyle getBodyStyle()  
-	    {  
-	        // 创建单元格样式  
-	        XSSFCellStyle cellStyle = wb.createCellStyle();  
-	        // 设置单元格居中对齐  
-	        cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);  
-	        // 设置单元格垂直居中对齐  
-	        cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);  
-	        // 创建单元格内容显示不下时自动换行  
-	        cellStyle.setWrapText(true);  
-	        // 设置单元格字体样式  
-	        XSSFFont font = wb.createFont();  
-	        // 设置字体加粗  
-	        font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
-	        font.setFontName("宋体");  
-	        font.setFontHeight((short) 200);  
-	        cellStyle.setFont(font);  
-	        // 设置单元格边框为细线条  
-	        cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);  
-	        cellStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);  
-	        cellStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);  
-	        cellStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);  
-	        return cellStyle;  
-	    }  
+	}   
 }

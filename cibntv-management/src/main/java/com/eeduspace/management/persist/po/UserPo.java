@@ -55,6 +55,8 @@ public class UserPo  implements Serializable {
     private Date updateDate = new Date();
     private String accessKey;
 	private String secretKey;
+	@Column(name="register_source")
+	private String registerSource;
 
     public String getAccessKey() {
 		return accessKey;
@@ -80,7 +82,15 @@ public class UserPo  implements Serializable {
         this.id = id;
     }
 
-    public String getUserCode() {
+    public String getRegisterSource() {
+		return registerSource;
+	}
+
+	public void setRegisterSource(String registerSource) {
+		this.registerSource = registerSource;
+	}
+
+	public String getUserCode() {
         return userCode;
     }
 

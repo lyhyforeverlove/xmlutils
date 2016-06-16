@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eeduspace.management.convert.CIBNManagementConvert;
+import com.eeduspace.management.model.DiaginsticExcelModel;
 import com.eeduspace.management.model.OrderQueryModel;
+import com.eeduspace.management.model.VipOrderExcelModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
 import com.eeduspace.management.persist.po.VipBuyRecord;
@@ -31,6 +33,7 @@ import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.UserService;
 import com.eeduspace.management.service.VipBuyRecordService;
+import com.eeduspace.management.util.ExcelExportUtil;
 import com.eeduspace.uuims.comm.util.base.DateUtils;
 import com.google.gson.Gson;
 /**\
@@ -202,15 +205,23 @@ public class VipOrderController {
 		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.VIP.toString())){
 			fileName="VIP订单_"+DateUtils.toString(new Date(), DateUtils.DATE_FORMAT_DATEONLY);
 		}
-		response.setHeader("Content-disposition", "attachment; filename="+URLEncoder.encode(fileName, "UTF-8") + ".xlsx");// 组装附件名称和格式
+		response.setHeader("Content-disposition", "attachment; filename="+URLEncoder.encode(fileName, "UTF-8") + ".xls");// 组装附件名称和格式
 		Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
+		
 		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.DIAGNOSTIC.toString())){
-			String[] tableHeader = { "订单号", "流水号", "手机号", "商品类型", "商品名称", "价格", "支付方式", "交易时间", "状态" };
-			vipBuyRecordService.ExportOrderExcle(pageList.getContent(), tableHeader, outputStream,orderQueryModel.getOrderType());
-
+			List<DiaginsticExcelModel> excelModels=new ArrayList<>();
+			for (VipBuyRecord vipBuyRecord : pageList.getContent()) {
+				DiaginsticExcelModel  diaginsticExcelModel=CIBNManagementConvert.toDiagnosticExcelMode(vipBuyRecord);
+				excelModels.add(diaginsticExcelModel);
+			}
+			ExcelExportUtil.exportExcel("诊断订单信息", DiaginsticExcelModel.class, excelModels, outputStream);
 		}else{
-			String[] vipOrderTableHeader = { "订单号", "流水号", "手机号", "VIP时长", "价格", "支付方式", "交易时间", "状态" };
-			vipBuyRecordService.ExportOrderExcle(pageList.getContent(), vipOrderTableHeader, outputStream,orderQueryModel.getOrderType());
+			List<VipOrderExcelModel> excelModels=new ArrayList<>();
+			for (VipBuyRecord vipBuyRecord : pageList.getContent()) {
+				VipOrderExcelModel  vipOrderExcelModel=CIBNManagementConvert.toVipExcelModel(vipBuyRecord);
+				excelModels.add(vipOrderExcelModel);
+			}
+			ExcelExportUtil.exportExcel("VIP订单信息", VipOrderExcelModel.class, excelModels, outputStream);
 		}
 		item.setMessage("success");
 		return item;
