@@ -126,11 +126,11 @@ public class ManagerController {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPassword");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPassword");
 			}
-			if (org.springframework.util.StringUtils.isEmpty(managerModel.getrUuid())) {
+			if (StringUtils.isBlank(managerModel.getrUuid())) {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
 			}
-			if (org.springframework.util.StringUtils.isEmpty(managerModel.getrName())) {
+			if (StringUtils.isBlank(managerModel.getrName())) {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrName");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrName");
 			}
@@ -139,15 +139,13 @@ public class ManagerController {
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getType");
 			}
 			ManagerModel model2 = managerService.getManager(managerModel.getName());
-			if (!org.springframework.util.StringUtils.isEmpty(model2)) {
+			if (StringUtils.isNotBlank(model2.getUuid())) {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.RESOURCE_INUSE.toString() + ".managerModel.getName");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_INUSE.toString(), ".managerModel.getName");
 			}
 			ResponseItem responseItem = new ResponseItem();
 			managerModel.setPassword(Digest.md5Digest(managerModel.getPassword()));
 			managerModel.setIsFirst(true);
-			managerModel.setSecretKey(null);
-			managerModel.setAccessKey(null);
 			managerModel.setStatus(UserEnum.Status.Enable);
 			managerModel.setIsDel(false);
 			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
@@ -159,7 +157,7 @@ public class ManagerController {
 		}
 	}
 	
-	/**修改管理员角色
+	/**修改管理员角色,状态（停用，启用）；删除状态；密码修改
 	 * @return
 	 */
 	@RequestMapping(value="/manageReplace",method=RequestMethod.POST)
@@ -171,7 +169,7 @@ public class ManagerController {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
 			}
-			if (org.springframework.util.StringUtils.isEmpty(managerModel.getrUuid())) {
+			/*if (org.springframework.util.StringUtils.isEmpty(managerModel.getrUuid())) {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
 			}
@@ -182,6 +180,10 @@ public class ManagerController {
 			if (org.springframework.util.StringUtils.isEmpty(managerModel.getType())) {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getType");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getType");
+			}*/
+			if (StringUtils.isNotBlank(managerModel.getPassword())) {
+				String pwd = Digest.md5Digest(managerModel.getPassword());
+				managerModel.setPassword(pwd);
 			}
 			ResponseItem responseItem = new ResponseItem();
 			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
@@ -329,7 +331,7 @@ public class ManagerController {
 	/**修改管理员密码
 	 * @return
 	 */
-	@RequestMapping(value="/pwdChange",method=RequestMethod.POST)
+	/*@RequestMapping(value="/pwdChange",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem pwdChange(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
@@ -352,7 +354,7 @@ public class ManagerController {
 			logger.error("pwdChange  Exception:", e);
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "pwdChange exception");
 		}
-	}
+	}*/
 
 	
 	

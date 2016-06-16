@@ -77,6 +77,9 @@ public class ManagerServiceImpl implements ManagerService {
 				if (!StringUtils.isEmpty(managerModel.getPassword())) {
 					managerPo.setPassword(managerModel.getPassword());
 				}
+				if (!StringUtils.isEmpty(managerModel.getIsDel())) {
+					managerPo.setIsDel(managerModel.getIsDel());
+				}
 				if (!StringUtils.isEmpty(managerModel.getrUuid())) {
 					managerPo.setR_uuid(managerModel.getrUuid());
 				}

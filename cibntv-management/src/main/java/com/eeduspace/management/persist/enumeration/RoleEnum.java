@@ -16,7 +16,8 @@ public class RoleEnum {
         Test(0),
         CustomerService(1),//客服管理员
         Product(2),//运营管理员
-        System (3);//系统管理员
+        System (3),//系统管理员
+        CIBNTV(4);//CIBN管理
         private final int value;
 
         public int getValue() {

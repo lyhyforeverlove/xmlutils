@@ -79,8 +79,6 @@ public class ManagerPo implements Serializable{
     @Column(name = "is_del")
     private Boolean isDel;
     
-    /*@OneToOne(cascade ={CascadeType.MERGE,CascadeType.REFRESH})
-    @JoinColumn(name="r_uuid" ,referencedColumnName="uuid")*/
     
     private String r_uuid;
     private String r_name;

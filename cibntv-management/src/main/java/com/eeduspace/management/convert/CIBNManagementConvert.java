@@ -16,6 +16,8 @@ import com.eeduspace.management.model.SmsModel;
 import com.eeduspace.management.model.UserModel;
 import com.eeduspace.management.model.VipOrderModel;
 import com.eeduspace.management.model.VipPackModel;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Type;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.management.persist.po.PermissionPo;
@@ -100,6 +102,8 @@ public class CIBNManagementConvert {
 			if(!StringUtils.isEmpty(roleModel.getUuid())){
 				rolePo.setR_uuid(roleModel.getUuid());
 			}
+			rolePo.setType(StringUtils.isEmpty(roleModel.getType())? null : Type.valueOf(roleModel.getType()));
+			rolePo.setStatus(StringUtils.isEmpty(roleModel.getStatus())? null : Status.valueOf(roleModel.getStatus()));
 			rolePo.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : rolePo.getUpdateDate());
 		}
 		return rolePo;

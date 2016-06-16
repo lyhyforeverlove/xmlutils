@@ -1,5 +1,6 @@
 package com.eeduspace.management.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,24 +50,33 @@ public class RoleController {
 	 */
 	@RequestMapping(value ="/roleSave",method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem roleSave(HttpServletRequest request,@ModelAttribute RoleModel roleModel){
+	public ResponseItem roleSave(HttpServletRequest request,RoleModel roleModel,String[] ids){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(roleModel));
 		try {
 			ResponseItem responseItem = new ResponseItem();
-			//测试使用
-			/*List<PermissionModel> permissionModels = new ArrayList<PermissionModel>();
-			permissionModels = ;
-			roleModel.setName("test");
-			roleModel.setPermissionModels(permissionModels);*/
 			if (StringUtils.isEmpty(roleModel.getName())) {
 				logger.error("roleSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".roleModel.getName");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".roleModel.getName");
 			}
-			if (roleModel.getPermissionModels().size() <= 0) {
+			if (StringUtils.isEmpty(ids)) {
 				logger.error("roleSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".roleModel.getPermissionModels");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".roleModel.getPermissionModels");
 			}
-			
+			//测试使用------开始
+//			List<PermissionModel> pModels = permissionService.getPermissionModels(String.valueOf(Status.Enable));
+//			List<String> ids1 = new ArrayList<String>();
+//			for (PermissionModel pm : pModels) {
+//				ids1.add(pm.getUuid());
+//			}
+//			String[] ids2 = (String[]) ids1.toArray(new String[ids1.size()]);
+			//测试使用-------结束
+			List<PermissionModel> pModels2 = new ArrayList<PermissionModel>();
+			for (String str : ids) {
+				PermissionModel pm = new PermissionModel();
+				pm.setUuid(String.valueOf(str));
+				pModels2.add(pm);
+			}
+			roleModel.setPermissionModels(pModels2);
 			RoleModel rm= roleService.saveModel(roleModel);
 			responseItem.setData(rm);
 			return responseItem;
@@ -83,7 +92,7 @@ public class RoleController {
 	 */
 	@RequestMapping(value ="/roleSkip",method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem roleSkip(HttpServletRequest request,@ModelAttribute RoleModel roleModel){
+	public ResponseItem roleSkip(HttpServletRequest request,RoleModel roleModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(roleModel));
 		try {
 			ResponseItem responseItem = new ResponseItem();

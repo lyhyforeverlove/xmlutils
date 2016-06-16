@@ -1,6 +1,7 @@
 package com.eeduspace.management.model;
 
 import com.eeduspace.management.persist.enumeration.RoleEnum;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
 
 public class PermissionModel {
 	
@@ -16,6 +17,21 @@ public class PermissionModel {
     private String groups;
     private Long functionId;
     private String perUrl;
+    
+	public PermissionModel() {
+		super();
+	}
+	
+	public PermissionModel(String name, String type, Status status,
+			String perUrl) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.status = status;
+		this.perUrl = perUrl;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
