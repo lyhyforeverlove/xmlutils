@@ -1,6 +1,7 @@
 package com.eeduspace.management.convert;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -264,14 +265,19 @@ public class CIBNManagementConvert {
 		smsPo.setSmsCode(smsModel.getSmsCode());
 		return smsPo;
 	}
-	public static PaperTypePo fromPaperTypeModel(PaperTypeModel paperTypeModel){
+	public static PaperTypePo fromPaperTypeModel(PaperTypeModel paperTypeModel) throws ParseException{
 		PaperTypePo po = new PaperTypePo();
+		if (!StringUtils.isEmpty(paperTypeModel.getUuid())) {
+			po.setUuid(paperTypeModel.getUuid());
+		}
 		po.setName(paperTypeModel.getName());
-		po.setType(Integer.parseInt(paperTypeModel.getType()));
+		if (!StringUtils.isEmpty(paperTypeModel.getType())) {
+			po.setType(Integer.parseInt(paperTypeModel.getType()));
+		}
 		po.setPrice(paperTypeModel.getPrice());
 		po.setDiscount(paperTypeModel.getDiscount());
-		po.setDateBef(paperTypeModel.getDateBef());
-		po.setDateAft(paperTypeModel.getDateAft());
+		po.setDateBef(DateUtils.parseDate(paperTypeModel.getDateBef()));
+		po.setDateAft(DateUtils.parseDate(paperTypeModel.getDateAft()));
 		return po;
 	}
 	public static PaperTypeModel fromPaperTypePo(PaperTypePo paperTypePo){
@@ -282,8 +288,8 @@ public class CIBNManagementConvert {
 		model.setType(String.valueOf(paperTypePo.getType()));
 		model.setPrice(paperTypePo.getPrice());
 		model.setDiscount(paperTypePo.getDiscount());
-		model.setDateBef(paperTypePo.getDateBef());
-		model.setDateAft(paperTypePo.getDateAft());
+		model.setDateBef(DateUtils.toString(paperTypePo.getDateBef(), "yyyy-MM-dd"));
+		model.setDateAft(DateUtils.toString(paperTypePo.getDateAft(), "yyyy-MM-dd"));
 		return model;
 	}
 	public static VipOrderExcelModel toVipExcelModel(VipBuyRecord vipBuyRecord){

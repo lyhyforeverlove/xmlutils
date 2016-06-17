@@ -185,6 +185,9 @@ public class ManagerController {
 				String pwd = Digest.md5Digest(managerModel.getPassword());
 				managerModel.setPassword(pwd);
 			}
+			if (StringUtils.isNotBlank(managerModel.getPhone())) {
+				managerModel.setIsFirst(false);
+			}
 			ResponseItem responseItem = new ResponseItem();
 			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
 			responseItem.setData(model);
@@ -420,7 +423,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "/logout")
     public ModelAndView logout(@ModelAttribute(Constants.SESSION_ID) SessionItem si, SessionStatus sessionStatus, HttpSession session, HttpServletResponse res, HttpServletRequest request) throws Exception {
-        sessionStatus.setComplete();
+    	sessionStatus.setComplete();
         session.removeAttribute("userPhone");
         session.removeAttribute("username");
         session.removeAttribute("roleUUID");

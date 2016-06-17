@@ -11,14 +11,20 @@ public class PaperResponseModel {
 	private Integer item;
 	
 	private String stageCode;
+	private String statgeName;
 	private String gradeCode;
+	private String gradeName;
 	private String subjectCode;
+	private String subjectName;
 	private String bookTypeCode;
+	private String bookTypeName;
 	private String searchName;
 	private String searchValue;
 	private String paperType;
+	private String paperTypeName;
 
 	private List<PaperModel> paperDatas;
+	private List<PaperTypeModel> paperTypeDatas;
 	public Integer getCp() {
 		return cp;
 	}
@@ -90,6 +96,42 @@ public class PaperResponseModel {
 	}
 	public void setPaperType(String paperType) {
 		this.paperType = paperType;
+	}
+	public String getStatgeName() {
+		return statgeName;
+	}
+	public void setStatgeName(String statgeName) {
+		this.statgeName = statgeName;
+	}
+	public String getGradeName() {
+		return gradeName;
+	}
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	public String getBookTypeName() {
+		return bookTypeName;
+	}
+	public void setBookTypeName(String bookTypeName) {
+		this.bookTypeName = bookTypeName;
+	}
+	public List<PaperTypeModel> getPaperTypeDatas() {
+		return paperTypeDatas;
+	}
+	public void setPaperTypeDatas(List<PaperTypeModel> paperTypeDatas) {
+		this.paperTypeDatas = paperTypeDatas;
+	}
+	public String getPaperTypeName() {
+		return paperTypeName;
+	}
+	public void setPaperTypeName(String paperTypeName) {
+		this.paperTypeName = paperTypeName;
 	}
 
 }
