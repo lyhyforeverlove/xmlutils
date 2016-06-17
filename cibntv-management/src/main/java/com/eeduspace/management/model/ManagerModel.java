@@ -1,6 +1,7 @@
 package com.eeduspace.management.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -36,6 +37,9 @@ public class ManagerModel {
     private RoleEnum.Type type;
     //其他状态
     private RoleEnum.Status otherStatus;
+    
+    //权限集合
+    private List<PermissionModel> pModels;
     
     /**当前页数**/
 	private int currentPage;
@@ -282,6 +286,14 @@ public class ManagerModel {
 
 	public void setSmsCode(String smsCode) {
 		this.smsCode = smsCode;
+	}
+
+	public List<PermissionModel> getpModels() {
+		return pModels;
+	}
+
+	public void setpModels(List<PermissionModel> pModels) {
+		this.pModels = pModels;
 	}
     
     

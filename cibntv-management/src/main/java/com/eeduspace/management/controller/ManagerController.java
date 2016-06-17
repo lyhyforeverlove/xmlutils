@@ -37,6 +37,7 @@ import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.ManagerService;
+import com.eeduspace.management.service.PermissionService;
 import com.eeduspace.management.service.RoleService;
 import com.eeduspace.management.service.SmsService;
 import com.eeduspace.management.util.SMSUtil;
@@ -61,6 +62,8 @@ public class ManagerController {
 	private ManagerService managerService;
 	@Inject
 	private RoleService roleService;
+	@Inject
+	private PermissionService permissionService;
 	@Inject
 	private SmsService smsService;
 	@Inject
@@ -393,6 +396,8 @@ public class ManagerController {
            if(managerModel==null){
    				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_NOTFOUND.toString(), ".getuserbyname");
            }
+           RoleModel roleModel = roleService.getRoleModel(managerModel.getrUuid(), null);
+           managerModel.setRoleModel(roleModel);
            if(!managerModel.getPassword().equals(Digest.md5Digest(loginModel.getPassword()))){
   				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_INVALID.toString(), ".password");
            }
@@ -408,6 +413,8 @@ public class ManagerController {
             session.setAttribute("roleType", managerModel.getType());
             session.setAttribute("isFirst", managerModel.getIsFirst());
             session.setAttribute("email", managerModel.getEmail());
+            session.setAttribute("roleModel", managerModel.getRoleModel());
+            session.setAttribute("managerPermission", roleModel.getPermissionModels());
             return ri;
         } catch (Exception e) {
             logger.error("userLogin Exception:", e);
@@ -431,6 +438,7 @@ public class ManagerController {
         session.removeAttribute("isFirst");
         session.removeAttribute("email");
         session.removeAttribute(Constants.SESSION_ID);
+        session.invalidate();
         //跳转到登录界面
         res.sendRedirect(request.getContextPath()+LOGIN_URL);
         return null;

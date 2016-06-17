@@ -18,6 +18,7 @@ public class CourseVidelControllerTest extends BaseTest {
 		String url = "http://localhost:8070/cibntv-management/action/video/videoPage";
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("subjectCode", "4");
+		paramMap.put("subjectName", "物理");
 		paramMap.put("searchName", "变压器");
 		paramMap.put("cp", 1);
 		paramMap.put("pageSize", 10);
