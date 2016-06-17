@@ -68,10 +68,6 @@ public class PaperController {
 				logger.error("getPaperPage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".baseDataModel.getBookTypeCode");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getBookTypeCode");
 			}
-			if (baseDataModel.getCp() < 0) {
-				logger.error("getPaperPage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".baseDataModel.getCp");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getCp");
-			}
 			ResponseItem responseItem = new ResponseItem();
 			Map<String, String> map = new HashMap<String, String>();
 			if (StringUtils.isNotBlank(baseDataModel.getSearchName()) && StringUtils.isNotBlank(baseDataModel.getSearchValue())) {

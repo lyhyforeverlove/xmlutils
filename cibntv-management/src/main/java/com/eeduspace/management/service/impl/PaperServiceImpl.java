@@ -45,7 +45,7 @@ public class PaperServiceImpl implements PaperService {
 		List<PaperTypePo> pTypePos= (List<PaperTypePo>) pTypePoDao.findAll();
 		List<PaperModel> paperModels= baseDatas.getPaperDatas();
 		Map<String, String> type = new HashMap<String, String>();
-		if (paperModels.size() > 0) {
+		if (!StringUtils.isEmpty(paperModels) && paperModels.size() > 0) {
 			for (PaperModel pm : paperModels) {
 				type = pm.getType();
 				for (PaperTypePo ptp : pTypePos) {

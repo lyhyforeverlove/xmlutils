@@ -50,11 +50,14 @@ public class CourseVideoController {
 //			BaseDataModel bm= courseVideoService.getCousreVideos(baseDataModel);
 			BaseDataModel baseDataModel2 = new BaseDataModel();
 			baseDataModel2.setSearchName(baseDataModel.getSearchName());
+			baseDataModel2.setSearchValue(baseDataModel.getSearchValue());
 			baseDataModel2.setCp(response.getCurPage());
 			baseDataModel2.setPageSize(response.getPageSize());
 			baseDataModel2.setTotalPage(response.getPagetotal());
 			baseDataModel2.setItem(response.getTotal());
 			baseDataModel2.setReponseVedio(response.getVideoList());
+			baseDataModel2.setSubjectCode(baseDataModel.getSubjectCode());
+			baseDataModel2.setSubjectName(baseDataModel.getSubjectName());
 			
 			responseItem.setData(baseDataModel2);
 			return responseItem;
