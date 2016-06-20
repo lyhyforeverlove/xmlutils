@@ -129,7 +129,7 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
 						}	                }
 	                if(StringUtils.isNotBlank(orderQueryModel.getEndDate())){
 	                	try {
-	                		Date queryEndDate=DateUtils.parseDate(orderQueryModel.getStartDate());
+	                		Date queryEndDate=DateUtils.parseDate(orderQueryModel.getStartDate(),"yyyy-MM-dd");
 	                		queryEndDate=DateUtils.addHour(queryEndDate, 23);
 	                		queryEndDate=DateUtils.addMinute(queryEndDate, 59);
 	                		queryEndDate=DateUtils.addSecond(queryEndDate, 59);

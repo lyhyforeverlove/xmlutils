@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService{
 				}
 				if (StringUtils.isNotBlank(userQueryModel.getEndDate())) {
 					try {
-						Date endDate=DateUtils.parseDate(userQueryModel.getStartDate());
+						Date endDate=DateUtils.parseDate(userQueryModel.getStartDate(),"yyyy-MM-dd");
 						endDate=DateUtils.addHour(endDate, 23);
 						endDate=DateUtils.addMinute(endDate, 59);
 						endDate=DateUtils.addSecond(endDate, 59);
