@@ -55,9 +55,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 			}
 			//其他验证权限
 			List<PermissionModel> pModels = (List<PermissionModel>) session.getAttribute("managerPermission");
-			for (PermissionModel pm : pModels) {
-				System.out.println("用户权限为：" + pm.getPerUrl());
-			}
 			if (!StringUtils.isEmpty(pModels) && pModels.size() > 0) {
 				String uri = request.getRequestURI();
 				for (PermissionModel pm : pModels) {
@@ -67,9 +64,9 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 					}
 				}
 			}
-			ri.setData(flag);
-			response.getWriter().print(gson.toJson(ri));
 			if (!flag) {
+				ri.setData(flag);
+				response.getWriter().print(gson.toJson(ri));
 				return false;
 			}
 		}else {
