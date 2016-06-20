@@ -78,7 +78,7 @@ public class UserController {
 			}
 			logger.info("getNumber:{},getNumberOfElements:{},getSize{},getTotalElements:{},getTotalPages:{}",pageList.getNumber(),pageList.getNumberOfElements(),pageList.getSize(),pageList.getTotalElements(),pageList.getTotalPages());
 			item.setTotalRecords(pageList.getTotalElements());
-			item.setCurrentPage(pageList.getNumber());
+			item.setCurrentPage(pageList.getNumber()+1);
 			item.setTotalPage(pageList.getTotalPages());
 			item.setSize(pageList.getSize());
 			item.setMessage("success");
