@@ -142,7 +142,7 @@ public class VipOrderController {
 			return item;
 		}
 		try {
-			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage(), orderQueryModel.getSize());
+			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage()-1, orderQueryModel.getSize());
 			Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
 			List<VipBuyRecord> orderList=pageList.getContent();
 			List<VipOrderModel> vipOrderModels=new ArrayList<>();

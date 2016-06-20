@@ -121,15 +121,19 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
 	                if(StringUtils.isNotBlank(orderQueryModel.getOrderType())){
 	                	predicate.add(cb.equal(root.get("buyType"),BuyTypeEnum.toEnumValue(orderQueryModel.getOrderType())));
 	                }
-	                if(orderQueryModel.getStartDate()!=null){
+	                if(StringUtils.isNotBlank(orderQueryModel.getStartDate())){
 	                	try {
 							predicate.add(cb.greaterThanOrEqualTo(root.get("createDate").as(Date.class), DateUtils.parseDate(orderQueryModel.getStartDate(), "yyyy-MM-dd HH:mm:ss")));
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}	                }
-	                if(orderQueryModel.getEndDate()!=null){
+	                if(StringUtils.isNotBlank(orderQueryModel.getEndDate())){
 	                	try {
-							predicate.add(cb.lessThanOrEqualTo(root.get("createDate").as(Date.class), DateUtils.parseDate(orderQueryModel.getEndDate(), "yyyy-MM-dd HH:mm:ss")));
+	                		Date queryEndDate=DateUtils.parseDate(orderQueryModel.getStartDate());
+	                		queryEndDate=DateUtils.addHour(queryEndDate, 23);
+	                		queryEndDate=DateUtils.addMinute(queryEndDate, 59);
+	                		queryEndDate=DateUtils.addSecond(queryEndDate, 59);
+							predicate.add(cb.lessThanOrEqualTo(root.get("createDate").as(Date.class), queryEndDate));
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}	

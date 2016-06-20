@@ -68,7 +68,7 @@ public class UserController {
 			return item;
 		}
 		try {
-			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage(), userQueryModel.getSize());
+			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage()-1, userQueryModel.getSize());
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 			List<UserPo> userList=pageList.getContent();
 			List<UserModel> userModels=new ArrayList<>();
