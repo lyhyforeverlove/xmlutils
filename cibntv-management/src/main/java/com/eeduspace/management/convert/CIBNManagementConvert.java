@@ -203,6 +203,7 @@ public class CIBNManagementConvert {
 		VipOrderModel model=new VipOrderModel();
 		model.setOrderName(vipBuyRecord.getOrderName());
 		model.setOrderUUID(vipBuyRecord.getUuid());
+		model.setTransactionId(vipBuyRecord.getTransactionId());
 		model.setBuyType(vipBuyRecord.getBuyType());
 		model.setBuyDate(DateUtils.toString(vipBuyRecord.getCreateDate(), DateUtils.DATE_FORMAT_DATEONLY));
 		model.setDiagnosticUUID(vipBuyRecord.getDiagnositcUUID());
