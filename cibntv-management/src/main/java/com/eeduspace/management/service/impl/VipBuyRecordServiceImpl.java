@@ -1,7 +1,5 @@
 package com.eeduspace.management.service.impl;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,15 +8,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -29,11 +24,9 @@ import org.springframework.stereotype.Service;
 import com.eeduspace.management.model.OrderQueryModel;
 import com.eeduspace.management.persist.dao.VipBuyRecordDao;
 import com.eeduspace.management.persist.enumeration.BuyTypeEnum;
-import com.eeduspace.management.persist.enumeration.VipEnum.VipPackTypeEnum;
 import com.eeduspace.management.persist.po.UserPo;
 import com.eeduspace.management.persist.po.VipBuyRecord;
 import com.eeduspace.management.service.VipBuyRecordService;
-import com.eeduspace.management.util.ExcelExportUtil;
 import com.eeduspace.uuims.comm.util.base.DateUtils;
 /**
  * @author zhuchaowei
@@ -107,7 +100,10 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				   List<Predicate> predicate = new ArrayList<>();
 	                if(orderQueryModel.getMobile()!=null){
-	                	predicate.add(cb.like(root.get("mobile").as(String.class), "%" + orderQueryModel.getMobile() + "%"));
+	                	//JoinuserJoin = root.join(root.getModel().getSingularAttribute("user",User.class),JoinType.LEFT);
+	                	//predicate.add(cb.like(userJoin.get("nickname").as(String.class), "%" + searchArticle.getNickname() + "%"));
+	                	Join<VipBuyRecord, UserPo> userJoin=root.join(root.getModel().getSingularAttribute("userPo",UserPo.class),JoinType.LEFT);
+	                	predicate.add(cb.like(userJoin.get("mobile").as(String.class), "%" + orderQueryModel.getMobile() + "%"));
 	                }
 	                if(orderQueryModel.getOrderSn()!=null){
 	                	predicate.add(cb.like(root.get("orderSN").as(String.class), "%"+orderQueryModel.getOrderSn()+"%"));
