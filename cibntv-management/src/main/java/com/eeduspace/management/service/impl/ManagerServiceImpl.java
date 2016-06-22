@@ -58,7 +58,7 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) {
+	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) throws Exception {
 		ManagerPo managerPo = new ManagerPo();
 		ManagerModel model = new ManagerModel();
 		if(!StringUtils.isEmpty(managerModel)){

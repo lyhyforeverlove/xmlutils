@@ -1,6 +1,5 @@
 package com.eeduspace.management.model;
 
-import java.util.Date;
 import java.util.List;
 
 import com.eeduspace.management.persist.enumeration.RoleEnum;
@@ -20,9 +19,9 @@ public class ManagerModel {
     private String secretKey;
     private UserEnum.Status status;
     private String extend_;
-    private Date lastLoginDate;
-    private Date createDate;
-    private Date updateDate;
+    private String lastLoginDate;
+    private String createDate;
+    private String updateDate;
     private Boolean isFirst;
     private Boolean isDel;
     private RoleModel roleModel;
@@ -138,27 +137,28 @@ public class ManagerModel {
 	public void setExtend_(String extend_) {
 		this.extend_ = extend_;
 	}
-	public Date getLastLoginDate() {
+
+	public String getLastLoginDate() {
 		return lastLoginDate;
 	}
 
-	public void setLastLoginDate(Date lastLoginDate) {
+	public void setLastLoginDate(String lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 

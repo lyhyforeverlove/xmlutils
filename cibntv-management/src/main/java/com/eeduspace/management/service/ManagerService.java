@@ -26,7 +26,7 @@ public interface ManagerService {
 	 * @param managerModel  管理员模型
 	 * @return
 	 */
-	public ManagerModel saveOrReplaceManager(ManagerModel managerModel);
+	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) throws Exception;
 	
 	/**管理员操作日志
 	 * 

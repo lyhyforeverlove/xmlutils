@@ -29,7 +29,7 @@ public class RoleControllerTest extends BaseTest {
 		Map<String, Object> paramMap = new HashMap<>();
 //		paramMap.put("status", "");
 		paramMap.put("currentPage", 1);
-		paramMap.put("size",10);
+//		paramMap.put("size",10);
 //		paramMap.put("queryName", "管理");
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);

@@ -1,6 +1,5 @@
 package com.eeduspace.management.model;
 
-import java.util.Date;
 import java.util.List;
 
 public class RoleModel {
@@ -11,8 +10,8 @@ public class RoleModel {
 	    private String type;
 	    private String status;
 	    private String description;
-	    private Date createDate;
-	    private Date updateDate;
+	    private String createDate;
+	    private String updateDate;
 	    
 	    private List<PermissionModel> permissionModels;
 	    
@@ -20,7 +19,7 @@ public class RoleModel {
 	    /**当前页数**/
 		private int currentPage;
 		/**显示条数*/
-		private int size;
+		private int size = 10;
 	    
 		public Long getId() {
 			return id;
@@ -58,16 +57,16 @@ public class RoleModel {
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		public Date getCreateDate() {
+		public String getCreateDate() {
 			return createDate;
 		}
-		public void setCreateDate(Date createDate) {
+		public void setCreateDate(String createDate) {
 			this.createDate = createDate;
 		}
-		public Date getUpdateDate() {
+		public String getUpdateDate() {
 			return updateDate;
 		}
-		public void setUpdateDate(Date updateDate) {
+		public void setUpdateDate(String updateDate) {
 			this.updateDate = updateDate;
 		}
 		public List<PermissionModel> getPermissionModels() {

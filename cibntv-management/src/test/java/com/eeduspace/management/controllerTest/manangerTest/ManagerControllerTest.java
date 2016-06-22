@@ -95,9 +95,9 @@ public class ManagerControllerTest extends BaseTest {
 		String url = "http://localhost:8070/cibntv-management/action/manager/manageReplace";
 		RoleModel roleModel = new RoleModel();
 //		String password = "123456";
-		String uuid = "79b7ac89ac734f05b212d0efd0a2f667";
-		roleModel.setName("测试用户");
-		roleModel.setUuid("a2c2e236a57f492db408fcfbb136474f");
+		String uuid = "3ffb2fc5e9234172a782b4490297c331";
+		roleModel.setName("客服管理");
+		roleModel.setUuid("b7a5c3106a144267843422de85bf34aa");
 //		roleModel.setType(RoleEnum.Type.CustomerService.toString());
 		Map<String, Object> paramMap = new HashMap<>();
 //		paramMap.put("password", password);
@@ -136,7 +136,7 @@ public class ManagerControllerTest extends BaseTest {
 
 	public static void main(String[] args) {
 		ManagerControllerTest mct = new ManagerControllerTest();
-		mct.vName();
+		mct.mUpdateTest();
 //		System.out.println(RoleEnum.Type.Test.toString());
 
 	}

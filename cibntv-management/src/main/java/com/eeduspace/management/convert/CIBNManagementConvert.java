@@ -2,7 +2,6 @@ package com.eeduspace.management.convert;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,21 +45,21 @@ public class CIBNManagementConvert {
 		ManagerModel mm = new ManagerModel();
 		if (!StringUtils.isEmpty(managerPo)) {
 			mm.setAccessKey(managerPo.getAccessKey());
-			mm.setCreateDate(managerPo.getCreateDate());
+			mm.setCreateDate(DateUtils.toString(managerPo.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME));
 			mm.setCreateManagerId(managerPo.getCreateManagerId());
 			mm.setEmail(managerPo.getEmail());
 			mm.setExtend_(managerPo.getExtend_());
 			mm.setId(managerPo.getId());
 			mm.setIsFirst(managerPo.getIsFirst());
 			mm.setIsDel(managerPo.getIsDel());
-			mm.setLastLoginDate(managerPo.getLastLoginDate());
+			mm.setLastLoginDate(DateUtils.toString(managerPo.getLastLoginDate(), DateUtils.DATE_FORMAT_DATETIME));
 			mm.setName(managerPo.getName());
 			mm.setRealName(managerPo.getRealName());
 			mm.setPassword(managerPo.getPassword());
 			mm.setPhone(managerPo.getPhone());
 			mm.setSecretKey(managerPo.getSecretKey());
 			mm.setStatus(managerPo.getStatus());
-			mm.setUpdateDate(managerPo.getUpdateDate());
+			mm.setUpdateDate(DateUtils.toString(managerPo.getUpdateDate(), DateUtils.DATE_FORMAT_DATETIME));
 			mm.setUuid(managerPo.getUuid());
 			mm.setrUuid(managerPo.getR_uuid());
 			mm.setrName(managerPo.getR_name());
@@ -68,19 +67,19 @@ public class CIBNManagementConvert {
 		}
 		return mm;
 	}
-	public static ManagerPo fromManagerModel(ManagerModel managerModel){
+	public static ManagerPo fromManagerModel(ManagerModel managerModel) throws Exception{
 		ManagerPo po = new ManagerPo();
 		if (!StringUtils.isEmpty(managerModel)) {
 			po.setAccessKey(managerModel.getAccessKey());
 			if (!StringUtils.isEmpty(managerModel.getCreateDate())) {
-				po.setCreateDate(managerModel.getCreateDate());
+				po.setCreateDate(DateUtils.parseDate(managerModel.getCreateDate()));
 			}
 			po.setCreateManagerId(managerModel.getCreateManagerId());
 			po.setEmail(managerModel.getEmail());
 			po.setIsFirst(managerModel.getIsFirst());
 			po.setIsDel(managerModel.getIsDel());
 			if (!StringUtils.isEmpty(managerModel.getLastLoginDate())) {
-				po.setLastLoginDate(managerModel.getLastLoginDate());
+				po.setLastLoginDate(DateUtils.parseDate(managerModel.getLastLoginDate()));
 			}
 			po.setName(managerModel.getName());
 			po.setRealName(managerModel.getRealName());
@@ -88,7 +87,9 @@ public class CIBNManagementConvert {
 			po.setPhone(managerModel.getPhone());
 			po.setSecretKey(managerModel.getSecretKey());
 			po.setStatus(managerModel.getStatus());
-			po.setUpdateDate(managerModel.getUpdateDate());
+			if (!StringUtils.isEmpty(managerModel.getUpdateDate())) {
+				po.setUpdateDate(DateUtils.parseDate(managerModel.getUpdateDate()));
+			}
 			if (!StringUtils.isEmpty(managerModel.getUuid())) {
 				po.setUuid(managerModel.getUuid());
 			}
@@ -121,8 +122,8 @@ public class CIBNManagementConvert {
 			roleModel.setName(rolePo.getR_name());
 			roleModel.setStatus(String.valueOf(rolePo.getStatus()));
 			roleModel.setType(String.valueOf(rolePo.getType()));
-			roleModel.setCreateDate(StringUtils.isEmpty(rolePo.getCreateDate()) ? null : rolePo.getCreateDate());
-			roleModel.setUpdateDate(StringUtils.isEmpty(rolePo.getUpdateDate()) ? null : rolePo.getUpdateDate());
+			roleModel.setCreateDate(DateUtils.toString(rolePo.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME));
+			roleModel.setUpdateDate(DateUtils.toString(rolePo.getUpdateDate(), DateUtils.DATE_FORMAT_DATETIME));
 		}
 		return roleModel;
 	}
@@ -161,8 +162,8 @@ public class CIBNManagementConvert {
 			permissionModel.setStatus(permissionPo.getStatus());
 			permissionModel.setType(permissionPo.getType());
 			permissionModel.setPerUrl(permissionPo.getPerUrl());
-			permissionModel.setCreateDate(StringUtils.isEmpty(permissionPo.getCreateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(permissionPo.getCreateDate())) ;
-			permissionModel.setUpdateDate(StringUtils.isEmpty(permissionPo.getUpdateDate()) ? null : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(permissionPo.getUpdateDate()));
+			permissionModel.setCreateDate(DateUtils.toString(permissionPo.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME)) ;
+			permissionModel.setUpdateDate(DateUtils.toString(permissionPo.getUpdateDate(), DateUtils.DATE_FORMAT_DATETIME));
 		}
 		return permissionModel;
 	}
@@ -289,8 +290,8 @@ public class CIBNManagementConvert {
 		model.setType(String.valueOf(paperTypePo.getType()));
 		model.setPrice(paperTypePo.getPrice());
 		model.setDiscount(paperTypePo.getDiscount());
-		model.setDateBef(DateUtils.toString(paperTypePo.getDateBef(), "yyyy-MM-dd"));
-		model.setDateAft(DateUtils.toString(paperTypePo.getDateAft(), "yyyy-MM-dd"));
+		model.setDateBef(DateUtils.toString(paperTypePo.getDateBef(), DateUtils.DATE_FORMAT_DATEONLY));
+		model.setDateAft(DateUtils.toString(paperTypePo.getDateAft(), DateUtils.DATE_FORMAT_DATEONLY));
 		return model;
 	}
 	public static VipOrderExcelModel toVipExcelModel(VipBuyRecord vipBuyRecord){
