@@ -9,6 +9,7 @@ import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 
 public class UserTest {
 	public static void main(String[] args) throws IOException {
+		
 		//TestVipOrderList();
 		//testUserList();
 		//testUserOrder();
