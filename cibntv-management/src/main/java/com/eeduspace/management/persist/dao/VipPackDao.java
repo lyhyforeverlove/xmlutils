@@ -19,7 +19,7 @@ public interface VipPackDao extends JpaRepository<VIPPack, Long>{
 	Integer updateRelease(Boolean isRelease);
 	
 	VIPPack findByUuid(String uuid);
-	
+	VIPPack findByVipType(String vipType);
 	@Modifying
 	@Query("update VIPPack v set v.vipSale=?1, v.discountStartDate=?2,v.discountEndDate=?3")
 	Integer updateAllVipPackSale(Double vipSale,Date sDate,Date eDate);

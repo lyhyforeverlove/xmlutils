@@ -119,7 +119,7 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
 	                }
 	                if(StringUtils.isNotBlank(orderQueryModel.getStartDate())){
 	                	try {
-							predicate.add(cb.greaterThanOrEqualTo(root.get("createDate").as(Date.class), DateUtils.parseDate(orderQueryModel.getStartDate(), "yyyy-MM-dd HH:mm:ss")));
+							predicate.add(cb.greaterThanOrEqualTo(root.get("createDate").as(Date.class), DateUtils.parseDate(orderQueryModel.getStartDate(), "yyyy-MM-dd")));
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}	                }

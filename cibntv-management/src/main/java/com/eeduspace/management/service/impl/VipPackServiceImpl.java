@@ -60,6 +60,10 @@ public class VipPackServiceImpl implements VipPackService{
 		}
 		return models;
 	}
+	@Override
+	public VIPPack findByVipPackType(String vipPackType) {
+		return vipPackDao.findByVipType(vipPackType);
+	}
 	
 
 }
