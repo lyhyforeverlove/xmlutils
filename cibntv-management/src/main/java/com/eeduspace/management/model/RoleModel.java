@@ -3,8 +3,6 @@ package com.eeduspace.management.model;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class RoleModel {
 	
 	    private Long id;
@@ -13,11 +11,17 @@ public class RoleModel {
 	    private String type;
 	    private String status;
 	    private String description;
-	    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	    private Date createDate;
 	    private Date updateDate;
 	    
 	    private List<PermissionModel> permissionModels;
+	    
+	    private String queryName;
+	    /**当前页数**/
+		private int currentPage;
+		/**显示条数*/
+		private int size;
+	    
 		public Long getId() {
 			return id;
 		}
@@ -72,7 +76,24 @@ public class RoleModel {
 		public void setPermissionModels(List<PermissionModel> permissionModels) {
 			this.permissionModels = permissionModels;
 		}
-	    
+		public String getQueryName() {
+			return queryName;
+		}
+		public void setQueryName(String queryName) {
+			this.queryName = queryName;
+		}
+		public int getCurrentPage() {
+			return currentPage;
+		}
+		public void setCurrentPage(int currentPage) {
+			this.currentPage = currentPage;
+		}
+		public int getSize() {
+			return size;
+		}
+		public void setSize(int size) {
+			this.size = size;
+		}
 	    
 	    
 

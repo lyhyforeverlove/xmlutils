@@ -3,9 +3,6 @@ package com.eeduspace.management.model;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.persist.enumeration.UserEnum;
 
@@ -23,11 +20,8 @@ public class ManagerModel {
     private String secretKey;
     private UserEnum.Status status;
     private String extend_;
-    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginDate;
-    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
-    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateDate;
     private Boolean isFirst;
     private Boolean isDel;
@@ -44,7 +38,7 @@ public class ManagerModel {
     /**当前页数**/
 	private int currentPage;
 	/**显示条数*/
-	private int size;
+	private int size = 10;
 	/**总页数**/
 	private int totalPage;
 	/**总条数*/

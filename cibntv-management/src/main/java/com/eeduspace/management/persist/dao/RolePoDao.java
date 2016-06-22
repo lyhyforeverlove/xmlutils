@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,7 +13,7 @@ import com.eeduspace.management.persist.po.RolePo;
 
 public interface RolePoDao extends CrudRepository<RolePo, Long>{
 	
-	Page<RolePo> findAll(Pageable pageable);
+	Page<RolePo> findAll(Specification<RolePo> specification,Pageable pageable);
 	
 	Page<RolePo> findByStatus(RoleEnum.Status status,Pageable pageable);
 	

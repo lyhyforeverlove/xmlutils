@@ -21,7 +21,7 @@ public class CourseVideoControllerTest extends BaseTest {
 //		paramMap.put("subjectName", "物理");
 //		paramMap.put("searchName", "变压器");
 		paramMap.put("cp", 1);
-		paramMap.put("pageSize", 10);
+//		paramMap.put("pageSize", 10);
 		
 		
 		try {
@@ -54,7 +54,7 @@ public class CourseVideoControllerTest extends BaseTest {
 	
 	public static void main(String[] args) {
 		CourseVideoControllerTest pct = new CourseVideoControllerTest();
-		pct.courseVideoDetailTest();
+		pct.courseVideoPageTest();
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("1", "单元测试");
 //		System.out.println(map.keySet().contains(String.valueOf(PaperTypeEnum.UINT.getValue())));

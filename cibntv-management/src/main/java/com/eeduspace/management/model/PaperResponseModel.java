@@ -6,7 +6,7 @@ import com.eeduspace.management.model.PaperModel;
 
 public class PaperResponseModel {
 	private Integer cp;
-	private Integer pageSize;
+	private Integer pageSize = 10;
 	private Integer totalPage;
 	private Integer item;
 	

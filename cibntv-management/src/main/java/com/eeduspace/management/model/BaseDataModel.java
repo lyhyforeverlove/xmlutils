@@ -34,7 +34,7 @@ public class BaseDataModel {
 	
 	//分页属性
 	private Integer cp;
-	private Integer pageSize;
+	private Integer pageSize = 10;
 	private Integer totalPage;
 	private Integer item;
 	

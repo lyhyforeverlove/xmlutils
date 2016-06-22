@@ -120,7 +120,7 @@ public class PaperController {
 			ResponseItem responseItem = new ResponseItem();
 			ExamDataDetailModel response = baseDataClient.getPaperDetail(baseDataModel.getPaperCode());
 			List<QuestionDataTempModel> lists = response.getQuestions();
-			if (lists.size() > 0) {
+			if (!org.springframework.util.StringUtils.isEmpty(lists) && lists.size() > 0) {
 				for (QuestionDataTempModel questionDataTemp : lists) {
 					List<OptModel> optionModels = gson.fromJson(questionDataTemp.getOption(), new TypeToken<List<OptModel>>(){}.getType());
 					questionDataTemp.setOptionModels(optionModels);

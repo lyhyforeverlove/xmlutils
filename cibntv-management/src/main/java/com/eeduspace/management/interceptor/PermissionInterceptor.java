@@ -15,6 +15,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.eeduspace.management.bean.SessionItem;
 import com.eeduspace.management.comm.Constants;
 import com.eeduspace.management.model.PermissionModel;
+import com.eeduspace.management.model.RoleModel;
+import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.google.gson.Gson;
 
@@ -53,14 +55,18 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 				response.getWriter().print(gson.toJson(ri));
 				return false;
 			}
-			//其他验证权限
-			List<PermissionModel> pModels = (List<PermissionModel>) session.getAttribute("managerPermission");
-			if (!StringUtils.isEmpty(pModels) && pModels.size() > 0) {
-				String uri = request.getRequestURI();
-				for (PermissionModel pm : pModels) {
-					if (uri.contains(pm.getPerUrl())) {
-						flag = true;
-						break;
+			RoleModel roleModel = (RoleModel) session.getAttribute("roleModel");
+			if (!StringUtils.isEmpty(roleModel) && roleModel.getStatus().equals(String.valueOf(RoleEnum.Status.Enable))) {
+				//其他验证权限
+				List<PermissionModel> pModels = roleModel.getPermissionModels();
+				if (!StringUtils.isEmpty(pModels) && pModels.size() > 0) {
+					String uri = request.getRequestURI();
+					for (PermissionModel pm : pModels) {
+						System.out.println(pm.getPerUrl());
+						if (uri.contains(pm.getPerUrl())) {
+							flag = true;
+							break;
+						}
 					}
 				}
 			}

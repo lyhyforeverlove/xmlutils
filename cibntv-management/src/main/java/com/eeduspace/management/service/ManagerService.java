@@ -59,5 +59,4 @@ public interface ManagerService {
 	 */
 	public ManagerModel getByUserName(String userName);
 	
-	public ManagerModel getManager(String name);
 }

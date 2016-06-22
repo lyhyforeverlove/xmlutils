@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,19 +14,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.eeduspace.management.bean.SessionItem;
 import com.eeduspace.management.comm.Constants;
-import com.eeduspace.management.model.LoginModel;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.model.SmsModel;
@@ -37,7 +28,6 @@ import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.ManagerService;
-import com.eeduspace.management.service.PermissionService;
 import com.eeduspace.management.service.RoleService;
 import com.eeduspace.management.service.SmsService;
 import com.eeduspace.management.util.SMSUtil;
@@ -57,13 +47,11 @@ public class ManagerController {
 
 	private final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	private Gson gson = new Gson();
-	private static final String LOGIN_URL = "/login.jsp";
+	
 	@Inject
 	private ManagerService managerService;
 	@Inject
 	private RoleService roleService;
-	@Inject
-	private PermissionService permissionService;
 	@Inject
 	private SmsService smsService;
 	@Inject
@@ -79,9 +67,13 @@ public class ManagerController {
 	public ResponseItem manageListPage(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
+			if (managerModel.getCurrentPage() < 1) {
+				logger.error("manageListPage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getCurrentPage < 1");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getCurrentPage < 1");
+			}
 			ResponseItem responseItem = new ResponseItem();
 			Sort sort = new Sort(Sort.Direction.DESC, "createDate");
-			Pageable pageable = new PageRequest(managerModel.getCurrentPage(),managerModel.getSize(),sort);
+			Pageable pageable = new PageRequest((managerModel.getCurrentPage()-1),managerModel.getSize(),sort);
 			Page<ManagerModel> managerPage = managerService.getPage(managerModel,pageable);
 			responseItem.setData(managerPage);
 			return responseItem;
@@ -137,15 +129,10 @@ public class ManagerController {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrName");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrName");
 			}
-			if (org.springframework.util.StringUtils.isEmpty(managerModel.getType())) {
+			/*if (org.springframework.util.StringUtils.isEmpty(managerModel.getType())) {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getType");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getType");
-			}
-			ManagerModel model2 = managerService.getManager(managerModel.getName());
-			if (StringUtils.isNotBlank(model2.getUuid())) {
-				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.RESOURCE_INUSE.toString() + ".managerModel.getName");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_INUSE.toString(), ".managerModel.getName");
-			}
+			}*/
 			ResponseItem responseItem = new ResponseItem();
 			managerModel.setPassword(Digest.md5Digest(managerModel.getPassword()));
 			managerModel.setIsFirst(true);
@@ -160,7 +147,7 @@ public class ManagerController {
 		}
 	}
 	
-	/**修改管理员角色,状态（停用，启用）；删除状态；密码修改
+	/**修改管理员角色：状态（停用，启用）；删除状态；密码修改
 	 * @return
 	 */
 	@RequestMapping(value="/manageReplace",method=RequestMethod.POST)
@@ -172,18 +159,6 @@ public class ManagerController {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
 			}
-			/*if (org.springframework.util.StringUtils.isEmpty(managerModel.getrUuid())) {
-				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
-			}
-			if (org.springframework.util.StringUtils.isEmpty(managerModel.getrName())) {
-				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
-			}
-			if (org.springframework.util.StringUtils.isEmpty(managerModel.getType())) {
-				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getType");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getType");
-			}*/
 			if (StringUtils.isNotBlank(managerModel.getPassword())) {
 				String pwd = Digest.md5Digest(managerModel.getPassword());
 				managerModel.setPassword(pwd);
@@ -334,114 +309,32 @@ public class ManagerController {
 		}
 	}
 	
-	/**修改管理员密码
+	/**管理员用户名唯一验证
 	 * @return
 	 */
-	/*@RequestMapping(value="/pwdChange",method=RequestMethod.POST)
+	@RequestMapping(value="/validateName",method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem pwdChange(HttpServletRequest request,ManagerModel managerModel){
+	public ResponseItem managerNameValidate(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
-			if (StringUtils.isBlank(managerModel.getUuid())) {
-				logger.error("pwdChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
+			if (StringUtils.isBlank(managerModel.getName())) {
+				logger.error("managerNameValidate ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getName");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getName");
 			}
-			if (StringUtils.isBlank(managerModel.getPassword())) {
-				logger.error("pwdChange ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPassword");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPassword");
+			ManagerModel model = managerService.getByUserName(managerModel.getName());
+			if (StringUtils.isNotBlank(model.getUuid())) {
+				logger.error("managerNameValidate ExceptionrequestId："+"requestId,"+ResponseCode.RESOURCE_INUSE.toString() + ".managerModel.getName");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_INUSE.toString(), ".managerModel.getName");
 			}
-			String pwd = Digest.md5Digest(managerModel.getPassword());
-			managerModel.setPassword(pwd);
-			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
 			ResponseItem responseItem = new ResponseItem();
-			responseItem.setData(model);
+			responseItem.setData(false);
 			return responseItem;
 		} catch (Exception e) {
-			logger.error("pwdChange  Exception:", e);
-			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "pwdChange exception");
+			logger.error("managerNameValidate  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerNameValidate exception");
 		}
-	}*/
+	}
 
 	
-	
-	/**
-	 * 登录
-	 * Author： zhuchaowei
-	 * e-mail:zhuchaowei@e-eduspace.com
-	 * 2016年6月14日 下午5:03:57
-	 * @param loginModel
-	 * @param result
-	 * @param session
-	 * @param httpServletRequest
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-    @RequestMapping(value = "/login",method=RequestMethod.POST)
-    @ResponseBody
-    public ResponseItem login( LoginModel loginModel, BindingResult result, HttpSession session, HttpServletRequest httpServletRequest, ModelMap model) throws Exception {
-        ResponseItem ri = new ResponseItem();
-        if (StringUtils.isBlank(loginModel.getUser())) {
-			logger.error("login ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".loginModel.getUser");
-			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".loginModel.getUser");
-		}
-        if (StringUtils.isBlank(loginModel.getPassword())) {
-			logger.error("login ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".loginModel.getPassword");
-			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".loginModel.getPassword");
-		}
-        try {
-            logger.debug("------------------login----user:{}", loginModel.getUser());
-            logger.debug("------------------login----pws:{}", loginModel.getPassword());
-           ManagerModel managerModel= managerService.getByUserName(loginModel.getUser());
-           if(managerModel==null){
-   				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_NOTFOUND.toString(), ".getuserbyname");
-           }
-           RoleModel roleModel = roleService.getRoleModel(managerModel.getrUuid(), null);
-           managerModel.setRoleModel(roleModel);
-           if(!managerModel.getPassword().equals(Digest.md5Digest(loginModel.getPassword()))){
-  				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_INVALID.toString(), ".password");
-           }
-            //实例化SessionItem 用于需要保存的用户信息
-            SessionItem sessionItem = new SessionItem(managerModel.getId(), managerModel.getName(), managerModel.getEmail(), managerModel.getPhone()
-                    ,managerModel.getAccessKey(),managerModel.getSecretKey(),managerModel.getrUuid(),managerModel.getType().toString(),managerModel.getIsFirst());
-            //将用户信息保存到session中
-            session.setAttribute(Constants.SESSION_ID, sessionItem);
-            session.setAttribute("userPhone", managerModel.getPhone());
-            session.setAttribute("username", managerModel.getName());
-            logger.debug("--->"+managerModel.getType().toString());
-            session.setAttribute("roleUUID", managerModel.getrUuid());
-            session.setAttribute("roleType", managerModel.getType());
-            session.setAttribute("isFirst", managerModel.getIsFirst());
-            session.setAttribute("email", managerModel.getEmail());
-            session.setAttribute("roleModel", managerModel.getRoleModel());
-            session.setAttribute("managerPermission", roleModel.getPermissionModels());
-            return ri;
-        } catch (Exception e) {
-            logger.error("userLogin Exception:", e);
-            return ResponseItem.responseWithName(ri, ResponseCode.SERVICE_ERROR.toString(), "userLogin exception");
-        }
-    }
-
-    /**
-     * 用户登出
-     *
-     * @return ResponseItem
-     * @throws Exception
-     */
-    @RequestMapping(value = "/logout",method=RequestMethod.POST)
-    public ModelAndView logout(@ModelAttribute(Constants.SESSION_ID) SessionItem si, SessionStatus sessionStatus, HttpSession session, HttpServletResponse res, HttpServletRequest request) throws Exception {
-    	sessionStatus.setComplete();
-        session.removeAttribute("userPhone");
-        session.removeAttribute("username");
-        session.removeAttribute("roleUUID");
-        session.removeAttribute("roleType");
-        session.removeAttribute("isFirst");
-        session.removeAttribute("email");
-        session.removeAttribute(Constants.SESSION_ID);
-        session.invalidate();
-        //跳转到登录界面
-        res.sendRedirect(request.getContextPath()+LOGIN_URL);
-        return null;
-    }
 
 }
