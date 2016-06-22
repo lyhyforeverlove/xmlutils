@@ -1,6 +1,7 @@
 package com.eeduspace.management.persist.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,7 +18,7 @@ public interface VipPackDao extends JpaRepository<VIPPack, Long>{
 	@Modifying 
 	@Query("update VIPPack v set v.isRelease=?1")
 	Integer updateRelease(Boolean isRelease);
-	
+	List<VIPPack> findByIsRelease(Boolean isRelease);
 	VIPPack findByUuid(String uuid);
 	VIPPack findByVipType(String vipType);
 	@Modifying

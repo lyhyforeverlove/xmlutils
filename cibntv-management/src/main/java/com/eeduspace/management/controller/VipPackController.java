@@ -52,15 +52,16 @@ public class VipPackController {
 	 */
 	@RequestMapping(value="/vip_pack_list",method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem getPackList(){
+	public ResponseItem getPackList(@ModelAttribute VipPackModel vipPackModel){
 		ResponseItem item=new ResponseItem();
+		
 		try {
-			List<VIPPack> packs=vipPackService.findAll();
+			List<VIPPack> packs=vipPackService.findAllByRelease(vipPackModel.getIsRelease());
 			List<VipPackModel> packModels=new ArrayList<>();
 			for (VIPPack vipPack : packs) {
-				VipPackModel vipPackModel=new VipPackModel();
-				vipPackModel=CIBNManagementConvert.fromVipPackPo(vipPack);
-				packModels.add(vipPackModel);
+				VipPackModel vipPackModel1=new VipPackModel();
+				vipPackModel1=CIBNManagementConvert.fromVipPackPo(vipPack);
+				packModels.add(vipPackModel1);
 			}
 			item.setDatas(packModels);
 			item.setMessage("success");

@@ -7,7 +7,7 @@ import com.eeduspace.management.model.VipPackModel;
 import com.eeduspace.management.persist.po.VIPPack;
 
 public interface VipPackService {
-	public List<VIPPack> findAll();
+	public List<VIPPack> findAllByRelease(Boolean isRelease);
 	public void deleteByUUID(String uuid);
 	public int updateVipPackRelease();
 	public VIPPack findByUUID(String uuid);
