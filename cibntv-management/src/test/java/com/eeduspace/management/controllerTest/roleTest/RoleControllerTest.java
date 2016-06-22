@@ -28,8 +28,8 @@ public class RoleControllerTest extends BaseTest {
 		String[] ids = new String[1];
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ids", ids);
-		paramMap.put("name", "CIBN管理");
-		paramMap.put("type", "CIBNTV");
+		paramMap.put("name", "测试用户");
+//		paramMap.put("type", "");
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
 			System.out.println("返回数据为：" + response);

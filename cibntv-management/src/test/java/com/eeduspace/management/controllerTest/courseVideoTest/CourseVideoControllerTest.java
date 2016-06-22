@@ -9,17 +9,17 @@ import org.junit.Test;
 import com.eeduspace.management.BaseTest;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 
-public class CourseVidelControllerTest extends BaseTest {
+public class CourseVideoControllerTest extends BaseTest {
 	
 	
 	@Test
 	public void courseVideoPageTest(){
-//		String url = "http://192.168.1.190:8182/llsfw/rest/selectVideoBySubjectCodeAndVideoName";
+//		String url = "http://211.157.179.216:8080/llsfw/rest/selectVideoBySubjectCodeAndVideoName";
 		String url = "http://localhost:8070/cibntv-management/action/video/videoPage";
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("subjectCode", "4");
-		paramMap.put("subjectName", "物理");
-		paramMap.put("searchName", "变压器");
+//		paramMap.put("subjectCode", "4");
+//		paramMap.put("subjectName", "物理");
+//		paramMap.put("searchName", "变压器");
 		paramMap.put("cp", 1);
 		paramMap.put("pageSize", 10);
 		
@@ -34,12 +34,12 @@ public class CourseVidelControllerTest extends BaseTest {
 	}
 	@Test
 	public void courseVideoDetailTest(){
-//		String code = "8a2a7468544c359901545b830bee0cf0";
-//		String url = "http://192.168.1.161:8080/llsfw/rest/getVideoDetail/" + code;
-		
+//		String code = "012a7c95867a4af5ace7bac306f90126";
+//		String url = "http://211.157.179.216:8080/llsfw/rest/getVideoDetail/" + code;
+//		
 		String url = "http://localhost:8070/cibntv-management/action/video/videoDetail";
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("courseCode", "8a2a74685484c0fd015484c11be3000a");
+		paramMap.put("courseCode", "012a7c95867a4af5ace7bac306f90126");
 		try {
 //			String response = HTTPClientUtils.httpGetRequestJson(url);
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
@@ -53,7 +53,7 @@ public class CourseVidelControllerTest extends BaseTest {
 	
 	
 	public static void main(String[] args) {
-		CourseVidelControllerTest pct = new CourseVidelControllerTest();
+		CourseVideoControllerTest pct = new CourseVideoControllerTest();
 		pct.courseVideoDetailTest();
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("1", "单元测试");

@@ -377,7 +377,7 @@ public class ManagerController {
 	 * @return
 	 * @throws Exception
 	 */
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login",method=RequestMethod.POST)
     @ResponseBody
     public ResponseItem login( LoginModel loginModel, BindingResult result, HttpSession session, HttpServletRequest httpServletRequest, ModelMap model) throws Exception {
         ResponseItem ri = new ResponseItem();
@@ -428,7 +428,7 @@ public class ManagerController {
      * @return ResponseItem
      * @throws Exception
      */
-    @RequestMapping(value = "/logout")
+    @RequestMapping(value = "/logout",method=RequestMethod.POST)
     public ModelAndView logout(@ModelAttribute(Constants.SESSION_ID) SessionItem si, SessionStatus sessionStatus, HttpSession session, HttpServletResponse res, HttpServletRequest request) throws Exception {
     	sessionStatus.setComplete();
         session.removeAttribute("userPhone");

@@ -38,7 +38,7 @@ public class PaperServiceImpl implements PaperService {
 	public PaperResponseModel getPaperPage(String grade, String subject,String bookType, String paperType, Map<String, String> searchMap,
 			int cp, int size) throws JsonSyntaxException, Exception {
 
-		String gsonResponse = baseDataClient.getPaperPage(grade, subject, bookType, paperType, searchMap, cp, size);
+		String gsonResponse = baseDataClient.getPaperPage(grade, subject, bookType, paperType, searchMap, (cp-1), size);
 		PaperResponseModel baseDatas = new PaperResponseModel();
 		baseDatas = gson.fromJson(gsonResponse, PaperResponseModel.class);
 		//业务处理
@@ -85,13 +85,6 @@ public class PaperServiceImpl implements PaperService {
 
 	@Override
 	public List<PaperTypeModel> saveOrReplacePaperTypes(List<PaperTypeModel> pTypeModels) throws ParseException {
-		/*List<String> ids = paperTypeModel.getIds();
-		List<String> datesBef = paperTypeModel.getDatesBef();
-		List<String> datesAft = paperTypeModel.getDatesAft();
-		List<String> prices = paperTypeModel.getPrices();
-		List<Double> discounts = paperTypeModel.getDiscounts();
-		PaperTypeModel pModel = new PaperTypeModel();
-		List<PaperTypeModel> pList = new ArrayList<PaperTypeModel>();*/
 		List<String> ids = new ArrayList<String>();
 		for (PaperTypeModel pm : pTypeModels) {
 			ids.add(pm.getUuid());

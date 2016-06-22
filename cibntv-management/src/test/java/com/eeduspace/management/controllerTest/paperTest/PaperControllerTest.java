@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 
 import com.eeduspace.management.BaseTest;
+import com.eeduspace.management.model.PaperTypeModel;
 import com.eeduspace.management.persist.dao.PaperTypePoDao;
 import com.eeduspace.management.persist.enumeration.PaperTypeEnum;
 import com.eeduspace.management.persist.po.PaperTypePo;
@@ -35,9 +36,10 @@ public class PaperControllerTest extends BaseTest {
 		paramMap.put("subjectName", "数学");
 		paramMap.put("bookTypeCode", "170a286029b24ed78626c5203fc1c816");
 		paramMap.put("bookTypeName", "人教新课标版");
-		paramMap.put("paperType", "1");
-		paramMap.put("cp", 0);
+		paramMap.put("cp", 1);
 		paramMap.put("pageSize", 10);
+		paramMap.put("paperType", "1");
+		paramMap.put("paperTypeName", "单元测试");
 		/*paramMap.put("searchName", "paperName");
 		paramMap.put("searchValue", "认识");*/
 		
@@ -169,8 +171,6 @@ public class PaperControllerTest extends BaseTest {
 	public static void main(String[] args) {
 		PaperControllerTest pct = new PaperControllerTest();
 		pct.paperPageTest();
-		
-		
 	}
 	
 	

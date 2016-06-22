@@ -10,7 +10,8 @@ public class CourseVideoModel {
 	//视频id
 	private String id;
 	//视频名称
-	private String video_name = null;
+	private String videoName;
+	private String video_name;
 	//视频描述
 	private String video_desc = null;
 	//视频播放地址
@@ -21,12 +22,6 @@ public class CourseVideoModel {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getVideo_name() {
-		return video_name;
-	}
-	public void setVideo_name(String video_name) {
-		this.video_name = video_name;
 	}
 	public String getVideo_desc() {
 		return video_desc;
@@ -39,6 +34,18 @@ public class CourseVideoModel {
 	}
 	public void setVideo_url(String video_url) {
 		this.video_url = video_url;
+	}
+	public String getVideoName() {
+		return videoName;
+	}
+	public void setVideoName(String videoName) {
+		this.videoName = videoName;
+	}
+	public String getVideo_name() {
+		return video_name;
+	}
+	public void setVideo_name(String video_name) {
+		this.video_name = video_name;
 	}
 
 

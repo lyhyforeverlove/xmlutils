@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.eeduspace.management.comm.Constants;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
+import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.PermissionService;
@@ -63,15 +64,15 @@ public class RoleController {
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".roleModel.getPermissionModels");
 			}
 			//测试使用------开始
-//			List<PermissionModel> pModels = permissionService.getPermissionModels(String.valueOf(Status.Enable));
-//			List<String> ids1 = new ArrayList<String>();
-//			for (PermissionModel pm : pModels) {
-//				ids1.add(pm.getUuid());
-//			}
-//			String[] ids2 = (String[]) ids1.toArray(new String[ids1.size()]);
+			List<PermissionModel> pModels = permissionService.getPermissionModels(String.valueOf(Status.Enable));
+			List<String> ids1 = new ArrayList<String>();
+			for (PermissionModel pm : pModels) {
+				ids1.add(pm.getUuid());
+			}
+			String[] ids2 = (String[]) ids1.toArray(new String[ids1.size()]);
 			//测试使用-------结束
 			List<PermissionModel> pModels2 = new ArrayList<PermissionModel>();
-			for (String str : ids) {
+			for (String str : ids2) {
 				PermissionModel pm = new PermissionModel();
 				pm.setUuid(String.valueOf(str));
 				pModels2.add(pm);
