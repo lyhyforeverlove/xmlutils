@@ -1,6 +1,5 @@
 package com.eeduspace.management.model;
 
-import java.util.Date;
 
 public class PaperTypeModel {
 	

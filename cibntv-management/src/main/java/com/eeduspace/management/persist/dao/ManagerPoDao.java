@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.eeduspace.management.persist.enumeration.RoleEnum;
+import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.persist.po.ManagerPo;
 
 public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>,JpaSpecificationExecutor<ManagerPo>{
@@ -21,7 +22,7 @@ public interface ManagerPoDao extends CrudRepository<ManagerPo, Long>,JpaSpecifi
 	@Query("update ManagerPo m set m.status = ?1 where m.uuid = ?2")
 	ManagerPo updateManager(RoleEnum.Status status,String uuid);
 	
-	ManagerPo findByNameAndIsDel(String name, boolean b);
+	ManagerPo findByNameAndStatusAndIsDel(String name,UserEnum.Status status ,boolean b);
 	
 	
 }

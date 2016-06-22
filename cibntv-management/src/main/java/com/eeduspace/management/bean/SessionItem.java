@@ -3,6 +3,8 @@ package com.eeduspace.management.bean;
 
 import java.io.Serializable;
 
+import com.eeduspace.management.model.RoleModel;
+
 /**
  * Copyright：CNIaas Technology (Beijing) CO.,LTD
  * Author: DingRan
@@ -27,7 +29,7 @@ public class SessionItem implements Serializable {
      * @param secretKey
      */
     public SessionItem(Long userId, String userName, String userEmail, String userPhone, String accessKey, String secretKey
-    		,String roleUUID,String type,Boolean isFirst) {
+    		,String roleUUID,String type,Boolean isFirst,RoleModel roleModel) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
@@ -37,6 +39,7 @@ public class SessionItem implements Serializable {
         this.type=type;
         this.roleUUID=roleUUID;
         this.isFirst=isFirst;
+        this.roleModel=roleModel;
     }
 
     private Long userId;
@@ -48,6 +51,7 @@ public class SessionItem implements Serializable {
     private String roleUUID;
     private String type;
     private Boolean isFirst;
+    private RoleModel roleModel;
 
     public String getRoleUUID() {
 		return roleUUID;
@@ -146,5 +150,15 @@ public class SessionItem implements Serializable {
 
 	public void setIsFirst(Boolean isFirst) {
 		this.isFirst = isFirst;
+	}
+
+
+	public RoleModel getRoleModel() {
+		return roleModel;
+	}
+
+
+	public void setRoleModel(RoleModel roleModel) {
+		this.roleModel = roleModel;
 	}
 }

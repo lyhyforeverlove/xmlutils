@@ -77,17 +77,18 @@ public class ManagerLoginOrOutController {
             logger.debug("------------------login----user:{}", loginModel.getUser());
             logger.debug("------------------login----pws:{}", loginModel.getPassword());
            ManagerModel managerModel= managerService.getByUserName(loginModel.getUser());
-           if(managerModel==null){
+           if(StringUtils.isBlank(managerModel.getUuid())){
    				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_NOTFOUND.toString(), ".getuserbyname");
            }
-           RoleModel roleModel = roleService.getRoleModel(managerModel.getrUuid(), null);
-           managerModel.setRoleModel(roleModel);
            if(!managerModel.getPassword().equals(Digest.md5Digest(loginModel.getPassword()))){
   				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_INVALID.toString(), ".password");
            }
+           RoleModel roleModel = roleService.getRoleModel(managerModel.getrUuid(), null);
+           managerModel.setRoleModel(roleModel);
             //实例化SessionItem 用于需要保存的用户信息
             SessionItem sessionItem = new SessionItem(managerModel.getId(), managerModel.getName(), managerModel.getEmail(), managerModel.getPhone()
-                    ,managerModel.getAccessKey(),managerModel.getSecretKey(),managerModel.getrUuid(),managerModel.getType().toString(),managerModel.getIsFirst());
+                    ,managerModel.getAccessKey(),managerModel.getSecretKey(),managerModel.getrUuid(),managerModel.getType().toString()
+                    ,managerModel.getIsFirst(),managerModel.getRoleModel());
             //将用户信息保存到session中
             session.setAttribute(Constants.SESSION_ID, sessionItem);
             session.setAttribute("userPhone", managerModel.getPhone());
@@ -98,7 +99,8 @@ public class ManagerLoginOrOutController {
             session.setAttribute("isFirst", managerModel.getIsFirst());
             session.setAttribute("email", managerModel.getEmail());
             session.setAttribute("roleModel", managerModel.getRoleModel());
-            session.setAttribute("managerPermission", roleModel.getPermissionModels());
+//            session.setAttribute("managerPermission", roleModel.getPermissionModels());
+            ri.setData(sessionItem);
             return ri;
         } catch (Exception e) {
             logger.error("userLogin Exception:", e);

@@ -22,6 +22,7 @@ import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.persist.dao.ManagerPoDao;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
+import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.service.ManagerService;
 import com.google.gson.Gson;
@@ -162,7 +163,7 @@ public class ManagerServiceImpl implements ManagerService {
 
 	@Override
 	public ManagerModel getByUserName(String userName) {
-		ManagerPo managerPo=managerPoDao.findByName(userName);
+		ManagerPo managerPo=managerPoDao.findByNameAndStatusAndIsDel(userName, UserEnum.Status.Enable, false);
 		return CIBNManagementConvert.fromManagerPo(managerPo);
 	}
 
