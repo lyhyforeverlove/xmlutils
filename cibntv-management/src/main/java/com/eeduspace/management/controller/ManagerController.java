@@ -47,7 +47,7 @@ public class ManagerController {
 
 	private final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	private Gson gson = new Gson();
-	
+
 	@Inject
 	private ManagerService managerService;
 	@Inject
@@ -57,7 +57,7 @@ public class ManagerController {
 	@Inject
 	private SMSUtil smsUtil;
 	@Value("${cibn.sms.sendType}")
-    private String sms_sendType;
+	private String sms_sendType;
 
 	/**查询管理员列表分页
 	 * @return
@@ -82,7 +82,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "manageListPage exception");
 		}
 	}
-	
+
 	/**跳转到新增管理员界面
 	 * @return
 	 */
@@ -103,7 +103,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "manageListPage exception");
 		}
 	}
-	
+
 
 	/**增加管理员
 	 * @return
@@ -146,7 +146,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerSave exception");
 		}
 	}
-	
+
 	/**修改管理员角色：状态（停用，启用）；删除状态；密码修改
 	 * @return
 	 */
@@ -197,7 +197,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerDetail exception");
 		}
 	}
-	
+
 	/**手机号唯一性验证
 	 * @return
 	 */
@@ -219,7 +219,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "validatePhone exception");
 		}
 	}
-	
+
 	/**手机发送验证码
 	 * @return
 	 */
@@ -246,7 +246,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "sendMessage exception");
 		}
 	}
-	
+
 	/**验证输入的验证码
 	 * @return
 	 */
@@ -272,7 +272,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "validateMessage exception");
 		}
 	}
-	
+
 	/**密码是否是原密码;新密码是否与旧密码相同 验证
 	 * @return
 	 */
@@ -285,21 +285,19 @@ public class ManagerController {
 				logger.error("validatePassword ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
 			}
-			if (!StringUtils.isEmpty(managerModel.getPassword()) && !StringUtils.isEmpty(managerModel.getOldPassword())) {
+			if (StringUtils.isEmpty(managerModel.getOldPassword())) {
 				logger.error("validatePassword ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_ERROR.toString() + ".managerModel.PARAMETER");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_ERROR.toString(), ".managerModel.PARAMETER");
 			}
-			Boolean flag = null;
-			if (!StringUtils.isBlank(managerModel.getPassword())) {
+			Boolean flag = false;
+			//旧密码验证
+			managerModel.setOldPassword(Digest.md5Digest(managerModel.getOldPassword()));
+			flag = managerService.validatePassword(managerModel);
+			/*if (!StringUtils.isBlank(managerModel.getPassword())) {
 				//新密码验证
 				managerModel.setPassword(Digest.md5Digest(managerModel.getPassword()));
 				flag = managerService.validatePassword(managerModel);
-			}
-			if(!StringUtils.isBlank(managerModel.getOldPassword())){
-				//旧密码验证
-				managerModel.setOldPassword(Digest.md5Digest(managerModel.getOldPassword()));
-				flag = managerService.validatePassword(managerModel);
-			}
+			}*/
 			ResponseItem responseItem = new ResponseItem();
 			responseItem.setData(flag);
 			return responseItem;
@@ -308,7 +306,7 @@ public class ManagerController {
 			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "validatePassword exception");
 		}
 	}
-	
+
 	/**管理员用户名唯一验证
 	 * @return
 	 */
@@ -335,6 +333,6 @@ public class ManagerController {
 		}
 	}
 
-	
+
 
 }
