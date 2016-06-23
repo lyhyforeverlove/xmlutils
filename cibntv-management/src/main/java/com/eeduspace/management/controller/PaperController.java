@@ -165,7 +165,7 @@ public class PaperController {
 	public ResponseItem replacePaperType(HttpServletRequest request, @RequestParam String[] paperTypeDatas) {
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(paperTypeDatas));
 		try {
-			if (org.springframework.util.StringUtils.isEmpty(paperTypeDatas)) {
+			if (org.springframework.util.StringUtils.isEmpty(paperTypeDatas) || paperTypeDatas.length <= 0) {
 				logger.error("replacePaperType ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".responseModel.getPaperTypeDatas");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".responseModel.getPaperTypeDatas");
 			}

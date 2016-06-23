@@ -72,22 +72,21 @@ public class RoleServiceImpl implements RoleService {
 		}
 		RolePo rolePo = CIBNManagementConvert.fromRoleModel(roleModel);
 		rolePo.setStatus(Status.Enable);
-		RolePo rp = rolePoDao.save(rolePo);
-		if (StringUtils.isEmpty(rp)) {
-			return null;
-		}
+		RoleModel roleModel2 = new RoleModel();
 		List<PermissionModel> permissionModels = roleModel.getPermissionModels();
-		List<PermissionPo> permissionPos = new ArrayList<PermissionPo>();
 		if (permissionModels.size() > 0) {
+			RolePo rp = rolePoDao.save(rolePo);
+			if (StringUtils.isEmpty(rp)) {
+				return null;
+			}
 			for (PermissionModel pm : permissionModels) {
 				PermissionAndRolePo permissionAndRolePo = new PermissionAndRolePo();
 				permissionAndRolePo.setP_uuid(pm.getUuid());
 				permissionAndRolePo.setR_uuid(rp.getR_uuid());
 				permissionAndRolePoDao.save(permissionAndRolePo);
 			}
+			roleModel2= CIBNManagementConvert.fromRolePo(rp);
 		}
-		RoleModel roleModel2= CIBNManagementConvert.fromRolePo(rp);
-		roleModel2.setPermissionModels(CIBNManagementConvert.fromPermissionPos(permissionPos));
 		return roleModel2;
 	}
 
