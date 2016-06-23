@@ -40,7 +40,7 @@ import com.eeduspace.uuims.comm.util.base.encrypt.Digest;
 @SessionAttributes(Constants.SESSION_ID)
 public class ManagerLoginOrOutController {
 	
-	private final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+	private final Logger logger = LoggerFactory.getLogger(ManagerLoginOrOutController.class);
 	private static final String LOGIN_URL = "/login.jsp";
 	
 	@Inject

@@ -142,7 +142,7 @@ public class ManagerController {
 		}
 	}
 
-	/**修改管理员角色：状态（停用，启用）；删除状态；密码修改
+	/**修改管理员角色：状态（停用，启用）；删除状态；密码修改；手机号修改
 	 * @return
 	 */
 	@RequestMapping(value="/manageReplace",method=RequestMethod.POST)

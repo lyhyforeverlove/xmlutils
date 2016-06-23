@@ -44,7 +44,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 //		Object obj = session.getAttribute(Constants.SESSION_ID);
 //		response.sendRedirect(request.getContextPath() + LOGIN_URL);
-		SessionItem si = (SessionItem) session.getAttribute(Constants.SESSION_ID);
+//		SessionItem si = (SessionItem) session.getAttribute(Constants.SESSION_ID);
 		ResponseItem ri = new ResponseItem();
 		if (session.getAttribute("roleUUID") != null && session.getAttribute("username") != null) {
 			Boolean flag = false;
@@ -72,6 +72,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 			}
 			if (!flag) {
 				ri.setData(flag);
+				ri.setMessage("No Permission To Operate");
 				response.getWriter().print(gson.toJson(ri));
 				return false;
 			}

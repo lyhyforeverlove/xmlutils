@@ -86,7 +86,7 @@ public class PaperControllerTest extends BaseTest {
 	
 	public static void main(String[] args) {
 		PaperControllerTest pct = new PaperControllerTest();
-		pct.paperDetailTest();
+		pct.paperPageTest();
 	}
 	
 	
