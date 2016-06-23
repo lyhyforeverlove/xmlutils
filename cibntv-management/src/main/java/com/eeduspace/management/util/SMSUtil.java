@@ -29,8 +29,7 @@ public class SMSUtil {
     private String sms_password;
     @Value("${cibn.sms.openId}")
     private String sms_openId;
-    @Value("${cibn.sms.sendType}")
-    private String sms_sendType;
+    
     /**
      * @aa add by dingran
      * @aa 2016-05-11

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +29,6 @@ import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.ManagerService;
 import com.eeduspace.management.service.RoleService;
 import com.eeduspace.management.service.SmsService;
-import com.eeduspace.management.util.SMSUtil;
 import com.eeduspace.uuims.comm.util.base.encrypt.Digest;
 import com.google.gson.Gson;
 
@@ -54,10 +52,7 @@ public class ManagerController {
 	private RoleService roleService;
 	@Inject
 	private SmsService smsService;
-	@Inject
-	private SMSUtil smsUtil;
-	@Value("${cibn.sms.sendType}")
-	private String sms_sendType;
+	
 
 	/**查询管理员列表分页
 	 * @return
@@ -232,14 +227,14 @@ public class ManagerController {
 				logger.error("sendMessage ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getPhone");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getPhone");
 			}
-			String code = smsUtil.send(managerModel.getPhone(), sms_sendType);
+			String code = smsService.sendSmsCode(managerModel.getPhone());
 			SmsModel smsModel = new SmsModel();
 			smsModel.setPhone(managerModel.getPhone());
 			smsModel.setSmsCode(code);
 			//存入本地数据库，用来对比  验证码是否正确
 			smsModel = smsService.saveCode(smsModel);
 			ResponseItem responseItem = new ResponseItem();
-			responseItem.setData(smsModel);
+			responseItem.setData(code);
 			return responseItem;
 		} catch (Exception e) {
 			logger.error("sendMessage  Exception:", e);
