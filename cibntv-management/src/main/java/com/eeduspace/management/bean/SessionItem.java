@@ -29,14 +29,13 @@ public class SessionItem implements Serializable {
      * @param secretKey
      */
     public SessionItem(Long userId, String userName, String userEmail, String userPhone, String accessKey, String secretKey
-    		,String roleUUID,String type,Boolean isFirst,RoleModel roleModel) {
+    		,String roleUUID,Boolean isFirst,RoleModel roleModel) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
         this.accessKey = accessKey;
         this.secretKey = secretKey;
-        this.type=type;
         this.roleUUID=roleUUID;
         this.isFirst=isFirst;
         this.roleModel=roleModel;
@@ -49,7 +48,6 @@ public class SessionItem implements Serializable {
     private String accessKey;
     private String secretKey;
     private String roleUUID;
-    private String type;
     private Boolean isFirst;
     private RoleModel roleModel;
 
@@ -62,15 +60,6 @@ public class SessionItem implements Serializable {
 		this.roleUUID = roleUUID;
 	}
 
-
-	public String getType() {
-		return type;
-	}
-
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 
 	@Override
