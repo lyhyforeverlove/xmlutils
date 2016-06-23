@@ -194,6 +194,7 @@ public class VipPackController {
 		if(pack!=null){
 			ri.setMessage("VIP包已存在");
 			ri.setHttpCode(ResponseCode.RESOURCE_INUSE.toString());
+			return ri;
 		}
 		if(StringUtils.isBlank(vipPackModel.getVipDesc())){
 			ri.setMessage("VipDesc参数丢失");
