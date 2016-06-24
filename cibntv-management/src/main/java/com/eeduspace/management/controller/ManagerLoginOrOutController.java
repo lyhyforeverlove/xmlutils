@@ -41,7 +41,7 @@ import com.eeduspace.uuims.comm.util.base.encrypt.Digest;
 public class ManagerLoginOrOutController {
 	
 	private final Logger logger = LoggerFactory.getLogger(ManagerLoginOrOutController.class);
-	private static final String LOGIN_URL = "/login.jsp";
+	private static final String LOGIN_URL = "/login.html";
 	
 	@Inject
 	private ManagerService managerService;
@@ -86,13 +86,16 @@ public class ManagerLoginOrOutController {
            RoleModel roleModel = roleService.getRoleModel(managerModel.getrUuid(), null);
            managerModel.setRoleModel(roleModel);
             //实例化SessionItem 用于需要保存的用户信息
-            SessionItem sessionItem = new SessionItem(managerModel.getId(), managerModel.getName(), managerModel.getEmail()
-            		, managerModel.getPhone(),managerModel.getAccessKey(),managerModel.getSecretKey(),managerModel.getrUuid()
-                    ,managerModel.getIsFirst(),managerModel.getRoleModel());
+            SessionItem sessionItem = new SessionItem(managerModel.getId(),managerModel.getUuid(), managerModel.getName()
+            		,managerModel.getRealName(), managerModel.getEmail(), managerModel.getPhone(),managerModel.getAccessKey()
+            		,managerModel.getSecretKey(),managerModel.getrUuid(),managerModel.getIsFirst(),managerModel.getRoleModel());
             //将用户信息保存到session中
             session.setAttribute(Constants.SESSION_ID, sessionItem);
+            session.setAttribute("userId", managerModel.getId());
             session.setAttribute("userPhone", managerModel.getPhone());
-            session.setAttribute("username", managerModel.getName());
+            session.setAttribute("userName", managerModel.getName());
+            session.setAttribute("uuid", managerModel.getUuid());
+            session.setAttribute("realName", managerModel.getRealName());
             logger.debug("--->"+managerModel.getrName());
             session.setAttribute("roleUUID", managerModel.getrUuid());
             session.setAttribute("roleType", managerModel.getType());
