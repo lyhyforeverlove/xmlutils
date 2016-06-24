@@ -64,6 +64,10 @@ public class VipPackServiceImpl implements VipPackService{
 	public VIPPack findByVipPackType(String vipPackType) {
 		return vipPackDao.findByVipType(vipPackType);
 	}
+	@Override
+	public List<VIPPack> findAll() {
+		return vipPackDao.findAll();
+	}
 	
 
 }

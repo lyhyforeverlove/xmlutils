@@ -54,9 +54,13 @@ public class VipPackController {
 	@ResponseBody
 	public ResponseItem getPackList(@ModelAttribute VipPackModel vipPackModel){
 		ResponseItem item=new ResponseItem();
-		
+		List<VIPPack> packs=new ArrayList<>();
 		try {
-			List<VIPPack> packs=vipPackService.findAllByRelease(vipPackModel.getIsRelease());
+			if(vipPackModel.getIsAll()){
+				packs=vipPackService.findAll();
+			}else{
+				packs=vipPackService.findAllByRelease(vipPackModel.getIsRelease());
+			}
 			List<VipPackModel> packModels=new ArrayList<>();
 			for (VIPPack vipPack : packs) {
 				VipPackModel vipPackModel1=new VipPackModel();

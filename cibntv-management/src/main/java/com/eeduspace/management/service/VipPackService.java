@@ -16,4 +16,5 @@ public interface VipPackService {
 	public VIPPack saveVipPack(VIPPack pack);
 	public List<VipPackModel> findVipPackForSelect();
 	public VIPPack findByVipPackType(String vipPackType);
+	public  List<VIPPack> findAll();
 }
