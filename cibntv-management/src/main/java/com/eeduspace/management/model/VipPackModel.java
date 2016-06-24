@@ -17,7 +17,7 @@ public class VipPackModel {
 	/**
 	 * 是否  获取全部vip包  true 是  false 否
 	 */
-	private Boolean isAll;
+	private Boolean isAll=false;
 	/**
 	 * 是否打折  true 打折  false 不打折 默认false
  	 */
