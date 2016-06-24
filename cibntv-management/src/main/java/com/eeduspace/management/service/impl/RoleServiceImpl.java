@@ -37,7 +37,7 @@ import com.google.gson.Gson;
 @Transactional
 public class RoleServiceImpl implements RoleService {
 	
-	private final Logger logger = LoggerFactory.getLogger(ManagerServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(RoleService.class);
 	private Gson gson = new Gson();
 	
 	@Inject
