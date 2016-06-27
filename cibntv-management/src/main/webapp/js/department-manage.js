@@ -51,8 +51,18 @@ function addDepartment()
 
   //保存新建部门信息方法结束
   function searcherValue(page){
-        $("#deparment_list").empty();
-        //分页
+    $("#deparment_list").empty();
+    if(page===1){
+        var data = dataList;
+        var department="";
+        if(data){
+          for(var i=0;i<data.content.length;i++){
+             var index =(page-1)*10+(i+1);
+             department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].createDate+"</td><td><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
+          }
+          $("#deparment_list").append(department);
+        }
+    }else{
         var result  = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/role/roleList",false);
         result.done(function(resultList){
             var data = resultList.data;
@@ -65,6 +75,7 @@ function addDepartment()
               $("#deparment_list").append(department);
             }
         });
+     }
   }
 
   //查看部门详情方法
@@ -78,6 +89,7 @@ function addDepartment()
     var result  = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/role/roleList",false);
      result.done(function(resultList){
         totalpage = resultList.data.totalPages;
+        dataList = resultList.data;
         initPagination();
      });
   }

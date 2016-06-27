@@ -65,10 +65,9 @@ var ajaxTool = new AJAXTool();
   //查询方法
   function searcherValue(page){
       $("#privileges-list").empty();
-      var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/manager/manageList",false);
-      result.done(function(resultList){
-          var data = resultList.data;
-          if(data){
+      if(page===1){
+          var data = dataList;
+          if(dataList){
               var privilegesList = "";
               for(var i=0;i<data.content.length;i++){
                   var status="";
@@ -81,8 +80,27 @@ var ajaxTool = new AJAXTool();
                   privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].phone+"</td><td>"+data.content[i].rName+"</td><td><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
               }
               $("#privileges-list").append(privilegesList);
-         }
-      });
+          }
+      }else{
+          var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/manager/manageList",false);
+          result.done(function(resultList){
+              var data = resultList.data;
+              if(data){
+                  var privilegesList = "";
+                  for(var i=0;i<data.content.length;i++){
+                      var status="";
+                      if(data.content[i].status=="Enable"){
+                          status="停用";
+                      }else if(data.content[i].status=="Disable"){
+                          status="启用";
+                      }
+                      var index =(page-1)*10+(i+1);
+                      privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].phone+"</td><td>"+data.content[i].rName+"</td><td><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
+                  }
+                  $("#privileges-list").append(privilegesList);
+              }
+          });
+      }
   }
 
   function firstLink(){
@@ -91,6 +109,7 @@ var ajaxTool = new AJAXTool();
     var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/manager/manageList",false);
     result.done(function(resultList){
        totalpage = resultList.data.totalPages;
+       dataList = resultList.data;
        initPagination();
     });
   }

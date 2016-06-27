@@ -72,18 +72,6 @@ var subjectName="";
 var bookTypeCode="";
 var bookTypeCodeName="";
 
-//第一次进入页面加载分页
-function firstLink(){
-    $("#examination_list").empty();
-    var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":"1","pageSize":"10","searchName": "paperName",
-  },"/paper/paperPage",false);
-    result.done(function(resultList){
-        var data=resultList.data;
-        totalpage = data.totalPage;
-        initPagination();
-    });
-}
-
 
 
 function searchStage(code,name){
@@ -127,25 +115,51 @@ function searchBookType(code,name){
 
 //页面初始化
 function searcherValue(page){
-    $("#examination_list").empty();
-    var keyWord = $("#keyWord").val();
-    var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":page,"pageSize":"10","searchName": "paperName",
-           "searchValue":keyWord},"/paper/paperPage",false);
-    result.done(function(resultList){
-        var data=resultList.data;
-        if(data.paperDatas){
-            var lg = data.paperDatas.length;
-            $("#examination-total").html(data.item+"套");
+    if(page===1){
+        if(dataList.paperDatas){
+            var lg = dataList.paperDatas.length;
+            $("#examination-total").html(dataList.item+"套");
             var examination="";
             for(var i=0;i<lg;i++){
                 var index =(page-1)*10+(i+1);
-                examination +="<tr><td>"+index+"</td><td>"+data.statgeName+"</td><td>"+data.gradeName+"</td><td>"+data.subjectName+"</td><td>"+data.bookTypeName+"</td><td>上学期</td><td>"+data.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].price+"元</td><td>"+data.paperDatas[i].createDateStr+"</td><td>"+data.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+data.paperDatas[i].id+"')>详情</a></td></tr>";
+                examination +="<tr><td>"+index+"</td><td>"+dataList.statgeName+"</td><td>"+dataList.gradeName+"</td><td>"+dataList.subjectName+"</td><td>"+dataList.bookTypeName+"</td><td>上学期</td><td>"+dataList.paperDatas[i].typeName+"</td><td>"+dataList.paperDatas[i].price+"元</td><td>"+dataList.paperDatas[i].createDateStr+"</td><td>"+dataList.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+dataList.paperDatas[i].id+"')>详情</a></td></tr>";
             }
             $("#examination_list").append(examination);
         }
-    });
+    }else{
+        $("#examination_list").empty();
+        var keyWord = $("#keyWord").val();
+        var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":page,"pageSize":"10","searchName": "paperName",
+               "searchValue":keyWord},"/paper/paperPage",false);
+        result.done(function(resultList){
+            var data=resultList.data;
+            if(data.paperDatas){
+                var lg = data.paperDatas.length;
+                $("#examination-total").html(data.item+"套");
+                var examination="";
+                for(var i=0;i<lg;i++){
+                    var index =(page-1)*10+(i+1);
+                    examination +="<tr><td>"+index+"</td><td>"+data.statgeName+"</td><td>"+data.gradeName+"</td><td>"+data.subjectName+"</td><td>"+data.bookTypeName+"</td><td>上学期</td><td>"+data.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].price+"元</td><td>"+data.paperDatas[i].createDateStr+"</td><td>"+data.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+data.paperDatas[i].id+"')>详情</a></td></tr>";
+                }
+                $("#examination_list").append(examination);
+            }
+        });
+    }
 
 }
+//第一次进入页面加载分页
+function firstLink(){
+    $("#examination_list").empty();
+    var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":"1","pageSize":"10","searchName": "paperName",
+  },"/paper/paperPage",false);
+    result.done(function(resultList){
+        var data = resultList.data;
+        totalpage = data.totalPage;
+        dataList = data;
+        initPagination();
+    });
+}
+
 
 function paperDetail(id){
       window.location.href="examination-detail.html?id="+id;
