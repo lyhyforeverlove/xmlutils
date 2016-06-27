@@ -2,22 +2,14 @@ package com.eeduspace.management.controllerTest.paperTest;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import org.junit.Test;
 
 import com.eeduspace.management.BaseTest;
-import com.eeduspace.management.persist.dao.PaperTypePoDao;
-import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 
 public class PaperControllerTest extends BaseTest {
-	
-	@Inject
-	private PaperTypePoDao pTypePoDao;
 	
 	@Test
 	public void paperPageTest(){
@@ -25,14 +17,19 @@ public class PaperControllerTest extends BaseTest {
 //		String url = "http://192.168.1.190:8182/llsfw/paperController/rest/getIdAndNames";
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("stageCode", "1");
+		paramMap.put("stageName", "小学");
 		paramMap.put("gradeCode", "11");
+		paramMap.put("gradeName", "一年级");
 		paramMap.put("subjectCode", "2");
+		paramMap.put("subjectName", "数学");
 		paramMap.put("bookTypeCode", "170a286029b24ed78626c5203fc1c816");
-//		paramMap.put("booktype", "170a286029b24ed78626c5203fc1c816");
-//		paramMap.put("type", "1");
-		paramMap.put("paperType", "1");
+		paramMap.put("bookTypeName", "人教新课标版");
 		paramMap.put("cp", 1);
-		paramMap.put("pageSize", "10");
+		paramMap.put("pageSize", 10);
+		paramMap.put("paperType", "1");
+		paramMap.put("paperTypeName", "单元测试");
+		/*paramMap.put("searchName", "paperName");
+		paramMap.put("searchValue", "认识");*/
 		
 		try {
 //			String response = HTTPClientUtils.httpPostRequestJson(url, gson.toJson(paramMap));
@@ -49,7 +46,7 @@ public class PaperControllerTest extends BaseTest {
 		
 		String url = "http://localhost:8070/cibntv-management/action/paper/paperDetail";
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("paperCode", "8a2a7468544c359901545b89195f0d42");
+		paramMap.put("paperCode", "8a2a7468544c359901545afd09330a46");
 		try {
 //			String response = HTTPClientUtils.httpGetRequestJson(url);
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
@@ -62,37 +59,36 @@ public class PaperControllerTest extends BaseTest {
 	}
 	
 	@Test
-	public void savePaperType(){
-		/*PaperTypePo po = new PaperTypePo();
-		po.setName("高考考试");
-		po.setPrice("20");
-		po.setType(PaperTypeEnum.GAOKAO.getValue());
-		po.setDiscount((double)1);
-		po.setDateBef(new Date());
-		po.setDateAft(new Date());
-		pTypePoDao.save(po);*/
-		List<PaperTypePo> list = (List<PaperTypePo>) pTypePoDao.findAll();
-		String name = null;
-		for (PaperTypePo ptp : list) {
-			int type = ptp.getType();
-			if ( type == 2) {
-				name = ptp.getName();
-				System.out.println(name);
-				break;
-			}
-			System.out.println(ptp.getType()+":" +ptp.getName()+":"+ptp.getPrice()+":"+ptp.getDiscount());
+	public void saveOrReplacePaperType(){
+		String url = "http://localhost:8070/cibntv-management/action/paper/paperTypeReplace";
+		Map<String, Object> paramMap = new HashMap<>();
+		try {
+			String response = HTTPClientUtils.httpPostForm(url, paramMap);
+			System.out.println("返回值为：" + response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+	}
+	
+	@Test
+	public void paperTypeList(){
+		String url = "http://localhost:8070/cibntv-management/action/paper/paperTypeList";
+		Map<String, Object> paramMap = new HashMap<>();
+		try {
+			String response = HTTPClientUtils.httpPostForm(url, paramMap);
+			System.out.println("返回值为：" + response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void main(String[] args) {
 		PaperControllerTest pct = new PaperControllerTest();
 		pct.paperPageTest();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("1", "单元测试");
-//		System.out.println(map.keySet().contains(String.valueOf(PaperTypeEnum.UINT.getValue())));
-		
-		
 	}
+	
 	
 	
 	

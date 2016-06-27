@@ -9,12 +9,16 @@ public class BaseDataModel {
 
 	//学段code
 	private String stageCode;
+	private String statgeName;
 	//学年code
 	private String gradeCode;
+	private String gradeName;
 	//学科code
 	private String subjectCode;
+	private String subjectName;
 	//教材code
 	private String bookTypeCode;
+	private String bookTypeName;
 	//教材版本上下册code
 	private String bookTypeVersionCode;
 	//单元code
@@ -30,7 +34,7 @@ public class BaseDataModel {
 	
 	//分页属性
 	private Integer cp;
-	private Integer pageSize;
+	private Integer pageSize = 10;
 	private Integer totalPage;
 	private Integer item;
 	
@@ -38,6 +42,7 @@ public class BaseDataModel {
 	private String searchName;
 	private String searchValue;
 	private String paperType;
+	private String paperTypeName;
 	private String paperCode;
 	
 	public List<CourseVideoModel> getReponseVedio() {
@@ -147,6 +152,36 @@ public class BaseDataModel {
 	}
 	public void setPaperCode(String paperCode) {
 		this.paperCode = paperCode;
+	}
+	public String getStatgeName() {
+		return statgeName;
+	}
+	public void setStatgeName(String statgeName) {
+		this.statgeName = statgeName;
+	}
+	public String getGradeName() {
+		return gradeName;
+	}
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	public String getBookTypeName() {
+		return bookTypeName;
+	}
+	public void setBookTypeName(String bookTypeName) {
+		this.bookTypeName = bookTypeName;
+	}
+	public String getPaperTypeName() {
+		return paperTypeName;
+	}
+	public void setPaperTypeName(String paperTypeName) {
+		this.paperTypeName = paperTypeName;
 	}
 
 

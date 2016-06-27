@@ -6,7 +6,11 @@ import org.springframework.data.domain.Pageable;
 import com.eeduspace.management.model.ManagerModel;
 
 
-
+/**
+ * @author songwei
+ *	Date 2016-06-06
+ *	Describe 管理员管理接口
+ */
 public interface ManagerService {
 	
 	/** 管理员分页查询
@@ -26,7 +30,7 @@ public interface ManagerService {
 	 * @param managerModel  管理员模型
 	 * @return
 	 */
-	public ManagerModel saveOrReplaceManager(ManagerModel managerModel);
+	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) throws Exception;
 	
 	/**管理员操作日志
 	 * 
@@ -59,5 +63,4 @@ public interface ManagerService {
 	 */
 	public ManagerModel getByUserName(String userName);
 	
-	public ManagerModel getManager(String name);
 }

@@ -26,7 +26,7 @@ import com.google.gson.JsonSyntaxException;
 @SessionAttributes(Constants.SESSION_ID)
 public class CourseVideoController {
 	
-	private final Logger logger = LoggerFactory.getLogger(PaperController.class);
+	private final Logger logger = LoggerFactory.getLogger(CourseVideoController.class);
 	private Gson gson = new Gson();
 	
 	@Inject
@@ -37,24 +37,26 @@ public class CourseVideoController {
 	public ResponseItem videoPageList(HttpServletRequest request,BaseDataModel baseDataModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(baseDataModel));
 		try {
-			if (StringUtils.isBlank(baseDataModel.getSubjectCode())) {
+			/*if (StringUtils.isBlank(baseDataModel.getSubjectCode())) {
 				logger.error("videoPageList ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".baseDataModel.getSubjectCode");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getSubjectCode");
-			}
-			if (baseDataModel.getCp() < 0) {
+			}*/
+			/*if (baseDataModel.getCp() < 0) {
 				logger.error("videoPageList ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".baseDataModel.getCp");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".baseDataModel.getCp");
-			}
+			}*/
 			ResponseItem responseItem = new ResponseItem();
 			CourseVideoResponseModel response = baseDataClient.getCourseVideoPage(baseDataModel.getSubjectCode(), baseDataModel.getSearchName(), baseDataModel.getCp(), baseDataModel.getPageSize());
-//			BaseDataModel bm= courseVideoService.getCousreVideos(baseDataModel);
 			BaseDataModel baseDataModel2 = new BaseDataModel();
 			baseDataModel2.setSearchName(baseDataModel.getSearchName());
+			baseDataModel2.setSearchValue(baseDataModel.getSearchValue());
 			baseDataModel2.setCp(response.getCurPage());
 			baseDataModel2.setPageSize(response.getPageSize());
 			baseDataModel2.setTotalPage(response.getPagetotal());
 			baseDataModel2.setItem(response.getTotal());
 			baseDataModel2.setReponseVedio(response.getVideoList());
+			baseDataModel2.setSubjectCode(baseDataModel.getSubjectCode());
+			baseDataModel2.setSubjectName(baseDataModel.getSubjectName());
 			
 			responseItem.setData(baseDataModel2);
 			return responseItem;

@@ -68,7 +68,7 @@ public class UserController {
 			return item;
 		}
 		try {
-			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage(), userQueryModel.getSize());
+			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage()-1, userQueryModel.getSize());
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 			List<UserPo> userList=pageList.getContent();
 			List<UserModel> userModels=new ArrayList<>();
@@ -78,7 +78,7 @@ public class UserController {
 			}
 			logger.info("getNumber:{},getNumberOfElements:{},getSize{},getTotalElements:{},getTotalPages:{}",pageList.getNumber(),pageList.getNumberOfElements(),pageList.getSize(),pageList.getTotalElements(),pageList.getTotalPages());
 			item.setTotalRecords(pageList.getTotalElements());
-			item.setCurrentPage(pageList.getNumber());
+			item.setCurrentPage(pageList.getNumber()+1);
 			item.setTotalPage(pageList.getTotalPages());
 			item.setSize(pageList.getSize());
 			item.setMessage("success");

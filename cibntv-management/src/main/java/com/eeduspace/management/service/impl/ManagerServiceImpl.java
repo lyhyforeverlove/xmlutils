@@ -57,7 +57,7 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) {
+	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) throws Exception {
 		ManagerPo managerPo = new ManagerPo();
 		ManagerModel model = new ManagerModel();
 		if(!StringUtils.isEmpty(managerModel)){
@@ -143,11 +143,8 @@ public class ManagerServiceImpl implements ManagerService {
 	public Boolean validatePassword(ManagerModel managerModel) {
 		ManagerPo managerPo = managerPoDao.findByUuid(managerModel.getUuid());
 		String pwdM = "";
-		if (!StringUtils.isEmpty(managerModel.getPassword())) {
-			pwdM = managerModel.getPassword();
-		}
 		if (!StringUtils.isEmpty(managerModel.getOldPassword())) {
-			pwdM = managerModel.getPassword();
+			pwdM = managerModel.getOldPassword();
 		}
 		if (!StringUtils.isEmpty(managerPo)) {
 			String pwdP = managerPo.getPassword();
@@ -163,12 +160,6 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public ManagerModel getByUserName(String userName) {
 		ManagerPo managerPo=managerPoDao.findByName(userName);
-		return CIBNManagementConvert.fromManagerPo(managerPo);
-	}
-
-	@Override
-	public ManagerModel getManager(String name) {
-		ManagerPo managerPo = managerPoDao.findByNameAndIsDel(name,true);
 		return CIBNManagementConvert.fromManagerPo(managerPo);
 	}
 

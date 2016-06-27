@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.eeduspace.management.service.Test;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 
 public class UserTest {
 	public static void main(String[] args) throws IOException {
+		
 		//TestVipOrderList();
 		//testUserList();
 		//testUserOrder();

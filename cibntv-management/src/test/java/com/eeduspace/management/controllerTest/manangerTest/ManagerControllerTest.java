@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.eeduspace.management.BaseTest;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
-import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 
 public class ManagerControllerTest extends BaseTest {
@@ -32,17 +31,17 @@ public class ManagerControllerTest extends BaseTest {
 	public void mSaveTest(){
 		String url = "http://localhost:8070/cibntv-management/action/manager/manageSave";
 		RoleModel roleModel = new RoleModel();
-		String name = "cibnguanli";
+		String name = "testuser";
 		String password = "123456";
-		roleModel.setName("CIBN管理");
-		roleModel.setUuid("c601bee5a61e457fa2df485fe4f0f2eb");
-		roleModel.setType(RoleEnum.Type.CIBNTV.toString());
+		roleModel.setName("测试用户");
+		roleModel.setUuid("a2c2e236a57f492db408fcfbb136474f");
+//		roleModel.setType(RoleEnum.Type.CIBNTV.toString());
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("name", name);
 		paramMap.put("password", password);
 		paramMap.put("rName", roleModel.getName());
 		paramMap.put("rUuid", roleModel.getUuid());
-		paramMap.put("type", roleModel.getType());
+//		paramMap.put("type", roleModel.getType());
 //		paramMap.put("createManagerId", 123123465);
 
 		try {
@@ -59,7 +58,7 @@ public class ManagerControllerTest extends BaseTest {
 	public void mDetail(){
 		String url = "http://localhost:8070/cibntv-management/action/manager/manageDetail";
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("uuid", "4bd9f930c77748a4a07dc1699c61f9d9");
+		paramMap.put("uuid", "79b7ac89ac734f05b212d0efd0a2f667");
 
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
@@ -75,14 +74,12 @@ public class ManagerControllerTest extends BaseTest {
 		String url = "http://localhost:8070/cibntv-management/action/manager/manageList";
 		Map<String, Object> paramMap = new HashMap<>();
 		ManagerModel managerModel = new ManagerModel();
-		managerModel.setCurrentPage(0);
-		managerModel.setSize(5);
-		/*managerModel.setType(RoleEnum.Type.Test);
-		managerModel.setQueryName("test");*/
+		managerModel.setCurrentPage(1);
+		managerModel.setSize(10);
+		managerModel.setQueryName("an");
 		paramMap.put("currentPage", managerModel.getCurrentPage());
 		paramMap.put("size", managerModel.getSize());
-		/*paramMap.put("type", managerModel.getType());
-		paramMap.put("queryName", managerModel.getQueryName());*/
+		paramMap.put("queryName", managerModel.getQueryName());
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
 			System.out.println("返回值为：" + response);
@@ -96,20 +93,20 @@ public class ManagerControllerTest extends BaseTest {
 	@Test
 	public void mUpdateTest(){
 		String url = "http://localhost:8070/cibntv-management/action/manager/manageReplace";
-//		RoleModel roleModel = new RoleModel();
+		RoleModel roleModel = new RoleModel();
 //		String password = "123456";
-		String uuid = "4bd9f930c77748a4a07dc1699c61f9d9";
-//		roleModel.setName("CustomerService");
-//		roleModel.setUuid("1fca5e380a514e49ab708cd310c5f10c");
+		String uuid = "3ffb2fc5e9234172a782b4490297c331";
+		roleModel.setName("客服管理");
+		roleModel.setUuid("b7a5c3106a144267843422de85bf34aa");
 //		roleModel.setType(RoleEnum.Type.CustomerService.toString());
 		Map<String, Object> paramMap = new HashMap<>();
 //		paramMap.put("password", password);
-//		paramMap.put("rName", roleModel.getName());
-//		paramMap.put("rUuid", roleModel.getUuid());
+		paramMap.put("rName", roleModel.getName());
+		paramMap.put("rUuid", roleModel.getUuid());
 //		paramMap.put("type", roleModel.getType());
 //		paramMap.put("createManagerId", 123123465);
 //		paramMap.put("status", "Enable");
-		paramMap.put("isDel", false);
+//		paramMap.put("isDel", false);
 		paramMap.put("uuid", uuid);
 
 		try {
@@ -120,10 +117,26 @@ public class ManagerControllerTest extends BaseTest {
 		}
 
 	}
+	
+		//用户名唯一性验证
+		@Test
+		public void vName(){
+			String url = "http://localhost:8070/cibntv-management/action/manager/validateName";
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("name", "admin");
+
+			try {
+				String response = HTTPClientUtils.httpPostForm(url, paramMap);
+				System.out.println("返回值为：" + response);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
 
 	public static void main(String[] args) {
 		ManagerControllerTest mct = new ManagerControllerTest();
-		mct.mListTest();
+		mct.mUpdateTest();
 //		System.out.println(RoleEnum.Type.Test.toString());
 
 	}

@@ -1,6 +1,5 @@
 package com.eeduspace.management.model;
 
-import java.util.Date;
 
 public class PaperTypeModel {
 	
@@ -16,9 +15,10 @@ public class PaperTypeModel {
     //折扣
     private Double discount;
     //打折时间1
-    private Date dateBef;
+    private String dateBef;
     //打折时间2
-    private Date dateAft;
+    private String dateAft;
+    
 	public Long getId() {
 		return id;
 	}
@@ -55,18 +55,19 @@ public class PaperTypeModel {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-	public Date getDateBef() {
+	public String getDateBef() {
 		return dateBef;
 	}
-	public void setDateBef(Date dateBef) {
+	public void setDateBef(String dateBef) {
 		this.dateBef = dateBef;
 	}
-	public Date getDateAft() {
+	public String getDateAft() {
 		return dateAft;
 	}
-	public void setDateAft(Date dateAft) {
+	public void setDateAft(String dateAft) {
 		this.dateAft = dateAft;
 	}
+	
     
     
 

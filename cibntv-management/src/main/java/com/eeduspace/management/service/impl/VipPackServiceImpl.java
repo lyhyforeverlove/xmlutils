@@ -20,8 +20,8 @@ public class VipPackServiceImpl implements VipPackService{
 	@Inject
 	private VipPackDao vipPackDao;
 	@Override
-	public List<VIPPack> findAll() {
-		return (List<VIPPack>) vipPackDao.findAll();
+	public List<VIPPack> findAllByRelease(Boolean isRelease) {
+		return  vipPackDao.findByIsRelease(isRelease);
 	}
 	@Transactional
 	@Override
@@ -59,6 +59,14 @@ public class VipPackServiceImpl implements VipPackService{
 			models.add(vipPackModel);
 		}
 		return models;
+	}
+	@Override
+	public VIPPack findByVipPackType(String vipPackType) {
+		return vipPackDao.findByVipType(vipPackType);
+	}
+	@Override
+	public List<VIPPack> findAll() {
+		return vipPackDao.findAll();
 	}
 	
 

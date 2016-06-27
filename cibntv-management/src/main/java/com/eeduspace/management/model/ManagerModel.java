@@ -1,9 +1,6 @@
 package com.eeduspace.management.model;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
+import java.util.List;
 
 import com.eeduspace.management.persist.enumeration.RoleEnum;
 import com.eeduspace.management.persist.enumeration.UserEnum;
@@ -22,12 +19,9 @@ public class ManagerModel {
     private String secretKey;
     private UserEnum.Status status;
     private String extend_;
-    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date lastLoginDate;
-    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createDate;
-    @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateDate;
+    private String lastLoginDate;
+    private String createDate;
+    private String updateDate;
     private Boolean isFirst;
     private Boolean isDel;
     private RoleModel roleModel;
@@ -37,10 +31,13 @@ public class ManagerModel {
     //其他状态
     private RoleEnum.Status otherStatus;
     
+    //权限集合
+    private List<PermissionModel> pModels;
+    
     /**当前页数**/
 	private int currentPage;
 	/**显示条数*/
-	private int size;
+	private int size = 10;
 	/**总页数**/
 	private int totalPage;
 	/**总条数*/
@@ -140,27 +137,28 @@ public class ManagerModel {
 	public void setExtend_(String extend_) {
 		this.extend_ = extend_;
 	}
-	public Date getLastLoginDate() {
+
+	public String getLastLoginDate() {
 		return lastLoginDate;
 	}
 
-	public void setLastLoginDate(Date lastLoginDate) {
+	public void setLastLoginDate(String lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -282,6 +280,14 @@ public class ManagerModel {
 
 	public void setSmsCode(String smsCode) {
 		this.smsCode = smsCode;
+	}
+
+	public List<PermissionModel> getpModels() {
+		return pModels;
+	}
+
+	public void setpModels(List<PermissionModel> pModels) {
+		this.pModels = pModels;
 	}
     
     

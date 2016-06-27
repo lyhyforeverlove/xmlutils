@@ -79,6 +79,6 @@ public class BaseDataControllerTest extends BaseTest {
 	
 	public static void main(String[] args) {
 		BaseDataControllerTest baseDataTest = new BaseDataControllerTest();
-		baseDataTest.testSubjectNO();
+		baseDataTest.testStage();
 	}
 }

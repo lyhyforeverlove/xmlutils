@@ -142,7 +142,7 @@ public class VipOrderController {
 			return item;
 		}
 		try {
-			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage(), orderQueryModel.getSize());
+			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage()-1, orderQueryModel.getSize());
 			Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
 			List<VipBuyRecord> orderList=pageList.getContent();
 			List<VipOrderModel> vipOrderModels=new ArrayList<>();
@@ -152,7 +152,7 @@ public class VipOrderController {
 			}
 			logger.debug("getNumber:{},getNumberOfElements:{},getSize{},getTotalElements:{},getTotalPages:{}",pageList.getNumber(),pageList.getNumberOfElements(),pageList.getSize(),pageList.getTotalElements(),pageList.getTotalPages());
 			item.setTotalRecords(pageList.getTotalElements());
-			item.setCurrentPage(pageList.getNumber());
+			item.setCurrentPage(pageList.getNumber()+1);
 			item.setTotalPage(pageList.getTotalPages());
 			item.setSize(pageList.getSize());
 			item.setMessage("success");

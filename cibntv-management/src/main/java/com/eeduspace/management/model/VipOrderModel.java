@@ -30,6 +30,10 @@ public class VipOrderModel {
 	 */
 	private String orderSn;
 	/**
+	 * 第三当流水号
+	 */
+	private String transactionId;
+	/**
 	 * 订单价格
 	 */
 	private Double orderPrice;
@@ -150,6 +154,12 @@ public class VipOrderModel {
 	}
 	public void setOrderState(String orderState) {
 		this.orderState = orderState;
+	}
+	public String getTransactionId() {
+		return transactionId;
+	}
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}
 	
 }

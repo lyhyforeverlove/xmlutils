@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -106,16 +107,20 @@ public class UserServiceImpl implements UserService{
 				if (userQueryModel.getIsBlacklist() != null) {
 					predicate.add(cb.equal(root.get("isBlacklist"),userQueryModel.getIsBlacklist()));
 				}
-				if (userQueryModel.getStartDate() != null) {
+				if (StringUtils.isNotBlank(userQueryModel.getStartDate())) {
 					try {
-						predicate.add(cb.greaterThanOrEqualTo(root.get("createDate").as(Date.class),DateUtils.parseDate(userQueryModel.getStartDate(),"yyyy-MM-dd HH:mm:ss")));
+						predicate.add(cb.greaterThanOrEqualTo(root.get("createDate").as(Date.class),DateUtils.parseDate(userQueryModel.getStartDate(),"yyyy-MM-dd")));
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 				}
-				if (userQueryModel.getEndDate() != null) {
+				if (StringUtils.isNotBlank(userQueryModel.getEndDate())) {
 					try {
-						predicate.add(cb.lessThanOrEqualTo(root.get("createDate").as(Date.class),DateUtils.parseDate(userQueryModel.getEndDate(),"yyyy-MM-dd HH:mm:ss")));
+						Date endDate=DateUtils.parseDate(userQueryModel.getEndDate(),"yyyy-MM-dd");
+						endDate=DateUtils.addHour(endDate, 23);
+						endDate=DateUtils.addMinute(endDate, 59);
+						endDate=DateUtils.addSecond(endDate, 59);
+						predicate.add(cb.lessThanOrEqualTo(root.get("createDate").as(Date.class),endDate));
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -126,5 +131,4 @@ public class UserServiceImpl implements UserService{
 		};
     }
 
-		
 }

@@ -10,10 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.RichTextString;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -21,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.eeduspace.management.anntation.Excel;
+import com.eeduspace.uuims.comm.util.base.encrypt.Digest;
 
 public class ExcelExportUtil {
 	/** 
@@ -40,9 +37,9 @@ public class ExcelExportUtil {
 	        Collection<?> dataSet, OutputStream out) {  
 	    try {  
 	        // 首先检查数据看是否是正确的  
-	        if (dataSet == null || dataSet.size() == 0) {  
-	            throw new Exception("导出数据为空！");  
-	        }  
+//	        if (dataSet == null || dataSet.size() == 0) {  
+//	            throw new Exception("导出数据为空！");  
+//	        }  
 	        if (title == null || out == null || pojoClass == null) {  
 	            throw new Exception("传入参数不能为空！");  
 	        }  
@@ -118,7 +115,7 @@ public class ExcelExportUtil {
 	            row = sheet.createRow(index);  
 	            Object t = its.next();  
 	            for (int k = 0, methodObjSize = methodObj.size(); k < methodObjSize; k++) {  
-	                Cell cell = row.createCell(k);  
+	            	XSSFCell cell = row.createCell(k);  
 	                Method getMethod = methodObj.get(k);  
 	                Object value = null;  
 	                if (convertMethod.containsKey(getMethod.getName())) {  
@@ -137,4 +134,7 @@ public class ExcelExportUtil {
 	    }  
 	  
 	}   
+	public static void main(String[] args) {
+		System.out.println(Digest.md5Digest("123456"));
+	}
 }

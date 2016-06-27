@@ -3,6 +3,8 @@ package com.eeduspace.management.bean;
 
 import java.io.Serializable;
 
+import com.eeduspace.management.model.RoleModel;
+
 /**
  * Copyright：CNIaas Technology (Beijing) CO.,LTD
  * Author: DingRan
@@ -17,39 +19,40 @@ public class SessionItem implements Serializable {
     }
 
 
-    /**
-     *
-     * @param userId
-     * @param userName
-     * @param userEmail
-     * @param userPhone
-     * @param accessKey
-     * @param secretKey
-     */
-    public SessionItem(Long userId, String userName, String userEmail, String userPhone, String accessKey, String secretKey
-    		,String roleUUID,String type,Boolean isFirst) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
-        this.type=type;
-        this.roleUUID=roleUUID;
-        this.isFirst=isFirst;
-    }
 
     private Long userId;
+    private String userUuid;
     private String userName;
+    private String realName;
     private String userEmail;
     private String userPhone;
     private String accessKey;
     private String secretKey;
     private String roleUUID;
-    private String type;
     private Boolean isFirst;
+    private RoleModel roleModel;
+    
+    
+    public SessionItem(Long userId, String userUuid, String userName,
+			String realName, String userEmail, String userPhone,
+			String accessKey, String secretKey, String roleUUID,
+			Boolean isFirst, RoleModel roleModel) {
+		super();
+		this.userId = userId;
+		this.userUuid = userUuid;
+		this.userName = userName;
+		this.realName = realName;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+		this.accessKey = accessKey;
+		this.secretKey = secretKey;
+		this.roleUUID = roleUUID;
+		this.isFirst = isFirst;
+		this.roleModel = roleModel;
+	}
 
-    public String getRoleUUID() {
+
+	public String getRoleUUID() {
 		return roleUUID;
 	}
 
@@ -58,15 +61,6 @@ public class SessionItem implements Serializable {
 		this.roleUUID = roleUUID;
 	}
 
-
-	public String getType() {
-		return type;
-	}
-
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 
 	@Override
@@ -147,4 +141,36 @@ public class SessionItem implements Serializable {
 	public void setIsFirst(Boolean isFirst) {
 		this.isFirst = isFirst;
 	}
+
+
+	public RoleModel getRoleModel() {
+		return roleModel;
+	}
+
+
+	public void setRoleModel(RoleModel roleModel) {
+		this.roleModel = roleModel;
+	}
+
+
+	public String getUserUuid() {
+		return userUuid;
+	}
+
+
+	public void setUserUuid(String userUuid) {
+		this.userUuid = userUuid;
+	}
+
+
+	public String getRealName() {
+		return realName;
+	}
+
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+	
+	
 }

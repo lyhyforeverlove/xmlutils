@@ -7,7 +7,7 @@ public class CourseVideoResponseModel {
 
 	private int total;
 	private int curPage;
-	private int pageSize;
+	private int pageSize = 10;
 	private int pagetotal;
 
 	//视频对象集合

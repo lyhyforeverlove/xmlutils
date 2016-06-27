@@ -108,10 +108,10 @@ public class BaseDataClientImpl implements BaseDataClient {
 		map.put("type", paperType);
 		map.put("cp", cp);
 		map.put("pageSize", size);
-		if (StringUtils.isNotBlank(searchMap.get("searchValue"))) {
+		if (StringUtils.isNotBlank(searchMap.get("searchValue")) && StringUtils.isNotBlank(searchMap.get("searchName"))) {
 			Map<String, Object> map2 = new HashMap<String, Object>();
-			map2.put("blurSname", "paperName");
-			map2.put("blurSvalue", searchMap.get("searchName"));
+			map2.put("blurSname", searchMap.get("searchName"));
+			map2.put("blurSvalue",  searchMap.get("searchValue"));
 			map.put("searchMap", map2);
 		}
 		String gsonResponse = HTTPClientUtils.httpPostRequestJson(urlReq, gson.toJson(map));

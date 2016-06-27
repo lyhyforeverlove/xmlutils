@@ -52,15 +52,20 @@ public class VipPackController {
 	 */
 	@RequestMapping(value="/vip_pack_list",method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem getPackList(){
+	public ResponseItem getPackList(@ModelAttribute VipPackModel vipPackModel){
 		ResponseItem item=new ResponseItem();
+		List<VIPPack> packs=new ArrayList<>();
 		try {
-			List<VIPPack> packs=vipPackService.findAll();
+			if(vipPackModel.getIsAll()){
+				packs=vipPackService.findAll();
+			}else{
+				packs=vipPackService.findAllByRelease(vipPackModel.getIsRelease());
+			}
 			List<VipPackModel> packModels=new ArrayList<>();
 			for (VIPPack vipPack : packs) {
-				VipPackModel vipPackModel=new VipPackModel();
-				vipPackModel=CIBNManagementConvert.fromVipPackPo(vipPack);
-				packModels.add(vipPackModel);
+				VipPackModel vipPackModel1=new VipPackModel();
+				vipPackModel1=CIBNManagementConvert.fromVipPackPo(vipPack);
+				packModels.add(vipPackModel1);
 			}
 			item.setDatas(packModels);
 			item.setMessage("success");
@@ -78,7 +83,7 @@ public class VipPackController {
 	 * @param vipUUID
 	 * @return
 	 */
-	@RequestMapping("/delete_vip_pack")
+	@RequestMapping(value="/delete_vip_pack",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseItem deleteVipPack(String vipUUID){
 		logger.debug("deleteVipPack request param:{}",vipUUID);
@@ -189,6 +194,24 @@ public class VipPackController {
 			ri.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
 			return ri;
 		}
+		VIPPack pack=vipPackService.findByVipPackType(vipPackModel.getVipType());
+		if(pack!=null){
+			ri.setMessage("VIP包已存在");
+			ri.setHttpCode(ResponseCode.RESOURCE_INUSE.toString());
+			return ri;
+		}
+		if(StringUtils.isBlank(vipPackModel.getVipDesc())){
+			ri.setMessage("VipDesc参数丢失");
+			ri.setHttpCode(ResponseCode.PARAMETER_MISS.toString());
+			return ri;
+		}
+		try {
+			Double.valueOf(vipPackModel.getVipPrice());
+		} catch (Exception e) {
+			ri.setMessage("VipPrice格式错误");
+			ri.setHttpCode(ResponseCode.PARAMETER_INVALID.toString());
+		}
+		
 		try{
 			String fileUrl = "";
 			if(!file.isEmpty()){
@@ -271,5 +294,4 @@ public class VipPackController {
 	        return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "getPackSelect exception");
 		}
 	}
-	
 }

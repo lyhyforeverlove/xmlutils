@@ -22,14 +22,46 @@ public class RoleControllerTest extends BaseTest {
 	@Inject
 	private PermissionPoDao permissionPoDao;
 	
+	
+	@Test
+	public void roleList(){
+		String url = "http://localhost:8070/cibntv-management/action/role/roleList";
+		Map<String, Object> paramMap = new HashMap<>();
+//		paramMap.put("status", "");
+		paramMap.put("currentPage", 1);
+//		paramMap.put("size",10);
+//		paramMap.put("queryName", "管理");
+		try {
+			String response = HTTPClientUtils.httpPostForm(url, paramMap);
+			System.out.println("返回数据为：" + response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	public void roleDetail(){
+		String url = "http://localhost:8070/cibntv-management/action/role/roleDetail";
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("uuid", "c601bee5a61e457fa2df485fe4f0f2eb");
+		try {
+			String response = HTTPClientUtils.httpPostForm(url, paramMap);
+			System.out.println("返回数据为：" + response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	@Test
 	public void roleSave(){
 		String url = "http://localhost:8070/cibntv-management/action/role/roleSave";
-		String[] ids = new String[1];
+		String[] ids = {"5b2f2de6152c4619b0a14204bbaf6a7a","98ec614925ab42f989ae3e15103d3aa5"};
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ids", ids);
-		paramMap.put("name", "CIBN管理");
-		paramMap.put("type", "CIBNTV");
+		paramMap.put("name", "测试订单");
+//		paramMap.put("type", "");
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
 			System.out.println("返回数据为：" + response);
@@ -74,7 +106,7 @@ public class RoleControllerTest extends BaseTest {
 	
 	public static void main(String[] args) {
 		RoleControllerTest rct = new RoleControllerTest();
-		rct.roleSave();
+		rct.roleList();
 		
 		
 	}
