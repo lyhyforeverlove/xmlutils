@@ -16,6 +16,7 @@ var ajaxTool = new AJAXTool();
   var subjectName="";
   var subjectCode="";
   function searcherValue(page){
+    $("#video-list").html("");
     if(page===1){
         var videoList = dataList.reponseVedio;
         var s="";
@@ -31,7 +32,6 @@ var ajaxTool = new AJAXTool();
         }
 
     }else{
-        $("#video-list").html("");
         var searchName = $("#searchName").val();
         var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":page,"pageSize":"10"},"/video/videoPage",false);
         result.done(function(resultList){
