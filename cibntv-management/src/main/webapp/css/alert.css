@@ -1,0 +1,77 @@
+.mod-dialog-bg {
+	background: #fff;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+}
+
+.mod-dialog {
+	background-color: #fff;
+	-webkit-box-shadow:0 0 10px rgba(88, 117, 245, .5);
+  -moz-box-shadow:0 0 10px rgba(88, 117, 245, .5);
+  box-shadow:0 0 10px rgba(88, 117, 245, .5);
+	box-shadow:5px ;
+	min-width: 360px;
+  *padding-top: 27px;
+	position: absolute;
+	z-index: 1001;
+}
+.mod-dialog .dialog-nav {
+	color: #fff;
+	font-weight: 700;
+	font-size: 12px;
+	height: 58px;
+  *left: 0;
+	line-height: 27px;
+  *position: absolute;
+  *top: -27px;
+  *width: 100%;
+}
+
+.mod-dialog .dialog-close {
+	background: url(../images/close-btn.png) no-repeat 0 0;
+	height: 18px;
+	position: absolute;
+	right: 10px;
+	top: 20px;
+	width: 18px;
+}
+
+.mod-dialog .dialog-main {
+	font-size: 14px;
+	text-align: center;
+}
+
+.mod-dialog .dialog-content {
+	font-size: 14px;
+	line-height: 200px;
+}
+.mod-dialog .dialog-console {
+   border-top: 1px solid #b4c2fa;
+   height:60px;
+   padding:10px 0;
+}
+.clearfix_new:after {
+	clear: both;
+	content: '';
+	display: block;
+	height: 0;
+}
+.mod-dialog .dialog-console a {
+	display: inline-block;
+	font-size: 16px;
+	height: 36px;
+	line-height: 34px;
+	text-align: center;
+	width: 180px;
+}
+.mod-dialog .dialog-console a:first-child{border-right: 1px solid #b4c2fa;}
+.mod-dialog .dialog-console .console-btn-confirm {color: #5875f5;}
+.mod-dialog .dialog-console .console-btn-cancel {
+	color: #5878f5;
+}

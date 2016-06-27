@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>好学生后台管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/alert.css">
+</head>
+<body>
+   <!--左侧logo和导航栏begin-->
+   <div class="left">
+     <div class="nav-main-left text-center"><img src="images/logo.png">
+     </div>
+     <ul class="nav nav-pills nav-stacked text-center slider">
+         <li><img src="images/header.png"></li>
+         <li>admin~</li>
+         <li class="active"><a href="privileges-manage.html">管理员列表</a></li>
+         <li><a href="department-manage.html">部门列表</a></li>
+     </ul>
+   </div>
+   <!--左侧logo和导航栏end-->
+   <!--右侧logo和导航栏begin-->
+   <div class="right">
+     <div class="nav-main " role="navigation">
+         <div class="nav-main-right">
+           <div class="module-logo"><img src="images/ad-logo.png">权限管理</div>
+           <ul class="img-ul">
+             <li><a href="index.html"><img src="images/home.png"></a></li>
+             <li><img src="images/person.png"></li>
+           </ul>
+         </div>
+     </div>
+     <div id="userInfoPerson"></div>
+     <!--主要内容-->
+     <div class="main-content">
+        <div class="seacher-panel">
+          <!--<div class="btn-group" sytle="display:none;">
+             <button type="button" class="btn btn-primary">部门</button>
+             <button type="button" class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">切换下拉菜单</span>
+             </button>
+             <ul class="dropdown-menu" role="menu">
+                <li><a href="#">全部</a></li>
+                <li><a href="#">运营</a></li>
+                <li><a href="#">客服</a></li>
+                <li><a href="#">产品</a></li>
+                <li><a href="#">CIBN</a></li>
+             </ul>
+          </div>-->
+          <div class="col-sm-3">
+             <div class="input-group">
+                <input type="text" class="form-control" id="queryValue">
+                <span class="input-group-btn">
+                   <button class="btn btn-default" type="button" onclick="firstLink();">
+                    搜索
+                   </button>
+                </span>
+             </div>
+          </div>
+
+          <div class="btn-button">
+             <a href="add-user.html" >新增用户</a>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+             <tr>
+               <th>序号</th>
+              <!-- <th>姓名</th>-->
+               <th>用户名</th>
+               <th>手机号</th>
+               <th>所属部门</th>
+               <!--<th>权限</th>-->
+               <th>操作</th>
+             </tr>
+          </thead>
+          <tbody id="privileges-list">
+
+           </tbody>
+       </table>
+       <div class="seacher-panel text-center" id="pagination_box">
+         <ul class="pagination" id="pagination_zc">
+
+         </ul>
+     </div>
+   </div>
+   <!--右边结束-->
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title" id="myModalLabel">修改<input type="hidden"></h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+               <label for="firstname" class="control-label">角色名称：</label>
+               <div class="btn-group">
+                  <button type="button" class="btn btn-primary" id="departValue">部门</button>
+                  <input  type="hidden">
+                  <button type="button" class="btn btn-primary dropdown-toggle"
+                     data-toggle="dropdown">
+                     <span class="caret"></span>
+                     <span class="sr-only">切换下拉菜单</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" id="departUl">
+
+                  </ul>
+               </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary"  onclick="saveUpdatePlg();">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/alert.js"></script>
+<script src="js/jquery.twbsPagination.js"></script>
+<script src="js/public-tool.js"></script>
+<script src="js/privileges-manage.js"></script>

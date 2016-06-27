@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>好学生后台管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+  <!--左侧logo和导航栏begin-->
+  <div class="left">
+    <div class="nav-main-left text-center"><img src="images/logo.png">
+    </div>
+    <!--侧边栏导航-->
+    <ul class="nav nav-pills nav-stacked text-center slider">
+        <li><img src="images/header.png"></li>
+        <li>admin~</li>
+        <li class="active"><a href="privileges-manage.html">管理员列表</a></li>
+        <li><a href="department-manage.html">部门列表</a></li>
+    </ul>
+    <!--侧边栏结束-->
+  </div>
+  <!--左侧logo和导航栏end-->
+  <!--右侧logo和导航栏begin-->
+  <div class="right">
+    <!--导航栏begin-->
+    <div class="nav-main " role="navigation">
+        <div class="nav-main-right">
+          <div class="module-logo"><img src="images/ad-logo.png">权限管理</div>
+          <ul class="img-ul">
+            <li><a href="index.html"><img src="images/home.png"></a></li>
+            <li><img src="images/person.png"></li>
+          </ul>
+        </div>
+    </div>
+    <div id="userInfoPerson"></div>
+   <!--导航结束-->
+   <!--主要内容-->
+   <div class="main-content">
+     <div class="panel panel-default">
+         <div class="panel-heading">权限管理>>新增用户</div>
+         <div class="panel-body">
+           <div class="form-group" id="userNameDiv">
+              <label for="firstname" class="control-label">用户名</label>
+              <input type="text" class="form-control" id="userName" placeholder="请输入用户名"  onblur = "verifyUserName()">
+            </div>
+
+            <div class="form-group">
+               <label for="firstname" class="control-label">初始密码</label>
+               <input type="text" class="form-control" id="initPassword" placeholder="请输入初始密码">
+            </div>
+
+            <div class="form-group">
+               <label for="firstname" class="control-label">所属部门</label>
+               <div class="btn-group">
+                  <button type="button" class="btn btn-primary" id="departValue">部门</button>
+                  <input type="hidden">
+                  <button type="button" class="btn btn-primary dropdown-toggle"
+                     data-toggle="dropdown">
+                     <span class="caret"></span>
+                     <span class="sr-only">切换下拉菜单</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" id="departUl">
+
+                  </ul>
+               </div>
+            </div>
+
+            <div class="btn-button col-sm-6">
+               <button type="button" onclick="saveUser();">确定</button>
+               <button type="button" onclick="history.go(-1)">取消</button>
+            </div>
+         </div>
+     </div>
+   </div>
+</div>
+</body>
+</html>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/public-tool.js"></script>
+<script src="js/addUser.js"></script>

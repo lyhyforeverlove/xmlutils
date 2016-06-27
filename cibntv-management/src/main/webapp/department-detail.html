@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>好学生后台管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+  <!--左侧logo和导航栏begin-->
+  <div class="left">
+    <div class="nav-main-left text-center"><img src="images/logo.png">
+    </div>
+    <ul class="nav nav-pills nav-stacked text-center slider">
+        <li><img src="images/header.png"></li>
+        <li>admin~</li>
+        <li><a href="privileges-manage.html">管理员列表</a></li>
+        <li class="active"><a href="department-manage.html">部门列表</a></li>
+    </ul>
+  </div>
+
+  <!--左侧logo和导航栏end-->
+  <!--右侧logo和导航栏begin-->
+  <div class="right">
+    <div class="nav-main " role="navigation">
+        <div class="nav-main-right">
+          <div class="module-logo"><img src="images/ad-logo.png">权限管理</div>
+          <ul class="img-ul">
+            <li><a href="index.html"><img src="images/home.png"></a></li>
+            <li><img src="images/person.png"></li>
+          </ul>
+        </div>
+    </div>
+    <div id="userInfoPerson"></div>
+   <!--主要内容-->
+      <div class="main-content">
+         <table class="price">
+            <tr>
+              <td>部门名称：<span id="department_name"></span></td>
+            </tr>
+            <tr>
+              <td>创建时间：<span id="creat_time">2016-6-13</span></td>
+            </tr>
+            <tr>
+              <td>部门权限：<span id="department_pri"></span></td>
+            </tr>
+        </table>
+        <div class="btn-button col-sm-8">
+           <button type="button" class="pull-right" onclick="history.go(-1)">返回</button>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/public-tool.js"></script>
+<script type="text/javascript">
+$(function(){
+    var ajaxTool = new AJAXTool();
+    var uuid = window.location.search;
+        uuid = uuid.substring(uuid.indexOf("=")+1,uuid.length);
+    var result = ajaxTool.getInfo({"uuid":uuid},"/role/roleDetail",false);
+    result.done(function(resultList){
+        if(resultList.data){
+          $("#department_name").html(resultList.data.name);
+          $("#creat_time").html(resultList.data.createDate);
+          var privi="";
+          if(resultList.data.permissionModels){
+              for(var i=0;i<resultList.data.permissionModels.length;i++){
+                 privi +="<label>"+resultList.data.permissionModels[i].name+"</label>";
+              }
+          }
+          $("#department_pri").append(privi);
+        }
+    });
+});
+</script>
