@@ -258,7 +258,7 @@
                 size = this.options.size || "normal",
                 alignment = this.options.alignment || "left",
                 pages = this.getPages(),
-                listContainer = this.options.bootstrapMajorVersion === 2 ? $("<ul></ul>") : this.$element,
+                listContainer = this.options.bootstrapMajorVersion === 2 ? $("<ul class='pagination'></ul>") : this.$element,
                 listContainerClass = this.options.bootstrapMajorVersion === 2 ? this.getValueFromOption(this.options.listContainerClass, listContainer) : null,
                 first = null,
                 prev = null,
@@ -430,7 +430,8 @@
         setCurrentPage: function (page) {
             if (page > this.totalPages ) {// if the current page is out of range, throw exception.
 
-                throw "Page out of range";
+                //throw "Page out of range"; //wangyanxiao 2016-6-27
+                return page;
 
             }
 
@@ -614,13 +615,13 @@
         itemTexts: function (type, page, current) {
             switch (type) {
             case "first":
-                return "&lt;&lt;";
+                return "首页";
             case "prev":
-                return "&lt;";
+                return "上一页";
             case "next":
-                return "&gt;";
+                return "下一页";
             case "last":
-                return "&gt;&gt;";
+                return "末页";
             case "page":
                 return page;
             }

@@ -10,29 +10,21 @@
         $(this).parent().find("ul.userlist").css("display","none");
     });
 })
- /*发送验证码*/
-var countdown = 60; 
-function settime(obj) { 
-    if (countdown == 0) { 
-        obj.removeAttribute("disabled");
-        obj.style.background="#5878f5"; 
-        obj.value="发送验证码";   
-        countdown = 60; 
-        return;
-    } else { 
-        obj.setAttribute("disabled", true); 
-        obj.style.background="#b2b2b2"; 
-        obj.value="重新发送(" + countdown + ")"; 
-        countdown--; 
-    } 
-setTimeout(function() { 
-    settime(obj) 
-},1000) 
+ 
+/*
+*分页
+*/
+function pagination(container, callback, currentPage, pageCount){
+    var options = {
+        bootstrapMajorVersion: 2, //版本
+        currentPage: currentPage, //当前页数
+        totalPages: pageCount, //总页数
+
+       //点击事件，用于通过Ajax来刷新整个list列表
+        onPageClicked : callback
+        /*function(event, originalEvent, type, page)*/              
+    };
+    $('#'+container).bootstrapPaginator(options);
 }
-
-
-/*用户管理 导出为Excel*/
-
-
 
 

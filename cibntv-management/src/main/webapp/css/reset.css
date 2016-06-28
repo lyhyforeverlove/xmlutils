@@ -19,11 +19,11 @@ input{
     -webkit-user-modify: read-write-plaintext-only;
 } 
 button {
-	-webkit-tap-highlight-color: rgba(255,255,255,0)
+	-webkit-tap-highlight-color: rgba(255,255,255,0);
 }
 /* 布局(grids)(.g-) */ 
 /* 页面 */
-.menu-box:after,#login:after,.sale:after{content: "." ;display: block;clear: both;height: 0;visibility: hidden;}
+.menu-box:after,#login:after,.sale:after,.vipbox:after{content: "." ;display: block;clear: both;height: 0;visibility: hidden;}
 
 /*公共icon*/
 .user-right-box{
@@ -116,19 +116,236 @@ span#prompt_close{ position: absolute;right: 20px;top: 20px; cursor: pointer; ba
 div#prompt_body{padding: 30px 20px;font-size:14spx;line-height: 1.5; text-align:center;}
 div#prompt_body .txt{margin:20px 0;}
 div#prompt_bottom{display:none;position: absolute;bottom: 15px;left: 0;}
-div#prompt_bottom a.btn{_display:block;_float:left;background-color:#5878f5;border: 1px solid #5878f5;border-radius:2px;font-size: 14px;width:110px;height:35px;margin-left: 40px;cursor: pointer;
+div#prompt_bottom a.btn{_display:block;_float:left;background-color:#5878f5;border: 1px solid #5878f5;border-radius:2px;font-size: 14px;
+	width:110px;height:35px;margin:0 50px;cursor: pointer;
 color: #fff;}
 div#prompt_bottom a.btn:hover{background:#465fc2;}
 
 
 .input-daterange input[type="text"]{border:none;margin:10px;width:200px;height:35px;background:#eef0f2;}
- .radio input[type=radio], .radio-inline input[type=radio] {
+.radio input[type=radio], .radio-inline input[type=radio] {
 
-   margin-left: 0px;
+margin-left: 0px;
+}
+label {
+font-weight: normal; 
+}
+.form-control{
+  width:60%;
+}
+.pagination{}
+.pagination a{ border:1px solid #f0f0f0;line-height:24px; margin:0 8px;color:#5878f5;}
+.pagination li.active a{background:#5878f5;color:#fff;}
+
+
+
+/*订单 搜索*/
+.searchBtn button,
+    .searchTxt .searchMenu .searchSelected {
+        background-image: url(http://www.17sucai.com/preview/38279/2014-03-28/%E6%90%9C%E7%B4%A2%E6%A1%86/images/searchbg.png);
+        background-repeat: no-repeat;
     }
-    label {
-    font-weight: normal; 
+    
+    .searchTxt {
+        float: left;
+        width: 399px;
+        height: 40px;
+        border: 2px solid #d3d3d3;
+        border-right: 0;
+        position: relative;
+        z-index: 20;
+        background: #fff;
     }
-    .form-control{
-      width:60%;
+    
+    .searchTxt .radius {
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        background: #f4f4f4;
+        position: absolute;
+        top: -2px;
+        left: -2px;
     }
+    
+    .searchTxtHover {
+        float: left;
+        width: 399px;
+        height: 40px;
+        border: 2px solid #3297d8;
+        border-right: 0;
+        position: relative;
+        z-index: 20;
+        background: #fff;
+    }
+    
+    .searchTxtHover .radius {
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        background: #cce5f5;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+    }
+    
+    .searchTxt .searchMenu {
+        float: left;
+    }
+    
+    .searchTxt .searchMenu .searchSelected {
+        color: #a8a8a8;
+        cursor: pointer;
+        font-size: 14px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        width: 80px;
+        background-position: 20px -48px;
+    }
+    
+    .searchTxt .searchMenu .searchOpen {
+        background-position: 20px -98px;
+    }
+    
+    .searchTxt .searchMenu .searchTab {
+        display: none;
+        position: absolute;
+        top: 36px;
+        left: -2px;
+        width: 80px;
+        border: 2px solid #3297d8;
+        border-top: 0;
+        background: #fff;
+        z-index: 20;
+    }
+    
+    .searchTxt .searchMenu .searchTab li {
+        width: 80px;
+        height: 28px;
+        line-height: 28px;
+        color: #a8a8a8;
+        font-size: 14px;
+        text-indent: 10px;
+        cursor: pointer;
+    }
+    
+    .searchTxt .searchMenu .searchTab li.selected {
+        background: #edf3fc;
+        color: #6994c1;
+    }
+    
+    .searchTxt input {
+        float: left;
+        border: 0;
+        background: #fff;
+        color: #333;
+        font: 14px/22px '宋体', verdana, tahoma, arial, 'SimSun', sans-serif;
+        width: 221px;
+        height: 32px;
+        line-height: 40px;
+        margin: 0;
+        outline: medium none;
+        padding: 4px;
+    }
+    
+    .searchTxt .sosoLogo {
+        float: right;
+        margin: 8px 6px 0 0;
+        display: inline;
+    }
+    
+    .searchBtn {
+        float: left;
+    }
+    
+   /*  .searchBtn button {
+       background-position: 0px 0px;
+       border: 0;
+       color: #fff;
+       cursor: pointer;
+       float: left;
+       font-size: 16px;
+       height: 34px;
+       text-indent: -9999px;
+       width: 86px;
+   } */
+
+
+    /*新增 添加VIP方案弹出框*/
+    #addbox p{margin:20px 0;font-size:16px;}
+    #addbox select,#addbox input[type="text"],#addbox input[type="file"]{
+        border:1px solid #ccc;
+        border-radius:4px;
+        height:34px;
+        line-height:34px;
+        width:200px;
+        margin-left:8px;
+        text-indent:8px;
+    }
+    .sale img{
+        width:243px;
+        height:126px;
+    }
+    .file {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 12px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+/*2016-6-28*/
+.right{background:url(../images/point.png) 0 0 no-repeat; width:26px;height:26px;}
+.wrong{background:url(../images/point.png) 0 -67px no-repeat; width:26px;height:26px;} 
+p.error{ color: #ff6666;
+    font-size:16px;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+} 
+.label{
+    width:100px;
+    float:left;
+    height:34px;line-height:34px;
+    color:#3d3535;
+    font-size:14px;
+    font-weight:normal;
+}  
+#success{
+    font-size:20px;
+    text-align:center;
+    line-height:120px;
+}
+.dateSx{
+    position: absolute;
+    bottom:60px;
+    left:60px;
+}
+#releaseBtn{
+    position: absolute;
+    right:60px;
+    bottom:100px;
+    width:130px;
+    height:40px;
+    line-height:40px;
+    font-size:16px;
+}  
+  

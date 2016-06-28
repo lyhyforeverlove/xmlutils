@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CIBN好学生后台管理系统-VIP管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/demo.css" />
+</head>
+
+<body class="body-for-nav">
+    <div class="grid-for-nav">
+        <nav class="nav-side">
+            <div class="side-scroll">
+                <div class="nav-top">
+                    <a href="index.html">好学生后台</a>
+                </div>
+                <div class="menu menu-vertical" id="sidebar">
+                    <!-- 头像 -->
+                    <div class="avatar">
+                        <img src="images/header.png">
+                        <span id="userName_login"></span>
+                    </div>
+                    <!-- 左侧菜单 -->
+                    <ul class="">
+                        <li class="active">
+                            <a href="">VIP定价</a>
+                        </li>
+                        <li>
+                            <a href="">待定</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="nav-content-wrap" id="content">
+            <div class="content-header">
+                <h1 class="vip-logo">VIP管理</h1>
+                <a href="index.html">
+                    <div class="backHome"></div>
+                </a>
+                <div id="userInfoPerson"></div>
+            </div>
+            <div class="content padding">
+                <div class="main-content">
+                    <!--start content-top -->
+                    <div class="content-top">
+                        <button class="btn tip-bottom active" type="submit" id="createVipBtn"> <i class="icon-search">新增VIP方案</i></button>
+                        <button class="btn tip-bottom active" type="submit" id="DiscountVipBtn"> <i class="icon-search">打折活动</i></button>
+                    </div>
+                    <!--close-content-top-->
+                    <div class="vipbox">
+                        <div id="list">
+                            <!-- <div class="sale">
+                                <a href="">
+                                    <img src="images/vip1.png" alt=""></a>
+                                <div>
+                                    <span style="font-size:22px;display:inline-block;color:#000;margin-top:8px;"> <em><del>54.00</del></em> 
+                                        元
+                                      </span>
+                                   <button>删除</button>
+                                    <p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;">
+                                        折后价： <em>43.20</em> 元
+                                    </p>
+                                    <p style="font-size:16px;color:#999;">活动时间：2016.6.1-2016.6.8</p>
+                                </div>
+                            </div> -->
+                            <!-- <div class="sale">
+                                <a href="">
+                                    <img src="images/vip2.png" alt=""></a>
+                                <div class="changeBox">
+                                    <span><em>54.00</em>元</span>
+                                    <a href="" style="color:#000;" class="chang-price-btn">改价</a>
+                                    <button>删除</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <button class="btn tip-bottom active" type="submit" id="releaseBtn"> <i class="icon-search">发布</i></button>
+                </div>
+            </div>    
+        </section>
+        </div>
+        <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="js/popup.js"></script>
+        <script src="js/common.js"></script>
+        <script src="js/bootstrap-datepicker.min.js"></script>
+        <script src="js/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+        <script src="js/bootstrap-paginator.js"></script>
+        <script src="js/apiAjax.js"></script>
+        <script src="js/vipPack.operate.js"></script>
+        <script src="js/date.js"></script>
+        <script src="js/login.operate.js"></script>
+        <script>
+            $(function(){
+                var api = new API();
+                //初始化VIP方案已发布
+                initVipPackList(1,true,true);
+
+            })
+        </script>
+
+</body>
+
+</html>

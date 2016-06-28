@@ -26,6 +26,7 @@
 	height: 40px;
 	line-height:40px;
 	margin-top:30px;
+	color:#fff;
 	-webkit-border-radius:20px;
 	   -moz-border-radius:20px;
 	  	 -o-border-radius:20px;
@@ -38,11 +39,13 @@
 	color:#fff;
 }
 .main_input_box input{
+	color:#fff;
 	background:#22242c;
 	height: 38px;
 	line-height:38px;
 	border:none;
 	text-indent:10px;
+	width:240px;
 }
 .login_btn_box button{
 	width:100%;
@@ -96,7 +99,7 @@
 	margin-bottom:70px;
 }
 .main_input_box i{
-	color:#979799;
+	color:#fff;
 }
 .login-enter-box .controls{
 	width:420px;
@@ -122,6 +125,9 @@
 	  	 -o-border-radius:20px;
 			border-radius:20px;
 }
+.main_input_box{ position: relative; }
+.add-on{width:100px;display:inline-block;text-align:left;}
+.point{display:inline-block;position: absolute;right:20px;top:7px;}
 /*index.html-------------------------------*/
 
 .mainbox{

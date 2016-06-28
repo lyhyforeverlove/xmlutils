@@ -14,6 +14,7 @@ var Prompt = {
         _temp = this._temp = option.html || "",
         ConfirmFun = this.ConfirmFun = option.ConfirmFun || false,
         CancelFun = this.CancelFun = option.CancelFun || false;
+        ConSubmit = this.ConSubmit = option.ConSubmit || false; //wangyanxiao
     this.editTitle();
     this.editHtml();
     if(ConfirmFun){ 
@@ -21,6 +22,7 @@ var Prompt = {
     }else{
         this.hideBottom();
     }
+
     this.show();
   },
   editTitle : function(){   //title div生成

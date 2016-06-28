@@ -1,207 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>CIBN好学生后台管理系统</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link href="css/bootstrap-datepicker.min.css" rel="stylesheet"></head>
+    <meta charset="UTF-8">
+    <title>CIBN好学生后台管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/demo.css">
+    <link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
+</head>
+
 <body class="body-for-nav">
-  <div class="grid-for-nav">
-    <nav class="nav-side">
-      <div class="side-scroll">
-        <div class="nav-top">
-          <a href="index.html">好学生后台</a>
-        </div>
-        <div class="menu menu-vertical" id="sidebar">
-          <!-- 头像 -->
-          <div class="avatar">
-            <img src="images/header.png">
-            <span>admin~</span>
-          </div>
-          <!-- 左侧菜单 -->
-          <ul class="">
-            <li class="active">
-              <a href="">用户列表</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <section class="nav-content-wrap" id="content">
-      <!-- start 内容顶部 -->
-      <div class="content-header">
-        <h1 class="user-logo">用户管理</h1>
-        <a href="index.html">
-          <div class="backHome"></div>
-        </a>
-        <!--start Navigate to the top right drop down menu -->
-        <div class="user-right-box">
-          <div class="user c-main"> <i class="user-icon icon"></i>
-            <ul class="userlist">
-              <li>
-                <a href="personal.html"> <i class="pCenter icon"></i>
-                  个人中心
+    <div class="grid-for-nav">
+        <nav class="nav-side">
+            <div class="side-scroll">
+                <div class="nav-top">
+                    <a href="index.html">好学生后台</a>
+                </div>
+                <div class="menu menu-vertical" id="sidebar">
+                    <!-- 头像 -->
+                    <div class="avatar">
+                        <img src="images/header.png">
+                        <span id="userName_login"></span>
+                    </div>
+                    <!-- 左侧菜单 -->
+                    <ul class="">
+                        <li class="active">
+                            <a href="">用户列表</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="nav-content-wrap" id="content">
+            <!-- start 内容顶部 -->
+            <div class="content-header">
+                <h1 class="user-logo">用户管理</h1>
+                <a href="index.html">
+                    <div class="backHome"></div>
                 </a>
-              </li>
-              <li>
-                <a href="login.html">
-                  <i class="exitLogin icon"></i>
-                  退出登录
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!--close Navigate to the top right drop down menu --> </div>
-      <!-- close 内容顶部 -->
-      <div class="content padding">
-        <div class="main-content orderBox">
-          <!--start-count-user-quantity-->
-          <div class="count-box">
-            <h2 class="count-title">用户量：73646446人</h2>
-          </div>
-          <!--close-count-user-quantity-->
-          <!--start-user-serch-->
-          <div id="search" class="condition">
-            <input type="text" placeholder="手机号"/>
-            <button type="submit" class="tip-bottom" title="Search">
-              <i class="icon-search">搜索</i>
-            </button>
-            <button type="submit" id="export-user-btn" class="tip-bottom" title="Save as Excel Spread sheet">
-              <i class="icon-search">导出为EXCEL</i>
-            </button>
-          </div>
-          <!--close-user-serch-->
-          <div class="table-responsive">
-            <table class="table" width="100%">
-              <thead>
-                <tr>
-                  <th>序号</th>
-                  <th>姓名</th>
-                  <th>手机号</th>
-                  <th>注册时间</th>
-                  <th>最后登录时间</th>
-                  <th>来源</th>
-                  <th>VIP</th>
-                  <th>VIP时长</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>张梅梅</td>
-                  <td>1578956458</td>
-                  <td>2015-12-22 11:02:31</td>
-                  <td>2015-12-22 11:02:31</td>
-                  <td>CIBN</td>
-                  <td>是</td>
-                  <td>2015.5.28-2016.5.28</td>
-                  <td>
-                    <a href="#" id="detail-user-btn">详情</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- start pageination -->
-          <nav class="text-center">
-            <ul class="pagination ">
-              <li class="disabled">
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">上一页</span>
-                </a>
-              </li>
-              <li class="active">
-                <a href="#">
-                  1
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  2
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  3
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  4
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">下一页</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <!-- close pageination --> </div>
-
-      </div>
-
-    </section>
-  </div>
-
-  <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="js/popup.js"></script>
-  <script src="js/common.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script> 
-  <script src="js/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
-  <script>
-    /*用户管理 导出为Excel*/
-  document.getElementById("export-user-btn").onclick = function(){
-  str='<div class="radio"><label for="">按注册时间：<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked></label><label for="">按最后登录时间：<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked></label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="end" /></div>';
-    Prompt.init({
-        title : "导出为EXCEL",
-        height: 400,
-        html : str,
-        ConfirmFun :  confirm
-    });
- $('.input-daterange').datepicker({
-      language: "zh-CN"
-  });
-   
-}
-document.getElementById("detail-user-btn").onclick = function(){
-  str='<p>到期时间：2017年9月23日</p><div><span>充值记录：</span><p>2016年2月21日    1个月</p><p>2016年2月21日    1个月</p><p>2016年2月21日    1个月</p></div>';
-    Prompt.init({
-        title : "详情",
-        height: 400,
-        html : str,
-        ConfirmFun :  confirm
-    });
-}
-$(function(){
-
-   $.ajax({
-         type: "POST",     
-         contentType: "application/json; charset=utf-8",  
-         dataType: "json",    
-         url: "http://192.168.1.12:8180/action/user/userList",   
-         data: "currentPage",   
-         success: function (data) { 
-             //alert(data.d);
-             console.log(data);        
-         },
-         error: function (err) { 
-            // alert("err:" + err);
-            console.log(111);
-         }
-     });
-})
-</script>
-
-
+                <!--start Navigate to the top right drop down menu -->
+                <div id="userInfoPerson"></div>
+                <!--close Navigate to the top right drop down menu -->
+            </div>
+            <!-- close 内容顶部 -->
+            <div class="content padding">
+                <div class="main-content orderBox">
+                    <!--start-count-user-quantity-->
+                    <div class="count-box">
+                        <h2 class="count-title">用户量：<span id="totalRecords"></span></h2>
+                    </div>
+                    <!--close-count-user-quantity-->
+                    <!--start-user-serch-->
+                    <div id="search" class="condition">
+                        <div class="input-group" style="width:400px;float:left">
+                            <input type="text" class="form-control" placeholder="手机号" id="searchTxt">
+                            <span class="input-group-btn">
+                              <button class="btn tip-bottom active" type="submit" id="searchBtn"> <i class="icon-search">搜索</i></button>
+                            </span>
+                        </div>
+                        <button type="submit" id="export-user-btn" class="tip-bottom" title="Save as Excel Spread sheet">
+                            <i class="icon-search">导出为EXCEL</i>
+                        </button>
+                    </div>
+                    <!--close-user-serch-->
+                    <div class="" id="list">
+                        <table class="table table-striped" width="100%" id="user-list-wrap">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>姓名</th>
+                                    <th>手机号</th>
+                                    <th>注册时间</th>
+                                    <th>来源</th>
+                                    <th>VIP</th>
+                                    <th>VIP到期时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <!-- start pageination -->
+                    <div class="text-center"><div id="example"></div></div>
+                    <!-- close pageination -->
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+    <script src="js/apiAjax.js"></script>
+    <script src="js/bootstrap-paginator.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/user.operate.js"></script>
+    <script src="js/login.operate.js"></script>
 </body>
+
 </html>
