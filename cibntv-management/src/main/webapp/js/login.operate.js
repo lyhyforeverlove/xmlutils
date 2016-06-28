@@ -43,13 +43,26 @@ $(function() {
                 var flag =dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
 
                 if (flag == true) {
-                    url = "/cibn/webapp/login-enter.html";
+                    url = "login-enter.html";
                     alert("用户第一次登录，需要填写具体信息！");
                     api.windowOpen(url);
                        
                 } else if (flag == false) {
-                    url = "/cibn/webapp/index.html";
+
+                    var roleModelObj = dataObj.roleModel;
+                    var permissionModels = roleModelObj.permissionModels; //lifang  5个
+                    
+                    console.log(permissionModels);
+                    var stringPer = JSON.stringify(permissionModels);
+                    sessionStorage.setItem("permissionModels",stringPer);
+
+                    
+
+                    url = "index.html";
                     api.windowOpen(url);
+
+                    
+                    
                 }
             }else{
                 if(data.message == ".password"){
@@ -61,6 +74,39 @@ $(function() {
             }
         })
     }    
+    var person = sessionStorage.getItem("permissionModels");
+    var jsonPerson = JSON.parse(person);
+
+    console.log(jsonPerson);
+    indexShow();
+    function indexShow(){
+
+        $("#indexMenuBox").empty();
+        $.each(jsonPerson,function(index,item) {
+            //console.log(value.name);
+            $("#indexMenuBox").append('<li id='+index+'><a href=""><div class="menu-box-icon"><i></i></div><h3><a href="">'+ item.name +'</a></h3></a></li>');
+            if(item.name == "用户管理"){
+                 $("#0").find(".menu-box-icon").addClass("user-manage");
+                 $("#0").find("a").attr("href","usermanage.html");
+            }else if(item.name == "订单管理"){
+                $("#1").find(".menu-box-icon").addClass("order-manage");
+                $("#1").find("a").attr("href","ordermanage.html");
+            }else if(item.name == "VIP管理"){
+                $("#2").find(".menu-box-icon").addClass("vip-manage");
+                $("#2").find("a").attr("href","vipmanage.html");
+            }else if(item.name == "试卷管理"){
+                $("#3").find(".menu-box-icon").addClass("test-manage");
+                $("#3").find("a").attr("href","examination-manage.html ");
+            }else if(item.name == "视频管理"){
+                $("#4").find(".menu-box-icon").addClass("video-manage");
+                $("#4").find("a").attr("href","video.html");
+            }else if(item.name == "权限管理"){
+                $("#5").find(".menu-box-icon").addClass("power-manage");
+                $("#5").find("a").attr("href","privileges-manage.html");
+            }
+         });
+
+    }
     var userName = sessionStorage.getItem("userName");
     var userPwd = sessionStorage.getItem("userPwd");
     
