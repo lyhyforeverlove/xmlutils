@@ -152,9 +152,11 @@ function firstLink(){
   },"/paper/paperPage",false);
     result.done(function(resultList){
         var data = resultList.data;
-        totalpage = data.totalPage;
-        dataList = data;
-        initPagination();
+        if(data){
+           totalpage = data.totalPage;
+           dataList = data;
+           initPagination();
+        }
     });
 }
 

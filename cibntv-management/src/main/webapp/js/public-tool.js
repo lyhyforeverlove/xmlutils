@@ -8,27 +8,26 @@ var AJAXTool=function(){
      return this.ajaxFun(data,paramsObj,bool);
    };
 
-   this.ajaxFun = function(data,paramsObj,bool){
-     var api_url = data.api_url ? data.api_url : "";
-     var callback = data.callback ? data.callback : "jsonpCallback";
-     return $.ajax({
-       type:'post',
-       url:api_url,
-       data:paramsObj,
-       dataType:'json',
-       jsonp:'callback',
-       traditional:bool,
-       jsonpCallback:callback,
-       context:this,
-       beforeSend:function(result){
-
-        },
-       error:function(XMLHttpRequest,textStatus){
-
-       }
-     });
+   this.ajaxFun = function(data,paramsObj,bool)
+   {
+       var api_url = data.api_url ? data.api_url : "";
+       var callback = data.callback ? data.callback : "jsonpCallback";
+       return $.ajax({
+         type:'post',
+         url:api_url,
+         data:paramsObj,
+         dataType:'json',
+         jsonp:'callback',
+         traditional:bool,
+         jsonpCallback:callback,
+         context:this,
+         beforeSend:function(result){
+          },
+         error:function(XMLHttpRequest,textStatus){
+         }
+       });
    };
-}
+};
 
 
 //分页标签初始化
@@ -42,4 +41,25 @@ function initPagination(){
           searcherValue(page);
        }
   });
+}
+
+
+$(function(){
+    initUl();
+    var name = sessionStorage.getItem("userName");
+    $("#userName").html(name);
+});
+
+//增加个人中心和退出菜单
+function initUl(){
+  var list= "<ul class='userlist'><li><a href='personal.html'><i class='pCenter icon'></i> 个人中心</a></li><li><a href='login.html'><i class='exitLogin icon'></i> 退出登录</a></li></ul>";
+  $(".user").hover(function(){
+       $("#userInfoPerson").html(list);
+   },function(){
+      $(".userlist").hover(function(){
+
+      },function(){
+         $("#userInfoPerson").empty();
+      });
+   });
 }

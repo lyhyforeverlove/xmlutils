@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>好学生后台管理</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
   <!--左侧logo和导航栏begin-->
@@ -18,7 +15,7 @@
     <!--侧边栏导航-->
     <ul class="nav nav-pills nav-stacked text-center slider">
         <li><img src="images/header.png"></li>
-        <li>admin~</li>
+        <li id="userName"></li>
         <li class="active"><a href="privileges-manage.html">管理员列表</a></li>
         <li><a href="department-manage.html">部门列表</a></li>
     </ul>
@@ -33,11 +30,11 @@
           <div class="module-logo"><img src="images/ad-logo.png">权限管理</div>
           <ul class="img-ul">
             <li><a href="index.html"><img src="images/home.png"></a></li>
-            <li><img src="images/person.png"></li>
+            <li class="user c-main"><img src="images/person.png"></li>
           </ul>
+          <div id="userInfoPerson"  class="user-right-box"></div>
         </div>
     </div>
-    <div id="userInfoPerson"></div>
    <!--导航结束-->
    <!--主要内容-->
    <div class="main-content">
