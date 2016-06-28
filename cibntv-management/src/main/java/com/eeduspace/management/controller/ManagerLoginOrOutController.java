@@ -76,9 +76,9 @@ public class ManagerLoginOrOutController {
         try {
             logger.debug("------------------login----user:{}", loginModel.getUser());
             logger.debug("------------------login----pws:{}", loginModel.getPassword());
-           ManagerModel managerModel= managerService.getByUserName(loginModel.getUser());
+           ManagerModel managerModel= managerService.getLoginManager(loginModel.getUser());
            if(StringUtils.isBlank(managerModel.getUuid())){
-   				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_NOTFOUND.toString(), ".getuserbyname");
+   				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.RESOURCE_NOTFOUND.toString(), ".no user");
            }
            if(!managerModel.getPassword().equals(Digest.md5Digest(loginModel.getPassword()))){
   				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_INVALID.toString(), ".password");

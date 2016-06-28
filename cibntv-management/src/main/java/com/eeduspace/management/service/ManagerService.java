@@ -32,16 +32,6 @@ public interface ManagerService {
 	 */
 	public ManagerModel saveOrReplaceManager(ManagerModel managerModel) throws Exception;
 	
-	/**管理员操作日志
-	 * 
-	 */
-	public void logSave();
-	
-	/**查询日志
-	 * 
-	 */
-	public void getLogs();
-	
 	/**验证手机号是否唯一
 	 * @param phone
 	 * @return
@@ -62,5 +52,12 @@ public interface ManagerService {
 	 * @return
 	 */
 	public ManagerModel getByUserName(String userName);
+	
+	/**
+	 * 登录：获取用户信息
+	 * @param userName
+	 * @return
+	 */
+	public ManagerModel getLoginManager(String userName);
 	
 }
