@@ -1,7 +1,9 @@
 package com.eeduspace.management.interceptor;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,7 +19,9 @@ import com.eeduspace.management.comm.Constants;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
+import com.eeduspace.management.persist.po.ManagerLogPo;
 import com.eeduspace.management.rescode.ResponseItem;
+import com.eeduspace.management.service.ManagerLogService;
 import com.google.gson.Gson;
 
 public class PermissionInterceptor extends HandlerInterceptorAdapter{
@@ -25,6 +29,9 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 	private static Gson gson = new Gson();
 	private static final String LOGIN_URL = "/login.html";
 	private static final String ISFIRST_URL = "isFirst.html";
+	
+	@Inject
+	private ManagerLogService logService;
 	/**  
      * 在业务处理器处理请求之前被调用  
      * 如果返回false  
@@ -46,7 +53,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 //		response.sendRedirect(request.getContextPath() + LOGIN_URL);
 //		SessionItem si = (SessionItem) session.getAttribute(Constants.SESSION_ID);
 		ResponseItem ri = new ResponseItem();
-		if (session.getAttribute("roleUUID") != null && session.getAttribute("username") != null) {
+		if (session.getAttribute("roleUUID") != null && session.getAttribute("userName") != null) {
 			Boolean flag = false;
 			Boolean isFirst = (Boolean) session.getAttribute("isFirst");
 			//第一次登陆跳转到  填写手机号界面
@@ -73,6 +80,16 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 			if (!flag) {
 				ri.setData(flag);
 				ri.setMessage("No Permission To Operate");
+				ManagerLogPo po = new  ManagerLogPo();
+				po.setManagerId((Long)session.getAttribute("userId"));
+				po.setResourceId((String)session.getAttribute("uuid"));
+				po.setSourceIp(request.getRemoteAddr());
+				po.setModule((String)session.getAttribute("userName"));
+				po.setDescription(request.getMethod());
+				po.setAction(request.getRequestURI());
+				po.setResult(false);
+				po.setCreateDate(new Date());
+				logService.save(po);
 				response.getWriter().print(gson.toJson(ri));
 				return false;
 			}
@@ -81,6 +98,16 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 			response.getWriter().print(gson.toJson(ri));
 			return false;
 		}
+		ManagerLogPo po = new  ManagerLogPo();
+		po.setManagerId((Long)session.getAttribute("userId"));
+		po.setResourceId((String)session.getAttribute("uuid"));
+		po.setSourceIp(request.getRemoteAddr());
+		po.setModule((String)session.getAttribute("userName"));
+		po.setDescription(request.getMethod());
+		po.setAction(request.getRequestURI());
+		po.setResult(true);
+		po.setCreateDate(new Date());
+		logService.save(po);
 		return true;
 	}
 	

@@ -22,6 +22,7 @@ import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.persist.dao.ManagerPoDao;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
+import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.service.ManagerService;
 import com.google.gson.Gson;
@@ -77,6 +78,12 @@ public class ManagerServiceImpl implements ManagerService {
 				if (!StringUtils.isEmpty(managerModel.getPassword())) {
 					managerPo.setPassword(managerModel.getPassword());
 				}
+				if (!StringUtils.isEmpty(managerModel.getPhone())) {
+					managerPo.setPhone(managerModel.getPhone());
+				}
+				if (!StringUtils.isEmpty(managerModel.getRealName())) {
+					managerPo.setRealName(managerModel.getRealName());
+				}
 				if (!StringUtils.isEmpty(managerModel.getIsDel())) {
 					managerPo.setIsDel(managerModel.getIsDel());
 				}
@@ -128,18 +135,6 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public void logSave() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getLogs() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public Boolean validatePassword(ManagerModel managerModel) {
 		ManagerPo managerPo = managerPoDao.findByUuid(managerModel.getUuid());
 		String pwdM = "";
@@ -160,6 +155,12 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public ManagerModel getByUserName(String userName) {
 		ManagerPo managerPo=managerPoDao.findByName(userName);
+		return CIBNManagementConvert.fromManagerPo(managerPo);
+	}
+
+	@Override
+	public ManagerModel getLoginManager(String userName) {
+		ManagerPo managerPo = managerPoDao.findByNameAndStatusAndIsDel(userName, UserEnum.Status.Enable, false);
 		return CIBNManagementConvert.fromManagerPo(managerPo);
 	}
 
