@@ -120,17 +120,21 @@ var ajaxTool = new AJAXTool();
 
   $(function(){
       firstLink();
-      //部门列表下拉框
-      var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);
-      result.done(function(resultList){
-        var data = resultList.data;
-        if(data){
-             var  departList="";
-             for(var i=0; i<data.content.length;i++){
-                   departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
-             }
-             $("#departUl").append(departList);
-        }
-      });
-
   });
+
+
+
+  //部门下拉列表
+  function departmentList(){
+    var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);
+    result.done(function(resultList){
+      var data = resultList.data;
+      if(data){
+           var  departList="";
+           for(var i=0; i<data.content.length;i++){
+                 departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
+           }
+           $("#departUl").append(departList);
+      }
+    });
+  }
