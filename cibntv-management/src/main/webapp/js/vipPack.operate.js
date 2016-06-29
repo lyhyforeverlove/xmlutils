@@ -97,16 +97,9 @@ function vipPackSale() {
         if(uuid == "all"){
             console.log("all");
             
-             $(".vipPrice").each(function(){
-                var price = $(this).find("em").text();
-                //折后价格
-                discountPrice = (vipSale * price) / 10;
-                priceArr.push(discountPrice);
-                return priceArr; //存放打折后数组
-            });
-             //console.log(priceArr);
-         var disPriceStr = JSON.stringify(priceArr);    
-         sessionStorage.setItem("priceArr", disPriceStr);    
+        //console.log(priceArr);
+         //var disPriceStr = JSON.stringify(priceArr);    
+         //sessionStorage.setItem("priceArr", disPriceStr);    
         }
 
         $("#list").empty();
@@ -153,16 +146,18 @@ function initVipPackList(state, flag ,isAllFlag) {
 
             //console.log(data);
             //$("#list").empty(); //清空#list
-             console.log(priceArr);
             $.each(data.datas, function(index, item) {
                 //遍历返回的json
 
-              var discountPrice = sessionStorage.getItem("priceArr");
-              var jsonDisPrice= JSON.parse(discountPrice);
-              //console.log(jsonDisPrice);
+                  var vipSale = item.vipSale;
+                  var price = item.vipPrice;
+                  //console.log(vipSale,price);
+                    //折后价格
+                   var discountPrice = (vipSale * price ) / 10;
+                
              // discountPrice
-//
-              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + item.discountPrice + '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+
+              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
                
 
