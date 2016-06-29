@@ -28,7 +28,7 @@ $(function() {
          *VIP包打折操作
          */
     $("#DiscountVipBtn").click(function() {
-        str = '<form method="post" id="formid" name="form"><div id="addbox"><p><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="discountStartDate" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="discountEndDate" id="endDate1" /></div></p><p>VIP方案<select name="uuid" id="vipType"/></select></p><p>&nbsp;&nbsp;&nbsp;折扣&nbsp;&nbsp;<select name="vipSale"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></p></div>';
+        str = '<form method="post" id="formid" name="form"><div id="addbox"><p><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="discountStartDate" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="discountEndDate" id="endDate1" /></div></p><p>VIP方案<select name="uuid" id="vipType"/><option value="all">全部</option></select></p><p>&nbsp;&nbsp;&nbsp;折扣&nbsp;&nbsp;<select name="vipSale"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></p></div>';
 
         Prompt.init({
             title: "打折活动",
