@@ -26,7 +26,7 @@ $(function() {
             "user": userName,
             "password": password
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
             var dataObj = data.data;
 
             if (dataObj != null) {
@@ -52,7 +52,7 @@ $(function() {
                     var roleModelObj = dataObj.roleModel;
                     var permissionModels = roleModelObj.permissionModels; //lifang  5个
                     
-                    console.log(permissionModels);
+                    //console.log(permissionModels);
                     var stringPer = JSON.stringify(permissionModels);
                     sessionStorage.setItem("permissionModels",stringPer);
 
@@ -77,7 +77,7 @@ $(function() {
     var person = sessionStorage.getItem("permissionModels");
     var jsonPerson = JSON.parse(person);
 
-    console.log(jsonPerson);
+    //console.log(jsonPerson);
     indexShow();
     function indexShow(){
 
@@ -206,7 +206,7 @@ $("#userTelTxt").blur(function(){
         api.checkPhone({
             "phone":phone
         }).done(function(data){
-            console.log(data);
+            //console.log(data);
             if(data.data == true){
                 alert("");
                 $(this).parent().find("p.error").html("该手机号已经存在,请更换为别的手机号"); 
@@ -406,7 +406,7 @@ $("#updPwdBtn").click(function(){
       title : "修改密码",
       width : 420 ,
       height : 320,
-      html : "<div class='form-group from-group1'><label>旧密码：</label><input type='text' value='' id='updOldPwd' class='form-control ' /></div><div class='form-group from-group1'><label>新密码：</label><input type='text' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='text' value='' id='updConPwd' class='form-control'/></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button>",
+      html : "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' /></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'/></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
       //ConfirmFun : updataPassword
     }); 
 
@@ -424,7 +424,8 @@ $("#updPwdBtn").click(function(){
                     "uuid": userUuid1,
                     "password" : updNewPwd
                 }).done(function(data){
-                    console.log(data);
+                   $("#updPwdbox").css("display","none");
+                    $("#success").html("更换密码成功!");
                 })
            }
        }else{
