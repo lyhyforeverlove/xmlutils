@@ -153,7 +153,7 @@ function firstLink(){
     result.done(function(resultList){
         var data = resultList.data;
         if(data){
-           if(data.totalPage ===0){
+           if(data.totalPage ===0 ){
               totalpage = 1;
            }else{
               totalpage = data.totalPage;
