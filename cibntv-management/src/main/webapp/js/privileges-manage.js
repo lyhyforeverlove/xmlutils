@@ -108,7 +108,7 @@ var ajaxTool = new AJAXTool();
     $("#privileges-list").empty();
     var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/manager/manageList",false);
     result.done(function(resultList){
-       if(resultList.data.totalPages ===0 || resultList.data.totalPages ==="undefined"){
+       if(resultList.data.totalPages ===0 ){
            totalpage = 1;
        }else{
            totalpage = resultList.data.totalPages;
