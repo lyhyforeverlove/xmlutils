@@ -26,5 +26,10 @@ function pagination(container, callback, currentPage, pageCount){
     };
     $('#'+container).bootstrapPaginator(options);
 }
-
+var uuid = sessionStorage.getItem("uuid_id");  
+//console.log(uuid);  
+if(uuid ==  null || uuid == "undefined"){
+    //alert("用户没有登录，无法访问页面,跳转登录页面！");
+    window.location.href="login.html";
+}
 
