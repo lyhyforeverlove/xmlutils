@@ -120,7 +120,7 @@ function searcherValue(page){
             var examination="";
             for(var i=0;i<lg;i++){
                 var index =(page-1)*10+(i+1);
-                examination +="<tr><td>"+index+"</td><td>"+dataList.stageName+"</td><td>"+dataList.gradeName+"</td><td>"+dataList.subjectName+"</td><td>"+dataList.bookTypeName+"</td><td>"+dataList.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].paperName+"</td><td>"+dataList.paperDatas[i].price+"元</td><td>"+dataList.paperDatas[i].createDateStr+"</td><td>"+dataList.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+dataList.paperDatas[i].id+"')>详情</a></td></tr>";
+                examination +="<tr><td>"+index+"</td><td>"+dataList.stageName+"</td><td>"+dataList.gradeName+"</td><td>"+dataList.subjectName+"</td><td>"+dataList.bookTypeName+"</td><td>"+dataList.paperDatas[i].typeName+"</td><td>"+dataList.paperDatas[i].paperName+"</td><td>"+dataList.paperDatas[i].price+"元</td><td>"+dataList.paperDatas[i].createDateStr+"</td><td>"+dataList.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+dataList.paperDatas[i].id+"')>详情</a></td></tr>";
             }
             $("#examination_list").append(examination);
         }
@@ -137,7 +137,7 @@ function searcherValue(page){
                 var examination="";
                 for(var i=0;i<lg;i++){
                     var index =(page-1)*10+(i+1);
-                    examination +="<tr><td>"+index+"</td><td>"+data.statgeName+"</td><td>"+data.gradeName+"</td><td>"+data.subjectName+"</td><td>"+data.bookTypeName+"</td><td>"+data.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].paperName+"</td><td>"+data.paperDatas[i].price+"元</td><td>"+data.paperDatas[i].createDateStr+"</td><td>"+data.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+data.paperDatas[i].id+"')>详情</a></td></tr>";
+                    examination +="<tr><td>"+index+"</td><td>"+data.stageName+"</td><td>"+data.gradeName+"</td><td>"+data.subjectName+"</td><td>"+data.bookTypeName+"</td><td>"+data.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].paperName+"</td><td>"+data.paperDatas[i].price+"元</td><td>"+data.paperDatas[i].createDateStr+"</td><td>"+data.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+data.paperDatas[i].id+"')>详情</a></td></tr>";
                 }
                 $("#examination_list").append(examination);
             }

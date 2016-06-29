@@ -48,6 +48,7 @@ a,a:hover,a:focus{text-decoration: none;}
 /*表格样式*/
 .right>.main-content>.table>thead>tr>th{background-color: #d8e0ff;border-bottom: 1px solid #fff;font-weight: normal;text-align: center; font-size: 14px;}
 .right>.main-content>.table>tbody>tr>td{background-color: #f4f6ff;border-top: 1px solid #fff;text-align: center;font-size: 14px; font-weight: normal;padding:17px 0;}
+.right>.main-content>.table>tbody>tr>td:nth-child(7){max-width:120px; text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .right>.main-content>.table>tbody>tr:hover{background-color:#d8e0ff; cursor: pointer;}
 .right>.main-content>.table>tbody>tr:hover>td{background: none;}
 .right>.main-content>.table>tbody>tr>td:last-child>a{color:#5878f5;margin-right: 14px;}
@@ -60,7 +61,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .stop{height: 150px;width:260px;background: url(../images/stop.png) no-repeat; background-position: center center;z-index: 999;position:absolute;top:0;background-size: 62px 62px;}
 .right>.main-content>.video-list>.col-sm-3>.video-div>h4{font-weight: 900;height:150px;vertical-align:middle;display:table-cell; font-size:22.72px; }
 .right>.main-content>.video-list>.col-sm-3>.content{width:260px;}
-.right>.main-content>.video-list>.col-sm-3>.content>.title{color:#2a2f43;text-align: center;font-weight:normal; font-size: 20px;margin:5px auto;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.right>.main-content>.video-list>.col-sm-3>.content>.title{color:#2a2f43;text-align: center;font-weight:normal; font-size: 20px;margin:10px auto;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .right>.main-content>.video-list>.col-sm-3>.content>p{color:#999999;font-size: 14px;font-weight: normal;}
 
 /*视频详情*/
