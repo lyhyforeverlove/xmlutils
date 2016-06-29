@@ -27,7 +27,7 @@ function saveUser(){
         }
 
         else{
-            var result = ajaxTool.getInfo({"name":userName,"password":initPassword,"rName":rName,"rUuid":uuid},"/manager/manageSave",false);
+            var result = ajaxTool.getInfo({"name":userName,"password":initPassword,"rName":rName,"rUuid":uuid},"/role/manageSave",false);
             result.done(function(resultList){
                 window.location.href="privileges-manage.html";
             });
@@ -35,13 +35,13 @@ function saveUser(){
 }
 
 $(function(){
-    var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);
+    var result = ajaxTool.getInfo({},"/role/manageSkip",false);
     result.done(function(resultList){
         var data = resultList.data;
         if(data){
              var  departList="";
-             for(var i=0; i<data.content.length;i++){
-                   departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
+             for(var i=0; i<data.length;i++){
+                   departList +="<li><a href='#' onclick=departChecked('"+data[i].uuid+"','"+data[i].name+"')>"+data[i].name+"</a></li>";
              }
              $("#departUl").append(departList);
         }

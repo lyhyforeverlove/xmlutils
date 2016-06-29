@@ -29,7 +29,6 @@ function savePrice(){
            $("#savePrice").css("display","none");
        });
      }
-
  }
 
 $(function(){

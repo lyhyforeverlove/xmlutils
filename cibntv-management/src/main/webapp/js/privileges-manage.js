@@ -1,9 +1,9 @@
 var ajaxTool = new AJAXTool();
   //停用启用方法
   function stopping(id,status){
-     if(status==="停用"){
+     if(status=="停用"){
         alert.dialog.confirm('确定停用吗？',function(){
-            var result = ajaxTool.getInfo({"uuid":id,"status":"Disable"},"/manager/manageReplace",false);
+            var result = ajaxTool.getInfo({"uuid":id,"status":"Disable"},"/role/manageReplace",false);
             result.done(function(resultList){
                firstLink();
             });
@@ -12,7 +12,7 @@ var ajaxTool = new AJAXTool();
      else
      {
         alert.dialog.confirm('确定启用吗？',function(){
-            var result = ajaxTool.getInfo({"uuid":id,"status":"Enable"},"/manager/manageReplace",false);
+            var result = ajaxTool.getInfo({"uuid":id,"status":"Enable"},"/role/manageReplace",false);
             result.done(function(resultList){
                firstLink();
             });
@@ -22,7 +22,7 @@ var ajaxTool = new AJAXTool();
   //删除管理员信息方法
   function deleting(id){
     alert.dialog.confirm('确定删除吗？',function(){
-        var result = ajaxTool.getInfo({"uuid":id,"isDel":"true"},"/manager/manageReplace",false);
+        var result = ajaxTool.getInfo({"uuid":id,"isDel":"true"},"/role/manageReplace",false);
         result.done(function(resultList){
           firstLink();
         });
@@ -30,6 +30,7 @@ var ajaxTool = new AJAXTool();
   }
 
   function updatePrivileges(uuid,rUuid){
+    departmentList();
     $('#myModal').modal('show');
     $("#myModalLabel").find("input").val(uuid);
     //部门列表下拉框
@@ -56,7 +57,7 @@ var ajaxTool = new AJAXTool();
       var rname = $("#departValue").html();
       var ruuid = $(".btn-group").find("input").val();
       var uuid = $("#myModalLabel").find("input").val();
-      var result = ajaxTool.getInfo({"uuid":uuid,"rName":rname,"rUuid":ruuid},"/manager/manageReplace",false);
+      var result = ajaxTool.getInfo({"uuid":uuid,"rName":rname,"rUuid":ruuid},"/role/manageReplace",false);
       result.done(function(resultList){
          $('#myModal').modal('hide');
          firstLink();
@@ -77,12 +78,16 @@ var ajaxTool = new AJAXTool();
                       status="启用";
                   }
                   var index =(page-1)*10+(i+1);
-                  privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].phone+"</td><td>"+data.content[i].rName+"</td><td><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
+                  var phone=data.content[i].phone;
+                  if(!phone || phone =="null"){
+                    phone="-";
+                  }
+                  privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
               }
               $("#privileges-list").append(privilegesList);
           }
       }else{
-          var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/manager/manageList",false);
+          var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/role/manageList",false);
           result.done(function(resultList){
               var data = resultList.data;
               if(data){
@@ -95,7 +100,11 @@ var ajaxTool = new AJAXTool();
                           status="启用";
                       }
                       var index =(page-1)*10+(i+1);
-                      privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].phone+"</td><td>"+data.content[i].rName+"</td><td><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
+                      var phone=data.content[i].phone;
+                      if(!phone || phone =="null"){
+                        phone="-";
+                      }
+                      privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
                   }
                   $("#privileges-list").append(privilegesList);
               }
@@ -106,7 +115,7 @@ var ajaxTool = new AJAXTool();
   function firstLink(){
     queryName = $("#queryValue").val();
     $("#privileges-list").empty();
-    var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/manager/manageList",false);
+    var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/role/manageList",false);
     result.done(function(resultList){
        if(resultList.data.totalPages ===0 ){
            totalpage = 1;
@@ -124,6 +133,7 @@ var ajaxTool = new AJAXTool();
 
   //部门下拉列表
   function departmentList(){
+    $("#departUl").empty();
     var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);
     result.done(function(resultList){
       var data = resultList.data;

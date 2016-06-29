@@ -42,9 +42,3 @@ function initPagination(){
        }
   });
 }
-
-
-$(function(){
-  //  var name = sessionStorage.getItem("userName");
-    //$("#userName").html(name);
-});
