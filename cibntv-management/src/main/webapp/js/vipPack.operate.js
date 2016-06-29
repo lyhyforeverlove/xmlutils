@@ -10,23 +10,17 @@ $(function() {
      */
     $("#createVipBtn").click(function() {
 
-      str = '<form enctype="multipart/form-data" action="http://192.168.1.12:8180/action/vip_pack/vip_pack_create" method="post" id="formid" name="form"><div id="addbox"><p><a href="javascript:;" class="file">选择背景图片<input type="file" name="file" id="file_pic"></a></p><p>VIP方案<select name="vipType" id="vipType"/><option value="ONE_MONTH">1个月</option><option value="TWO_MONTH">2个月</option><option value="THREE_MONTH">3个月</option><option value="ONE_YEAR">1年</option><option value="SIX_MONTH">半年</option><option value="TWO_YEAR">2年</option></select></p><p>VIP价格<input type="text" name="vipPrice" id ="" value="" /></p><p>VIP描述<input type="text" name="vipDesc" value="" /></p><input type="submit" id="submit" class="tip-bottom" value="提交" style="color:#fff;font-size:14px;border-radius:2px;height:34px;"></div>';
+      str = '<form enctype="multipart/form-data" action="" method="post" id="formid" name="form"><div id="addbox"><p><a href="javascript:;" class="file">选择背景图片<input type="file" name="file" id="file_pic"></a></p><p>VIP方案<select name="vipType" id="vipType"/><option value="ONE_MONTH">1个月</option><option value="TWO_MONTH">2个月</option><option value="THREE_MONTH">3个月</option><option value="ONE_YEAR">1年</option><option value="SIX_MONTH">半年</option><option value="TWO_YEAR">2年</option></select></p><p>VIP价格<input type="text" name="vipPrice" class ="vipPrice" value="" /></p><p>VIP描述<input type="text" name="vipDesc" value="" /></p></div>';
 
             Prompt.init({
                 title: "新增VIP方案",
                 height: 400,
-                html: str
+                html: str,
+                ConfirmFun: uploadCreateVip
             });
-            /*$("#submit").submit(function() {
-
-                //判断是否已经存在vip包
-                if(message == "VIP包已存在"){
-                  alert("VIP包已存在，不能添加！");
-                }
-                return false; 
-            })*/
 
         })
+        
         /*
          *VIP包打折操作
          */
@@ -93,16 +87,6 @@ function vipPackSale() {
         "vipSale": vipSale
     }).done(function(data){
 
-        //var disPriceStr = JSON.stringify(discountPrice);
-        
-        if(uuid == "all"){
-            console.log("all");
-            
-        //console.log(priceArr);
-         //var disPriceStr = JSON.stringify(priceArr);    
-         //sessionStorage.setItem("priceArr", disPriceStr);    
-        }
-
         $("#list").empty();
         initVipPackList(1,true,true);
 
@@ -158,7 +142,7 @@ function initVipPackList(state, flag ,isAllFlag) {
                 
              // discountPrice
 
-              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath1 +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
                
 
@@ -194,7 +178,9 @@ function initVipPackList(state, flag ,isAllFlag) {
                     if(state == 0 ){
                       $(this).unbind('click');
                     }else if(state == 1){
+
                       delteVipPack($(this), uuId);
+                      
                     }
                 })
             })
@@ -209,9 +195,35 @@ function initVipPackList(state, flag ,isAllFlag) {
 function delteVipPack(ele, uuId) {
     $('#' + uuId).delegate(ele, "click", function() {
         api.deleteVipPack({
-            "uuid": uuId
+            "vipUUID": uuId
         }).done(function(data) {
-            $('#' + uuId).html("");
+            $("#list").empty();
+            initVipPackList(1, true ,true);
+            console.log(data);
         })
     })
 }
+
+/*新增vip方案提交方法*/
+function uploadCreateVip(){   
+    var formData = new FormData($("#formid")[0]);
+    $.ajax({  
+          url: 'http://192.168.1.12:8180/action/vip_pack/vip_pack_create' ,  
+          type: 'POST',  
+          data: formData,  
+          async: false,  
+          cache: false,  
+          contentType: false,  
+          processData: false,  
+          success: function (data) { 
+            //console.log(data);
+              alert("上传成功!");
+              $("#list").empty();
+              initVipPackList(1, true ,true);
+          },  
+          error: function (data) {  
+              alert(data);  
+          }  
+    });  
+}
+

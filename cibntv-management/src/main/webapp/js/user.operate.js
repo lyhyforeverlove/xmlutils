@@ -63,7 +63,7 @@ $(function() {
     })
 
     //用户量
-    totalRecords(1,2);
+    totalRecords(1,10);
     function totalRecords(current,size){
          getUserInfo = api.getUserInfo({
             "currentPage": current,
@@ -75,7 +75,7 @@ $(function() {
         })
     }
     //初始化用户列表
-    getUserInfoList(1, 2);
+    getUserInfoList(1, 10);
     /*
      *params current  当前页
      *params size 一页显示多少条记录

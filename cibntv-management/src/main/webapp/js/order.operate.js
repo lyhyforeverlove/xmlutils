@@ -137,6 +137,12 @@ function getOrderInfoList(currentpage, size, orderType,searchText,searchText1,st
 function getList(data, size, page) {
     $.each(data.datas, function(index, item) { //遍历返回的json
         index += (size * (page - 1)); //序号
+        if(item.payType == null){
+            item.payType = "-";
+        }
+        if(item.transactionId == null){
+            item.transactionId ="-";
+        }
         if(item.buyType == "VIP"){
             $("#list tbody").append(
             "<tr><td>" + (index + 1) + "</td><td>" + item.orderSn + "</td><td>" + item.transactionId + "</td><td>" + item.mobile +"</td><td>" + item.orderPrice + "</td><td>" + item.payType + "</td><td>" + item.buyDate + "</td><td>" + item.orderState + "</td></tr>");
@@ -152,6 +158,7 @@ function getList(data, size, page) {
 /*订单列表不为空 展示订单*/
 function orderList(data,size,orderType,searchText,searchText1,startDate,endDate){
     if( data != null){
+        //console.log(data);
         getList(data, size, 1);
 
         var pageCount = data.totalPage; //取到总页数

@@ -1,7 +1,7 @@
 var API = function(){	
 	//api地址
 	this.apiPath = "http://192.168.1.12:8180/action";
-
+	this.apiPath1 = "http://192.168.1.12:8180";
 	//用户列表信息
 	this.getUserInfo = function(paramsObj){
 		var params = {
@@ -134,7 +134,7 @@ var API = function(){
 	/*VIP包删除*/
 	this.deleteVipPack = function(paramsObj){
 		var params = {
-			"uuid":paramsObj.uuid
+			"vipUUID":paramsObj.vipUUID
 		};
 		var url = this.apiPath + "/vip_pack/delete_vip_pack";
 		var data = {'api_url':url,'postdata':params};
@@ -180,7 +180,7 @@ var API = function(){
 			"phone":paramsObj.phone,
 			"password":paramsObj.password
 		};
-		var url = this.apiPath + "/manager/manageReplace";
+		var url = this.apiPath + "/manager/manageChange";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}

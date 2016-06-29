@@ -296,8 +296,7 @@ font-weight: normal;
     .file {
         position: relative;
         display: inline-block;
-        background: #D0EEFF;
-        border: 1px solid #99D3F5;
+        border: 1px solid #5878f5;
         border-radius: 4px;
         padding: 4px 12px;
         overflow: hidden;
@@ -314,7 +313,6 @@ font-weight: normal;
         opacity: 0;
     }
     .file:hover {
-        background: #AADFFD;
         border-color: #78C3F3;
         color: #004974;
         text-decoration: none;
