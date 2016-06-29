@@ -57,7 +57,7 @@ var ajaxTool = new AJAXTool();
       var ruuid = $(".btn-group").find("input").val();
       var uuid = $("#myModalLabel").find("input").val();
       var result = ajaxTool.getInfo({"uuid":uuid,"rName":rname,"rUuid":ruuid},"/manager/manageReplace",false);
-      resule.done(function(resultList){
+      result.done(function(resultList){
          $('#myModal').modal('hide');
          firstLink();
       });
@@ -108,7 +108,11 @@ var ajaxTool = new AJAXTool();
     $("#privileges-list").empty();
     var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/manager/manageList",false);
     result.done(function(resultList){
-       totalpage = resultList.data.totalPages;
+       if(resultList.data.totalPages ===0){
+           totalpage = 1;
+       }else{
+           totalpage = resultList.data.totalPages;
+       }
        dataList = resultList.data;
        initPagination();
     });

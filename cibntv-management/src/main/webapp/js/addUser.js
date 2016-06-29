@@ -60,15 +60,17 @@ $(function(){
      $("#userNameDiv").find("img").remove();
      $("#userNameDiv").find(".remind").remove();
      var userName = $("#userName").val();
-     var result = ajaxTool.getInfo({"name":userName},"/manager/validateName",false);
-     result.done(function(resultList){
-       var str="";
-       if(resultList.data ===null){
-          str="<img src='images/disabled.png'><label class='remind'>用户名已占用</label>";
-       }
-       else{
-          str="<img src='images/available.png'><label class='remind'>用户名可注册</label>";
-       }
-       $("#userNameDiv").append(str);
-     });
+     if(userName){
+         var result = ajaxTool.getInfo({"name":userName},"/manager/validateName",false);
+         result.done(function(resultList){
+           var str="";
+           if(resultList.data === null){
+              str="<img src='images/disabled.png'><label class='remind'>用户名已占用</label>";
+           }
+           else{
+              str="<img src='images/available.png'><label class='remind'>用户名可注册</label>";
+           }
+           $("#userNameDiv").append(str);
+         });
+     }
   }

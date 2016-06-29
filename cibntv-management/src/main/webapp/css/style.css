@@ -112,7 +112,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .main-content>.panel-default>.panel-body>.col-sm-6{padding:0;margin-top:30px;}
 .main-content>.panel-default>.panel-body>.btn-button>button{width:140px;height:40px;line-height: 40px; text-align: center;background-color: #5878f5;border:none;font-size: 20px;font-weight: normal;color:#fff;border-radius: 5px;}
 .main-content>.panel-default>.panel-body>.btn-button>button:hover{background-color: #4057b3;}
-.main-content>.panel-default>.panel-body>.btn-button>button:nth-child(1){margin-right:150px;}
+.main-content>.panel-default>.panel-body>.btn-button>button:nth-child(1){margin-right:15%;}
 
 
 

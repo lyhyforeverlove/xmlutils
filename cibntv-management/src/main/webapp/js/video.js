@@ -65,7 +65,11 @@ var ajaxTool = new AJAXTool();
           var searchName = $("#searchName").val();
           var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":1,"pageSize":"10"},"/video/videoPage",false);
           result.done(function(resultList){
-              totalpage = resultList.data.totalPage;
+              if(resultList.data.totalPage ===0){
+                totalpage = 1;
+              }else{
+                totalpage = resultList.data.totalPage;
+              }
               dataList = resultList.data;
               initPagination();
           });

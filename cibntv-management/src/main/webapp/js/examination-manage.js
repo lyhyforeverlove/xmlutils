@@ -120,7 +120,7 @@ function searcherValue(page){
             var examination="";
             for(var i=0;i<lg;i++){
                 var index =(page-1)*10+(i+1);
-                examination +="<tr><td>"+index+"</td><td>"+dataList.statgeName+"</td><td>"+dataList.gradeName+"</td><td>"+dataList.subjectName+"</td><td>"+dataList.bookTypeName+"</td><td>上学期</td><td>"+dataList.paperDatas[i].typeName+"</td><td>"+dataList.paperDatas[i].price+"元</td><td>"+dataList.paperDatas[i].createDateStr+"</td><td>"+dataList.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+dataList.paperDatas[i].id+"')>详情</a></td></tr>";
+                examination +="<tr><td>"+index+"</td><td>"+dataList.stageName+"</td><td>"+dataList.gradeName+"</td><td>"+dataList.subjectName+"</td><td>"+dataList.bookTypeName+"</td><td>上学期</td><td>"+dataList.paperDatas[i].typeName+"</td><td>"+dataList.paperDatas[i].price+"元</td><td>"+dataList.paperDatas[i].createDateStr+"</td><td>"+dataList.paperDatas[i].createName+"</td><td><a href='#'  onclick=paperDetail('"+dataList.paperDatas[i].id+"')>详情</a></td></tr>";
             }
             $("#examination_list").append(examination);
         }
@@ -153,7 +153,11 @@ function firstLink(){
     result.done(function(resultList){
         var data = resultList.data;
         if(data){
-           totalpage = data.totalPage;
+           if(data.totalPage ===0){
+              totalpage = 1;
+           }else{
+              totalpage = data.totalPage;
+           }
            dataList = data;
            initPagination();
         }
