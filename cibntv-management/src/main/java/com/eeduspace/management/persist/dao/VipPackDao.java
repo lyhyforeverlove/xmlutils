@@ -23,5 +23,5 @@ public interface VipPackDao extends JpaRepository<VIPPack, Long>{
 	VIPPack findByVipType(String vipType);
 	@Modifying
 	@Query("update VIPPack v set v.vipSale=?1, v.discountStartDate=?2,v.discountEndDate=?3")
-	Integer updateAllVipPackSale(Double vipSale,Date sDate,Date eDate);
+	Integer updateVipPackSale(Double vipSale,Date sDate,Date eDate);
 }
