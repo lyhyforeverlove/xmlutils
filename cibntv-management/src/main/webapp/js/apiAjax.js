@@ -1,6 +1,6 @@
 var API = function(){	
 	//api地址
-	this.apiPath = "http://192.168.1.12:8180";
+	this.apiPath = "http://192.168.1.12:8180/action";
 
 	//用户列表信息
 	this.getUserInfo = function(paramsObj){
@@ -9,7 +9,7 @@ var API = function(){
 			"size":paramsObj.size,
 			"mobile" : paramsObj.mobile
 		};
-		var url = this.apiPath + "/action/user/userList";
+		var url = this.apiPath + "/user/userList";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	};
@@ -21,7 +21,7 @@ var API = function(){
 			"size":paramsObj.size,
 			"mobile" : paramsObj.mobile	
 		}
-		var url = this.apiPath + "/action/user/userList"
+		var url = this.apiPath + "/user/userList"
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -34,7 +34,7 @@ var API = function(){
 			"endDate" : paramsObj.endDate
 		};
 		params = $.param(paramsObj);
-		var url = this.apiPath + "/action/user/user_excel_export?"+params;
+		var url = this.apiPath + "/user/user_excel_export?"+params;
 		var data = {'api_url':url};
 		return data;
 	}
@@ -46,7 +46,7 @@ var API = function(){
 		var params = {
 			"userCode":paramsObj.userCode
 		}
-		var url = this.apiPath + "/action/vip_order/user_vip_order"
+		var url = this.apiPath + "/vip_order/user_vip_order"
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -62,7 +62,7 @@ var API = function(){
 			"startDate" : paramsObj.startDate,
 			"endDate" : paramsObj.endDate
 		}
-		var url = this.apiPath + "/action/vip_order/order_list"
+		var url = this.apiPath + "/vip_order/order_list"
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -77,7 +77,7 @@ var API = function(){
 
 		params = $.param(paramsObj);
 
-		var url = this.apiPath + "/action/vip_order/order_excel_export?"+params;
+		var url = this.apiPath + "/vip_order/order_excel_export?"+params;
 		var data = {'api_url':url};
 		return data;
 	}
@@ -90,7 +90,7 @@ var API = function(){
 			"isRelease":paramsObj.isRelease, //是否发布
 			"isAll":paramsObj.isAll  //是否显示全部vip包（包含 已发布和未发布） 可选参数 默认为 false
 		};
-		var url = this.apiPath + "/action/vip_pack/vip_pack_list";
+		var url = this.apiPath + "/vip_pack/vip_pack_list";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -102,13 +102,13 @@ var API = function(){
 			"vipPrice":paramsObj.vipPrice, //VIP价格
 			"vipDesc":paramsObj.vipDesc //VIP描述
 		};
-		var url = this.apiPath + "/action/vip_pack/vip_pack_create";
+		var url = this.apiPath + "/vip_pack/vip_pack_create";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
 	/*VIP包下拉框选项*/
 	this.vipPackSelect = function(){
-		var url = this.apiPath + "/action/vip_pack/vip_pack_select";
+		var url = this.apiPath + "/vip_pack/vip_pack_select";
 		var data = {'api_url':url};
 		return this.ajaxFun(data);
 	}
@@ -121,13 +121,13 @@ var API = function(){
 			"discountEndDate":paramsObj.discountEndDate //VIP描述
 		};
 
-		var url = this.apiPath + "/action/vip_pack/vip_pack_sale";
+		var url = this.apiPath + "/vip_pack/vip_pack_sale";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
 	/*VIP包发布*/
 	this.vipPackRelease = function(){
-		var url = this.apiPath + "/action/vip_pack/vip_pack_release";
+		var url = this.apiPath + "/vip_pack/vip_pack_release";
 		var data = {'api_url':url};
 		return this.ajaxFun(data);
 	}
@@ -136,7 +136,7 @@ var API = function(){
 		var params = {
 			"uuid":paramsObj.uuid
 		};
-		var url = this.apiPath + "/action/vip_pack/delete_vip_pack";
+		var url = this.apiPath + "/vip_pack/delete_vip_pack";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -146,7 +146,7 @@ var API = function(){
 			"user":paramsObj.user,
 			"password":paramsObj.password
 		};
-		var url = this.apiPath + "/action/inORout/login";
+		var url = this.apiPath + "/inORout/login";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -157,7 +157,7 @@ var API = function(){
 			"phone":paramsObj.phone
 		};
 
-		var url = this.apiPath+'/action/manager/sendSMS';		
+		var url = this.apiPath+'/manager/sendSMS';		
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	};
@@ -168,7 +168,7 @@ var API = function(){
 			"smsCode":paramsObj.smsCode 
 		};
 
-		var url = this.apiPath+'/action/manager/validateSMS';		
+		var url = this.apiPath+'/manager/validateSMS';		
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	};
@@ -180,7 +180,7 @@ var API = function(){
 			"phone":paramsObj.phone,
 			"password":paramsObj.password
 		};
-		var url = this.apiPath + "/action/manager/manageReplace";
+		var url = this.apiPath + "/manager/manageReplace";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -189,7 +189,7 @@ var API = function(){
 		var params = {
 			"phone":paramsObj.phone
 		};
-		var url = this.apiPath + "/action/manager/validatePhone";
+		var url = this.apiPath + "/manager/validatePhone";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
@@ -198,13 +198,13 @@ var API = function(){
 		var params = {
 			"uuid":paramsObj.uuid 
 		};
-		var url = this.apiPath + "/action/manager/manageDetail";
+		var url = this.apiPath + "/manager/manageDetail";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
 	}
 	//注销 退出登录
 	this.logout = function(){
-		var url = this.apiPath + "/action/inORout/logout";
+		var url = this.apiPath + "/inORout/logout";
 		var data = {'api_url':url};
 		return this.ajaxFun(data);
 	};
@@ -233,5 +233,8 @@ var API = function(){
 	this.windowOpen = function(url){
 		//window.open(url);
 		window.location.href = url;
+	};
+	this.windowLogin = function(){
+		window.location.href = "login.html";
 	};
 };

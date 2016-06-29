@@ -86,7 +86,8 @@ $(function() {
             logout(); //注销
 
             sessionStorage.clear(); //清空用户登录信息
-            window.location.href = "login.html";
+            api.windowLogin();
+            //window.location.href = "login.html";
         })
     }
 
@@ -125,8 +126,9 @@ $(function() {
                         "password": newPwdVal
                     }).done(function(data) {
                         if (data.data != null) {
-                            var url = "/cibn/webapp/login.html";
-                            api.windowOpen(url);
+                            /*var url = "/cibn/webapp/login.html";
+                            api.windowOpen(url);*/
+                            api.windowLogin();
                         }
                     })
                 }
