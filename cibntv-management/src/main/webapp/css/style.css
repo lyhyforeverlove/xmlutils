@@ -220,6 +220,7 @@ a:focus{outline: none;}
 .userlist li a{
 	font-size:16px;
 	color:#2a2f43;
+	font-weight:normal;
 }
 .userlist li:hover,.userlist li.actie{
 	background:#d7dfff;
