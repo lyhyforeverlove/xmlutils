@@ -104,6 +104,7 @@ function vipPackSale() {
                 priceArr.push(discountPrice);
                 return priceArr; //存放打折后数组
             });
+             //console.log(priceArr);
          var disPriceStr = JSON.stringify(priceArr);    
          sessionStorage.setItem("priceArr", disPriceStr);    
         }
@@ -159,9 +160,9 @@ function initVipPackList(state, flag ,isAllFlag) {
               var discountPrice = sessionStorage.getItem("priceArr");
               var jsonDisPrice= JSON.parse(discountPrice);
               //console.log(jsonDisPrice);
-              
-
-              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + jsonDisPrice[index] + '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+             // discountPrice
+//
+              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + item.discountPrice + '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
                
 
