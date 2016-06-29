@@ -11,7 +11,7 @@ public class PaperResponseModel {
 	private Integer item;
 	
 	private String stageCode;
-	private String statgeName;
+	private String stageName;
 	private String gradeCode;
 	private String gradeName;
 	private String subjectCode;
@@ -97,11 +97,11 @@ public class PaperResponseModel {
 	public void setPaperType(String paperType) {
 		this.paperType = paperType;
 	}
-	public String getStatgeName() {
-		return statgeName;
+	public String getStageName() {
+		return stageName;
 	}
-	public void setStatgeName(String statgeName) {
-		this.statgeName = statgeName;
+	public void setStageName(String stageName) {
+		this.stageName = stageName;
 	}
 	public String getGradeName() {
 		return gradeName;

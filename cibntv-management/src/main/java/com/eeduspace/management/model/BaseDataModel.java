@@ -9,7 +9,7 @@ public class BaseDataModel {
 
 	//学段code
 	private String stageCode;
-	private String statgeName;
+	private String stageName;
 	//学年code
 	private String gradeCode;
 	private String gradeName;
@@ -153,11 +153,11 @@ public class BaseDataModel {
 	public void setPaperCode(String paperCode) {
 		this.paperCode = paperCode;
 	}
-	public String getStatgeName() {
-		return statgeName;
+	public String getStageName() {
+		return stageName;
 	}
-	public void setStatgeName(String statgeName) {
-		this.statgeName = statgeName;
+	public void setStageName(String stageName) {
+		this.stageName = stageName;
 	}
 	public String getGradeName() {
 		return gradeName;

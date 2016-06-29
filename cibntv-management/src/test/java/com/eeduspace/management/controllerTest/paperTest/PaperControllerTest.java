@@ -26,8 +26,8 @@ public class PaperControllerTest extends BaseTest {
 		paramMap.put("bookTypeName", "人教新课标版");
 		paramMap.put("cp", 1);
 		paramMap.put("pageSize", 10);
-		paramMap.put("paperType", "1");
-		paramMap.put("paperTypeName", "单元测试");
+//		paramMap.put("paperType", "1");
+//		paramMap.put("paperTypeName", "单元测试");
 		/*paramMap.put("searchName", "paperName");
 		paramMap.put("searchValue", "认识");*/
 		
