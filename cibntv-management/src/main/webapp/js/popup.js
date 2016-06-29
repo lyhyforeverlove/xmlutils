@@ -7,8 +7,8 @@ var Prompt = {
   },
   init :function(option){   
     var title = this.title = option.title || false,
-        shade = this.shade = option.shade || false,  //是否显示遮罩
-        opacity = this.opacity = option.opacity || 20, //遮罩透明度
+        shade = this.shade = option.shade || true,  //是否显示遮罩
+        opacity = this.opacity = option.opacity || 60, //遮罩透明度
         width = this.width = option.width || 360,
         height = this.height = option.height || 300,
         _temp = this._temp = option.html || "",
