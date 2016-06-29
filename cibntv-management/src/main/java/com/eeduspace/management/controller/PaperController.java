@@ -81,7 +81,7 @@ public class PaperController {
 			PaperResponseModel response = paperService.getPaperPage(baseDataModel.getGradeCode(), baseDataModel.getSubjectCode(), baseDataModel.getBookTypeCode()
 					, baseDataModel.getPaperType(), map, baseDataModel.getCp(), baseDataModel.getPageSize());
 			response.setStageCode(baseDataModel.getStageCode());
-			response.setStatgeName(baseDataModel.getSubjectName());
+			response.setStatgeName(baseDataModel.getStatgeName());
 			response.setGradeCode(baseDataModel.getGradeCode());
 			response.setGradeName(baseDataModel.getGradeName());
 			response.setSubjectCode(baseDataModel.getSubjectCode());
