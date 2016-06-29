@@ -97,6 +97,18 @@
     <script src="js/common.js"></script>
     <script src="js/apiAjax.js"></script>
     <script src="js/login.operate.js"></script>
+    <script>
+        $(function(){
+            var uuid = sessionStorage.getItem("uuid_id");
+            console.log(uuid);
+            if(uuid ==  null || uuid == "undefined"){
+                window.location.href="login.html";
+            }else{
+                indexShow();
+            }
+            
+        })
+    </script>
 </body>
 
 </html>
