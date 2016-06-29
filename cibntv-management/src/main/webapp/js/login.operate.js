@@ -71,7 +71,7 @@ $(function() {
         })
     }
     
-    var userName = sessionStorage.getItem("userName");
+/*    var userName = sessionStorage.getItem("userName");
     var userPwd = sessionStorage.getItem("userPwd");
 
     indexPage(userName);
@@ -90,7 +90,7 @@ $(function() {
             //window.location.href = "login.html";
         })
     }
-
+*/
 
     /*
      *第一次登录 填写信息
@@ -451,8 +451,8 @@ var person = sessionStorage.getItem("permissionModels");
 /*
  *退出登录
  */
-function logout() {
+/*function logout() {
     api.logout().done(function(data) {
         console.log("data");
     })
-}
+}*/
