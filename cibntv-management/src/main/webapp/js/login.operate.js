@@ -416,7 +416,7 @@ $("#updPwdBtn").click(function(){
     var updNewPwd = $("#updNewPwd").val();
     var updConPwd = $("#updConPwd").val();
 
-    console.log(updOldPwd,updNewPwd,updConPwd);
+    //console.log(updOldPwd,updNewPwd,updConPwd);
        // updataPassword(updOldPwd,updNewPwd,updConPwd);
        if(updOldPwd == userPwd){
            if(updNewPwd == updConPwd){

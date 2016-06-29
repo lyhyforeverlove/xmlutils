@@ -1,6 +1,8 @@
 var api = new API();
 var disStartDate;
 var disEndDate;
+var discountPrice; 
+var priceArr = [] ;
 $(function() {
     var api = new API();
     /*
@@ -90,7 +92,22 @@ function vipPackSale() {
         "vipSale": vipSale
     }).done(function(data){
 
-        console.log(data);
+        //var disPriceStr = JSON.stringify(discountPrice);
+        
+        if(uuid == "all"){
+            console.log("all");
+            
+             $(".vipPrice").each(function(){
+                var price = $(this).find("em").text();
+                //折后价格
+                discountPrice = (vipSale * price) / 10;
+                priceArr.push(discountPrice);
+                return priceArr; //存放打折后数组
+            });
+         var disPriceStr = JSON.stringify(priceArr);    
+         sessionStorage.setItem("priceArr", disPriceStr);    
+        }
+
         $("#list").empty();
         initVipPackList(1,true,true);
 
@@ -133,14 +150,18 @@ function initVipPackList(state, flag ,isAllFlag) {
 
         if (data != null) {
 
-            console.log(data);
+            //console.log(data);
             //$("#list").empty(); //清空#list
-             
+             console.log(priceArr);
             $.each(data.datas, function(index, item) {
                 //遍历返回的json
 
-               
-              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + item.discountPrice + '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+              var discountPrice = sessionStorage.getItem("priceArr");
+              var jsonDisPrice= JSON.parse(discountPrice);
+              //console.log(jsonDisPrice);
+              
+
+              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath + item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + jsonDisPrice[index] + '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
                
 
