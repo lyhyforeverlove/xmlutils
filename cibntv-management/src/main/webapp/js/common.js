@@ -3,14 +3,14 @@
 @params date 2016-6-8
  */
  $(function(){
- 	/*顶部导航右侧用户信息图标下拉显示*/ 
+ 	/*顶部导航右侧用户信息图标下拉显示*/
     $(".user").hover(function(){
         $(this).parent().find("ul.userlist").css("display","block");
     },function(){
         $(this).parent().find("ul.userlist").css("display","none");
     });
 })
- 
+
 /*
 *分页
 */
@@ -22,12 +22,12 @@ function pagination(container, callback, currentPage, pageCount){
 
        //点击事件，用于通过Ajax来刷新整个list列表
         onPageClicked : callback
-        /*function(event, originalEvent, type, page)*/              
+        /*function(event, originalEvent, type, page)*/
     };
     $('#'+container).bootstrapPaginator(options);
 }
-var uuid = sessionStorage.getItem("uuid_id");  
-//console.log(uuid);  
+var uuid = sessionStorage.getItem("uuid_id");
+//console.log(uuid);
 if(uuid ==  null || uuid == "undefined"){
     //alert("用户没有登录，无法访问页面,跳转登录页面！");
     window.location.href="login.html";
@@ -40,7 +40,7 @@ indexPage(userName);
 
 function indexPage(name) {
     $("#userName_login").append('<span>' + userName + '</span>');
-    $("#userInfoPerson").append('<div class="user-right-box"><div class="user c-main"> <i class="user-icon icon"></i><ul class="userlist"><li><a href = "personal.html"><i class = "pCenter icon"></i>个人中心' + userName + '</a></li><li  id="logout"><a><i class = "exitLogin icon"></i>退出登录</a></li></ul></div></div>');
+    $("#userInfoPerson").append('<div class="user-right-box"><div class="user c-main"> <i class="user-icon icon"></i><ul class="userlist"><li><a href = "personal.html"><i class = "pCenter icon"></i>个人中心</a></li><li  id="logout"><a><i class = "exitLogin icon"></i>退出登录</a></li></ul></div></div>');
 
     //退出登录
     $("#logout").click(function() {
@@ -60,5 +60,3 @@ function logout() {
         console.log("data");
     })
 }
-
-

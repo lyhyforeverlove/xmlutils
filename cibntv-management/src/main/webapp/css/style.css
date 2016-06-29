@@ -147,7 +147,7 @@ a:focus{outline: none;}
 #department_pri>label{height:28px;line-height: 28px;width:95px;text-align: center;background-color: #f1f3f5;font-size: 14px;font-weight: normal;margin-left: 10px;}
 
 
-/*个人中心*/
+/*个人中心
 .user-right-box{background: #d7dfff none repeat scroll 0 0;height: 72px;position: absolute;right: 0;text-align: center;top: 70px;}
 .user-right-box .userlist{margin:0;padding:0;width: 160px;background-color: #fff;list-style: none;}
 .user-right-box .userlist li{line-height: 60px;border-bottom: 1px solid #2a2f43;}
@@ -156,3 +156,77 @@ a:focus{outline: none;}
 .user-right-box .userlist li a .exitLogin{ background: rgba(0, 0, 0, 0) url("../images/main-icon.png") no-repeat scroll 0 0;display: inline-block;height: 20px;vertical-align: middle;width: 20px;background-position: -20px 0; }
 .user-right-box .userlist li:hover{background-color: #d7dfff;}
 .c-main::before {border-left: 4px solid transparent;border-right: 4px solid transparent;border-top: 4px solid #2a2f43;content: "";margin-left: 25px;position: absolute;top: 35px;}
+*/
+
+
+
+/*公共icon*/
+.user-right-box{
+	position: absolute;
+	right:0;
+	top:0;
+	background:#d7dfff;
+	text-align: center;
+	height:69px;
+  border-bottom: 1px solid #d7dfff;
+}
+.user-right-box  i.user-icon{
+	cursor: pointer;
+}
+.user{
+	width:120px;
+	position: relative;
+}
+.c-main:before{
+	content: '';
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top: 4px solid #2a2f43;
+	position: absolute;
+	top: 35px;
+	left:50%;
+	margin-left:15px;
+}
+
+.icon{
+	background:url(../images/main-icon.png) no-repeat;
+	width:20px;
+	height:20px;
+	display:inline-block;
+	vertical-align: middle;
+}
+.user-icon{
+	background-position:-60px 0;
+
+}
+.userlist{
+	width:160px;
+	margin-left:-40px;
+  list-style: none;
+	display:none;
+  padding:0;
+	-webkit-box-shadow:0 0 10px rgba(171, 188, 255, .5);
+ 	   -moz-box-shadow:0 0 10px rgba(171, 188, 255, .5);
+ 	    -ms-box-shadow:0 0 10px rgba(171, 188, 255, .5);
+ 	     -o-box-shadow:0 0 10px rgba(171, 188, 255, .5);
+  			box-shadow:0 0 10px rgba(171, 188, 255, .5);
+}
+
+.userlist li{
+	line-height:60px;
+	background:#fff;
+	border-bottom:1px solid #2a2f43;
+}
+.userlist li a{
+	font-size:16px;
+	color:#2a2f43;
+}
+.userlist li:hover,.userlist li.actie{
+	background:#d7dfff;
+}
+.pCenter{
+	background-position: 0 0;
+}
+.exitLogin{
+	background-position: -20px 0;
+}

@@ -122,8 +122,6 @@ var ajaxTool = new AJAXTool();
       firstLink();
   });
 
-
-
   //部门下拉列表
   function departmentList(){
     var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);

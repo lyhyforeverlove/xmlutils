@@ -40,9 +40,9 @@ var bool=false;//验证折扣；
    }
 
   function initDiscount(){
+    $("#discount").html("");
     var result = ajaxTool.getInfo({},"/paper/paperTypeList",false);
     result.done(function(resultList){
-          $("#discount").html("");
           var data = resultList.data;
           if(data){
               var tr="";

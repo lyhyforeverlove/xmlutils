@@ -45,21 +45,6 @@ function initPagination(){
 
 
 $(function(){
-    initUl();
-    var name = sessionStorage.getItem("userName");
-    $("#userName").html(name);
+  //  var name = sessionStorage.getItem("userName");
+    //$("#userName").html(name);
 });
-
-//增加个人中心和退出菜单
-function initUl(){
-  var list= "<ul class='userlist'><li><a href='personal.html'><i class='pCenter icon'></i> 个人中心</a></li><li><a href='login.html'><i class='exitLogin icon'></i> 退出登录</a></li></ul>";
-  $(".user").hover(function(){
-       $("#userInfoPerson").html(list);
-   },function(){
-      $(".userlist").hover(function(){
-
-      },function(){
-         $("#userInfoPerson").empty();
-      });
-   });
-}

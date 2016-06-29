@@ -37,9 +37,10 @@ $(function(){
 });
 
 function initPaperType(){
+  $("#paper-price").html("");
   var result = ajaxTool.getInfo({},"/paper/paperTypeList",false);
   result.done(function(resultList){
-        $("#paper-price").html("");
+
         var data = resultList.data;
         var paperList="";
         if(data){
