@@ -32,4 +32,33 @@ if(uuid ==  null || uuid == "undefined"){
     //alert("用户没有登录，无法访问页面,跳转登录页面！");
     window.location.href="login.html";
 }
+//所有页面右上角显示
+var userName = sessionStorage.getItem("userName");
+var userPwd = sessionStorage.getItem("userPwd");
+
+indexPage(userName);
+
+function indexPage(name) {
+    $("#userName_login").append('<span>' + userName + '</span>');
+    $("#userInfoPerson").append('<div class="user-right-box"><div class="user c-main"> <i class="user-icon icon"></i><ul class="userlist"><li><a href = "personal.html"><i class = "pCenter icon"></i>个人中心' + userName + '</a></li><li  id="logout"><a><i class = "exitLogin icon"></i>退出登录</a></li></ul></div></div>');
+
+    //退出登录
+    $("#logout").click(function() {
+        console.log("退出登录");
+        logout(); //注销
+
+        sessionStorage.clear(); //清空用户登录信息
+        api.windowLogin();
+        //window.location.href = "login.html";
+    })
+}
+/*
+ *退出登录
+ */
+function logout() {
+    api.logout().done(function(data) {
+        console.log("data");
+    })
+}
+
 
