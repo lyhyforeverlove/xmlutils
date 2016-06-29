@@ -331,6 +331,37 @@ $(function() {
 
                 });
 
+                $("#checkCodeBtn").css("background", "#ccc");
+                $("#checkCodeBtn").attr("disabled", true);
+
+                $("#newTel").blur(function(){
+                    var phone = $(this).val();
+                    if (phone.length == 0) {
+                        alert("手机号不能为空");
+                        return false;
+                    }
+                    if (!(/^1[3|4|5|7|8]\d{9}$/).test(phone)) {
+                        alert("手机号格式有误,请重新输入！11位数字");
+                        return false;
+                    } else {
+                        api.checkPhone({
+                            "phone": phone
+                        }).done(function(data) {
+                            //console.log(data);
+                            if (data.data == true) {
+                                alert("该手机号已经存在,请更换为别的手机号");
+                                return false;
+                            }
+                        })
+                        $("#checkCodeBtn").css("background", "#5878f5");
+                        $("#checkCodeBtn").attr("disabled", false);
+                        /*$(this).parent().find("span.point").removeClass("wrong").addClass("right");
+                        $(this).parent().find("p.error").html("");
+                        
+                        $("#userYzmTxt").focus();*/
+                    }
+                })
+
                 $("#checkCodeBtn").click(function() {
                         var telValue = $("#newTel").val();
                         api.getCheckcode({
@@ -343,21 +374,31 @@ $(function() {
                 $(".yzmVal").blur(function() {
                         var telValue = $("#newTel").val();
                         var yzm = $(".yzmVal").val();
-                        isCorrectCode(telValue, yzm);
+                        if(yzm.length == 0 ){
+                            alert("验证码不能为空！");
+                        }else{
+                           isCorrectCode(telValue, yzm); 
+                        }
+                        
                     })
                     //修改手机号完成
                 $("#wanBtn").click(function() {
                     var telValue = $("#newTel").val();
-                    api.manageReplace({
-                        "uuid": userUuid1,
-                        "phone": telValue
-                    }).done(function(data) {
-                        $("#updTelbox").css("display", "none");
-                        $("#success").html("更换手机号成功!");
-                        //更换手机号成功后 刷新展示信息
-                        $("#personInfo").empty();
-                        manageDetail(userUuid1);
-                    })
+                    var yzm = $(".yzmVal").val();
+                    if(yzm.length == 0 || telValue.length == 0 ){
+                            alert("手机号或验证码不能为空！");
+                    }else{
+                        api.manageReplace({
+                            "uuid": userUuid1,
+                            "phone": telValue
+                        }).done(function(data) {
+                            $("#updTelbox").css("display", "none");
+                            $("#success").html("更换手机号成功!");
+                            //更换手机号成功后 刷新展示信息
+                            $("#personInfo").empty();
+                            manageDetail(userUuid1);
+                        })
+                    }
                 })
 
             })
@@ -369,33 +410,63 @@ $(function() {
             title: "修改密码",
             width: 420,
             height: 320,
-            html: "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' /></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'/></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
+            html: "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' onfocus/></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'/></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
             //ConfirmFun : updataPassword
         });
 
-        //console.log(updOldPwd,updNewPwd,updConPwd);
         $("#updPwdWanBtn").click(function() {
             var updOldPwd = $("#updOldPwd").val();
             var updNewPwd = $("#updNewPwd").val();
             var updConPwd = $("#updConPwd").val();
 
-            //console.log(updOldPwd,updNewPwd,updConPwd);
-            // updataPassword(updOldPwd,updNewPwd,updConPwd);
-            if (updOldPwd == userPwd) {
-                if (updNewPwd == updConPwd) {
-                    api.manageReplace({
-                        "uuid": userUuid1,
-                        "password": updNewPwd
-                    }).done(function(data) {
-                        $("#updPwdbox").css("display", "none");
-                        $("#success").html("更换密码成功!");
-                    })
-                }
+            if(updOldPwd.length == 0 || updNewPwd.length == 0 || updConPwd.length == 0){
+                alert("旧密码、新密码、确认密码不能为空!");
             } else {
-                alert("旧密码输入不正确！");
+                 api.manageReplace({
+                    "uuid": userUuid1,
+                    "password": updNewPwd
+                }).done(function(data) {
+                    if(data.message == "Success"){
+                        $("#updPwdbox").css("display", "none");
+                        $("#success").html("更换密码成功,请退出后重新登录!");
+                    }
+                    //alert(data);
+                })
             }
         })
-
+        //密码验证
+        $("#updOldPwd").blur(function(){
+            var pwd = $(this).val();
+            passwordCheck(pwd);
+            if (pwd != userPwd) {
+               alert("旧密码输入不正确！");
+            }
+               
+        })
+        $("#updNewPwd").blur(function(){
+            var pwd = $(this).val();
+            passwordCheck(pwd);
+        })
+        $("#updConPwd").blur(function(){
+            var pwd = $(this).val();
+            passwordCheck(pwd);
+            var newpwd = $("#updNewPwd").val();
+            if ( newpwd != pwd) {
+                alert("确认密码与新密码不一致！");
+                return false;
+            }
+        })
+        //密码验证方法
+        function passwordCheck(obj){
+            if (obj.length == 0) {
+                alert("确认密码不能为空！");
+                return false;
+            }
+            if (!(/^[a-zA-Z]\w{5,17}$/).test(obj)) { //
+                alert("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+                return false;
+            }
+        }
     })
 
     //修改密码完成

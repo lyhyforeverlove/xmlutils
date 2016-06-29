@@ -17,13 +17,14 @@ $(function() {
                 height: 400,
                 html: str
             });
-            $("#submit").submit(function() {
+            /*$("#submit").submit(function() {
+
                 //判断是否已经存在vip包
                 if(message == "VIP包已存在"){
                   alert("VIP包已存在，不能添加！");
                 }
                 return false; 
-            })
+            })*/
 
         })
         /*

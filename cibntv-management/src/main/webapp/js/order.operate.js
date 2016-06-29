@@ -14,14 +14,28 @@ $(function() {
             pickerPosition: "bottom-left",
             todayHighlight: true
         })
-        $("#endDate").on('changeDate', function(ev) { //当结束日期被改变时被触发
+     /*   $("#endDate").on('changeDate', function(ev) { //当结束日期被改变时被触发
 
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
+
             getOrderInfoList(1, 10, "VIP",null,null,startDate,endDate);
+            getOrderInfoList(1, 10, "DIAGNOSTIC",null,null,startDate,endDate);
+        });*/
+        $(".endDateVip").on('changeDate', function(ev) { //当结束日期被改变时被触发
 
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+
+            getOrderInfoList(1, 10, "VIP",null,null,startDate,endDate);
         });
+        $(".endDateDia").on('changeDate', function(ev) { //当结束日期被改变时被触发
 
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+
+            getOrderInfoList(1, 10, "DIAGNOSTIC",null,null,startDate,endDate);
+        });
 
     var val = 0;
 
