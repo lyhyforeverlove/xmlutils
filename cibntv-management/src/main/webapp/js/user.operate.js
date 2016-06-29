@@ -30,7 +30,7 @@ $(function() {
                 //获取开始时间，结束时间
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
-                console.log(startDate, endDate);
+                //console.log(startDate, endDate);
                 getUserInfoByCreateTime = api.getUserInfoByCreateTime({
                     "startDate": startDate,
                     "endDate": endDate

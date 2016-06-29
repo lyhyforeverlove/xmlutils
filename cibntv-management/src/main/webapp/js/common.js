@@ -2,6 +2,7 @@
 @params author wangyanxiao
 @params date 2016-6-8
  */
+ var api = new API();
  $(function(){
  	/*顶部导航右侧用户信息图标下拉显示*/
     $(".user").hover(function(){
@@ -44,7 +45,7 @@ function indexPage(name) {
 
     //退出登录
     $("#logout").click(function() {
-        console.log("退出登录");
+        //console.log("退出登录");
         logout(); //注销
 
         sessionStorage.clear(); //清空用户登录信息
