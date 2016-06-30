@@ -107,9 +107,15 @@ public class VipPackController {
 	 */
 	@RequestMapping(value="/vip_pack_release",method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem vipPackRelease(){
+	public ResponseItem vipPackRelease(@RequestParam String[] ids){
+		logger.debug("deleteVipPack request param:{}",gson.toJson(ids));
 		ResponseItem item=new ResponseItem();
 		try {
+			if (!org.springframework.util.StringUtils.isEmpty(ids) && ids.length > 0) {
+				for (String str : ids) {
+					vipPackService.deleteByUUID(str);
+				}
+			}
 			int s=vipPackService.updateVipPackRelease();
 			logger.info("vipPackRelease size:{}",s);
 			item.setMessage("success");
