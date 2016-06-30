@@ -147,7 +147,7 @@ a:focus{outline: none;}
 #department_pri>label{height:28px;line-height: 28px;width:95px;text-align: center;background-color: #f1f3f5;font-size: 14px;font-weight: normal;margin-right: 10px;}
 #myModal .modal-content{min-height:260px;}
 #myModal .dropdown-menu{max-height:110px;overflow-y: auto;}
-
+.dropdown-menu{max-height: 240px;overflow-y: auto;}
 
 /*公共icon*/
 .user-right-box{position: absolute;right:0;top:0;background:#d7dfff;text-align: center;height:69px;border-bottom: 1px solid #d7dfff;}
