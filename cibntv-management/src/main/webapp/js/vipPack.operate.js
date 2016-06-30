@@ -20,6 +20,14 @@ $(function() {
                 ConfirmFun: uploadCreateVip
             });
 
+            var reg = /^[\d]+$/g;
+          
+          $(".vipPrice").blur(function(){
+            if(!reg.test($(this).val())){
+              alert(000);
+            }
+          })
+
         })
         
         /*
@@ -180,44 +188,18 @@ function initVipPackList(state, flag ,isAllFlag) {
                     var uuId = $(this).parents(".sale").attr("id");
                     $(this).parents(".sale").css("display","none");
                     delIdsArr.push(uuId);
-                    console.log(delIdsArr);
-
-                    //delteVipPack(delIdsArr);
-
-                    /*if(state == 0 ){
-                      $(this).unbind('click');
-                    }else if(state == 1){
-                      delIdsArr.push(uuid);
-                      return delIdsArr;
-                      console.log(delIdsArr);
-                      //delteVipPack($(this), uuId);
-                      
-                    }*/
+                   // console.log(delIdsArr);
                 })
             })
 
     })
 }
 
-/*
- *VIP包删除
- */
-function delteVipPack(delIdsArr) {
-    /*$('#' + uuId).delegate(ele, "click", function() {
-      $(this).parents(".sale").css("display","none");
-      alert($(this).parents(".sale").html());
-        api.deleteVipPack({
-            "vipUUID": uuId
-        }).done(function(data) {
-            $("#list").empty();
-            initVipPackList(1, true ,true);
-        })
-    })*/
-}
 /*新增vip方案提交方法*/
 function uploadCreateVip(){
     var vipPr = $(".vipPrice").val();
-    var vipDe = $(".vipDesc").val();       
+    var vipDe = $(".vipDesc").val();      
+
     /*if(vipPr.length == 0 || vipDe.length == 0){
         alert("请输入价格和描述！");
         return false;

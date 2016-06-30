@@ -40,7 +40,7 @@
     <script src="js/login.operate.js"></script>
     <script>
         $(function(){
-            var uuid = sessionStorage.getItem("uuid_id");
+            var uuid = localStorage.getItem("uuid_id");
 
             if(uuid ==  null || uuid == "undefined"){
                 //alert("用户没有登录，无法访问页面,跳转登录页面！");

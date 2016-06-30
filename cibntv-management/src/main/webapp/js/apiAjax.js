@@ -131,20 +131,21 @@ var API = function(){
 			"ids":paramsObj.ids, //背景图片文件
 		};
 		var url = this.apiPath + "/vip_pack/vip_pack_release";
+		//var url ="http://192.168.1.35:8070/cibntv-management/action/vip_pack/vip_pack_release";
 		var data = {'api_url':url,"postdata":params};
 		return this.ajaxFun(data);
 
 		
 	}
 	/*VIP包删除*/
-	this.deleteVipPack = function(paramsObj){
+	/*this.deleteVipPack = function(paramsObj){
 		var params = {
 			"vipUUID":paramsObj.vipUUID
 		};
 		var url = this.apiPath + "/vip_pack/delete_vip_pack";
 		var data = {'api_url':url,'postdata':params};
 		return this.ajaxFun(data);
-	}
+	}*/
 	/*管理员登录*/
 	this.userLogin = function(paramsObj){
 		var params = {
