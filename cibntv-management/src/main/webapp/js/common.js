@@ -45,7 +45,7 @@ function indexPage(name) {
 
     //退出登录
     $("#logout").click(function() {
-        console.log("退出登录");
+        //console.log("退出登录");
         logout(); //注销
 
         sessionStorage.clear(); //清空用户登录信息

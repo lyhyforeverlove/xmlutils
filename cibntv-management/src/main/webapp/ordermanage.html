@@ -66,9 +66,9 @@
                         </div>
                         <!--start-user-search-->
                         <div id="search" class="condition">
-                            <div id="searchTxt" class="form-control searchTxt" onMouseOver="this.className='searchTxt searchTxtHover form-control';" onMouseOut="this.className='searchTxt form-control';">
+                            <div id="searchTxt" class="form-control searchTxt" onMouseOver="this.className='searchTxt searchTxtHover form-control';" onMouseOut="this.className='searchTxt form-control';" style="margin-right:20px;">
 
-                                <div class="input-group">
+                                <div class="input-group" style="width:430px;">
                                     <div class="searchMenu">
                                         <div class="searchSelected" id="searchSelected">手机号</div>
                                         <div style="display:none;" class="searchTab" id="searchTab">
@@ -81,11 +81,11 @@
                                 
                                     <input name="w" type="text" id="searchTxt" class="search-order-input" placeholder="手机号/订单号" style="height:36px; text-indent:8px;" />
                                      
+                              <button class="btn tip-bottom active" type="submit" id="searchOrderBtn" style="position: absolute;right: 0;top: -1px;"> <i class="icon-search">搜索</i></button>
                                 </div>
                                    
                             </div>
-                            <span class="input-group-btn">
-                              <button class="btn tip-bottom active" type="submit" id="searchOrderBtn" style="float:left;"> <i class="icon-search">搜索</i></button>
+                            <span class="input-group-btn" >
                               <button type="submit" id="export-order-btn" class="tip-bottom" title="导出为EXCEL">
                                 <i class="icon-search">导出为EXCEL</i>
                             </button>

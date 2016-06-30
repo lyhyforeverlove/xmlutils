@@ -502,7 +502,7 @@ var person = sessionStorage.getItem("permissionModels");
                 $("#0").find("a").attr("href", "usermanage.html");
             } else if (item.name == "订单管理") {
                 $("#1").find(".menu-box-icon").addClass("order-manage");
-                $("#1").find("a").attr("href", "ordermanage.html");
+                $("#1").find("a").attr("href", "ordermanage1.html");
             } else if (item.name == "VIP管理") {
                 $("#2").find(".menu-box-icon").addClass("vip-manage");
                 $("#2").find("a").attr("href", "vipmanage.html");
