@@ -132,21 +132,23 @@
 
 .mainbox{
 	width:1100px;
-	position: absolute;
+	margin:150px auto;
+	/* position: absolute;
 	top:50%;
 	left:50%;
-	-webkit-transform:translateY(-50%);
+	 -webkit-transform:translateY(-50%);
 	  	-moz-transform:translateY(-50%);
-			transform:translateY(-50%);
+			transform:translateY(-50%); 
 	margin-left:-550px;
+	margin-top:-300px; */
 	background:rgba(39,44,64,0.9);
 	-webkit-border-radius:8px;
 	   -moz-border-radius:8px;
 	  	 -o-border-radius:8px;
 			border-radius:8px;
 }
-.main-menu-box{
-	padding:150px 100px;
+.main-menu-box .menu-box {
+	padding:100px 100px; 
 }
 
 .menu-box:after{content: "." ;display: block;clear: both;height: 0;visibility: hidden;}

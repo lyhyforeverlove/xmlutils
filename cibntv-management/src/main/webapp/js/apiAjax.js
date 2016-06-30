@@ -126,9 +126,12 @@ var API = function(){
 		return this.ajaxFun(data);
 	}
 	/*VIP包发布*/
-	this.vipPackRelease = function(){
+	this.vipPackRelease = function(paramsObj){
+		var params = {
+			"ids":paramsObj.ids
+		};
 		var url = this.apiPath + "/vip_pack/vip_pack_release";
-		var data = {'api_url':url};
+		var data = {'api_url':url,"postdata":params};
 		return this.ajaxFun(data);
 	}
 	/*VIP包删除*/
@@ -213,7 +216,6 @@ var API = function(){
 
 	this.ajaxFun = function(data){		
 		var api_url = data.api_url ? data.api_url : "";
-		var callback = data.callback ? data.callback : "jsonpCallback";	
 		var postdata = data.postdata || {};
 
 		return $.ajax({

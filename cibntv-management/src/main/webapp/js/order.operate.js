@@ -67,11 +67,19 @@ $(function() {
             getOrderInfoList(1,10,"VIP",searchText,null); 
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText); 
-        }
-         
+            getOrderInfoList(1,10,"VIP",null,searchText); 
+        }  
     })   
-  
+  $("#searchOrderBtn1").click(function() {
+        var searchText;
+        if (val == 0) {
+            searchText = $(".search-order-input").val();
+            getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null); 
+        } else if (val == 1) {
+            searchText = $(".search-order-input").val();
+            getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText); 
+        }  
+    })  
     /*
      *通过创建时间导出诊断订单Excel
      */
@@ -96,13 +104,17 @@ $(function() {
         }
         //日期调用插件配置参数
         $('.input-daterange').datepicker({
-            language: "zh-CN"
+            language: "zh-CN",
+            autoclose: true,
+            todayBtn: "linked", //当天日期
+            pickerPosition: "bottom-left",
+            todayHighlight: true
         });
     })
 
 
     $("#export-order-btn2").click(function() {
-            console.log("DIAGNOSTIC");
+           // console.log("DIAGNOSTIC");
         str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="end" id="endDate1" /></div>';
         Prompt.init({
             title: "导出为EXCEL",
@@ -122,7 +134,11 @@ $(function() {
         }
         //日期调用插件配置参数
         $('.input-daterange').datepicker({
-            language: "zh-CN"
+            language: "zh-CN",
+            autoclose: true,
+            todayBtn: "linked", //当天日期
+            pickerPosition: "bottom-left",
+            todayHighlight: true
         });
     })
 

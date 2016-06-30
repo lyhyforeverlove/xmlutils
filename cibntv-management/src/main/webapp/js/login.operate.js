@@ -36,9 +36,9 @@ $(function() {
                 uuid_id = dataObj.userUuid; // 管理员uuid
 
                 //存放用户uuid,用户名，密码
-                sessionStorage.setItem("uuid_id", uuid_id);
-                sessionStorage.setItem("userName", userName);
-                sessionStorage.setItem("userPwd", password);
+                localStorage.setItem("uuid_id", uuid_id);
+                localStorage.setItem("userName", userName);
+                localStorage.setItem("userPwd", password);
 
                 var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
 
@@ -54,7 +54,7 @@ $(function() {
 
                     //console.log(permissionModels);
                     var stringPer = JSON.stringify(permissionModels);
-                    sessionStorage.setItem("permissionModels", stringPer);
+                    localStorage.setItem("permissionModels", stringPer);
 
                     url = "index.html";
                     api.windowOpen(url);
@@ -71,32 +71,12 @@ $(function() {
         })
     }
     
-/*    var userName = sessionStorage.getItem("userName");
-    var userPwd = sessionStorage.getItem("userPwd");
-
-    indexPage(userName);
-
-    function indexPage(name) {
-        $("#userName_login").append('<span>' + userName + '</span>');
-        $("#userInfoPerson").append('<div class="user-right-box"><div class="user c-main"> <i class="user-icon icon"></i><ul class="userlist"><li><a href = "personal.html"><i class = "pCenter icon"></i>个人中心' + userName + '</a></li><li  id="logout"><a><i class = "exitLogin icon"></i>退出登录</a></li></ul></div></div>');
-
-        //退出登录
-        $("#logout").click(function() {
-            console.log("退出登录");
-            logout(); //注销
-
-            sessionStorage.clear(); //清空用户登录信息
-            api.windowLogin();
-            //window.location.href = "login.html";
-        })
-    }
-*/
 
     /*
      *第一次登录 填写信息
      *真实姓名一旦确定无法修改，慎重
      */
-    var userUuid1 = sessionStorage.getItem("uuid_id");
+    var userUuid1 = localStorage.getItem("uuid_id");
 
     var firstLoginBtn = $("#firstLoginBtn");
     firstLoginBtn.click(function() {
@@ -485,7 +465,7 @@ $(function() {
 
 })
 
-var person = sessionStorage.getItem("permissionModels");
+var person = localStorage.getItem("permissionModels");
     var jsonPerson = JSON.parse(person);
     
     //console.log(jsonPerson);
