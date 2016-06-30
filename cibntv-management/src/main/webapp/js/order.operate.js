@@ -67,7 +67,7 @@ $(function() {
             getOrderInfoList(1,10,"VIP",searchText,null); 
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"VIP",null,searchText); 
+            getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText); 
         }
          
     })   
