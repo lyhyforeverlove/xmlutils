@@ -75,7 +75,7 @@ $(function() {
     /*
      *通过创建时间导出诊断订单Excel
      */
-    $("#export-order-btn").click(function() {
+    $("#export-order-btn1").click(function() {
 
         str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="end" id="endDate1" /></div>';
         Prompt.init({
@@ -91,6 +91,8 @@ $(function() {
 
             getExportOrder("VIP",startDate,endDate);
 
+            //getExportOrder("DIAGNOSTIC",startDate,endDate);
+
         }
         //日期调用插件配置参数
         $('.input-daterange').datepicker({
@@ -98,6 +100,31 @@ $(function() {
         });
     })
 
+
+    $("#export-order-btn2").click(function() {
+            console.log("DIAGNOSTIC");
+        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="end" id="endDate1" /></div>';
+        Prompt.init({
+            title: "导出为EXCEL",
+            height: 400,
+            html: str,
+            ConfirmFun: exportOrder
+        });
+        function exportOrder() {
+            //获取开始时间，结束时间
+            var startDate = $("#startDate1").val();
+            var endDate = $("#endDate1").val();
+
+            //getExportOrder("VIP",startDate,endDate);
+
+            getExportOrder("DIAGNOSTIC",startDate,endDate);
+
+        }
+        //日期调用插件配置参数
+        $('.input-daterange').datepicker({
+            language: "zh-CN"
+        });
+    })
 
 }) 
 
