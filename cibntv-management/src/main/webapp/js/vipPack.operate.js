@@ -216,10 +216,16 @@ function uploadCreateVip(){
           contentType: false,  
           processData: false,  
           success: function (data) { 
-            //console.log(data);
-              alert("上传成功!");
-              $("#list").empty();
-              initVipPackList(1, true ,true);
+            console.log(data);
+            if(data.message == "VIP包已存在" ){
+                alert("VIP包已存在");
+                return false;
+            }else if(data.message == "success" ){
+                alert("上传成功!");
+                $("#list").empty();
+                initVipPackList(1, true ,true);
+            }
+              
           },  
           error: function (data) {  
               alert(data);  
