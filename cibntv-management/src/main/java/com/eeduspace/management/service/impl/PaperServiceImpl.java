@@ -58,7 +58,7 @@ public class PaperServiceImpl implements PaperService {
 						if (DateUtils.isBetween(date, ptp.getDateBef(), ptp.getDateAft(), 1)) {
 							double d = Double.parseDouble(ptp.getPrice()) * ptp.getDiscount();
 							String price = String.valueOf(d);
-							int p = price.indexOf(".") + 3;
+							int p = price.indexOf(".") + (price.substring(price.indexOf("."), price.length()).length() > 3 ? 3 : price.substring(price.indexOf("."), price.length()).length());
 							price = price.substring(0, p);
 							pm.setPrice(price);
 						}else {
