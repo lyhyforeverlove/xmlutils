@@ -106,9 +106,9 @@ public class VipPackController {
 	 * @param packUUID
 	 * @return
 	 */
-	@RequestMapping(value="/vip_pack_release",method=RequestMethod.POST)
+	@RequestMapping(value="/vip_ pack_release",method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem vipPackRelease(@RequestParam String[] ids){
+	public ResponseItem vipPackRelease(String[] ids){
 		logger.debug("deleteVipPack request param:{}",gson.toJson(ids));
 		ResponseItem item=new ResponseItem();
 		try {

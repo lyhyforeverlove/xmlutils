@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +32,7 @@ import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
 import com.eeduspace.management.service.UserService;
 import com.eeduspace.management.util.ExcelExportUtil;
+import com.eeduspace.uuims.comm.util.base.DateUtils;
 import com.google.gson.Gson;
 /**
  * 用户控制层
@@ -165,15 +168,26 @@ public class UserController {
 	 */
 	@RequestMapping(value="/user_excel_export")
 	@ResponseBody
-	public ResponseItem userExcelExport(HttpServletResponse response,@ModelAttribute UserQueryModel userQueryModel) throws IOException{
+	public ResponseItem userExcelExport(HttpServletRequest request, HttpServletResponse response,@ModelAttribute UserQueryModel userQueryModel) throws IOException{
 		logger.debug("userQueryModel:{}",gson.toJson(userQueryModel));
 		ResponseItem item=new ResponseItem();
 		Pageable pageable=new PageRequest(0, Integer.MAX_VALUE);
 		try {
 			OutputStream outputStream = response.getOutputStream(); 
 			//String []tableHeader={"用户名","手机号","是否VIP","注册时间"};
-			String fileName ="用户信息";  
-			response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8") + ".xlsx");// 组装附件名称和格式  
+			String fileName ="用户信息_" + DateUtils.toString(new Date(), DateUtils.DATE_FORMAT_DATEONLY) ;  
+			String agent = request.getHeader("USER-AGENT").toLowerCase();
+		    //根据浏览器类型处理文件名称
+			
+		    if(agent.indexOf("msie")>-1){
+		      //extfilename = Tools.toUtf8String(extfilename);
+		    	fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+		    }
+		    else{  //firefoxfari不转码
+		    	fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+		    }
+			
+			response.setHeader("Content-disposition", "attachment; filename=" +fileName/* URLEncoder.encode(fileName, "UTF-8")*/ + ".xlsx");// 组装附件名称和格式  
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 			List<UserModel> userModels=new ArrayList<>();
 			for (UserPo userPo : pageList.getContent()) {
