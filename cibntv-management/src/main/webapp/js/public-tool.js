@@ -7,7 +7,6 @@ var AJAXTool=function(){
      var data = {'api_url':new_url};
      return this.ajaxFun(data,paramsObj,bool);
    };
-
    this.ajaxFun = function(data,paramsObj,bool)
    {
        var api_url = data.api_url ? data.api_url : "";
