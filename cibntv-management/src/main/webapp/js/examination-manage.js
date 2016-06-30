@@ -147,11 +147,13 @@ function searcherValue(page){
 }
 //第一次进入页面加载分页
 function firstLink(){
+    $("#loading").fadeIn();
     $("#examination_list").empty();
     var keyWord = $("#keyWord").val();
     var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":"1","pageSize":"10","searchName": "paperName","searchValue":keyWord
   },"/paper/paperPage",false);
     result.done(function(resultList){
+        $("#loading").fadeOut();
         var data = resultList.data;
         if(data){
            if(data.totalPage ===0 ){

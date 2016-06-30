@@ -8,22 +8,22 @@ function saveUser(){
         var rName = $("#departValue").html();
 
         if(!userName){
-            alert("请输入用户！");
+            alert.dialog.confirm('请输入用户名！',function(){});
         }else if(!reg.test(userName)){
-            alert("您输入的用户名格式不正确！");
+            alert.dialog.confirm('您输入的用户名格式不正确！',function(){});
         }else if(userName.length>16){
-            alert("用户名过长！");
+            alert.dialog.confirm('用户名过长！',function(){});
         }else if(!initPassword){
-            alert("请输入初始密码！");
+            alert.dialog.confirm('请输入初始密码！',function(){});
         }
         else if(!reg.test(initPassword)){
-            alert("您输入的密码格式不正确！");
+            alert.dialog.confirm('您输入的密码格式不正确！',function(){});
         }else if(initPassword.length<6){
-            alert("您输入的密码过短！");
+            alert.dialog.confirm('您输入的密码过短！',function(){});
         }else if(initPassword.length>16){
-            alert("您输入的密码过长！");
+            alert.dialog.confirm('您输入的密码过长！',function(){});
         }else if(!uuid){
-           alert("请选择所属部门！");
+            alert.dialog.confirm('请选择所属部门！',function(){});
         }
 
         else{
@@ -34,19 +34,19 @@ function saveUser(){
         }
 }
 
-$(function(){
-    var result = ajaxTool.getInfo({},"/role/manageSkip",false);
-    result.done(function(resultList){
-        var data = resultList.data;
-        if(data){
-             var  departList="";
-             for(var i=0; i<data.length;i++){
-                   departList +="<li><a href='#' onclick=departChecked('"+data[i].uuid+"','"+data[i].name+"')>"+data[i].name+"</a></li>";
-             }
-             $("#departUl").append(departList);
-        }
-    });
-});
+  $(function(){
+      var result = ajaxTool.getInfo({},"/role/manageSkip",false);
+      result.done(function(resultList){
+          var data = resultList.data;
+          if(data){
+               var  departList="";
+               for(var i=0; i<data.length;i++){
+                     departList +="<li><a href='#' onclick=departChecked('"+data[i].uuid+"','"+data[i].name+"')>"+data[i].name+"</a></li>";
+               }
+               $("#departUl").append(departList);
+          }
+      });
+  });
 
 
   //下拉框选中状态
@@ -59,13 +59,14 @@ $(function(){
   function verifyUserName(){
      $("#userNameDiv").find("img").remove();
      $("#userNameDiv").find(".remind").remove();
+     $("#userNameDiv").find(".error").remove();
      var userName = $("#userName").val();
      if(userName){
          var result = ajaxTool.getInfo({"name":userName},"/manager/validateName",false);
          result.done(function(resultList){
            var str="";
            if(resultList.data === null){
-              str="<img src='images/disabled.png'><label class='remind'>用户名已占用</label>";
+              str="<img src='images/disabled.png'><label class='error'>用户名已占用</label>";
            }
            else{
               str="<img src='images/available.png'><label class='remind'>用户名可注册</label>";

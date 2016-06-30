@@ -11,15 +11,12 @@ var AJAXTool=function(){
    this.ajaxFun = function(data,paramsObj,bool)
    {
        var api_url = data.api_url ? data.api_url : "";
-       var callback = data.callback ? data.callback : "jsonpCallback";
        return $.ajax({
          type:'post',
          url:api_url,
          data:paramsObj,
-         dataType:'json',
-         jsonp:'callback',
+         dataType:"json",
          traditional:bool,
-         jsonpCallback:callback,
          context:this,
          beforeSend:function(result){
           },
