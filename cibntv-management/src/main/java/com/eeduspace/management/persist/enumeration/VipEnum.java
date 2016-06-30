@@ -47,6 +47,6 @@ public class VipEnum {
 		this.vipPackTypeEnum = vipPackTypeEnum;
 	}
 	public static void main(String[] args) {
-		System.out.println(VipEnum.VipPackTypeEnum.getDesc(VipPackTypeEnum.ONE_MONTH.toString()));
+		System.out.println(VipEnum.VipPackTypeEnum.getValue(VipPackTypeEnum.ONE_MONTH.toString()));
 	}
 }

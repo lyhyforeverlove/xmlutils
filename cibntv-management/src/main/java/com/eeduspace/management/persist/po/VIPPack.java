@@ -38,6 +38,15 @@ public class VIPPack {
 	 */
 	@Column(name="vip_desc")
 	private String vipDesc;
+	@Column(name="vip_day")
+	private Integer vipDays;
+	
+	public Integer getVipDays() {
+		return vipDays;
+	}
+	public void setVipDays(Integer vipDays) {
+		this.vipDays = vipDays;
+	}
 	/**
 	 * vip折扣
 	 */

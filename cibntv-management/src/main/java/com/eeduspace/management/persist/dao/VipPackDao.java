@@ -18,7 +18,7 @@ public interface VipPackDao extends JpaRepository<VIPPack, Long>{
 	@Modifying 
 	@Query("update VIPPack v set v.isRelease=?1")
 	Integer updateRelease(Boolean isRelease);
-	List<VIPPack> findByIsRelease(Boolean isRelease);
+	List<VIPPack> findByIsReleaseOrderByVipDaysAsc(Boolean isRelease);
 	VIPPack findByUuid(String uuid);
 	VIPPack findByVipType(String vipType);
 	@Modifying

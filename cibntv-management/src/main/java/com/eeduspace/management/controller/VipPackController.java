@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.VipPackModel;
+import com.eeduspace.management.persist.enumeration.VipEnum;
 import com.eeduspace.management.persist.po.VIPPack;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
@@ -239,6 +240,7 @@ public class VipPackController {
 			vipPack.setVipDesc(vipPackModel.getVipDesc());
 			vipPack.setVipType(vipPackModel.getVipType());
 			vipPack.setVipPrice(vipPackModel.getVipPrice());
+			vipPack.setVipDays(VipEnum.VipPackTypeEnum.getValue(vipPackModel.getVipType()));
 			vipPackService.saveVipPack(vipPack);
 			ri.setMessage("success");
 			return ri;

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +23,7 @@ public class VipPackServiceImpl implements VipPackService{
 	private VipPackDao vipPackDao;
 	@Override
 	public List<VIPPack> findAllByRelease(Boolean isRelease) {
-		return  vipPackDao.findByIsRelease(isRelease);
+		return  vipPackDao.findByIsReleaseOrderByVipDaysAsc(isRelease);
 	}
 	@Transactional
 	@Override
@@ -53,7 +55,7 @@ public class VipPackServiceImpl implements VipPackService{
 	}
 	@Override
 	public List<VipPackModel> findVipPackForSelect() {
-		List<VIPPack> vipPacks=vipPackDao.findAll();
+		List<VIPPack> vipPacks=vipPackDao.findAll(new Sort(Direction.ASC, "vipDays"));
 		List<VipPackModel> models=new ArrayList<>();
 		for (VIPPack vipPack : vipPacks) {
 			VipPackModel vipPackModel=CIBNManagementConvert.fromVipPackPoForSelect(vipPack);
@@ -67,7 +69,7 @@ public class VipPackServiceImpl implements VipPackService{
 	}
 	@Override
 	public List<VIPPack> findAll() {
-		return vipPackDao.findAll();
+		return vipPackDao.findAll(new Sort(Direction.ASC, "vipDays"));
 	}
 	
 
