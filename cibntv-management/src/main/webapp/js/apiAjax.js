@@ -128,11 +128,13 @@ var API = function(){
 	/*VIP包发布*/
 	this.vipPackRelease = function(paramsObj){
 		var params = {
-			"ids":paramsObj.ids
+			"ids":paramsObj.ids, //背景图片文件
 		};
 		var url = this.apiPath + "/vip_pack/vip_pack_release";
 		var data = {'api_url':url,"postdata":params};
 		return this.ajaxFun(data);
+
+		
 	}
 	/*VIP包删除*/
 	this.deleteVipPack = function(paramsObj){
@@ -222,7 +224,8 @@ var API = function(){
 			type:'post',
 			url:api_url,
 			data:postdata,	
-			dataType:'json',	
+			dataType:'json',
+			traditional:true,	
 			context:this,
 			beforeSend:function(){
 

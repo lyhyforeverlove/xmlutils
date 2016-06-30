@@ -1,9 +1,9 @@
 var api = new API();
 var disStartDate;
 var disEndDate;
-var discountPrice; 
-var priceArr = [] ;
-var delIdsArr = [] ;//存放删除VIP数组
+var discountPrice;
+var delIdsArr=[];//存放删除VIP数组
+
 $(function() {
     var api = new API();
     /*
@@ -51,10 +51,10 @@ $(function() {
             todayHighlight: true
         })
     })
-
     //发布
     $("#releaseBtn").click(function() {
-        vipPackRelease();
+        console.log(delIdsArr);
+        vipPackRelease(delIdsArr);
     })
 
 
@@ -98,8 +98,8 @@ function vipPackSale() {
 /*
  *VIP包发布
  */
-function vipPackRelease() {
-    api.vipPackRelease().done(function(data) {
+function vipPackRelease(ids) {
+    api.vipPackRelease({"ids":ids}).done(function(data) {
         //发布
         if(data.message == "success"){
             alert("发布成功！");
@@ -129,9 +129,6 @@ function initVipPackList(state, flag ,isAllFlag) {
     api.getVipPackList({ "isRelease": flag,"isAll":isAllFlag }).done(function(data) {
 
         if (data != null) {
-
-            //console.log(data);
-            //$("#list").empty(); //清空#list
             $.each(data.datas, function(index, item) {
                 //遍历返回的json
 
@@ -140,19 +137,19 @@ function initVipPackList(state, flag ,isAllFlag) {
                   //console.log(vipSale,price);
                     //折后价格
                    var discountPrice = (vipSale * price ) / 10;
-                
-             // discountPrice
+                  
+               // discountPrice
 
-              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath1 +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+                $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath1 +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
-               
+                 
 
-                //0=已发布 1=删除
-                if (state == 0) {
-                    $(".state").html("已发布");
-                } else if (state == 1) {
-                    $(".state").html("删除");　
-                }
+                  //0=已发布 1=删除
+                  if (state == 0) {
+                      $(".state").html("已发布");
+                  } else if (state == 1) {
+                      $(".state").html("删除");　
+                  }
 
             });
 
@@ -171,16 +168,19 @@ function initVipPackList(state, flag ,isAllFlag) {
               var enddate = $(this).html().substring(0,10);
               var msgEnd = enddate.split("-").join(".");
               $(this).html(msgEnd);
-            })
-            //VIP包删除
+            })    
+        }
+
+        //VIP包删除
             $(".del").each(function(index) {
                 $(this).click(function() {
                   //console.log(111);
                     var uuId = $(this).parents(".sale").attr("id");
-                   
+                    $(this).parents(".sale").css("display","none");
                     delIdsArr.push(uuId);
-                      console.log(delIdsArr);
+                    console.log(delIdsArr);
 
+                    //delteVipPack(delIdsArr);
 
                     /*if(state == 0 ){
                       $(this).unbind('click');
@@ -193,8 +193,6 @@ function initVipPackList(state, flag ,isAllFlag) {
                     }*/
                 })
             })
-            
-        }
 
     })
 }
@@ -202,17 +200,18 @@ function initVipPackList(state, flag ,isAllFlag) {
 /*
  *VIP包删除
  */
-/*function delteVipPack(ele, uuId) {
-    $('#' + uuId).delegate(ele, "click", function() {
+function delteVipPack(delIdsArr) {
+    /*$('#' + uuId).delegate(ele, "click", function() {
+      $(this).parents(".sale").css("display","none");
+      alert($(this).parents(".sale").html());
         api.deleteVipPack({
             "vipUUID": uuId
         }).done(function(data) {
             $("#list").empty();
             initVipPackList(1, true ,true);
         })
-    })
-}*/
-
+    })*/
+}
 /*新增vip方案提交方法*/
 function uploadCreateVip(){
     var vipPr = $(".vipPrice").val();
