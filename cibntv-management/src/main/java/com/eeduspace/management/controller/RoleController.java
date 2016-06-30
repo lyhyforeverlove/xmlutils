@@ -265,14 +265,14 @@ public class RoleController {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
 			}
-			if (StringUtils.isBlank(managerModel.getrUuid())) {
+			/*if (StringUtils.isBlank(managerModel.getrUuid())) {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
 			}
 			if (StringUtils.isBlank(managerModel.getrName())) {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrName");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrName");
-			}
+			}*/
 			if (StringUtils.isNotBlank(managerModel.getPassword())) {
 				String pwd = Digest.md5Digest(managerModel.getPassword());
 				managerModel.setPassword(pwd);

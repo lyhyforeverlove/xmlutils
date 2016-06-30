@@ -1,26 +1,16 @@
 package com.eeduspace.management.controllerTest.manangerTest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 
 import org.junit.Test;
-import org.springframework.data.domain.Page;
-import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.BaseTest;
-import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.RoleModel;
-import com.eeduspace.management.persist.dao.ManagerLogDao;
-import com.eeduspace.management.persist.po.ManagerLogPo;
 import com.eeduspace.uuims.comm.util.HTTPClientUtils;
 
 public class ManagerControllerTest extends BaseTest {
