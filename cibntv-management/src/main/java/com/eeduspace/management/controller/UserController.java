@@ -2,7 +2,6 @@ package com.eeduspace.management.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -187,7 +186,7 @@ public class UserController {
 		    	fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
 		    }
 			
-			response.setHeader("Content-disposition", "attachment; filename=" +fileName/* URLEncoder.encode(fileName, "UTF-8")*/ + ".xlsx");// 组装附件名称和格式  
+			response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");// 组装附件名称和格式  
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 			List<UserModel> userModels=new ArrayList<>();
 			for (UserPo userPo : pageList.getContent()) {
