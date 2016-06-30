@@ -49,11 +49,14 @@
 }
 .login_btn_box button{
 	width:100%;
-	margin-top:50px;
+	margin-top:40px;
 	-webkit-border-radius:20px;
 	   -moz-border-radius:20px;
 	  	 -o-border-radius:20px;
 			border-radius:20px;
+}
+.errorInfo{text-align: center;margin-top:10px;
+	color:#ff6666;font-size:18px;
 }
 .login_btn_box .btn{
 	font-size:18px;

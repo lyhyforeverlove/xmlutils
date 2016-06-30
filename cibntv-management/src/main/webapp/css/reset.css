@@ -163,6 +163,7 @@ font-weight: normal;
         position: relative;
         /* z-index: 20; */
         background: #fff;padding:0;
+        margin-bottom:20px;
     }
     
     .searchTxt .radius {
