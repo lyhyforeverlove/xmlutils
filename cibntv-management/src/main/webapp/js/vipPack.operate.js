@@ -24,7 +24,7 @@ $(function() {
           
           $(".vipPrice").blur(function(){
             if(!reg.test($(this).val())){
-              alert(000);
+              alert("只能输入数字");
             }
           })
 
@@ -61,7 +61,7 @@ $(function() {
     })
     //发布
     $("#releaseBtn").click(function() {
-        console.log(delIdsArr);
+        //console.log(delIdsArr);
         vipPackRelease(delIdsArr);
     })
 
@@ -206,7 +206,7 @@ function uploadCreateVip(){
     }else{*/
         var formData = new FormData($("#formid")[0]);
         $.ajax({  
-              url: 'http://192.168.1.12:8180/action/vip_pack/vip_pack_create' ,  
+              url: api.apiPath+'/vip_pack/vip_pack_create' ,  
               type: 'POST',  
               data: formData,  
               async: false,  

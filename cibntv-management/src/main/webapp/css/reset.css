@@ -23,7 +23,7 @@ button {
 }
 /* 布局(grids)(.g-) */ 
 /* 页面 */
-.menu-box:after,#login:after,.sale:after,.vipbox:after{content: "." ;display: block;clear: both;height: 0;visibility: hidden;}
+.menu-box:after,#login:after,.sale:after,.vipbox:after,.content-top:after{content: "." ;display: block;clear: both;height: 0;visibility: hidden;}
 
 /*公共icon*/
 .user-right-box{
@@ -161,7 +161,7 @@ font-weight: normal;
         height: 40px;
         border-right: 0;
         position: relative;
-        z-index: 20;
+        /* z-index: 20; */
         background: #fff;padding:0;
     }
     

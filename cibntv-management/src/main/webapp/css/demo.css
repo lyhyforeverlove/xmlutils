@@ -206,6 +206,7 @@
 /**/
 .selectbox{
     /* float:left; */
+    display:inline-block;float:left;margin-right:20px;
     
 }
 .datatitle{padding-right:30px;}
