@@ -106,6 +106,8 @@ function vipPackRelease(ids) {
         }
         $("#list").empty();
         initVipPackList(1,true,true);
+        var url = "vipmanage.html";
+        api.windowOpen(url);
     })
 }
 

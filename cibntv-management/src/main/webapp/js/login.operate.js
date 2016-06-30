@@ -6,10 +6,13 @@ var uuid_id;
 var userName;
 var userPwd;
 var api = new API();
+
+
 $(function() {
     /*
      *用户登录
      */
+
     $("#login-btn").click(function() {
             var userName = $("#userName").val();
             var password = $("#password").val();
@@ -17,60 +20,11 @@ $(function() {
                 alert("用户名或密码不能为空!");
                 return false;
             }
+
             login(userName, password);
 
         })
-        //登录
-    function login(userName, password) {
-        api.userLogin({
-            "user": userName,
-            "password": password
-        }).done(function(data) {
-            //console.log(data);
-            var dataObj = data.data;
 
-            if (dataObj != null) {
-
-                var url;
-
-                uuid_id = dataObj.userUuid; // 管理员uuid
-
-                //存放用户uuid,用户名，密码
-                localStorage.setItem("uuid_id", uuid_id);
-                localStorage.setItem("userName", userName);
-                localStorage.setItem("userPwd", password);
-
-                var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
-
-                if (flag == true) {
-                    url = "login-enter.html";
-                    alert("用户第一次登录，需要填写具体信息！");
-                    api.windowOpen(url);
-
-                } else if (flag == false) {
-
-                    var roleModelObj = dataObj.roleModel;
-                    var permissionModels = roleModelObj.permissionModels; //lifang  5个
-
-                    //console.log(permissionModels);
-                    var stringPer = JSON.stringify(permissionModels);
-                    localStorage.setItem("permissionModels", stringPer);
-
-                    url = "index.html";
-                    api.windowOpen(url);
-
-                }
-            } else {
-                if (data.message == ".password") {
-                    alert("密码输入错误,请重新输入！");
-                } else if (data.message == ".no user") {
-                    alert(userName + "用户不存在！");
-                }
-
-            }
-        })
-    }
-    
 
     /*
      *第一次登录 填写信息
@@ -462,9 +416,70 @@ $(function() {
         $(this).parent().find("ul.userlist").css("display", "none");
     });
 
-
+    //密码框按下的时候 判断键值Enter 登录
+    $("#loginform input[type='password']").keypress(function (e) {
+        if (e.keyCode == 13){ //键码值是13 Enter
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            login(userName, password);
+        }
+    })
 })
+/*
+*用户登录公共方法
+*parmas userName  用户名
+*parmas password 密码
+*/
+function login(userName, password) {
+    api.userLogin({
+        "user": userName,
+        "password": password
+    }).done(function(data) {
+        //console.log(data);
+        var dataObj = data.data;
 
+        if (dataObj != null) {
+
+            var url;
+
+            uuid_id = dataObj.userUuid; // 管理员uuid
+
+            //存放用户uuid,用户名，密码
+            localStorage.setItem("uuid_id", uuid_id);
+            localStorage.setItem("userName", userName);
+            localStorage.setItem("userPwd", password);
+
+            var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
+
+            if (flag == true) {
+                url = "login-enter.html";
+                alert("用户第一次登录，需要填写具体信息！");
+                api.windowOpen(url);
+
+            } else if (flag == false) {
+
+                var roleModelObj = dataObj.roleModel;
+                var permissionModels = roleModelObj.permissionModels; //lifang  5个
+
+                //console.log(permissionModels);
+                var stringPer = JSON.stringify(permissionModels);
+                localStorage.setItem("permissionModels", stringPer);
+
+                url = "index.html";
+                api.windowOpen(url);
+
+            }
+        } else {
+            if (data.message == ".password") {
+                alert("密码输入错误,请重新输入！");
+            } else if (data.message == ".no user") {
+                alert(userName + "用户不存在！");
+            }
+
+        }
+    })
+}
+    
 var person = localStorage.getItem("permissionModels");
     var jsonPerson = JSON.parse(person);
     
