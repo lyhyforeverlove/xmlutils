@@ -2,6 +2,7 @@
 @params author wangyanxiao
 @params date 2016-6-8
  */
+ var api = new API();
  $(function(){
  	/*顶部导航右侧用户信息图标下拉显示*/
     $(".user").hover(function(){

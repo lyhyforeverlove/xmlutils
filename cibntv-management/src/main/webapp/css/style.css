@@ -69,7 +69,6 @@ a,a:hover,a:focus{text-decoration: none;}
 .video-detail>.video-wrapper>.panel>.panel-heading>a,.video-detail>.examination-wrapper>.panel>.panel-heading>a{width:20px;height:36px;margin:30px 60px 30px 0;;background:url('../images/back.png') no-repeat;float:left;}
 .video-detail>.panel,.panel-default{border: none;box-shadow: none;}
 .video-detail>.panel,.panel-default>.panel-heading{background-color: #fff;font-size: 18px;height:95px;line-height: 95px;padding:0; }
-
 .video-detail>.video-wrapper>.panel>.panel-body{margin-top:45px;}
 .video-detail>.video-wrapper>.panel>.panel-body>.video{margin:0 auto;text-align: center;}
 .video-detail>.video-wrapper>.panel>.panel-body>.video>.video-title{font-size: 20px;margin-top:30px;}
@@ -82,7 +81,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .main-content>.btn-button>button{width:160px;height:40px;line-height: 40px; text-align: center;background-color: #5878f5;border:none;font-size: 16px;font-weight: normal;color:#fff;}
 .main-content>.price>tbody>tr>td>.input-bg{background-color: #eef0f2;margin-right: 10px;}
 .main-content>.btn-button>.btn-display{display: none;}
-
+.main-content>.price>tbody>tr>td>normal{float:left;}
 /*试卷打折*/
 .main-content>.discount{width:70%;margin:50px auto;font-size: 16px; font-weight: normal;}
 .main-content>.discount>tbody>tr{height:70px;line-height: 70px;}
@@ -144,7 +143,7 @@ a:focus{outline: none;}
 #userNameDiv img{margin:0 12px;}
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {background-color: #5878f5;}
 .pagination > li > a, .pagination > li > span {color:#5875f5;}
-#department_pri{height:auto; width:220px;display:inline-block;}
+#department_pri{height:auto; width:220px;display:inline-block;float:left;}
 #department_pri>label{height:28px;line-height: 28px;width:95px;text-align: center;background-color: #f1f3f5;font-size: 14px;font-weight: normal;margin-right: 10px;}
 #myModal .modal-content{min-height:260px;}
 #myModal .dropdown-menu{max-height:110px;overflow-y: auto;}
