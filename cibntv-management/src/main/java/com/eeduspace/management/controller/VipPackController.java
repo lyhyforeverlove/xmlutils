@@ -106,9 +106,9 @@ public class VipPackController {
 	 * @param packUUID
 	 * @return
 	 */
-	@RequestMapping(value="/vip_ pack_release",method=RequestMethod.POST)
+	@RequestMapping(value="/vip_pack_release",method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseItem vipPackRelease(String[] ids){
+	public ResponseItem vipRelease(HttpServletRequest request,String[] ids){
 		logger.debug("deleteVipPack request param:{}",gson.toJson(ids));
 		ResponseItem item=new ResponseItem();
 		try {
@@ -123,9 +123,11 @@ public class VipPackController {
 			return item;
 		} catch (Exception e) {
 			logger.error("vipPackRelease  Exception:", e);
-	        return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "vipPackRelease exception");
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "vipPackRelease exception");
 		}
+		
 	}
+	
 	/**
 	 * vip包打折操作
 	 * Author： zhuchaowei
