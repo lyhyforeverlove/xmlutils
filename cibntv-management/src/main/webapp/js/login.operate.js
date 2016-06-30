@@ -17,7 +17,7 @@ $(function() {
             var userName = $("#userName").val();
             var password = $("#password").val();
             if (userName == "" || password == "") {
-                alert("用户名或密码不能为空!");
+                $(".errorInfo").html("用户名或密码不能为空!");
                 return false;
             }
 
@@ -453,7 +453,7 @@ function login(userName, password) {
 
             if (flag == true) {
                 url = "login-enter.html";
-                alert("用户第一次登录，需要填写具体信息！");
+                //alert("用户第一次登录，需要填写具体信息！");
                 api.windowOpen(url);
 
             } else if (flag == false) {
@@ -471,9 +471,9 @@ function login(userName, password) {
             }
         } else {
             if (data.message == ".password") {
-                alert("密码输入错误,请重新输入！");
+                $(".errorInfo").html("密码输入错误,请重新输入！");
             } else if (data.message == ".no user") {
-                alert(userName + "用户不存在！");
+                $(".errorInfo").html(userName + "用户不存在！");
             }
 
         }
