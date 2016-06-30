@@ -19,34 +19,37 @@ var ajaxTool = new AJAXTool();
     $("#video-list").html("");
     if(page===1){
         var videoList = dataList.reponseVedio;
-        var s="";
-        $("#video-total").html(dataList.item+"个");
-        for(var i=0;i<videoList.length;i++)
-        {
-            var colorlist=["#1277de","#ffc053","#236b47","#68418d","#ff7e64","#c42a59","#6c65fc","#02d2ad"];
-            var n = Math.floor(Math.random() * colorlist.length + 1)-1;
-            s ="<div class='col-sm-3'><div class='video-div'><h4>"+videoList[i].videoName+"</h4></div><a class='stop' href='#' onclick=videoDetail('"+videoList[i].id+"')></a><div class='content'><div class='title'>"+videoList[i].videoName+"</div></div></div>";
-            $("#video-list").append(s);
-            $(".video-div").eq(i).css("background-color",colorlist[n]);
+        if(videoList){
+          var s="";
+          $("#video-total").html(dataList.item+"个");
+          for(var i=0;i<videoList.length;i++)
+          {
+              var colorlist=["#1277de","#ffc053","#236b47","#68418d","#ff7e64","#c42a59","#6c65fc","#02d2ad"];
+              var n = Math.floor(Math.random() * colorlist.length + 1)-1;
+              s ="<div class='col-sm-3'><div class='video-div'><h4>"+videoList[i].videoName+"</h4></div><a class='stop' href='#' onclick=videoDetail('"+videoList[i].id+"')></a><div class='content'><div class='title'>"+videoList[i].videoName+"</div></div></div>";
+              $("#video-list").append(s);
+              $(".video-div").eq(i).css("background-color",colorlist[n]);
 
+          }
         }
-
     }else{
         var searchName = $("#searchName").val();
         var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":page,"pageSize":"10"},"/video/videoPage",false);
         result.done(function(resultList){
           if(resultList.data){
               var videoList = resultList.data.reponseVedio;
-              var s="";
-              $("#video-total").html(resultList.data.item+"个");
-              for(var i=0;i<videoList.length;i++)
-              {
-                  var colorlist=["#1277de","#ffc053","#236b47","#68418d","#ff7e64","#c42a59","#6c65fc","#02d2ad"];
-                  var n = Math.floor(Math.random() * colorlist.length + 1)-1;
-                  s ="<div class='col-sm-3'><div class='video-div'><h4>"+videoList[i].videoName+"</h4></div><a class='stop' href='#' onclick=videoDetail('"+videoList[i].id+"')></a><div class='content'><div class='title'>"+videoList[i].videoName+"</div></div></div>";
-                  $("#video-list").append(s);
-                  $(".video-div").eq(i).css("background-color",colorlist[n]);
+              if(videoList){
+                var s="";
+                $("#video-total").html(resultList.data.item+"个");
+                for(var i=0;i<videoList.length;i++)
+                {
+                    var colorlist=["#1277de","#ffc053","#236b47","#68418d","#ff7e64","#c42a59","#6c65fc","#02d2ad"];
+                    var n = Math.floor(Math.random() * colorlist.length + 1)-1;
+                    s ="<div class='col-sm-3'><div class='video-div'><h4>"+videoList[i].videoName+"</h4></div><a class='stop' href='#' onclick=videoDetail('"+videoList[i].id+"')></a><div class='content'><div class='title'>"+videoList[i].videoName+"</div></div></div>";
+                    $("#video-list").append(s);
+                    $(".video-div").eq(i).css("background-color",colorlist[n]);
 
+                }
               }
           }
         });
