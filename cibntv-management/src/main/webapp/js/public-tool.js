@@ -18,6 +18,7 @@ var AJAXTool=function(){
          traditional:bool,
          context:this,
          beforeSend:function(result){
+              console.log(result.responseText);
           },
          error:function(XMLHttpRequest,textStatus){
          }
