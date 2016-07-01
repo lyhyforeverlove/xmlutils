@@ -21,7 +21,7 @@ var AJAXTool=function(){
            var data = result.data;
             //result.data  如果false 没有权限   提示页面
             //result.data  如果为login.html就是session过期  直接跳到login.html
-            if(!data){
+            if(data =="disable"){
               if(confirm("您没有访问此功能模块的权限") || !confirm("您没有访问此功能模块的权限")){
                   window.location.href="login.html";
               }
@@ -29,7 +29,6 @@ var AJAXTool=function(){
             else if(data ==="login.html"){
                window.location.href="login.html";
             }
-             console.log(result);
          },
          beforeSend:function(result){
          },
