@@ -57,6 +57,7 @@ var ajaxTool = new AJAXTool();
     }
     //初始化分页
     function firstLink(code,name){
+          $("#loading").fadeIn();
           if(!name && !subjectName){
              $("#subject").html("学科");
           }else if(name){
@@ -68,6 +69,7 @@ var ajaxTool = new AJAXTool();
           var searchName = $("#searchName").val();
           var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":1,"pageSize":"10"},"/video/videoPage",false);
           result.done(function(resultList){
+               $("#loading").fadeOut();
               if(resultList.data.totalPage ===0){
                 totalpage = 1;
               }else{

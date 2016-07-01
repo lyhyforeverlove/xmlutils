@@ -4,7 +4,7 @@ a,a:hover,a:focus{text-decoration: none;}
 /*导航部分*/
 
 .left{width:240px;float:left;height:100%;background-color: #2a2f43;position:fixed;left:0;top:0;}
-.right{width:auto;margin-left: 240px;min-height:100%;height:auto;background-color:#f1f3f5;}
+.right{width:auto;margin-left: 240px;min-height:100%;height:auto;background-color:#f1f3f5;min-width:1000px;}
 .nav-main-left{float:left;width:240px;height:70px; line-height: 70px;background-color: #5878f5;}
 .nav-main{height: 70px; line-height: 70px;}
 .nav-main .nav-main-right{height:70px;width:auto;border-bottom:1px solid #5878f5;background-color: #fff;font-size: 20px; font-weight: bold;}
@@ -29,7 +29,7 @@ a,a:hover,a:focus{text-decoration: none;}
 
 
 /*中间内容部分*/
-.right>.main-content{background-color: #fff;padding:15px 0 0 37px;margin:20px 0 0 20px;min-height:850px;height:auto;}
+.right>.main-content{background-color: #fff;padding:15px 0 0 37px;margin:20px 0 0 20px;min-height:855px;height:auto;}
 .right>.main-content .seacher-panel{height: 88px;padding:25px 0;}
 .right>.main-content>.select-panel{height:80px;padding:15px 0;border-bottom:1px solid #d7d7d7; }
 .right>.main-content>.seacher-panel>.btn-group>.btn-primary,.main-content>.select-panel>.btn-group>.btn-primary{background-color: #eef0f2;color: #2a2f43;border:none;padding:6px 15px;height: 40px;font-size:16px;}
@@ -65,7 +65,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .right>.main-content>.video-list>.col-sm-3>.content>p{color:#999999;font-size: 14px;font-weight: normal;}
 
 /*视频详情*/
-.video-detail{margin-top:20px;background-color: #fff;width:100%;height:100%;}
+.video-detail{margin-top:20px;background-color: #fff;width:100%;height:auto;min-height: 850px;}
 .video-detail>.video-wrapper>.panel>.panel-heading>a,.video-detail>.examination-wrapper>.panel>.panel-heading>a{width:20px;height:36px;margin:30px 60px 30px 0;;background:url('../images/back.png') no-repeat;float:left;}
 .video-detail>.panel,.panel-default{border: none;box-shadow: none;}
 .video-detail>.panel,.panel-default>.panel-heading{background-color: #fff;font-size: 18px;height:95px;line-height: 95px;padding:0; }
@@ -83,7 +83,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .main-content>.btn-button>.btn-display{display: none;}
 .main-content>.price>tbody>tr>td>normal{float:left;}
 /*试卷打折*/
-.main-content>.discount{width:70%;margin:50px auto;font-size: 16px; font-weight: normal;}
+.main-content>.discount{width:70%;margin:50px auto;font-size: 16px; font-weight: normal;min-width:900px;}
 .main-content>.discount>tbody>tr{height:70px;line-height: 70px;}
 .main-content>.discount>tbody>tr>td{text-align: center;}
 .main-content>.discount>tbody>tr>td:last-child{text-align: left;padding-left: 10px;}
@@ -139,7 +139,8 @@ ul.pagination{margin:0;}
 a:focus{outline: none;}
 
 /*其余部分样式*/
-.remind{color:#ff6666;}
+.remind{color:#02b60b}
+.error{color:#ff6666}
 #userNameDiv img{margin:0 12px;}
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {background-color: #5878f5;}
 .pagination > li > a, .pagination > li > span {color:#5875f5;}
@@ -150,7 +151,7 @@ a:focus{outline: none;}
 .dropdown-menu{max-height: 240px;overflow-y: auto;}
 
 /*公共icon*/
-.user-right-box{position: absolute;right:0;top:0;background:#d7dfff;text-align: center;height:69px;border-bottom: 1px solid #d7dfff;}
+.user-right-box{background:#d7dfff;text-align: center;height:69px;border-bottom: 1px solid #d7dfff;}
 .user-right-box  i.user-icon{cursor: pointer;}
 .user{width:120px;position: relative;}
 .c-main:before{content: '';border-left: 4px solid transparent;border-right: 4px solid transparent;border-top: 4px solid #2a2f43;position: absolute;top: 35px;left:50%;margin-left:15px;}
@@ -162,3 +163,138 @@ a:focus{outline: none;}
 .userlist li:hover,.userlist li.actie{background:#d7dfff;cursor: pointer;}
 .pCenter{background-position: 0 0;}
 .exitLogin{background-position: -20px 0;}
+
+
+/*loading样式*/
+.loaders{width:100%;height:100%;background-color: #000; opacity: 0.3;position:fixed;top:0;display:block;z-index: 1000;}
+.loaders .loader {align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 25%;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+.line-spin-fade-loader {
+    position: relative;
+}
+
+.line-spin-fade-loader > div:nth-child(1) {
+    animation: 1.2s ease-in-out 0.12s normal none infinite running line-spin-fade-loader;
+    left: 0;
+    top: 20px;
+}
+.line-spin-fade-loader > div:nth-child(2) {
+    animation: 1.2s ease-in-out 0.24s normal none infinite running line-spin-fade-loader;
+    left: 13.6364px;
+    top: 13.6364px;
+    transform: rotate(-45deg);
+}
+.line-spin-fade-loader > div:nth-child(3) {
+    animation: 1.2s ease-in-out 0.36s normal none infinite running line-spin-fade-loader;
+    left: 20px;
+    top: 0;
+    transform: rotate(90deg);
+}
+.line-spin-fade-loader > div:nth-child(4) {
+    animation: 1.2s ease-in-out 0.48s normal none infinite running line-spin-fade-loader;
+    left: 13.6364px;
+    top: -13.6364px;
+    transform: rotate(45deg);
+}
+.line-spin-fade-loader > div:nth-child(5) {
+    animation: 1.2s ease-in-out 0.6s normal none infinite running line-spin-fade-loader;
+    left: 0;
+    top: -20px;
+}
+.line-spin-fade-loader > div:nth-child(6) {
+    animation: 1.2s ease-in-out 0.72s normal none infinite running line-spin-fade-loader;
+    left: -13.6364px;
+    top: -13.6364px;
+    transform: rotate(-45deg);
+}
+.line-spin-fade-loader > div:nth-child(7) {
+    animation: 1.2s ease-in-out 0.84s normal none infinite running line-spin-fade-loader;
+    left: -20px;
+    top: 0;
+    transform: rotate(90deg);
+}
+.line-spin-fade-loader > div:nth-child(8) {
+    animation: 1.2s ease-in-out 0.96s normal none infinite running line-spin-fade-loader;
+    left: -13.6364px;
+    top: 13.6364px;
+    transform: rotate(45deg);
+}
+.line-spin-fade-loader > div {
+    animation-fill-mode: both;
+    background-color: #fff;
+    border-radius: 2px;
+    height: 15px;
+    margin: 2px;
+    position: absolute;
+    width: 5px;
+}
+.loaded {
+    opacity: 1;
+    transition: opacity 0.25s linear 0s;
+}
+
+@-webkit-keyframes line-spin-fade-loader {
+  50% {
+    opacity: 0.3; }
+
+  100% {
+    opacity: 1; } }
+
+@keyframes line-spin-fade-loader {
+  50% {
+    opacity: 0.3; }
+
+  100% {
+    opacity: 1; } }
+
+.line-spin-fade-loader {
+  position: relative; }
+  .line-spin-fade-loader > div:nth-child(1) {
+    top: 20px;
+    left: 0;
+    -webkit-animation: line-spin-fade-loader 1.2s 0.12s infinite ease-in-out;
+            animation: line-spin-fade-loader 1.2s 0.12s infinite ease-in-out; }
+  .line-spin-fade-loader > div:nth-child(2) {
+    top: 13.63636px;
+    left: 13.63636px;
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-animation: line-spin-fade-loader 1.2s 0.24s infinite ease-in-out;
+            animation: line-spin-fade-loader 1.2s 0.24s infinite ease-in-out; }
+  .line-spin-fade-loader > div:nth-child(3) {
+    top: 0;
+    left: 20px;
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-animation: line-spin-fade-loader 1.2s 0.36s infinite ease-in-out;
+            animation: line-spin-fade-loader 1.2s 0.36s infinite ease-in-out; }
+  .line-spin-fade-loader > div:nth-child(4) {
+    top: -13.63636px;
+    left: 13.63636px;
+    -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+    -webkit-animation: line-spin-fade-loader 1.2s 0.48s infinite ease-in-out;
+            animation: line-spin-fade-loader 1.2s 0.48s infinite ease-in-out; }
+  .line-spin-fade-loader > div:nth-child(5) {
+    top: -20px;
+    left: 0;
+    -webkit-animation: line-spin-fade-loader 1.2s 0.6s infinite ease-in-out;
+            animation: line-spin-fade-loader 1.2s 0.6s infinite ease-in-out; }
+  .line-spin-fade-loader > div:nth-child(6) {
+    top: -13.63636px;
+    left: -13.63636px;
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-animation: line-spin-fade-loader 1.2s 0.72s infinite ease-in-out;
+            animation: line-spin-fade-loader 1.2s 0.72s infinite ease-in-out; }

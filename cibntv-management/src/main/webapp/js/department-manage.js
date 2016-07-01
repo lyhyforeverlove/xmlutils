@@ -34,11 +34,11 @@ function addDepartment()
      });
 
      if(!departmentName){
-        alert("请输入部门名称！");
+        alert.dialog.confirm('请输入部门名称！',function(){});      
      }else if(departmentName.length>16){
-        alert("部门名称过长！");
+        alert.dialog.confirm('部门名称过长！',function(){});
      }else if(arrayObj.length<1){
-        alert("请选择部门权限!");
+        alert.dialog.confirm('请选择部门权限!',function(){});
      }
      else{
          var result = ajaxTool.getInfo({"name":departmentName,"ids":arrayObj},"/role/roleSave",true);

@@ -1,8 +1,9 @@
 var api = new API();
 var disStartDate;
 var disEndDate;
-var discountPrice; 
-var priceArr = [] ;
+var discountPrice;
+var delIdsArr=[];//存放删除VIP数组
+
 $(function() {
     var api = new API();
     /*
@@ -10,7 +11,7 @@ $(function() {
      */
     $("#createVipBtn").click(function() {
 
-      str = '<form enctype="multipart/form-data" action="" method="post" id="formid" name="form"><div id="addbox"><p><a href="javascript:;" class="file">选择背景图片<input type="file" name="file" id="file_pic"></a></p><p>VIP方案<select name="vipType" id="vipType"/><option value="ONE_MONTH">1个月</option><option value="TWO_MONTH">2个月</option><option value="THREE_MONTH">3个月</option><option value="ONE_YEAR">1年</option><option value="SIX_MONTH">半年</option><option value="TWO_YEAR">2年</option></select></p><p>VIP价格<input type="text" name="vipPrice" class ="vipPrice" value="" /></p><p>VIP描述<input type="text" name="vipDesc" value="" /></p></div>';
+      str = '<form enctype="multipart/form-data" action="" method="post" id="formid" name="form"><div id="addbox"><p><a href="javascript:;" class="file">选择背景图片<input type="file" name="file" id="file_pic"></a></p><p>VIP方案<select name="vipType" id="vipType"/><option value="ONE_MONTH">1个月</option><option value="TWO_MONTH">2个月</option><option value="THREE_MONTH">3个月</option><option value="SIX_MONTH">6个月</option><option value="ONE_YEAR">1年</option><option value="TWO_YEAR">2年</option></select></p><p>VIP价格<input type="text" name="vipPrice" class ="vipPrice" value="" /></p><p>VIP描述<input type="text" name="vipDesc" value="" class="vipDesc" /></p></div>';
 
             Prompt.init({
                 title: "新增VIP方案",
@@ -18,6 +19,14 @@ $(function() {
                 html: str,
                 ConfirmFun: uploadCreateVip
             });
+
+            var reg = /^[\d]+$/g;
+          
+          $(".vipPrice").blur(function(){
+            if(!reg.test($(this).val())){
+              alert("只能输入数字");
+            }
+          })
 
         })
         
@@ -50,10 +59,10 @@ $(function() {
             todayHighlight: true
         })
     })
-
     //发布
     $("#releaseBtn").click(function() {
-        vipPackRelease();
+        //console.log(delIdsArr);
+        vipPackRelease(delIdsArr);
     })
 
 
@@ -97,14 +106,16 @@ function vipPackSale() {
 /*
  *VIP包发布
  */
-function vipPackRelease() {
-    api.vipPackRelease().done(function(data) {
+function vipPackRelease(ids) {
+    api.vipPackRelease({"ids":ids}).done(function(data) {
         //发布
         if(data.message == "success"){
             alert("发布成功！");
         }
         $("#list").empty();
         initVipPackList(1,true,true);
+        var url = "vipmanage.html";
+        api.windowOpen(url);
     })
 }
 
@@ -128,9 +139,6 @@ function initVipPackList(state, flag ,isAllFlag) {
     api.getVipPackList({ "isRelease": flag,"isAll":isAllFlag }).done(function(data) {
 
         if (data != null) {
-
-            //console.log(data);
-            //$("#list").empty(); //清空#list
             $.each(data.datas, function(index, item) {
                 //遍历返回的json
 
@@ -139,19 +147,19 @@ function initVipPackList(state, flag ,isAllFlag) {
                   //console.log(vipSale,price);
                     //折后价格
                    var discountPrice = (vipSale * price ) / 10;
-                
-             // discountPrice
+                  
+               // discountPrice
 
-              $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath1 +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+                $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath1 +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
-               
+                 
 
-                //0=已发布 1=删除
-                if (state == 0) {
-                    $(".state").html("已发布");
-                } else if (state == 1) {
-                    $(".state").html("删除");　
-                }
+                  //0=已发布 1=删除
+                  if (state == 0) {
+                      $(".state").html("已发布");
+                  } else if (state == 1) {
+                      $(".state").html("删除");　
+                  }
 
             });
 
@@ -170,66 +178,57 @@ function initVipPackList(state, flag ,isAllFlag) {
               var enddate = $(this).html().substring(0,10);
               var msgEnd = enddate.split("-").join(".");
               $(this).html(msgEnd);
-            })
-            //VIP包删除
-            $(".del").each(function(index) {
-                $(this).click(function() {
-                    var uuId = $(this).parents(".sale").attr("id");
-                    if(state == 0 ){
-                      $(this).unbind('click');
-                    }else if(state == 1){
-
-                      delteVipPack($(this), uuId);
-                      
-                    }
-                })
-            })
+            })    
         }
 
-    })
-}
+        //VIP包删除
+            $(".del").each(function(index) {
+                $(this).click(function() {
+                  //console.log(111);
+                    var uuId = $(this).parents(".sale").attr("id");
+                    $(this).parents(".sale").css("display","none");
+                    delIdsArr.push(uuId);
+                   // console.log(delIdsArr);
+                })
+            })
 
-/*
- *VIP包删除
- */
-function delteVipPack(ele, uuId) {
-    $('#' + uuId).delegate(ele, "click", function() {
-        api.deleteVipPack({
-            "vipUUID": uuId
-        }).done(function(data) {
-            $("#list").empty();
-            initVipPackList(1, true ,true);
-            console.log(data);
-        })
     })
 }
 
 /*新增vip方案提交方法*/
-function uploadCreateVip(){   
-    var formData = new FormData($("#formid")[0]);
-    $.ajax({  
-          url: 'http://192.168.1.12:8180/action/vip_pack/vip_pack_create' ,  
-          type: 'POST',  
-          data: formData,  
-          async: false,  
-          cache: false,  
-          contentType: false,  
-          processData: false,  
-          success: function (data) { 
-            console.log(data);
-            if(data.message == "VIP包已存在" ){
-                alert("VIP包已存在");
-                return false;
-            }else if(data.message == "success" ){
-                alert("上传成功!");
-                $("#list").empty();
-                initVipPackList(1, true ,true);
-            }
-              
-          },  
-          error: function (data) {  
-              alert(data);  
-          }  
-    });  
+function uploadCreateVip(){
+    var vipPr = $(".vipPrice").val();
+    var vipDe = $(".vipDesc").val();      
+
+    /*if(vipPr.length == 0 || vipDe.length == 0){
+        alert("请输入价格和描述！");
+        return false;
+    }else{*/
+        var formData = new FormData($("#formid")[0]);
+        $.ajax({  
+              url: api.apiPath+'/vip_pack/vip_pack_create' ,  
+              type: 'POST',  
+              data: formData,  
+              async: false,  
+              cache: false,  
+              contentType: false,  
+              processData: false,  
+              success: function (data) { 
+                //console.log(data);
+                if(data.message == "VIP包已存在" ){
+                    alert("VIP包已存在");
+                    return false;
+                }else if(data.message == "success" ){
+                    alert("上传成功!");
+                    $("#list").empty();
+                    initVipPackList(1, true ,true);
+                }
+                  
+              },  
+              error: function (data) {  
+                  alert(data);  
+              }  
+        });
+    
 }
 

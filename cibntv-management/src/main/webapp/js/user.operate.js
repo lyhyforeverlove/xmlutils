@@ -23,7 +23,11 @@ $(function() {
                 ConfirmFun: confirm
             });
             $('.input-daterange').datepicker({
-                language: "zh-CN"
+                language: "zh-CN",
+                autoclose: true,
+                todayBtn: "linked", //当天日期
+                pickerPosition: "bottom-left",
+                todayHighlight: true
             });
 
             function confirm() {
@@ -51,7 +55,7 @@ $(function() {
 
         searchMobile = $("#searchTxt").val(); //获取手机号
         $("#list tbody").empty();
-        getUserInfoList(1, 2, searchMobile);
+        getUserInfoList(1, 10, searchMobile);
 
         /*if (reg.test(v)) {
            
@@ -156,13 +160,23 @@ $(function() {
             index += (size * (page - 1)); //序号
 
             $("#list tbody").append(
-                "<tr class='parent'><td>" + (index + 1) + "</td><td class='usercode' style='display:none'>" + item.userCode + "</td><td>" + item.userName + "</td><td>" + item.mobile + "</td><td>" + item.createDate + "</td><td>" + item.ip + "</td><td>" + item.isVip + "</td><td>" + item.vipexpireTime + "</td><td><a class='detail-user-btn'>详情</a></td></tr>");
+                "<tr class='parent'><td>" + (index + 1) + "</td><td class='usercode' style='display:none'>" + item.userCode + "</td><td>" + item.userName + "</td><td>" + item.mobile + "</td><td>" + item.createDate + "</td><td>" + item.ip + "</td><td class='isVip'>" + item.isVip + "</td><td>" + item.vipexpireTime + "</td><td><a class='detail-user-btn'>详情</a></td></tr>");
 
+           
+                
+            
             vipexpireTime = item.vipexpireTime; //到期时间 
 
             newArr.push(vipexpireTime);
         });
-
+        //判断是否是VIP 如果不是VIP隐藏详情
+        $(".isVip").each(function(){
+            var isVipVal = $(this).html();
+            if(  isVipVal == "否"){
+                $(this).parent().find(".detail-user-btn").html(" ");
+            }
+        })
+        
         //查看VIP用户到期时间、充值记录详情
         $("#list .detail-user-btn").each(function(i) {
             $(this).bind("click", function() {

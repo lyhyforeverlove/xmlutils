@@ -2,12 +2,12 @@ package com.eeduspace.management.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -191,7 +191,7 @@ public class VipOrderController {
 	 */
 	@RequestMapping(value="/order_excel_export")
 	@ResponseBody
-	public ResponseItem orderExcelExport(HttpServletResponse response,@ModelAttribute OrderQueryModel orderQueryModel) throws IOException{
+	public ResponseItem orderExcelExport(HttpServletRequest request,HttpServletResponse response,@ModelAttribute OrderQueryModel orderQueryModel) throws IOException{
 		logger.debug("orderQueryModel:{}",gson.toJson(orderQueryModel));
 		ResponseItem item = new ResponseItem();
 		if(StringUtils.isBlank(orderQueryModel.getOrderType())){
@@ -205,7 +205,20 @@ public class VipOrderController {
 		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.VIP.toString())){
 			fileName="VIP订单_"+DateUtils.toString(new Date(), DateUtils.DATE_FORMAT_DATEONLY);
 		}
-		response.setHeader("Content-disposition", "attachment; filename="+URLEncoder.encode(fileName, "UTF-8") + ".xlsx");// 组装附件名称和格式
+		String agent = request.getHeader("USER-AGENT").toLowerCase();
+	    //根据浏览器类型处理文件名称
+		
+	    if(agent.indexOf("msie")>-1){
+	      //extfilename = Tools.toUtf8String(extfilename);
+	    	fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+	    }
+	    else{  //firefoxfari不转码
+	    	fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+	    }
+		
+		
+		
+		response.setHeader("Content-disposition", "attachment; filename="+ fileName + ".xlsx");// 组装附件名称和格式
 		Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
 		
 		if(orderQueryModel.getOrderType().equals(BuyTypeEnum.DIAGNOSTIC.toString())){

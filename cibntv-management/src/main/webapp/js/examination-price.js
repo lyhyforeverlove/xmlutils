@@ -19,7 +19,7 @@ function savePrice(){
          array.push(obj);
      }
      if(bool){
-        alert("您输入的价格有误！请重新输入！");
+        alert.dialog.confirm('您输入的价格有误！请重新输入！',function(){});
      }
      else{
        var result = ajaxTool.getInfo({"paperTypeDatas":array},"/paper/paperTypeReplace",true);

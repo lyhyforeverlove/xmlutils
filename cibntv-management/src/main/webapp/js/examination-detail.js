@@ -4,6 +4,7 @@ $(function(){
       id = id.substring(id.indexOf("=")+1,id.length);
       var result = ajaxTool.getInfo({"paperCode":id},"/paper/paperDetail",false);
       result.done(function(resultList){
+          $("#loading").fadeOut();
           var data = resultList.data;
           if(data){
               var paperList = "<p class='examination-title'>"+data.examName+"</p>";

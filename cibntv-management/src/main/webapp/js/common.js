@@ -2,7 +2,6 @@
 @params author wangyanxiao
 @params date 2016-6-8
  */
- var api = new API();
  $(function(){
  	/*顶部导航右侧用户信息图标下拉显示*/
     $(".user").hover(function(){
@@ -27,15 +26,15 @@ function pagination(container, callback, currentPage, pageCount){
     };
     $('#'+container).bootstrapPaginator(options);
 }
-var uuid = sessionStorage.getItem("uuid_id");
+var uuid = localStorage.getItem("uuid_id");
 //console.log(uuid);
 if(uuid ==  null || uuid == "undefined"){
     //alert("用户没有登录，无法访问页面,跳转登录页面！");
     window.location.href="login.html";
 }
 //所有页面右上角显示
-var userName = sessionStorage.getItem("userName");
-var userPwd = sessionStorage.getItem("userPwd");
+var userName = localStorage.getItem("userName");
+var userPwd = localStorage.getItem("userPwd");
 
 indexPage(userName);
 
@@ -48,7 +47,7 @@ function indexPage(name) {
         //console.log("退出登录");
         logout(); //注销
 
-        sessionStorage.clear(); //清空用户登录信息
+        localStorage.clear(); //清空用户登录信息
         api.windowLogin();
         //window.location.href = "login.html";
     })
@@ -57,6 +56,7 @@ function indexPage(name) {
  *退出登录
  */
 function logout() {
+    var api = new API();
     api.logout().done(function(data) {
         console.log("data");
     })

@@ -7,7 +7,7 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 1000;
+	z-index: 1100;
 }
 
 .mod-dialog {
@@ -19,7 +19,7 @@
 	min-width: 360px;
   *padding-top: 27px;
 	position: absolute;
-	z-index: 1001;
+	z-index: 1101;
 }
 .mod-dialog .dialog-nav {
 	color: #fff;

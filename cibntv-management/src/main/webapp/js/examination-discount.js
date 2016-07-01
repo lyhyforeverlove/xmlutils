@@ -16,7 +16,6 @@ var bool=false;//验证折扣；
   function saveDiscount(){
        var trList=$("#discount").children("tr");
        var array=[];
-
        for (var i=0;i<trList.length;i++) {
            var tdArr = trList.eq(i).find("td");
            var uuid = tdArr.eq(0).find("input").val();
@@ -27,7 +26,7 @@ var bool=false;//验证折扣；
            array.push(obj);
        }
        if(bool){
-           alert("您输入的折扣不正确，请重新输入！");
+           alert.dialog.confirm('您输入的折扣不正确，请重新输入！',function(){});
        }else{
            var result = ajaxTool.getInfo({"paperTypeDatas":array},"/paper/paperTypeReplace",true);
            result.done(function(resultList){
@@ -55,16 +54,26 @@ var bool=false;//验证折扣；
                 tr +="<tr><td>"+title+"<input type='hidden' value="+id+"  /></td><td>折扣时间段：</td><td><input type='text'  id='startTime"+i+"' value='"+startTime+"' class='startTime' disabled='disabled'></td><td>起</td><td>至</td><td><input type='text'  id='endTime"+i+"' value='"+endTime+"' class='endTime' disabled='disabled'></td><td>止</td><td>折扣：<input type='text' class='discount' value="+discount+"  onblur=validateDiscount(this);></td></tr>";
               }
               $("#discount").append(tr);
+              //开始时间插件
               $(".startTime").datepicker({
               　  　language: "zh-CN",
               　　  autoclose:true
-              });
+            });
+              //结束时间控件
               $(".endTime").datepicker({
               　  　language: "zh-CN",
               　　  autoclose:true
+              }).change(function(){
+                    var startDate = $(this).parent().parent().find("td").eq(2).find(".startTime").datepicker( "getDate");
+                    var endDate =  $(this).parent().parent().find("td").eq(5).find(".endTime").datepicker( "getDate");
+                    console.log(startDate+"~~~~~~~~"+endDate);
+                    if(endDate < startDate){
+                       alert.dialog.confirm('折扣结束时间不能小于开始时间！',function(){});
+                       $(this).parent().parent().find("td").eq(5).find(".endTime").datepicker('setDate', startDate);
+                    }
               });
           }
-    });
+      });
   }
 
 
@@ -86,5 +95,4 @@ var bool=false;//验证折扣；
         bool = false;
         $(dis).parent().find("label").remove();
       }
-
   }

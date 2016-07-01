@@ -6,97 +6,31 @@ var uuid_id;
 var userName;
 var userPwd;
 var api = new API();
+
+
 $(function() {
     /*
      *用户登录
      */
+
     $("#login-btn").click(function() {
             var userName = $("#userName").val();
             var password = $("#password").val();
             if (userName == "" || password == "") {
-                alert("用户名或密码不能为空!");
+                $(".errorInfo").html("用户名或密码不能为空!");
                 return false;
             }
+
             login(userName, password);
 
         })
-        //登录
-    function login(userName, password) {
-        api.userLogin({
-            "user": userName,
-            "password": password
-        }).done(function(data) {
-            //console.log(data);
-            var dataObj = data.data;
 
-            if (dataObj != null) {
-
-                var url;
-
-                uuid_id = dataObj.userUuid; // 管理员uuid
-
-                //存放用户uuid,用户名，密码
-                sessionStorage.setItem("uuid_id", uuid_id);
-                sessionStorage.setItem("userName", userName);
-                sessionStorage.setItem("userPwd", password);
-
-                var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
-
-                if (flag == true) {
-                    url = "login-enter.html";
-                    alert("用户第一次登录，需要填写具体信息！");
-                    api.windowOpen(url);
-
-                } else if (flag == false) {
-
-                    var roleModelObj = dataObj.roleModel;
-                    var permissionModels = roleModelObj.permissionModels; //lifang  5个
-
-                    //console.log(permissionModels);
-                    var stringPer = JSON.stringify(permissionModels);
-                    sessionStorage.setItem("permissionModels", stringPer);
-
-                    url = "index.html";
-                    api.windowOpen(url);
-
-                }
-            } else {
-                if (data.message == ".password") {
-                    alert("密码输入错误,请重新输入！");
-                } else if (data.message == ".no user") {
-                    alert(userName + "用户不存在！");
-                }
-
-            }
-        })
-    }
-    
-/*    var userName = sessionStorage.getItem("userName");
-    var userPwd = sessionStorage.getItem("userPwd");
-
-    indexPage(userName);
-
-    function indexPage(name) {
-        $("#userName_login").append('<span>' + userName + '</span>');
-        $("#userInfoPerson").append('<div class="user-right-box"><div class="user c-main"> <i class="user-icon icon"></i><ul class="userlist"><li><a href = "personal.html"><i class = "pCenter icon"></i>个人中心' + userName + '</a></li><li  id="logout"><a><i class = "exitLogin icon"></i>退出登录</a></li></ul></div></div>');
-
-        //退出登录
-        $("#logout").click(function() {
-            console.log("退出登录");
-            logout(); //注销
-
-            sessionStorage.clear(); //清空用户登录信息
-            api.windowLogin();
-            //window.location.href = "login.html";
-        })
-    }
-*/
 
     /*
      *第一次登录 填写信息
      *真实姓名一旦确定无法修改，慎重
      */
-    var userUuid1 = sessionStorage.getItem("uuid_id");
+    var userUuid1 = localStorage.getItem("uuid_id");
 
     var firstLoginBtn = $("#firstLoginBtn");
     firstLoginBtn.click(function() {
@@ -482,10 +416,71 @@ $(function() {
         $(this).parent().find("ul.userlist").css("display", "none");
     });
 
-
+    //密码框按下的时候 判断键值Enter 登录
+    $("#loginform input[type='password']").keypress(function (e) {
+        if (e.keyCode == 13){ //键码值是13 Enter
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            login(userName, password);
+        }
+    })
 })
+/*
+*用户登录公共方法
+*parmas userName  用户名
+*parmas password 密码
+*/
+function login(userName, password) {
+    api.userLogin({
+        "user": userName,
+        "password": password
+    }).done(function(data) {
+        //console.log(data);
+        var dataObj = data.data;
 
-var person = sessionStorage.getItem("permissionModels");
+        if (dataObj != null) {
+
+            var url;
+
+            uuid_id = dataObj.userUuid; // 管理员uuid
+
+            //存放用户uuid,用户名，密码
+            localStorage.setItem("uuid_id", uuid_id);
+            localStorage.setItem("userName", userName);
+            localStorage.setItem("userPwd", password);
+
+            var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
+
+            if (flag == true) {
+                url = "login-enter.html";
+                //alert("用户第一次登录，需要填写具体信息！");
+                api.windowOpen(url);
+
+            } else if (flag == false) {
+
+                var roleModelObj = dataObj.roleModel;
+                var permissionModels = roleModelObj.permissionModels; //lifang  5个
+
+                //console.log(permissionModels);
+                var stringPer = JSON.stringify(permissionModels);
+                localStorage.setItem("permissionModels", stringPer);
+
+                url = "index.html";
+                api.windowOpen(url);
+
+            }
+        } else {
+            if (data.message == ".password") {
+                $(".errorInfo").html("密码输入错误,请重新输入！");
+            } else if (data.message == ".no user") {
+                $(".errorInfo").html(userName + "用户不存在！");
+            }
+
+        }
+    })
+}
+    
+var person = localStorage.getItem("permissionModels");
     var jsonPerson = JSON.parse(person);
     
     //console.log(jsonPerson);
