@@ -55,13 +55,13 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 		ResponseItem ri = new ResponseItem();
 		if (session.getAttribute("roleUUID") != null && session.getAttribute("userName") != null) {
 			Boolean flag = false;
-			Boolean isFirst = (Boolean) session.getAttribute("isFirst");
+			/*Boolean isFirst = (Boolean) session.getAttribute("isFirst");
 			//第一次登陆跳转到  填写手机号界面
 			if (isFirst) {
 				ri.setData(ISFIRST_URL);
 				response.getWriter().print(gson.toJson(ri));
 				return false;
-			}
+			}*/
 			RoleModel roleModel = (RoleModel) session.getAttribute("roleModel");
 			if (!StringUtils.isEmpty(roleModel) && roleModel.getStatus().equals(String.valueOf(RoleEnum.Status.Enable))) {
 				//其他验证权限
