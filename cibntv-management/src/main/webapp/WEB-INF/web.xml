@@ -42,6 +42,11 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/action/*</url-pattern>
 	</servlet-mapping>
+	
+	<session-config>
+		<!-- sesssion过期时间 ：分钟 -->
+		<session-timeout>5</session-timeout>
+	</session-config>
 
 	<welcome-file-list>
 		<welcome-file>/index.html</welcome-file>

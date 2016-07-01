@@ -1,7 +1,7 @@
 var API = function(){	
 	//api地址
 	this.apiPath = "http://192.168.1.12:8180/action";
-	this.apiPath1 = "http://192.168.1.12:8180";
+	this.apiPath1 = location.origin;
 	//用户列表信息
 	this.getUserInfo = function(paramsObj){
 		var params = {

@@ -14,8 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.eeduspace.management.bean.SessionItem;
-import com.eeduspace.management.comm.Constants;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum;
@@ -27,8 +25,7 @@ import com.google.gson.Gson;
 public class PermissionInterceptor extends HandlerInterceptorAdapter{
 	private final Logger log = LoggerFactory.getLogger(PermissionInterceptor.class);  
 	private static Gson gson = new Gson();
-	private static final String LOGIN_URL = "/login.html";
-	private static final String ISFIRST_URL = "isFirst.html";
+	private static final String LOGIN_URL = "login.html";
 	
 	@Inject
 	private ManagerLogService logService;
@@ -53,15 +50,9 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 //		response.sendRedirect(request.getContextPath() + LOGIN_URL);
 //		SessionItem si = (SessionItem) session.getAttribute(Constants.SESSION_ID);
 		ResponseItem ri = new ResponseItem();
+		ManagerLogPo po = new  ManagerLogPo();
 		if (session.getAttribute("roleUUID") != null && session.getAttribute("userName") != null) {
 			Boolean flag = false;
-			Boolean isFirst = (Boolean) session.getAttribute("isFirst");
-			//第一次登陆跳转到  填写手机号界面
-			if (isFirst) {
-				ri.setData(ISFIRST_URL);
-				response.getWriter().print(gson.toJson(ri));
-				return false;
-			}
 			RoleModel roleModel = (RoleModel) session.getAttribute("roleModel");
 			if (!StringUtils.isEmpty(roleModel) && roleModel.getStatus().equals(String.valueOf(RoleEnum.Status.Enable))) {
 				//其他验证权限
@@ -80,7 +71,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 			if (!flag) {
 				ri.setData(flag);
 				ri.setMessage("No Permission To Operate");
-				ManagerLogPo po = new  ManagerLogPo();
 				po.setManagerId((Long)session.getAttribute("userId"));
 				po.setResourceId((String)session.getAttribute("uuid"));
 				po.setSourceIp(request.getRemoteAddr());
@@ -98,7 +88,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 			response.getWriter().print(gson.toJson(ri));
 			return false;
 		}
-		ManagerLogPo po = new  ManagerLogPo();
 		po.setManagerId((Long)session.getAttribute("userId"));
 		po.setResourceId((String)session.getAttribute("uuid"));
 		po.setSourceIp(request.getRemoteAddr());
