@@ -126,7 +126,7 @@ function vipPackSelect(vipType) {
     api.vipPackSelect().done(function(data) {
         if (data != null) {
             $.each(data.datas, function(index, item) {
-                vipType.append("<option value=" + item.uuid + ">" + item.vipDesc + "</option>");
+                vipType.append("<option value=" + item.uuid + ">" + item.vipTypeDesc + "</option>");
             })
         }
     })

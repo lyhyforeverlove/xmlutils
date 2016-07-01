@@ -357,3 +357,4 @@ p.error{ color: #ff6666;
 input:-webkit-autofill{
     background-color:#22242c;
 }
+#loginBox #prompt_bottom a.btn{margin-left:50px;}
