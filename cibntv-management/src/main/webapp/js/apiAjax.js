@@ -243,7 +243,7 @@ var API = function(){
 		            window.location.href = "login.html";
 		        }
 			     
-			}	
+			},
 			error:function(XMLHttpRequest,textStatus){
 				//showTips(this.api_error+textStatus);
 			}
