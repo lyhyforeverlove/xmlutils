@@ -2,7 +2,7 @@ body,html{height:100%;font-family: "微软雅黑"}
 a,a:hover,a:focus{text-decoration: none;}
 .border{border-bottom: 1px solid #5878f5;margin: 0; }
 /*导航部分*/
-
+.btn.active.focus,.btn.active.focus,.btn.focus:active,.btn:active:focus,.btn:focus{outline: none;}
 .left{width:240px;float:left;height:100%;background-color: #2a2f43;position:fixed;left:0;top:0;}
 .right{width:auto;margin-left: 240px;min-height:100%;height:auto;background-color:#f1f3f5;min-width:1000px;}
 .nav-main-left{float:left;width:240px;height:70px; line-height: 70px;background-color: #5878f5;}

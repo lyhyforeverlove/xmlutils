@@ -1,6 +1,7 @@
 var ajaxTool = new AJAXTool();
 $(function(){
    // 学段下拉列表
+    $("#stageUl").empty();
     $("#gradeDiv").css("display","none");
     $("#subjectDiv").css("display","none");
     $("#bookTypeDiv").css("display","none");
@@ -33,19 +34,20 @@ var bookTypeCodeName="";
 
 
 function searchStage(code,name){
-      // 学年下拉列表
-      var gradeResult = ajaxTool.getInfo({"stageCode":"1"},"/baseData/grade",false);
-      gradeResult.done(function(resultList){
-          var gradeList = resultList.data;
-          if(gradeList)
-          {
-              var grade="";
-              for(var i=0;i<gradeList.length;i++)
-              {
-                 grade+="<li><a href='#'  onclick=searchGrade('"+gradeList[i].gradeCode+"','"+gradeList[i].gradeName+"')>"+gradeList[i].gradeName+"</a></li>";
-              }
-              $("#gradeUl").append(grade);
-           }
+    // 学年下拉列表
+    $("#gradeUl").empty();
+    var gradeResult = ajaxTool.getInfo({"stageCode":"1"},"/baseData/grade",false);
+    gradeResult.done(function(resultList){
+        var gradeList = resultList.data;
+        if(gradeList)
+        {
+            var grade="";
+            for(var i=0;i<gradeList.length;i++)
+            {
+               grade+="<li><a href='#'  onclick=searchGrade('"+gradeList[i].gradeCode+"','"+gradeList[i].gradeName+"')>"+gradeList[i].gradeName+"</a></li>";
+            }
+            $("#gradeUl").append(grade);
+         }
       });
       stageCode = code;
       stageName = name;
@@ -57,18 +59,19 @@ function searchStage(code,name){
 }
 //学年下拉列表单击方法
 function searchGrade(code,name){
-      //学科下拉列表
-      var subjectResult = ajaxTool.getInfo({"gradeCode":"11"},"/baseData/subject",false);
-      subjectResult.done(function(resultList){
-          var subjectList = resultList.data;
-          if(subjectList)
-          {
-              var subject="";
-              for(var i=0;i<subjectList.length;i++){
-                 subject+="<li><a href='#'  onclick=searchSubject('"+subjectList[i].subjectCode+"','"+subjectList[i].subjectName+"')>"+subjectList[i].subjectName+"</a></li>";
-              }
-              $("#subjectUl").append(subject);
-          }
+    //学科下拉列表
+    $("#subjectUl").empty();
+    var subjectResult = ajaxTool.getInfo({"gradeCode":"11"},"/baseData/subject",false);
+    subjectResult.done(function(resultList){
+        var subjectList = resultList.data;
+        if(subjectList)
+        {
+            var subject="";
+            for(var i=0;i<subjectList.length;i++){
+               subject+="<li><a href='#'  onclick=searchSubject('"+subjectList[i].subjectCode+"','"+subjectList[i].subjectName+"')>"+subjectList[i].subjectName+"</a></li>";
+            }
+            $("#subjectUl").append(subject);
+        }
       });
       gradeCode = code;
       gradeName = name;
@@ -81,6 +84,7 @@ function searchGrade(code,name){
 //学科下拉列表单击方法
 function searchSubject(code,name){
     //教材信息下拉列表
+    $("#bookTypeUl").empty();
     var bookTypeResult = ajaxTool.getInfo({"gradeCode":"11","subjectCode":"2"},"/baseData/bookType",false);
     bookTypeResult.done(function(resultList){
         var bookTyprList = resultList.data;
@@ -125,7 +129,6 @@ function searcherValue(page){
             $("#examination_list").append(examination);
         }
     }else{
-
         var keyWord = $("#keyWord").val();
         var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":page,"pageSize":"10","searchName": "paperName",
                "searchValue":keyWord},"/paper/paperPage",false);
@@ -168,5 +171,6 @@ function firstLink(){
 }
 
 function paperDetail(id){
-      window.location.href="examination-detail.html?id="+id;
+      window.open("examination-detail.html?id="+id);//打开窗口}
+      //window.location.href="examination-detail.html?id="+id;
 }

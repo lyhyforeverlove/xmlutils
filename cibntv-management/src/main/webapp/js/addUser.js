@@ -10,7 +10,7 @@ function saveUser(){
         if(!userName){
             alert.dialog.confirm('请输入用户名！',function(){});
         }else if(!reg.test(userName)){
-            alert.dialog.confirm('您输入的用户名格式不正确！',function(){});
+            alert.dialog.confirm('用户名只能为英文！',function(){});
         }else if(userName.length>16){
             alert.dialog.confirm('用户名过长！',function(){});
         }else if(!initPassword){

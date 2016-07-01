@@ -1,5 +1,6 @@
 var ajaxTool = new AJAXTool();
   $(function(){
+      $("#subjectUl").empty();
       var result = ajaxTool.getInfo({"gradeCode":"11"},"/baseData/subject",false);
       result.done(function(resultList){
           var subjectList = resultList.data;
@@ -81,5 +82,5 @@ var ajaxTool = new AJAXTool();
       }
     //查看详细
     function videoDetail(id){
-         window.location.href="video-detail.html?id="+id;
+         window.open("video-detail.html?id="+id);
     }

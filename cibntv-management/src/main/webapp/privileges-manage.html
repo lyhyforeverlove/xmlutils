@@ -70,11 +70,9 @@
           <thead>
              <tr>
                <th>序号</th>
-              <!-- <th>姓名</th>-->
                <th>用户名</th>
                <th>手机号</th>
                <th>所属部门</th>
-               <!--<th>权限</th>-->
                <th>操作</th>
              </tr>
           </thead>
@@ -100,10 +98,9 @@
             <div class="form-group">
                <label for="firstname" class="control-label">部门名称：</label>
                <div class="btn-group">
-                  <button type="button" class="btn btn-primary" id="departValue">部门</button>
+                  <button type="button" class="btn btn-primary" id="departValue" data-toggle="dropdown">部门</button>
                   <input  type="hidden">
-                  <button type="button" class="btn btn-primary dropdown-toggle"
-                     data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                      <span class="caret"></span>
                      <span class="sr-only">切换下拉菜单</span>
                   </button>
