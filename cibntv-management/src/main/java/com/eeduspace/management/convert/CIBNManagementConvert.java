@@ -249,6 +249,7 @@ public class CIBNManagementConvert {
 		vipPackModel.setVipDesc(vipPack.getVipDesc());
 		vipPackModel.setVipType(vipPack.getVipType());
 		vipPackModel.setUuid(vipPack.getUuid());
+		vipPackModel.setVipTypeDesc(VipPackTypeEnum.getDesc(vipPack.getVipType()));
 		return vipPackModel;
 	}
 
