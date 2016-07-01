@@ -44,8 +44,8 @@
 	</servlet-mapping>
 	
 	<session-config>
-		//sesssion过期时间 ：分钟
-		<session-timeout>30</session-timeout>
+		<!-- sesssion过期时间 ：分钟 -->
+		<session-timeout>5</session-timeout>
 	</session-config>
 
 	<welcome-file-list>
