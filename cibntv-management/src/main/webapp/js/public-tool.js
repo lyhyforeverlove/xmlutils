@@ -27,9 +27,9 @@ var AJAXTool=function(){
               }
             }
             else if(data ==="login.html"){
+               localStorage.clear();
                window.location.href="login.html";
             }
-             console.log(result);
          },
          beforeSend:function(result){
          },
