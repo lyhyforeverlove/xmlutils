@@ -78,7 +78,7 @@ $(function() {
                 $(this).parent().find("p.error").html("真实姓名不能为空！");
                 $(this).parent().find("span.point").addClass("wrong");
                 return false;
-            } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(name)) { //匹配2到四个汉字  
+            } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(name)) { //匹配2到四个汉字
                 $(this).parent().find("p.error").html("真实姓名格式有误！请输入匹配2~4个汉字");
                 $(this).parent().find("span.point").addClass("wrong");
                 return false;
@@ -106,7 +106,7 @@ $(function() {
             "phone": phone
         }).done(function(data) {
             if (data.data == true) {
-                console.log(data.data);
+                //console.log(data.data);
                 $("#userTelTxt").parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
                 $("#userTelTxt").parent().find("span.point").addClass("wrong");
                 return false;
@@ -149,7 +149,7 @@ $(function() {
             "smsCode": yamval
         }).done(function(data) {
             //console.log(data);
-            //验证码正确 
+            //验证码正确
             if (data.data == true) {
                 $("#userYzmTxt").parent().find("span.point").removeClass("wrong").addClass("right");
                 $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
@@ -289,7 +289,7 @@ $(function() {
                         $("#checkCodeBtn").attr("disabled", false);
                         /*$(this).parent().find("span.point").removeClass("wrong").addClass("right");
                         $(this).parent().find("p.error").html("");
-                        
+
                         $("#userYzmTxt").focus();*/
                     }
                 })
@@ -309,9 +309,9 @@ $(function() {
                         if(yzm.length == 0 ){
                             alert("验证码不能为空！");
                         }else{
-                           isCorrectCode(telValue, yzm); 
+                           isCorrectCode(telValue, yzm);
                         }
-                        
+
                     })
                     //修改手机号完成
                 $("#wanBtn").click(function() {
@@ -373,7 +373,7 @@ $(function() {
             if (pwd != userPwd) {
                alert("旧密码输入不正确！");
             }
-               
+
         })
         $("#updNewPwd").blur(function(){
             var pwd = $(this).val();
@@ -447,7 +447,7 @@ function login(userName, password) {
             localStorage.setItem("userName", userName);
             localStorage.setItem("userPwd", password);
 
-            var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
+            var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否
 
             if (flag == true) {
                 url = "login-enter.html";
@@ -477,12 +477,12 @@ function login(userName, password) {
         }
     })
 }
-    
+
 var person = localStorage.getItem("permissionModels");
     var jsonPerson = JSON.parse(person);
-    
+
     //console.log(jsonPerson);
-   
+
 
     function indexShow() {
 
