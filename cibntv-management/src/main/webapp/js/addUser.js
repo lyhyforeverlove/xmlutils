@@ -1,27 +1,43 @@
 var ajaxTool = new AJAXTool();
+var reg = new RegExp("^[A-Za-z0-9]+$");
 //保存用户信息
 function saveUser(){
-       var reg = new RegExp("^[A-Za-z0-9]+$");
         var userName = $("#userName").val();//用户名
         var initPassword = $("#initPassword").val();//初始密码
         var uuid = $(".btn-group").find("input").val();
         var rName = $("#departValue").html();
 
         if(!userName){
-            alert.dialog.confirm('请输入用户名！',function(){});
+            alert.dialog.confirm('请输入用户名！',function(){
+              $("#userName").focus();
+            });
         }else if(!reg.test(userName)){
-            alert.dialog.confirm('用户名只能为英文！',function(){});
-        }else if(userName.length>16){
-            alert.dialog.confirm('用户名过长！',function(){});
+            alert.dialog.confirm('用户名只能为字母、数字，不能包含中文和特殊字符！',function(){
+              $("#userName").focus();
+            });
+        }else if(userName.length<6){
+            alert.dialog.confirm('用户名不能小于6位！',function(){
+               $("#userName").focus();
+            });
+        }else   if(userName.length>16){
+            alert.dialog.confirm('用户名不能大于16位！',function(){
+               $("#userName").focus();
+            });
         }else if(!initPassword){
             alert.dialog.confirm('请输入初始密码！',function(){});
         }
         else if(!reg.test(initPassword)){
-            alert.dialog.confirm('您输入的密码格式不正确！',function(){});
+            alert.dialog.confirm('您输入的密码格式不正确！',function(){
+                $("#initPassword").focus();
+            });
         }else if(initPassword.length<6){
-            alert.dialog.confirm('您输入的密码过短！',function(){});
+            alert.dialog.confirm('您输入的密码过短！',function(){
+                $("#initPassword").focus();
+            });
         }else if(initPassword.length>16){
-            alert.dialog.confirm('您输入的密码过长！',function(){});
+            alert.dialog.confirm('您输入的密码过长！',function(){
+                $("#initPassword").focus();
+            });
         }else if(!uuid){
             alert.dialog.confirm('请选择所属部门！',function(){});
         }
@@ -65,10 +81,22 @@ function saveUser(){
          var result = ajaxTool.getInfo({"name":userName},"/manager/validateName",false);
          result.done(function(resultList){
            var str="";
-           if(resultList.data === null){
+           if(!userName){
+               str="<img src='images/disabled.png'><label class='error'>用户名不能为空</label>";
+               $("#userName").focus();
+           }else if(!reg.test(userName)){
+               str="<img src='images/disabled.png'><label class='error'>用户名只能为字母、数字，不能包含中文和特殊字符！</label>";
+               $("#userName").focus();
+           }else if(userName.length<6){
+               str="<img src='images/disabled.png'><label class='error'>用户名不能小于6位！</label>";
+               $("#userName").focus();
+           }else   if(userName.length>16){
+               str="<img src='images/disabled.png'><label class='error'>用户名不能大于16位！</label>";
+               $("#userName").focus();
+           }else if(resultList.data === null){
               str="<img src='images/disabled.png'><label class='error'>用户名已占用</label>";
-           }
-           else{
+               ("#userName").focus();
+           }else{
               str="<img src='images/available.png'><label class='remind'>用户名可注册</label>";
            }
            $("#userNameDiv").append(str);

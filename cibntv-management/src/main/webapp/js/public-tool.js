@@ -1,12 +1,13 @@
 //ajax 封装方法
 var AJAXTool=function(){
-   this.apiPath = "http://192.168.1.12:8180/action";
+   this.apiPath = "http://192.168.1.35:8070/cibntv-management/action";
    //获取列表页面
    this.getInfo = function(paramsObj,url,bool){
      var new_url = this.apiPath +url;
      var data = {'api_url':new_url};
      return this.ajaxFun(data,paramsObj,bool);
    };
+
    this.ajaxFun = function(data,paramsObj,bool)
    {
        var api_url = data.api_url ? data.api_url : "";
@@ -16,10 +17,21 @@ var AJAXTool=function(){
          data:paramsObj,
          dataType:"json",
          traditional:bool,
-         context:this,
+         success:function(result){
+           var data = result.data;
+           console.log(data);
+           //result.data  如果false 没有权限   提示页面
+            //result.data  如果为login.html就是session过期  直接跳到login.html
+            if(!data){
+               alert("您没有访问此功能模块的权限");
+            }
+            else if(data ==="login.html"){
+               window.location.href="login.html";
+            }
+             console.log(result);
+         },
          beforeSend:function(result){
-              console.log(result.responseText);
-          },
+         },
          error:function(XMLHttpRequest,textStatus){
          }
        });

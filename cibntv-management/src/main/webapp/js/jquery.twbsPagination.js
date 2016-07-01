@@ -40,13 +40,13 @@
                     break;
             }
 
-            if (this.options.startPage < 1 || this.options.startPage > this.options.totalPages) {
-                throw new Error('Start page option is incorrect');
-            }
+            //if (this.options.startPage < 1 || this.options.startPage > this.options.totalPages) {
+                //throw new Error('Start page option is incorrect');
+            //}
 
-            if (this.options.totalPages <= 0) {
-                throw new Error('Total pages option cannot be less 1 (one)!');
-            }
+            //if (this.options.totalPages <= 0) {
+                //throw new Error('Total pages option cannot be less 1 (one)!');
+            //}
 
             if (!$.isNumeric(this.options.visiblePages) && !this.options.visiblePages) {
                 this.options.visiblePages = this.options.totalPages;
