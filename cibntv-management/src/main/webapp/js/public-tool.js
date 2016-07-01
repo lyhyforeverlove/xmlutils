@@ -1,13 +1,12 @@
 //ajax 封装方法
 var AJAXTool=function(){
-   this.apiPath = "action";
+   this.apiPath = "http://192.168.1.12:8180/action";
    //获取列表页面
    this.getInfo = function(paramsObj,url,bool){
      var new_url = this.apiPath +url;
      var data = {'api_url':new_url};
      return this.ajaxFun(data,paramsObj,bool);
    };
-
    this.ajaxFun = function(data,paramsObj,bool)
    {
        var api_url = data.api_url ? data.api_url : "";
@@ -17,6 +16,7 @@ var AJAXTool=function(){
          data:paramsObj,
          dataType:"json",
          traditional:bool,
+         context:this,
          success:function(result){
            var data = result.data;
             //result.data  如果false 没有权限   提示页面
@@ -32,7 +32,7 @@ var AJAXTool=function(){
             }
          },
          beforeSend:function(result){
-         },
+          },
          error:function(XMLHttpRequest,textStatus){
          }
        });
