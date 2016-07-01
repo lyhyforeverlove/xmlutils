@@ -102,23 +102,24 @@ $(function() {
             $(this).parent().find("p.error").html("手机号格式有误,请重新输入！11位数字");
             $(this).parent().find("span.point").addClass("wrong");
             return false;
-        } else {
-            api.checkPhone({
-                "phone": phone
-            }).done(function(data) {
-                //console.log(data);
-                if (data.data == true) {
-                    $(this).parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
-                    $(this).parent().find("span.point").addClass("wrong");
-                    return false;
-                }
-            })
-            $(this).parent().find("span.point").removeClass("wrong").addClass("right");
-            $(this).parent().find("p.error").html("");
-            $("#sendCodeBtn").css("background", "#5878f5");
-            $("#sendCodeBtn").attr("disabled", false);
-            $("#userYzmTxt").focus();
-        }
+        } 
+
+        api.checkPhone({
+            "phone": phone
+        }).done(function(data) {
+            if (data.data == true) {
+                console.log(data.data);
+                $("#userTelTxt").parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
+                $("#userTelTxt").parent().find("span.point").addClass("wrong");
+                return false;
+            }
+        })
+        $(this).parent().find("span.point").removeClass("wrong").addClass("right");
+        $(this).parent().find("p.error").html("");
+        $("#sendCodeBtn").css("background", "#5878f5");
+        $("#sendCodeBtn").attr("disabled", false);
+        $("#userYzmTxt").focus();
+    
 
     });
     //用户输入验证码 验证是否正确
