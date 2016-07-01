@@ -490,26 +490,26 @@ var person = localStorage.getItem("permissionModels");
 
         $("#indexMenuBox").empty();
         $.each(jsonPerson, function(index, item) {
-            //console.log(value.name);
-            $("#indexMenuBox").append('<li id=' + index + '><a href=""><div class="menu-box-icon"><i></i></div><h3><a href="">' + item.name + '</a></h3></a></li>');
+            console.log(jsonPerson);
+            $("#indexMenuBox").append('<li id='+item.id+'><a href="" class="linkA"><div class="menu-box-icon"><i></i></div><h3>'+ item.name + '</h3></a></li>');
             if (item.name == "用户管理") {
-                $("#0").find(".menu-box-icon").addClass("user-manage");
-                $("#0").find("a").attr("href", "usermanage.html");
+                $("#1").find(".menu-box-icon").addClass("user-manage");
+                $("#1").find("a.linkA").attr("href", "usermanage.html");
             } else if (item.name == "订单管理") {
-                $("#1").find(".menu-box-icon").addClass("order-manage");
-                $("#1").find("a").attr("href", "ordermanage1.html");
+                $("#2").find(".menu-box-icon").addClass("order-manage");
+                $("#2").find("a.linkA").attr("href", "ordermanage1.html");
             } else if (item.name == "VIP管理") {
-                $("#2").find(".menu-box-icon").addClass("vip-manage");
-                $("#2").find("a").attr("href", "vipmanage.html");
+                $("#3").find(".menu-box-icon").addClass("vip-manage");
+                $("#3").find("a.linkA").attr("href", "vipmanage.html");
             } else if (item.name == "试卷管理") {
-                $("#3").find(".menu-box-icon").addClass("test-manage");
-                $("#3").find("a").attr("href", "examination-manage.html ");
+                $("#4").find(".menu-box-icon").addClass("test-manage");
+                $("#4").find("a.linkA").attr("href", "examination-manage.html ");
             } else if (item.name == "视频管理") {
-                $("#4").find(".menu-box-icon").addClass("video-manage");
-                $("#4").find("a").attr("href", "video.html");
+                $("#5").find(".menu-box-icon").addClass("video-manage");
+                $("#5").find("a.linkA").attr("href", "video.html");
             } else if (item.name == "权限管理") {
-                $("#5").find(".menu-box-icon").addClass("power-manage");
-                $("#5").find("a").attr("href", "privileges-manage.html");
+                $("#6").find(".menu-box-icon").addClass("power-manage");
+                $("#6").find("a.linkA").attr("href", "privileges-manage.html");
             }
         });
 
