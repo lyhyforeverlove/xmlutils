@@ -14,6 +14,7 @@ public class VipPackModel {
 	private String discountEndDate;
 	private String backgroundimg;
 	private Double vipSale;
+	private String vipTypeDesc;
 	/**
 	 * 是否  获取全部vip包  true 是  false 否
 	 */
@@ -99,5 +100,11 @@ public class VipPackModel {
 	}
 	public void setIsAll(Boolean isAll) {
 		this.isAll = isAll;
+	}
+	public String getVipTypeDesc() {
+		return vipTypeDesc;
+	}
+	public void setVipTypeDesc(String vipTypeDesc) {
+		this.vipTypeDesc = vipTypeDesc;
 	}
 }
