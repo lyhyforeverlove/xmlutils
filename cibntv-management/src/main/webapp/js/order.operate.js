@@ -77,12 +77,14 @@ $(function() {
     })   
   $("#searchOrderBtn1").click(function() {
         var searchText;
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
         if (val == 0) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null); 
+            getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null,startDate,endDate); 
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText); 
+            getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText,startDate,endDate); 
         }  
     })  
     /*
