@@ -99,13 +99,13 @@ public class VipBuyRecordServiceImpl implements VipBuyRecordService{
 			public Predicate toPredicate(Root<VipBuyRecord> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				   List<Predicate> predicate = new ArrayList<>();
-	                if(orderQueryModel.getMobile()!=null){
+	                if(StringUtils.isNotBlank(orderQueryModel.getMobile())){
 	                	//JoinuserJoin = root.join(root.getModel().getSingularAttribute("user",User.class),JoinType.LEFT);
 	                	//predicate.add(cb.like(userJoin.get("nickname").as(String.class), "%" + searchArticle.getNickname() + "%"));
 	                	Join<VipBuyRecord, UserPo> userJoin=root.join(root.getModel().getSingularAttribute("userPo",UserPo.class),JoinType.LEFT);
 	                	predicate.add(cb.like(userJoin.get("mobile").as(String.class), "%" + orderQueryModel.getMobile() + "%"));
 	                }
-	                if(orderQueryModel.getOrderSn()!=null){
+	                if(StringUtils.isNotBlank(orderQueryModel.getOrderSn())){
 	                	predicate.add(cb.like(root.get("orderSN").as(String.class), "%"+orderQueryModel.getOrderSn()+"%"));
 	                }
 	                if(orderQueryModel.getIsDel()!=null){

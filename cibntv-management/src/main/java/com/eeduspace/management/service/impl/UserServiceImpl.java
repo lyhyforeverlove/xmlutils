@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService{
 			public Predicate toPredicate(Root<UserPo> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicate = new ArrayList<>();
-				if (userQueryModel.getMobile() != null) {
+				if (StringUtils.isNotBlank(userQueryModel.getMobile())) {
 					predicate.add(cb.like(root.get("mobile").as(String.class),
 							"%" + userQueryModel.getMobile() + "%"));
 				}
