@@ -80,7 +80,7 @@ $(function() {
                 $(this).parent().find("p.error").html("真实姓名不能为空！");
                 $(this).parent().find("span.point").addClass("wrong");
                 return false;
-            } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(name)) { //匹配2到四个汉字  
+            } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(name)) { //匹配2到四个汉字
                 $(this).parent().find("p.error").html("真实姓名格式有误！请输入匹配2~4个汉字");
                 $(this).parent().find("span.point").addClass("wrong");
                 return false;
@@ -150,7 +150,7 @@ $(function() {
             "smsCode": yamval
         }).done(function(data) {
             //console.log(data);
-            //验证码正确 
+            //验证码正确
             if (data.data == true) {
                 $("#userYzmTxt").parent().find("span.point").removeClass("wrong").addClass("right");
                 $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
@@ -249,7 +249,7 @@ $(function() {
         }).done(function(data) {
             //console.log(data);
             var dataUserObj = data.data;
-            
+
             $("#personInfo").append('<tr><th>真实姓名：</th><td>' + dataUserObj.realName + '</td></tr><tr><th>手机号:</th><td><span id="telValue">' + dataUserObj.phone + '</span></td><td ><button style="margin-left:20px;" type="submit" class="tip-bottom" title="" id="replaceBtn"><i>更换手机号</i></button></td></tr><tr><th>所属部门：</th><td>' + dataUserObj.rName + '</td></tr>');
             $("#replaceBtn").click(function() {
 
@@ -290,7 +290,7 @@ $(function() {
                         $("#checkCodeBtn").attr("disabled", false);
                         /*$(this).parent().find("span.point").removeClass("wrong").addClass("right");
                         $(this).parent().find("p.error").html("");
-                        
+
                         $("#userYzmTxt").focus();*/
                     }
                 })
@@ -310,9 +310,9 @@ $(function() {
                         if(yzm.length == 0 ){
                             alert("验证码不能为空！");
                         }else{
-                           isCorrectCode(telValue, yzm); 
+                           isCorrectCode(telValue, yzm);
                         }
-                        
+
                     })
                     //修改手机号完成
                 $("#wanBtn").click(function() {
@@ -374,7 +374,7 @@ $(function() {
             if (pwd != userPwd) {
                alert("旧密码输入不正确！");
             }
-               
+
         })
         $("#updNewPwd").blur(function(){
             var pwd = $(this).val();
@@ -448,7 +448,7 @@ function login(userName, password) {
             localStorage.setItem("userName", userName);
             localStorage.setItem("userPwd", password);
 
-            var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否         
+            var flag = dataObj.isFirst; //判断用户是否第一次登录 true 是 false 否
 
             if (flag == true) {
                 url = "login-enter.html";
@@ -478,12 +478,12 @@ function login(userName, password) {
         }
     })
 }
-    
+
 var person = localStorage.getItem("permissionModels");
     var jsonPerson = JSON.parse(person);
-    
+
     //console.log(jsonPerson);
-   
+
 
     function indexShow() {
 
