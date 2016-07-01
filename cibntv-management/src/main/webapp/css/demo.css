@@ -149,7 +149,10 @@
 
 .content-top{
     margin:20px;
-}    
+}  
+.content-top .datebox{
+    display:inline-block;
+}  
 .content{
 }
 /*Condition Search input */

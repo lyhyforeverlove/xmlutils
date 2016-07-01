@@ -90,6 +90,13 @@ $(function() {
             "size": size,
             "mobile": searchMobile
         }).done(function(data) {
+            
+            /*if(data.data == false){
+                console.log("没有权限");
+            }else if(data.data == "login.html"){
+                localStorage.clear();
+                api.windowLogin();
+            }*/
 
             totalRecords = data.totalRecords;
 

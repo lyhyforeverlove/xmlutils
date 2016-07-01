@@ -1,7 +1,6 @@
 var API = function(){	
 	//api地址
 	this.apiPath = "http://192.168.1.12:8180/action";
-	this.apiPath1 = "http://192.168.1.12:8180";
 	//用户列表信息
 	this.getUserInfo = function(paramsObj){
 		var params = {
@@ -230,7 +229,20 @@ var API = function(){
 			context:this,
 			beforeSend:function(){
 
-			 },		
+			 },	
+			success:function(data){
+				/*
+			    *判断管理员是否具有权限，如果没有提示没有权限
+			    *判断管理员登录 30分钟 提示session已经过期
+			    */
+		        if(data.data == false){
+		           alert("您没有访问权限！");
+		        }else if(data.data == "login.html"){
+		            localStorage.clear();
+		            window.location.href = "login.html";
+		        }
+			     
+			}	
 			error:function(XMLHttpRequest,textStatus){
 				//showTips(this.api_error+textStatus);
 			}

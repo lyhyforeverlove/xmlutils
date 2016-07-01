@@ -34,7 +34,7 @@ $(function() {
          *VIP包打折操作
          */
     $("#DiscountVipBtn").click(function() {
-        str = '<form method="post" id="formid" name="form"><div id="addbox"><p><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="discountStartDate" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="discountEndDate" id="endDate1" /></div></p><p>VIP方案<select name="uuid" id="vipType"/><option value="all">全部</option></select></p><p>&nbsp;&nbsp;&nbsp;折扣&nbsp;&nbsp;<select name="vipSale"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></p></div>';
+      str = '<form method="post" id="formid" name="form"><div id="addbox"><div class="input-daterange input-group" id="datepicker"><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="discountStartDate" id="startDate1" /><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="discountEndDate" id="endDate1" /></div><p>VIP方案<select name="uuid" id="vipType"/><option value="all">全部</option></select></p><p>&nbsp;&nbsp;&nbsp;折扣&nbsp;&nbsp;<select name="vipSale"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></p></div></form>';
 
         Prompt.init({
             title: "打折活动",
@@ -48,11 +48,9 @@ $(function() {
         var viptype = $("#addbox").find("#vipType"); //存放vip方案
         vipPackSelect(viptype);//VIP方案数据函数
 
-
         //时间插件配置参数
         $('.input-daterange').datepicker({
             language: "zh-CN",
-            format: 'yyyy-mm-dd',
             autoclose: true,
             todayBtn: "linked", //当天日期
             pickerPosition: "bottom-left",
@@ -149,8 +147,9 @@ function initVipPackList(state, flag ,isAllFlag) {
                    var discountPrice = (vipSale * price ) / 10;
                   
                // discountPrice
+                var httpUrl = location.origin; //读取一级域名
 
-                $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + api.apiPath1 +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
+                $("#list").append('<div class="sale" id=' + item.uuid + '><a href="#"><img src=' + httpUrl +'/'+ item.backgroundimg + ' /></a><p style="position:relative;width:240px;"><span class="vipPrice"><em>' + item.vipPrice + '</em>元</span><a class="state del" id="del' + item.uuid + '">' + state + '</a></p><p style="display:block;font-size:22px;color:#ff6666;margin:6px 0;" class="disPrice">折后价：<em>' + discountPrice+ '</em>元</p><p style="font-size:16px;color:#999;" class="actTime">活动时间：<span class="disStartDate">' + item.discountStartDate + '</span>-<span class="disEndDate"">' + item.discountEndDate + '</span></p></div>');
 
                  
 
