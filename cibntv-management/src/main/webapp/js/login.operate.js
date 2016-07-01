@@ -12,20 +12,15 @@ $(function() {
     /*
      *用户登录
      */
-
     $("#login-btn").click(function() {
-            var userName = $("#userName").val();
-            var password = $("#password").val();
-            if (userName == "" || password == "") {
-                $(".errorInfo").html("用户名或密码不能为空!");
-                return false;
-            }
-
-            login(userName, password);
-
-        })
-
-
+        var userName = $("#userName").val();
+        var password = $("#password").val();
+        if (userName == "" || password == "") {
+            $(".errorInfo").html("用户名或密码不能为空!");
+            return false;
+        }
+        login(userName, password);
+    })
     /*
      *第一次登录 填写信息
      *真实姓名一旦确定无法修改，慎重
@@ -33,47 +28,50 @@ $(function() {
     var userUuid1 = localStorage.getItem("uuid_id");
 
     var firstLoginBtn = $("#firstLoginBtn");
-    firstLoginBtn.click(function() {
+    function firstLogin(){
+        var nameVal = $("#userNameTxt").val();
+        var telVal = $("#userTelTxt").val();
+        var yzmVal = $("#userYzmTxt").val();
+        var newPwdVal = $("#userNewPwd").val();
+        var userQrPwd = $("#userQrPwd").val();
 
-            var nameVal = $("#userNameTxt").val();
-            var telVal = $("#userTelTxt").val();
-            var yzmVal = $("#userYzmTxt").val();
-            var newPwdVal = $("#userNewPwd").val();
-            var userQrPwd = $("#userQrPwd").val();
-
-            if (nameVal.length == 0 || telVal.length == 0 || yzmVal.length == 0 || newPwdVal.length == 0 || userQrPwd.length == 0) {
-                alert("请输入第一次登录绑定信息！");
-            } else {
-                Prompt.init({
-                    title: " ",
-                    height: 320,
-                    html: "<img src='images/warn.png' /><p class='txt'>真是姓名一点确认无法修改，请慎重。</p>",
-                    ConfirmFun: determineLogin,
-                    CancelFun: cancel
-                });
-                //确定登录
-                function determineLogin() {
-                    api.manageReplace({
-                        "uuid": userUuid1,
-                        "realName": nameVal,
-                        "phone": telVal,
-                        "password": newPwdVal
-                    }).done(function(data) {
-                        if (data.data != null) {
-                            /*var url = "/cibn/webapp/login.html";
-                            api.windowOpen(url);*/
-                            api.windowLogin();
-                        }
-                    })
-                }
-
-                function cancel() {
-                   // alert("取消绑定登录信息");
-                }
-
+        if (nameVal.length == 0 || telVal.length == 0 || yzmVal.length == 0 || newPwdVal.length == 0 || userQrPwd.length == 0) {
+            alert("请输入第一次登录绑定信息！");
+        } else {
+            Prompt.init({
+                title: " ",
+                height: 320,
+                html: "<img src='images/warn.png' /><p class='txt'>真实姓名一旦确认无法修改，请慎重。</p>",
+                ConfirmFun: determineLogin,
+                CancelFun: cancel
+            });
+            //确定登录
+            function determineLogin() {
+                api.manageReplace({
+                    "uuid": userUuid1,
+                    "realName": nameVal,
+                    "phone": telVal,
+                    "password": newPwdVal
+                }).done(function(data) {
+                    if (data.data != null) {
+                        /*var url = "/cibn/webapp/login.html";
+                        api.windowOpen(url);*/
+                        api.windowLogin();
+                    }
+                })
             }
-        })
-        //真实姓名验证(首次登录绑定真实姓名)
+            function cancel() {
+               // alert("取消绑定登录信息");
+            }
+        }
+    }
+    //第一次绑定基本信息 Enter登录
+    $("#loginform #userQrPwd").keypress(function (e) {
+        if (e.keyCode == 13){ //键码值是13 Enter
+           firstLogin();
+        }
+    })
+    //真实姓名验证(首次登录绑定真实姓名)
     $("#userNameTxt").blur(function() {
             var name = $("#userNameTxt").val();
             if (name.length == 0) {
@@ -108,7 +106,7 @@ $(function() {
             "phone": phone
         }).done(function(data) {
             if (data.data == true) {
-                console.log(data.data);
+                //console.log(data.data);
                 $("#userTelTxt").parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
                 $("#userTelTxt").parent().find("span.point").addClass("wrong");
                 return false;
@@ -417,7 +415,7 @@ $(function() {
     });
 
     //密码框按下的时候 判断键值Enter 登录
-    $("#loginform input[type='password']").keypress(function (e) {
+    $("#loginform .userPwd").keypress(function (e) {
         if (e.keyCode == 13){ //键码值是13 Enter
             var userName = $("#userName").val();
             var password = $("#password").val();

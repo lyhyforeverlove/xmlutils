@@ -22,14 +22,13 @@ function pagination(container, callback, currentPage, pageCount){
 
        //点击事件，用于通过Ajax来刷新整个list列表
         onPageClicked : callback
-        /*function(event, originalEvent, type, page)*/
     };
     $('#'+container).bootstrapPaginator(options);
 }
 var uuid = localStorage.getItem("uuid_id");
 //console.log(uuid);
 if(uuid ==  null || uuid == "undefined"){
-    //alert("用户没有登录，无法访问页面,跳转登录页面！");
+    //用户没有登录，无法访问页面,跳转登录页面！
     window.location.href="login.html";
 }
 //所有页面右上角显示
@@ -44,7 +43,6 @@ function indexPage(name) {
 
     //退出登录
     $("#logout").click(function() {
-        //console.log("退出登录");
         var api = new API();
         logout(); //注销
 
@@ -62,3 +60,4 @@ function logout() {
         console.log("data");
     })
 }
+
