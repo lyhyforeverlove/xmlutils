@@ -26,6 +26,7 @@ $(function() {
 
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
+            
 
             getOrderInfoList(1, 10, "VIP",null,null,startDate,endDate);
         });
@@ -62,12 +63,16 @@ $(function() {
     */
     $("#searchOrderBtn").click(function() {
         var searchText;
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        //console.log(startDate,endDate);
         if (val == 0) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"VIP",searchText,null); 
+            
+            getOrderInfoList(1,10,"VIP",searchText,null,startDate,endDate); 
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"VIP",null,searchText); 
+            getOrderInfoList(1,10,"VIP",null,searchText,startDate,endDate); 
         }  
     })   
   $("#searchOrderBtn1").click(function() {
@@ -190,6 +195,9 @@ function getList(data, size, page) {
             $("#list tbody").append(
             "<tr><td>" + (index + 1) + "</td><td>" + item.orderSn + "</td><td>" + item.transactionId + "</td><td>" + item.mobile +"</td><td>" + item.orderPrice + "</td><td>" + item.payType + "</td><td>" + item.buyDate + "</td><td>" + item.orderState + "</td></tr>");
         }else if(item.buyType == "DIAGNOSTIC"){
+            if(item.buyType == "DIAGNOSTIC"){
+                item.buyType = "诊断订单";
+            }
             $("#list tbody").append(
             "<tr><td>" + (index + 1) + "</td><td>" + item.orderSn + "</td><td>" + item.transactionId + "</td><td>" + item.mobile +"</td><td>" + item.buyType + "</td><td>" + item.orderName + "</td><td>" + item.orderPrice + "</td><td>" + item.payType + "</td><td>" + item.buyDate + "</td><td>" + item.orderState + "</td></tr>");
         }

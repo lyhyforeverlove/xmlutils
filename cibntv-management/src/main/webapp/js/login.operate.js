@@ -68,7 +68,7 @@ $(function() {
                 }
 
                 function cancel() {
-                    alert("取消绑定登录信息");
+                   // alert("取消绑定登录信息");
                 }
 
             }
@@ -108,7 +108,6 @@ $(function() {
             }).done(function(data) {
                 //console.log(data);
                 if (data.data == true) {
-                    alert("");
                     $(this).parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
                     $(this).parent().find("span.point").addClass("wrong");
                     return false;
@@ -141,7 +140,7 @@ $(function() {
         api.getCheckcode({
             "phone": telval
         }).done(function(data) {
-            console.log(data); //返回验证码 (495277)
+            //console.log(data); //返回验证码 (495277)
         })
     }
     //验证码是否正确
@@ -250,7 +249,7 @@ $(function() {
         }).done(function(data) {
             //console.log(data);
             var dataUserObj = data.data;
-
+            
             $("#personInfo").append('<tr><th>真实姓名：</th><td>' + dataUserObj.realName + '</td></tr><tr><th>手机号:</th><td><span id="telValue">' + dataUserObj.phone + '</span></td><td ><button style="margin-left:20px;" type="submit" class="tip-bottom" title="" id="replaceBtn"><i>更换手机号</i></button></td></tr><tr><th>所属部门：</th><td>' + dataUserObj.rName + '</td></tr>');
             $("#replaceBtn").click(function() {
 
@@ -490,7 +489,7 @@ var person = localStorage.getItem("permissionModels");
 
         $("#indexMenuBox").empty();
         $.each(jsonPerson, function(index, item) {
-            console.log(jsonPerson);
+            //console.log(jsonPerson);
             $("#indexMenuBox").append('<li id='+item.id+'><a href="" class="linkA"><div class="menu-box-icon"><i></i></div><h3>'+ item.name + '</h3></a></li>');
             if (item.name == "用户管理") {
                 $("#1").find(".menu-box-icon").addClass("user-manage");
