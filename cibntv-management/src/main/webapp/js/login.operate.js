@@ -26,7 +26,8 @@ $(function() {
      *真实姓名一旦确定无法修改，慎重
      */
     var userUuid1 = localStorage.getItem("uuid_id");
-
+    $(".login_btn_box #firstLoginBtn").css("background-color","#ccc")
+;
     var firstLoginBtn = $("#firstLoginBtn");
     function firstLogin(){
         var nameVal = $("#userNameTxt").val();
@@ -71,6 +72,21 @@ $(function() {
            firstLogin();
         }
     })
+    //第一次登录点击进入
+    firstLoginBtn.click(function(){
+        firstLogin();
+    })
+    function checkNull(){
+        var nameVal = $("#userNameTxt").val();
+        var telVal = $("#userTelTxt").val();
+        var yzmVal = $("#userYzmTxt").val();
+        var newPwdVal = $("#userNewPwd").val();
+        var userQrPwd = $("#userQrPwd").val();    
+        if (nameVal.length != 0 && telVal.length != 0 && yzmVal.length != 0 && newPwdVal.length != 0 && userQrPwd.length != 0){
+            $(".login_btn_box #firstLoginBtn").css("background-color","#5878f5");
+        }
+    }
+    
     //真实姓名验证(首次登录绑定真实姓名)
     $("#userNameTxt").blur(function() {
             var name = $("#userNameTxt").val();
@@ -86,9 +102,11 @@ $(function() {
                 $(this).parent().find("span.point").removeClass("wrong").addClass("right");
                 $(this).parent().find("p.error").html("");
                 $("#userTelTxt").focus();
+
+                checkNull();
             }
         })
-        //管理员手机号唯一性验证(首次登录绑定手机号)
+    //管理员手机号唯一性验证(首次登录绑定手机号)
     $("#userTelTxt").blur(function() {
         var phone = $(this).val();
         if (phone.length == 0) {
@@ -101,26 +119,29 @@ $(function() {
             $(this).parent().find("span.point").addClass("wrong");
             return false;
         } 
+        else{
+            api.checkPhone({
+                "phone": phone
+            }).done(function(data) {
+                if (data.data == true) {
+                    console.log(data.data);
+                    $("#userTelTxt").parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
+                    $("#userTelTxt").parent().find("span.point").addClass("wrong");
+                    return false;
+                }else{
+                    $("#userTelTxt").parent().find("span.point").removeClass("wrong").addClass("right");
+                    $("#userTelTxt").parent().find("p.error").html("");    
+                    $("#sendCodeBtn").css("background", "#5878f5");
+                    $("#sendCodeBtn").attr("disabled", false);
+                    $("#userYzmTxt").focus();      
 
-        api.checkPhone({
-            "phone": phone
-        }).done(function(data) {
-            if (data.data == true) {
-                //console.log(data.data);
-                $("#userTelTxt").parent().find("p.error").html("该手机号已经存在,请更换为别的手机号");
-                $("#userTelTxt").parent().find("span.point").addClass("wrong");
-                return false;
-            }
-        })
-        $(this).parent().find("span.point").removeClass("wrong").addClass("right");
-        $(this).parent().find("p.error").html("");
-        $("#sendCodeBtn").css("background", "#5878f5");
-        $("#sendCodeBtn").attr("disabled", false);
-        $("#userYzmTxt").focus();
-    
+                    checkNull();
+                }
+            })
+        }
 
     });
-    //用户输入验证码 验证是否正确
+     //用户输入验证码 验证是否正确
     $("#userYzmTxt").blur(function() {
             var telVal = $("#userTelTxt").val();
             var yzmVal = $("#userYzmTxt").val();
@@ -154,6 +175,8 @@ $(function() {
                 $("#userYzmTxt").parent().find("span.point").removeClass("wrong").addClass("right");
                 $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
                 $("#userNewPwd").focus();
+
+                checkNull();
             } else {
                 $("#userYzmTxt").parent().find("span.point").removeClass("right").addClass("wrong");
                 $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
@@ -215,6 +238,8 @@ $(function() {
             $(this).parent().find("p.error").html("");
             $(this).parent().find("span.point").removeClass("wrong").addClass("right");
             $("#userQrPwd").focus();
+
+            checkNull();
         })
         //确认密码验证
     $("#userQrPwd").blur(function() {
@@ -237,6 +262,8 @@ $(function() {
         }
         $(this).parent().find("p.error").html("");
         $(this).parent().find("span.point").removeClass("wrong").addClass("right");
+
+        checkNull();
     })
 
     /*获取个人中心信息展示*/
@@ -252,14 +279,11 @@ $(function() {
             $("#personInfo").append('<tr><th>真实姓名：</th><td>' + dataUserObj.realName + '</td></tr><tr><th>手机号:</th><td><span id="telValue">' + dataUserObj.phone + '</span></td><td ><button style="margin-left:20px;" type="submit" class="tip-bottom" title="" id="replaceBtn"><i>更换手机号</i></button></td></tr><tr><th>所属部门：</th><td>' + dataUserObj.rName + '</td></tr>');
             $("#replaceBtn").click(function() {
 
-                //var telValue=$("#telValue").html();
-                //var newTel=telValue.slice(0,3)+'****'+telValue.slice(8,11);
-
                 Prompt.init({
                     title: "更换手机号",
                     width: 480,
                     height: 320,
-                    html: "<div id='updTelbox'><div class='form-group'><label class='label'>新手机号：</label><input type='tel' value=''  id='newTel' class='form-control' style='width:180px;float:left;'/><button id='checkCodeBtn' class='tip-bottom1'><i>获取验证码</i></button></div><div class='form-group'><label class='label'>验证码：</label><input type='text' class='yzmVal form-control' style='width:180px;' /></div><button class='tip-bottom1' id='wanBtn' style='margin-top:50px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
+                    html: "<div id='updTelbox'><div class='form-group'><label class='label'>新手机号：</label><input type='tel' value=''  id='newTel' class='form-control' style='width:180px;float:left;'/><button id='checkCodeBtn' class='tip-bottom1'><i>获取验证码</i></button></div><div class='form-group'><label class='label'>验证码：</label><input type='text' class='yzmVal form-control' style='width:180px;' /></div><div class='errorInfo'></div><button class='tip-bottom1' id='wanBtn' style='margin-top:50px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
 
                 });
 
@@ -269,11 +293,11 @@ $(function() {
                 $("#newTel").blur(function(){
                     var phone = $(this).val();
                     if (phone.length == 0) {
-                        alert("手机号不能为空");
+                        $("#updTelbox").find(".errorInfo").html("手机号不能为空");
                         return false;
                     }
                     if (!(/^1[3|4|5|7|8]\d{9}$/).test(phone)) {
-                        alert("手机号格式有误,请重新输入！11位数字");
+                         $("#updTelbox").find(".errorInfo").html("手机号格式有误,请重新输入！11位数字");
                         return false;
                     } else {
                         api.checkPhone({
@@ -281,16 +305,14 @@ $(function() {
                         }).done(function(data) {
                             //console.log(data);
                             if (data.data == true) {
-                                alert("该手机号已经存在,请更换为别的手机号");
+                                $("#updTelbox").find(".errorInfo").html("该手机号已经存在,请更换为别的手机号");
                                 return false;
+                            }else{
+                                $("#updTelbox").find(".errorInfo").html("");
+                                $("#checkCodeBtn").css("background", "#5878f5");
+                                $("#checkCodeBtn").attr("disabled", false);
                             }
                         })
-                        $("#checkCodeBtn").css("background", "#5878f5");
-                        $("#checkCodeBtn").attr("disabled", false);
-                        /*$(this).parent().find("span.point").removeClass("wrong").addClass("right");
-                        $(this).parent().find("p.error").html("");
-
-                        $("#userYzmTxt").focus();*/
                     }
                 })
 
@@ -307,7 +329,7 @@ $(function() {
                         var telValue = $("#newTel").val();
                         var yzm = $(".yzmVal").val();
                         if(yzm.length == 0 ){
-                            alert("验证码不能为空！");
+                            $("#updTelbox").find(".errorInfo").html("验证码不能为空！");
                         }else{
                            isCorrectCode(telValue, yzm);
                         }
@@ -318,7 +340,7 @@ $(function() {
                     var telValue = $("#newTel").val();
                     var yzm = $(".yzmVal").val();
                     if(yzm.length == 0 || telValue.length == 0 ){
-                            alert("手机号或验证码不能为空！");
+                            $("#updTelbox").find(".errorInfo").html("手机号或验证码不能为空！");
                     }else{
                         api.manageReplace({
                             "uuid": userUuid1,
@@ -342,7 +364,7 @@ $(function() {
             title: "修改密码",
             width: 420,
             height: 320,
-            html: "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' onfocus/></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'/></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
+            html: "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' onfocus/></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'/></div><div class='errorInfo'></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
             //ConfirmFun : updataPassword
         });
 
@@ -352,7 +374,7 @@ $(function() {
             var updConPwd = $("#updConPwd").val();
 
             if(updOldPwd.length == 0 || updNewPwd.length == 0 || updConPwd.length == 0){
-                alert("旧密码、新密码、确认密码不能为空!");
+                $("#updPwdbox").find("errorInfo").html("旧密码、新密码、确认密码不能为空!");
             } else {
                  api.manageReplace({
                     "uuid": userUuid1,
@@ -371,7 +393,7 @@ $(function() {
             var pwd = $(this).val();
             passwordCheck(pwd);
             if (pwd != userPwd) {
-               alert("旧密码输入不正确！");
+               $("#updPwdbox").find("errorInfo").html("旧密码输入不正确！");
             }
 
         })
@@ -384,18 +406,18 @@ $(function() {
             passwordCheck(pwd);
             var newpwd = $("#updNewPwd").val();
             if ( newpwd != pwd) {
-                alert("确认密码与新密码不一致！");
+                $("#updPwdbox").find("errorInfo").html("确认密码与新密码不一致！");
                 return false;
             }
         })
         //密码验证方法
         function passwordCheck(obj){
             if (obj.length == 0) {
-                alert("确认密码不能为空！");
+                $("#updPwdbox").find("errorInfo").html("确认密码不能为空！");
                 return false;
             }
             if (!(/^[a-zA-Z]\w{5,17}$/).test(obj)) { //
-                alert("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+                $("#updPwdbox").find("errorInfo").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
                 return false;
             }
         }
