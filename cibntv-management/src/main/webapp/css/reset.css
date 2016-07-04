@@ -95,6 +95,10 @@ button {
 .exitLogin{
 	background-position: -20px 0;
 }
+/*错误提示样式*/
+.errorInfo{text-align: center;margin-top:10px;
+    color:#ff6666;font-size:18px;
+}
 /*table---------------------------------*/
 .main-content{min-height:870px; background-color: #fff;margin:20px 0px 0px 20px;padding:15px 0px 0px 30px;}
 .main-content .table>thead>tr>th{background-color: #d8e0ff;border-bottom: 1px solid #fff;font-weight: normal;text-align:center;}

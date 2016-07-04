@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CIBN好学生后台管理系统-订单管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/demo.css" />
+    <link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="body-for-nav">
+    <div class="grid-for-nav">
+        <nav class="nav-side">
+            <div class="side-scroll">
+                <div class="nav-top">
+                    <a href="index.html">好学生后台</a>
+                </div>
+                <div class="menu menu-vertical" id="sidebar">
+                    <!-- 头像 -->
+                    <div class="avatar">
+                        <img src="images/header.png">
+                        <span id="userName_login"></span>
+                    </div>
+                    <!-- 左侧菜单 -->
+                    <ul class="">
+                        <li class="active">
+                            <a href="orderDiagmanage.html">诊断订单</a>
+                        </li>
+                        <li>
+                            <a href="orderVipmanage.html">VIP订单</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="nav-content-wrap" id="content">
+            <div class="content-header">
+                <h1 class="order-logo">订单管理</h1>
+                <a href="index.html">
+                    <div class="backHome"></div>
+                </a>
+                <div id="userInfoPerson"></div>
+            </div>
+            <div class="content padding">
+                <div class="main-content">
+                    <!--start content-top -->
+                    <div class="content-top">
+                        <div class="selectbox">
+                            <form action="" class="form-inline">
+                                <span class="datatitle">按时间段查询</span>
+                                <div class="input-daterange input-group form_datetime" id="datepicker">
+                                    <p class="datebox"><label class="control-label" for="starttime">开始时间：</label>
+                                    <input size="16" type="text" value="" readonly id="startDate">
+                                    </p><p class="datebox"><label class="control-label" for="endtime">结束时间：</label>
+                                    <input type="text" class="endDateDia" readonly name="end" id="endDate" /></p>
+                                </div>
+                            </form>
+                        </div>
+                        <!--start-user-serch-->
+                        <div id="search" class="condition">
+                            <div id="searchTxt" class="form-control searchTxt" onMouseOver="this.className='searchTxt searchTxtHover form-control';" onMouseOut="this.className='searchTxt form-control';" style="margin-right:20px;">
+
+                                <div class="input-group" style="width:430px;">
+                                    <div class="searchMenu">
+                                        <div class="searchSelected" id="searchSelected">手机号</div>
+                                        <div style="display:none;" class="searchTab" id="searchTab">
+                                            <ul>
+                                                <li class="" value="0">手机号</li>
+                                                <li value="1">订单号</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                
+                                    <input name="w" type="text" id="searchTxt" class="search-order-input" placeholder="手机号/订单号" style="height:36px; text-indent:8px;" />
+                                     
+                              <button class="btn tip-bottom active" type="submit" id="searchOrderBtn1" style="position: absolute;right: 0;top: -1px;"> <i class="icon-search">搜索</i></button>
+                                </div>
+                                   
+                            </div>
+                            <span class="input-group-btn" >
+                              <button type="submit" id="export-order-btn2" class="tip-bottom" title="导出为EXCEL">
+                                <i class="icon-search">导出为EXCEL</i>
+                            </button>
+                            </span> 
+                            
+                        </div>
+                        <!--close-user-serch-->
+                    </div>
+                    <!--close-content-top-->
+                    <div class="">
+                        <div class="table-responsive">
+                            <table class="table" width="100%" id="list">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>订单号</th>
+                                        <th>流水号</th>
+                                        <th>手机号</th>
+                                        <th>商品类型</th>
+                                        <th>商品名称</th>
+                                        <th>价格</th>
+                                        <th>支付方式</th>
+                                        <th>交易时间</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- start pageination -->
+                        <div class="text-center"><div id="example"></div></div>
+                        <!-- close pageination -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+    <script src="js/bootstrap-paginator.js"></script>
+    <script src="js/apiAjax.js"></script>
+    <script src="js/order.operate.js"></script>
+    <script src="js/login.operate.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+        $(function(){
+            //初始化诊断订单信息
+            getOrderInfoList(1,10,"DIAGNOSTIC");
+        })
+    </script>
+</body>
+
+</html>

@@ -55,9 +55,6 @@
 	  	 -o-border-radius:20px;
 			border-radius:20px;
 }
-.errorInfo{text-align: center;margin-top:10px;
-	color:#ff6666;font-size:18px;
-}
 .login_btn_box .btn{
 	font-size:18px;
 }
@@ -80,12 +77,13 @@
 }
 .login-enter-box{
 	width:1100px;
-	position: absolute;
+	margin:100px auto;
+	/* position: absolute;
 	top:50%;left:50%;
 	margin-left:-550px;
 	-webkit-transform:translateY(-50%);
 	  	-moz-transform:translateY(-50%);
-			transform:translateY(-50%);
+			transform:translateY(-50%); */
 	background:rgba(42,47,67,0.9);
 	-webkit-border-radius:8px;
 	   -moz-border-radius:8px;

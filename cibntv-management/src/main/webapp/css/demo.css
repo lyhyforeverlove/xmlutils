@@ -160,12 +160,15 @@
     margin:20px 0;
 }
 #search {padding:10px;}
- #search input[type=text] {
+#search input[type=text] {
    height:40px;line-height:40px; 
     /* border: 0;
     width: 270px;
     background:#eff1f3; */
 }
+#search .search-order-input{
+    height:36px; text-indent:8px;
+}  
 .tip-bottom1 { background:#5878f5;border: 0;padding:0 12px;height:36px;margin-right:0;font-size:14px }
 .tip-bottom1 i{color:#fff;
     font-style:normal; }

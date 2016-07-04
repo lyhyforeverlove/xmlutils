@@ -275,7 +275,9 @@ $(function() {
         }).done(function(data) {
             //console.log(data);
             var dataUserObj = data.data;
-
+            /*if(dataUserObj.realName == null){
+                dataUserObj.realName = "-";
+            }*/
             $("#personInfo").append('<tr><th>真实姓名：</th><td>' + dataUserObj.realName + '</td></tr><tr><th>手机号:</th><td><span id="telValue">' + dataUserObj.phone + '</span></td><td ><button style="margin-left:20px;" type="submit" class="tip-bottom" title="" id="replaceBtn"><i>更换手机号</i></button></td></tr><tr><th>所属部门：</th><td>' + dataUserObj.rName + '</td></tr>');
             $("#replaceBtn").click(function() {
 
@@ -517,7 +519,7 @@ var person = localStorage.getItem("permissionModels");
                 $("#1").find("a.linkA").attr("href", "usermanage.html");
             } else if (item.name == "订单管理") {
                 $("#2").find(".menu-box-icon").addClass("order-manage");
-                $("#2").find("a.linkA").attr("href", "ordermanage1.html");
+                $("#2").find("a.linkA").attr("href", "orderDiagmanage.html");
             } else if (item.name == "VIP管理") {
                 $("#3").find(".menu-box-icon").addClass("vip-manage");
                 $("#3").find("a.linkA").attr("href", "vipmanage.html");

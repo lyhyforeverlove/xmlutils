@@ -14,14 +14,7 @@ $(function() {
             pickerPosition: "bottom-left",
             todayHighlight: true
         })
-     /*   $("#endDate").on('changeDate', function(ev) { //当结束日期被改变时被触发
 
-            var startDate = $("#startDate").val();
-            var endDate = $("#endDate").val();
-
-            getOrderInfoList(1, 10, "VIP",null,null,startDate,endDate);
-            getOrderInfoList(1, 10, "DIAGNOSTIC",null,null,startDate,endDate);
-        });*/
         $(".endDateVip").on('changeDate', function(ev) { //当结束日期被改变时被触发
 
             var startDate = $("#startDate").val();
@@ -92,7 +85,7 @@ $(function() {
      */
     $("#export-order-btn1").click(function() {
 
-        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="end" id="endDate1" /></div>';
+        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" readonly name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="end" id="endDate1" /></div>';
         Prompt.init({
             title: "导出为EXCEL",
             height: 400,
@@ -122,7 +115,7 @@ $(function() {
 
     $("#export-order-btn2").click(function() {
            // console.log("DIAGNOSTIC");
-        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" name="end" id="endDate1" /></div>';
+        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" readonly id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="end" id="endDate1" /></div>';
         Prompt.init({
             title: "导出为EXCEL",
             height: 400,
