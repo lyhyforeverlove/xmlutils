@@ -34,10 +34,12 @@ var ajaxTool = new AJAXTool();
           }
         }
     }else{
+        $("#loading").fadeIn();
         var searchName = $("#searchName").val();
         var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":page,"pageSize":"10"},"/video/videoPage",false);
         result.done(function(resultList){
-          if(resultList.data){
+           $("#loading").fadeOut();
+           if(resultList.data){
               var videoList = resultList.data.reponseVedio;
               if(videoList){
                 var s="";
@@ -49,7 +51,6 @@ var ajaxTool = new AJAXTool();
                     s ="<div class='col-sm-3'><div class='video-div'><h4>"+videoList[i].videoName+"</h4></div><a class='stop' href='#' onclick=videoDetail('"+videoList[i].id+"')></a><div class='content'><div class='title'>"+videoList[i].videoName+"</div></div></div>";
                     $("#video-list").append(s);
                     $(".video-div").eq(i).css("background-color",colorlist[n]);
-
                 }
               }
           }

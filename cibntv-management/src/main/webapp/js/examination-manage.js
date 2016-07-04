@@ -129,10 +129,12 @@ function searcherValue(page){
             $("#examination_list").append(examination);
         }
     }else{
+        $("#loading").fadeIn();
         var keyWord = $("#keyWord").val();
         var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":page,"pageSize":"10","searchName": "paperName",
                "searchValue":keyWord},"/paper/paperPage",false);
         result.done(function(resultList){
+            $("#loading").fadeOut();
             var data=resultList.data;
             if(data.paperDatas){
                 var lg = data.paperDatas.length;
