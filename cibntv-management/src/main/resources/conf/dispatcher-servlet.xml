@@ -79,7 +79,7 @@
 	</bean>
 	
 	<!--自定义拦截器 开始 -->
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/*" />
 			<mvc:mapping path="/vip_order/*" />
@@ -87,10 +87,9 @@
 			<mvc:mapping path="/paper/*" />
 			<mvc:mapping path="/video/*" />
 			<mvc:mapping path="/role/*" />
-			<mvc:mapping path="/manager/*" />
 			<bean id="permissionInterceptor" class="com.eeduspace.management.interceptor.PermissionInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 	<!--自定义拦截器 结束 -->
 	
 
