@@ -232,19 +232,22 @@ var API = function(){
 
 			 },	
 			success:function(data){
-				/*
-			    *判断管理员是否具有权限，如果没有提示没有权限
-			    *判断管理员登录 30分钟 提示session已经过期
-			    */
-		        if(data.data == "disable"){
-		           alert("您没有访问权限！");
-		           window.location.href = "login.html";
-		        }else if(data.data == "login.html"){
-		            localStorage.clear();
-		            window.location.href = "login.html";
-		        }
+		        var data = data.data;
+	            /*result.data  如果false 没有权限   提示页面
+	            *result.data  如果为login.html就是session过期  直接跳到login.html
+	            */
+	            if(data =="disable"){
+	                alert.dialog.confirm('您没有访问此功能模块的权限？',function(){
+	                    localStorage.clear();
+	                    window.location.href="login.html";
+	                });
+	            }
+	            else if(data ==="login.html"){
+	               localStorage.clear();
+	               window.location.href="login.html";
+	            }
 			     
-			},
+			},	
 			error:function(XMLHttpRequest,textStatus){
 				//showTips(this.api_error+textStatus);
 			}

@@ -262,6 +262,20 @@ function uploadCreateVip(){
           contentType: false,  
           processData: false,  
           success: function (data) { 
+            var data = data.data;
+              /*result.data  如果false 没有权限   提示页面
+              *result.data  如果为login.html就是session过期  直接跳到login.html
+              */
+              if(data =="disable"){
+                  alert.dialog.confirm('您没有访问此功能模块的权限？',function(){
+                      localStorage.clear();
+                      window.location.href="login.html";
+                  });
+              }
+              else if(data ==="login.html"){
+                 localStorage.clear();
+                 window.location.href="login.html";
+              }
             //console.log(data);
             if(data.message == "VIP包已存在" ){
                 $("#addbox").css("display","none");
