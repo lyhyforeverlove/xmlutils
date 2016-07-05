@@ -8,23 +8,16 @@
  */
 
 (function ($, window, document, undefined) {
-
     'use strict';
-
     var old = $.fn.twbsPagination;
-
     // PROTOTYPE AND CONSTRUCTOR
-
     var TwbsPagination = function (element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.twbsPagination.defaults, options);
         this.init(this.options);
     };
-
     TwbsPagination.prototype = {
-
         constructor: TwbsPagination,
-
         init: function (options) {
             this.options = $.extend({}, this.options, options);
             switch (this.options.version) {
@@ -54,10 +47,7 @@
             if (this.options.onPageClick instanceof Function) {
                 this.$element.bind('page', this.options.onPageClick);
             }
-
-            var tagName = (typeof this.$element.prop === 'function') ?
-                this.$element.prop('tagName') : this.$element.attr('tagName');
-
+            var tagName = (typeof this.$element.prop === 'function') ?this.$element.prop('tagName') : this.$element.attr('tagName');
             if (tagName === 'UL') {
                 this.$listContainer = this.$element;
             } else {
@@ -77,7 +67,6 @@
             //if (page < 1 || page > this.options.totalPages) {
                 //throw new Error('Page is incorrect.');
             //}
-
             switch (this.options.version) {
                 case '1.0':
                     this.render(this.getPages_v_1_0(page));
@@ -124,7 +113,6 @@
             var itemContainer = $('<li></li>'),
                 itemContent = $('<a></a>'),
                 itemText = null;
-
             itemContainer.addClass(type);
             itemContainer.attr('data-page', page);
 
@@ -147,16 +135,15 @@
                 default:
                     break;
             }
-
             itemContainer.append(itemContent.attr('href', this.href(page)).text(itemText));
             return itemContainer;
         },
 
         getPages_v_1_0: function (currentPage) {
             var pages = [];
-
             var startPage;
             var section = parseInt(currentPage / this.options.visiblePages, 10);
+
             if (currentPage % this.options.visiblePages === 0) {
                 startPage = (section - 1) * this.options.visiblePages + 1;
             } else {
@@ -171,15 +158,13 @@
             return {"currentPage": currentPage, "numeric": pages};
         },
 
-        getPages_v_1_1: function (currentPage) {
+        getPages_v_1_1:function (currentPage) {
             var pages = [];
-
             var half = Math.floor(this.options.visiblePages / 2);
             var start = currentPage - half + 1 - this.options.visiblePages % 2;
-            var end = currentPage + half;
-
+            var end = currentPage + half;      
             // handle boundary case
-            if (start <= 0) {
+            if (start <= 0) {   
                 start = 1;
                 end = this.options.visiblePages;
             }
@@ -189,11 +174,13 @@
             }
 
             var itPage = start;
-            while (itPage <= end) {
-                pages.push(itPage);
+         
+            while (itPage <= end ) {
+                if(itPage>0){
+                  pages.push(itPage);
+                }  
                 itPage++;
             }
-
             return {"currentPage": currentPage, "numeric": pages};
         },
 
@@ -273,7 +260,7 @@
         last: '末页',
         paginationClass: 'pagination',
         onPageClick: null,
-        version: '1.0'
+        version: '1.1'
     };
 
     $.fn.twbsPagination.Constructor = TwbsPagination;
