@@ -268,21 +268,30 @@ $(function() {
                         title: "更换手机号",
                         width: 480,
                         height: 320,
-                        html: "<div id='updTelbox'><div class='form-group'><label class='label'>新手机号：</label><input type='tel' value=''  id='newTel' class='form-control' style='width:180px;float:left;'/><input type='button' id='checkCodeBtn' value='发送验证码' class='default tip-bottom1' style='color:#fff;border-radius:4px;' /> </div><div class='form-group'><label class='label'>验证码：</label><input type='text' class='yzmVal form-control' style='width:180px;' /></div><div class='errorInfo'></div><button class='tip-bottom1' id='wanBtn' style='margin-top:50px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
+                        html: "<div id='updTelbox'><div class='form-group'><label class='label'>新手机号：</label><input type='tel' value=''  id='newTel' class='form-control' style='width:180px;float:left;'/><span class='point' style='float:left;display:inline-block;margin-left: 10px;margin-top: 4px;'></span><input type='button' id='checkCodeBtn' value='发送验证码' class='default tip-bottom1' style='color:#fff;border-radius:4px;' /> </div><div class='form-group'><label class='label'>验证码：</label><input type='text' class='yzmVal form-control' style='width:180px;float:left;' /><span class='point' style='display:inline-block;margin-left: -110px;margin-top: 4px;'></span><span class='errorspan' style='line-height:40px;'><span></div><div class='errorInfo'></div><button class='tip-bottom1' id='wanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
 
                     });
 
                     $("#checkCodeBtn").css("background", "#ccc");
                     $("#checkCodeBtn").attr("disabled", true);
+                    $("#wanBtn").css("background", "#ccc");
+                    $("#wanBtn").attr("disabled", true);
 
                     $("#newTel").blur(function() {
                         var phone = $(this).val();
                         if (phone.length == 0) {
                             $("#updTelbox").find(".errorInfo").html("手机号不能为空");
+                            $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
+                            $("#checkCodeBtn").css("background", "#ccc");
+                            $("#checkCodeBtn").attr("disabled", true);
                             return false;
                         }
                         if (!(/^1[3|4|5|7|8]\d{9}$/).test(phone)) {
                             $("#updTelbox").find(".errorInfo").html("手机号格式有误,请重新输入！11位数字");
+                            $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
+
+                            $("#checkCodeBtn").css("background", "#ccc");
+                            $("#checkCodeBtn").attr("disabled", true);
                             return false;
                         } else {
                             api.checkPhone({
@@ -291,8 +300,12 @@ $(function() {
                                 //console.log(data);
                                 if (data.data == true) {
                                     $("#updTelbox").find(".errorInfo").html("该手机号已经存在,请更换为别的手机号");
+                                    $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
+                                    $("#checkCodeBtn").css("background", "#ccc");
+                                    $("#checkCodeBtn").attr("disabled", true);
                                     return false;
                                 } else {
+                                    $("#newTel").parent().find("span.point").removeClass("wrong").addClass("right");
                                     $("#updTelbox").find(".errorInfo").html("");
                                     $("#checkCodeBtn").css("background", "#5878f5");
                                     $("#checkCodeBtn").attr("disabled", false);
@@ -311,9 +324,31 @@ $(function() {
                             var telValue = $("#newTel").val();
                             var yzm = $(".yzmVal").val();
                             if (yzm.length == 0) {
+                                $(".yzmVal").parent().find("span.point").removeClass("right").addClass("wrong");
                                 $("#updTelbox").find(".errorInfo").html("验证码不能为空！");
+                                return false;
                             } else {
-                                isCorrectCode(telValue, yzm);
+                                //isCorrectCode(telValue, yzm);
+                                api.isCorrectCode({
+                                    "phone": telValue,
+                                    "smsCode": yzm
+                                }).done(function(data) {
+                                    //console.log(data);
+                                    //验证码正确
+                                    if (data.data == true) {
+                                        $(".yzmVal").parent().find("span.point").removeClass("wrong").addClass("right");
+                                        $("#updTelbox").find(".errorInfo").html("");
+                                        $("#wanBtn").attr("disabled", false);
+                                        $("#wanBtn").css("background", "#5878f5");
+                                
+                                    } else {
+                                        $(".yzmVal").parent().find("span.point").removeClass("right").addClass("wrong");
+                                        $("#updTelbox").find(".errorInfo").html("验证码上输入不正确！");
+                                        $("#wanBtn").attr("disabled", true);
+                                        $("#wanBtn").css("background", "#ccc");
+                                    }
+
+                                })
                             }
 
                         })
@@ -321,20 +356,17 @@ $(function() {
                     $("#wanBtn").click(function() {
                         var telValue = $("#newTel").val();
                         var yzm = $(".yzmVal").val();
-                        if (yzm.length == 0 || telValue.length == 0) {
-                            $("#updTelbox").find(".errorInfo").html("手机号或验证码不能为空！");
-                        } else {
-                            api.manageReplace({
-                                "uuid": userUuid1,
-                                "phone": telValue
-                            }).done(function(data) {
-                                $("#updTelbox").css("display", "none");
-                                $("#success").html("更换手机号成功!");
-                                //更换手机号成功后 刷新展示信息
-                                $("#personInfo").empty();
-                                manageDetail(userUuid1);
-                            })
-                        }
+                        api.manageReplace({
+                            "uuid": userUuid1,
+                            "phone": telValue
+                        }).done(function(data) {
+                            $("#updTelbox").css("display", "none");
+                            $("#success").html("更换手机号成功!");
+                            //更换手机号成功后 刷新展示信息
+                            $("#personInfo").empty();
+                            manageDetail(userUuid1);
+                        })
+                        
                     })
 
                 })
@@ -347,7 +379,7 @@ $(function() {
                 title: "修改密码",
                 width: 420,
                 height: 360,
-                html: "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' onfocus/></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control'/></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'/></div><div class='errorInfo'></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
+                html: "<div id='updPwdbox'><div class='form-group from-group1'><label>旧密码：</label><input type='password' value='' id='updOldPwd' class='form-control ' onfocus style='float:left;'/><span class='point' style='display:inline-block;margin-top: 4px;height:26px'></span></div><div class='form-group from-group1'><label>新密码：</label><input type='password' value='' id='updNewPwd' class='form-control' style='float:left;' /><span class='point' style='display:inline-block;margin-top: 4px;height:26px'></span></div><div class='form-group from-group1'><label>再一次：</label><input type='password' value='' id='updConPwd' class='form-control'  style='float:left;' /><span class='point' style='display:inline-block;margin-top: 4px;height:26px'></span></div><div class='errorInfo'></div><button class='tip-bottom1' id='updPwdWanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
                 //ConfirmFun : updataPassword
             });
 
@@ -389,14 +421,17 @@ $(function() {
             //旧密码验证
             $("#updOldPwd").blur(function() {
                 var pwd = $(this).val();
-                passwordCheck(pwd);
+                //passwordCheck(pwd);
                 if (pwd.length == 0) {
                     $("#updPwdbox").find(".errorInfo").html("旧密码不能为空！");
+                    $(this).parent().find("span.point").removeClass("right").addClass("wrong");
                     return false;
                 } else if (pwd != userPwd) {
                     $("#updPwdbox").find(".errorInfo").html("旧密码输入不正确！");
+                    $(this).parent().find("span.point").removeClass("right").addClass("wrong");
                      return false;
                 } else {
+                    $(this).parent().find("span.point").removeClass("wrong").addClass("right");
                     $("#updPwdbox").find(".errorInfo").html("");
                 }
 
@@ -407,28 +442,34 @@ $(function() {
             })
             $("#updConPwd").blur(function() {
                     var pwd = $(this).val();
-                    passwordCheck(pwd);
+                    //passwordCheck(pwd);
                     var newpwd = $("#updNewPwd").val();
                     if (newpwd.length == 0) {
                         $("#updPwdbox").find(".errorInfo").html("确认密码不能为空！");
+                        $(this).parent().find("span.point").removeClass("right").addClass("wrong");
                         return false;
                     } else if (newpwd != pwd) {
                         $("#updPwdbox").find(".errorInfo").html("确认密码与新密码不一致！");
+                        $(this).parent().find("span.point").removeClass("right").addClass("wrong");
                         return false;
                     } else {
                         $("#updPwdbox").find(".errorInfo").html("");
+                        $(this).parent().find("span.point").removeClass("wrong").addClass("right");
                     }
                 })
                 //密码验证方法
             function passwordCheck(obj) {
                 if (obj.length == 0) {
                     $("#updPwdbox").find(".errorInfo").html("新密码不能为空！");
+                    $("#updNewPwd").parent().find("span.point").removeClass("right").addClass("wrong");
                     return false;
                 } else if (!(/^[a-zA-Z]\w{5,17}$/).test(obj)) { //
                     $("#updPwdbox").find(".errorInfo").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+                    $("#updNewPwd").parent().find("span.point").removeClass("right").addClass("wrong");
                     return false;
                 } else {
                     $("#updPwdbox").find(".errorInfo").html("");
+                    $("#updNewPwd").parent().find("span.point").removeClass("wrong").addClass("right");
                 }
             }
         })
