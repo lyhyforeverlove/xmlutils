@@ -43,11 +43,14 @@ var AJAXTool=function(){
 function initPagination(){
   $("#pagination_zc").remove();
   $("#pagination_box").append('<ul id="pagination_zc" class="pagination"></ul>');
-  $("#pagination_zc").twbsPagination({
-       totalPages: totalpage,
-       startPage: 1,
-       onPageClick: function (event, page) {
-          searcherValue(page);
-       }
-  });
+  if(totalpage !== 0){
+        $("#pagination_zc").twbsPagination({
+             totalPages: totalpage,
+             startPage: 1,
+             onPageClick: function (event, page) {
+
+                searcherValue(page);
+             }
+        });
+    }
 }

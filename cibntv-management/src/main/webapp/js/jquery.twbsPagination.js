@@ -206,14 +206,10 @@
 
             this.$listContainer.find('.page').removeClass('active');
             this.$listContainer.find('.page').filter('[data-page="' + pages.currentPage + '"]').addClass('active');
-
             this.$listContainer.find('.first').toggleClass('hidden', pages.currentPage === 1);
-
             this.$listContainer.find('.last').toggleClass('hidden', pages.currentPage === this.options.totalPages);
-
             var prev = pages.currentPage - 1;
             this.$listContainer.find('.prev').toggleClass('hidden', pages.currentPage === 1).data('page', prev > 1 ? prev : 1);
-
             var next = pages.currentPage + 1;
             this.$listContainer.find('.next').toggleClass('hidden', pages.currentPage === this.options.totalPages).data('page', next < this.options.totalPages ? next : this.options.totalPages);
         },

@@ -22,7 +22,6 @@ var ajaxTool = new AJAXTool();
         var videoList = dataList.reponseVedio;
         if(videoList){
           var s="";
-          alert(dataList.item);
           if(dataList.item){
              $("#video-total").html(dataList.item+"个");
           }
@@ -77,12 +76,8 @@ var ajaxTool = new AJAXTool();
           var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":1,"pageSize":"10"},"/video/videoPage",false);
           result.done(function(resultList){
                $("#loading").fadeOut();
-              if(resultList.data.totalPage ===0){
-                totalpage = 1;
-              }else{
-                totalpage = resultList.data.totalPage;
-              }
-              dataList = resultList.data;
+               totalpage = resultList.data.totalPage;
+               dataList = resultList.data;
               initPagination();
           });
       }
