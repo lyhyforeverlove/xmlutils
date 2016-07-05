@@ -22,11 +22,13 @@ var AJAXTool=function(){
             //result.data  如果false 没有权限   提示页面
             //result.data  如果为login.html就是session过期  直接跳到login.html
             if(data =="disable"){
-              if(confirm("您没有访问此功能模块的权限") || !confirm("您没有访问此功能模块的权限")){
-                  window.location.href="login.html";
-              }
+                alert.dialog.confirm('您没有访问此功能模块的权限？',function(){
+                    localStorage.clear();
+                    window.location.href="login.html";
+                });
             }
             else if(data ==="login.html"){
+              localStorage.clear();
                window.location.href="login.html";
             }
          },
@@ -48,7 +50,6 @@ function initPagination(){
              totalPages: totalpage,
              startPage: 1,
              onPageClick: function (event, page) {
-
                 searcherValue(page);
              }
         });

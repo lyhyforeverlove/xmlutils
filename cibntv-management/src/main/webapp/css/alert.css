@@ -1,6 +1,6 @@
 .mod-dialog-bg {
 	background: #333;
-	opacity: .6;
+	opacity: .5;
 	filter: alpha(opacity=50);
 	height: 100%;
 	left: 0;
@@ -69,6 +69,18 @@
 	line-height: 34px;
 	text-align: center;
 	width: 180px;
+}
+.mod-dialog .dialog-console a.console-btn-confirm-privilege {
+	display: inline-block;
+	font-size: 16px;
+	height: 36px;
+	line-height: 36px;
+	padding:0 20px;
+	border:none;
+	border-radius:5px;
+	background-color: #5878f5;
+	color:#fff;
+	width:auto;
 }
 .mod-dialog .dialog-console a:first-child{border-right: 1px solid #b4c2fa;}
 .mod-dialog .dialog-console .console-btn-confirm {color: #5875f5;}

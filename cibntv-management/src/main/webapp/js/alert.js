@@ -35,15 +35,26 @@ alert.dialog = function() {
             show: o,
             hide: u
         }
-    }(), alert.dialog.confirm = function(e, t, n) {
-    var r = ['<div class="dialog-content">', "<p>" + e + "</p>", "</div>", '<div class="dialog-console clearfix_new">', '<a class="console-btn-confirm" href="#" onclick="return false;">确定</a>', '<a class="console-btn-cancel" href="#" onclick="return false;">取消</a>', "</div>"].join(""),
-        i = alert.dialog.show({
-            html: r
-        });
-    return i.find(".console-btn-confirm").click(function() {
-        var e = t && t.call(i);
-        e !== !1 && alert.dialog.hide()
-    }), i.find(".console-btn-cancel").click(function() {
-        n && n.call(i), alert.dialog.hide()
-    }), i
+    }(),
+    alert.dialog.confirm = function(e, t, n) {
+            //如果是判断权限，就不显示取消按钮
+            if(e==="您没有访问此功能模块的权限？"){
+                var r = ['<div class="dialog-content">', "<p>" + e + "</p>", "</div>", '<div class="dialog-console clearfix_new">', '<a class="console-btn-confirm-privilege" href="#" onclick="return false;">返回登录页</a>', "</div>"].join(""),
+                i = alert.dialog.show({html: r});
+                return i.find(".console-btn-confirm-privilege").click(function() {
+                    var e = t && t.call(i);
+                    e !== !1 && alert.dialog.hide()
+                }), i
+            }else{
+                var r = ['<div class="dialog-content">', "<p>" + e + "</p>", "</div>", '<div class="dialog-console clearfix_new">', '<a class="console-btn-confirm" href="#" onclick="return false;">确定</a>', '<a class="console-btn-cancel" href="#" onclick="return false;">取消</a>', "</div>"].join(""),
+                    i = alert.dialog.show({
+                        html: r
+                    });
+                return i.find(".console-btn-confirm").click(function() {
+                    var e = t && t.call(i);
+                    e !== !1 && alert.dialog.hide()
+                }), i.find(".console-btn-cancel").click(function() {
+                    n && n.call(i), alert.dialog.hide()
+                }), i
+            }
 }

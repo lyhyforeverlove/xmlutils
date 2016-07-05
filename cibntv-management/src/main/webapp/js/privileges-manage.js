@@ -68,7 +68,7 @@ var ajaxTool = new AJAXTool();
       $("#privileges-list").empty();
       if(page===1){
           var data = dataList;
-          if(data){
+          if(data.content){
               var privilegesList = "";
               for(var i=0;i<data.content.length;i++){
                   var status="";
