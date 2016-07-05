@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/demo.css" />
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body class="body-for-nav">
   <div class="grid-for-nav">
@@ -57,64 +63,10 @@
     </div>
     </section>
   </div>
-
-
-
-  <script src="js/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
   <script src="js/popup.js"></script>
   <script src="js/apiAjax.js"></script> 
   <script src="js/login.operate.js"></script> 
   <script src="js/common.js"></script>
-  <script>
-  /*$(function(){
-
-   
- var api = new API();
-  document.getElementById("replaceBtn").onclick=function(){
-    var telValue=document.getElementById("telValue").innerHTML;
-    var newTel=telValue.slice(0,3)+'****'+telValue.slice(8,11);
-   
-    Prompt.init({
-      title : "更换手机号",
-      height : 400,
-      html : "<div id='aa'><div class='form-group'><label>旧手机号：</label><input type='tel' value='' disabled id='newTel' /><button id='checkCodeBtn' class='tip-bottom'><i>获取验证码</i></button></div><div class='form-group'>验证码：<input type='text' /></div><button id='nextStep' class='tip-bottom'>下一步</button></div></div><div style='display:none' id='bb'><div class='form-group'>手机号：<input type='text' /></div><div class='form-group'>验证码：<input type='text' /></div><button class='tip-bottom' id='wanBtn'>完成</button></div><div id='cc' style='display:none'><p>更换手机号成功</p></div>",
-    });
-    
-    $("#checkCodeBtn").click(function(){
-      console.log(111);
-        api.getCheckcode({
-          "phone":telValue
-        }).done(function(data){
-          console.log(data);
-        })
-    })
-
-  document.getElementById("newTel").value=newTel;
-  document.getElementById("nextStep").onclick=function(){
-    document.getElementById("aa").style.display="none";
-    document.getElementById("cc").style.display="none";
-    document.getElementById("bb").style.display="block";
-  }
-  document.getElementById("wanBtn").onclick=function(){
-    document.getElementById("aa").style.display="none";
-    document.getElementById("bb").style.display="none";
-    document.getElementById("cc").style.display="block";
-  }
-}
-
-
-
-
-  document.getElementById("upd-pwd-btn").onclick=function(){
-    Prompt.init({
-      title : "修改密码",
-      height : 400,
-      html : "<div class='form-group'><label>旧密码：</label><input type='password' value='' /></div><div class='form-group'></div><label>新密码：</label><input type='password' value='' /></div><div class='form-group'><label>再一次：</label><input type='password' value='' /></div>",
-      ConfirmFun : confirm
-    });
-  }
-   
-  })*/
-  </script>
 </body>
 </html>

@@ -11,21 +11,43 @@ $(function() {
      */
     $("#createVipBtn").click(function() {
 
-      str = '<form enctype="multipart/form-data" action="" method="post" id="formid" name="form"><div id="addbox"><p><a href="javascript:;" class="file">选择背景图片<input type="file" name="file" id="file_pic"></a></p><p>VIP方案<select name="vipType" id="vipType"/><option value="ONE_MONTH">1个月</option><option value="TWO_MONTH">2个月</option><option value="THREE_MONTH">3个月</option><option value="SIX_MONTH">6个月</option><option value="ONE_YEAR">1年</option><option value="TWO_YEAR">2年</option></select></p><p>VIP价格<input type="text" name="vipPrice" class ="vipPrice" value="" /></p><p>VIP描述<input type="text" name="vipDesc" value="" class="vipDesc" /></p></div>';
+      str = '<form enctype="multipart/form-data" action="" method="post" id="formid" name="form"><div id="addbox"><a href="javascript:;" class="file">选择背景图片<input type="file" name="file" id="file_pic"></a><p>VIP方案<select name="vipType" id="vipType"/><option value="ONE_MONTH">1个月</option><option value="TWO_MONTH">2个月</option><option value="THREE_MONTH">3个月</option><option value="SIX_MONTH">6个月</option><option value="ONE_YEAR">1年</option><option value="TWO_YEAR">2年</option></select></p><p>VIP价格<input type="text" name="vipPrice" class="vipPrice" id="vipPrice" value="" /></p><p>VIP描述<input type="text" name="vipDesc" value="" class="vipDesc" id="vipDesc"/></p><div class="errorInfo"></div></div></form><button class="tip-bottom" id="createvip"><i>完成<i></button><div id="success"></div>';
 
             Prompt.init({
                 title: "新增VIP方案",
                 height: 400,
                 html: str,
-                ConfirmFun: uploadCreateVip
+                //ConfirmFun: uploadCreateVip
             });
 
             var reg = /^[\d]+$/g;
           
-          $(".vipPrice").blur(function(){
-            if(!reg.test($(this).val())){
-              alert("只能输入数字");
+          $("#vipPrice").blur(function(){
+            var priceval = $(this).val();
+            if(priceval.length == 0){
+              $(".errorInfo").html("VIP价格不能为空！");
+            }else if(!reg.test(priceval)){
+              $(".errorInfo").html("VIP价格只能输入数字");
+            }else{
+               $(".errorInfo").html("");
             }
+          })
+          $("#vipDesc").blur(function(){
+            var priceval = $(this).val();
+            if(priceval.length == 0){
+              $(".errorInfo").html("VIP方案不能为空！");
+            }else{
+               $(".errorInfo").html("");
+            }
+          })
+          $("#createvip").click(function(){
+            var vipPr = $("#vipPrice").val();
+            var vipDe = $("#vipDesc").val();      
+            if(vipPr.length == 0 || vipDe.length == 0){
+                $(".errorInfo").html("请输入VIP价格和VIP描述！");
+                return false;
+            }
+            uploadCreateVip();
           })
 
         })
@@ -34,13 +56,13 @@ $(function() {
          *VIP包打折操作
          */
     $("#DiscountVipBtn").click(function() {
-      str = '<form method="post" id="formid" name="form"><div id="addbox"><div class="input-daterange input-group" id="datepicker"><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="discountStartDate" readonly id="startDate1" /><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="discountEndDate" id="endDate1" /></div><p>VIP方案<select name="uuid" id="vipType"/><option value="all">全部</option></select></p><p>&nbsp;&nbsp;&nbsp;折扣&nbsp;&nbsp;<select name="vipSale"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></p></div></form>';
+      str = '<form method="post" id="formid" name="form"><div id="addbox"><div class="input-daterange input-group" id="datepicker"><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="discountStartDate" readonly id="startDate1" /><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="discountEndDate" id="endDate1" /></div><p>VIP方案<select name="uuid" id="vipType"/><option value="all">全部</option></select></p><p>&nbsp;&nbsp;&nbsp;折扣&nbsp;&nbsp;<select name="vipSale"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></p><div class="errorInfo"></div></div></form><button class="tip-bottom" id="disVip"><i>完成<i></button><div id="success"></div>';
 
         Prompt.init({
             title: "打折活动",
-            height: 400,
+            height: 420,
             html: str,
-            ConfirmFun: vipPackSale
+            //ConfirmFun: vipPackSale
         });
 
         $("#prompt_bottom .btn").css("margin-left","120px");//设置打折按钮样式
@@ -56,6 +78,29 @@ $(function() {
             pickerPosition: "bottom-left",
             todayHighlight: true
         })
+        /*$(".datepicker").keydown(function(){
+          var startVal = $("#startDate1").val();
+          if(startVal.length == 0){
+            $(".errorInfo").html("开始时间不能为空！");
+            return false;
+          }else{
+             $(".errorInfo").html("");
+          }
+        })
+        $("#endDate1").keyup(function(){
+          var startVal = $(this).val();
+          if(startVal.length == 0){
+            $(".errorInfo").html("结束时间不能为空！");
+            return false;
+          }else{
+            $(".errorInfo").html("");
+          }
+        })*/
+
+        $("#disVip").click(function(){
+            vipPackSale();
+        })
+        
     })
     //发布
     $("#releaseBtn").click(function() {
@@ -87,17 +132,29 @@ function vipPackSale() {
     var uuid = jsonobj.uuid;
     var vipSale = jsonobj.vipSale;
 
-    api.vipPackSale({
-        "discountStartDate": discountStartDate,
-        "discountEndDate": discountEndDate,
-        "uuid": uuid,
-        "vipSale": vipSale
-    }).done(function(data){
+    if(disStartDate.length == 0 || disEndDate.length == 0){
+        $(".errorInfo").html("开始时间或结束时间不能为空！");
+        return false;
+    }else{
+        api.vipPackSale({
+          "discountStartDate": discountStartDate,
+          "discountEndDate": discountEndDate,
+          "uuid": uuid,
+          "vipSale": vipSale
+      }).done(function(data){
+          $("#addbox").css("display","none");
+          $("#disVip").css("display","none");
+          $("#success").html('<p>VIP方案打折完成!</p><button id="sure" class="tip-bottom" style="line-height:40px;color:#fff;"><i>确定<i></button>');
 
-        $("#list").empty();
-        initVipPackList(1,true,true);
-
-    })
+          $("#sure").click(function(){
+              $("#prompt").css("display","none");
+              $("#shadeDiv").css("display","none");
+          })
+          $("#list").empty();
+          initVipPackList(1,true,true);
+      })
+    }
+   
     
 }
 
@@ -109,6 +166,7 @@ function vipPackRelease(ids) {
         //发布
         if(data.message == "success"){
             alert("发布成功！");
+           /* alert.dialog.confirm('发布成功！') */
         }
         $("#list").empty();
         initVipPackList(1,true,true);
@@ -194,38 +252,45 @@ function initVipPackList(state, flag ,isAllFlag) {
 
 /*新增vip方案提交方法*/
 function uploadCreateVip(){
-    var vipPr = $(".vipPrice").val();
-    var vipDe = $(".vipDesc").val();      
+    var formData = new FormData($("#formid")[0]);
+    $.ajax({  
+          url: api.apiPath+'/vip_pack/vip_pack_create' ,  
+          type: 'POST',  
+          data: formData,  
+          async: false,  
+          cache: false,  
+          contentType: false,  
+          processData: false,  
+          success: function (data) { 
+            //console.log(data);
+            if(data.message == "VIP包已存在" ){
+                $("#addbox").css("display","none");
+                $("#createvip").css("display","none");
+                $("#success").html('<p>VIP包已存在!</p><button id="sure" class="tip-bottom" style="line-height:40px;color:#fff;"><i>确定<i></button>');
 
-    /*if(vipPr.length == 0 || vipDe.length == 0){
-        alert("请输入价格和描述！");
-        return false;
-    }else{*/
-        var formData = new FormData($("#formid")[0]);
-        $.ajax({  
-              url: api.apiPath+'/vip_pack/vip_pack_create' ,  
-              type: 'POST',  
-              data: formData,  
-              async: false,  
-              cache: false,  
-              contentType: false,  
-              processData: false,  
-              success: function (data) { 
-                //console.log(data);
-                if(data.message == "VIP包已存在" ){
-                    alert("VIP包已存在");
-                    return false;
-                }else if(data.message == "success" ){
-                    alert("上传成功!");
-                    $("#list").empty();
-                    initVipPackList(1, true ,true);
-                }
-                  
-              },  
-              error: function (data) {  
-                  alert(data);  
-              }  
-        });
+                $("#sure").click(function(){
+                    $("#prompt").css("display","none");
+                    $("#shadeDiv").css("display","none");
+                })
+                return false;
+            }else if(data.message == "success" ){
+                $("#addbox").css("display","none");
+                $("#createvip").css("display","none");
+                $("#success").html('<p>VIP方案新增成功!</p><button id="sure" class="tip-bottom" style="line-height:40px;color:#fff;"><i>确定<i></button>');
+
+                $("#sure").click(function(){
+                    $("#prompt").css("display","none");
+                    $("#shadeDiv").css("display","none");
+                })
+                $("#list").empty();
+                initVipPackList(1, true ,true);
+            }
+              
+          },  
+          error: function (data) {  
+              alert(data);  
+          }  
+    });
     
 }
 

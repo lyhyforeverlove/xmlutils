@@ -142,7 +142,8 @@
 			transform:translateY(-50%); 
 	margin-left:-550px;
 	margin-top:-300px; */
-	background:rgba(39,44,64,0.9);
+	/* background:rgba(39,44,64,0.9); */
+	background:url(../images/login-bg.png) repeat;
 	-webkit-border-radius:8px;
 	   -moz-border-radius:8px;
 	  	 -o-border-radius:8px;

@@ -350,15 +350,16 @@ p.error{ color: #ff6666;
     bottom:60px;
     left:60px;
 }
-#releaseBtn{
+.updateVipBoxBtn{
     position: absolute;
     right:60px;
     bottom:100px;
+}  
+.updateVipBoxBtn button{
     width:130px;
     height:40px;
     line-height:40px;
-    font-size:16px;
-}  
+    font-size:16px;}
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     background-color: #22242c;  34  36 44

@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/demo.css" />
     <link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/alert.css" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body class="body-for-nav">
@@ -53,12 +60,16 @@
                         <div id="list">
                         </div>
                     </div>
-                    <button class="btn tip-bottom active" type="submit" id="releaseBtn"> <i class="icon-search">发布</i></button>
+                    <div class="updateVipBoxBtn">
+                        <a href="vipmanage.html"><button class="btn tip-bottom active" type="submit"> <i class="icon-search">返回</i></button></a>
+                        <button class="btn tip-bottom active" type="submit" id="releaseBtn"> <i class="icon-search">发布</i></button>
+                    </div>
+                    
                 </div>
             </div>    
         </section>
         </div>
-        <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/popup.js"></script>
         <script src="js/bootstrap-datepicker.min.js"></script>
         <script src="js/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
@@ -68,6 +79,7 @@
         <script src="js/date.js"></script> -->
         <script src="js/login.operate.js"></script>
         <script src="js/common.js"></script>
+        <script src="js/alert.js"></script>
         <script>
             $(function(){
                 var api = new API();

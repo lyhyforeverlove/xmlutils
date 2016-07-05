@@ -53,6 +53,7 @@ $(function() {
     });
     /*
     *通过手机号/订单号查询订单信息
+    *"VIP"查询VIP  "DIAGNOSTIC"查询诊断
     */
     $("#searchOrderBtn").click(function() {
         var searchText;
@@ -60,12 +61,25 @@ $(function() {
         var endDate = $("#endDate").val();
         //console.log(startDate,endDate);
         if (val == 0) {
-            searchText = $(".search-order-input").val();
-            
-            getOrderInfoList(1,10,"VIP",searchText,null,startDate,endDate); 
+            searchText = $(".search-order-input").val(); 
+            if((/^\d{1,11}$/).test(searchText)){
+                getOrderInfoList(1,10,"VIP",searchText,null,startDate,endDate); 
+            }else{
+                alert.dialog.confirm('只能输入数字且长度不能超过11!',function(){
+                  $(".search-order-input").focus();
+                });
+                return false;
+            }      
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"VIP",null,searchText,startDate,endDate); 
+            if((/^[a-zA-Z0-9]{1,30}$/).test(searchText)){
+                getOrderInfoList(1,10,"VIP",null,searchText,startDate,endDate); 
+            }else{
+                alert.dialog.confirm('只能输入数字、字母',function(){
+                  $(".search-order-input").focus();
+                });
+                return false;
+            }
         }  
     })   
   $("#searchOrderBtn1").click(function() {
@@ -74,10 +88,24 @@ $(function() {
         var endDate = $("#endDate").val();
         if (val == 0) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null,startDate,endDate); 
+            if((/^\d{1,11}$/).test(searchText)){
+                getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null,startDate,endDate);
+            }else{
+                alert.dialog.confirm('只能输入数字且长度不能超过11!',function(){
+                  $(".search-order-input").focus();
+                });
+                return false;
+            }   
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText,startDate,endDate); 
+            if((/^[a-zA-Z0-9]{1,30}$/).test(searchText)){
+                getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText,startDate,endDate); 
+            }else{
+                alert.dialog.confirm('只能输入数字、字母',function(){
+                  $(".search-order-input").focus();
+                });
+                return false;
+            }
         }  
     })  
     /*
@@ -85,23 +113,43 @@ $(function() {
      */
     $("#export-order-btn1").click(function() {
 
-        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" readonly name="start" id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="end" id="endDate1" /></div>';
+        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" readonly name="start" id="startDate1" /><div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="end" id="endDate1" /></div><div class="errorInfo"></div><button class="tip-bottom" style="margin-top:20px" id="exportOrderVipBtn"><i>注册时间导出订单</i></button><button class="tip-bottom" style="margin-top:20px" id="exportOrderAllBtn"><i>导出全部VIP订单</i></button>';
         Prompt.init({
             title: "导出为EXCEL",
-            height: 400,
-            html: str,
-            ConfirmFun: exportOrder
+            height: 420,
+            html: str
+            //ConfirmFun: exportOrder
         });
-        function exportOrder() {
-            //获取开始时间，结束时间
+        $("#exportOrderVipBtn").click(function(){
             var startDate = $("#startDate1").val();
             var endDate = $("#endDate1").val();
+            if(startDate.length == 0 || endDate.lenght == 0){
+                $(".errorInfo").html("请选择开始时间及结束时间！");
+                return false;
+            }
+            else{
+                getExportOrder("VIP",startDate,endDate);
+                $("#prompt").css("display","none");
+                $("#shadeDiv").css("display","none");
+            }
+        });
+        $("#exportOrderAllBtn").click(function(){
+            getExportOrder("VIP",null,null);
+            $("#prompt").css("display","none");
+            $("#shadeDiv").css("display","none");
+            
+        })
+        
+        //function exportOrder() {
+            //获取开始时间，结束时间
+            //var startDate = $("#startDate1").val();
+            //var endDate = $("#endDate1").val();
 
-            getExportOrder("VIP",startDate,endDate);
+            //getExportOrder("VIP",startDate,endDate);
 
             //getExportOrder("DIAGNOSTIC",startDate,endDate);
 
-        }
+        //}
         //日期调用插件配置参数
         $('.input-daterange').datepicker({
             language: "zh-CN",
@@ -115,14 +163,33 @@ $(function() {
 
     $("#export-order-btn2").click(function() {
            // console.log("DIAGNOSTIC");
-        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" readonly id="startDate1" /></div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="end" id="endDate1" /></div>';
+        str = '<div class="radio"><label for="">按订单时间段导出</label></div><div class="input-daterange input-group" id="datepicker"><div><label class="control-label" for="starttime">开始时间：</label><input type="text" class="" name="start" readonly id="startDate1" /><div><label class="control-label" for="endtime">结束时间：</label><input type="text" class="" readonly name="end" id="endDate1" /></div><div class="errorInfo"></div><button class="tip-bottom" style="margin-top:20px" id="exportOrderDiaBtn"><i>注册时间导出订单</i></button><button class="tip-bottom" style="margin-top:20px" id="exportOrderAllBtn"><i>导出全部诊断订单</i></button>';
         Prompt.init({
             title: "导出为EXCEL",
-            height: 400,
+            height: 420,
             html: str,
-            ConfirmFun: exportOrder
+            //ConfirmFun: exportOrder
         });
-        function exportOrder() {
+        $("#exportOrderDiaBtn").click(function(){
+            var startDate = $("#startDate1").val();
+            var endDate = $("#endDate1").val();
+            if(startDate.length == 0 || endDate.lenght == 0){
+                $(".errorInfo").html("请选择开始时间及结束时间！");
+                return false;
+            }
+            else{
+                getExportOrder("DIAGNOSTIC",startDate,endDate);
+                $("#prompt").css("display","none");
+                $("#shadeDiv").css("display","none");
+            }
+        });
+        $("#exportOrderAllBtn").click(function(){
+            getExportOrder("DIAGNOSTIC",null,null);
+            $("#prompt").css("display","none");
+            $("#shadeDiv").css("display","none");
+            
+        })
+        /*function exportOrder() {
             //获取开始时间，结束时间
             var startDate = $("#startDate1").val();
             var endDate = $("#endDate1").val();
@@ -131,7 +198,7 @@ $(function() {
 
             getExportOrder("DIAGNOSTIC",startDate,endDate);
 
-        }
+        }*/
         //日期调用插件配置参数
         $('.input-daterange').datepicker({
             language: "zh-CN",
