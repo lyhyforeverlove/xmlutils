@@ -53,6 +53,7 @@ public class PaperServiceImpl implements PaperService {
 					if (!StringUtils.isEmpty(name)) {
 						pm.setTypeName(name);
 						pm.setPaperType(String.valueOf(ptp.getType()));
+						pm.setCreateDateStr(DateUtils.toString(DateUtils.parseDate(pm.getCreateDateStr(),"yyyyMMddHHmmss"), DateUtils.DATE_FORMAT_DATETIME));
 						//判断是否是打折时间
 						Date date = new Date();
 						if (DateUtils.isBetween(date, ptp.getDateBef(), ptp.getDateAft(), 1)) {

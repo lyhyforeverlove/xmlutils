@@ -111,9 +111,7 @@ public class ManagerServiceImpl implements ManagerService {
 			public Predicate toPredicate(Root<ManagerPo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> preList= new ArrayList<>();
 //				preList.add(cb.equal(root.get("status").as(UserEnum.Status.class), StringUtils.isEmpty(managerModel.getStatus()) ? UserEnum.Status.Enable : managerModel.getStatus()));
-				if (!StringUtils.isEmpty(managerModel.getType())) {
-					preList.add(cb.equal(root.get("type").as(RoleEnum.Type.class),  managerModel.getType()));
-				}
+				preList.add(cb.isNull(root.get("type").as(RoleEnum.Type.class)));
 				if (!StringUtils.isEmpty(managerModel.getQueryName())) {
 					preList.add(cb.or(cb.like(root.get("name").as(String.class), "%"+ managerModel.getQueryName() +"%"),(cb.like(root.get("phone").as(String.class), "%"+ managerModel.getQueryName() +"%"))));
 				}

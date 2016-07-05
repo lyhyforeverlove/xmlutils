@@ -63,7 +63,7 @@ public class CIBNManagementConvert {
 			mm.setUuid(managerPo.getUuid());
 			mm.setrUuid(managerPo.getR_uuid());
 			mm.setrName(managerPo.getR_name());
-			mm.setType(managerPo.getType());
+//			mm.setType(managerPo.getType());
 		}
 		return mm;
 	}
@@ -95,7 +95,7 @@ public class CIBNManagementConvert {
 			}
 			po.setR_uuid(managerModel.getrUuid());
 			po.setR_name(managerModel.getrName());
-			po.setType(managerModel.getType());
+//			po.setType(managerModel.getType());
 		}
 		return po;
 	}
