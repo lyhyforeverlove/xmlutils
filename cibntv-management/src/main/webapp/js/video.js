@@ -17,12 +17,15 @@ var ajaxTool = new AJAXTool();
   var subjectName="";
   var subjectCode="";
   function searcherValue(page){
-    $("#video-list").html("");
+    $("#video-list").empty();
     if(page===1){
         var videoList = dataList.reponseVedio;
         if(videoList){
           var s="";
-          $("#video-total").html(dataList.item+"个");
+          alert(dataList.item);
+          if(dataList.item){
+             $("#video-total").html(dataList.item+"个");
+          }
           for(var i=0;i<videoList.length;i++)
           {
               var colorlist=["#1277de","#ffc053","#236b47","#68418d","#ff7e64","#c42a59","#6c65fc","#02d2ad"];
@@ -43,7 +46,9 @@ var ajaxTool = new AJAXTool();
               var videoList = resultList.data.reponseVedio;
               if(videoList){
                 var s="";
-                $("#video-total").html(resultList.data.item+"个");
+                if(resultList.data.item){
+                     $("#video-total").html(resultList.data.item+"个");
+                }
                 for(var i=0;i<videoList.length;i++)
                 {
                     var colorlist=["#1277de","#ffc053","#236b47","#68418d","#ff7e64","#c42a59","#6c65fc","#02d2ad"];
@@ -59,6 +64,7 @@ var ajaxTool = new AJAXTool();
     }
     //初始化分页
     function firstLink(code,name){
+          $("#video-list").empty();
           $("#loading").fadeIn();
           if(!name && !subjectName){
              $("#subject").html("学科");
@@ -67,7 +73,6 @@ var ajaxTool = new AJAXTool();
   　         subjectCode=code;
           }
           $("#subject").html(subjectName);
-          $("#video-list").html("");
           var searchName = $("#searchName").val();
           var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":1,"pageSize":"10"},"/video/videoPage",false);
           result.done(function(resultList){

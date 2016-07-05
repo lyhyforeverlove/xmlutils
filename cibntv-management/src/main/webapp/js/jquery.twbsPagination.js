@@ -6,7 +6,7 @@
  * Released under Apache 2.0 license
  * http://apache.org/licenses/LICENSE-2.0.html
  */
-;
+
 (function ($, window, document, undefined) {
 
     'use strict';
@@ -27,7 +27,6 @@
 
         init: function (options) {
             this.options = $.extend({}, this.options, options);
-
             switch (this.options.version) {
                 case '1.0':
                     this.currentPages = this.getPages_v_1_0(this.options.startPage);
@@ -66,9 +65,7 @@
             }
 
             this.$listContainer.addClass(this.options.paginationClass);
-
             this.$listContainer.append(this.buildListItems(this.currentPages.numeric));
-
             if (tagName !== 'UL') {
                 this.$element.append(this.$listContainer);
             }
@@ -77,9 +74,9 @@
         },
 
         show: function (page) {
-            if (page < 1 || page > this.options.totalPages) {
-                throw new Error('Page is incorrect.');
-            }
+            //if (page < 1 || page > this.options.totalPages) {
+                //throw new Error('Page is incorrect.');
+            //}
 
             switch (this.options.version) {
                 case '1.0':
@@ -100,7 +97,6 @@
 
         buildListItems: function (pages) {
             var $listItems = $();
-
             if (this.options.first) {
                 $listItems = $listItems.add(this.buildItem('first', 1));
             }
@@ -211,21 +207,15 @@
             this.$listContainer.find('.page').removeClass('active');
             this.$listContainer.find('.page').filter('[data-page="' + pages.currentPage + '"]').addClass('active');
 
-            this.$listContainer.find('.first')
-                .toggleClass('hidden', pages.currentPage === 1);
+            this.$listContainer.find('.first').toggleClass('hidden', pages.currentPage === 1);
 
-            this.$listContainer.find('.last')
-                .toggleClass('hidden', pages.currentPage === this.options.totalPages);
+            this.$listContainer.find('.last').toggleClass('hidden', pages.currentPage === this.options.totalPages);
 
             var prev = pages.currentPage - 1;
-            this.$listContainer.find('.prev')
-                .toggleClass('hidden', pages.currentPage === 1)
-                .data('page', prev > 1 ? prev : 1);
+            this.$listContainer.find('.prev').toggleClass('hidden', pages.currentPage === 1).data('page', prev > 1 ? prev : 1);
 
             var next = pages.currentPage + 1;
-            this.$listContainer.find('.next')
-                .toggleClass('hidden', pages.currentPage === this.options.totalPages)
-                .data('page', next < this.options.totalPages ? next : this.options.totalPages);
+            this.$listContainer.find('.next').toggleClass('hidden', pages.currentPage === this.options.totalPages).data('page', next < this.options.totalPages ? next : this.options.totalPages);
         },
 
         setupEvents: function () {

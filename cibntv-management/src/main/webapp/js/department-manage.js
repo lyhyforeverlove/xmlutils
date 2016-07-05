@@ -34,7 +34,7 @@ function addDepartment()
      });
 
      if(!departmentName){
-        alert.dialog.confirm('请输入部门名称！',function(){});      
+        alert.dialog.confirm('请输入部门名称！',function(){});
      }else if(departmentName.length>16){
         alert.dialog.confirm('部门名称过长！',function(){});
      }else if(arrayObj.length<1){
@@ -58,7 +58,7 @@ function addDepartment()
         if(data){
           for(var i=0;i<data.content.length;i++){
              var index =(page-1)*10+(i+1);
-             department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].createDate+"</td><td><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
+             department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td class='last-td'>"+data.content[i].createDate+"</td><td class='last-td'><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
           }
           $("#deparment_list").append(department);
         }
@@ -70,7 +70,7 @@ function addDepartment()
             if(data){
               for(var i=0;i<data.content.length;i++){
                  var index =(page-1)*10+(i+1);
-                 department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].createDate+"</td><td><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
+                 department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].createDate+"</td><td class='last-td'><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
               }
               $("#deparment_list").append(department);
             }
