@@ -38,10 +38,14 @@ $(function() {
                     return false;
                 }else{
                     exportUser(startDate,endDate); 
+                    $("#shadeDiv").css("display","none");
+                    $("#prompt").css("display","none");
                 }
             })
             $("#exportUserAllBtn").click(function(){
-                exportUser(); 
+                exportUser(null,null); 
+                $("#shadeDiv").css("display","none");
+                $("#prompt").css("display","none");
             })
             function exportUser(startDate,endDate) {
                 getUserInfoByCreateTime = api.getUserInfoByCreateTime({
