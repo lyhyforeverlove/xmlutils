@@ -5,7 +5,7 @@ alert.dialog = function() {
             var n = ['<div class="mod-dialog-bg"></div>', '<div class="mod-dialog">', '<div class="dialog-nav">', '<a href="#" onclick="return false" class="dialog-close"></a>', "</div>", '<div class="dialog-main"></div>', "</div>"].join(""),
                 r = $(n).hide().appendTo("body");
             e = r.filter(".mod-dialog-bg"), t = r.filter(".mod-dialog"), t.find(".dialog-close").click(function() {
-                u()
+                u();
             })
         },
     i = function() {
@@ -41,6 +41,10 @@ alert.dialog = function() {
             if(e==="您没有访问此功能模块的权限？"){
                 var r = ['<div class="dialog-content">', "<p>" + e + "</p>", "</div>", '<div class="dialog-console clearfix_new">', '<a class="console-btn-confirm-privilege" href="#" onclick="return false;">返回登录页</a>', "</div>"].join(""),
                 i = alert.dialog.show({html: r});
+                $(".dialog-close").click(function() {
+                    var e = t && t.call(i);
+                    e !== !1 && alert.dialog.hide()
+                });
                 return i.find(".console-btn-confirm-privilege").click(function() {
                     var e = t && t.call(i);
                     e !== !1 && alert.dialog.hide()
