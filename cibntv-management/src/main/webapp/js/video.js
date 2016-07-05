@@ -64,6 +64,7 @@ var ajaxTool = new AJAXTool();
     //初始化分页
     function firstLink(code,name){
           $("#video-list").empty();
+          $("#video-total").empty();
           $("#loading").fadeIn();
           if(!name && !subjectName){
              $("#subject").html("学科");
@@ -76,9 +77,11 @@ var ajaxTool = new AJAXTool();
           var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":1,"pageSize":"10"},"/video/videoPage",false);
           result.done(function(resultList){
                $("#loading").fadeOut();
-               totalpage = resultList.data.totalPage;
-               dataList = resultList.data;
-              initPagination();
+               if(resultList.data){
+                   totalpage = resultList.data.totalPage;
+                   dataList = resultList.data;
+                   initPagination();
+               }
           });
       }
     //查看详细

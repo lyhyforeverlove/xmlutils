@@ -88,13 +88,11 @@ function addDepartment()
     $("#deparment_list").empty();
     var result  = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/role/roleList",false);
      result.done(function(resultList){
-         if(resultList.data.totalPages ===0 ){
-           totalpage = 1;
-         }else{
-           totalpage = resultList.data.totalPages;
-         }
-        dataList = resultList.data;
-        initPagination();
+        if(resultList.data){
+          totalpage = resultList.data.totalPages;
+          dataList = resultList.data;
+          initPagination();
+        }    
      });
   }
 $(function(){

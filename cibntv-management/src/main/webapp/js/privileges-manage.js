@@ -117,13 +117,11 @@ var ajaxTool = new AJAXTool();
     $("#privileges-list").empty();
     var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":"1","size":"10"},"/role/manageList",false);
     result.done(function(resultList){
-       if(resultList.data.totalPages ===0 ){
-           totalpage = 1;
-       }else{
-           totalpage = resultList.data.totalPages;
-       }
-       dataList = resultList.data;
-       initPagination();
+        if(resultList.data){
+          dataList = resultList.data;
+          totalpage = resultList.data.totalPages;
+          initPagination();
+        }
     });
   }
 
@@ -133,16 +131,16 @@ var ajaxTool = new AJAXTool();
 
   //部门下拉列表
   function departmentList(){
-    $("#departUl").empty();
-    var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);
-    result.done(function(resultList){
-      var data = resultList.data;
-      if(data){
-           var  departList="";
-           for(var i=0; i<data.content.length;i++){
-                 departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
-           }
-           $("#departUl").append(departList);
-      }
-    });
+      $("#departUl").empty();
+      var result = ajaxTool.getInfo({"currentPage":"1","size":"10"},"/role/roleList",false);
+      result.done(function(resultList){
+        var data = resultList.data;
+        if(data){
+             var  departList="";
+             for(var i=0; i<data.content.length;i++){
+                   departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
+             }
+             $("#departUl").append(departList);
+        }
+      });
   }

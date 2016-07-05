@@ -117,7 +117,6 @@ function searchBookType(code,name){
 //页面初始化
 function searcherValue(page){
     $("#examination_list").empty();
-    $("#examination-total").empty();
     if(page===1){
         if(dataList.paperDatas){
             var lg = dataList.paperDatas.length;
@@ -159,6 +158,7 @@ function searcherValue(page){
 function firstLink(){
     $("#loading").fadeIn();
     $("#examination_list").empty();
+    $("#examination-total").empty();
     var keyWord = $("#keyWord").val();
     var result = ajaxTool.getInfo({"stageCode":stageCode,"stageName":stageName,"gradeCode":gradeCode,"gradeName":gradeName,"subjectCode":subjectCode,"subjectName":subjectName,"bookTypeCode":bookTypeCode,"bookTypeName":bookTypeCodeName,"paperType":"1","cp":"1","pageSize":"10","searchName": "paperName","searchValue":keyWord
   },"/paper/paperPage",false);
@@ -166,11 +166,7 @@ function firstLink(){
         $("#loading").fadeOut();
         var data = resultList.data;
         if(data){
-           if(data.totalPage ===0 ){
-              totalpage = 1;
-           }else{
-              totalpage = data.totalPage;
-           }
+           totalpage = data.totalPage;
            dataList = data;
            initPagination();
         }

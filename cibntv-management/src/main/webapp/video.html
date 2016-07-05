@@ -10,8 +10,7 @@
 <body>
   <!--左侧logo和导航栏begin-->
   <div class="left">
-      <div class="nav-main-left text-center"><img src="images/logo.png">
-      </div>
+      <div class="nav-main-left text-center"><img src="images/logo.png"></div>
       <!--侧边栏导航-->
       <ul class="nav nav-pills nav-stacked text-center slider">
           <li><img src="images/header.png"></li>
@@ -36,18 +35,17 @@
      <!--主要内容-->
      <div class="main-content">
         <div class="seacher-panel">
-          <div class="total">视频总量：<normal id="video-total"></normal></div>
-          <div class="btn-group">
-             <button type="button" class="btn btn-primary" id="subject"  data-toggle="dropdown">学科</button>
-             <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-                <span class="caret"></span>
-             </button>
-             <ul class="dropdown-menu" role="menu"  id="subjectUl">
+            <div class="total">视频总量：<span id="video-total"></span></div>
+            <div class="btn-group">
+               <button type="button" class="btn btn-primary" id="subject"  data-toggle="dropdown">学科</button>
+               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu" role="menu"  id="subjectUl">
 
-             </ul>
-           </div>
-           <div class="col-sm-3">
+               </ul>
+             </div>
+             <div class="col-sm-3">
                <div class="input-group">
                   <input type="text" class="form-control" placeholder="视频名称搜索" id="searchName">
                   <span class="input-group-btn">
@@ -57,16 +55,15 @@
                   </span>
                </div>
              </div>
-          </div>
-          <!--视频列表-->
-          <div id="video-list" class="video-list"></div>
+        </div>
+        <!--视频列表-->
+        <div id="video-list" class="video-list"></div>
 
-          <div class="col-sm-12 text-center" id="pagination_box">
-            <ul class="pagination" id="pagination_zc">
+        <div class="col-sm-12 text-center" id="pagination_box">
+          <ul class="pagination" id="pagination_zc">
 
-            </ul>
-          </div>
-       </div>
+          </ul>
+        </div>
     </div>
     <!-- loading开始-->
     <div class="loaders" id="loading" style="display:none">
@@ -84,6 +81,7 @@
       </div>
     </div>
     <!--loading 结束-->
+  </div>
 </body>
 </html>
 <script src="js/jquery-1.11.1.min.js"></script>
