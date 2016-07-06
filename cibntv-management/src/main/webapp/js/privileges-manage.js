@@ -82,7 +82,11 @@ var ajaxTool = new AJAXTool();
                   if(!phone || phone =="null"){
                     phone="-";
                   }
-                  privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
+                  var realName = data.content[i].realName;
+                  if(!realName || realName =="null"){
+                     realName="-";
+                  }
+                  privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+realName+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
               }
               $("#privileges-list").append(privilegesList);
           }
@@ -104,7 +108,11 @@ var ajaxTool = new AJAXTool();
                       if(!phone || phone =="null"){
                         phone="-";
                       }
-                      privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
+                      var realName = data.content[i].realName;
+                      if(!realName || realName =="null"){
+                         realName="-";
+                      }
+                      privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+realName+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
                   }
                   $("#privileges-list").append(privilegesList);
               }

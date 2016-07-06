@@ -40,7 +40,7 @@ a,a:hover,a:focus{text-decoration: none;}
 .right>.main-content>.seacher-panel>.btn-group{float:left;margin-right: 48px;}
 .right>.main-content>.seacher-panel>.total{font-size: 16px;width:180px;float: left;font-weight:normal;height: 40px;line-height: 40px;}
 .right>.main-content>.seacher-panel>.btn-button{display:inline-block; float:right;margin-right: 120px;}
-.right>.main-content>.seacher-panel>.btn-button>a{width:150px;height:40px;line-height: 40px; text-align: center;background-color: #5878f5;border:none;font-size: 16px;font-weight: normal;color:#fff;float:right;margin-right: 120px;}
+.right>.main-content>.seacher-panel>.btn-button>a{width:150px;height:40px;line-height: 40px; text-align: center;background-color: #5878f5;border:none;font-size: 16px;font-weight: normal;color:#fff;float:right;}
 .right>.main-content>.seacher-panel>.btn-button>a:hover{background-color: #4057b3;}
 
 /*表格样式*/
