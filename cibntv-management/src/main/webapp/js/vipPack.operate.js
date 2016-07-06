@@ -165,13 +165,14 @@ function vipPackRelease(ids) {
     api.vipPackRelease({"ids":ids}).done(function(data) {
         //发布
         if(data.message == "success"){
-            alert("发布成功！");
-           /* alert.dialog.confirm('发布成功！') */
+            //alert("发布成功！");
+           alert.dialog.confirm('发布成功！',function(){
+             $("#list").empty();
+              initVipPackList(1,true,true);
+              var url = "vipmanage.html";
+              api.windowOpen(url);
+           });
         }
-        $("#list").empty();
-        initVipPackList(1,true,true);
-        var url = "vipmanage.html";
-        api.windowOpen(url);
     })
 }
 
@@ -262,17 +263,17 @@ function uploadCreateVip(){
           contentType: false,  
           processData: false,  
           success: function (data) { 
-            var data = data.data;
+            //var data = data.data;
               /*result.data  如果false 没有权限   提示页面
               *result.data  如果为login.html就是session过期  直接跳到login.html
               */
-              if(data =="disable"){
+              if(data.data =="disable"){
                   alert.dialog.confirm('您没有访问此功能模块的权限？',function(){
                       localStorage.clear();
                       window.location.href="login.html";
                   });
               }
-              else if(data ==="login.html"){
+              else if(data.data ==="login.html"){
                  localStorage.clear();
                  window.location.href="login.html";
               }
