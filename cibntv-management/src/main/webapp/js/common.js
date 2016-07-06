@@ -52,6 +52,30 @@ function indexPage(name) {
     })
 }
 /*
+*获取个人中心信息展示
+*/
+var userUuid1 = localStorage.getItem("uuid_id");
+manageDetail(userUuid1);
+function manageDetail(uuid_id) {
+    var api = new API();
+    api.manageDetail({
+        "uuid": uuid_id
+    }).done(function(data) {
+
+        var dataUserObj = data.data;
+        
+        //用户没有权限跳转登录页面
+        if(dataUserObj == "login.html"){
+            clear.localStorage();
+            api.windowLogin();
+        }
+
+        $("#personInfo").append('<tr><th>真实姓名：</th><td>' + dataUserObj.realName + '</td></tr><tr><th>手机号:</th><td><span id="telValue">' + dataUserObj.phone + '</span></td></tr><tr><th>所属部门：</th><td>' + dataUserObj.rName + '</td></tr>');
+        
+    })
+}
+
+/*
  *退出登录
  */
 function logout() {

@@ -249,130 +249,6 @@ $(function() {
             checkNull();
         })
 
-        /*获取个人中心信息展示*/
-        manageDetail(userUuid1);
-
-        function manageDetail(uuid_id) {
-            api.manageDetail({
-                "uuid": uuid_id
-            }).done(function(data) {
-                //console.log(data);
-                var dataUserObj = data.data;
-                /*if(dataUserObj.realName == null){
-                    dataUserObj.realName = "-";
-                }*/
-                $("#personInfo").append('<tr><th>真实姓名：</th><td>' + dataUserObj.realName + '</td></tr><tr><th>手机号:</th><td><span id="telValue">' + dataUserObj.phone + '</span></td><td ><button style="margin-left:20px;" type="submit" class="tip-bottom" title="" id="replaceBtn"><i>更换手机号</i></button></td></tr><tr><th>所属部门：</th><td>' + dataUserObj.rName + '</td></tr>');
-                //个人中心更换手机号
-                $("#replaceBtn").click(function() {
-                    Prompt.init({
-                        title: "更换手机号",
-                        width: 480,
-                        height: 320,
-                        html: "<div id='updTelbox'><div class='form-group'><label class='label'>新手机号：</label><input type='tel' value=''  id='newTel' class='form-control' style='width:180px;float:left;'/><span class='point' style='float:left;display:inline-block;margin-left: 10px;margin-top: 4px;'></span><input type='button' id='checkCodeBtn' value='发送验证码' class='default tip-bottom1' style='color:#fff;border-radius:4px;' /> </div><div class='form-group'><label class='label'>验证码：</label><input type='text' class='yzmVal form-control' style='width:180px;float:left;' /><span class='point' style='display:inline-block;margin-left: -110px;margin-top: 4px;'></span><span class='errorspan' style='line-height:40px;'><span></div><div class='errorInfo'></div><button class='tip-bottom1' id='wanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
-
-                    });
-
-                    $("#checkCodeBtn").css("background", "#ccc");
-                    $("#checkCodeBtn").attr("disabled", true);
-                    $("#wanBtn").css("background", "#ccc");
-                    $("#wanBtn").attr("disabled", true);
-
-                    $("#newTel").blur(function() {
-                        var phone = $(this).val();
-                        if (phone.length == 0) {
-                            $("#updTelbox").find(".errorInfo").html("手机号不能为空");
-                            $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
-                            $("#checkCodeBtn").css("background", "#ccc");
-                            $("#checkCodeBtn").attr("disabled", true);
-                            return false;
-                        }
-                        if (!(/^1[3|4|5|7|8]\d{9}$/).test(phone)) {
-                            $("#updTelbox").find(".errorInfo").html("手机号格式有误,请重新输入！11位数字");
-                            $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
-
-                            $("#checkCodeBtn").css("background", "#ccc");
-                            $("#checkCodeBtn").attr("disabled", true);
-                            return false;
-                        } else {
-                            api.checkPhone({
-                                "phone": phone
-                            }).done(function(data) {
-                                //console.log(data);
-                                if (data.data == true) {
-                                    $("#updTelbox").find(".errorInfo").html("该手机号已经存在,请更换为别的手机号");
-                                    $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
-                                    $("#checkCodeBtn").css("background", "#ccc");
-                                    $("#checkCodeBtn").attr("disabled", true);
-                                    return false;
-                                } else {
-                                    $("#newTel").parent().find("span.point").removeClass("wrong").addClass("right");
-                                    $("#updTelbox").find(".errorInfo").html("");
-                                    $("#checkCodeBtn").css("background", "#5878f5");
-                                    $("#checkCodeBtn").attr("disabled", false);
-                                }
-                            })
-                        }
-                    })
-
-                    $("#checkCodeBtn").click(function() {
-                            var telValue = $("#newTel").val();
-                            settime(this);
-                            sendTelCode(telValue);
-                        })
-                        //验证码焦点离开时判断是否正确
-                    $(".yzmVal").blur(function() {
-                            var telValue = $("#newTel").val();
-                            var yzm = $(".yzmVal").val();
-                            if (yzm.length == 0) {
-                                $(".yzmVal").parent().find("span.point").removeClass("right").addClass("wrong");
-                                $("#updTelbox").find(".errorInfo").html("验证码不能为空！");
-                                return false;
-                            } else {
-                                //isCorrectCode(telValue, yzm);
-                                api.isCorrectCode({
-                                    "phone": telValue,
-                                    "smsCode": yzm
-                                }).done(function(data) {
-                                    //console.log(data);
-                                    //验证码正确
-                                    if (data.data == true) {
-                                        $(".yzmVal").parent().find("span.point").removeClass("wrong").addClass("right");
-                                        $("#updTelbox").find(".errorInfo").html("");
-                                        $("#wanBtn").attr("disabled", false);
-                                        $("#wanBtn").css("background", "#5878f5");
-                                
-                                    } else {
-                                        $(".yzmVal").parent().find("span.point").removeClass("right").addClass("wrong");
-                                        $("#updTelbox").find(".errorInfo").html("验证码上输入不正确！");
-                                        $("#wanBtn").attr("disabled", true);
-                                        $("#wanBtn").css("background", "#ccc");
-                                    }
-
-                                })
-                            }
-
-                        })
-                    //修改手机号完成
-                    $("#wanBtn").click(function() {
-                        var telValue = $("#newTel").val();
-                        var yzm = $(".yzmVal").val();
-                        api.manageReplace({
-                            "uuid": userUuid1,
-                            "phone": telValue
-                        }).done(function(data) {
-                            $("#updTelbox").css("display", "none");
-                            $("#success").html("更换手机号成功!");
-                            //更换手机号成功后 刷新展示信息
-                            $("#personInfo").empty();
-                            manageDetail(userUuid1);
-                        })
-                        
-                    })
-
-                })
-            })
-        }
-
         //个人中心修改密码
         $("#updPwdBtn").click(function() {
             Prompt.init({
@@ -495,6 +371,118 @@ $(function() {
                 login(userName, password);
             }
         })
+
+        /*
+        *更换手机号
+        */
+        $("#replaceBtn").click(function() {
+            Prompt.init({
+                title: "更换手机号",
+                width: 480,
+                height: 320,
+                html: "<div id='updTelbox'><div class='form-group'><label class='label'>新手机号：</label><input type='tel' value=''  id='newTel' class='form-control' style='width:180px;float:left;'/><span class='point' style='float:left;display:inline-block;margin-left: 10px;margin-top: 4px;'></span><input type='button' id='checkCodeBtn' value='发送验证码' class='default tip-bottom1' style='color:#fff;border-radius:4px;' /> </div><div class='form-group'><label class='label'>验证码：</label><input type='text' class='yzmVal form-control' style='width:180px;float:left;' /><span class='point' style='display:inline-block;margin-left: -110px;margin-top: 4px;'></span><span class='errorspan' style='line-height:40px;'><span></div><div class='errorInfo'></div><button class='tip-bottom1' id='wanBtn' style='margin-top:20px;padding:0 20px'><i>完成</i></button></div><div id='success'></div>",
+
+            });
+
+            $("#checkCodeBtn").css("background", "#ccc");
+            $("#checkCodeBtn").attr("disabled", true);
+            $("#wanBtn").css("background", "#ccc");
+            $("#wanBtn").attr("disabled", true);
+
+            $("#newTel").blur(function() {
+                var phone = $(this).val();
+                if (phone.length == 0) {
+                    $("#updTelbox").find(".errorInfo").html("手机号不能为空");
+                    $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
+                    $("#checkCodeBtn").css("background", "#ccc");
+                    $("#checkCodeBtn").attr("disabled", true);
+                    return false;
+                }
+                if (!(/^1[3|4|5|7|8]\d{9}$/).test(phone)) {
+                    $("#updTelbox").find(".errorInfo").html("手机号格式有误,请重新输入！11位数字");
+                    $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
+
+                    $("#checkCodeBtn").css("background", "#ccc");
+                    $("#checkCodeBtn").attr("disabled", true);
+                    return false;
+                } else {
+                    api.checkPhone({
+                        "phone": phone
+                    }).done(function(data) {
+                        //console.log(data);
+                        if (data.data == true) {
+                            $("#updTelbox").find(".errorInfo").html("该手机号已经存在,请更换为别的手机号");
+                            $("#newTel").parent().find("span.point").removeClass("wrong").addClass("wrong");
+                            $("#checkCodeBtn").css("background", "#ccc");
+                            $("#checkCodeBtn").attr("disabled", true);
+                            return false;
+                        } else {
+                            $("#newTel").parent().find("span.point").removeClass("wrong").addClass("right");
+                            $("#updTelbox").find(".errorInfo").html("");
+                            $("#checkCodeBtn").css("background", "#5878f5");
+                            $("#checkCodeBtn").attr("disabled", false);
+                        }
+                    })
+                }
+            })
+
+            $("#checkCodeBtn").click(function() {
+                    var telValue = $("#newTel").val();
+                    settime(this);
+                    sendTelCode(telValue);
+                })
+                //验证码焦点离开时判断是否正确
+            $(".yzmVal").blur(function() {
+                    var telValue = $("#newTel").val();
+                    var yzm = $(".yzmVal").val();
+                    if (yzm.length == 0) {
+                        $(".yzmVal").parent().find("span.point").removeClass("right").addClass("wrong");
+                        $("#updTelbox").find(".errorInfo").html("验证码不能为空！");
+                        return false;
+                    } else {
+                        //isCorrectCode(telValue, yzm);
+                        api.isCorrectCode({
+                            "phone": telValue,
+                            "smsCode": yzm
+                        }).done(function(data) {
+                            //console.log(data);
+                            //验证码正确
+                            if (data.data == true) {
+                                $(".yzmVal").parent().find("span.point").removeClass("wrong").addClass("right");
+                                $("#updTelbox").find(".errorInfo").html("");
+                                $("#wanBtn").attr("disabled", false);
+                                $("#wanBtn").css("background", "#5878f5");
+                        
+                            } else {
+                                $(".yzmVal").parent().find("span.point").removeClass("right").addClass("wrong");
+                                $("#updTelbox").find(".errorInfo").html("验证码上输入不正确！");
+                                $("#wanBtn").attr("disabled", true);
+                                $("#wanBtn").css("background", "#ccc");
+                            }
+
+                        })
+                    }
+
+                })
+            //修改手机号完成
+            $("#wanBtn").click(function() {
+                var telValue = $("#newTel").val();
+                var yzm = $(".yzmVal").val();
+                api.manageReplace({
+                    "uuid": userUuid1,
+                    "phone": telValue
+                }).done(function(data) {
+                    $("#updTelbox").css("display", "none");
+                    $("#success").html("更换手机号成功!");
+                    //更换手机号成功后 刷新展示信息
+                    $("#personInfo").empty();
+                    manageDetail(userUuid1);
+                })
+                
+            })
+
+        })
+
     })
 /*
  *用户登录公共方法
@@ -585,15 +573,10 @@ function indexShow() {
     });
 
 }
+
 /*
- *退出登录
- */
-/*function logout() {
-    api.logout().done(function(data) {
-        console.log("data");
-    })
-}*/
-/*发送验证码*/
+*发送验证码
+*/
 var countdown = 60;
 
 function settime(obj) {
