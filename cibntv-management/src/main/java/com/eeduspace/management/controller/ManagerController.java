@@ -2,6 +2,7 @@ package com.eeduspace.management.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -80,12 +81,17 @@ public class ManagerController {
 	public ResponseItem managerDetail(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
+			ResponseItem responseItem = new ResponseItem();
+			HttpSession session = request.getSession();
+			if (StringUtils.isBlank((String)session.getAttribute("uuid"))) {
+				responseItem.setData("login.html");
+				return responseItem;
+			}
 			if (StringUtils.isBlank(managerModel.getUuid())) {
 				logger.error("managerDetail ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
 			}
 			ManagerModel model = managerService.getManagerModel(managerModel.getUuid());
-			ResponseItem responseItem = new ResponseItem();
 			responseItem.setData(model);
 			return responseItem;
 		} catch (Exception e) {

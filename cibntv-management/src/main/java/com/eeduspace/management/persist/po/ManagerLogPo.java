@@ -23,32 +23,32 @@ public class ManagerLogPo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
-
+    
     //管理员ID
     @Column(nullable = false,name = "manager_id")
     private Long managerId;
 
-    //所操纵的资源ID 如：用户、角色、产品 则该处存放用户UUID 以此类推
+    //管理员uuid
     @Column(name = "resource_id")
     private String resourceId;
 
-    //资源IP 表示发起操作的 实际IP地址
+    //请求方 Ip
     @Column(name = "source_ip")
     private String sourceIp;
 
-    //模块 标识操作哪个模块 如：用户、角色、令牌等
+    //管理员用户名
     @Column(nullable = false)
     private String module;
 
-    //具体操作动作
+    //请求地址
     private String action;
-    //操作结果
+    //请求操作结果
     private Boolean result;
 
-    //描述
+    //请求操作方式（get，post）
     @Column(length = 1000)
     private String description;
-    //请求ID
+    //请求requestId
     @Column(name = "request_id")
     private String requestId;
     //创建时间
