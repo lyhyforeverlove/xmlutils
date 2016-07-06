@@ -22,13 +22,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.eeduspace.management.comm.Constants;
+import com.eeduspace.management.model.ManagerLogModel;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.PermissionModel;
 import com.eeduspace.management.model.RoleModel;
-import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
+import com.eeduspace.management.persist.enumeration.UserEnum;
 import com.eeduspace.management.rescode.ResponseCode;
 import com.eeduspace.management.rescode.ResponseItem;
+import com.eeduspace.management.service.ManagerLogService;
 import com.eeduspace.management.service.ManagerService;
 import com.eeduspace.management.service.PermissionService;
 import com.eeduspace.management.service.RoleService;
@@ -56,6 +58,9 @@ public class RoleController {
 	
 	@Inject
 	private ManagerService managerService;
+	
+	@Inject
+	private ManagerLogService managerLogService;
 	
 	/**角色列表
 	 * @param request
@@ -261,18 +266,11 @@ public class RoleController {
 	public ResponseItem managerReplace(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
-			if (StringUtils.isBlank(managerModel.getUuid())) {
+			/*if (StringUtils.isBlank(managerModel.getUuid())) {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
-			}
-			/*if (StringUtils.isBlank(managerModel.getrUuid())) {
-				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
-			}
-			if (StringUtils.isBlank(managerModel.getrName())) {
-				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrName");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrName");
 			}*/
+			
 			if (StringUtils.isNotBlank(managerModel.getPassword())) {
 				String pwd = Digest.md5Digest(managerModel.getPassword());
 				managerModel.setPassword(pwd);
@@ -280,6 +278,26 @@ public class RoleController {
 			ResponseItem responseItem = new ResponseItem();
 			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
 			responseItem.setData(model);
+			return responseItem;
+		} catch (Exception e) {
+			logger.error("managerReplace  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerReplace exception");
+		}
+	}
+	
+	/**日志列表
+	 * @return
+	 */
+	@RequestMapping(value="/manageLog",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseItem managerLog(HttpServletRequest request,ManagerLogModel mLogModel){
+		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(mLogModel));
+		try {
+			Sort sort = new Sort(Sort.Direction.DESC, "createDate");
+			Pageable pageable = new PageRequest((mLogModel.getCurrentPage()-1),mLogModel.getSize(),sort);
+			Page<ManagerLogModel> managerPage = managerLogService.findPage(mLogModel,pageable);
+			ResponseItem responseItem = new ResponseItem();
+			responseItem.setData(managerPage);
 			return responseItem;
 		} catch (Exception e) {
 			logger.error("managerReplace  Exception:", e);

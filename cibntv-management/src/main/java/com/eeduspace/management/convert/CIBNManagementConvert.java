@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.util.StringUtils;
 
 import com.eeduspace.management.model.DiaginsticExcelModel;
+import com.eeduspace.management.model.ManagerLogModel;
 import com.eeduspace.management.model.ManagerModel;
 import com.eeduspace.management.model.PaperTypeModel;
 import com.eeduspace.management.model.PermissionModel;
@@ -21,6 +22,7 @@ import com.eeduspace.management.model.VipPackModel;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Status;
 import com.eeduspace.management.persist.enumeration.RoleEnum.Type;
 import com.eeduspace.management.persist.enumeration.VipEnum.VipPackTypeEnum;
+import com.eeduspace.management.persist.po.ManagerLogPo;
 import com.eeduspace.management.persist.po.ManagerPo;
 import com.eeduspace.management.persist.po.PaperTypePo;
 import com.eeduspace.management.persist.po.PermissionPo;
@@ -353,6 +355,20 @@ public class CIBNManagementConvert {
 		}
 			
 		return model;
+	}
+	public static ManagerLogModel fromManagerLogPo(ManagerLogPo managerPo){
+		ManagerLogModel mLogModel = new ManagerLogModel();
+		mLogModel.setId(managerPo.getId());
+		mLogModel.setAction(managerPo.getAction());
+		mLogModel.setCreateDate(DateUtils.toString(managerPo.getCreateDate(), DateUtils.DATE_FORMAT_DATETIME));
+		mLogModel.setDescription(managerPo.getDescription());
+		mLogModel.setManagerId(managerPo.getManagerId());
+		mLogModel.setModule(managerPo.getModule());
+		mLogModel.setRequestId(managerPo.getRequestId());
+		mLogModel.setResourceId(managerPo.getResourceId());
+		mLogModel.setResult(managerPo.getResult());
+		mLogModel.setSourceIp(managerPo.getSourceIp());
+		return mLogModel;
 	}
 	
 }
