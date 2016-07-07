@@ -3,7 +3,7 @@ $(function(){
     subjectList();
 });
 
-  
+
   //页面加载。带参数查询方法
   var subjectName="";
   var subjectCode="";
@@ -28,12 +28,12 @@ $(function(){
           $("#video-total").empty();
           $("#loading").fadeIn();
           if(!name && !subjectName){
-             $("#subject").html("学科");
+              $("#subject").html("学科");
           }else if(typeof(name) ==="undefined" && !subjectName){
-  　　　　　 subjectList();
+  　　　　　  subjectList();
 
           }else if(typeof(name) !== "undefined"){
-  　　　　　 subjectName=name;
+  　　　　　  subjectName=name;
   　         subjectCode=code;
              $("#subject").html(subjectName);
           }
