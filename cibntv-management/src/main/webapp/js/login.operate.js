@@ -49,10 +49,30 @@ $(function() {
             var yzmVal = $("#userYzmTxt").val();
             var newPwdVal = $("#userNewPwd").val();
             var userQrPwd = $("#userQrPwd").val();
-
-            if (nameVal.length == 0 || telVal.length == 0 || yzmVal.length == 0 || newPwdVal.length == 0 || userQrPwd.length == 0) {
-                alert("请输入第一次登录绑定信息！");
-            } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(nameVal)) { //匹配2到四个汉字
+            if(nameVal.length == 0 && telVal.length == 0 && yzmVal.length == 0 && newPwdVal.length == 0 && userQrPwd.length == 0){
+                 $("#userNameTxt").parent().find("p.error").html("真实姓名不能为空！");
+                 $("#userNameTxt").parent().find("span.point").addClass("wrong");
+                 $("#userTelTxt").parent().find("p.error").html("手机号不能为空！");
+                 $("#userTelTxt").parent().find("span.point").addClass("wrong");
+                 $("#userYzmTxt").parent().find("p.error").html("验证码不能为空！");
+                 $("#userYzmTxt").parent().find("span.point").addClass("wrong");
+                 $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
+                 $("#userNewPwd").parent().find("p.error").html("新密码不能为空！");
+                 $("#userNewPwd").parent().find("span.point").addClass("wrong");
+                  $("#userQrPwd").parent().find("p.error").html("确认密码不能为空！");
+                  $("#userQrPwd").parent().find("span.point").addClass("wrong");
+            }
+            if (nameVal.length == 0 ) {
+                $("#userNameTxt").parent().find("p.error").html("真实姓名不能为空！");
+            } else if(telVal.length == 0 ){
+                $("#userTelTxt").parent().find("p.error").html("手机号不能为空！");
+            }else if(yzmVal.length == 0){
+                $("#userYzmTxt").parent().find("p.error").html("验证码不能为空！");
+            }else if(newPwdVal.length == 0){
+                $("#userNewPwd").parent().find("p.error").html("新密码不能为空！");
+            }else if(userQrPwd.length == 0){
+                $("#userQrPwd").parent().find("p.error").html("确认密码不能为空！");
+            }else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(nameVal)) { //匹配2到四个汉字
                     $("#userNameTxt").parent().find("p.error").html("真实姓名格式有误！请输入匹配2~4个汉字");
                     $("#userNameTxt").parent().find("span.point").addClass("wrong");
                     return false;
@@ -138,6 +158,11 @@ $(function() {
                var username = $(this);
                checkUserName(username);
             })
+        $("#userNameTxt").keyup(function() {
+               var username = $(this);
+               //checkUserName(username);
+               username.parent().find("p.error").html("请输入匹配2~4个汉字!");
+            })
         function checkUserName(username){
              var name = $("#userNameTxt").val();
                 if (name.length == 0) {
@@ -160,6 +185,11 @@ $(function() {
         $("#userTelTxt").blur(function() {
             var phone = $("#userTelTxt");
             checkPhone(phone);
+
+        });
+         $("#userTelTxt").keyup(function() {
+            var phone = $("#userTelTxt");
+            $("#userTelTxt").parent().find("p.error").html("请重新输入！11位数字");
 
         });
         //验证手机号(不能为空，格式，唯一性)
@@ -279,6 +309,10 @@ $(function() {
             var password = $(this);
             checkPassword(password);
         })
+        $("#userNewPwd").keyup(function() {
+            var password = $(this);
+            password.parent().find("p.error").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+        })
         function checkPassword(password){
              var newpwd = password.val();
                 if (newpwd.length == 0) {
@@ -351,9 +385,20 @@ $(function() {
                     var updNewPwd = $("#updNewPwd").val();
                     var updConPwd = $("#updConPwd").val();
 
-                    if (updOldPwd.length == 0 || updNewPwd.length == 0 || updConPwd.length == 0) {
+                    if(updOldPwd.length == 0 &&  updNewPwd.length == 0  &&  updConPwd.length == 0){
                         $("#updPwdbox").find(".errorInfo").html("旧密码、新密码、确认密码不能为空!");
                         return false;
+                    }
+                    else if (updOldPwd.length == 0 ) {
+                        $("#updPwdbox").find(".errorInfo").html("旧密码不能为空!");
+                        return false;
+                    }else if( updNewPwd.length == 0 ){
+                        $("#updPwdbox").find(".errorInfo").html("新密码不能为空!");
+                        return false;
+                    }else if( updConPwd.length == 0){
+                        $("#updPwdbox").find(".errorInfo").html("确认密码不能为空!");
+                        return false;
+                        
                     }else if (userPwd != updOldPwd) {
                             $("#updPwdbox").find(".errorInfo").html("旧密码输入不正确！");
                                 return false;
@@ -361,7 +406,7 @@ $(function() {
                             $("#updPwdbox").find(".errorInfo").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
                             return false;
                     }else if(updNewPwd != updConPwd){
-                         $("#updPwdbox").find(".errorInfo").html("新密码与确认密码不能一致!");
+                         $("#updPwdbox").find(".errorInfo").html("新密码与确认密码不一致!");
                         return false;   
                     }else {
                         api.manageReplace({

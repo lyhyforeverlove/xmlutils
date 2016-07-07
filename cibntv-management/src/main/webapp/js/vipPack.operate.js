@@ -20,14 +20,14 @@ $(function() {
                 //ConfirmFun: uploadCreateVip
             });
 
-            var reg = /^[\d]+$/g;
+            var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
           
           $("#vipPrice").blur(function(){
             var priceval = $(this).val();
             if(priceval.length == 0){
               $(".errorInfo").html("VIP价格不能为空！");
             }else if(!reg.test(priceval)){
-              $(".errorInfo").html("VIP价格只能输入数字");
+              $(".errorInfo").html("VIP价格只能精确到分！");
             }else{
                $(".errorInfo").html("");
             }

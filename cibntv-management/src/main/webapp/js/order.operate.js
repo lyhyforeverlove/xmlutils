@@ -62,7 +62,9 @@ $(function() {
         //console.log(startDate,endDate);
         if (val == 0) {
             searchText = $(".search-order-input").val(); 
-            if((/^\d{1,11}$/).test(searchText)){
+            if(searchText.length == 0){
+                getOrderInfoList(1,10,"VIP",searchText,null,startDate,endDate); 
+            }else if((/^\d{1,11}$/).test(searchText)){
                 getOrderInfoList(1,10,"VIP",searchText,null,startDate,endDate); 
             }else{
                 alert.dialog.confirm('只能输入数字且长度不能超过11!',function(){
@@ -72,7 +74,9 @@ $(function() {
             }      
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            if((/^[a-zA-Z0-9]{1,30}$/).test(searchText)){
+            if(searchText.length == 0){
+                getOrderInfoList(1,10,"VIP",null,searchText,startDate,endDate);
+            }else if((/^[a-zA-Z0-9]{1,30}$/).test(searchText)){
                 getOrderInfoList(1,10,"VIP",null,searchText,startDate,endDate); 
             }else{
                 alert.dialog.confirm('只能输入数字、字母',function(){
@@ -88,7 +92,9 @@ $(function() {
         var endDate = $("#endDate").val();
         if (val == 0) {
             searchText = $(".search-order-input").val();
-            if((/^\d{1,11}$/).test(searchText)){
+            if(searchText.length == 0){
+               getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null,startDate,endDate);
+            }else if((/^\d{1,11}$/).test(searchText)){
                 getOrderInfoList(1,10,"DIAGNOSTIC",searchText,null,startDate,endDate);
             }else{
                 alert.dialog.confirm('只能输入数字且长度不能超过11!',function(){
@@ -98,7 +104,9 @@ $(function() {
             }   
         } else if (val == 1) {
             searchText = $(".search-order-input").val();
-            if((/^[a-zA-Z0-9]{1,30}$/).test(searchText)){
+            if(searchText.length == 0){
+               getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText,startDate,endDate);
+            }else if((/^[a-zA-Z0-9]{1,30}$/).test(searchText)){
                 getOrderInfoList(1,10,"DIAGNOSTIC",null,searchText,startDate,endDate); 
             }else{
                 alert.dialog.confirm('只能输入数字、字母',function(){
