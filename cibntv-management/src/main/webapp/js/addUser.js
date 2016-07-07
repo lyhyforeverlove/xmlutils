@@ -16,26 +16,26 @@ function saveUser(){
             $("#userName").focus();
           });
       }else if(userName.length<6){
-          alert.dialog.confirm('用户名不能小于6位！',function(){
+          alert.dialog.confirm('用户名只能由6~16位的字母或数字组成！您输入的用户名小于6位！',function(){
              $("#userName").focus();
           });
       }else   if(userName.length>16){
-          alert.dialog.confirm('用户名不能大于16位！',function(){
+          alert.dialog.confirm('用户名只能由6~16位的字母或数字组成！您输入的用户名大于16位！',function(){
              $("#userName").focus();
           });
       }else if(!initPassword){
           alert.dialog.confirm('请输入初始密码！',function(){});
       }
       else if(!reg.test(initPassword)){
-          alert.dialog.confirm('您输入的密码格式不正确！',function(){
+          alert.dialog.confirm('密码只能由字母、数字组成，不能包含中文和特殊字符！',function(){
               $("#initPassword").focus();
           });
       }else if(initPassword.length<6){
-          alert.dialog.confirm('您输入的密码过短！',function(){
+          alert.dialog.confirm('密码只能由6~16位的字母或数字组成！您输入的密码小于6位！',function(){
               $("#initPassword").focus();
           });
       }else if(initPassword.length>16){
-          alert.dialog.confirm('您输入的密码过长！',function(){
+          alert.dialog.confirm('密码只能由6~16位的字母或数字组成！您输入的密码大于16位！',function(){
               $("#initPassword").focus();
           });
       }else if(!uuid){

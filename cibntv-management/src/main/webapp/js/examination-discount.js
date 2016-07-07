@@ -51,7 +51,7 @@ var bool=false;//验证折扣；
                 var startTime=data[i].dateBef;
                 var endTime=data[i].dateAft;
                 var discount=data[i].discount;
-                tr +="<tr><td>"+title+"<input type='hidden' value="+id+"  /></td><td>折扣时间段：</td><td><input type='text'  id='startTime"+i+"' value='"+startTime+"' class='startTime' disabled='disabled'></td><td>起</td><td>至</td><td><input type='text'  id='endTime"+i+"' value='"+endTime+"' class='endTime' disabled='disabled'></td><td>止</td><td>折扣：<input type='text' class='discount' value="+discount+"  onblur=validateDiscount(this);></td></tr>";
+                tr +="<tr><td>"+title+"<input type='hidden' value="+id+"  /></td><td>折扣时间段：</td><td><input type='text'  id='startTime"+i+"' value='"+startTime+"' class='startTime' disabled='disabled'></td><td>起</td><td>至</td><td><input type='text'  id='endTime"+i+"' value='"+endTime+"' class='endTime' disabled='disabled'></td><td>止</td><td>折扣：<input type='text' class='discount' value="+discount+"  onblur=validateDiscount(this); disabled='disabled'></td></tr>";
               }
               $("#discount").append(tr);
               //开始时间插件
@@ -66,7 +66,6 @@ var bool=false;//验证折扣；
               }).change(function(){
                     var startDate = $(this).parent().parent().find("td").eq(2).find(".startTime").datepicker( "getDate");
                     var endDate =  $(this).parent().parent().find("td").eq(5).find(".endTime").datepicker( "getDate");
-                    console.log(startDate+"~~~~~~~~"+endDate);
                     if(endDate < startDate){
                        alert.dialog.confirm('折扣结束时间不能小于开始时间！',function(){});
                        $(this).parent().parent().find("td").eq(5).find(".endTime").datepicker('setDate', startDate);
