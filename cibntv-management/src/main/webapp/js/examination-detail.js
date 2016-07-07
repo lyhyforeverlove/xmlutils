@@ -46,7 +46,7 @@ $(function(){
                                  p=p+1;
                              }
                              else{
-                               nstr += answerList[p];
+                                 answer[m].optionValue += answerList[p];
                              }
                         }
                       }
