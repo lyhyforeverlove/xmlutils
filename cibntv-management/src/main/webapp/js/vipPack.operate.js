@@ -248,7 +248,9 @@ function initVipPackList(state, flag ,isAllFlag) {
                     delIdsArr.push(uuId);
                    // console.log(delIdsArr);
                 })
-               
+                if (state == 0) {
+                    $(this).unbind("click"); //移除click 
+                } 
             })
 
     })
