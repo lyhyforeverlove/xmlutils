@@ -12,13 +12,13 @@ $(function(){
                 for(var i=0;i<data.questions.length;i++){
                     var stem = data.questions[i].stem;
                     var re = new RegExp("http://(.*?).(swf|gif|jpg|bmp|jpeg|png)");
+                    var reg = new RegExp("/|/+");
                     //标题
                     var nstr="";
                     if(re.test(stem)){
                       var stemList = stem.split(re);
                       var cc="";
                       for(var j = 0; j<stemList.length;j++){
-                           var reg = new RegExp("/|/+");
                            if(reg.test(stemList[j])){
                                cc = "<img src='http://"+stemList[j]+"."+stemList[j+1]+"'>";
                                nstr += cc;
@@ -36,8 +36,19 @@ $(function(){
                     var answer =data.questions[i].optionModels;
                     var answerStr = "";
                     for(var m=0; m<answer.length;m++){
-                      if(re.test(answer[m].optionValue)){
-                         answer[m].optionValue="<img src='"+answer[m].optionValue.replace(/&nbsp;/ig, "")+"'>";
+                      //答案
+                      var newAnswer = answer[m].optionValue;
+                      if(re.test(newAnswer)){
+                        var answerList = newAnswer.split(re);
+                        for(var p = 0; p<answerList.length;p++){
+                             if(reg.test(answerList[p])){
+                                 answer[m].optionValue= "<img src='http://"+answerList[p]+"."+answerList[p+1]+"'>";
+                                 p=p+1;
+                             }
+                             else{
+                               nstr += answerList[p];
+                             }
+                        }
                       }
                         answerStr += "<p>"+answer[m].optionKey+"、"+answer[m].optionValue+"</p>";
                     }
