@@ -21,14 +21,27 @@ $(function() {
                 }
                 login(userName, password);
             })
-            /*
-             *第一次登录 填写信息
-             *真实姓名一旦确定无法修改，慎重
-             */
+        /*
+         *第一次登录 填写信息
+         *真实姓名一旦确定无法修改，慎重
+         */
         var userUuid1 = localStorage.getItem("uuid_id");
-        $(".login_btn_box #firstLoginBtn").css("background-color", "#ccc");
+        //$(".login_btn_box #firstLoginBtn").css("background-color", "#ccc");
+        //$(".login_btn_box #firstLoginBtn").attr("disabled", true);
 
         var firstLoginBtn = $("#firstLoginBtn");
+
+        //第一次绑定基本信息 Enter登录
+        $("#loginform #userQrPwd").keypress(function(e) {
+            if (e.keyCode == 13) { //键码值是13 Enter
+                firstLogin();
+            }
+        })
+        //第一次登录点击进入
+        firstLoginBtn.click(function() {
+
+            firstLogin();
+        })
 
         function firstLogin() {
             var nameVal = $("#userNameTxt").val();
@@ -39,8 +52,32 @@ $(function() {
 
             if (nameVal.length == 0 || telVal.length == 0 || yzmVal.length == 0 || newPwdVal.length == 0 || userQrPwd.length == 0) {
                 alert("请输入第一次登录绑定信息！");
-            } else {
-                Prompt.init({
+            } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(nameVal)) { //匹配2到四个汉字
+                    $("#userNameTxt").parent().find("p.error").html("真实姓名格式有误！请输入匹配2~4个汉字");
+                    $("#userNameTxt").parent().find("span.point").addClass("wrong");
+                    return false;
+            }else if (!(/^1[3|4|5|7|8]\d{9}$/).test(telVal)) {
+                $("#userTelTxt").parent().find("p.error").html("手机号格式有误,请重新输入！11位数字");
+                $("#userTelTxt").parent().find("span.point").addClass("wrong");
+                return false;
+            }/*else if(yzmVal.length != null ){
+                isCorrectCode(telVal, yzmVal);
+            }*/else if (!(/^[a-zA-Z]\w{5,17}$/).test(newPwdVal)) { //
+                    $("#userNewPwd").parent().find("p.error").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+                    $("#userNewPwd").parent().find("span.point").addClass("wrong");
+                    return false;
+            }else if (newPwdVal != userQrPwd) {
+                $("#userQrPwd").parent().find("p.error").html("确认密码与新密码不一致！");
+                $("#userQrPwd").parent().find("span.point").addClass("wrong");
+                return false;
+            }else{
+                /*checkUserName($("#userNameTxt"));
+                checkPhone($("#userTelTxt"));
+                checkPhoneCode($("#userTelTxt"),$("#userYzmTxt"));
+                checkPassword($("#userNewPwd"));
+                checkSurePassword($("#userQrPwd"));*/
+
+                 Prompt.init({
                     title: " ",
                     height: 320,
                     html: "<img src='images/warn.png' /><p class='txt'>真实姓名一旦确认无法修改，请慎重。</p>",
@@ -49,6 +86,7 @@ $(function() {
                 });
                 //确定登录
                 function determineLogin() {
+
                     api.manageReplace({
                         "uuid": userUuid1,
                         "realName": nameVal,
@@ -66,18 +104,14 @@ $(function() {
                 function cancel() {
                     // alert("取消绑定登录信息");
                 }
+
+            
+               /* $(".login_btn_box #firstLoginBtn").css("background-color", "#5878f5");
+                $(".login_btn_box #firstLoginBtn").attr("disabled", false);*/
+               
             }
         }
-        //第一次绑定基本信息 Enter登录
-        $("#loginform #userQrPwd").keypress(function(e) {
-                if (e.keyCode == 13) { //键码值是13 Enter
-                    firstLogin();
-                }
-            })
-            //第一次登录点击进入
-        firstLoginBtn.click(function() {
-            firstLogin();
-        })
+        
 
         function checkNull() {
             var nameVal = $("#userNameTxt").val();
@@ -85,45 +119,64 @@ $(function() {
             var yzmVal = $("#userYzmTxt").val();
             var newPwdVal = $("#userNewPwd").val();
             var userQrPwd = $("#userQrPwd").val();
-            if (nameVal.length != 0 && telVal.length != 0 && yzmVal.length != 0 && newPwdVal.length != 0 && userQrPwd.length != 0) {
-                $(".login_btn_box #firstLoginBtn").css("background-color", "#5878f5");
+            if (nameVal.length != 0 && telVal.length !=0 && yzmVal.length !=0 && newPwdVal.length != 0 && userQrPwd.length != 0) {
+                checkUserName($("#userNameTxt"));
+                checkPhone($("#userTelTxt"));
+                checkPhoneCode($("#userTelTxt"),$("#userYzmTxt"));
+                checkPassword($("#userNewPwd"));
+                checkSurePassword($("#userQrPwd"));
+            
+               /* $(".login_btn_box #firstLoginBtn").css("background-color", "#5878f5");
+                $(".login_btn_box #firstLoginBtn").attr("disabled", false);*/
             }
+            
+             
         }
 
         //真实姓名验证(首次登录绑定真实姓名)
         $("#userNameTxt").blur(function() {
-                var name = $("#userNameTxt").val();
+               var username = $(this);
+               checkUserName(username);
+            })
+        function checkUserName(username){
+             var name = $("#userNameTxt").val();
                 if (name.length == 0) {
-                    $(this).parent().find("p.error").html("真实姓名不能为空！");
-                    $(this).parent().find("span.point").addClass("wrong");
+                    username.parent().find("p.error").html("真实姓名不能为空！");
+                    username.parent().find("span.point").addClass("wrong");
                     return false;
                 } else if (!(/^[\u4e00-\u9fa5]{2,4}$/).test(name)) { //匹配2到四个汉字
-                    $(this).parent().find("p.error").html("真实姓名格式有误！请输入匹配2~4个汉字");
-                    $(this).parent().find("span.point").addClass("wrong");
+                    username.parent().find("p.error").html("真实姓名格式有误！请输入匹配2~4个汉字");
+                    username.parent().find("span.point").addClass("wrong");
                     return false;
                 } else {
-                    $(this).parent().find("span.point").removeClass("wrong").addClass("right");
-                    $(this).parent().find("p.error").html("");
+                    username.parent().find("span.point").removeClass("wrong").addClass("right");
+                    username.parent().find("p.error").html("");
                     $("#userTelTxt").focus();
 
-                    checkNull();
+                    //checkNull();
                 }
-            })
-            //管理员手机号唯一性验证(首次登录绑定手机号)
+        }
+        //管理员手机号唯一性验证(首次登录绑定手机号)
         $("#userTelTxt").blur(function() {
-            var phone = $(this).val();
-            if (phone.length == 0) {
-                $(this).parent().find("p.error").html("手机号不能为空！");
-                $(this).parent().find("span.point").addClass("wrong");
+            var phone = $("#userTelTxt");
+            checkPhone(phone);
+
+        });
+        //验证手机号(不能为空，格式，唯一性)
+        function checkPhone(phone){
+            var phoneVal = phone.val();
+            if (phoneVal.length == 0) {
+                phone.parent().find("p.error").html("手机号不能为空！");
+                phone.parent().find("span.point").addClass("wrong");
                 return false;
             }
-            if (!(/^1[3|4|5|7|8]\d{9}$/).test(phone)) {
-                $(this).parent().find("p.error").html("手机号格式有误,请重新输入！11位数字");
-                $(this).parent().find("span.point").addClass("wrong");
+            if (!(/^1[3|4|5|7|8]\d{9}$/).test(phoneVal)) {
+                phone.parent().find("p.error").html("手机号格式有误,请重新输入！11位数字");
+                phone.parent().find("span.point").addClass("wrong");
                 return false;
             } else {
                 api.checkPhone({
-                    "phone": phone
+                    "phone": phoneVal
                 }).done(function(data) {
                     if (data.data == true) {
                         console.log(data.data);
@@ -137,27 +190,42 @@ $(function() {
                         $("#sendCodeBtn").attr("disabled", false);
                         $("#userYzmTxt").focus();
 
-                        checkNull();
+                        //checkNull();
                     }
                 })
             }
-
-        });
+        }
+        
         //用户输入验证码 验证是否正确
         $("#userYzmTxt").blur(function() {
-                var telVal = $("#userTelTxt").val();
-                var yzmVal = $("#userYzmTxt").val();
-                if (yzmVal.length == 0) {
-                    $(this).parent().find("p.error").html("验证码不能为空！");
-                    $(this).parent().find("span.point").addClass("wrong");
-                    $(this).parent().find("span.wrong").css("right", "110px");
+            var phone = $("#userTelTxt");
+            var code = $("#userYzmTxt");
+            
+            checkPhoneCode(phone,code)
+            /*if (yzmVal.length == 0) {
+                $(this).parent().find("p.error").html("验证码不能为空！");
+                $(this).parent().find("span.point").addClass("wrong");
+                $(this).parent().find("span.wrong").css("right", "110px");
+                return false;
+            } else {
+                $(this).parent().find("p.error").html("");
+            }
+            isCorrectCode(telVal, yzmVal);*/
+        })
+        function checkPhoneCode(phone,code){
+            var telVal = phone.val();
+            var yzmVal = code.val();
+            if (yzmVal.length == 0) {
+                    code.parent().find("p.error").html("验证码不能为空！");
+                    code.parent().find("span.point").addClass("wrong");
+                    code.parent().find("span.wrong").css("right", "110px");
                     return false;
                 } else {
-                    $(this).parent().find("p.error").html("");
+                    code.parent().find("p.error").html("");
                 }
                 isCorrectCode(telVal, yzmVal);
-            })
-            //获取验证码
+        }
+        //获取验证码
         function sendTelCode(telval) {
             api.getCheckcode({
                 "phone": telval
@@ -178,8 +246,9 @@ $(function() {
                     $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
                     $("#userNewPwd").focus();
 
-                    checkNull();
+                    //checkNull();
                 } else {
+                    $("#userYzmTxt").parent().find("p.error").html("验证码输入不正确！");
                     $("#userYzmTxt").parent().find("span.point").removeClass("right").addClass("wrong");
                     $("#userYzmTxt").parent().find("span.wrong").css("right", "110px");
                 }
@@ -207,47 +276,65 @@ $(function() {
 
         //密码正则验证
         $("#userNewPwd").blur(function() {
-                var newpwd = $(this).val();
+            var password = $(this);
+            checkPassword(password);
+        })
+        function checkPassword(password){
+             var newpwd = password.val();
                 if (newpwd.length == 0) {
-                    $(this).parent().find("p.error").html("新密码不能为空！");
-                    $(this).parent().find("span.point").addClass("wrong");
+                    password.parent().find("p.error").html("新密码不能为空！");
+                    password.parent().find("span.point").addClass("wrong");
                     return false;
                 }
                 if (!(/^[a-zA-Z]\w{5,17}$/).test(newpwd)) { //
-                    $(this).parent().find("p.error").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
-                    $(this).parent().find("span.point").addClass("wrong");
+                    password.parent().find("p.error").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+                    password.parent().find("span.point").addClass("wrong");
                     return false;
                 }
-                $(this).parent().find("p.error").html("");
-                $(this).parent().find("span.point").removeClass("wrong").addClass("right");
+                password.parent().find("p.error").html("");
+                password.parent().find("span.point").removeClass("wrong").addClass("right");
                 $("#userQrPwd").focus();
 
-                checkNull();
-            })
-            //确认密码验证
+                //checkNull();
+        }
+        //确认密码验证
+        
         $("#userQrPwd").blur(function() {
-            var qrpwd = $(this).val();
+            var surePwd = $(this);
+            checkSurePassword(surePwd);
+            /*if(){
+                $(".login_btn_box #firstLoginBtn").css("background-color", "#f00");
+                $(".login_btn_box #firstLoginBtn").attr("disabled", false);
+            }else{
+
+            }*/
+            
+        })
+        //
+        function checkSurePassword(password){
+
+            var qrpwd = password.val();
             var newpwd = $("#userNewPwd").val(); //新密码
             if (qrpwd.length == 0) {
-                $(this).parent().find("p.error").html("确认密码不能为空！");
-                $(this).parent().find("span.point").addClass("wrong");
+                password.parent().find("p.error").html("确认密码不能为空！");
+                password.parent().find("span.point").addClass("wrong");
                 return false;
             }
             if (!(/^[a-zA-Z]\w{5,17}$/).test(qrpwd)) { //
-                $(this).parent().find("p.error").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
-                $(this).parent().find("span.point").addClass("wrong");
+                password.parent().find("p.error").html("以字母开头,长度在6~18之间,只能包含字符、数字和下划线");
+                password.parent().find("span.point").addClass("wrong");
                 return false;
             }
             if (newpwd != qrpwd) {
-                $(this).parent().find("p.error").html("确认密码与新密码不一致！");
-                $(this).parent().find("span.point").addClass("wrong");
+                password.parent().find("p.error").html("确认密码与新密码不一致！");
+                password.parent().find("span.point").addClass("wrong");
                 return false;
             }
-            $(this).parent().find("p.error").html("");
-            $(this).parent().find("span.point").removeClass("wrong").addClass("right");
+            password.parent().find("p.error").html("");
+            password.parent().find("span.point").removeClass("wrong").addClass("right");
 
-            checkNull();
-        })
+            //checkNull();
+        }
 
         //个人中心修改密码
         $("#updPwdBtn").click(function() {
@@ -357,11 +444,11 @@ $(function() {
         }
 
         /*顶部导航右侧用户信息图标下拉显示*/
-        $(".user").hover(function() {
+       /* $(".user").hover(function() {
             $(this).parent().find("ul.userlist").css("display", "block");
         }, function() {
             $(this).parent().find("ul.userlist").css("display", "none");
-        });
+        });*/
 
         //密码框按下的时候 判断键值Enter 登录
         $("#loginform .userPwd").keypress(function(e) {
