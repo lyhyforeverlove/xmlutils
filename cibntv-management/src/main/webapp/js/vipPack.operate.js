@@ -213,6 +213,7 @@ function initVipPackList(state, flag ,isAllFlag) {
                   //0=已发布 1=删除
                   if (state == 0) {
                       $(".state").html("已发布");
+
                   } else if (state == 1) {
                       $(".state").html("删除");
                   }
@@ -239,6 +240,7 @@ function initVipPackList(state, flag ,isAllFlag) {
 
         //VIP包删除
             $(".del").each(function(index) {
+                
                 $(this).click(function() {
                   //console.log(111);
                     var uuId = $(this).parents(".sale").attr("id");
@@ -246,6 +248,7 @@ function initVipPackList(state, flag ,isAllFlag) {
                     delIdsArr.push(uuId);
                    // console.log(delIdsArr);
                 })
+               
             })
 
     })
