@@ -44,7 +44,7 @@ function addDepartment()
          var result = ajaxTool.getInfo({"name":departmentName,"ids":arrayObj},"/role/roleSave",true);
          result.done(function(){
              $('#myModal').modal('hide');
-             searcherValue("1");
+             firstLink();
          });
      }
   }
@@ -52,28 +52,15 @@ function addDepartment()
   //保存新建部门信息方法结束
   function searcherValue(page){
     $("#deparment_list").empty();
+    var data ="";
     if(page===1){
-        var data = dataList;
-        var department="";
-        if(data){
-          for(var i=0;i<data.content.length;i++){
-             var index =(page-1)*10+(i+1);
-             department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td class='last-td'>"+data.content[i].createDate+"</td><td class='last-td'><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
-          }
-          $("#deparment_list").append(department);
-        }
+        data = dataList;
+        iterationList(data,page);
     }else{
         var result  = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/role/roleList",false);
         result.done(function(resultList){
-            var data = resultList.data;
-            var department="";
-            if(data){
-              for(var i=0;i<data.content.length;i++){
-                 var index =(page-1)*10+(i+1);
-                 department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].createDate+"</td><td class='last-td'><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
-              }
-              $("#deparment_list").append(department);
-            }
+            data = resultList.data;
+            iterationList(data,page);
         });
      }
   }
@@ -98,3 +85,15 @@ function addDepartment()
 $(function(){
     firstLink();
 });
+
+//迭代List
+function  iterationList(data,page){
+      var department="";
+      if(data){
+        for(var i=0;i<data.content.length;i++){
+           var index =(page-1)*10+(i+1);
+           department+="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+data.content[i].createDate+"</td><td class='last-td'><a href='#' onclick=departmentDetail('"+data.content[i].uuid+"')>详情</a></td></tr>";
+        }
+        $("#deparment_list").append(department);
+      }
+}

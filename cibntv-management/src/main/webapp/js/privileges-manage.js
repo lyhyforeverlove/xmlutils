@@ -28,7 +28,7 @@ var ajaxTool = new AJAXTool();
         });
    });
   }
-
+  //
   function updatePrivileges(uuid,rUuid){
     departmentList();
     $('#myModal').modal('show');
@@ -44,15 +44,13 @@ var ajaxTool = new AJAXTool();
     });
   }
 
-
   //下拉框选中状态
   function departChecked(uuid,name){
      $("#departValue").html(name);
      $(".btn-group").find("input").val(uuid);
   }
 
-
-
+  //修改管理员
   function saveUpdatePlg(){
       var rname = $("#departValue").html();
       var ruuid = $(".btn-group").find("input").val();
@@ -63,63 +61,23 @@ var ajaxTool = new AJAXTool();
          firstLink();
       });
   }
+
   //查询方法
   function searcherValue(page){
       $("#privileges-list").empty();
+      var data="";
       if(page===1){
-          var data = dataList;
-          if(data.content){
-              var privilegesList = "";
-              for(var i=0;i<data.content.length;i++){
-                  var status="";
-                  if(data.content[i].status=="Enable"){
-                      status="停用";
-                  }else if(data.content[i].status=="Disable"){
-                      status="启用";
-                  }
-                  var index =(page-1)*10+(i+1);
-                  var phone=data.content[i].phone;
-                  if(!phone || phone =="null"){
-                    phone="-";
-                  }
-                  var realName = data.content[i].realName;
-                  if(!realName || realName =="null"){
-                     realName="-";
-                  }
-                  privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+realName+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
-              }
-              $("#privileges-list").append(privilegesList);
-          }
+          data = dataList.content;
+          iterationList(data,page);
       }else{
           var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/role/manageList",false);
           result.done(function(resultList){
-              var data = resultList.data;
-              if(data){
-                  var privilegesList = "";
-                  for(var i=0;i<data.content.length;i++){
-                      var status="";
-                      if(data.content[i].status=="Enable"){
-                          status="停用";
-                      }else if(data.content[i].status=="Disable"){
-                          status="启用";
-                      }
-                      var index =(page-1)*10+(i+1);
-                      var phone=data.content[i].phone;
-                      if(!phone || phone =="null"){
-                        phone="-";
-                      }
-                      var realName = data.content[i].realName;
-                      if(!realName || realName =="null"){
-                         realName="-";
-                      }
-                      privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+realName+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
-                  }
-                  $("#privileges-list").append(privilegesList);
-              }
+              data = resultList.data;
+              iterationList(data,page);
           });
       }
   }
-
+  //第一次进入页面，初始化分页
   function firstLink(){
     queryName = $("#queryValue").val();
     $("#privileges-list").empty();
@@ -133,10 +91,6 @@ var ajaxTool = new AJAXTool();
     });
   }
 
-  $(function(){
-      firstLink();
-  });
-
   //部门下拉列表
   function departmentList(){
       $("#departUl").empty();
@@ -144,11 +98,42 @@ var ajaxTool = new AJAXTool();
       result.done(function(resultList){
         var data = resultList.data;
         if(data){
-             var  departList="";
-             for(var i=0; i<data.content.length;i++){
-                   departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
-             }
-             $("#departUl").append(departList);
+           var  departList="";
+           for(var i=0; i<data.content.length;i++){
+             departList +="<li><a href='#' onclick=departChecked('"+data.content[i].uuid+"','"+data.content[i].name+"')>"+data.content[i].name+"</a></li>";
+           }
+           $("#departUl").append(departList);
         }
-      });
+     });
   }
+
+//迭代列表
+function iterationList(data,page){
+    var privilegesList = "";
+    if(data){  
+        for(var i=0;i<data.content.length;i++){
+            var status="";
+            if(data.content[i].status=="Enable"){
+                status="停用";
+            }else if(data.content[i].status=="Disable"){
+                status="启用";
+            }
+            //index 为序号
+            var index =(page-1)*10+(i+1);
+            var phone=data.content[i].phone;
+            if(!phone || phone =="null"){
+              phone="-";
+            }
+            var realName = data.content[i].realName;
+            if(!realName || realName =="null"){
+               realName="-";
+            }
+            privilegesList +="<tr><td>"+index+"</td><td>"+data.content[i].name+"</td><td>"+realName+"</td><td>"+phone+"</td><td>"+data.content[i].rName+"</td><td class='last-td'><a href='javascript:;' onclick=stopping('"+data.content[i].uuid+"','"+status+"')>"+status+"</a><a href='#' onclick=deleting('"+data.content[i].uuid+"')>删除</a><a href='#' onclick=updatePrivileges('"+data.content[i].uuid+"','"+data.content[i].rUuid +"')>修改</a></td></tr>";
+        }
+        $("#privileges-list").append(privilegesList);
+    }
+}
+
+$(function(){
+  firstLink();
+});

@@ -1,6 +1,6 @@
 var ajaxTool = new AJAXTool();
 $(function(){
-   // 学段下拉列表
+    // 学段下拉列表
     $("#stageUl").empty();
     $("#gradeDiv").css("display","none");
     $("#subjectDiv").css("display","none");
@@ -30,8 +30,6 @@ var subjectCode="";
 var subjectName="";
 var bookTypeCode="";
 var bookTypeCodeName="";
-
-
 
 function searchStage(code,name){
     // 学年下拉列表
@@ -118,19 +116,7 @@ function searchBookType(code,name){
 function searcherValue(page){
     $("#examination_list").empty();
     if(page===1){
-        if(dataList.paperDatas){
-            var lg = dataList.paperDatas.length;
-            if(dataList.item){
-              $("#examination-total").html(dataList.item+"套");
-            }
-            var examination="";
-            for(var i=0;i<lg;i++){
-                var index =(page-1)*10+(i+1);
-                //<td>"+dataList.stageName+"</td><td>"+dataList.gradeName+"</td><td>"+dataList.subjectName+"</td><td>"+dataList.bookTypeName+"</td>
-                examination +="<tr><td>"+index+"</td><td>"+dataList.paperDatas[i].paperName+"</td><td>"+dataList.paperDatas[i].typeName+"</td><td>"+dataList.paperDatas[i].price+"元</td><td>"+dataList.paperDatas[i].createDateStr+"</td><td>"+dataList.paperDatas[i].createName+"</td><td>系统</td><td class='last-td'><a href='#'  onclick=paperDetail('"+dataList.paperDatas[i].id+"')>详情</a></td></tr>";
-            }
-            $("#examination_list").append(examination);
-        }
+        iteratorList(dataList,page); 
     }else{
         $("#loading").fadeIn();
         var keyWord = $("#keyWord").val();
@@ -139,19 +125,7 @@ function searcherValue(page){
         result.done(function(resultList){
             $("#loading").fadeOut();
             var data=resultList.data;
-            if(data.paperDatas){
-                var lg = data.paperDatas.length;
-                if(!data.item){
-                  $("#examination-total").html(data.item+"套");
-                }
-                var examination="";
-                for(var i=0;i<lg;i++){
-                    var index =(page-1)*10+(i+1);
-                    //<td>"+data.stageName+"</td><td>"+data.gradeName+"</td><td>"+data.subjectName+"</td><td>"+data.bookTypeName+"</td>
-                    examination +="<tr><td>"+index+"</td><td>"+data.paperDatas[i].paperName+"</td><td>"+data.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].price+"元</td><td>"+data.paperDatas[i].createDateStr+"</td><td>"+data.paperDatas[i].createName+"</td><td>系统</td><td  class='last-td'><a href='#'  onclick=paperDetail('"+data.paperDatas[i].id+"')>详情</a></td></tr>";
-                }
-                $("#examination_list").append(examination);
-            }
+            iteratorList(data,page); 
         });
     }
 
@@ -175,7 +149,26 @@ function firstLink(){
     });
 }
 
+//试卷详情
 function paperDetail(id){
       window.open("examination-detail.html?id="+id);//打开窗口}
       //window.location.href="examination-detail.html?id="+id;
+}
+
+//列表迭代
+function iteratorList(data,page){
+     if(data.paperDatas){
+        var lg = data.paperDatas.length;
+        console.log(data.item);
+        if(data.item){
+          $("#examination-total").html(data.item+"套");
+        }
+        var examination="";
+        for(var i=0;i<lg;i++){
+            var index =(page-1)*10+(i+1);
+            //<td>"+data.stageName+"</td><td>"+data.gradeName+"</td><td>"+data.subjectName+"</td><td>"+data.bookTypeName+"</td>
+            examination +="<tr><td>"+index+"</td><td>"+data.paperDatas[i].paperName+"</td><td>"+data.paperDatas[i].typeName+"</td><td>"+data.paperDatas[i].price+"元</td><td>"+data.paperDatas[i].createDateStr+"</td><td>"+data.paperDatas[i].createName+"</td><td>系统</td><td  class='last-td'><a href='#'  onclick=paperDetail('"+data.paperDatas[i].id+"')>详情</a></td></tr>";
+        }
+        $("#examination_list").append(examination);
+    }
 }
