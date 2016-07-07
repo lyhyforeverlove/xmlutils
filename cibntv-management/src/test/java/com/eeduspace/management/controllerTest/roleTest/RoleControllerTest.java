@@ -181,7 +181,7 @@ public class RoleControllerTest extends BaseTest {
 		String url = "http://localhost:8070/cibntv-management/action/role/manageLog";
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("currentPage", 1);
-		paramMap.put("queryName", "admin");
+//		paramMap.put("queryName", "admin");
 		try {
 			String response = HTTPClientUtils.httpPostForm(url, paramMap);
 			System.out.println("返回数据为：" + response);

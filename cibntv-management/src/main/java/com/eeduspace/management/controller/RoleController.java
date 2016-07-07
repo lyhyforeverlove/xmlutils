@@ -293,6 +293,10 @@ public class RoleController {
 	public ResponseItem managerLog(HttpServletRequest request,ManagerLogModel mLogModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(mLogModel));
 		try {
+			if (mLogModel.getCurrentPage() < 1) {
+				logger.error("managerLog ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".mLogModel.getCurrentPage < 1");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".mLogModel.getCurrentPage < 1");
+			}
 			Sort sort = new Sort(Sort.Direction.DESC, "createDate");
 			Pageable pageable = new PageRequest((mLogModel.getCurrentPage()-1),mLogModel.getSize(),sort);
 			Page<ManagerLogModel> managerPage = managerLogService.findPage(mLogModel,pageable);
@@ -300,8 +304,8 @@ public class RoleController {
 			responseItem.setData(managerPage);
 			return responseItem;
 		} catch (Exception e) {
-			logger.error("managerReplace  Exception:", e);
-			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerReplace exception");
+			logger.error("managerLog  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerLog exception");
 		}
 	}
 
