@@ -1,17 +1,6 @@
 var ajaxTool = new AJAXTool();
   $(function(){
-      $("#subjectUl").empty();
-      var result = ajaxTool.getInfo({"gradeCode":"11"},"/baseData/subject",false);
-      result.done(function(resultList){
-          var subjectList = resultList.data;
-          if(subjectList){
-              var subject="";
-              for(var i=0;i<subjectList.length;i++){
-                 subject+="<li><a href='javascript:void(0);'  onclick=firstLink('"+subjectList[i].subjectCode+"','"+subjectList[i].subjectName+"')>"+subjectList[i].subjectName+"</a></li>";
-              }
-              $("#subjectUl").append(subject);
-          }
-      });
+      subjectList();
   });
   //页面加载。带参数查询方法
   var subjectName="";
@@ -68,11 +57,13 @@ var ajaxTool = new AJAXTool();
           $("#loading").fadeIn();
           if(!name && !subjectName){
              $("#subject").html("学科");
-          }else if(name){
-  　　　　　　subjectName=name;
+          }else if(name ==="undefined" && !subjectName){
+  　　　　　  subjectList()
+          }else if(name !== "undefined"){
+  　　　　　 subjectName=name;
   　         subjectCode=code;
+             $("#subject").html(subjectName);
           }
-          $("#subject").html(subjectName);
           var searchName = $("#searchName").val();
           var result = ajaxTool.getInfo({"subjectCode":subjectCode,"subjectName":subjectName,"searchName":searchName,"cp":1,"pageSize":"10"},"/video/videoPage",false);
           result.done(function(resultList){
@@ -87,4 +78,19 @@ var ajaxTool = new AJAXTool();
     //查看详细
     function videoDetail(id){
          window.open("video-detail.html?id="+id);
+    }
+    //加载学科下拉列表
+    function subjectList(){
+      $("#subjectUl").empty();
+      var result = ajaxTool.getInfo({"gradeCode":"11"},"/baseData/subject",false);
+      result.done(function(resultList){
+          var subjectList = resultList.data;
+          if(subjectList){
+              var subject="<li><a href='javascript:void(0);'  onclick=firstLink('','全部')>全部</a></li>";
+              for(var i=0;i<subjectList.length;i++){
+                 subject+="<li><a href='javascript:void(0);'  onclick=firstLink('"+subjectList[i].subjectCode+"','"+subjectList[i].subjectName+"')>"+subjectList[i].subjectName+"</a></li>";
+              }
+              $("#subjectUl").append(subject);
+          }
+      });
     }
