@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +71,8 @@ public class UserController {
 			return item;
 		}
 		try {
-			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage()-1, userQueryModel.getSize());
+			Sort sort = new Sort(Sort.Direction.DESC,"createDate");
+			Pageable pageable=new PageRequest(userQueryModel.getCurrentPage()-1, userQueryModel.getSize(),sort);
 			Page<UserPo> pageList=userService.findAll(pageable,userQueryModel);
 			List<UserPo> userList=pageList.getContent();
 			List<UserModel> userModels=new ArrayList<>();

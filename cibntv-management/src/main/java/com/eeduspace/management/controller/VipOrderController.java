@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -142,7 +143,8 @@ public class VipOrderController {
 			return item;
 		}
 		try {
-			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage()-1, orderQueryModel.getSize());
+			Sort sort = new Sort(Sort.Direction.DESC,"createDate");
+			Pageable pageable=new PageRequest(orderQueryModel.getCurrentPage()-1, orderQueryModel.getSize(),sort);
 			Page<VipBuyRecord> pageList=vipBuyRecordService.findAll(orderQueryModel,pageable);
 			List<VipBuyRecord> orderList=pageList.getContent();
 			List<VipOrderModel> vipOrderModels=new ArrayList<>();
