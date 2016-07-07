@@ -67,8 +67,7 @@ var ajaxTool = new AJAXTool();
       $("#privileges-list").empty();
       var data="";
       if(page===1){
-          data = dataList.content;
-          iterationList(data,page);
+          iterationList(dataList,page);
       }else{
           var result = ajaxTool.getInfo({"queryName":queryName,"currentPage":page,"size":"10"},"/role/manageList",false);
           result.done(function(resultList){
@@ -110,7 +109,7 @@ var ajaxTool = new AJAXTool();
 //迭代列表
 function iterationList(data,page){
     var privilegesList = "";
-    if(data){  
+    if(data){
         for(var i=0;i<data.content.length;i++){
             var status="";
             if(data.content[i].status=="Enable"){

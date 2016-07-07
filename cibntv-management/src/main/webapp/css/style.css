@@ -4,7 +4,7 @@ a,a:hover,a:focus{text-decoration: none;}
 /*导航部分*/
 .btn.active.focus,.btn.active.focus,.btn.focus:active,.btn:active:focus,.btn:focus{outline: none;}
 .left{width:240px;float:left;height:100%;background-color: #2a2f43;position:fixed;left:0;top:0;}
-.right{width:auto;margin-left: 240px;min-height:100%;height:auto;background-color:#f1f3f5;min-width:1000px;}
+.right{width:auto;margin-left: 240px;min-height:100%;height:auto;background-color:#f1f3f5;min-width:1000px;position:relative;z-index:1;}
 .nav-main-left{float:left;width:240px;height:70px; line-height: 70px;background-color: #5878f5;}
 .nav-main{height: 70px; line-height: 70px;}
 .nav-main .nav-main-right{height:70px;width:auto;border-bottom:1px solid #5878f5;background-color: #fff;font-size: 20px; font-weight: bold;}
