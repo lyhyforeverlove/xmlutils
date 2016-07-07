@@ -58,7 +58,7 @@ function validatePrice(price){
     if(!exp.test(cost)){
         bool = true;
         $(price).parent().find("label").remove();
-        $(price).parent().append("<label>价格有误</label>");
+        $(price).parent().append("<label>价格精确到分！</label>");
     }
     else{
       bool = false;

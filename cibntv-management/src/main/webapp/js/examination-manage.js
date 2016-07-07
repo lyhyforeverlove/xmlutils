@@ -33,8 +33,11 @@ var bookTypeCodeName="";
 
 function searchStage(code,name){
     // 学年下拉列表
+    $("#subjectDiv").css("display","none");
+    $("#bookTypeDiv").css("display","none");
     $("#gradeUl").empty();
-    var gradeResult = ajaxTool.getInfo({"stageCode":"1"},"/baseData/grade",false);
+    $("#gradeChecked").html("学年");
+    var gradeResult = ajaxTool.getInfo({"stageCode":code},"/baseData/grade",false);
     gradeResult.done(function(resultList){
         var gradeList = resultList.data;
         if(gradeList)
@@ -58,8 +61,10 @@ function searchStage(code,name){
 //学年下拉列表单击方法
 function searchGrade(code,name){
     //学科下拉列表
+    $("#bookTypeDiv").css("display","none");
     $("#subjectUl").empty();
-    var subjectResult = ajaxTool.getInfo({"gradeCode":"11"},"/baseData/subject",false);
+    $("#subjectChecked").html("学科");
+    var subjectResult = ajaxTool.getInfo({"gradeCode":code},"/baseData/subject",false);
     subjectResult.done(function(resultList){
         var subjectList = resultList.data;
         if(subjectList)
@@ -83,7 +88,8 @@ function searchGrade(code,name){
 function searchSubject(code,name){
     //教材信息下拉列表
     $("#bookTypeUl").empty();
-    var bookTypeResult = ajaxTool.getInfo({"gradeCode":"11","subjectCode":"2"},"/baseData/bookType",false);
+    $("#bookTypeChecked").html("教材版本");
+    var bookTypeResult = ajaxTool.getInfo({"gradeCode":gradeCode,"subjectCode":code},"/baseData/bookType",false);
     bookTypeResult.done(function(resultList){
         var bookTyprList = resultList.data;
         if(bookTyprList){
@@ -116,7 +122,7 @@ function searchBookType(code,name){
 function searcherValue(page){
     $("#examination_list").empty();
     if(page===1){
-        iteratorList(dataList,page); 
+        iteratorList(dataList,page);
     }else{
         $("#loading").fadeIn();
         var keyWord = $("#keyWord").val();
@@ -125,7 +131,7 @@ function searcherValue(page){
         result.done(function(resultList){
             $("#loading").fadeOut();
             var data=resultList.data;
-            iteratorList(data,page); 
+            iteratorList(data,page);
         });
     }
 

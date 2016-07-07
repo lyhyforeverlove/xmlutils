@@ -74,8 +74,9 @@ a,a:hover,a:focus{text-decoration: none;}
 .video-detail>.video-wrapper>.panel>.panel-body>.video>.video-description{color:#999999;margin-top: 20px;font-size: 14px;}
 
 /*试卷定价*/
-.main-content>.price{width:320px;margin:50px auto;font-size: 16px; font-weight: normal;}
+.main-content>.price{width:500px;margin:50px auto;font-size: 16px; font-weight: normal;}
 .main-content>.price>tbody>tr{height:70px;line-height: 70px;}
+.main-content>.price>tbody>tr>td:first-child{padding:0 20px;width:130px;}
 .main-content>.price>tbody>tr>td>input{height:40px;line-height: 40px;width:90px;font-size: 22px;border:none;background-color: #fff;text-align: center;}
 .main-content>.btn-button>button{width:160px;height:40px;line-height: 40px; text-align: center;background-color: #5878f5;border:none;font-size: 16px;font-weight: normal;color:#fff;}
 .main-content>.price>tbody>tr>td>.input-bg{background-color: #eef0f2;margin-right: 10px;}
