@@ -66,7 +66,11 @@ $(function() {
         var v = $("#searchTxt").val();
         searchMobile = $("#searchTxt").val(); //获取手机号
 
-        if ((/^\d{1,11}$/).test(v)) {
+        if(searchMobile.length == 0){
+            $("#list tbody").empty();
+            getUserInfoList(1, 10, searchMobile); 
+
+        }else if ((/^\d{1,11}$/).test(searchMobile)) {
             $("#list tbody").empty();
             getUserInfoList(1, 10, searchMobile);
           
