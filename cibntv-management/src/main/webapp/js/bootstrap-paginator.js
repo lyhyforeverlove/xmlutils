@@ -198,7 +198,6 @@
          * */
         showLast: function () {
             var pages = this.getPages();
-
             if (pages.last) {
                 this.show(pages.last);
             }
@@ -447,19 +446,30 @@
          * @return object output objects that has first, prev, next, last and also the number of pages in between.
          * */
         getPages: function () {
-
-            var totalPages = this.totalPages,// get or calculate the total pages via the total records
-                pageStart = (this.currentPage % this.numberOfPages === 0) ? (parseInt(this.currentPage / this.numberOfPages, 10) - 1) * this.numberOfPages + 1 : parseInt(this.currentPage / this.numberOfPages, 10) * this.numberOfPages + 1,//calculates the start page.
-                output = [],
-                i = 0,
-                counter = 0;
-
-            pageStart = pageStart < 1 ? 1 : pageStart;//check the range of the page start to see if its less than 1.
-
-            for (i = pageStart, counter = 0; counter < this.numberOfPages && i <= totalPages; i = i + 1, counter = counter + 1) {//fill the pages
-                output.push(i);
+            var totalPages = this.totalPages
+            var output = [];
+            var half = Math.floor(this.options.numberOfPages / 2);
+            var start = this.currentPage - half + 1 - this.options.numberOfPages % 2;
+            var end = this.currentPage + half;
+             
+            // handle boundary case
+            if (start <= 0) {
+                start = 1;
+                end = this.options.numberOfPages;
+            }
+            if (end > this.totalPages) {
+                start = this.totalPages - this.options.numberOfPages + 1;
+                end = this.totalPages;
             }
 
+            var itPage = start;
+            while (itPage <= end) {
+                if(itPage>0){
+                     output.push(itPage);
+                }
+               
+                itPage++;
+            }
             output.first = 1;//add the first when the current page leaves the 1st page.
 
             if (this.currentPage > 1) {// add the previous when the current page leaves the 1st page
@@ -473,15 +483,10 @@
             } else {
                 output.next = totalPages;
             }
-
             output.last = totalPages;// add the last page when the current page doesn't reach the last page
-
             output.current = this.currentPage;//mark the current page.
-
             output.total = totalPages;
-
             output.numberOfPages = this.options.numberOfPages;
-
             return output;
 
         },
@@ -492,7 +497,6 @@
          * @return mixed value that depends on the type of parameters, if the given parameter is a function, then the evaluated result is returned. Otherwise the parameter itself will get returned.
          * */
         getValueFromOption: function (value) {
-
             var output = null,
                 args = Array.prototype.slice.call(arguments, 1);
 
