@@ -213,7 +213,7 @@ button {
 }
 
 .userlist li:hover,
-.userlist li.actie {
+.userlist li.active {
     background: #d7dfff;
 }
 
@@ -655,15 +655,13 @@ p.error {
     line-height: 40px;
     font-size: 16px;
 }
-
 input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-    background-color: #22242c;
-    34 36 44 background-image: none;
-    color: #fff;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #22242c inset;
+    -webkit-text-fill-color: #fff;
 }
-
 #loginBox #prompt_bottom a.btn {
     margin-left: 50px;
 }
