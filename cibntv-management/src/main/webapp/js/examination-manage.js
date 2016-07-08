@@ -165,7 +165,6 @@ function paperDetail(id){
 function iteratorList(data,page){
      if(data.paperDatas){
         var lg = data.paperDatas.length;
-        console.log(data.item);
         if(data.item){
           $("#examination-total").html(data.item+"套");
         }
