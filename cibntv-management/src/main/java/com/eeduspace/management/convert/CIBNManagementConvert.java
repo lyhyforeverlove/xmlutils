@@ -314,7 +314,9 @@ public class CIBNManagementConvert {
 			}
 		}
 		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
-		if(vipBuyRecord.getPayType().equals("weixinpay")){
+		if(StringUtils.isEmpty(vipBuyRecord.getPayType())){
+			model.setPayType("其它");
+		}else if(vipBuyRecord.getPayType().equals("weixinpay")){
 			model.setPayType("微信");
 		}else if(vipBuyRecord.getPayType().equals("alipay")){
 			model.setPayType("支付宝");
@@ -346,11 +348,13 @@ public class CIBNManagementConvert {
 			}
 		}
 		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
-		if(vipBuyRecord.getPayType().equals("weixinpay")){
+		 if(StringUtils.isEmpty(vipBuyRecord.getPayType())){
+				model.setPayType("其它");
+		 }else if(vipBuyRecord.getPayType().equals("weixinpay")){
 			model.setPayType("微信");
 		}else if(vipBuyRecord.getPayType().equals("alipay")){
 			model.setPayType("支付宝");
-		}else{
+		}else {
 			model.setPayType("其它");
 		}
 			
