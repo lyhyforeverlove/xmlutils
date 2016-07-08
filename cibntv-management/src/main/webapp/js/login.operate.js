@@ -21,6 +21,11 @@ $(function() {
                 }
                 login(userName, password);
             })
+        $("#userName").blur(function(){
+            var reg = "/^[A-Za-z0-9]+${6,16}/"；
+             $(".errorInfo").html("用户名不能小于6位或大于16位,不能输入中文或特殊符号!");
+             return false; 
+         })
         /*
          *第一次登录 填写信息
          *真实姓名一旦确定无法修改，慎重
