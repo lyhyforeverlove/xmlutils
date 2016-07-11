@@ -240,10 +240,6 @@ public class RoleController {
 				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrName");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrName");
 			}
-			/*if (org.springframework.util.StringUtils.isEmpty(managerModel.getType())) {
-				logger.error("managerSave ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getType");
-				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getType");
-			}*/
 			ResponseItem responseItem = new ResponseItem();
 			managerModel.setPassword(Digest.md5Digest(managerModel.getPassword()));
 			managerModel.setIsFirst(true);
@@ -258,7 +254,57 @@ public class RoleController {
 		}
 	}
 	
-	/**修改管理员角色：状态（停用，启用）；删除状态
+	/**修改管理员角色：状态（停用，启用）
+	 * @return
+	 */
+	@RequestMapping(value="/manageStatus",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseItem managerStatus(HttpServletRequest request,ManagerModel managerModel){
+		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
+		try {
+			if (StringUtils.isBlank(managerModel.getUuid())) {
+				logger.error("managerStatus ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
+			}
+			if (org.springframework.util.StringUtils.isEmpty(managerModel.getStatus())) {
+				logger.error("managerStatus ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getStatus");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getStatus");
+			}
+			ResponseItem responseItem = new ResponseItem();
+			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
+			responseItem.setData(model);
+			return responseItem;
+		} catch (Exception e) {
+			logger.error("managerStatus  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerStatus exception");
+		}
+	}
+	/**修改管理员角色：删除状态
+	 * @return
+	 */
+	@RequestMapping(value="/manageDel",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseItem managerDelete(HttpServletRequest request,ManagerModel managerModel){
+		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
+		try {
+			if (StringUtils.isBlank(managerModel.getUuid())) {
+				logger.error("managerDelete ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
+			}
+			if (org.springframework.util.StringUtils.isEmpty(managerModel.getIsDel())) {
+				logger.error("managerDelete ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getIsDel");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getIsDel");
+			}
+			ResponseItem responseItem = new ResponseItem();
+			ManagerModel model = managerService.saveOrReplaceManager(managerModel);
+			responseItem.setData(model);
+			return responseItem;
+		} catch (Exception e) {
+			logger.error("managerDelete  Exception:", e);
+			return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.SERVICE_ERROR.toString(), "managerDelete exception");
+		}
+	}
+	/**修改管理员角色：修改管理员角色
 	 * @return
 	 */
 	@RequestMapping(value="/manageReplace",method=RequestMethod.POST)
@@ -266,14 +312,17 @@ public class RoleController {
 	public ResponseItem managerReplace(HttpServletRequest request,ManagerModel managerModel){
 		logger.info("HttpServletRequest: ContextPath:{},RequestURI:{},requestParam{}", request.getContextPath(), request.getRequestURI(),gson.toJson(managerModel));
 		try {
-			/*if (StringUtils.isBlank(managerModel.getUuid())) {
+			if (StringUtils.isBlank(managerModel.getUuid())) {
 				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getUuid");
 				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getUuid");
-			}*/
-			
-			if (StringUtils.isNotBlank(managerModel.getPassword())) {
-				String pwd = Digest.md5Digest(managerModel.getPassword());
-				managerModel.setPassword(pwd);
+			}
+			if ( StringUtils.isEmpty(managerModel.getrUuid())) {
+				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrUuid");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrUuid");
+			}
+			if (StringUtils.isEmpty(managerModel.getrName())) {
+				logger.error("managerReplace ExceptionrequestId："+"requestId,"+ResponseCode.PARAMETER_MISS.toString() + ".managerModel.getrName");
+				return ResponseItem.responseWithName(new ResponseItem(), ResponseCode.PARAMETER_MISS.toString(), ".managerModel.getrName");
 			}
 			ResponseItem responseItem = new ResponseItem();
 			ManagerModel model = managerService.saveOrReplaceManager(managerModel);

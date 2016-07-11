@@ -3,9 +3,7 @@ package com.eeduspace.management.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -23,7 +21,9 @@ import org.springframework.util.StringUtils;
 import com.eeduspace.management.convert.CIBNManagementConvert;
 import com.eeduspace.management.model.ManagerLogModel;
 import com.eeduspace.management.persist.dao.ManagerLogDao;
+import com.eeduspace.management.persist.dao.PermissionPoDao;
 import com.eeduspace.management.persist.po.ManagerLogPo;
+import com.eeduspace.management.persist.po.PermissionPo;
 import com.eeduspace.management.service.ManagerLogService;
 import com.google.gson.Gson;
 
@@ -39,8 +39,8 @@ public class ManagerLogServiceImpl implements ManagerLogService {
     private Gson gson = new Gson();
     @Inject
     private ManagerLogDao managerLogDao;
-   /* @Inject
-    private AuthConverter authConverter;*/
+    @Inject
+    private PermissionPoDao permissionPoDao;
 
     @Override
     public List<ManagerLogPo> findAll() {
@@ -57,8 +57,15 @@ public class ManagerLogServiceImpl implements ManagerLogService {
     	Specification<ManagerLogPo> specification = this.getWhereClause(model);
 		Page<ManagerLogPo> managePage = managerLogDao.findAll(specification, pageable);
 		List<ManagerLogModel> manageModelList = new ArrayList<>();
+		List<PermissionPo> pList = (List<PermissionPo>) permissionPoDao.findAll();
 		for (ManagerLogPo mp : managePage.getContent()) {
-			manageModelList.add(CIBNManagementConvert.fromManagerLogPo(mp));
+			model = CIBNManagementConvert.fromManagerLogPo(mp);
+			for (PermissionPo po : pList) {
+				if (model.getAction().contains(po.getPerUrl())) {
+					model.setDescription(po.getP_name());
+				}
+			}
+			manageModelList.add(model);
 		}
 		Page<ManagerLogModel> managerPage = new PageImpl<ManagerLogModel>(manageModelList,pageable,managePage.getTotalElements());
 		logger.debug("数据库返回数据：" + gson.toJson(managerPage));
