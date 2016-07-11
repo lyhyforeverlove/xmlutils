@@ -3,7 +3,7 @@ var ajaxTool = new AJAXTool();
   function stopping(id,status){
      if(status=="停用"){
         alert.dialog.confirm('确定停用吗？',function(){
-            var result = ajaxTool.getInfo({"uuid":id,"status":"Disable"},"/role/manageReplace",false);
+            var result = ajaxTool.getInfo({"uuid":id,"status":"Disable"},"/role/manageStatus",false);
             result.done(function(resultList){
                firstLink();
             });
@@ -12,23 +12,25 @@ var ajaxTool = new AJAXTool();
      else
      {
         alert.dialog.confirm('确定启用吗？',function(){
-            var result = ajaxTool.getInfo({"uuid":id,"status":"Enable"},"/role/manageReplace",false);
+            var result = ajaxTool.getInfo({"uuid":id,"status":"Enable"},"/role/manageStatus",false);
             result.done(function(resultList){
                firstLink();
             });
        });
      }
   }
+
   //删除管理员信息方法
   function deleting(id){
     alert.dialog.confirm('确定删除吗？',function(){
-        var result = ajaxTool.getInfo({"uuid":id,"isDel":"true"},"/role/manageReplace",false);
+        var result = ajaxTool.getInfo({"uuid":id,"isDel":"true"},"/role/manageDel",false);
         result.done(function(resultList){
           firstLink();
         });
    });
   }
-  //
+
+  //修改管理员所属部门
   function updatePrivileges(uuid,rUuid){
     departmentList();
     $('#myModal').modal('show');
@@ -76,6 +78,7 @@ var ajaxTool = new AJAXTool();
           });
       }
   }
+  
   //第一次进入页面，初始化分页
   function firstLink(){
     queryName = $("#queryValue").val();
