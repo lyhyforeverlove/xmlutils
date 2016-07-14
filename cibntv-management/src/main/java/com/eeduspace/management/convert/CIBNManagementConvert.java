@@ -219,7 +219,7 @@ public class CIBNManagementConvert {
 			if(DateUtils.nowTimeMillis()>DateUtils.addHour(vipBuyRecord.getCreateDate(), 2).getTime()){
 				model.setOrderState("已过期");	
 			}else{
-				model.setOrderState("代付款");	
+				model.setOrderState("待付款");	
 			}
 		}
 		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
@@ -310,7 +310,7 @@ public class CIBNManagementConvert {
 			if(DateUtils.nowTimeMillis()>DateUtils.addHour(vipBuyRecord.getCreateDate(), 2).getTime()){
 				model.setOrderState("已过期");	
 			}else{
-				model.setOrderState("代付款");	
+				model.setOrderState("待付款");	
 			}
 		}
 		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
@@ -344,7 +344,7 @@ public class CIBNManagementConvert {
 			if(DateUtils.nowTimeMillis()>DateUtils.addHour(vipBuyRecord.getCreateDate(), 2).getTime()){
 				model.setOrderState("已过期");	
 			}else{
-				model.setOrderState("代付款");	
+				model.setOrderState("待付款");	
 			}
 		}
 		model.setMobile(vipBuyRecord.getUserPo()==null?"":vipBuyRecord.getUserPo().getMobile());
