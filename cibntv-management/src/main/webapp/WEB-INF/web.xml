@@ -53,7 +53,7 @@
 	</welcome-file-list>
 	<error-page>
 		<exception-type>org.springframework.web.HttpSessionRequiredException</exception-type>
-		<location>/login.jsp</location>
+		<location>/login.html</location>
 	</error-page>
 
 	<filter>
