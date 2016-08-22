@@ -1,0 +1,151 @@
+<div class="wrapper-md" ng-controller="TestPoolCtrl">
+    <div class="panel panel-default">
+        <div class="wrapper">
+        	<!--select start-->
+        	<div class="panel-select">
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">年份：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>2016年</option>
+	                        <option>2015年</option>
+	                        <option>2014年</option>
+	                        <option>2013年</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">地区：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>北京</option>
+	                    </select>
+	                </div>
+	            </div>
+				<div class="form-group">
+	                <label class="col-sm-2 control-label">文理科：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>文科</option>
+	                        <option>理科</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">考生类型：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>统考</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">学科：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>语文</option>
+	                    </select>
+	                </div>
+	            </div>
+                <div class="line line-solid b-b line-lg"></div>
+        	</div>
+            <!-- select close -->
+            <!-- tab -->
+            <div ng-controller="TabsDemoCtrl">
+                <h3>试卷状态:</h3>
+               
+                <tabset class="tab-container">
+                  <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled" class="panel-state state">
+                    <p>需判试卷：<span>100</span>份,监考人数：<span>80</span>人</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>来源</th>
+                                    <th>手机号</th>
+                                    <th>姓名</th>
+                                    <th>学科</th>
+                                    <th>考试时间</th>
+                                    <th>试卷</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>诊断</td>
+                                    <td>1821058560</td>
+                                    <td>LiLy</td>
+                                    <td>英语</td>
+                                    <td>2016.7.28 18:00-19:00</td>
+                                    <td>
+                                        <button class="btn btn-default">详情</button>
+                                    </td>
+                                    <td>{{tab.content}}</td>
+                                    <td>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox" name="post[]"><i></i>选择</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>诊断</td>
+                                    <td>1821058560</td>
+                                    <td>LiLy</td>
+                                    <td>英语</td>
+                                    <td>2016.7.28 18:00-19:00</td>
+                                    <td>
+                                        <button class="btn btn-default">详情</button>
+                                    </td>
+                                    <td>{{tab.content}}</td>
+                                    <td>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox" name="post[]"><i></i>选择</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>诊断</td>
+                                    <td>1821058560</td>
+                                    <td>LiLy</td>
+                                    <td>英语</td>
+                                    <td>2016.7.28 18:00-19:00</td>
+                                    <td>
+                                        <button class="btn btn-default">详情</button>
+                                    </td>
+                                    <td>{{tab.content}}</td>
+                                    <td>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox" name="post[]"><i></i>选择</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="hide-if-no-paging">
+                                <tr>
+                                    <td colspan="9" class="text-center">
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>选择30份
+                                        </label>
+                                        <button type="submit" class="btn btn-default">分&nbsp;&nbsp;配</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                  </tab>
+                </tabset>
+                
+            </div>
+            <!-- / tab -->
+
+            <!--btn-->
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary">手动分配</button>
+                <button type="button" class="btn btn-primary">自动分配</button>
+            </div>
+        </div>
+        
+    </div>
+</div>

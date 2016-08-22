@@ -1,0 +1,258 @@
+<div class="wrapper-md" ng-controller="teachResearchCtrl">
+    <div class="panel panel-default">
+        <div class="wrapper">
+           
+            <div class="panel-heading m-b-xl">
+                <form action="">
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option1">
+                            <i></i>查看全科(文)
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option2" checked>
+                            <i></i>查看全科(理)
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option3" checked>
+                            <i></i>查看单科
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="option1">
+                            <i></i>统考生
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="option2" checked>
+                            <i></i>艺考生
+                        </label>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">地区:</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>全部</option>
+                                <option>北京</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">年份:</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>2016年</option>
+                                <option>2015年</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">总分数:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="460">
+                        </div>
+                        <label class="col-sm-1" style="width:10px">-</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="500">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">单科学科:</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>英语</option>
+                                <option>数学</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-8">
+                            <label class="col-sm-1 control-label">分数:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" value="60">
+                            </div>
+                            <label class="col-sm-1 " style="width:10px">-</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" value="80">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label">1判2判差值分数:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" value="60">
+                        </div>
+                        <label class="col-sm-1 " style="width:10px">-</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" value="80">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn m-b-xs w-xs btn-success pull-right">查询</button>
+                </form>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <!-- <h3><span>目标类型:</span><span>一本线上30分</span>|<span>一本线</span>|<span>二本线</span></h3> -->
+            <p>一判 二判成绩 超出 （）分之外 复审预警必须复审查判分成绩。
+            一判 二判成绩 未超过（）分 根据2判成绩为标准。</p>
+            <div class="table-responsive">
+                <h3>未复审</h3>
+                <div class="radio">
+                    <label class="i-checks">
+                        <input type="radio" name="sort" value="option1">
+                        <i></i>正序
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="sort" value="option2" checked>
+                        <i></i>倒序
+                    </label>
+                    <span>(默认根据分值差从大到小排序)</span>
+                </div>
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>学科</th>
+                            <th>考试时间</th>
+                            <th>试卷</th>
+                            <th>客观题得分</th>
+                            <th>判卷人(1)得分</th>
+                            <th>判卷人(2)得分</th>
+                            <th>总分</th>
+                            <th>差值</th>
+                            <th>教研复审</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td><button class="btn btn-default">详情</button></td>
+                            <td>90分</td>
+                            <td>XXX 100分</td>
+                            <td>XXX 100分</td>
+                            <td>(1)180分  (2)130分</td>
+                            <td>50分</td>
+                            <td><button class="btn btn-primary">复审</button></td>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="checkbox"><i></i> 选择
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td><button class="btn btn-default">详情</button></td>
+                            <td>90分</td>
+                            <td>XXX 100分</td>
+                            <td>XXX 100分</td>
+                            <td>(1)180分  (2)130分</td>
+                            <td>50分</td>
+                            <td><button class="btn btn-primary">复审</button></td>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="checkbox"><i></i> 选择
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="11"></td>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="data.selected"><i></i> 全选
+                                </label>
+                            </td>
+                            <td><button class="btn btn-default">通过复审</button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="13" class="text-center">
+                                <!-- <ul class="pagination"> -->
+                                <!-- pagination -->
+                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                </div>
+                                <!-- / pagination -->
+                                <!-- </ul> -->
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                
+            </div>
+            <div class="line line-solid b-b line-lg"></div>
+            <div class="table-responsive">
+                <h3>已复审</h3>
+                <div class="radio">
+                    <label class="i-checks">
+                        <input type="radio" name="sort" value="option1">
+                        <i></i>正序
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="sort" value="option2" checked>
+                        <i></i>倒序
+                    </label>
+                    <span>(默认根据分值差从大到小排序)</span>
+                </div>
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>学科</th>
+                            <th>考试时间</th>
+                            <th>试卷</th>
+                            <th>客观题得分</th>
+                            <th>判卷人(1)得分</th>
+                            <th>判卷人(2)得分</th>
+                            <th>复审得分</th>
+                            <th>总分</th>
+                            <th>教研复审</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td><button class="btn btn-default">详情</button></td>
+                            <td>90分</td>
+                            <td>XXX 100分</td>
+                            <td>XXX 100分</td>
+                            <td>50分</td>
+                            <td>(1)180分  (2)130分 (复)130分</td>
+                            <td>复审:XXX教师</td>
+                            <td>通过复审</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td><button class="btn btn-default">详情</button></td>
+                            <td>90分</td>
+                            <td>XXX 100分</td>
+                            <td>XXX 100分</td>
+                            <td>50分</td>
+                            <td>(1)180分  (2)130分 (复)130分</td>
+                            <td>复审:XXX教师</td>
+                            <td>通过复审</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,595 @@
+<!-- list -->
+<ul class="nav">
+    <!-- <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span translate="导航">导航</span>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="app.news.list">
+            <i class="glyphicon glyphicon-book icon text-info-dker"></i>
+            <span>新闻管理</span>
+        </a>
+    </li> -->
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+         <i class="fa fa-fw fa-angle-right text"></i>
+         <i class="fa fa-fw fa-angle-down text-active"></i>
+       </span>
+            <i class="glyphicon glyphicon-th"></i>
+            <span>保分计划管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Layout</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.plan.create">
+                    <span>诊断上架</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.plan.diagGoods">
+                    <span>诊断商品</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--教学管理 （试卷池、一轮判、二轮判、短板诊断判卷、短板课时、分班后确认）-->
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+             </span>
+            <i class="glyphicon glyphicon-briefcase icon text-info-lter"></i>
+            <span>教学管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Layout</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.testPool">
+                    <span>试卷池</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.round">
+                    <span>一轮判</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.secondRound">
+                    <span>二轮判</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.examConfrim">
+                    <span>短板考试确认</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.examMonitor">
+                    <span>短板考试监考</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.shortBoard">
+                    <span>短板诊断判卷</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.shortBoardClass">
+                    <span>短板加课确认</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.dividingClasses">
+                    <span>分班</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.divideClassesConfrim">
+                    <span>分班后确认</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.monitorTeacher">
+                    <span>监考教师管理</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachManage.changeCourse">
+                    <span>更换学生课程类型</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>组织结构搭建</span>
+                </a>
+                <ul style="display:none">
+                    <li class="nav-sub-header">
+                        <a href>
+                            <span>Layout</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>学区-创建学部</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>学部创建部</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.mobile">
+                            <span>部创建-中心</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active" class="subThreeNav">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                            <span>中心</span>
+                        </a>
+                        <ul style="display:none">
+                            <li ui-sref-active="active" class="subFourNav">
+                                <a href class="auto">
+                                    <span class="pull-right text-muted">
+                               <i class="fa fa-fw fa-angle-right text"></i>
+                               <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                                    <span>编排大小班课</span>
+                                </a>
+                                <ul style="display:none">
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="layout.mobile">
+                                            <span>排大班课</span>
+                                        </a>
+                                    </li>
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="layout.mobile">
+                                            <span>排小班课</span>
+                                        </a>
+                                    </li>
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="layout.mobile">
+                                            <span>排1对1课</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href class="auto" ui-sref='app.teachResearchManage.teachResearchManage'>
+            <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-th  text-success"></i>
+            <span>教研管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Layout</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachResearchManage.markReview">
+                    <span>阅卷复审</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto" ui-sref='app.teachResearchManage.studentCategory'>
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>学生分类</span>
+                </a>
+                <ul style="display:none;">
+                    <li class="nav-sub-header">
+                        <a href>
+                            <span>Layout</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.teachResearchManage.confromToVip">
+                            <span>符合VIP报分 短板分析</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.teachResearchManage.shortBoardConfrim">
+                            <span>短板确认</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>短板加课时排课</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>不符合名单</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.mobile">
+                            <span>符合确认名单-课程分类</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref='app.teachResearchManage.teachResearchManage'>
+                    <span>短板分析</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>数据监管-大班课课程</span>
+                </a>
+                <ul style="display:none;">
+                    <li class="nav-sub-header">
+                        <a href>
+                            <span>Layout</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>小班课课程</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>一对一老师</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>阶段考</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>课程监控</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.mobile">
+                            <span>学生监控</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.mobile">
+                            <span>教师监控</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref='app.teachResearchManage.teachResearchManage'>
+                    <span>组织结构管理</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>课程管理</span>
+                </a>
+                <ul class="nav-sub dk" style="display:none;">
+                    <li class="nav-sub-header">
+                        <a href>
+                            <span>Layout</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>课程管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                                     <i class="fa fa-fw fa-angle-right text"></i>
+                                     <i class="fa fa-fw fa-angle-down text-active"></i>
+                                   </span>
+                    <span>试卷管理</span>
+                </a>
+                <ul style="display:none;">
+                    <li class="subThreeNav">
+                        <a href class="auto" ui-sref="app.teachResearchManage.teachResearch">
+                            <span class="pull-right text-muted">
+                                           <i class="fa fa-fw fa-angle-right text"></i>
+                                           <i class="fa fa-fw fa-angle-down text-active"></i>
+                                          </span>
+                            <span>诊断试卷</span>
+                        </a>
+                        <ul style="display:none;">
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.teachResearchManage.createDiag">
+                                    <span>创建诊断</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="layout.mobile">
+                                    <span>组织全科诊断</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="subThreeNav">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                           <i class="fa fa-fw fa-angle-right text"></i>
+                                           <i class="fa fa-fw fa-angle-down text-active"></i>
+                                          </span>
+                            <span>阶段考试卷</span>
+                        </a>
+                        <ul style="display:none;">
+                            <li ui-sref-active="active">
+                                <a ui-sref="layout.mobile">
+                                    <span>创建阶段考</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a href class="layout.app">
+                    <span>高考辅导教材</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-th"></i>
+            <span>数据统计</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Layout</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>教研数据：大班课程</span>
+                </a>
+                <ul style="display:none;">
+                    <li class="nav-sub-header">
+                        <a href>
+                            <span>Layout</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>小班课</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>阶段考</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.app">
+                            <span>模块考</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="layout.mobile">
+                    <span>教学数据统计</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-lock text-primary-dker"></i>
+            <span>权限管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                                   <i class="fa fa-fw fa-angle-right text"></i>
+                                   <i class="fa fa-fw fa-angle-down text-active"></i>
+                                 </span>
+                    <span>用户管理</span>
+                </a>
+                <ul style="display:none;">
+                    <li ui-sref-active="active" class="subThreeNav">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                             <i class="fa fa-fw fa-angle-right text"></i>
+                             <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <span>教师员工管理</span>
+                        </a>
+                        <ul style="display:none;">
+                            <li ui-sref-active="active">
+                                <a ui-sref="layout.mobile">
+                                    <span>兼职教师</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active" class="subThreeNav">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                             <i class="fa fa-fw fa-angle-right text"></i>
+                             <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <span>学籍管理</span>
+                        </a>
+                        <ul style="display:none;">
+                            <li ui-sref-active="active">
+                                <a ui-sref="layout.mobile">
+                                    <span>学生管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+               <i class="fa fa-fw fa-angle-right text"></i>
+               <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-th"></i>
+            <span>教师操作</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>Layout</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>1对1老师操作页面</span>
+                </a>
+                <ul style="display:none">
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>我的学生</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>学生作业</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>自主推送学习资源</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active" class="subThreeNav">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                             <i class="fa fa-fw fa-angle-right text"></i>
+                             <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <span>学生考试</span>
+                        </a>
+                        <ul style="display:none">
+                            <li ui-sref-active="active">
+                                <a ui-sref="layout.fullwidth">
+                                    <span>阶段考判卷</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>教辅材料</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>大班值守</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.fullwidth">
+                            <span>答疑</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ui-sref-active="active" class="subNav">
+                <a href class="auto">
+                    <span class="pull-right text-muted">
+                       <i class="fa fa-fw fa-angle-right text"></i>
+                       <i class="fa fa-fw fa-angle-down text-active"></i>
+                     </span>
+                    <span>小班课老师操作页面</span>
+                </a>
+                <ul style="display:none;">
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.mobile">
+                            <span>我的学生</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="layout.mobile">
+                            <span>学生作业</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a ui-sref="app.news.list">
+            <i class="glyphicon glyphicon-th"></i>
+            <span>诊断报告</span>
+        </a>
+    </li>
+    <li>
+        <a ui-sref="app.news.list">
+            <i class="glyphicon glyphicon-book icon"></i>
+            <span>阶段考</span>
+        </a>
+    </li>
+    <li>
+        <a ui-sref="app.news.list">
+            <i class="glyphicon glyphicon-book icon "></i>
+            <span>调课管理</span>
+        </a>
+    </li>
+</ul>
+<!-- / list -->

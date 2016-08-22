@@ -1,0 +1,125 @@
+<div class="wrapper-md" ng-controller="RoundController">
+    <div class="panel panel-default">
+        <div class="wrapper">
+            <div class="panel-heading m-b-xl">
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="a" value="option1" >
+                    <i></i>查看全科(文)
+                  </label>
+                  <label class="i-checks">
+                    <input type="radio" name="a" value="option2" checked>
+                    <i></i>查看全科(理)
+                  </label>
+                </div>
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="b" value="option1" >
+                    <i></i>统考生
+                  </label>
+                  <label class="i-checks">
+                    <input type="radio" name="b" value="option2" checked>
+                    <i></i>艺考生
+                  </label>
+                </div>
+                <div class="form-group ">
+                    <label class="col-sm-1 control-label">地区:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>全部</option>
+                            <option>北京</option>
+                        </select>
+                    </div>
+                    <p class="col-sm-9">注：全部的意思是，地区不作为强耦合条件如果地区属性为强耦合条件，去掉全部</p>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <h3>学科：教研专属学科显示</h3>
+            <p><span>目标类型:</span><span>一本线上30分</span>|<span>一本线</span>|<span>二本线</span></p>
+            <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>学科</th>
+                        <th>考试时间</th>
+                        <th>试卷</th>
+                        <th>客观题得分</th>
+                        <th>主观分</th>
+                        <th>总分</th>
+                        <th>诊断报告</th>
+                        <th>操作人</th>
+                        <th>联系</th>
+                        <th>家长</th>
+                        <th>短板用卷</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>1821058560</td>
+                        <td>LiLy</td>
+                        <td>英语</td>
+                        <td>2016.7.28 18:00-19:00</td>
+                        <td>
+                            <button class="btn btn-default">详情</button>
+                        </td>
+                        <td>80分</td>
+                        <td>100分</td>
+                        <td>130分</td>
+                        <td><button class="btn btn-default">详情</button></td>
+                        <td>XXX</td>
+                        <td>138XXXXXXXX</td>
+                        <td>XXX</td>
+                        <td>诊断卷名称(A)</td>
+                        <td>
+                            <button class="btn btn-default">拒绝短板诊断</button>
+                            <button class="btn btn-default">预约时间</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>1821058560</td>
+                        <td>LiLy</td>
+                        <td>英语</td>
+                        <td>2016.7.28 18:00-19:00</td>
+                        <td>
+                            <button class="btn btn-default">详情</button>
+                        </td>
+                        <td>80分</td>
+                        <td>100分</td>
+                        <td>130分</td>
+                        <td><button class="btn btn-default">详情</button></td>
+                        <td>XXX</td>
+                        <td>138XXXXXXXX</td>
+                        <td>XXX</td>
+                        <td>诊断卷名称(A)</td>
+                        <td>
+                            <span>已确认</span>
+                            <span>时间:16:00-18:00</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                  <tr>
+                      <td colspan="15" class="text-center">
+                          <!-- <ul class="pagination"> -->
+                            <!-- pagination -->
+                            <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                              <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                              
+                            </div>
+                             <!-- / pagination -->
+                          <!-- </ul> -->
+                      </td>
+                  </tr>
+                </tfoot>
+            </table>
+        </div>
+        </div>
+        
+    </div>
+</div>

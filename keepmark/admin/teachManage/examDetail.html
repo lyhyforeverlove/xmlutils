@@ -1,0 +1,60 @@
+<div ng-controller="RoundController">
+    <div class="wrapper-md" >
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>试卷名称 XXXXX</h3>
+                <span>学科:语文</span>
+                <span>考试时间:2016-7.16 16:00-18:00</span>
+                <span>监考教师:Bob</span>
+                <span>考试用时:58分钟</span>
+                <span>总题数:55题</span>
+                <span>判卷老师:Sara</span>
+            </div>
+            <div class="wrapper">
+                <div class="total-score col-sm-12">
+                  <p class="col-sm-6"><span>客观部分：60分</span>
+                  <span>填空部分：0分</span>
+                  <span>主观部分：0分</span></p>
+                  <p class="col-sm-6">60分</p>
+                </div>
+                <section>
+                    <div class="line line-solid b-b line-lg"></div>
+                    <div class="col-sm-12">
+                      <h4  class="col-sm-1">31</h4>
+                      <div class="col-sm-4"><img src="img/bg1.png" alt=""></div>
+                      <div class="col-sm-4" ><textarea name="textare" class="form-control" id="" cols="30"  >xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea></div>
+                      <div class="col-sm-3">
+                        <span>得分<input type="text" class="form-control" value="16" class="score"></span>
+                        <span>卷面得分<input type="text" class="form-control" value="6" class="score1"></span>
+                        <button ng-click='submit()' class="btn btn-default">提交</button>
+                      </div>
+                      <div class="col-sm-12 line line-dashed b-b line-lg  m-t" ></div>
+                    </div>
+                    <div class="error-Knowledge Knowledge">
+                        <p>错误知识点：</p>
+                        <button ng-click='addErrorKnown()'>+</button><div id="selectKnow" class="selectKnow"></div></div>
+                    <div class="survey-knowledge Knowledge">
+                        <p>本题考察知识点范围：</p>
+                        <a class="btn btn-default disabled" role="button" id="1">函数</a><a class="btn btn-default disabled" role="button" id="2">javascript</a><a class="btn btn-default disabled" role="button" id="3">html</a><a class="btn btn-default disabled" role="button" id="4">css</a><a class="btn btn-default disabled" role="button" id="5">angularjs</a><a class="btn btn-default disabled" role="button" id="6">nodejs</a>
+                    </div>   
+                </section>
+                
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="examLayer">
+  <h4>客观题：30题</h4>
+  <p>对:15 <a href="">1</a></p>
+  <p>错:15 <a href="">2</a></p>
+  <h4>填空题：(10题未判)</h4>
+  <p><a href="">31</a><a href="">32</a></p>
+  <p>对:n </p>
+  <p>错:n </p>
+  <h4>主观题：(10题未判)</h4>
+  <p><a href="">31</a><a href="">32</a></p>
+  <p>对:n </p>
+  <p>错:n </p>
+</div>

@@ -1,0 +1,35 @@
+<style>
+  .list-group-item{border-radius:0;line-height:36px;font-size:18px;font-weight:bold;}
+</style>
+<div class="wrapper-md" ng-controller="teachResearchCtrl">
+    <div class="panel panel-default">
+        <div class="wrapper">
+            <div class="">
+                <input type="radio" checked>语文
+                <input type="radio">数学
+                <input type="radio">英语
+                <input type="radio">物理
+                <input type="radio">化学
+                <input type="radio">生物
+                <input type="radio">政治
+                <input type="radio">地理
+                <input type="radio">历史
+            </div>
+            <button class="btn btn-primary pull-right  m-b" ui-sref='app.teachResearchManage.list'><i class='fa fa-plus'></i>添加</button>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="list-group">
+                        <a href class="list-group-item">1 数学 诊断卷名称(A)
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div>
+                    试卷用途：<input type="radio">诊断套卷 <input type="radio">短板诊断
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

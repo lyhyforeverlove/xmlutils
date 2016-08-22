@@ -1,0 +1,95 @@
+<div class="wrapper-md" ng-controller="RoundController">
+    <div class="panel panel-default">
+        <div class="wrapper">
+        	<!--select start-->
+        	<div class="panel-select">
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">年份：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>2016年</option>
+	                        <option>2015年</option>
+	                        <option>2014年</option>
+	                        <option>2013年</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">地区：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>北京</option>
+	                    </select>
+	                </div>
+	            </div>
+				<div class="form-group">
+	                <label class="col-sm-2 control-label">文理科：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>文科</option>
+	                        <option>理科</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">考生类型：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>统考</option>
+	                    </select>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">学科：</label>
+	                <div class="col-sm-10">
+	                    <select name="account" class="form-control m-b">
+	                        <option>语文</option>
+	                    </select>
+	                </div>
+	            </div>
+        	</div>
+            <!-- select close -->
+            <div class="line line-dashed b-b line-lg"></div>
+            <p><span>学科：语文</span><span>监考人数：80人</span><span>需判试卷：100份（转接20份）</span><span>已判卷85份</span><span>未判卷15份</span></p>
+            <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>来源</th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>短板学科</th>
+                        <th>考试时间</th>
+                        <th>试卷</th>
+                        <th>客观题得分</th>
+                        <th>主观题分数</th>
+                        <th>考试确认</th>
+                        <th>考试时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>短板诊断</td>
+                        <td>1821058560</td>
+                        <td>LiLy</td>
+                        <td>英语</td>
+                        <td>2016.7.28 18:00-19:00</td>
+                        <td>
+                            <button class="btn btn-default">详情</button>
+                        </td>
+                        <td>80分</td>
+                        <td>50分</td>
+                        <td>参加考试</td>
+                        <td>2016.7.28 18:00-19:00</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <button class="btn btn-primary pull-right"  ui-sref="app.teachManage.monitorRoom()">进入监考教室</button>
+        </div>
+        </div>
+        
+    </div>
+</div>

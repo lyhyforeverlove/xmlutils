@@ -1,0 +1,131 @@
+<div class="wrapper-md" ng-controller="RoundController">
+    <div class="panel panel-default">
+        <div class="wrapper">
+           
+            <div class="panel-heading m-b-xl">
+                <form action="">
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option1">
+                            <i></i>查看全科(文)
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option2" checked>
+                            <i></i>查看全科(理)
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option3" checked>
+                            <i></i>查看单科
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="option1">
+                            <i></i>统考生
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="option2" checked>
+                            <i></i>艺考生
+                        </label>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">地区:</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>全部</option>
+                                <option>北京</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">总分数:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="460">
+                        </div>
+                        <label class="col-sm-1" style="width:10px">-</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="500">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn m-b-xs w-xs btn-success pull-right">查询</button>
+                </form>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="table-responsive">
+                <div class="radio"><b>排序</b>
+                    <label class="i-checks">
+                        <input type="radio" name="sort" value="option1">
+                        <i></i>正序排序
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="sort" value="option2" checked>
+                        <i></i>倒序排序
+                    </label>
+                </div>
+                <h4 class=""><span>目标类型：</span><span>一本线上30分</span>| <span>一本线 </span>| <span>二本线 </span></h4>
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>类型</th>
+                            <th>考试时间</th>
+                            <th>总分</th>
+                            <th>数学</th>
+                            <th>语文</th>
+                            <th>英语</th>
+                            <th>物理</th>
+                            <th>化学</th>
+                            <th>生物</th>
+                            <th>诊断报告</th>
+                            <th>上次操作人</th>
+                            <th>操作</th>
+                            <th>短板</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>统考(理)</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td>430分</td>
+                            <td>90分</td>
+                            <td>100分</td>
+                            <td>100分</td>
+                            <td>180分</td>
+                            <td>50分</td>
+                            <td>100分</td>
+                            <td><button class="btn btn-default">详情</button></td>
+                            <td>XXXX</td>
+                            <td></td>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="checkbox"><i></i>短板分析
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="15"></td>
+                            <td>
+                                <span>已选100人</span>
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="data.selected"><i></i> 全选
+                                </label>
+                                <span> 操作人：XXX</span>
+                            </td>
+                        </tr>
+                        
+                    </tfoot>
+                </table>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>

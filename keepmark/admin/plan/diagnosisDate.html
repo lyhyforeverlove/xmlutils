@@ -1,0 +1,58 @@
+<div class="wrapper-md" ng-controller="CreateDiagCtrl">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+       <h3>诊断时间</h3>
+       <p>具体开始时间，结束时间 ，每组时间开始时间，结束时间，由教学部统一规则决定。</p>
+    </div>
+    <div class="wrapper">
+        <div class="panel-container">
+            <section>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">指定老师</label>
+              <div class="col-sm-2">
+                <select name="account" class="form-control m-b">
+                  <option>王丽丽</option>
+                </select>
+                
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg "></div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">开始时间:</label>
+              <div class="col-sm-10  m-b-sm" ng-controller="DatepickerDemoCtrl">
+                <div class="input-group w-md">
+                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-2 control-label">结束时间:</label>
+              <div class="col-sm-8  m-b-sm" ng-controller="DatepickerDemoCtrl">
+                <div class="input-group w-md">
+                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </div>
+              </div>
+                
+              <div class="col-sm-2"><button class=" btn btn-default" ng-click="addDateGroup()">确定</button></div>  
+            </div>
+            <div class="line line-dashed b-b line-lg "></div>
+            <div class="checkDate">
+              <ul>
+                  <li toggle-class="active" ng-repeat="item in groups" ng-click="clickme(item.id)"><span>{{item.AM}}{{item.PM}}</span> <span class="btnSelect">{{item.name}}</span>{{item.date}}{{item.group}}</li>
+              </ul>
+            </div>
+            <div class="line line-solid b-b line-lg "></div></section>
+        </div>
+   
+        <button class="btn m-b-xs btn-primary btn-addon" ng-click='addTeacher()'><i class="fa fa-plus"></i>添加老师</button>
+        <input type="submit" class="btn btn-primary pull-right"  value="确定上架">
+    </div>
+    
+  </div>
+</div>

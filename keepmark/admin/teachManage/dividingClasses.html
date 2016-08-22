@@ -1,0 +1,209 @@
+<div class="wrapper-md" ng-controller="RoundController">
+    <div class="panel panel-default">
+        <div class="wrapper">
+            <div class="panel-heading m-b-xl">
+               <form action="">
+                     <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="aa" value="option1" >
+                    <i></i>查看全科(文)
+                  </label>
+                  <label class="i-checks">
+                    <input type="radio" name="aa" value="option2" checked>
+                    <i></i>查看全科(理)
+                  </label>
+                </div>
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="b" value="option1" >
+                    <i></i>统考生
+                  </label>
+                  <label class="i-checks">
+                    <input type="radio" name="b" value="option2" checked>
+                    <i></i>艺考生
+                  </label>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">地区:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>全部</option>
+                            <option>北京</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总分数:</label>
+                    <div class="col-sm-2">
+                        <input type="text"  class="form-control" value="460">
+                    </div>
+                    <label class="col-sm-1"   style="width:10px">-</label>
+                    <div class="col-sm-2">
+                        <input type="text"  class="form-control" value="500">
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">单科学科:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>英语</option>
+                            <option>数学</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-8">
+                        <label class="col-sm-1 control-label">分数:</label>
+                    <div class="col-sm-3">
+                        <input type="text"  class="form-control" value="60">
+                    </div><label class="col-sm-1 "  style="width:10px">-</label>
+                    <div class="col-sm-3">
+                        <input type="text"  class="form-control" value="80">
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">上课时间:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>周六日</option>
+                            <option>周二</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn m-b-xs w-xs btn-success pull-right">查询</button>
+               </form>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <h3><span>目标类型:</span><span>一本线上30分</span>|<span>一本线</span>|<span>二本线</span></h3>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>地区</th>
+                            <th>姓名</th>
+                            <th>用户名</th>
+                            <th>家长联系方式</th>
+                            <th>语文</th>
+                            <th>数学</th>
+                            <th>英语</th>
+                            <th>物理</th>
+                            <th>化学</th>
+                            <th>生物</th>
+                            <th>总分</th>
+                            <th>空余时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>北京</td>
+                            <td>LiLy</td>
+                            <td>hello</td>
+                            <td>1821058560</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>450分</td>
+                            <td>周六日</td>
+                            <td>
+                                <label class="i-checks">
+                                  <input type="checkbox"><i></i>
+                                  选择
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>北京</td>
+                            <td>LiLy</td>
+                            <td>hello</td>
+                            <td>1821058560</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>90分</td>
+                            <td>450分</td>
+                            <td>周六日</td>
+                            <td>
+                                <label class="i-checks">
+                                  <input type="checkbox"><i></i>
+                                  选择
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                      <tr><td colspan="13"></td>
+                        <td><label class="i-checks">
+                              <input type="checkbox"><i></i>
+                              全选
+                            </label></td>
+                      </tr>
+                      <tr>
+                          <td colspan="15" class="text-center">
+                              <!-- <ul class="pagination"> -->
+                                <!-- pagination -->
+                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                  
+                                </div>
+                                 <!-- / pagination -->
+                              <!-- </ul> -->
+                          </td>
+                      </tr>
+                    </tfoot>
+                </table>
+                <!-- modal -->
+                <div ng-controller="ClassesCtrl" class="panel b-a">
+                    <script type="text/ng-template" id="myModalContent.html">
+                        <div ng-include="'admin/common/classes.html'"></div>
+                    </script>
+                    <div class="panel-body">
+                        <button class="btn btn-default m-b-xs w-xs pull-right" ng-click="open('lg')">班</button>
+                    </div>
+                </div>
+                <!-- /modal -->
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- <div class="wrapper-md">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <section class="row">
+            <section class="col-md-6" style="margin:40px auto; float:none; background:#fff; padding:30px;" ng-controller="tabDemoCtrl">
+                <p>通过设置改变开关：</p>
+                <p>
+                    <button class="btn btn-sm btn-danger" ng-click="tabs[0].active = true">选中第2个</button>
+                    <button class="btn btn-sm btn-default" ng-click="tabs[1].active = true">选中第3个</button>
+                    <button class="btn btn-sm btn-default" ng-click="tabs[1].disabled = !tabs[1].disabled">开启/禁用第3个</button>
+                </p>
+                <hr>
+                <tabset>
+                    <tab heading="单科">单科</tab>
+                    <tab heading="{{tab.title}}" ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled">{{tab.content}}</tab>
+                    <tab select="alertMe()">
+                        <tab-heading> //heading。 标题文本或者html内容
+                            <i class="glyphicon glyphicon-bell">弹出!</i>
+                        </tab-heading>
+                        html5jq-FE学习平台欢迎您！
+                    </tab>
+                </tabset>
+                <hr>
+                <tabset vertical="true" type="pills"> // vertical 方式 默认为false为水平方向 反之。。。
+                    <tab heading="第一列">第一列内容</tab>
+                    <tab heading="第二列">第二列内容</tab>
+                </tabset>
+            </section>
+        </section>
+    </div>
+</div> -->
