@@ -1,0 +1,54 @@
+<div class="wrapper-md" ng-controller="myStudentsController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <h4><span>我的学生：XXX</span><span>中心1班</span><span>一本线上30分</span></h4>
+            <div class="table-responsive" >
+                <table class="table .table-condensed b-t b-light">
+                    <thead>
+                      <th>序号</th>
+                      <th>地区</th>
+                      <th>学生名称</th>
+                      <th>用户名</th>
+                      <th>课表</th>
+                      <th>1对1课程时间安排</th>
+                      <th>学习情况</th>
+                      <th>预警次数</th>
+                      <th>答疑记录</th>
+                      <th>操作</th>
+                    </thead>
+
+                    <tbody>
+                    <!-- ng-repeat="data in data.results"-->
+                    <tr>
+                        <td>1.</td>
+                        <td>北京</td>
+                        <td>XXX</td>
+                        <td>XXXX</td>
+                        <td><button class="btn btn-primary" ng-click="checkMySchedule()">详情</button></td>
+                        <td>周三18：00-19：00</td>
+                        <td><button class="btn btn-primary"  ng-click="learningDetail()">详情</button></td>
+                        <td>1</td>
+                        <td><button class="btn btn-primary"  ng-click="answerQuestionsRecord()">查看</button></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td>北京</td>
+                        <td>XXX</td>
+                        <td>XXXX</td>
+                        <td><button class="btn btn-primary"  ng-click="checkMySchedule()">详情</button></td>
+                        <td>周三18：00-19：00</td>
+                        <td><button class="btn btn-primary"  ng-click="learningDetail()">详情</button></td>
+                        <td>1</td>
+                        <td><button class="btn btn-primary"  ng-click="answerQuestionsRecord()">查看</button></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

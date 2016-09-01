@@ -1,0 +1,122 @@
+<div class="wrapper-md" ng-controller="AddCourseCtrl">
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>新增课程</h4>
+            </div>
+        <div class="wrapper">
+            <div class="panel-select">
+                <div class="radio">
+                    类型：
+                    <label class="i-checks">
+                        <input type="radio" name="aaa" value="0" checked="checked">
+                        <i></i>文科
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="aaa" value="1">
+                        <i></i>理科
+                    </label>
+                </div>
+                <div class="radio">
+                    <!-- ng-repeat='key in subjects' -->
+                    学科：
+                    <label class="i-checks">
+                        <input type="radio" name="subject">
+                        <i></i>语文
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="subject" checked>
+                        <i></i>数学
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="subject">
+                        <i></i>英语
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="subject">
+                        <i></i>历史
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="subject">
+                        <i></i>政治
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="subject">
+                        <i></i>化学
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="subject">
+                        <i></i>物理
+                    </label>
+                </div>
+                <div class="radio">
+                    教材：
+                    <label class="i-checks">
+                        <input type="radio" name="diaga" value="0" checked="checked">
+                        <i></i>全国卷一
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="diaga" value="1">
+                        <i></i>全国卷二
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="diaga" value="0">
+                        <i></i>全国卷三
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="diaga" value="1">
+                        <i></i>自主命题北京
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="diaga" value="1">
+                        <i></i>自主命题天津
+                    </label>
+                </div>
+            </div>
+            <div class="">
+                <div>
+                    <div class="list-group">
+                        <a href class="list-group-item">
+                            <div class="pull-right"><label>
+                                <input type="radio" name="aaa" value="0" checked="checked">
+                                <i></i>
+                            </label></div>
+                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->课程体系(一)
+                            
+                        </a>
+                        <a href class="list-group-item">课程体系(二)
+                            <div><label class="i-checks">
+                                <input type="radio" name="aaa" value="0" checked="checked">
+                                <i></i>
+                            </label></div>
+                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                            
+                        </a>
+                    </div>
+                </div>
+                <div class="">
+                    <h4>课程名称</h4>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="col-sm-12 m-b">
+                        <span class="col-sm-6"><input type="text" class="form-control"></span>
+                        <span class="col-sm-6"><button class="btn btn-primary m-r">确定</button><button class="btn btn-primary">编辑</button></span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="col-sm-12 m-b">
+                        <section>
+                            <div class="col-sm-4">
+                                <img src="img/p0.jpg" alt="" width="200" height="120">
+                            </div>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" rows="6" cols="20">
+                                    课程介绍说明： （建议教学管理组给出统一模板，创建教师统一复制粘贴统一介绍说明即可）
+                                </textarea>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <button class="btn btn-primary pull-right">确定课程体系</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

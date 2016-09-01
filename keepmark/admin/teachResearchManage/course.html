@@ -1,21 +1,29 @@
-<!-- admin/news/list.html -->
-<div class="wrapper-md" ng-controller="ListController">
+<div class="wrapper-md">
   <div class="panel panel-default">
     <div class="panel-heading">
-    <ul class="nav nav-pills pull-right">
-            <li style=" padding-top:4px; padding-right:4px"><button class="btn m-b-xs btn-sm btn-primary btn-addon" ui-sref="app.news.create()"><i class="fa fa-plus"></i>新增</button></li>
-          </ul>
-      新闻列表
+      <h4>课程体系</h4>
     </div>
     <div class="row wrapper">
-      <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
-          <option value="0">---</option>
-          <option value="1">删除所选记录</option>
+      <div class="col-sm-12 m-b-xs">
+        考生类型:<select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+          <option value="0">统考</option>
+          <option value="1">所选记录</option>
         </select>
-        <button class="btn btn-sm btn-default" ng-click="exec()">执行</button>                
+        班型:<select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+          <option value="0">小班课</option>
+          <option value="1">所选记录</option>
+        </select>
+        保分类型:<select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+          <option value="0">一本线上30分</option>
+          <option value="1">所选记录</option>
+        </select>
+        科目:<select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+          <option value="0">语文</option>
+          <option value="1">所选记录</option>
+        </select>
+        <button class="btn btn-sm btn-default" ng-click="">查询</button>                
       </div>
-      <div class="col-sm-4">
+      <!-- <div class="col-sm-4">
       </div>
       <div class="col-sm-3">
         <div class="input-group">
@@ -24,35 +32,44 @@
             <button class="btn btn-sm btn-default" ng-click="search()" type="button">Go!</button>
           </span>
         </div>
-      </div>
-    </div>
-    <div class="table-responsive" ng-if="data.total_count>0">
+      </div> -->
+    </div> <!-- ng-if="data.total_count>0" -->
+    <div class="table-responsive ">
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
-            <th style="width:20px;">
+            <th>
               <label class="i-checks m-b-none">
-                <input type="checkbox" ng-click="selectAll()"><i></i>
-              </label>
+                <!-- <input type="checkbox" ng-click="selectAll()"><i></i> -->
+              </label>序号
             </th>
-            <th>标题</th>
-            <th>创建时间</th>
-            <th style="width:30px;"></th>
+            <th>课程名称</th>
+            <th>科目</th>
+            <th>课程类型</th>
+            <th>班型</th>
+            <th>适用考生类型</th>
+            <th>操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="data in data.results">
-            <td><label class="i-checks m-b-none"><input type="checkbox" ng-model="data.selected"><i></i></label></td>
-            <td>{{data.title}}</td>
+        <tbody> <!-- ng-repeat="data in data.results" -->
+          <tr>
+            <td><label class="i-checks m-b-none"><input type="checkbox" ng-model="data.selected"><i></i>1</label></td>
+            <td>课程名称课程名称</td>
+            <td>物理</td>
+            <td>一本线上30</td>
+            <td>大班课</td>
+            <td>统考</td>
+            <td><button class="btn btn-default">详情</button><button class="btn btn-default">分配</button></td>
+            <!-- <td>{{data.title}}</td>
             <td>{{data.create_time|date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
             <td>
               <a ui-sref="app.news.detail({id:data.id})" class="active"><i class="fa fa-edit"></i></a>
-            </td>
+            </td> -->
           </tr>
         </tbody>
       </table>
     </div>
-    <footer class="panel-footer">
+    <!-- <footer class="panel-footer">
       <div class="row">
         <div class="col-sm-8 text-left">
           <small class="text-muted inline m-t-sm m-b-sm">{{data.total_count}}条记录</small>
@@ -65,6 +82,6 @@
           </ul>
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </div>

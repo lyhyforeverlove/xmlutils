@@ -1,10 +1,133 @@
-<div class="wrapper-md" ng-controller="RoundController">
+<div class="wrapper-md" ng-controller="ShortBoardClassCtrl">
     <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{name}}&lt;短板加课确认</h4>
+        </div>
         <div class="wrapper">
+            <table class="table">
+                <tr>
+                    <td width="8%">学年:</td>
+                    <td>高考</td>
+                </tr>
+                <tr>
+                    <td>类型:</td>
+                    <td>
+                        <div class="radio">
+                            <label class="i-checks">
+                                <input type="radio" name="e" value="option1" checked>
+                                <i></i>文科
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="e" value="option2">
+                                <i></i>理科
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>学科:</td>
+                    <td>
+                        <div class="radio">
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option1">
+                                <i></i>语文
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option2" checked>
+                                <i></i>数学
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option3">
+                                <i></i>英语
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option4">
+                                <i></i>物理
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option5">
+                                <i></i>化学
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option6">
+                                <i></i>生物
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option7">
+                                <i></i>历史
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="c" value="option8">
+                                <i></i>地理
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>教材:</td>
+                    <td>
+                        <div class="radio">
+                            <label class="i-checks">
+                                <input type="radio" name="d" value="option1">
+                                <i></i>全国卷一
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="d" value="option2" checked>
+                                <i></i>全国卷二
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="d" value="option3">
+                                <i></i>全国卷三
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="d" value="option4">
+                                <i></i>自主命题北京 </label>
+                            <label class="i-checks">
+                                <input type="radio" name="d" value="option5">
+                                <i></i>自主命题天津
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary pull-right" ng-click="query()">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
             <div class="panel-heading">
-                <h3><span>目标类型:</span><span>一本线上30分</span>|<span>一本线</span>|<span>二本线</span></h3>
+                <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
+                    <input type="radio" name="ff" value="option3" checked  ng-click="query(sate:0)">
+                    <i></i>一本线上30分
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
+                    <input type="radio" name="ff" value="option3">
+                    <i></i>一本线
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
+                    <input type="radio" name="ff" value="option3">
+                    <i></i>二本线
+                </label></span></p>
                 <div class="line line-dashed b-b line-lg"></div>
+                <div class="radio">
+                    <label class="i-checks">
+                        <input type="radio" name="f" value="option3" checked ng-click="query(state:1)">
+                        <i></i>全部
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="f" value="option4" ng-click="query(state:2)">
+                        <i></i>待参加 (待确认)</label>
+                    <label class="i-checks">
+                        <input type="radio" name="f" value="option5" ng-click="query(state:3)">
+                        <i></i>已参加
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="f" value="option5" ng-click="query(state:4)">
+                        <i></i>不参加
+                    </label>
+                </div>
             </div>
+            
             <div class="table-responsive">
             <table class="table table-striped b-t b-light">
                 <thead>
@@ -41,16 +164,16 @@
                         <td>80分</td>
                         <td>100分</td>
                         <td>130分</td>
-                        <td><button class="btn btn-default">详情</button></td>
+                        <td><button class="btn btn-primary">详情</button></td>
                         <td>XXX</td>
                         <td>138XXXXXXXX</td>
                         <td>XXX</td>
                         <td>110分</td>
                         <td>50课时</td>
-                        <td><button class="btn btn-default">查看</button></td>
+                        <td><button class="btn btn-primary">查看</button></td>
                         <td>
-                            <button class="btn btn-default">不参加</button>
-                            <button class="btn btn-info">参加</button>
+                            <button class="btn btn-primary">不参加</button>
+                            <button class="btn btn-primary">参加</button>
                         </td>
                     </tr>
                 </tbody>

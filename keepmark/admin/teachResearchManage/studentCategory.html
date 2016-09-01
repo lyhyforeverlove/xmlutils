@@ -1,68 +1,67 @@
-<div class="wrapper-md" ng-controller="RoundController">
+<div class="wrapper-md" ng-controller="StudentCategoryCtrl">
     <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{name}} &gt; 学生分类</h4>
+        </div>
         <div class="wrapper">
            
             <div class="panel-heading m-b-xl">
                 <form action="">
-                    <div class="radio">
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option1">
-                            <i></i>查看全科(文)
-                        </label>
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option2" checked>
-                            <i></i>查看全科(理)
-                        </label>
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option3" checked>
-                            <i></i>查看单科
-                        </label>
+                    <div class="radio form-group col-sm-12">
+                        
+                        <label class="col-sm-1 control-label">类型:</label>
+                        <div class="col-sm-2">
+                            <label class="i-checks">
+                                <input type="radio" name="aa" value="option1">
+                                <i></i>文科
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="aa" value="option2" checked>
+                                <i></i>理科
+                            </label>
+                        </div>
                     </div>
-                    <div class="radio">
-                        <label class="i-checks">
-                            <input type="radio" name="b" value="option1">
-                            <i></i>统考生
-                        </label>
-                        <label class="i-checks">
-                            <input type="radio" name="b" value="option2" checked>
-                            <i></i>艺考生
-                        </label>
-                    </div>
+                    <div class="line line-solid b-b line-lg"></div>
                     <div class="form-group col-sm-12">
                         <label class="col-sm-1 control-label">地区:</label>
                         <div class="col-sm-2">
-                            <select name="account" class="form-control">
+                            <select name="account" class="form-control input-sm">
                                 <option>全部</option>
                                 <option>北京</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="line line-solid b-b line-lg"></div>
+                    <div class="form-group col-sm-12">
                         <label class="col-sm-1 control-label">年份:</label>
                         <div class="col-sm-2">
-                            <select name="account" class="form-control">
+                            <select name="account" class="form-control input-sm">
                                 <option>2016年</option>
                                 <option>2015年</option>
                             </select>
                         </div>
                     </div>
+                    <div class="line line-solid b-b line-lg"></div>
                     <div class="form-group col-sm-12">
                         <label class="col-sm-1 control-label">总分数:</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" value="460">
+                            <input type="text" class="form-control input-sm" value="460">
                         </div>
                         <label class="col-sm-1" style="width:10px">-</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" value="500">
+                            <input type="text" class="form-control input-sm" value="500">
                         </div>
                     </div>
+                    <div class="line line-solid b-b line-lg"></div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">单科学科:</label>
-                        <div class="row col-sm-12">
+                        <div class="row col-sm-12"  style="padding-left:140px">
                             <div class="col-sm-6">
                                 <label class="col-sm-2 i-checks m-b-none">
                                     <input type="checkbox"><i></i>语文:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="60">
+                                    <input type="text" class="form-control input-sm" value="60">
                                 </div>
                                 <span>分以上</span>
                             </div>
@@ -71,18 +70,18 @@
                                     <input type="checkbox"><i></i>英语:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="60">
+                                    <input type="text" class="form-control input-sm" value="60">
                                 </div>
                                 <span>分以上</span>
                             </div>
                         </div>
-                        <div class="row col-sm-12  m-t">
+                        <div class="row col-sm-12  m-t"  style="padding-left:140px">
                             <div class="col-sm-6">
                                 <label class="col-sm-2 i-checks m-b-none">
                                     <input type="checkbox"><i></i>数学:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="60">
+                                    <input type="text" class="form-control input-sm" value="60">
                                 </div>
                                 <span>分以上</span>
                             </div>
@@ -91,18 +90,18 @@
                                     <input type="checkbox"><i></i>生物:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="60">
+                                    <input type="text" class="form-control input-sm" value="60">
                                 </div>
                                 <span>分以上</span>
                             </div>
                         </div>
-                        <div class="row col-sm-12 m-t">
+                        <div class="row col-sm-12 m-t"  style="padding-left:140px">
                             <div class="col-sm-6">
                                 <label class="col-sm-2 i-checks m-b-none">
                                     <input type="checkbox"><i></i>化学:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="60">
+                                    <input type="text" class="form-control input-sm" value="60">
                                 </div>
                                 <span>分以上</span>
                             </div>
@@ -111,16 +110,16 @@
                                     <input type="checkbox"><i></i>物理:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" value="60">
+                                    <input type="text" class="form-control input-sm" value="60">
                                 </div>
                                 <span>分以上</span>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn m-b-xs w-xs btn-success pull-right">查询</button>
+                    <button type="submit" class="btn m-b-xs w-xs btn-primary pull-right">查询</button>
                 </form>
             </div>
-            <div class="line line-dashed b-b line-lg"></div>
+            <div class="line line-solid b-b line-lg"></div>
             <div class="table-responsive">
                 <div class="radio"><b>排序</b>
                     <label class="i-checks">
@@ -132,7 +131,7 @@
                         <i></i>总分高到低
                     </label>
                 </div>
-                <h4 class="pull-right"><span>总人数：2000人</span><span>符合条件人数：200人</span></h4>
+                <p class="pull-right"><span class="p-d">总人数：2000人</span><span class="p-d">符合条件人数：200人</span></p>
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
@@ -197,12 +196,12 @@
                 
             </div>
             <!-- 目标分类 modal -->
-            <div ng-controller="categoryCtrl" class="panel b-a">
+            <div ng-controller="categoryCtrl" >
                 <script type="text/ng-template" id="myModalContent.html">
                     <div ng-include="'admin/common/category.html'"></div>
                 </script>
                 <div class="panel-body">
-                    <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lg')">目标分类</button>
+                    <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lt')">目标分类</button>
                 </div>
             </div>
             <!-- 目标分类/modal -->

@@ -1,0 +1,115 @@
+<div class="wrapper-md" ng-controller="DiagShelvesController">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+       <h4>负责监考教师:xxx(账号：)</h4>
+    </div>
+    <div class="wrapper">
+           <div class="panel-body">
+                <form class="form-horizontal" method="get">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">学年：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">高考</p>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">类型：</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="a" value="option1">
+                                    <i></i> 文科
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="a" value="option2" checked>
+                                    <i></i> 理科
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option1">
+                                    <i></i>全国卷一
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option2" checked>
+                                    <i></i>全国卷二
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option3">
+                                    <i></i>全国卷三
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option4">
+                                    <i></i>自主命题北京 </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option5">
+                                    <i></i>自主命题天津
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary pull-right">查&nbsp;询</button>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                </form>
+            </div>
+            <div class="panel-container">
+              <div class="table-responsive">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <th  style="width:5%">序号</th>
+                      <th  style="width:10%">学科</th>
+                      <th  style="width:10%">创建时间</th>
+                      <th  style="width:10%">监考人</th>
+                      <th  style="width:20%">封面</th>
+                      <th  style="width:15%">购买预约人</th>
+                      <th  style="width:20%">状态</th>
+                      <th  style="width:10%">操作</th>
+                      <th  style="width:10%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>文综合</td>
+                        <td>2016.7.28</td>
+                        <td>XXX</td>
+                        <td><img src="img/c5.jpg" width="200px" height="100px" /></td>
+                        <td>200人</td>
+                        <td><p>开始时间:2016.7.28</p><p>结束时间:2016.8.28</p></td>
+                        <td><p><a>上架</a></p><p><a>下架</a></p><p><a>详情</a></p></td>
+                        <td><button type="button" class="btn btn-primary"  ui-sref="app.teachManage.detail()">详情</button></td>
+                      </tr>
+                  </tbody>
+                  <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <!-- <ul class="pagination"> -->
+                              <!-- pagination -->
+                              <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                
+                              </div>
+                               <!-- / pagination -->
+                            <!-- </ul> -->
+                        </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+        </div>
+  </div>
+</div>

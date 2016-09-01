@@ -1,0 +1,53 @@
+<div class="wrapper-md ng-scope" ng-controller="oneToOneAdjustCourseController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="table-responsive">
+                <div class="form-group">
+                    <label class="control-label">学科:</label>数学
+                    <button class="btn btn-primary pull-right btn-margin" ng-click="checkMySchedule()">查看我的课表</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>序号</td>
+                            <td>学生名称</td>
+                            <td>用户账户</td>
+                            <td>总成绩</td>
+                            <td>数学</td>
+                            <td>1对1排课</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>王大锤</td>
+                            <td>130544982</td>
+                            <td>500分</td>
+                            <td>120分</td>
+                            <td><button class="btn btn-primary" ng-click="studentSchedule()">课表</button></td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>王大锤</td>
+                            <td>130544982</td>
+                            <td>500分</td>
+                            <td>120分</td>
+                            <td><button class="btn btn-primary" ng-click="studentSchedule()">课表</button></td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>王大锤</td>
+                            <td>130544982</td>
+                            <td>500分</td>
+                            <td>120分</td>
+                            <td><button class="btn btn-primary" ng-click="studentSchedule()">课表</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,12 +12,12 @@ app.controller('AbnTestController', function($scope, $timeout) {
     };
     treedata_avm = [
       {
-        label: 'Animal',
+        label: '集合',
         children: [
           {
-            label: 'Dog',
+            label: '集合的基本',
             data: {
-              description: "man's best friend"
+              description: "你需要知道哪些知识内容"
             }
           }, {
             label: 'Cat',

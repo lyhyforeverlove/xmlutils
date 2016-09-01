@@ -1,0 +1,61 @@
+<div class="wrapper-md" ng-controller="paperCheckedController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="table-responsive">
+                <h4>
+                    <span>需判试卷：100份</span><span>监考人数：80人</span><span>已判卷：85份</span><span>未判卷：15份</span>
+                </h4>
+                <table class="table .table-condensed b-t b-light">
+                   <thead>
+                        <th>序号</th>
+                        <th>来源</th>
+                        <th>手机号</th>
+                        <th>姓名</th>
+                        <th>学科</th>
+                        <th>考试时间</th>
+                        <th>试卷</th>
+                        <th>客观题得分</th>
+                        <th>主观题得分</th>
+                        <th>总得分</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                   </thead>
+                    <tbody>
+                        <!-- ng-repeat="data in data.results"-->
+                        <tr>
+                            <td>1.</td>
+                            <td>XXX老师</td>
+                            <td>121212</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28</td>
+                            <td><button class="btn btn-primary" ng-click="paperDetail()">详情</button></td>
+                            <td>80分</td>
+                            <td>60分</td>
+                            <td>100分</td>
+                            <td>未处理</td>
+                            <td><button class="btn btn-primary" ng-click="paperChecked()">判卷</button></td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>XXX老师</td>
+                            <td>121212</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28</td>
+                            <td><button class="btn btn-primary" ng-click="paperDetail()">详情</button></td>
+                            <td>80分</td>
+                            <td>60分</td>
+                            <td>100分</td>
+                            <td>已判</td>
+                            <td><button class="btn btn-primary" ng-click="paperChecked()">查看</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

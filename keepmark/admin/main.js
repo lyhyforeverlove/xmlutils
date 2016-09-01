@@ -12,7 +12,7 @@ angular.module('app')
 
       // config
       $scope.app = {
-        host: 'http://localhost',
+        host: 'http://192.168.1.156:8090/',
         name: '保分计划',
         version: '1.3.3',
         // for chart colors

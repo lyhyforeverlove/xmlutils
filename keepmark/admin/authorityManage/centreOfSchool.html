@@ -1,0 +1,42 @@
+<div class="wrapper-md ng-scope" ng-controller="centreOfSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="table-responsive">
+                <button class="btn btn-primary" ui-sref="app.authorityManage.addCentreOfSchool()">添加</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学部名称</th>
+                            <th>中心名称</th>
+                            <th>中心编号</th>
+                            <th>中心负责人</th>
+                            <th>类型</th>
+                            <th>保分级别</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.sex}}</td>
+                            <td>{{item.url}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.sex}}</td>
+                            <td>{{item.name}}</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.centreOfSchoolDetail()">查看</a>
+                                <a ui-sref="app.authorityManage.updateCentreOfSchool()">修改</a>
+                                <a ng-click="deleteCentreOfSchool()">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

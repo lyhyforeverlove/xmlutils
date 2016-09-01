@@ -1,129 +1,252 @@
-<div class="wrapper-md" ng-controller="RoundController">
+<div class="wrapper-md" ng-controller="DividClassesConfrimCtrl">
     <div class="panel panel-default">
-        <div class="wrapper">
-            <div class="panel-heading m-b-xl">
-               <button class="btn btn-primary pull-right" ui-sref='app.teachManage.look()'>查看全科</button>
-               <form action="">
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-1 control-label">诊断类型:</label>
-                    <div class="col-sm-2">
-                        单科(数学分文理)
-                    </div>
-                </div>    
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-1 control-label">地区:</label>
-                    <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>北京</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-1 control-label">文理科:</label>
-                    <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>文科</option>
-                        </select>
-                    </div>
-                </div>
-               </form>
-            </div>
-            <div class="line line-dashed b-b line-lg"></div>
-            
-            <div class="table-responsive">
-                <div class="form-group col-sm-12">
-
-                <h3><span>通过</span>|<span>未通过</span></h3>
-                <label class="col-sm-1 control-label">学科:</label>
-                <div class="col-sm-2">
-                    <select name="account" class="form-control">
-                        <option>语文</option>
-                    </select>
-                </div>
-            </div>
-                <table class="table table-striped b-t b-light">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>考试时间</th>
-                            <th>学科</th>
-                            <th>试卷</th>
-                            <th>客观题得分</th>
-                            <th>主观题得分</th>
-                            <th>总得分</th>
-                            <th>报告</th>
-                            <th>地区</th>
-                            <th>课表</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1821058560</td>
-                            <td>LiLy</td>
-                            <td>2016.7.28：18：00-19：00</td>
-                            <td>数学</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>180分</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>北京</td>
-                            <td><button class="btn btn-default">查看</button></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>
-                                <button class="btn btn-default">拒绝</button>
-                                <button class="btn btn-primary">确定上课</button>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>2</td>
-                            <td>1821058560</td>
-                            <td>LiLy</td>
-                            <td>2016.7.28：18：00-19：00</td>
-                            <td>数学</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>180分</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>北京</td>
-                            <td><button class="btn btn-default">查看</button></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td>
-                                <button class="btn btn-default">拒绝</button>
-                                <button class="btn btn-primary">确定上课</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="hide-if-no-paging">
-                      <tr><td colspan="13"></td>
-                        <td><label class="i-checks">
-                              <input type="checkbox"><i></i>
-                              全选
-                            </label></td>
-                      </tr>
-                      <tr>
-                          <td colspan="15" class="text-center">
-                              <!-- <ul class="pagination"> -->
-                                <!-- pagination -->
-                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                  <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                  
-                                </div>
-                                 <!-- / pagination -->
-                              <!-- </ul> -->
-                          </td>
-                      </tr>
-                    </tfoot>
-                </table>
-                
-            </div>
+        <div class="panel-heading">
+            <h4>{{name}} &gt; 分班后确认</h4>
         </div>
-        
+        <div class="wrapper">
+            <div class="panel-heading ">
+                <!--  <button class="btn btn-primary pull-right" ui-sref='app.teachManage.look()'>查看全科</button> -->
+                <form action="" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地区：</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>北京</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group ">
+                        <label class="col-sm-2 control-label">文理科:</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>文科</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">查&nbsp;询</button>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                </form>
+            </div>
+            <!-- tab -->
+            <div>
+                <div id="tabs">
+                    <ul>
+                        <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+                    </ul>
+                    <div id="mainView">
+                        <div ng-include="currentTab"></div>
+                    </div>
+                </div>
+                <script type="text/ng-template" id="one.tpl.html">
+                    <div id="viewOne">
+                        <!-- <pre>{{choseArr}}</pre> -->
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>用户名</th>
+                                        <th>姓名</th>
+                                        <th>考试时间</th>
+                                        <th>学科</th>
+                                        <th>试卷</th>
+                                        <th>客观题得分</th>
+                                        <th>主观题得分</th>
+                                        <th>总得分</th>
+                                        <th>报告</th>
+                                        <th>地区</th>
+                                        <th>课表</th>
+                                        <th>备注</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1821058560</td>
+                                        <td>LiLy</td>
+                                        <td>2016.7.28：18：00-19：00</td>
+                                        <td>数学</td>
+                                        <td>
+                                            <button class="btn btn-primary">详情</button>
+                                        </td>
+                                        <td>90分</td>
+                                        <td>90分</td>
+                                        <td>180分</td>
+                                        <td>
+                                            <button class="btn btn-primary" ui-sref="app.teachManage.reportDetail()">详情</button>
+                                        </td>
+                                        <td>北京</td>
+                                        <td>
+                                            <button class="btn btn-primary">查看</button>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-default">拒绝</button>
+                                            <button class="btn btn-primary">确定上课</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>1821058560</td>
+                                        <td>LiLy</td>
+                                        <td>2016.7.28：18：00-19：00</td>
+                                        <td>数学</td>
+                                        <td>
+                                            <button class="btn btn-primary">详情</button>
+                                        </td>
+                                        <td>90分</td>
+                                        <td>90分</td>
+                                        <td>180分</td>
+                                        <td>
+                                            <button class="btn btn-primary" ui-sref="app.teachManage.reportDetail()">详情</button>
+                                        </td>
+                                        <td>北京</td>
+                                        <td>
+                                            <button class="btn btn-primary">查看</button>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-default">拒绝</button>
+                                            <button class="btn btn-primary">确定上课</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="hide-if-no-paging">
+                                    <tr>
+                                        <td colspan="13"></td>
+                                        <td>
+                                            <label class="i-checks">
+                                                <input type="checkbox"><i></i> 全选
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="15" class="text-center">
+                                            <!-- <ul class="pagination"> -->
+                                            <!-- pagination -->
+                                            <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                            </div>
+                                            <!-- / pagination -->
+                                            <!-- </ul> -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </script>
+                <script type="text/ng-template" id="two.tpl.html">
+                    <div id="viewTwo">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>用户名</th>
+                                        <th>姓名</th>
+                                        <th>考试时间</th>
+                                        <th>学科</th>
+                                        <th>试卷</th>
+                                        <th>客观题得分</th>
+                                        <th>主观题得分</th>
+                                        <th>总得分</th>
+                                        <th>报告</th>
+                                        <th>地区</th>
+                                        <th>课表</th>
+                                        <th>备注</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1821058560</td>
+                                        <td>LiLy</td>
+                                        <td>2016.7.28：18：00-19：00</td>
+                                        <td>数学</td>
+                                        <td>
+                                            <button class="btn btn-primary">详情</button>
+                                        </td>
+                                        <td>90分</td>
+                                        <td>90分</td>
+                                        <td>180分</td>
+                                        <td>
+                                            <button class="btn btn-primary" ui-sref="app.teachManage.reportDetail()">详情</button>
+                                        </td>
+                                        <td>北京</td>
+                                        <td>
+                                            <button class="btn btn-primary">查看</button>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-default">拒绝</button>
+                                            <button class="btn btn-primary">确定上课</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>1821058560</td>
+                                        <td>LiLy</td>
+                                        <td>2016.7.28：18：00-19：00</td>
+                                        <td>数学</td>
+                                        <td>
+                                            <button class="btn btn-primary">详情</button>
+                                        </td>
+                                        <td>90分</td>
+                                        <td>90分</td>
+                                        <td>180分</td>
+                                        <td>
+                                            <button class="btn btn-primary" ui-sref="app.teachManage.reportDetail()">详情</button>
+                                        </td>
+                                        <td>北京</td>
+                                        <td>
+                                            <button class="btn btn-primary">查看</button>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-default">拒绝</button>
+                                            <button class="btn btn-primary">确定上课</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="hide-if-no-paging">
+                                    <tr>
+                                        <td colspan="13"></td>
+                                        <td>
+                                            <label class="i-checks">
+                                                <input type="checkbox"><i></i> 全选
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="15" class="text-center">
+                                            <!-- <ul class="pagination"> -->
+                                            <!-- pagination -->
+                                            <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                            </div>
+                                            <!-- / pagination -->
+                                            <!-- </ul> -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </script>
+            </div>
+            <!-- / tab -->
+        </div>
     </div>
 </div>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    
+</head>
+
+<body ng-controller="Ctrl">
+    <input type="radio" ng-model="model.isChecked" value="1" ng-click="onRadioClick('1')" />
+    <input type="radio" ng-model="model.isChecked" value="0" ng-click="onRadioClick('0')" />
+    <!-- <input type="radio" ng-model="model.isChecked" value="1"/><input type="radio" ng-model="model.isChecked" value="0"/>-->
+    <br>model.isChecked:{{model.isChecked}}</body>
+
+</html>
+<script>
+var module = angular.module("myApp", []);
+module.controller('Ctrl', function($scope) {
+    $scope.model = {
+        isChecked: '1'
+    };
+    $scope.onRadioClick = function(val) {
+        if (!checkIsOk(val)) {
+            $scope.model.isChecked = "0";
+        }
+    }; /* $scope.$watch('model.isChecked', function(val, oldVal) {if(!checkIsOk(val)){$scope.model.isChecked=oldVal;}});*/
+    var checkIsOk = function(val) {
+        if (val == '1') {
+            return false;
+        }
+        return true;
+    };
+});
+angular.element(document).ready(function() {
+    angular.bootstrap(document, ['myApp']);
+});
+</script>

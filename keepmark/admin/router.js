@@ -1,236 +1,602 @@
 'use strict';
 
-app.run(
-      function ($rootScope,   $state,   $stateParams,$localStorage,$http) {
-          $http.defaults.headers.common['Authorization'] = 'Basic ' + $localStorage.auth;
-          $rootScope.$state = $state;
-          $rootScope.$stateParams = $stateParams; 
-          //监听全局页面跳转信号($statChangeSuccess)，将参数保存下来
-          $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
-              $rootScope.previousState = from;
-              $rootScope.previousStateParams = fromParams;
-          });       
-      }
-  )
-app.config(function ($stateProvider,   $urlRouterProvider) {
-      $urlRouterProvider
-          .otherwise('app/teachManage/testPool');
-      $stateProvider
-          .state('app', {
-              abstract: true,
-              url: '/app',
-              templateUrl: 'admin/app.html',
-          })
-          .state('auth',{
-              abstract: true,
-              url:'/auth',
-              template: '<div ui-view class="fade-in"></div>',
-              resolve: {
-                  deps: ['$ocLazyLoad',
-                    function( $ocLazyLoad ){
-                      return $ocLazyLoad.load('admin/auth/ctrl.js');
-                  }]
-              }
-          })
-          .state('auth.loading',{
-              url:'/loading',
-              templateUrl:'admin/auth/loading.html',
-          })
-          .state('auth.login',{
-              url:'/login',
-              templateUrl:'admin/auth/login.html',
-          })
-          //首页
-          .state('auth.index', {
-              url: '/index',
-              templateUrl: 'admin/auth/index.html',
-          })
-          /*.state('app.news', {
-              abstract: true,
-              url: '/news',
-              template: '<div ui-view class="fade-in"></div>',
-              resolve: {
-                  deps: ['$ocLazyLoad',
-                    function( $ocLazyLoad ){
-                      return $ocLazyLoad.load('admin/news/ctrl.js');
-                  }]
-              }
-          })
-          .state('app.news.list', {
-              url: '/list?page&search',
-              templateUrl: 'admin/news/list.html',
-          })
-          .state('app.news.detail', {
-              url: '/detail/{id}',
-              templateUrl: 'admin/news/detail.html',
-          })
-          .state('app.news.create', {
-              url: '/create',
-              templateUrl: 'admin/news/detail.html', 
-          })*/
-          .state('app.plan', {
-              abstract: true,
-              url: '/plan',
-              template: '<div ui-view class="fade-in"></div>',
-              resolve: {
-                  deps: ['$ocLazyLoad',
-                    function( $ocLazyLoad ){
-                      return $ocLazyLoad.load('admin/plan/controller.js');
-                  }]
-              }
-          })
-          .state('app.plan.create',{
-              url: '/create',
-              templateUrl: 'admin/plan/createDiagnosis.html',
-          })
-          .state('app.plan.allot',{
-              url: '/allot',
-              templateUrl: 'admin/plan/diagnosisDate.html',
-          })
-          .state('app.plan.diagGoods',{
-              url: '/diagGoods',
-              templateUrl: 'admin/plan/diagnosisGoods.html',
-          })
-          .state('app.teachManage', {
-              abstract: true,
-              url: '/teachManage',
-              template: '<div ui-view class="fade-in"></div>',
-              resolve: {
-                  deps: ['$ocLazyLoad',
-                    function( $ocLazyLoad ){
-                      return $ocLazyLoad.load('admin/teachManage/controller.js');
-                  }]
-              }
-          })
-          .state('app.teachManage.testPool',{
-              url: '/testPool',
-              templateUrl: 'admin/teachManage/testPool.html',
-          })
-          .state('app.teachManage.round',{
-              url: '/round',
-              templateUrl: 'admin/teachManage/roundSentence.html',
-          })
-          .state('app.teachManage.exam',{
-              url: '/exam',
-              templateUrl: 'admin/teachManage/examDetail.html',
-          })
-          .state('app.teachManage.secondRound',{
-              url: '/secondRound',
-              templateUrl: 'admin/teachManage/secondRoundSentence.html',
-          })
-          .state('app.teachManage.examConfrim',{
-              url: '/examConfrim',
-              templateUrl: 'admin/teachManage/examConfrim.html',
-          })
-          .state('app.teachManage.examMonitor',{
-              url: '/examMonitor',
-              templateUrl: 'admin/teachManage/examMonitor.html',
-          })
-          .state('app.teachManage.monitorRoom',{
-              url: '/monitorRoom',
-              templateUrl: 'admin/teachManage/monitorRoom.html',
-          })
-          .state('app.teachManage.shortBoard',{
-              url: '/shortBoard',
-              templateUrl: 'admin/teachManage/shortBoardDiag.html',
-          })
-          .state('app.teachManage.shortBoardClass',{
-              url: '/shortBoardClass',
-              templateUrl: 'admin/teachManage/shortBoardClass.html',
-          })
-          .state('app.teachManage.dividingClasses',{
-              url: '/dividingClasses',
-              templateUrl: 'admin/teachManage/dividingClasses.html',
-          })
-          .state('app.teachManage.divideClassesConfrim',{
-              url: '/divideClassesConfrim',
-              templateUrl: 'admin/teachManage/divideClassesConfrim.html',
-          })
-          .state('app.teachManage.reportDetail',{
-              url: '/reportDetail',
-              templateUrl: 'admin/teachManage/reportDetail.html',
-          })
-          .state('app.teachManage.look',{
-              url: '/look',
-              templateUrl: 'admin/teachManage/look.html',
-          })
-          .state('app.teachManage.monitorTeacher',{
-              url: '/monitorTeacher',
-              templateUrl: 'admin/teachManage/monitorTeacher.html',
-          })
-          .state('app.teachManage.changeCourse',{
-              url: '/changeCourse',
-              templateUrl: 'admin/teachManage/changeCourse.html',
-          })
-          /*
-          *教研管理
-          */
-          .state('app.teachResearchManage', {
-              abstract: true,
-              url: '/teachResearchManage',
-              template: '<div ui-view class="fade-in"></div>',
-              resolve: {
-                  deps: ['$ocLazyLoad',
-                    function( $ocLazyLoad ){
-                      return $ocLazyLoad.load('admin/teachResearchManage/controller.js');
-                  }]
-              }
-          })
-          .state('app.teachResearchManage.markReview',{
-              url: '/markReview',
-              templateUrl: 'admin/teachResearchManage/markReview.html',
-          })
-          .state('app.teachResearchManage.teachResearch',{
-              url: '/teachResearch',
-              templateUrl: 'admin/teachResearchManage/teachResearch.html',
-          })
-          .state('app.teachResearchManage.createDiag',{
-              url: '/createDiag',
-              templateUrl: 'admin/teachResearchManage/createDiag.html',
-          })
-          .state('app.teachResearchManage.studentCategory',{
-              url: '/studentCategory',
-              templateUrl: 'admin/teachResearchManage/studentCategory.html',
-          })
-          .state('app.teachResearchManage.confromToVip',{
-              url: '/confromToVip',
-              templateUrl: 'admin/teachResearchManage/confromToVip.html',
-          })
-          .state('app.teachResearchManage.shortBoardConfrim',{
-              url: '/shortBoardConfrim',
-              templateUrl: 'admin/teachResearchManage/shortBoardConfrim.html',
-          })
-          .state('app.teachResearchManage.shortBoardPaper',{
-              url: '/shortBoardPaper',
-              templateUrl: 'admin/teachResearchManage/shortBoardPaper.html',
-          })
-          .state('app.teachResearchManage.createSingle',{
-              url: '/createSingle',
-              templateUrl: 'admin/teachResearchManage/createSingle.html',
-          })
-          .state('app.teachResearchManage.list',{
-              url: '/list',
-              templateUrl: 'admin/teachResearchManage/addDiagPaper.html',
-          })
+/**
+ * Config for the router
+ */
+angular.module('app')
+    .run(
+        ['$rootScope', '$state', '$stateParams',
+            function($rootScope, $state, $stateParams) {
+                $rootScope.$state = $state;
+                $rootScope.$stateParams = $stateParams;
+            }
+        ]
+    )
+    .config(
+        ['$stateProvider', '$urlRouterProvider',
+            function($stateProvider, $urlRouterProvider) {
+                $urlRouterProvider
+                    .otherwise('/app/teachManage/testPoolByFirst');
+                /*.otherwise('/auth/login');*/
+                $stateProvider
+                /**/
+                    .state('app.auth', {
+                        abstract: true,
+                        url: '/auth',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/auth/ctrl.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('auth.loading', {
+                        url: '/loading',
+                        templateUrl: 'admin/auth/loading.html',
+                    })
+                    .state('auth.login', {
+                        url: '/login',
+                        templateUrl: 'admin/auth/login.html',
+                    })
+                    //首页
+                    .state('auth.index', {
+                        url: '/index',
+                        templateUrl: 'admin/auth/index.html',
+                    })
+                    .state('app', {
+                        abstract: true,
+                        url: '/app',
+                        templateUrl: 'admin/app.html',
+                    })
+                    .state('app.news', {
+                        abstract: true,
+                        url: '/news',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/news/ctrl.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.news.list', {
+                        url: '/list?page&search',
+                        templateUrl: 'admin/news/list.html',
+                    })
+                    .state('app.news.detail', {
+                        url: '/detail/{id}',
+                        templateUrl: 'admin/news/detail.html',
+                    })
+                    .state('app.news.create', {
+                        url: '/create',
+                        templateUrl: 'admin/news/detail.html',
+                    })
 
-});
+                .state('app.teachManage', {
+                        abstract: true,
+                        url: '/teachManage',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachManage/js/controller.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachManage.create', {
+                        url: '/create',
+                        templateUrl: 'admin/teachManage/createDiagnosis.html',
+                    })
+                    .state('app.teachManage.allot', {
+                        url: '/allot',
+                        templateUrl: 'admin/teachManage/diagnosisDate.html',
+                    })
+                    .state('app.teachManage.diagGoods', {
+                        url: '/diagGoods',
+                        templateUrl: 'admin/teachManage/diagnosisGoods.html',
+                    })
+                    .state('app.teachManage.firstPool', {
+                        url: '/testPoolByFirst',
+                        templateUrl: 'admin/teachManage/testPoolByFirst.html',
+                    })
+                    .state('app.teachManage.secondPool', {
+                        url: '/testPoolBySecond',
+                        templateUrl: 'admin/teachManage/testPoolBySecond.html',
+                    })
+                    .state('app.teachManage.round', {
+                        url: '/round',
+                        templateUrl: 'admin/teachManage/roundSentence.html',
+                    })
+                    .state('app.teachManage.exam', {
+                        url: '/exam',
+                        templateUrl: 'admin/teachManage/examDetail.html',
+                    })
+                    .state('app.teachManage.secondRound', {
+                        url: '/secondRound',
+                        templateUrl: 'admin/teachManage/secondRoundSentence.html',
+                    })
+                    .state('app.teachManage.examConfrim', {
+                        url: '/examConfrim',
+                        templateUrl: 'admin/teachManage/examConfrim.html',
+                    })
+                    .state('app.teachManage.examMonitor', {
+                        url: '/examMonitor',
+                        templateUrl: 'admin/teachManage/examMonitor.html',
+                    })
+                    .state('app.teachManage.monitorRoom', {
+                        url: '/monitorRoom',
+                        templateUrl: 'admin/teachManage/monitorRoom.html',
+                    })
+                    .state('app.teachManage.shortBoard', {
+                        url: '/shortBoard',
+                        templateUrl: 'admin/teachManage/shortBoardDiag.html',
+                    })
+                    .state('app.teachManage.notConform', {
+                        url: '/notConform',
+                        templateUrl: 'admin/teachManage/notConform.html',
+                    })
+                    .state('app.teachManage.shortBoardClass', {
+                        url: '/shortBoardClass',
+                        templateUrl: 'admin/teachManage/shortBoardClass.html',
+                    })
+                    .state('app.teachManage.dividingClasses', {
+                        url: '/dividingClasses',
+                        templateUrl: 'admin/teachManage/dividingClasses.html',
+                    })
+                    .state('app.teachManage.divideClassesConfrim', {
+                        url: '/divideClassesConfrim',
+                        templateUrl: 'admin/teachManage/divideClassesConfrim.html',
+                    })
+                    .state('app.teachManage.reportDetail', {
+                        url: '/reportDetail',
+                        templateUrl: 'admin/teachManage/reportDetail.html',
+                    })
+                    .state('app.teachManage.look', {
+                        url: '/look',
+                        templateUrl: 'admin/teachManage/look.html',
+                    })
+                    .state('app.teachManage.monitorTeacher', {
+                        url: '/monitorTeacher',
+                        templateUrl: 'admin/teachManage/monitorTeacher.html',
+                    })
+                    /*
+                     *教研管理
+                     */
+                    .state('app.teachResearchManage', {
+                        abstract: true,
+                        url: '/teachResearchManage',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controller.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.markReview', {
+                        url: '/markReview',
+                        templateUrl: 'admin/teachResearchManage/markReview.html',
+                    })
+                    .state('app.teachResearchManage.diagExamList', {
+                        url: '/diagExamList',
+                        templateUrl: 'admin/teachResearchManage/diagExamList.html',
+                    })
+                    .state('app.teachResearchManage.doubleList', {
+                        url: '/doubleList',
+                        templateUrl: 'admin/teachResearchManage/doubleList.html',
+                    })
+                    .state('app.teachManage.detail', {
+                        url: '/detail/{id}',
+                        templateUrl: 'admin/common/detail.html',
+                    })
+                    .state('app.teachResearchManage.detail', {
+                        url: '/detail/{id}',
+                        templateUrl: 'admin/common/detail.html',
+                    })
+                    .state('app.teachResearchManage.createDiag', {
+                        url: '/createDiag',
+                        templateUrl: 'admin/teachResearchManage/createDiag.html',
+                    })
+                    .state('app.teachResearchManage.studentCategory', {
+                        url: '/studentCategory',
+                        templateUrl: 'admin/teachResearchManage/studentCategory.html',
+                    })
+                    .state('app.teachResearchManage.confromToVip', {
+                        url: '/confromToVip',
+                        templateUrl: 'admin/teachResearchManage/confromToVip.html',
+                    })
+                    .state('app.teachResearchManage.shortBoardConfrim', {
+                        url: '/shortBoardConfrim',
+                        templateUrl: 'admin/teachResearchManage/shortBoardConfrim.html',
+                    })
+                    .state('app.teachResearchManage.shortBoardPaper', {
+                        url: '/shortBoardPaper',
+                        templateUrl: 'admin/teachResearchManage/shortBoardPaper.html',
+                    })
+                    .state('app.teachResearchManage.addClasses', {
+                        url: '/addClasses',
+                        templateUrl: 'admin/teachResearchManage/shortBoardAddClass.html',
+                    })
+                    .state('app.teachResearchManage.notConform', {
+                        url: '/notConform',
+                        templateUrl: 'admin/teachResearchManage/notConform.html',
+                    })
+                    .state('app.teachResearchManage.category', {
+                        url: '/category',
+                        templateUrl: 'admin/teachResearchManage/courseCategory.html',
+                    })
+                    .state('app.teachResearchManage.analyse', {
+                        url: '/analyse',
+                        templateUrl: 'admin/teachResearchManage/shortBoardAnalyse.html',
+                    })
+                    .state('app.teachResearchManage.createCourse', {
+                        url: '/createCourse',
+                        templateUrl: 'admin/teachResearchManage/createCourse.html',
+                    })
 
-/*
-*重新刷新首页，页面将实现自动登录了，但是进入系统以后，虽然每次Web请求我们都加入了BasicAuth的请求头，
-但是如果服务器端做了帐号修改，一样会产生401的错误，产生的结果就是客户端点什么操作都不会有反应，
-我们应该在全局来拦截401，引导客户端跳转到重新登录的界面
-*/
-app.config(function ($httpProvider) {
-  $httpProvider.interceptors.push('AuthInterceptor');
-})
-app.factory('AuthInterceptor', function ($rootScope, $q,$location) {
-  return {
-    responseError: function (response) {
-        if(response.status==401)
-        {
-            $location.url('/auth/login');
-        }
-      return $q.reject(response);
-    }
-  };
-})
+                .state('app.teachResearchManage.createSingle', {
+                        url: '/createSingle',
+                        templateUrl: 'admin/teachResearchManage/createSingle.html',
+                    })
+                    .state('app.teachResearchManage.list', {
+                        url: '/list',
+                        templateUrl: 'admin/teachResearchManage/addDiagPaper.html',
+                    })
+                    .state('app.teachResearchManage.createDouble', {
+                        url: '/createDouble',
+                        templateUrl: 'admin/teachResearchManage/createDouble.html',
+                    })
+                    .state('app.teachResearchManage.stageList', {
+                        url: '/stageList',
+                        templateUrl: 'admin/teachResearchManage/stageExamList.html',
+                    })
+                    .state('app.teachResearchManage.createStage', {
+                        url: '/createStage',
+                        templateUrl: 'admin/teachResearchManage/createStage.html',
+                    })
+                    .state('app.teachResearchManage.courseList', {
+                        url: '/courseList',
+                        templateUrl: 'admin/teachResearchManage/courseList.html',
+                    })
+                    .state('app.teachResearchManage.courseDeatil', {
+                        url: '/courseDeatil',
+                        templateUrl: 'admin/teachResearchManage/courseDeatil.html',
+                    })
+                    .state('app.teachResearchManage.courseTree', {
+                        url: '/courseTree',
+                        templateUrl: 'admin/teachResearchManage/courseTree.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('angularBootstrapNavTree').then(
+                                        function() {
+                                            return $ocLazyLoad.load('js/controllers/tree.js');
+                                        }
+                                    );
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.headSchool', {
+                        url: '/headSchool',
+                        templateUrl: 'admin/teachResearchManage/createHeadSchool.html',
+                    })
+                    .state('app.teachResearchManage.schoolBranch', {
+                        url: '/schoolBranch',
+                        templateUrl: 'admin/teachResearchManage/createSchoolBranch.html',
+                    })
+                    .state('app.teachResearchManage.subjectCenter', {
+                        url: '/subjectCenterList',
+                        templateUrl: 'admin/teachResearchManage/subjectCenterList.html',
+                    })
+                    .state('app.teachResearchManage.createSchool', {
+                        url: '/createSchool',
+                        templateUrl: 'admin/common/createSchool.html',
+                    })
+                    .state('app.teachResearchManage.changeCourseType', {
+                        url: '/changeCourseType',
+                        templateUrl: 'admin/teachResearchManage/changeCourseType.html',
+                    })
+
+                  .state('app.largeClassManage', { //配置调课管理
+                        abstract: true,
+                        url: '/largeClassManage',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/largeClassManage/controller.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.largeClassManage.largeClass', {
+                        url: '/largeClass',
+                        templateUrl: 'admin/largeClassManage/largeClasses.html'
+                    })
+                    .state('app.largeClassManage.largeClassDetail', {
+                        url: '/largeClassDetail',
+                        templateUrl: 'admin/largeClassManage/largeClassDetail.html'
+                    })
+                    .state('app.teacherOpearteManage', { //教师操作
+                        abstract: true,
+                        url: '/teacherOpearteManage',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teacherOpearteManage/controller.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teacherOpearteManage.oneToOneAdjustCourse', {
+                        url: '/oneToOneAdjustCourse',
+                        templateUrl: 'admin/teacherOpearteManage/oneToOneAdjustCourse.html'
+                    })
+                    .state('app.teacherOpearteManage.classSchedule', {
+                        url: '/classSchedule',
+                        templateUrl: 'admin/teacherOpearteManage/classSchedule.html'
+                    })
+                    .state('app.teacherOpearteManage.oneToOneOperate', {
+                        url: '/oneToOneOperate',
+                        templateUrl: 'admin/teacherOpearteManage/oneToOneOperate.html'
+                    })
+                    .state('app.teacherOpearteManage.enterTheClassroom', {
+                        url: '/enterTheClassroom',
+                        templateUrl: 'admin/teacherOpearteManage/enterTheClassroom.html'
+                    })
+                    .state('app.teacherOpearteManage.myStudents', {
+                        url: '/myStudent',
+                        templateUrl: 'admin/teacherOpearteManage/myStudents.html'
+                    })
+                    .state('app.teacherOpearteManage.learningDetail', {
+                        url: '/learningDetail/',
+                        templateUrl: 'admin/teacherOpearteManage/learningDetail.html'
+                    })
+                    .state('app.teacherOpearteManage.studentWork', {
+                        url: '/studentWork',
+                        templateUrl: 'admin/teacherOpearteManage/studentWork.html'
+                    })
+                    .state('app.teacherOpearteManage.studentWorkChecked', {
+                        url: '/studentWorkChecked',
+                        templateUrl: 'admin/teacherOpearteManage/studentWorkChecked.html'
+                    })
+                    .state('app.teacherOpearteManage.autonomousPushResources', {
+                        url: '/autonomousPushResources',
+                        templateUrl: 'admin/teacherOpearteManage/autonomousPushResources.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('angularBootstrapNavTree');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teacherOpearteManage.studentExams', {
+                        url: '/studentExams',
+                        templateUrl: 'admin/teacherOpearteManage/studentExams.html'
+                    })
+                    .state('app.teacherOpearteManage.stageExams', {
+                        url: '/stageExams',
+                        templateUrl: 'admin/teacherOpearteManage/stageExams.html'
+                    })
+                    .state('app.teacherOpearteManage.paperDetail', {
+                        url: '/paperDetail',
+                        templateUrl: 'admin/teacherOpearteManage/paperDetail.html'
+                    })
+                    .state('app.teacherOpearteManage.paperChecked', {
+                        url: '/paperChecked',
+                        templateUrl: 'admin/teacherOpearteManage/paperChecked.html'
+                    })
+                    .state('app.teacherOpearteManage.diagnoseInvigilation', {
+                        url: '/diagnoseInvigilation',
+                        templateUrl: 'admin/teacherOpearteManage/diagnoseInvigilation.html'
+                    })
+                    .state('app.teacherOpearteManage.supplementaryMaterials', {
+                        url: '/supplementaryMaterials',
+                        templateUrl: 'admin/teacherOpearteManage/supplementaryMaterials.html'
+                    })
+                    .state('app.teacherOpearteManage.teachingDifficultPoint', {
+                        url: '/teachingDifficultPoint',
+                        templateUrl: 'admin/teacherOpearteManage/teachingDifficultPoint.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('angularBootstrapNavTree');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teacherOpearteManage.classOnDuty', {
+                        url: '/classOnDuty',
+                        templateUrl: 'admin/teacherOpearteManage/classOnDuty.html'
+                    })
+                    .state('app.teacherOpearteManage.answerQuestions', {
+                        url: '/answerQuestions',
+                        templateUrl: 'admin/teacherOpearteManage/answerQuestions.html'
+                    })
+                    .state('app.teacherOpearteManage.answerQuestionsDetail', {
+                        url: '/answerQuestionsDetail',
+                        templateUrl: 'admin/teacherOpearteManage/answerQuestionsDetail.html'
+                    })
+                    .state('app.authorityManage', { //权限管理
+                        abstract: true,
+                        url: '/authorityManage',
+                        template: '<div ui-view class="fade-in"></div>',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/authorityManage/controller.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.authorityManage.masterSchool', {
+                        url: '/masterSchool',
+                        templateUrl: 'admin/authorityManage/masterSchool.html'
+                    })
+
+                    .state('app.authorityManage.masterSchoolDetail', {
+                        url: '/masterSchoolDetail',
+                        templateUrl: 'admin/authorityManage/masterSchoolDetail.html'
+                    })
+                    .state('app.authorityManage.updateMasterSchool', {
+                        url: '/updateMasterSchool',
+                        templateUrl: 'admin/authorityManage/updateMasterSchool.html'
+                    })
+                    .state('app.authorityManage.branchSchool', {
+                        url: '/branchSchool',
+                        templateUrl: 'admin/authorityManage/branchSchool.html'
+                    })
+                    .state('app.authorityManage.branchSchoolDetail', {
+                        url: '/branchSchoolDetail',
+                        templateUrl: 'admin/authorityManage/branchSchoolDetail.html'
+                    })
+                    .state('app.authorityManage.updateBranchSchool', {
+                        url: '/updateBranchSchool',
+                        templateUrl: 'admin/authorityManage/updateBranchSchool.html'
+                    })
+                    .state('app.authorityManage.districtSchool', {
+                        url: '/districtSchool',
+                        templateUrl: 'admin/authorityManage/districtSchool.html'
+                    })
+                    .state('app.authorityManage.districtSchoolDetail', {
+                        url: '/districtSchoolDetail',
+                        templateUrl: 'admin/authorityManage/districtSchoolDetail.html'
+                    })
+                    .state('app.authorityManage.updateDistrictSchool', {
+                        url: '/updateDistrictSchool',
+                        templateUrl: 'admin/authorityManage/updateDistrictSchool.html'
+                    })
+                    .state('app.authorityManage.departmentSchool', {
+                        url: '/departmentSchool',
+                        templateUrl: 'admin/authorityManage/departmentSchool.html'
+                    })
+                    .state('app.authorityManage.departmentSchoolDetail', {
+                        url: '/departmentSchoolDetail',
+                        templateUrl: 'admin/authorityManage/departmentSchoolDetail.html'
+                    })
+                    .state('app.authorityManage.updateDepartmentSchool', {
+                        url: '/updateDepartmentSchool',
+                        templateUrl: 'admin/authorityManage/updateDepartmentSchool.html'
+                    })
+                    .state('app.authorityManage.centreOfSchool', {
+                        url: '/centreOfSchool',
+                        templateUrl: 'admin/authorityManage/centreOfSchool.html'
+                    })
+                    .state('app.authorityManage.centreOfSchoolDetail', {
+                        url: '/centreOfSchoolDetail',
+                        templateUrl: 'admin/authorityManage/centreOfSchoolDetail.html'
+                    })
+                    .state('app.authorityManage.updateCentreOfSchool', {
+                        url: '/updateCentreOfSchool',
+                        templateUrl: 'admin/authorityManage/updateCentreOfSchool.html'
+                    })
+                    .state('app.authorityManage.classAndGrade', {
+                        url: '/classAndGrade',
+                        templateUrl: 'admin/authorityManage/classAndGrade.html'
+                    })
+
+                    .state('app.authorityManage.classAndGradeDetail', {
+                        url: '/classAndGradeDetail',
+                        templateUrl: 'admin/authorityManage/classAndGradeDetail.html'
+                    })
+                    .state('app.authorityManage.updateClassAndGrade', {
+                        url: '/updateClassAndGrade',
+                        templateUrl: 'admin/authorityManage/updateClassAndGrade.html'
+                    })
+
+                    .state('app.authorityManage.addMasterSchool', {
+                        url: '/addMasterSchool',
+                        templateUrl: 'admin/authorityManage/addMasterSchool.html'
+                    })
+                    .state('app.authorityManage.addBranchSchool', {
+                        url: '/addBranchSchool',
+                        templateUrl: 'admin/authorityManage/addBranchSchool.html'
+                    })
+                    .state('app.authorityManage.addDistrictSchool', {
+                        url: '/addDistrictSchool',
+                        templateUrl: 'admin/authorityManage/addDistrictSchool.html'
+                    })
+                    .state('app.authorityManage.addDepartmentSchool', {
+                        url: '/addDepartmentSchool',
+                        templateUrl: 'admin/authorityManage/addDepartmentSchool.html'
+                    })
+                    .state('app.authorityManage.addCentreOfSchool', {
+                        url: '/addCentreOfSchool',
+                        templateUrl: 'admin/authorityManage/addCentreOfSchool.html'
+                    })
+
+                    .state('app.authorityManage.largeClasses', {
+                        url: '/largeClasses',
+                        templateUrl: 'admin/authorityManage/largeClasses.html'
+                    })
+                    .state('app.authorityManage.smallClasses', {
+                        url: '/smallClasses',
+                        templateUrl: 'admin/authorityManage/smallClasses.html'
+                    })
+                    .state('app.authorityManage.oneToOneClasses', {
+                        url: '/oneToOneClasses',
+                        templateUrl: 'admin/authorityManage/oneToOneClasses.html'
+                    })
+                    .state('app.authorityManage.addClassAndGrade', {
+                        url: '/addClassAndGrade',
+                        templateUrl: 'admin/authorityManage/addClassAndGrade.html'
+                    })
+                    .state('app.authorityManage.largeClassSchedule', {
+                        url: '/largeClassSchedule',
+                        templateUrl: 'admin/authorityManage/largeClassSchedule.html'
+                    })
+                    .state('app.authorityManage.smallClassSchedule', {
+                        url: '/smallClassSchedule',
+                        templateUrl: 'admin/authorityManage/smallClassSchedule.html'
+                    })
+                    .state('app.authorityManage.oneToOneClassesSchedule', {
+                        url: '/oneToOneClassesSchedule',
+                        templateUrl: 'admin/authorityManage/oneToOneClassesSchedule.html'
+                    })
+                    .state('app.authorityManage.partTimeTeacherManage', {
+                        url: '/partTimeTeacherManage',
+                        templateUrl: 'admin/authorityManage/partTimeTeacherManage.html'
+                    })
+                    .state('app.authorityManage.fullTimeTeacherManage', {
+                        url: '/fullTimeTeacherManage',
+                        templateUrl: 'admin/authorityManage/fullTimeTeacherManage.html'
+                    })
+                    .state('app.authorityManage.schoolRollManage', {
+                        url: '/schoolRollManage',
+                        templateUrl: 'admin/authorityManage/schoolRollManage.html'
+                    })
+                    .state('app.authorityManage.addPartTimeTeacher', {
+                        url: '/addPartTimeTeacher',
+                        templateUrl: 'admin/authorityManage/addPartTimeTeacher.html'
+                    })
+                    .state('app.authorityManage.partTimeTeacherDetail', {
+                        url: '/partTimeTeacherDetail',
+                        templateUrl: 'admin/authorityManage/partTimeTeacherDetail.html'
+                    })
+                    .state('app.authorityManage.updatePartTimeTeacher', {
+                        url: '/updatePartTimeTeacher',
+                        templateUrl: 'admin/authorityManage/updatePartTimeTeacher.html'
+                    })
+                    .state('app.authorityManage.addFullTimeTeacher', {
+                        url: '/addFullTimeTeacher',
+                        templateUrl: 'admin/authorityManage/addFullTimeTeacher.html'
+                    })
+                    .state('app.authorityManage.updateFullTimeTeacher', {
+                        url: '/updateFullTimeTeacher',
+                        templateUrl: 'admin/authorityManage/updateFullTimeTeacher.html'
+                    })
+                    .state('app.authorityManage.fullTimeTeacherDetail', {
+                        url: '/fullTimeTeacherDetail',
+                        templateUrl: 'admin/authorityManage/fullTimeTeacherDetail.html'
+                    })
+            }
+        ]
+    );

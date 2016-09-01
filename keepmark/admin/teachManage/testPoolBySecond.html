@@ -1,0 +1,209 @@
+<div class="wrapper-md" ng-controller="TestPoolControler">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{name}} &gt; 试卷池 &gt; 二判分卷</h4>
+        </div>
+        <div class="wrapper">
+            <!--select start-->
+            <div class="panel-select">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td width="8%" align="right">学年：</td>
+                            <td ng-model=''>高考</td>
+                        </tr>
+                        <tr>
+                            <td align="right">类型：</td>
+                            <td>
+                                <div ng-controller="MainCtrl">
+                                    <select class="form-control" ng-model="selectedPerson" ng-options="obj.name for obj in subjects">
+                                        <option value="">请选择类型</option>
+                                    </select>
+                                    <!-- <select ng-model="selectedGenre">
+                                    <option ng-repeat="label in subjects[selectedPerson.id].category">
+                                    {{label.name}}</option>
+                                    </select>  -->
+                                    <div class="line line-solid b-b line-lg"></div>
+                                    <ul ng-model="selectedGenre">
+                                        <li ng-repeat="label in subjects[selectedPerson.id].category" style="float:left;">
+                                            <label class="i-checks">
+                                                <input type="radio" name="e" value="option2">
+                                                <i></i>{{label.name}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">教材：</td>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option1">
+                                    <i></i>全国卷一
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option2">
+                                    <i></i>全国卷二
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option3">
+                                    <i></i>全国卷三
+                                </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option4">
+                                    <i></i>自主命题北京 </label>
+                                <label class="i-checks">
+                                    <input type="radio" name="d" value="option5">
+                                    <i></i>自主命题天津
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-primary pull-right" ng-click="query()">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="b-b"></div>
+            </div>
+            <!-- select close -->
+            <!-- tab -->
+            <div>
+                <div class="panel panel-heading">
+                    <h3>试卷状态</h3></div>
+                <div id="tabs">
+                    <ul>
+                        <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+                    </ul>
+                    <div id="mainView">
+                        <div ng-include="currentTab"></div>
+                    </div>
+                </div>
+                <script type="text/ng-template" id="one.tpl.html">
+                    <div id="viewOne">
+                        <div class="panel-heading">
+                            <p><span>需判试卷：{{data.total_count}}份</span><span>监考人数：80人</span></p>
+                        </div>
+                        <!-- <pre>{{choseArr}}</pre> -->
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>来源</th>
+                                        <th>手机号</th>
+                                        <th>姓名</th>
+                                        <th>学科</th>
+                                        <th>考试时间</th>
+                                        <th>试卷</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="z in tesarry">
+                                        <td>{{z}}</td>
+                                        <td>诊断</td>
+                                        <td>1821058560</td>
+                                        <td>LiLy</td>
+                                        <td>英语</td>
+                                        <td>2016.7.28 18:00-19:00</td>
+                                        <td>
+                                            <button class="btn btn-primary" ui-sref='app.teachManage.detail({id:data.id})'>&nbsp;详&nbsp;情&nbsp;</button>
+                                        </td>
+                                        <td>未分配</td>
+                                        <td>
+                                            <label class="i-checks">
+                                                <input id={{z}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(z,x)"><i></i>选择</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="hide-if-no-paging">
+                                    <tr>
+                                        <td colspan="9" class="text-right">
+                                            <label class="i-checks m-b-none">
+                                                <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                                <!-- <a href="#" class="btn btn-danger" ng-click="delete()" > 删除</a> -->
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </script>
+                <script type="text/ng-template" id="two.tpl.html">
+                    <div id="viewTwo">
+                        <div class="panel-heading">
+                            <p><span>需判试卷：{{data.total_count}}份</span><span>监考人数：80人</span></p>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>来源</th>
+                                        <th>手机号</th>
+                                        <th>姓名</th>
+                                        <th>学科</th>
+                                        <th>考试时间</th>
+                                        <th>试卷</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="z in tesarry">
+                                        <td>{{z}}</td>
+                                        <td>诊断</td>
+                                        <td>1821058560</td>
+                                        <td>LiLy</td>
+                                        <td>英语</td>
+                                        <td>2016.7.28 18:00-19:00</td>
+                                        <td>
+                                            <button class="btn btn-primary" ui-sref='app.teachManage.detail({id:data.id})'>详情</button>
+                                        </td>
+                                        <td>已分配</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </script>
+            </div>
+            <!-- / tab -->
+            <!--btn-->
+            <div>
+                <button type="button" class="btn btn-primary pull-right">自动分配</button>
+                <!-- 手动分配 modal -->
+                <div ng-controller="categoryCtrl">
+                    <script type="text/ng-template" id="myModalContent.html">
+                        <div ng-include="'admin/common/allot.html'"></div>
+                    </script>
+                    <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
+                </div>
+                <!-- 手动分配/modal -->
+            </div>
+        </div>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-sm-8 text-left">
+                    <small class="text-muted inline m-t-sm m-b-sm">{{data.total_count}}条记录</small>
+                </div>
+                <div ng-if="data.page_count>1" class="col-sm-4 text-right text-center-xs">
+                    <ul class="pagination pagination-sm m-t-none m-b-none">
+                        <li ng-class="{disabled:!data.previous}"><a ui-sref="app.news.list({page:data.page_index-1,search:search_context})"><i class="fa fa-chevron-left"></i></a></li>
+                        <li ng-repeat="page in data.pages" ng-class="{active:page==data.page_index}"><a ui-sref="app.news.list({page:page,search:search_context})">{{page}}</a></li>
+                        <li ng-class="{disabled:!data.next}"><a ui-sref="app.news.list({page:data.page_index+1,search:search_context})"><i class="fa fa-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

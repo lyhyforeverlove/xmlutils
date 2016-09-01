@@ -1,0 +1,127 @@
+<div class="modal-header">
+    <h3 class="modal-title">短板诊断用卷</h3>
+</div>
+<div class="modal-body">
+    <table class="table">
+        <tr>
+            <td width="8%">学年:</td>
+            <td>高考</td>
+        </tr>
+        <tr>
+            <td>类型:</td>
+            <td>
+                <div class="radio">
+                    <label class="i-checks">
+                        <input type="radio" name="b" value="option1" checked>
+                        <i></i>文科
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="b" value="option2">
+                        <i></i>理科
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>学科:</td>
+            <td>
+                <div class="radio">
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option1">
+                        <i></i>语文
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option2" checked>
+                        <i></i>数学
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option3">
+                        <i></i>英语
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option4">
+                        <i></i>物理
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option5">
+                        <i></i>化学
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option6">
+                        <i></i>生物
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option7">
+                        <i></i>历史
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="c" value="option8">
+                        <i></i>地理
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>教材:</td>
+            <td>
+                <div class="radio">
+                    <label class="i-checks">
+                        <input type="radio" name="d" value="option1">
+                        <i></i>全国卷一
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="d" value="option2" checked>
+                        <i></i>全国卷二
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="d" value="option3">
+                        <i></i>全国卷三
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="d" value="option4">
+                        <i></i>自主命题
+                    </label>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group">
+                
+                <span class="list-group-cate">1 语文 诊断卷名称(A)
+                    <label class="i-checks pull-right ">
+                        <input type="radio" name="dddd" value="option1">
+                        <i></i>选取
+                    </label>
+                </span>
+            </div>
+            <div class="list-group">
+                
+                <span class="list-group-cate">2 语文 诊断卷名称(B)
+                    <label class="i-checks pull-right ">
+                        <input type="radio" name="dddd" value="option1" checked="checked">
+                        <i></i>选取
+                    </label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <ul>
+        <li ng-repeat="item in items">
+            <a ng-click="selected.item = item">{{ classes[0].city }}</a>
+            <!-- <label class="col-sm-1 control-label">中心:</label>
+                        <div class="col-sm-4">
+                            <select name="account" class="form-control">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div> -->
+        </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

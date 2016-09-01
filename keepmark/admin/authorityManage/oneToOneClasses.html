@@ -1,0 +1,64 @@
+<div class="wrapper-md ng-scope" ng-controller="oneToOneClassesController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt;  排课  &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">班级</label>
+                <div class="col-sm-11">
+                    <select name="account" class="form-control m-b">
+                        <option>1班</option>
+                        <option>2班</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive col-sm-12 studentList">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>序号</th>
+                            <th>地区</th>
+                            <th>学生名称</th>
+                            <th>用户</th>
+                            <th>家长</th>
+                            <th>联系方式</th>
+                            <th>总分</th>
+                            <th>课程</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label class="i-checks"><input type="checkbox" class="i-checks"><i></i></label></td>
+                            <td>1.</td>
+                            <td>aa</td>
+                            <td>张XX</td>
+                            <td>理学部</td>
+                            <td>120分</td>
+                            <td>张XX</td>
+                            <td>理学部</td>
+                            <td>120分</td>
+                        </tr>
+                        <tr>
+                            <td><label class="i-checks"><input type="checkbox" class="i-checks"><i></i></label></td>
+                            <td>1.</td>
+                            <td>BB</td>
+                            <td>张XX</td>
+                            <td>理学部</td>
+                            <td>120分</td>
+                            <td>张XX</td>
+                            <td>理学部</td>
+                            <td>120分</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group text-right">
+               <label >已选：15个</label>
+               <label class="i-checks"><input type = "checkbox" ><i></i>全选</label>
+            </div>
+            <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.oneToOneClassesSchedule()">排一对一课表</button>
+        </div>
+    </div>
+</div>

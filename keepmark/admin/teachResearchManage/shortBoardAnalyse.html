@@ -1,0 +1,126 @@
+<div class="wrapper-md" ng-controller="RoundController">
+    <div class="panel panel-default">
+        <div class="wrapper">
+            <div class="panel-heading">
+                <h3>短板分析</h3>
+                <div class="col-sm-12 m-b-xs">
+                    年份:
+                    <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+                        <option value="0">2016年</option>
+                        <option value="1">2015年</option>
+                    </select>
+                    地区:
+                    <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+                        <option value="0">全国一卷</option>
+                        <option value="1">全国二卷</option>
+                    </select>
+                    文理科:
+                    <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+                        <option value="0">文科</option>
+                        <option value="1">理科</option>
+                    </select>
+                    考生类型:
+                    <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+                        <option value="0">统考</option>
+                        <option value="1">艺考</option>
+                    </select>
+                    学科:
+                    <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
+                        <option value="0">语文</option>
+                        <option value="1">英语</option>
+                    </select>
+                    <button class="btn btn-sm btn-default" ng-click="">查询</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <h4><span>监考人数:80人</span><span>需判试卷:100份(转接)</span>|<span>已判卷85份</span>|<span>未判卷15份</span></h4>
+            </div>
+            <div class="table-responsive">
+                <h4>学科：语文</h4>
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>来源</th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>学科</th>
+                            <th>考试时间</th>
+                            <th>试卷</th>
+                            <th>客观题得分</th>
+                            <th>主观题得分</th>
+                            <th>总分</th>
+                            <th>加课</th>
+                            <th>加课确认</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>短板诊断考</td>
+                            <td>123456456</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28 18:00-19:00</td>
+                            <td>
+                                <button class="btn btn-default">详情</button>
+                            </td>
+                            <td>80分</td>
+                            <td>100分</td>
+                            <td>130分</td>
+                            <td>
+                                <input class="form-control" type="text" value="12">
+                                <button class="btn btn-default">确认</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-default">不参加</button>
+                                <button class="btn btn-info">参加</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>短板诊断考</td>
+                            <td>123456456</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28 18:00-19:00</td>
+                            <td>
+                                <button class="btn btn-default">详情</button>
+                            </td>
+                            <td>80分</td>
+                            <td>100分</td>
+                            <td>130分</td>
+                            <td>50课时
+                                <button class="btn btn-default">编辑</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-default">不参加</button>
+                                <button class="btn btn-info">参加</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>短板诊断考</td>
+                            <td>123456456</td>
+                            <td>XXX</td>
+                            <td>语文</td>
+                            <td>2016.7.28 18:00-19:00</td>
+                            <td>
+                                <button class="btn btn-default">详情</button>
+                            </td>
+                            <td>80分</td>
+                            <td>100分</td>
+                            <td>130分</td>
+                            <td>50课时
+                                <button class="btn btn-default">编辑</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-default">不参加</button>
+                                <button class="btn btn-info">参加</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

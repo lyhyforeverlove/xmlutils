@@ -1,0 +1,76 @@
+<div class="wrapper-md" ng-controller="paperDetailController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>试卷 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+           <h3 class="text-center">试卷名称XXXX</h3>
+           <div class="form-group">
+               <span>学科：语文</span>
+               <span>考试时间：2016.8.27</span>
+               <span>监考教师：XXX</span>
+               <span>考试用时：60分钟</span>
+               <span>总题数：55题</span>
+               <span>判卷老师</span>
+           </div>
+           <h3>总得分</h3>
+           <div class="form-group">
+               <label class="control-label">客观部分：60分</label>
+           </div>
+           <div class="form-group">
+               <label class="control-label">填空部分：30分</label>
+           </div>
+           <div class="form-group">
+               <label class="control-label">主观部分：10分</label>
+           </div>
+           <div class="form-group">
+               <h4 class="control-label">总分：10分</h4>
+           </div>
+           <div class="work-question">
+               <h3>1.</h3>
+               <img src = "img/c5.jpg">
+               <textarea cols="98" rows="9" style="float:left">正确答案：喝咖啡和对方的回复是否是大方大方的说法大方大方的说法</textarea>
+               <div class="score-div">
+                   <p><label>得分：</label><input type="text"></p>
+                   <p><label>卷面得分：</label><input type="text"></p>
+                   <button type="button" class="btn btn-primary">提交</button>
+               </div>
+           </div>
+           <div class="work-question">
+                <h3>2.</h3>
+                <img src = "img/c5.jpg">
+                <textarea cols="98" rows="9" style="float:left">正确答案：喝咖啡和对方的回复是否是大方大方的说法大方大方的说法</textarea>
+                <div class="score-div">
+                    <p><label>得分：</label><input type="text"></p>
+                    <p><label>卷面得分：</label><input type="text"></p>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+
+           <div class="error-knowledge">
+               <h3>错误知识点</h3>
+               <button class="btn  btn-primary btn-addon" ng-click="addErrorKnown()"><i class="fa fa-plus"></i>添加错误知识点</button>
+               <div id = "knowledgeList" >
+                   <label class="knowledge-point error">10以内加减法<img src="./img/error.png" ></label>
+               </div>
+           </div>
+           <div class="knowledge-scope">
+               <h3>本题考查知识点范围：</h3>
+               <div id="knowledgeScopeList">
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/error.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
+                   <label class="knowledge-point">10以内加减法<img src="./img/error.png" ></label>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>

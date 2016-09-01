@@ -55,7 +55,7 @@ angular.module('app')
                subFourNav.find("ul").hide();
           }
           // mobile
-          //_this.next().is('ul') || ( ( _window.width() < _mb ) && $('.app-aside').removeClass('show off-screen') );
+          _this.next().is('ul') || ( ( _window.width() < _mb ) && $('.app-aside').removeClass('show off-screen') );
         });
 
         // folded & fixed

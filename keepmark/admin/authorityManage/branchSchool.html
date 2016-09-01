@@ -1,0 +1,42 @@
+<div class="wrapper-md ng-scope" ng-controller="branchSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="table-responsive">
+                <button class="btn btn-primary" ui-sref="app.authorityManage.addBranchSchool()">添加</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>总校名称</th>
+                            <th>总校编号</th>
+                            <th>分校名称</th>
+                            <th>分校编号</th>
+                            <th>分校校长</th>
+                            <th>分校副校长</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.user_id}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.nickname}}</td>
+                            <td>{{item.avatar}}</td>
+                            <td>{{item.sex}}</td>
+                            <td>{{item.status}}</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.branchSchoolDetail()">查看</a>
+                                <a ui-sref="app.authorityManage.updateBranchSchool()">修改</a>
+                                <a ng-click="deletebranchSchool()">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

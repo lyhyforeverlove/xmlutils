@@ -1,0 +1,96 @@
+<div class="wrapper-md ng-scope" ng-controller="oneToOneController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="wrapper-md">
+                <label class="col-sm-1 control-label label-minWidth">周期：</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b select-inline"  name="week">
+                        <option value="0">第一阶段</option>
+                        <option value="1">第二阶段</option>
+                        <option value="2">第三阶段</option>
+                        <option value="3">第四阶段</option>
+                        <option value="4">第五阶段</option>
+                        <option value="5">第六阶段</option>
+                        <option value="6">第七阶段</option>
+                        <option value="7">第八阶段</option>
+                        <option value="8">第九阶段</option>
+                        <option value="9">第十阶段</option>
+                        <option value="10">第十一阶段</option>
+                        <option value="11">第十二阶段</option>
+                        <option value="12">第十三阶段</option>
+                        <option value="13">第十四阶段</option>
+                        <option value="14">第十五阶段</option>
+                    </select>
+                </div>
+            </div>
+            <div class="course-content">
+                <table class="schedule-table">
+                      <tr>
+                          <td>第一周</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>第二周</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td>节\课</td>
+                          <td code="8C14F9CAC70F4FEFA91BE2B0DF999092">星期一</td>
+                          <td code="9F90338F09B646D4904CADD9C81214DB">星期二</td>
+                          <td code="D9659DB2DAFB41C9AD3076156C4C5FAB">星期三</td>
+                          <td code="7ABEDEFD8CDA4002BCE023FED23DCE22">星期四</td>
+                          <td code="7A3CAC9EEAD848D48FC8C4ED63E71E3B">星期五</td>
+                          <td code="17A031A2AF7B47AFA8D612F1AA50C5CD">星期六</td>
+                          <td code="96169F1F01A6448A8813BC7DFF30684B">星期天</td>
+                          <td code="F7100C4FAAF74D828D2A3EA29C6C3CFB">星期一</td>
+                          <td code="66599BE4A01A4DEA9038EED7F0F19DAA">星期二</td>
+                          <td code="CAD9EACADCF54118BB012959BE1DFCB2">星期三</td>
+                          <td code="290DA30AB4A246B6B8958D50ED30F2C1">星期四</td>
+                          <td code="8242F3C271BB40AE954D2CD01690D485">星期五</td>
+                          <td code="99BC0C897FE4429AA072576B60B31C4E">星期六</td>
+                          <td code="7286BD5B2A8548C08D3F5D4BA9325C83">星期天</td>
+                      </tr>
+                      <tr ng-repeat="Days in courses">
+                          <td>第{{Days.day}}节</td>
+                          <td ng-repeat="course in Days.course">{{course.courseName}}</br>{{course.teacherName}}</td>
+                      </tr>
+                </table>
+                <button class="btn btn-primary pull-right" ng-click="enterTheClassroom()">进入课堂</button>
+            </div>
+            <div class="day-student">
+               <table>
+                   <tbody>
+                      <tr>
+                          <td>2016-1-12</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td>18：00-19：00</td>
+                          <td>XXX</td>
+                      </tr>
+                      <tr>
+                          <td>19：00-20：00</td>
+                          <td>XXX</td>
+                      </tr>
+                      <tr>
+                          <td>20：00-21：00</td>
+                          <td>XXX</td>
+                      </tr>
+                   </tbody>
+               </table>
+            </div>
+        </div>
+    </div>
+</div>

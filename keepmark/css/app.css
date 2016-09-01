@@ -5005,6 +5005,7 @@ a.text-#000000:hover {
           animation: movingbar 0.75s infinite;
 }
 
+
 /* Moving bar */
 
 @-webkit-keyframes movingbar {
@@ -5116,3 +5117,4 @@ a.text-#000000:hover {
     background-color: #7266ba;
   }
 }
+

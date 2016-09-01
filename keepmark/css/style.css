@@ -1,0 +1,232 @@
+.seacherConditions
+{
+    width:100%;
+    height:50px;
+    line-height: 50px;
+}
+.btn-margin{
+    margin-bottom:20px;
+}
+.select-inline{
+    display:inline-block;
+}
+.label-minWidth{
+    min-width:70px;
+    width:auto;
+}
+.schedule-table{
+    float:left;
+    width:100%;
+    margin:100px 0;
+}
+.day-student table{
+    width:50%;
+}
+.schedule-table td,.day-student td
+{
+    padding:10px 0;
+    border-top: #CBD8AC solid 1px;
+    border-left:#CBD8AC solid 1px;
+    text-align: center;
+}
+
+.schedule-table td:last-child,.day-student td:last-child
+{
+    border-right:#CBD8AC solid 1px;
+}
+.schedule-table tr:last-child td,.day-student tr:last-child td
+{
+    border-bottom:#CBD8AC solid 1px;
+}
+
+.course-content{
+    width:100%;
+    float:left;
+}
+.course-content button{
+    margin:20px 0;
+}
+.question-div{
+    width:95%;
+    margin:20px auto;
+    height:auto;
+    border-bottom:dashed #1c2b36 1px;
+    padding-bottom:50px;
+}
+.question-div .smallImg,.answer-div .smallImg
+{
+    width:150px;
+    height:150px;
+}
+.question-div .bigImg,.answer-div .bigImg
+{
+    width:350px;
+    height:300px;
+}
+.answer-div{
+    width:95%;
+    margin:0 auto;
+    height:auto;
+    padding-bottom:30px;
+}
+.question-div label,.answer-div label{
+    width:100px;
+    text-align: left;
+    display:inline-block;
+    height:20px;
+    line-height: 20px;
+    float:left;
+}
+.question-div p,.answer-div p
+{
+    width:100%;
+}
+.question-div img,.answer-div img{
+   margin-right:10px;
+}
+.tab-title{
+    padding: 10px 15px;
+}
+.progressbar-div{
+    max-width:95%;
+    margin:0 auto;
+}
+.count-down{
+    font-size:24px;
+    font-weight: bolder;
+    color: #5e5e5e;
+    margin:10px auto;
+    width:80px;
+}
+.work-question{
+    width:100%;
+    float:left;
+    margin-top:30px;
+}
+.work-question h3,.error-knowledge h3{
+    margin:0;
+    float:left;
+    padding-right: 20px;
+}
+.work-question img{
+    width:400px;
+    height:200px;
+    float:left;
+    margin-right: 20px;
+}
+.error-knowledge,.knowledge-scope{
+    margin-top:20px;
+    width:100%;
+    float:left;
+}
+
+.score-div{
+    float: left;
+    padding:0 10px;
+    margin:50px;
+    text-align:center;
+}
+
+.score-div label{
+    width:100px;
+    text-align: right;
+
+}
+
+.knowledge-point{
+    padding:10px 20px;
+    display: inline-block;
+    border:1px solid #5e5e5e;
+    float:left;
+    margin:20px;
+    border-radius: 5px;
+}
+
+.error-knowledge div,.knowledge-scope div{
+    margin-top:30px;
+}
+.knowledge-point img{
+    width:30px;
+    height:30px;
+    position:relative;
+    top:-20px;
+    right:-35px;
+}
+
+.knowledge-scope{
+    border:1px #5e5e5e solid;
+    padding-bottom:100px;
+}
+
+.knowledgeTree{
+    width:20%;
+    min-width: 200px;
+    float:left;
+}
+.resource-list{
+    width:60%;
+    float:left;
+    margin: 50px 0 0 50px;
+}
+.student-list{
+    width:13%;
+    min-width: 150px;
+    margin:50px 0 0 50px;
+    float: left;
+    border:#eaeff0 1px solid;
+    padding:10px 0;
+    text-align: center;
+}
+.student-list ul{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+.timeContent{
+    border-top:1px solid #eaeff0;
+    border-bottom:1px solid #eaeff0;
+    margin-bottom:20px;
+    padding:30px 0;
+}
+.timeContent .amExams{
+    border-bottom:1px solid #eaeff0;
+    width:80%;
+    margin:0 auto;
+}
+.timeContent .pmExams{
+    border-bottom:none;
+    width:80%;
+    margin:0 auto;
+}
+.time{
+    float:left;
+    margin-right:20px;
+
+}
+.grouping{
+    padding:10px 50px;
+    border:1px solid #eaeff0;
+    margin-right:20px;
+}
+.difficultPoint{
+    float:left;
+    margin: 10px 0 0 50px;
+}
+.group-bottom{
+    margin-bottom:40px;
+}
+.addCentre{
+    width:100%;
+    height: auto;
+}
+.groupLeader{
+    width:100%;
+
+    border-top:1px solid #eaeff0;
+    margin:50px 0;
+    padding-top:50px ;
+    float: left;
+}
+.studentList{
+    margin:50px 0;
+}

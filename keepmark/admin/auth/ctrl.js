@@ -17,8 +17,6 @@ app.controller('LoginController',function($scope,$state,$http,$resource,Base64,$
         $com.get(function(data){//引入data
             $scope.session_user = $localStorage.user = data; //保存用户信息
             $localStorage.auth = authdata;
-            $scope.session_user = $localStorage.user = 'data'; //保存用户信息
-            $localStorage.auth = authdata;
             $state.go('auth.index');
         },function(){
             $scope.authError = "服务器登录错误";

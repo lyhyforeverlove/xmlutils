@@ -1,0 +1,213 @@
+<div class="wrapper-md" ng-controller="CourseCategoryCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{name}}&gt;符合确认名单-课程分类</h4>
+        </div>
+        <div class="wrapper">
+            <div>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">类型：</label>
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option1">
+                            <i></i>文科
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="aa" value="option2" checked>
+                            <i></i>理科
+                        </label>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">地区:</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>全部</option>
+                                <option>北京</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">总分数:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="460">
+                        </div>
+                        <label class="col-sm-1" style="width:10px">-</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="500">
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">单科学科:</label>
+                        <div class="row col-sm-12" style="padding-left:140px">
+                            <div class="col-sm-6">
+                                <label class="col-sm-2 i-checks m-b-none">
+                                    <input type="checkbox"><i></i>语文:
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control input-sm" value="60">
+                                </div>
+                                <span>分以上</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-2 i-checks m-b-none">
+                                    <input type="checkbox"><i></i>英语:
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control input-sm" value="60">
+                                </div>
+                                <span>分以上</span>
+                            </div>
+                        </div>
+                        <div class="row col-sm-12  m-t" style="padding-left:140px">
+                            <div class="col-sm-6">
+                                <label class="col-sm-2 i-checks m-b-none">
+                                    <input type="checkbox"><i></i>数学:
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control input-sm" value="60">
+                                </div>
+                                <span>分以上</span>
+                            </div>
+                            <div class="col-sm-6 from-group">
+                                <label class="col-sm-2 i-checks m-b-none">
+                                    <input type="checkbox"><i></i>生物:
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control input-sm" value="60">
+                                </div>
+                                <span>分以上</span>
+                            </div>
+                        </div>
+                        <div class="row col-sm-12 m-t" style="padding-left:140px">
+                            <div class="col-sm-6">
+                                <label class="col-sm-2 i-checks m-b-none">
+                                    <input type="checkbox"><i></i>化学:
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control input-sm" value="60">
+                                </div>
+                                <span>分以上</span>
+                            </div>
+                            <div class="col-sm-6 from-group">
+                                <label class="col-sm-2 i-checks m-b-none">
+                                    <input type="checkbox"><i></i>物理:
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control input-sm" value="60">
+                                </div>
+                                <span>分以上</span>
+                            </div>
+                        <button type="submit" class="m-p btn m-b-xs w-xs btn-primary pull-right">查询</button>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                    </div>
+                </form>
+            </div>
+               <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
+                    <input type="radio" name="ff" value="option3" checked  ng-click="query(sate:0)">
+                    <i></i>一本线上30分
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
+                    <input type="radio" name="ff" value="option3">
+                    <i></i>一本线
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
+                    <input type="radio" name="ff" value="option3">
+                    <i></i>二本线
+                </label></span></p>
+
+             <div class="line line-dashed b-b line-lg"></div>
+                 <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
+                    <input type="radio" name="f" value="option3" checked  ng-click="query(sate:0)">
+                    <i></i>全部
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
+                    <input type="radio" name="f" value="option3">
+                    <i></i>已分配
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
+                    <input type="radio" name="f" value="option3">
+                    <i></i>未分配
+                </label></span></p>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>考试时间</th>
+                            <th>总分</th>
+                            <th>科目</th>
+                            <th>客观题</th>
+                            <th>主观</th>
+                            <th>课程类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="checkbox"><i></i>
+                                </label>1</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td>130分</td>
+                            <td>数学</td>
+                            <td>100分</td>
+                            <td>(1)20分 (2)20分</td>
+                            <td>A课程</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="i-checks">
+                                    <input type="checkbox"><i></i>
+                                </label>2</td>
+                            <td>1821058560</td>
+                            <td>XXX</td>
+                            <td>2016.7.28：18：00-19：00</td>
+                            <td>130分</td>
+                            <td>数学</td>
+                            <td>100分</td>
+                            <td>(1)20分 (2)20分</td>
+                            <td>未分</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="8"></td>
+                            <td>
+                                <span>已选100人</span>
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="data.selected"><i></i> 全选
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                <!-- <ul class="pagination"> -->
+                                <!-- pagination -->
+                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                </div>
+                                <!-- / pagination -->
+                                <!-- </ul> -->
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="pull-right">
+                    <p>
+                        <button class="btn btn-primary" ng-click="alert('是否确认')">XXX学科一本线上A类课程</button>
+                    </p>
+                    <p>
+                        <button class="btn btn-primary">XXX学科一本线上B类课程</button>
+                    </p>
+                    <p>
+                        <button class="btn btn-primary">XXX学科一本线上C类课程</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

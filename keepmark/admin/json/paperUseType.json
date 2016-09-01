@@ -1,0 +1,15 @@
+{
+	"paperUse":[{
+		"paperUseType":0,
+		"diagnosisName":"短板诊断试卷",
+		"checked":true
+	},{
+		"paperUseType":1,
+		"diagnosisName":"诊断考试试卷",
+		"checked":false
+	},{
+		"paperUseType":2,
+		"diagnosisName":"诊断考试试卷",
+		"checked":false
+	}]
+}

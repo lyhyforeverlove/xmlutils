@@ -1,0 +1,185 @@
+<div class="wrapper-md ng-scope" ng-controller="partTimeTeacherManageController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; 用户管理  &gt; 教师员工管理 &gt; {{name}} </h4>
+        </div>
+        <div class="panel-select">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">地区</label>
+                    <div class="col-sm-11">
+                        <select class="form-control m-b select-inline">
+                            <option value="">高中</option>
+                            <option value="">初中</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">学历</label>
+                    <div class="col-sm-11">
+                        <select class="form-control m-b select-inline">
+                            <option value="">高中</option>
+                            <option value="">初中</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">学科</label>
+                    <div class="col-sm-11">
+                        <select class="form-control m-b select-inline">
+                            <option value="">文科</option>
+                            <option value="">理科</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <div class="wrapper">
+            <button class="btn btn-primary btn-margin" ui-sref="app.authorityManage.addPartTimeTeacher()">添加兼职教师</button>
+            <div id="tabs">
+                <ul>
+                    <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+                </ul>
+                <div id="mainView">
+                    <div ng-include="currentTab"></div>
+                </div>
+            </div>
+            <script type="text/ng-template" id="dimissionTeacher.tpl.html">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>编号</th>
+                            <th>授课类型</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>学科</th>
+                            <th>学历</th>
+                            <th>学年</th>
+                            <th>职称</th>
+                            <th>教龄</th>
+                            <th>联系电话</th>
+                            <th>合作关系</th>
+                            <th>入职时间</th>
+                            <th>单位课时费/每小时</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>张XX</td>
+                            <td>秦XX</td>
+                            <td>1.</td>
+                            <td>1.</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>张XX</td>
+                            <td>秦XX</td>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>张XX</td>
+                            <td>张XX</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </script>
+            <script type="text/ng-template" id="onJobTeacher.tpl.html">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>编号</th>
+                            <th>授课类型</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>学科</th>
+                            <th>学历</th>
+                            <th>学年</th>
+                            <th>职称</th>
+                            <th>教龄</th>
+                            <th>联系电话</th>
+                            <th>合作关系</th>
+                            <th>入职时间</th>
+                            <th>单位课时费/每小时</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>张XX</td>
+                            <td>秦XX</td>
+                            <td>秦XX</td>
+                            <td>1.</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>张XX</td>
+                            <td>秦XX</td>
+                            <td>1.</td>
+                            <td>AA</td>
+                            <td>qq</td>
+                            <td>理工</td>
+                            <td>0211</td>
+                            <td>张XX</td>
+                            <td>1.</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </script>
+        </div>
+    </div>
+</div>

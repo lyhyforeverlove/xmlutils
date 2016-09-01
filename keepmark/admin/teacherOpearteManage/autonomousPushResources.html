@@ -1,0 +1,90 @@
+<div class="wrapper-md" ng-controller="autonmousPushResourcesController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="knowledgeTree">
+                <div class="modal-header">
+                    <h3 class="modal-title">知识点选择</h3>
+                </div>
+                <div class="modal-body">
+                    <span ng-if="doing_async">...loading...</span>
+                    <abn-tree
+                            tree-data         = "my_data"
+                            tree-control      = "my_tree"
+                            on-select         = "my_tree_handler(branch)"
+                            expand-level      = "2"
+                            initial-selection = "Granny Smith"
+                            icon-leaf         = "fa fa-file-o"
+                            icon-expand       = "fa fa-plus"
+                            icon-collapse     = "fa fa-minus"
+                    >
+                    </abn-tree>
+                </div>
+            </div>
+            <div class="resource-list">
+                <button class="btn btn-primary btn-margin" ng-click="chooseStudents()">选择</button>
+                <div id="tabs">
+                    <ul>
+                        <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+                    </ul>
+                    <div id="mainView">
+                        <div ng-include="currentTab"></div>
+                    </div>
+                </div>
+
+                <script type="text/ng-template" id="video.tpl.html">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>视频</th>
+                                    <th>信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>视频</td>
+                                    <td>xinxi </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </script>
+                <script type="text/ng-template" id="paper.tpl.html">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>视频</th>
+                                    <th>信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>试题</td>
+                                    <td>信息</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </script>
+            </div>
+            <div class="student-list" ng-show="studentsShow">
+                <h4>1对1学生</h4>
+                <ul>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生1</label></li>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生2</label></li>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生3</label></li>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生4</label></li>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生5</label></li>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生6</label></li>
+                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生7</label></li>
+                </ul>
+                <h4>已选：20人</h4>
+                <button class="btn btn-primary">推送资源</button>
+            </div>
+        </div>
+    </div>
+</div>

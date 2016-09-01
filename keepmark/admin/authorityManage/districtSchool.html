@@ -1,0 +1,38 @@
+<div class="wrapper-md ng-scope" ng-controller="districtSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="table-responsive">
+                <button class="btn btn-primary" ui-sref="app.authorityManage.addDistrictSchool()">添加</button>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>分校名称</th>
+                        <th>分校编号</th>
+                        <th>学区名称</th>
+                        <th>学区负责人</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.nickname}}</td>
+                            <td>{{item.status}}</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.districtSchoolDetail(item.id)">查看</a>
+                                <a ui-sref="app.authorityManage.updateDistrictSchool(item.id)">修改</a>
+                                <a ng-click="deleteDistrictSchool(item.id)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

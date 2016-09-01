@@ -1,0 +1,38 @@
+<div class="wrapper-md ng-scope" ng-controller="departmentSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="table-responsive">
+                <button class="btn btn-primary" ui-sref="app.authorityManage.addDepartmentSchool()">添加</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学区名称</th>
+                            <th>学区负责人</th>
+                            <th>学部名称</th>
+                            <th>学部负责人</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.sex}}</td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.url}}</td>
+                            <td>
+                                <a ui-sref="app.authorityManage.departmentSchoolDetail()">查看</a>
+                                <a ui-sref="app.authorityManage.updateDepartmentSchool()">修改</a>
+                                <a ng-click="deleteDepartmentSchool()">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

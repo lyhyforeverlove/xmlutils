@@ -1,52 +1,97 @@
 <div class="wrapper-md" ng-controller="TestPoolCtrl">
     <div class="panel panel-default">
+        <div class="panel-heading"><h3>一判分卷</h3></div>
         <div class="wrapper">
         	<!--select start-->
         	<div class="panel-select">
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">年份：</label>
-	                <div class="col-sm-10">
-	                    <select name="account" class="form-control m-b">
-	                        <option>2016年</option>
-	                        <option>2015年</option>
-	                        <option>2014年</option>
-	                        <option>2013年</option>
-	                    </select>
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">地区：</label>
-	                <div class="col-sm-10">
-	                    <select name="account" class="form-control m-b">
-	                        <option>北京</option>
-	                    </select>
-	                </div>
-	            </div>
-				<div class="form-group">
-	                <label class="col-sm-2 control-label">文理科：</label>
-	                <div class="col-sm-10">
-	                    <select name="account" class="form-control m-b">
-	                        <option>文科</option>
-	                        <option>理科</option>
-	                    </select>
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">考生类型：</label>
-	                <div class="col-sm-10">
-	                    <select name="account" class="form-control m-b">
-	                        <option>统考</option>
-	                    </select>
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">学科：</label>
-	                <div class="col-sm-10">
-	                    <select name="account" class="form-control m-b">
-	                        <option>语文</option>
-	                    </select>
-	                </div>
-	            </div>
+				 <table class="table">
+                    <tr>
+                        <td width="8%">学年:</td>
+                        <td>高考</td>
+                    </tr>
+                     <tr>
+                      <td>类型:</td>
+                      <td>
+                        <div class="radio">
+                              <label class="i-checks">
+                                <input type="radio" name="e" value="option1" >
+                                <i></i>文科
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="e" value="option2" >
+                                <i></i>理科
+                              </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>学科:</td>
+                        <td>
+                            <div class="radio">
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option1" >
+                                <i></i>语文
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option2" checked>
+                                <i></i>数学
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option3" >
+                                <i></i>英语
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option4" >
+                                <i></i>物理
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option5" >
+                                <i></i>化学
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option6" >
+                                <i></i>生物
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option7" >
+                                <i></i>历史
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="c" value="option8" >
+                                <i></i>地理
+                              </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>教材:</td>
+                        <td>
+                            
+                            <div class="radio">
+                              <label class="i-checks">
+                                <input type="radio" name="d" value="option1" >
+                                <i></i>全国卷一
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="d" value="option2" checked>
+                                <i></i>全国卷二
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="d" value="option3" >
+                                <i></i>全国卷三
+                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="d" value="option4" >
+                                <i></i>自主命题北京                              </label>
+                              <label class="i-checks">
+                                <input type="radio" name="d" value="option5" >
+                                <i></i>自主命题天津
+                              </label>
+                            </div>
+                        </td>
+                    </tr>
+                   
+                </table>
                 <div class="line line-solid b-b line-lg"></div>
         	</div>
             <!-- select close -->
@@ -124,11 +169,11 @@
                             </tbody>
                             <tfoot class="hide-if-no-paging">
                                 <tr>
-                                    <td colspan="9" class="text-center">
+                                    <td colspan="9" class="text-right">
                                         <label class="i-checks m-b-none">
                                             <input type="checkbox"><i></i>选择30份
                                         </label>
-                                        <button type="submit" class="btn btn-default">分&nbsp;&nbsp;配</button>
+                                        <button type="submit" class="m-l btn btn-default">分&nbsp;&nbsp;配</button>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -141,9 +186,16 @@
             <!-- / tab -->
 
             <!--btn-->
-            <div class="pull-right">
-                <button type="button" class="btn btn-primary">手动分配</button>
-                <button type="button" class="btn btn-primary">自动分配</button>
+            <div>
+                <button type="button" class="btn btn-primary pull-right">自动分配</button>
+                <!-- 手动分配 modal -->
+                <div ng-controller="categoryCtrl">
+                    <script type="text/ng-template" id="myModalContent.html">
+                        <div ng-include="'admin/common/allot.html'"></div>
+                    </script>
+                    <button class="btn btn-primary pull-right m-r" ng-click="open('lt')">手动分配</button>
+                </div>
+                <!-- 更换课程类型/modal -->
             </div>
         </div>
         
