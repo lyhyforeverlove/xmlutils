@@ -113,18 +113,94 @@ app.controller('AddCourseCtrl', function($scope, $resource, $stateParams, $modal
 
 
 /*试卷管理=》单科诊断列表*/
-app.controller('DiagListController', function($scope, $http, $resource, $stateParams, $modal, $state) {
+app.controller('DiagListController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state,CalcService) {
     
-   
+    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+    $scope.formData = {};
+    //默认类型为理科
+    $scope.formData.departmentType = 1;
+    //默认为语文
+    $scope.formData.subjectCode = 1;
+    //默认为全国卷一
+    $scope.formData.bookVersionCode = "national001";
+    //默认学年为33
+    $scope.formData.gradeCode = 33;
+    //默认为短板诊断
+    $scope.formData.paperUseType = 0;
+
+    $scope.getList = function(page, size, callback) {
+           $http.post($scope.app.host + 'diagnosis/list?requestId=test123456', {
+                    "subjectCode":$scope.formData.subjectCode,
+                    "bookVersionCode": $scope.formData.bookVersionCode,
+                    "paperUseType": $scope.formData.paperUseType,
+                    "currentPage": page,
+                    "pageSize": size
+                })
+                .success(function(data) {
+                    console.log(data);
+                    $scope.results = data.result;
+
+                    $scope.totalPage = data.result.totalPage;
+
+                    callback && callback(data.result);
+                });
+    };
+    
+
 
 });
+app.controller('DetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
+ 
+    var paperCode = $stateParams.paperCode;
+    console.log(paperCode);
+    //获取诊断试卷详情
+    $scope.load = function(){
+        /*$state.go("app.teachResearchManage.detail");*/
+        $http.post($scope.app.host + '/diagnosis/detail?requestId=test123456',
+            {
+                "paperCode": paperCode
+            }).success(function(data){
+
+                console.log(data.result);
+                var paperDetailDto = data.result.paperDetailDto;
+
+                $scope.diagnosisName = paperDetailDto.diagnosisName;
+                $scope.gradeCode = paperDetailDto.gradeCode;
+                $scope.bookVersion = paperDetailDto.bookVersion;
+                $scope.diagnosisType = paperDetailDto.diagnosisType;
+                $scope.operator = paperDetailDto.operator;
+                $scope.createTime = paperDetailDto.createTime;
+                $scope.diagnosisImgUrl = paperDetailDto.diagnosisImgUrl;
+                $scope.artsType = paperDetailDto.artsType;
+                $scope.area = paperDetailDto.area;
+                $scope.diagnosisExplanation = paperDetailDto.diagnosisExplanation;
+                $scope.diagnosisStatus = paperDetailDto.diagnosisStatus;
+            })
+    }
+})
 
 
-
-/*试卷管理=》创建单科诊断卷*/
+/*试卷管理=》创建单科/组织全科诊断卷*/
 app.controller('CreateController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state ,fileReader,CalcService) {
     
-    $controller('ParentFilterCtrl', {$scope: $scope}); 
+    $controller('ParentGetDataCtrl', {$scope: $scope}); //
+
+  
+    $scope.formData = {};
+    //默认类型为理科
+    $scope.formData.departmentType = 1;
+    //默认为语文
+    $scope.formData.subjectCode = 1;
+    //默认为全国卷一
+    $scope.formData.bookVersionCode = "national001";
+    $scope.formData.gradeCode = 33;
+
+    //默认为短板诊断
+    $scope.formData.paperUseType = 0;
+
+    $scope.getSubjectName = function(subjectName){
+        $scope.subjectName = subjectName;
+    };
 
     $scope.getName = function() {
         $('#text_name').attr('disabled', 'disabled');
@@ -138,68 +214,125 @@ app.controller('CreateController', function($scope, $http,$controller, $resource
     var defaultPlaceholder = '（建议教学管理组给出统一模板，创建教师统一复制粘贴统一介绍说明即可）';
     $scope.placeholder = defaultTitle + ' ' + defaultPlaceholder;
 
-    $scope.describe = '';
+    
+    $scope.formData.describe = '';
 
     $scope.focus = function() {
-        if (!$scope.describe) {
-            $scope.describe = defaultTitle;
+        if (!$scope.formData.describe) {
+            $scope.formData.describe = defaultTitle;
         }
     };
 
     $scope.blur = function() {
-        if ($scope.describe === defaultTitle) {
-            $scope.describe = '';
+        if ($scope.formData.describe === defaultTitle) {
+            $scope.formData.describe = '';
         }
     };
+
 
     //获取图片路径
     $scope.getFile = function() {
         fileReader.readAsDataUrl($scope.file, $scope)
             .then(function(result) {
-                $scope.coverUrl = result;
+                $scope.formData.coverUrl = result;
             });
     };
 
-    //诊断用途{综合诊断、短板诊断、阶段考}
-    CalcService.DiagnosisTypeData().then(function(data) {
-        $scope.diagnosisType = data.diagnosisData;
-    })
+    
+    //组成单科诊断用卷
+    $scope.createSingle = function(formData) {
 
-    $scope.formData = {};
-    $scope.createSingle = function() {
+       /*var ext = '.' + document.getElementById('file').files[0].name.split('.').pop();
+       
+        var config = {
+            bucket: 'keepmark', //空间名称
+            expiration: parseInt((new Date().getTime() + 3600000) / 1000), //上传请求过期时间
+            signature : hash
+            // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
+            //form_api_secret: 'WwbrepSiLMoTpx/+D2c+3klosIA='
+        };
+
+        var instance = new Sand(config);
+        var options = {
+            'notify_url': 'http://upyun.com'
+        };
+
+        instance.setOptions(options);
+        instance.upload('/upload/test' + parseInt((new Date().getTime() + 3600000) / 1000) + ext);
+
+        document.addEventListener('uploaded', function(e) {
+            $scope.path = e.detail;
+            console.log(e.detail);
+        });
+*/
+
         var url = $scope.app.host + "/section/diagnosis/paper/add?requestId=test123456";
 
-       /* var postData = {
-            "gradeCode":$scope.gradeCode,
-            "subjectCode":$scope.selectedCity,
-            "bookVersionCode":$scope.selectedDstrict,
-            "name": $scope.name,
-            "resourcePaperCode": "123", 
-            "coverUrl": $scope.coverUrl,
-            "diagnosisType": $scope.diagnosisType,
-            "departmentType": $scope.selectedProvince,
-            "describe": $scope.describe,
-            "diagnosisPaperPrice": $scope.diagnosisPaperPrice
+        //var promise = postMultipart(url, formData); 
 
-        };*/
+        //console.log(promise);
+      
         $http.post(url, formData).success(function(data) {
             console.log(data);
-            //$state.go('app.teachResearchManage.diagExamList');
+            $state.go('app.teachResearchManage.diagExamList');
         }).error(function(data) {
             console.log("fail");
         })
     }
-});
+    //确定组成诊断用卷
+    $scope.creteGroup = function(formData){
+        $scope.formData.mathCode = ""
+        var url = $scope.app.host +"/section/diagnosis/papers/add?requestId=test123456";
+        $http.post(url,formData).success(function(data){
+            
+            $state.go('app.teachResearchManage.doubleList');
+        }).error(function(data) {
+            console.log("fail");
+        })
+    }
 
-
-
-app.controller('UploaderController', function($scope, $http, fileReader,CalcService) {
-
+    function postMultipart(url, data) {
+        var fd = new FormData();
+        angular.forEach(data, function(val, key) {
+            fd.append(key, val);
+        });
+        var args = {
+            method: 'POST',
+            url: url,
+            data: fd,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        };
+        return $http(args);
+    }
 
     
+});
+
+/*根据学年、学科、教材版本、试卷用途、单元知识点code获取试卷列表*/
+app.controller("getPapersController", function($scope, $http, $resource, $stateParams, $modal, $state) {
+
+    $scope.load = function(){
+        //$state.go('app.teachResearchManage.list');
+        var url = $scope.app.host + "/resource/get/papers?requestId=1";
+        $http.post(url,{"gradeCode":"23",
+            "subjectCode":"5",
+            "booktype":"c643e7a8c0374a74a394347033b5dd9d",
+            "volume":"5393",
+            "type":"单元测试",
+            "cp":0,
+            "pageSize":2
+        }).success(function(data) {
+
+            //$scope.data = data.result;
+
+            console.log(data);
+        })
+    }
 
 })
-
 
 //组装表单数据
 /*var postData = {
@@ -213,23 +346,87 @@ app.controller('UploaderController', function($scope, $http, fileReader,CalcServ
   ccmailNickNames: sendPersons,
   realDays: +$scope.leave.type == 8 ? $scope.leave.timeLong : ""
 };
-var promise = postMultipart('/maldives/leave/save', postData); 
-function postMultipart(url, data) {
-    var fd = new FormData();
-    angular.forEach(data, function(val, key) {
-        fd.append(key, val);
-    });
-    var args = {
-        method: 'POST',
-        url: url,
-        data: fd,
-        headers: {
-            'Content-Type': undefined
-        },
-        transformRequest: angular.identity
-    };
-    return $http(args);
-}*/
+*/
+//试卷管理=》诊断全科试卷列表
+app.controller('GroupListController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state,CalcService) {
+   $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+    $scope.formData = {};
+    //默认类型为理科
+    $scope.formData.departmentType = 1;
+    //默认为语文
+    $scope.formData.subjectCode = 1;
+    //默认为全国卷一
+    $scope.formData.bookVersionCode = "national001";
+    //默认学年为33
+    $scope.formData.gradeCode = 33;
+    //默认为短板诊断
+    $scope.formData.paperUseType = 0;
+    
+    $scope.getList = function(page, size, callback) {
+           $http.post($scope.app.host + '/diagnosis/group/list?requestId=test123456', {
+                    "paperUseType":$scope.formData.paperUseType,
+                    "departmentType":$scope.formData.departmentType,
+                    "bookVersionCode":$scope.formData.bookVersionCode,
+                    "currentPage":page,
+                    "pageSize":size
+                })
+                .success(function(data) {
+                    $scope.results = data.result;
+
+                    $scope.totalPage = data.result.totalPage;
+
+                    callback && callback(data.result);
+                });
+    }   
+
+});
+//试卷管理=》阶段考试卷列表
+app.controller('StageListController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state,CalcService) {
+    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+
+    $scope.formData = {};
+    //默认类型为理科
+    $scope.formData.departmentType = 1;
+    //默认为语文
+    $scope.formData.subjectCode = 1;
+    //默认为全国卷一
+    $scope.formData.bookVersionCode = "national001";
+    //默认学年为33
+    $scope.formData.gradeCode = 33;
+    //默认为短板诊断
+    $scope.formData.paperUseType = 0;
+    //默认目标类型为一本上线30分
+    $scope.formData.aimType = 0;
+    //默认为第几阶段
+    $scope.formData.stage = 1;
+
+    $scope.getList = function(page, size, callback) {
+           $http.post($scope.app.host + '/diagnosis/stage/list?requestId=test123456', {
+                    "gradeCode": $scope.formData.gradeCode,
+                    "departmentType":$scope.formData.departmentType,
+                    "subjectCode":$scope.formData.subjectCode,
+                    "bookVersionCode": $scope.formData.bookVersionCode,
+                    "stage":$scope.formData.stage,
+                    "aimType": $scope.formData.aimType,
+                    "currentPage":page,
+                    "pageSize":size
+                })
+                .success(function(data) {
+                    console.log(data);
+                    $scope.results = data.result;
+
+                    $scope.totalPage = data.result.totalPage;
+
+                    callback && callback(data.result);
+                });
+    }   
+
+})
+
+
+
+
+
 app.controller('teachResearchCtrl', function($scope) {
     //全选
     var selected = false;
@@ -286,18 +483,5 @@ app.controller('showHideController', function($scope) {
         $scope.isShow = !$scope.isShow;
     }
 });
-/*根据学年、学科、教材版本、试卷用途、单元知识点code获取试卷列表*/
-app.controller("getPapersController", function($scope, $http, $resource, $stateParams, $modal, $state) {
 
-    $scope.query = function() {
-        var url = $scope.app.host + "/resource/get/papers?requestId=1";
-        $http.post(url).success(function(data) {
-
-            $scope.data = data.result;
-
-            console.log(data.result);
-        })
-    }
-
-})
 

@@ -1,616 +1,159 @@
-{"filterData":[
-    {
-        "id": "1",
+{
+    "filterData": [{
+        "id": "0",
         "departmentType": 0,
         "departmentName": "文科",
-        "category": [
-            {
-                "id": "1",
-                "subjectCode": 1,
-                "subjectName": "语文",
-                "checked": true,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "2",
-                "subjectCode": 2,
-                "subjectName": "数学",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "3",
-                "subjectCode": 3,
-                "subjectName": "英语",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "4",
-                "subjectCode": 7,
-                "subjectName": "历史",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "5",
-                "subjectCode": 8,
-                "subjectName": "地理",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "6",
-                "subjectCode": 9,
-                "subjectName": "政治",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "id": "2",
+        "checked" : false,
+        "category": [{
+            "id": "1",
+            "subjectCode": 1,
+            "subjectName": "语文",
+            "checked": true,
+            "code":"chineseCode"
+        }, {
+            "id": "2",
+            "subjectCode": 2,
+            "subjectName": "数学",
+            "checked": false,
+            "code":"mathCode"
+        }, {
+            "id": "3",
+            "subjectCode": 3,
+            "subjectName": "英语",
+            "checked": false,
+            "code":"englishCode"
+        }, {
+            "id": "4",
+            "subjectCode": 7,
+            "subjectName": "历史",
+            "checked": false,
+            "code":"historyCode"
+        }, {
+            "id": "5",
+            "subjectCode": 8,
+            "subjectName": "地理",
+            "checked": false,
+            "code":"geographyCode"
+        }, {
+            "id": "6",
+            "subjectCode": 9,
+            "subjectName": "政治",
+            "checked": false,
+            "code":"politicsCode"
+        }],
+        "bookVersion": [{
+            "id": "1",
+            "bookVersionCode": "national001",
+            "bookVersionName": "全国卷一",
+            "checked": true
+        }, {
+            "id": "2",
+            "bookVersionCode": "national002",
+            "bookVersionName": "全国卷二",
+            "checked": false
+        }, {
+            "id": "3",
+            "bookVersionCode": "national003",
+            "bookVersionName": "全国卷三",
+            "checked": false
+        }, {
+            "id": "4",
+            "bookVersionCode": "beijing010",
+            "bookVersionName": "自主命题北京卷",
+            "checked": false
+        }, {
+            "id": "5",
+            "bookVersionCode": "beijing011",
+            "bookVersionName": "自主命题北京卷（文科）",
+            "checked": false
+        }, {
+            "id": "6",
+            "bookVersionCode": "tianjin020",
+            "bookVersionName": "自主命题天津卷",
+            "checked": false
+        }, {
+            "id": "7",
+            "bookVersionCode": "tianjin021",
+            "bookVersionName": "自主命题天津卷（文科）",
+            "checked": false
+        }]
+    }, {
+        "id": "1",
         "departmentType": 1,
         "departmentName": "理科",
-        "category": [
-            {
-                "id": "1",
-                "subjectCode": 1,
-                "subjectName": "语文",
-                "checked": true,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "2",
-                "subjectCode": 2,
-                "subjectName": "数学",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "3",
-                "subjectCode": 3,
-                "subjectName": "英语",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "4",
-                "subjectCode": 4,
-                "subjectName": "物理",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "5",
-                "subjectCode": 5,
-                "subjectName": "化学",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            },
-            {
-                "id": "6",
-                "subjectCode": 6,
-                "subjectName": "生物",
-                "checked": false,
-                "teachMaterial": [
-                    {
-                        "id": "1",
-                        "bookVersionCode": "E1641F404B324B2D8F95516DC82D29F8",
-                        "name": "全国卷一",
-                        "checked": false
-                    },
-                    {
-                        "id": "2",
-                        "bookVersionCode": "02B4C5790323491A846FB7A1C7F8E094",
-                        "name": "全国卷二",
-                        "checked": true
-                    },
-                    {
-                        "id": "3",
-                        "bookVersionCode": "276845123924458C81782D671815D6B9",
-                        "name": "全国卷三",
-                        "checked": false
-                    },
-                    {
-                        "id": "4",
-                        "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
-                        "name": "自主命题北京卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "5",
-                        "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
-                        "name": "自主命题北京卷（文科）",
-                        "checked": false
-                    },
-                    {
-                        "id": "6",
-                        "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
-                        "name": "自主命题天津卷",
-                        "checked": false
-                    },
-                    {
-                        "id": "7",
-                        "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
-                        "name": "自主命题天津卷（文科）",
-                        "checked": false
-                    }
-                ]
-            }
-        ]
-    }
-]}
+        "checked" : "checked",
+        "category": [{
+            "id": "1",
+            "subjectCode": 1,
+            "subjectName": "语文",
+            "checked": true,
+            "code":"chineseCode"
+        }, {
+            "id": "2",
+            "subjectCode": 2,
+            "subjectName": "数学",
+            "checked": false,
+            "code":"mathCode"
+        }, {
+            "id": "3",
+            "subjectCode": 3,
+            "subjectName": "英语",
+            "checked": false,
+            "code":"englishCode"
+        }, {
+            "id": "4",
+            "subjectCode": 4,
+            "subjectName": "物理",
+            "checked": false,
+            "code":"physicsCode"
+        }, {
+            "id": "5",
+            "subjectCode": 5,
+            "subjectName": "化学",
+            "checked": false,
+            "code":"chemistryCode"
+        }, {
+            "id": "6",
+            "subjectCode": 6,
+            "subjectName": "生物",
+            "checked": false,
+            "code":"biologyCode"
+        }],
+        "bookVersion": [{
+            "id": "1",
+            "bookVersionCode": "national001",
+            "bookVersionName": "全国卷一",
+            "checked": true
+        }, {
+            "id": "2",
+            "bookVersionCode": "national002",
+            "bookVersionName": "全国卷二",
+            "checked": false
+        }, {
+            "id": "3",
+            "bookVersionCode": "national003",
+            "bookVersionName": "全国卷三",
+            "checked": false
+        }, {
+            "id": "4",
+            "bookVersionCode": "beijing010",
+            "bookVersionName": "自主命题北京卷",
+            "checked": false
+        }, {
+            "id": "5",
+            "bookVersionCode": "beijing012",
+            "bookVersionName": "自主命题北京卷（理科）",
+            "checked": false
+        }, {
+            "id": "6",
+            "bookVersionCode": "tianjin020",
+            "bookVersionName": "自主命题天津卷",
+            "checked": false
+        }, {
+            "id": "7",
+            "bookVersionCode": "tianjin022",
+            "bookVersionName": "自主命题天津卷（理科）",
+            "checked": false
+        }]
+    }]
+}

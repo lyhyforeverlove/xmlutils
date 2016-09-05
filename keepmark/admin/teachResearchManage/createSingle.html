@@ -1,99 +1,78 @@
 <style>
 .list-group-item {
-    border-radius: 0;
+    border-radius: 4px;
     line-height: 36px;
     font-size: 18px;
     font-weight: bold;
 }
 </style>
-<div class="wrapper-md"  ng-controller="CreateController">
-    <div class="panel panel-default">
+<script src="admin/lib/spark-md5.js"></script>
+<script src="admin/lib/async.js"></script>
+<script src="admin/lib/upyun-mu.js"></script>
+<div class="wrapper-md" ng-controller="CreateController">
+    <div class="panel panel-default" ng-init="load()">
         <div class="panel-heading">
             <h4>创建单科诊断</h4>
         </div>
-        <div class="wrapper"  ><!--   -->
-            <pre>
-                {{ formData }}
-            </pre>
+        <div class="wrapper">
             <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled">
-                <div class="panel-select" ng-init="getData()">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">学年：</label>
-                        <p class="form-control-static" ng-model="gradeCode">高考</p>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" >类型：</label>
-                        <select required="" class="input-sm form-control w-sm inline v-middle" ng-model="selectedProvince" ng-options="item.id as item.departmentName for item in filterData">
-                            <option value="">请选择类型</option>
-                        </select>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">学科：</label>
-                        <select class="input-sm form-control w-sm inline v-middle" ng-model="selectedCity" ng-options="item.id as item.subjectName for item in citys">
-                            <option value="">请选择学科</option>
-                        </select>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
-                        <select class="input-sm form-control w-sm inline v-middle" ng-model="selectedDstrict" ng-options="item.id as item.name for item in districts">
-                            <option value="">请选择教材</option>
-                        </select>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                </div>
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
                 <div class="">
                     <div class="list-group">
-                        <a href class="list-group-item">1 <span>{{selectedCity}}</span>诊断卷名称(A)
+                        <a href class="list-group-item"><span>{{subjectName}}</span>诊断卷名称(A)
+                        <input type="text" value="123" ng-model="formData.resourcePaperCode">
                     <span class="pull-right">
-                        <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>添加</button>
+                        <button class="btn m-b-xs w-xs btn-info" >添加</button>
+                       <!--  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})' -->
+                       <!-- ng-click="GetPapers({'gradeCode':})" -->
                     </span>
                     </a>
                     </div>
                 </div>
-                <div class="">
-                    <div class="radio">
-                        试卷用途：
-                        <label class="i-checks" ng-repeat="obj in diagnosisType">
-                            <input type="radio" name="aaaa" ng-value="obj.diagnosisType" ng-checked="{{obj.checked}}" ng-model="formData.diagnosisType">
-                            <i></i>{{obj.diagnosisName}}
-                        </label>
-                    </div>
+                <div class="radio">
+                    <label class="col-sm-2 control-label" for="input-id-1">试卷用途：</label>
+                    <label class="i-checks" ng-repeat="obj in paperUseType">
+                        <input type="radio" name="paperUseType" ng-value="obj.paperUseType" ng-checked="{{obj.checked}}" ng-model="formData.paperUseType">
+                        <i></i>{{obj.paperUseName}}
+                    </label>
                 </div>
                 <div class="">
                     <div class="line line-dashed b-b line-lg"></div>
-                    <h4>诊断名称</h4>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <div class="col-sm-12 m-b">
+                    <div class="form-group">
                         <!-- ng-model="diagnosis.name" -->
+                        <label class="col-sm-2 control-label">诊断名称：</label>
                         <span class="col-sm-6"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required></span>
-                        <span class="col-sm-6"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
+                        <span class="col-sm-4"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="col-sm-12 m-b">
-                        <section>
-                            <div class="col-sm-4">
-                                <!-- <img src="img/p0.jpg" alt="" width="200" height="120" ng-model='single.coverUrl'> -->
-                                <input type="file" file-model="myFile" required/>
-                                <div>
-                                    <img ng-src="{{coverUrl}}" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" ng-model='formData.coverUrl' />
-                                </div>
-                                <!-- http://img.mukewang.com/565dc49a0001561a01440141.jpg -->
-                                <div class="col-sm-12">
-                                    <label class="col-sm-6">售价：</label>
-                                    <input type="number" name="diagnosisPaperPrice" ng-model="formData.diagnosisPaperPrice" class="col-sm-6 form-control">
-                                </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择封面：</label>    
+                        <span class="col-sm-10"> 
+                            <input type="file" file-model="myFile" required/>
+                            <div>
+                                <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
                             </div>
-                            <div class="col-sm-6">
-                                <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
-                                </textarea>
-                            </div>
-                        </section>
+                        </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <button class="btn btn-primary pull-right"  ng-click="createSingle()">确定单科诊断用卷</button>
+                    <div class="form-group">    
+                        <label class="col-sm-2 control-label">售价：</label>
+                        <span class="col-sm-10"> 
+                            <input type="number" name="price" ng-model="formData.price" class="col-sm-6 form-control">   
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">    
+                        <label class="col-sm-2 control-label">描述：</label>
+                        <span class="col-sm-10"> 
+                            <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
+                            </textarea>
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <button class="btn btn-primary pull-right" ng-click="createSingle(formData)">确定单科诊断用卷</button>
                 </div>
             </form>
         </div>

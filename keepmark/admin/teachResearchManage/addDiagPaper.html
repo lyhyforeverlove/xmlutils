@@ -6,13 +6,15 @@
     font-weight: bold;
 }
 </style>
-<div class="wrapper-md" ng-controller="CourseListController">
+<div class="wrapper-md" ng-controller="getPapersController">
     <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>试卷</h4>
+        </div>
         <div class="row wrapper">
             <!-- ng-if="data.totalPage>0" -->
             <div class="table-responsive">
-                {{name}}
-                <button ng-click='query()'>aaa</button>
+                
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
@@ -30,24 +32,18 @@
                                <button class="btn btn-default" ui-sref='app.teachResearchManage.createDouble({{data.id}})'>启用</button> -->
                             </td>
                         </tr>
+
                     </tbody>
-                    <xl-page size="30" method="load"></xl-page>
-                    <!--指令模板[xl-page.html]-->
-                   
-                    <!-- <footer class="panel-footer">
-                        <div class="row">
-                            <div class="col-sm-8 text-left">
-                                <small class="text-muted inline m-t-sm m-b-sm">{{totalNum}}条记录</small>
-                            </div>
-                            <div ng-if="data.totalPage>1" class="col-sm-4 text-right text-center-xs">
-                                <ul class="pagination pagination-sm m-t-none m-b-none">
-                                    <li ng-class="{disabled:!data.previous}"><a ui-sref="app.teachResearchManage.list({page:data.cp-1,search:search_context})"><i class="fa fa-chevron-left"></i></a></li>
-                                    <li ng-repeat="page in data.totalPage" ng-class="{active:page==data.cp}"><a ui-sref="app.teachResearchManage.list({page:page,search:search_context})">{{page}}</a></li>
-                                    <li ng-class="{disabled:!data.next}"><a ui-sref="app.teachResearchManage.list({page:data.cp+1,search:search_context})"><i class="fa fa-chevron-right"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </footer> -->
+                    <tfoot>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="2" method="load" class="text-center"></xl-page>
+                                <!-- 指令模板[pagination.html] -->
+                            </td>
+                        </tr> 
+                    </tfoot>
+                    
                 </table>
             </div>
         </div>

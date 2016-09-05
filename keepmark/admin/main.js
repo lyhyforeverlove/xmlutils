@@ -4,7 +4,7 @@
 
 angular.module('app')
   .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$state','$http',
-    function(              $scope,   $translate,   $localStorage,   $window ,$state,$http) {
+    function($scope,   $translate,   $localStorage,   $window ,$state,$http) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');

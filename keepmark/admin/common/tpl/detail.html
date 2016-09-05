@@ -1,10 +1,42 @@
-<div class="wrapper-md" ng-controller="CreateDiagCtrl">
-    <div class="panel panel-default">
+<style>
+	#log {
+			border: 2px solid #f8f8f8;
+		}
+	#log ul {
+			list-style: none;
+			font: 14px;
+			line-height: 30px;
+			color: #666;
+		}
+	#log ul li strong {
+		display: inline-block;
+		min-width: 140px;
+		color: #39b3d7;
+		text-align:right;
+	}
+</style>
+<div class="wrapper-md" ng-controller="DetailController">
+    <div class="panel panel-default" ng-init="load()">
         <div class="panel-heading">
-           <h4>试卷详情XXXXXX</h4>
+           <h4>试卷详情</h4>
         </div>
         <div class="wrapper">
-              <p>XXXXXX</p>
+        	<div id="log">
+        		<ul>
+	        		<li><strong>试卷名称：</strong>{{diagnosisName}}</li>
+	        		<li><strong>学年：</strong>{{gradeCode}}</li>
+	        		<li><strong>版本：</strong>{{bookVersion}}</li>
+	        		<li><strong>诊断试卷价格：</strong>{{diagnosisPrice }}</li>
+	        		<li><strong>诊断类型：</strong>{{diagnosisType}}</li>
+	        		<li><strong>操作：</strong>{{operator}}</li>
+	        		<li><strong>创建时间：</strong>{{createTime}}</li>
+	        		<li><strong>诊断封面地址：</strong>{{diagnosisImgUrl }}</li>
+	        		<li><strong>文理类型：</strong>{{artsType }}</li>
+	        		<li><strong>地区：</strong>{{area}}</li>
+	        		<li><strong>诊断试卷说明：</strong>{{diagnosisExplanation }}</li>
+	        		<li><strong>诊断试卷状态：</strong>{{diagnosisStatus}}</li>
+	        	</ul>
+        	</div>
         </div>
     </div>
 </div>

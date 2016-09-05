@@ -67,7 +67,7 @@ angular.module('app')
                         templateUrl: 'admin/news/list.html',
                     })
                     .state('app.news.detail', {
-                        url: '/detail/{id}',
+                        url: '/detail',
                         templateUrl: 'admin/news/detail.html',
                     })
                     .state('app.news.create', {
@@ -94,6 +94,13 @@ angular.module('app')
                     .state('app.teachManage.allot', {
                         url: '/allot',
                         templateUrl: 'admin/teachManage/diagnosisDate.html',
+                        params:{
+                            "gradeCode":null,
+                            "subjectCode":null,
+                            "bookVersion":null,
+                            "diagnosisPaperCode":null,
+                            "repositoryPaperCode":null
+                        }
                     })
                     .state('app.teachManage.diagGoods', {
                         url: '/diagGoods',
@@ -192,11 +199,11 @@ angular.module('app')
                     })
                     .state('app.teachManage.detail', {
                         url: '/detail/{id}',
-                        templateUrl: 'admin/common/detail.html',
+                        templateUrl: 'admin/common/tpl/detail.html',
                     })
                     .state('app.teachResearchManage.detail', {
-                        url: '/detail/{id}',
-                        templateUrl: 'admin/common/detail.html',
+                        url: '/detail/{paperCode}',
+                        templateUrl: 'admin/common/tpl/detail.html',
                     })
                     .state('app.teachResearchManage.createDiag', {
                         url: '/createDiag',
@@ -296,7 +303,7 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.createSchool', {
                         url: '/createSchool',
-                        templateUrl: 'admin/common/createSchool.html',
+                        templateUrl: 'admin/common/tpl/createSchool.html',
                     })
                     .state('app.teachResearchManage.changeCourseType', {
                         url: '/changeCourseType',

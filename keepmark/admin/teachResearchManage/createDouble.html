@@ -1,80 +1,68 @@
 <style>
   .list-group-item{border-radius:0;line-height:36px;font-size:18px;font-weight:bold;}
 </style>
-<div class="wrapper-md">
-    <div class="panel panel-default">
+<div class="wrapper-md" ng-controller="CreateController">
+    <div class="panel panel-default" ng-init="load()">
         <div class="panel-heading">
-            <h4>文科 | 理科</h4>
+            <div class="radio">
+                <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                    <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="formData.departmentType" ng-checked="val.checked" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+                </label>
+            </div>
         </div>
         <div class="wrapper">
             <h4>诊断用卷(共6份)</h4>
-            <div class="row">
-                <div class="col-sm-12">
+            <div>
+                <pre>{{formData}}</pre>
+                <div class="">
                     <div class="list-group">
-                        <a href class="list-group-item">
+                        <span class="list-group-item" ng-repeat="(key, val) in category track by $index">
+
                             <span class="pull-right">
                                 <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>添加</button>
+                                 <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button>
                             </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->1 数学 诊断卷名称(A)
-                        </a>
-                        <a href class="list-group-item">
-                            <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-primary">更换</button>
-                            </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->2 语文 诊断卷名称(A)
-                        </a>
-                        <a href class="list-group-item">
-                            <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-primary">更换</button>
-                            </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->3 英语 诊断卷名称(A)
-                        </a>
-                        <a href class="list-group-item">
-                            <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-primary">更换</button>
-                            </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->4 政治 诊断卷名称(A)
-                        </a>
-                        <a href class="list-group-item">
-                            <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-primary">更换</button>
-                            </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->5 历史 诊断卷名称(A)
-                        </a>
-                        <a href class="list-group-item">
-                            <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-primary">更换</button>
-                            </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->6 地理 诊断卷名称(A)
-                        </a>
+                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                            <span>{{$index+1}} {{val.subjectName}} 诊断卷名称(A)</span>
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="">
-                <h4>诊断名称</h4>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="col-sm-12 m-b">
-                    <span class="col-sm-6"><input type="text" class="form-control"></span>
-                    <span class="col-sm-6"><button class="btn btn-primary m-r">确定</button><button class="btn btn-primary">编辑</button></span>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="col-sm-12 m-b">
-                    <section>
-                        <div class="col-sm-4">
-                            <img src="img/p0.jpg" alt="" width="200" height="120">
-                            <span>售价：200元</span>
-                        </div>
-                        <div class="col-sm-6">
-                            <textarea class="form-control"  rows="6" cols="20" >
-                            诊断介绍说明：
-                        （建议教学管理组给出统一模板，创建教师统一复制粘贴统一介绍说明即可）
+                    <div class="form-group">
+                        <!-- ng-model="diagnosis.name" -->
+                        <label class="col-sm-2 control-label">诊断名称：</label>
+                        <span class="col-sm-6"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required></span>
+                        <span class="col-sm-4"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择封面：</label>    
+                        <span class="col-sm-10"> 
+                            <input type="file" file-model="myFile" required/>
+                            <div>
+                                <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
+                            </div>
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">    
+                        <label class="col-sm-2 control-label">售价：</label>
+                        <span class="col-sm-10"> 
+                            <input type="number" name="price" ng-model="formData.price" class="col-sm-6 form-control">   
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">    
+                        <label class="col-sm-2 control-label">描述：</label>
+                        <span class="col-sm-10"> 
+                            <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
                             </textarea>
-                        </div>
-                    </section>
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <button class="btn btn-primary pull-right" ng-click="creteGroup(formData)">确定组成诊断用卷</button>
                 </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <button class="btn btn-primary pull-right">确定组成诊断用卷</button>
-            </div>
         </div>
     </div>
 </div>

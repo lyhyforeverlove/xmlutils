@@ -4,48 +4,92 @@
 app.controller('DiagShelvesController', function($scope, $http, $controller,$resource, $stateParams, $modal, $state, CalcService) {
 
     //继承筛选条件控制器
-    $controller('ParentFilterCtrl', {$scope: $scope}); 
-   
-    $scope.load = function() {
-           
-    }
-    /**/
+     $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+
+    $scope.formData = {};
+    //默认类型为理科
+    $scope.formData.departmentType = 1;
+    //默认为语文
+    $scope.formData.subjectCode = 1;
+    //默认为全国卷一
+    $scope.formData.bookVersionCode = "national001";
+    //默认学年为33
+    $scope.formData.gradeCode = 33;
+    //默认为短板诊断
+    $scope.formData.paperUseType = 0;
+
     $scope.getList = function(page, size, callback) {
-         $http.post($scope.app.host + 'diagnosis/list?requestId=test123456', {
-                    "subjectCode": $scope.selectedCity,
-                    "bookVersionCode": "全国卷一",
-                    "paperUseType": "1",
-                    "currentPage": 1,
-                    "pageSize": 2
-                })
-                .success(function(data) {
-                    //console.log(data.result.totalPage);
-                    $scope.results = data.result;
+       $http.post($scope.app.host + 'diagnosis/list?requestId=test123456', {
+                "subjectCode":$scope.formData.subjectCode,
+                "bookVersionCode": $scope.formData.bookVersionCode,
+                "paperUseType": $scope.formData.paperUseType,
+                "currentPage": page,
+                "pageSize": size
+            })
+            .success(function(data) {
+                console.log(data);
+                $scope.results = data.result;
 
-                    $scope.totalPage = data.result.totalPage;
+                $scope.totalPage = data.result.totalPage;
 
-                    console.log(data.result);
-
-                    callback && callback(data.result);
-                });
-
-
-    }
-        //根据学年、类型、教材 查询诊断列表
-    $scope.query = function() {
-
-        }
-        //分配监考人
-    $scope.allotBtn = function() {
-
+                callback && callback(data.result);
+            });
     };
-    //添加老师
-    $scope.addTeacher = function() {
 
-        }
-        //确定上架
+    
+    //分配监考人
+    $scope.allotBtn = function(data) {
+
+
+        $state.go('app.teachManage.allot', {
+            value:$scope.PageData.Intent
+        }, {
+            reload : true
+        });
+
+
+        console.log(data.gradeCode);
+    };
+
+
+    console.log($stateParams);
+    $scope.PageData = {
+            ReceivValue:$stateParams.value
+    }
+
+
+    
+    //添加老师
+    
+    $scope.list = [{id:100,age:30,name:'张三'}];
+    $scope.addTeacher=function(){
+        var obj={id:101,age:30,name:"李四"};
+        $scope.list.push(obj);
+    }
+
+    $scope.del=function(idx){
+        $scope.list.splice(idx,1);
+    }
+    $scope.postData = {};
+    //确定上架
     $scope.ConfirmShelves = function(id) {
-        $state.go('app.teachManage.diagGoods');
+
+        $http.post($scope.app.host +'/teacher/diagnosis/add?requestId=test123456',{
+            "gradeCode":"33",
+            "departmentType":"1",
+            "subjectCode":"1",
+            "bookVersionCode":"1",
+            "paperCode":"C2E0B766CF12454394230C94042F6E33",
+            "price":"600.00",
+            "diagnosisGoodsModels":[{
+                "times":["1","2","3"],
+                "teacherCode":"1",
+                "beginDate":"2016-09-01",
+                "endDate":"2016-09-02"}]
+            }).success(function(data){
+                console.log(data);
+        });
+        //$state.go('app.teachManage.diagGoods');
     }
 
     //诊断时间
