@@ -92,15 +92,8 @@ angular.module('app')
                         templateUrl: 'admin/teachManage/createDiagnosis.html',
                     })
                     .state('app.teachManage.allot', {
-                        url: '/allot',
+                        url: '/allot/:jsonString',
                         templateUrl: 'admin/teachManage/diagnosisDate.html',
-                        params:{
-                            "gradeCode":null,
-                            "subjectCode":null,
-                            "bookVersion":null,
-                            "diagnosisPaperCode":null,
-                            "repositoryPaperCode":null
-                        }
                     })
                     .state('app.teachManage.diagGoods', {
                         url: '/diagGoods',
@@ -251,7 +244,7 @@ angular.module('app')
                         templateUrl: 'admin/teachResearchManage/createSingle.html',
                     })
                     .state('app.teachResearchManage.list', {
-                        url: '/list',
+                        url: '/list/:jsonString',
                         templateUrl: 'admin/teachResearchManage/addDiagPaper.html',
                     })
                     .state('app.teachResearchManage.createDouble', {
@@ -310,7 +303,7 @@ angular.module('app')
                         templateUrl: 'admin/teachResearchManage/changeCourseType.html',
                     })
 
-                  .state('app.largeClassManage', { //配置调课管理
+                .state('app.largeClassManage', { //配置调课管理
                         abstract: true,
                         url: '/largeClassManage',
                         template: '<div ui-view class="fade-in"></div>',
@@ -347,7 +340,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/oneToOneAdjustCourse.html'
                     })
                     .state('app.teacherOpearteManage.classSchedule', {
-                        url: '/classSchedule',
+                        url: '/classSchedule/{id}/{scheduleStatus}',
                         templateUrl: 'admin/teacherOpearteManage/classSchedule.html'
                     })
                     .state('app.teacherOpearteManage.oneToOneOperate', {
@@ -449,7 +442,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/masterSchool.html'
                     })
 
-                    .state('app.authorityManage.masterSchoolDetail', {
+                .state('app.authorityManage.masterSchoolDetail', {
                         url: '/masterSchoolDetail',
                         templateUrl: 'admin/authorityManage/masterSchoolDetail.html'
                     })
@@ -510,7 +503,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/classAndGrade.html'
                     })
 
-                    .state('app.authorityManage.classAndGradeDetail', {
+                .state('app.authorityManage.classAndGradeDetail', {
                         url: '/classAndGradeDetail',
                         templateUrl: 'admin/authorityManage/classAndGradeDetail.html'
                     })
@@ -519,7 +512,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/updateClassAndGrade.html'
                     })
 
-                    .state('app.authorityManage.addMasterSchool', {
+                .state('app.authorityManage.addMasterSchool', {
                         url: '/addMasterSchool',
                         templateUrl: 'admin/authorityManage/addMasterSchool.html'
                     })
@@ -540,7 +533,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/addCentreOfSchool.html'
                     })
 
-                    .state('app.authorityManage.largeClasses', {
+                .state('app.authorityManage.largeClasses', {
                         url: '/largeClasses',
                         templateUrl: 'admin/authorityManage/largeClasses.html'
                     })
@@ -557,7 +550,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/addClassAndGrade.html'
                     })
                     .state('app.authorityManage.largeClassSchedule', {
-                        url: '/largeClassSchedule',
+                        url: '/largeClassSchedule/{id}',
                         templateUrl: 'admin/authorityManage/largeClassSchedule.html'
                     })
                     .state('app.authorityManage.smallClassSchedule', {
@@ -582,7 +575,14 @@ angular.module('app')
                     })
                     .state('app.authorityManage.addPartTimeTeacher', {
                         url: '/addPartTimeTeacher',
-                        templateUrl: 'admin/authorityManage/addPartTimeTeacher.html'
+                        templateUrl: 'admin/authorityManage/addPartTimeTeacher.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/common/js/directives/freeTime.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.authorityManage.partTimeTeacherDetail', {
                         url: '/partTimeTeacherDetail',

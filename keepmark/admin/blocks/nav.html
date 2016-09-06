@@ -432,7 +432,7 @@
             </li>
         </ul>
     </li>
-      <li>
+    <li  ng-class="{active:$state.includes('app.authorityManage')}">
         <a href class="auto">
             <span class="pull-right text-muted">
                <i class="fa fa-fw fa-angle-right text"></i>
@@ -473,23 +473,12 @@
                 </a>
             </li>
             <li ui-sref-active="active" class="subThreeNav">
-                <a href class="auto" >
-                            <span class="pull-right text-muted">
-                             <i class="fa fa-fw fa-angle-right text"></i>
-                             <i class="fa fa-fw fa-angle-down text-active"></i>
-                            </span>
+                <a ui-sref="app.authorityManage.classAndGrade">
                     <span>班级</span>
                 </a>
-                <ul style="display:none">
-                    <li ui-sref-active="active">
-                        <a ui-sref="app.authorityManage.classAndGrade">
-                            <span>创建班级</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li ui-sref-active="active" class="subThreeNav">
-                <a href class="auto" >
+                <a href class="auto">
                     <span class="pull-right text-muted">
                          <i class="fa fa-fw fa-angle-right text"></i>
                          <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -546,14 +535,14 @@
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="app.authorityManage.schoolRollManage">
-                            <span>学籍管理</span>
+                            <span>学生管理</span>
                         </a>
                     </li>
                 </ul>
             </li>
         </ul>
     </li>
-    <li>
+    <li  ng-class="{active:$state.includes('app.teacherOpearteManage')}">
         <a href class="auto">
             <span class="pull-right text-muted">
                <i class="fa fa-fw fa-angle-right text"></i>
@@ -568,7 +557,7 @@
                     <span>Layout</span>
                 </a>
             </li>
-            <li ui-sref-active="active"  class="subNav">
+            <li ui-sref-active="active" class="subNav">
                 <a href class="auto" ui-sref="app.teacherOpearteManage.oneToOneOperate">
                     <span class="pull-right text-muted">
                        <i class="fa fa-fw fa-angle-right text"></i>
@@ -577,7 +566,6 @@
                     <span>1对1老师操作页面</span>
                 </a>
                 <ul style="display:none">
-                    
                     <li ui-sref-active="active">
                         <a ui-sref="app.teacherOpearteManage.oneToOneAdjustCourse">
                             <span>一对一调课</span>
