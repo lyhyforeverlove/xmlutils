@@ -1,0 +1,70 @@
+<div class="wrapper-md" ng-controller="chooseScheduleController">
+    <div class="panel panel-default">
+        <div class="panel-heading col-sm-12">
+            <div class="col-sm-3">
+                <label class="col-sm-4 control-label">学科</label>
+                <div class="col-sm-8">
+                    <select name="account" class="form-control m-b">
+                        <option>数学</option>
+                        <option>语文</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col-sm-5 control-label">大班课</label>
+                <div class="col-sm-7">
+                    <select name="account" class="form-control m-b">
+                        <option>1班</option>
+                        <option>2班</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col-sm-4 control-label">类型</label>
+                <div class="col-sm-8">
+                    <select name="account" class="form-control m-b">
+                        <option>A</option>
+                        <option>B</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col-sm-4 control-label">课程</label>
+                <div class="col-sm-8">
+                    <select name="account" class="form-control m-b">
+                        <option>A</option>
+                        <option>B</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <h4>教师列表</h4>
+            <ul class="teacher-list">
+                <li><label class="i-checks"><input type="radio"><i></i>李老师</label></li>
+                <li><label class="i-checks"><input type="radio"><i></i>王老师</label></li>
+                <li><label class="i-checks"><input type="radio"><i></i>张老师</label></li>
+                <li><label class="i-checks"><input type="radio"><i></i>秦老师</label></li>
+                <li><label class="i-checks"><input type="radio"><i></i>新老师</label></li>
+            </ul>
+            <button class="btn btn-primary pull-right btn-margin" ng-click="chooseTeacher()">确定</button>
+            <div class="table-responsive col-sm-12" ng-show="courseList">
+                <table class="table table-striped  b-t b-light">
+                    <tbody>
+                        <tr>
+                            <td>第一节</td>
+                            <td>cxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+                            <td>已排课</td>
+                        </tr>
+                        <tr>
+                            <td>第二节</td>
+                            <td>cxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+                            <td><label class="i-checks" style="padding-left:0"><input type="radio" ><i></i>选择</label></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" ng-click="saveCourse()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
