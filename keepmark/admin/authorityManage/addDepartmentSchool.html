@@ -18,6 +18,15 @@
                 <label class="col-sm-11 control-label">12131312</label>
             </div>
             <div class="form-group">
+                <label class="col-sm-1 control-label">学部类型:</label>
+                <div class="col-sm-11 m-b">
+                    <select name="account" class="form-control">
+                        <option>理学部</option>
+                        <option>文学部</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-1 control-label">学部名称:</label>
                 <div class="col-sm-11">
                     <input type="text" class="form-control m-b" placeholder="请输入学部名称">
@@ -26,7 +35,10 @@
             <div class="form-group">
                 <label class="col-sm-1 control-label">学部负责人:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入学部负责人">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="headmaster">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                    </div>
                 </div>
             </div>
             <button class="btn btn-primary col-sm-1 col-sm-push-8">保存</button>

@@ -14,10 +14,9 @@
                 </div>
             </div>
             <div class="table-responsive col-sm-12 studentList">
-                <table class="table table-striped">
+                <table class="table table-striped  b-t b-light">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>序号</th>
                             <th>地区</th>
                             <th>学生名称</th>
@@ -26,11 +25,11 @@
                             <th>联系方式</th>
                             <th>总分</th>
                             <th>课程</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><label class="i-checks"><input type="checkbox" class="i-checks"><i></i></label></td>
                             <td>1.</td>
                             <td>aa</td>
                             <td>张XX</td>
@@ -39,9 +38,9 @@
                             <td>张XX</td>
                             <td>理学部</td>
                             <td>120分</td>
+                            <td><label class="i-checks"><input type="radio" class="i-checks"><i></i></label></td>
                         </tr>
                         <tr>
-                            <td><label class="i-checks"><input type="checkbox" class="i-checks"><i></i></label></td>
                             <td>1.</td>
                             <td>BB</td>
                             <td>张XX</td>
@@ -50,13 +49,10 @@
                             <td>张XX</td>
                             <td>理学部</td>
                             <td>120分</td>
+                            <td><label class="i-checks"><input type="radio" class="i-checks"><i></i></label></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="form-group text-right">
-               <label >已选：15个</label>
-               <label class="i-checks"><input type = "checkbox" ><i></i>全选</label>
             </div>
             <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.oneToOneClassesSchedule()">排一对一课表</button>
         </div>

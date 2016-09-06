@@ -17,7 +17,7 @@
 .schedule-table{
     float:left;
     width:100%;
-    margin:100px 0;
+    margin:40px 0;
 }
 .day-student table{
     width:50%;
@@ -229,4 +229,37 @@
 }
 .studentList{
     margin:50px 0;
+}
+h4>span{
+    margin:0 10px;
+}
+
+#tabs ul{
+    padding-left:0;
+}
+
+.control-label{
+    height:34px;
+    line-height:34px;
+}
+.schedule-table td{
+    cursor: pointer;
+}
+.freeTime{
+    background-color: #7266ba;
+    color:#fff;
+}
+
+.form-group span{
+    margin:0 10px 0 0;
+}
+
+.btn-a{
+    color:#7266ba;
+}
+.teacher-list{
+    list-style-type: none;
+}
+.teacher-list>li{
+    float:left;
 }

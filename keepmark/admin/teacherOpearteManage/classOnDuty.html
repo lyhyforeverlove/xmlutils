@@ -5,49 +5,8 @@
             <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
-            <div class="course-content">
-                <table class="schedule-table">
-                    <tr>
-                        <td>第一周</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>第二周</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>节\课</td>
-                        <td>星期一</td>
-                        <td>星期二</td>
-                        <td>星期三</td>
-                        <td>星期四</td>
-                        <td>星期五</td>
-                        <td>星期六</td>
-                        <td>星期天</td>
-                        <td>星期一</td>
-                        <td>星期二</td>
-                        <td>星期三</td>
-                        <td>星期四</td>
-                        <td>星期五</td>
-                        <td>星期六</td>
-                        <td>星期天</td>
-                    </tr>
-                    <tr ng-repeat="Days in courses">
-                        <td>第{{Days.day}}节</td>
-                        <td ng-repeat="course in Days.course">{{course.courseName}}</br>{{course.teacherName}}</td>
-                    </tr>
-                </table>
-                <button class="btn btn-primary pull-right" ng-click="enterLargelassroom()">进入大班课堂</button>
-            </div>
+            <div ng-include="'admin/common/tpl/schedule.html'" update="false"></div>
+            <button class="btn btn-primary pull-right" ng-click="enterLargelassroom()">进入大班课堂</button>
         </div>
     </div>
 </div>

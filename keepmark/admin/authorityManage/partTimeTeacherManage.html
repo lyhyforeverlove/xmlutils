@@ -3,8 +3,9 @@
         <div class="panel-heading">
             <h4>权限管理  &gt; 用户管理  &gt; 教师员工管理 &gt; {{name}} </h4>
         </div>
-        <div class="panel-select">
-                <div class="form-group">
+        <div class="wrapper">
+            <div class="panel-heading">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">地区</label>
                     <div class="col-sm-11">
                         <select class="form-control m-b select-inline">
@@ -13,7 +14,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">学历</label>
                     <div class="col-sm-11">
                         <select class="form-control m-b select-inline">
@@ -22,7 +24,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">学科</label>
                     <div class="col-sm-11">
                         <select class="form-control m-b select-inline">
@@ -31,8 +34,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
             </div>
-        <div class="wrapper">
             <button class="btn btn-primary btn-margin" ui-sref="app.authorityManage.addPartTimeTeacher()">添加兼职教师</button>
             <div id="tabs">
                 <ul>
@@ -44,7 +51,7 @@
             </div>
             <script type="text/ng-template" id="dimissionTeacher.tpl.html">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped  b-t b-light">
                         <thead>
                         <tr>
                             <th>序号</th>
@@ -81,9 +88,9 @@
                             <td>1.</td>
                             <td>1.</td>
                             <td>
-                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
-                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
-                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a class="btn-a" ng-click="deletePartTimeTeacher()">删除</a>
                             </td>
                         </tr>
                         <tr>
@@ -102,9 +109,9 @@
                             <td>张XX</td>
                             <td>张XX</td>
                             <td>
-                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
-                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
-                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a class="btn-a" ng-click="deletePartTimeTeacher()">删除</a>
                             </td>
                         </tr>
                         </tbody>
@@ -113,7 +120,7 @@
             </script>
             <script type="text/ng-template" id="onJobTeacher.tpl.html">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped  b-t b-light">
                         <thead>
                         <tr>
                             <th>序号</th>
@@ -150,9 +157,9 @@
                             <td>秦XX</td>
                             <td>1.</td>
                             <td>
-                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
-                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
-                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a class="btn-a" ng-click="deletePartTimeTeacher()">删除</a>
                             </td>
                         </tr>
                         <tr>
@@ -171,9 +178,9 @@
                             <td>张XX</td>
                             <td>1.</td>
                             <td>
-                                <a ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
-                                <a ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
-                                <a ng-click="deletePartTimeTeacher()">删除</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.partTimeTeacherDetail()">详情</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.updatePartTimeTeacher()">编辑</a>
+                                <a class="btn-a" ng-click="deletePartTimeTeacher()">删除</a>
                             </td>
                         </tr>
                         </tbody>

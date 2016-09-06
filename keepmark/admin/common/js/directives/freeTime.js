@@ -1,5 +1,4 @@
-angular.module('app')
-  .directive('freeTime', [function () {
+app.directive('freeTime', [function () {
     return {
         link: function ($scope, $element, $attrs) {
             $element.click(function(){

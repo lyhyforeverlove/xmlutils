@@ -137,24 +137,46 @@ app.controller("classAndGradeDetailController",function($scope){
 app.controller("largeClassesController",function($scope){
     $scope.name="排大班课";
 });
-app.controller("largeClassScheduleController",function($scope){
-    $scope.name = "排大班课表"
-})
+app.controller("largeClassScheduleController",["$scope","$modal",function($scope,$modal){
+    $scope.name = "排大班课表";
+    $scope.scheduleStatus = "0";
+    $scope.chooseScheduleModal = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'admin/common/tpl/chooseSchedule.html',
+            size: "lg"
+        });
+    }
+}])
+
 //排小班课
 app.controller("smallClassController",function($scope){
     $scope.name="排小班课";
 });
-app.controller("smallClassScheduleController",function($scope){
-    $scope.name = "排小班课表"
-})
+app.controller("smallClassScheduleController",["$scope","$modal",function($scope,$modal){
+    $scope.name = "排小班课表";
+    $scope.scheduleStatus = "0";
+    $scope.chooseScheduleModal = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'admin/common/tpl/chooseSchedule.html',
+            size: "lg"
+        });
+    }
+}])
 //排一对一课
 app.controller("oneToOneClassesController",function($scope){
     $scope.name="排一对一课";
 
 });
-app.controller("oneToOneClassesScheduleController",function($scope){
+app.controller("oneToOneClassesScheduleController",["$scope","$modal",function($scope,$modal){
     $scope.name = "排一对一课表";
-})
+    $scope.scheduleStatus = "0";
+    $scope.chooseScheduleModal = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'admin/common/tpl/chooseSchedule.html',
+            size: "lg"
+        });
+    }
+}])
 
 //兼职教师
 app.controller("partTimeTeacherManageController",function($scope){
@@ -296,3 +318,24 @@ app.controller("fullTimeTeacherDetailController",function($scope){
 app.controller("schoolRollManageController",function($scope){
     $scope.name = "学籍管理";
 })
+
+//课程表
+app.controller("scheduleController",function($scope,scheduleService){
+    $scope.name = "课程表";
+    scheduleService.getScheduleList().then(function(data){
+        $scope.courses = data.schedule;
+    });
+})
+
+
+//选择课程弹框
+app.controller("chooseScheduleController",function($scope){
+    //列表隐藏
+    $scope.courseList = false;
+    $scope.chooseTeacher = function(){
+        $scope.courseList = !($scope.courseList);
+    };
+    $scope.saveCourse = function(){
+
+    }
+});

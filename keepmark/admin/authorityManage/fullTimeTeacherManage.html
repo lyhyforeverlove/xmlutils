@@ -3,36 +3,43 @@
         <div class="panel-heading">
             <h4>权限管理  &gt; {{name}} </h4>
         </div>
-        <div class="panel-select">
-            <div class="form-group">
-                <label class="col-sm-1 control-label">地区</label>
-                <div class="col-sm-11">
-                    <select class="form-control m-b select-inline">
-                        <option value="">高中</option>
-                        <option value="">初中</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">学历</label>
-                <div class="col-sm-11">
-                    <select class="form-control m-b select-inline">
-                        <option value="">高中</option>
-                        <option value="">初中</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">学科</label>
-                <div class="col-sm-11">
-                    <select class="form-control m-b select-inline">
-                        <option value="">文科</option>
-                        <option value="">理科</option>
-                    </select>
-                </div>
-            </div>
-        </div>
         <div class="wrapper">
+            <div class="panel-heading">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">地区</label>
+                    <div class="col-sm-11">
+                        <select class="form-control m-b select-inline">
+                            <option value="">高中</option>
+                            <option value="">初中</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学历</label>
+                    <div class="col-sm-11">
+                        <select class="form-control m-b select-inline">
+                            <option value="">高中</option>
+                            <option value="">初中</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学科</label>
+                    <div class="col-sm-11">
+                        <select class="form-control m-b select-inline">
+                            <option value="">文科</option>
+                            <option value="">理科</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
             <button class="btn btn-primary btn-margin" ui-sref="app.authorityManage.addFullTimeTeacher()">添加全职教师</button>
             <div id="tabs">
                 <ul>
@@ -44,7 +51,7 @@
             </div>
             <script type="text/ng-template" id="dimissionTeacher.tpl.html">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped  b-t b-light">
                         <thead>
                         <tr>
                             <th>序号</th>
@@ -73,9 +80,9 @@
                                 <td>AA</td>
                                 <td>AA</td>
                                 <td>
-                                    <a href="#" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
-                                    <a href="#" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
-                                    <a href="#" ng-click="deleteFullTimeTeacher()">删除</a>
+                                    <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
+                                    <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
+                                    <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a>
                                 </td>
                             </tr>
                             <tr>
@@ -90,9 +97,9 @@
                                 <td>AA</td>
                                 <td>AA</td>
                                 <td>
-                                    <a href="#" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
-                                    <a href="#" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
-                                    <a href="#" ng-click="deleteFullTimeTeacher()">删除</a>
+                                    <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
+                                    <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
+                                    <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -101,7 +108,7 @@
             </script>
             <script type="text/ng-template" id="onJobTeacher.tpl.html">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped  b-t b-light">
                         <thead>
                         <tr>
                             <th>序号</th>
@@ -130,9 +137,9 @@
                             <td>AA</td>
                             <td>AA</td>
                             <td>
-                                <a href="#" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
-                                <a href="#" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
-                                <a href="#" ng-click="deleteFullTimeTeacher()">删除</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
+                                <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a>
                             </td>
                         </tr>
                         <tr>
@@ -147,9 +154,9 @@
                             <td>AA</td>
                             <td>AA</td>
                             <td>
-                                <a href="#" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
-                                <a href="#" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
-                                <a href="#" ng-click="deleteFullTimeTeacher()">删除</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
+                                <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
+                                <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a>
                             </td>
                         </tr>
                         </tbody>

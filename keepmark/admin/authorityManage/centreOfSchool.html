@@ -4,36 +4,87 @@
             <h4>权限管理  &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
+            <div class="panel-heading ">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>北京</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>文科</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">学区：</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>文科</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">学部：</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>文科</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">中心：</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>文科</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
             <div class="table-responsive">
                 <button class="btn btn-primary" ui-sref="app.authorityManage.addCentreOfSchool()">添加</button>
-                <table class="table table-striped">
+                <table class="table table-striped  b-t b-light">
                     <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>学部名称</th>
-                            <th>中心名称</th>
-                            <th>中心编号</th>
-                            <th>中心负责人</th>
-                            <th>类型</th>
-                            <th>保分级别</th>
-                            <th>操作</th>
-                        </tr>
+                    <tr>
+                        <th>序号</th>
+                        <th>学部名称</th>
+                        <th>中心名称</th>
+                        <th>中心编号</th>
+                        <th>中心负责人</th>
+                        <th>类型</th>
+                        <th>保分级别</th>
+                        <th>操作</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in list">
-                            <td>{{$index+1}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.sex}}</td>
-                            <td>{{item.url}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.sex}}</td>
-                            <td>{{item.name}}</td>
-                            <td>
-                                <a ui-sref="app.authorityManage.centreOfSchoolDetail()">查看</a>
-                                <a ui-sref="app.authorityManage.updateCentreOfSchool()">修改</a>
-                                <a ng-click="deleteCentreOfSchool()">删除</a>
-                            </td>
-                        </tr>
+                    <tr ng-repeat="item in list">
+                        <td>{{$index+1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.sex}}</td>
+                        <td>{{item.url}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.sex}}</td>
+                        <td>{{item.name}}</td>
+                        <td>
+                            <a ui-sref="app.authorityManage.centreOfSchoolDetail()">查看</a>
+                            <a ui-sref="app.authorityManage.updateCentreOfSchool()">修改</a>
+                            <a ng-click="deleteCentreOfSchool()">删除</a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

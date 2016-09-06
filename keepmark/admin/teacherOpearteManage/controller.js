@@ -1,136 +1,4 @@
 'use strict';
-var DataSource = [
-	{"day":"一","course":[
-		{"courseName":"语文课1","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"英语课2","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"数学课3","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课4","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课5","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课6","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课6","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课1","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"英语课2","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"数学课3","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课4","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课5","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课6","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
-		{"courseName":"语文课6","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"}
-	]},
-	{"day":"二","course":[
-		{"courseName":"数文课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"语文课4","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"语文课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"数文课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"语文课4","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"语文课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"}
-	]},
-	{"day":"三","course":[
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"}
-	]},
-	{"day":"四","course":[
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
-		{"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"}
-	]},
-	{"day":"五","course":[
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课4","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"数文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课4","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"数文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
-		{"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"}
-	]},
-	{"day":"六","course":[
-		{"courseName":"数文课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"语文课4","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"数文课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"语文课4","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
-		{"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"}
-	]},
-	{"day":"七","course":[
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"语文课4","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"语文课4","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
-		{"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"}
-	]},
-	{"day":"八","course":[
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
-		{"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"}
-	]}
-];
-
-
 //我的学生
 app.controller('myStudentsController', function($scope,$state) {
 	$scope.name='我的学生';
@@ -145,15 +13,11 @@ app.controller('myStudentsController', function($scope,$state) {
 	}
 
 	$scope.checkMySchedule = function(){
-		$state.go("app.teacherOpearteManage.classSchedule",{"id":id});
+		$state.go("app.teacherOpearteManage.classSchedule",{"id":id,"scheduleStatus":"1"});
 	}
 })
 
-//课程表
-app.controller("classScheduleController",function($scope){
-	$scope.name="课程表";
-	$scope.courses = DataSource;
-})
+
 //学习情况
 app.controller('learningDetailController', function($scope) {
 	$scope.name='学习情况';
@@ -161,11 +25,11 @@ app.controller('learningDetailController', function($scope) {
 
 })
 //一对一老师操作页面
-app.controller('oneToOneController', function($scope,$state) {
+app.controller('oneToOneController', function($scope,$state,$rootScope) {
 	$scope.name = "1对1老师操作页面";
-	$scope.courses = DataSource;
+	$scope.scheduleStatus = "1";
 	$scope.enterTheClassroom = function(){
-		$state.go("app.teacherOpearteManage.enterTheClassroom");
+		$state.go("app.teacherOpearteManage.enterTheClassroom",{"scheduleStatus":"1"});
 	}
 });
 
@@ -174,11 +38,11 @@ app.controller('oneToOneAdjustCourseController',function($scope,$state){
     $scope.name = "一对一调课";
 	var id = 1;
     $scope.checkMySchedule = function(){
-	    $state.go("app.teacherOpearteManage.classSchedule",{"id":id});
+	    $state.go("app.teacherOpearteManage.classSchedule",{"id":id,"scheduleStatus":"2"});
     }
 
     $scope.studentSchedule = function(){
-		$state.go("app.teacherOpearteManage.classSchedule",{"id":id});
+		$state.go("app.teacherOpearteManage.classSchedule",{"id":id,"scheduleStatus":"1"});
     }
 
 
@@ -329,11 +193,11 @@ app.controller('autonmousPushResourcesController', function ($scope) {
 
 })
 //大班值守
-app.controller("classOnDutyController",function($scope,$window){
+app.controller("classOnDutyController",function($scope){
 	$scope.name='大班值守';
-	$scope.courses= DataSource;
+	$scope.scheduleStatus = 1;
 	$scope.enterLargelassroom = function(){
-		$window.alert('非上课时间，无大班课！');
+		alert('非上课时间，无大班课！');
 	}
 })
 //答疑
@@ -655,3 +519,35 @@ app.controller("teachingDifficultPointController",function($scope){
 		});
 	};
 })
+
+
+//课程表
+app.controller("scheduleController",function($scope,scheduleService,$modal,$stateParams){
+	if(typeof($scope.scheduleStatus) === "undefined"){
+		$scope.scheduleStatus = $stateParams.scheduleStatus;
+	}
+	scheduleService.getScheduleList().then(function(data){
+		$scope.courses = data.schedule;
+	});
+
+
+	$scope.chooseScheduleModal = function () {
+		var modalInstance = $modal.open({
+			templateUrl: 'admin/common/tpl/chooseSchedule.html',
+			size: "lg"
+		});
+	}
+})
+
+//选择课程弹框
+app.controller("chooseScheduleController",function($scope){
+	$scope.name="选择课程";
+	$scope.courseList=false;
+	$scope.chooseTeacher = function(){
+		$scope.courseList = !($scope.courseList);
+	};
+
+	$scope.saveCourse = function(){
+
+	}
+});

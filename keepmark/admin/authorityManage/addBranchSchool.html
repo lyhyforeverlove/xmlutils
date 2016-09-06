@@ -6,7 +6,7 @@
         <div class="wrapper">
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">总校名称:</label>
-                <div class="col-sm-11 m-b">
+                <div class="col-sm-11">
                     <select name="masterSchoolName" class="form-control m-b" ng-model="masterSchoolName">
                         <option value="0">理工</option>
                         <option value="1">文科</option>
@@ -26,6 +26,33 @@
                 <label class="col-sm-11 m-b">王校长</label>
             </div>
             <div class="col-sm-12 form-group">
+                <label class="col-sm-1 control-label">省:</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b">
+                        <option value="0">黑龙江</option>
+                        <option value="1">河北</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 form-group">
+                <label class="col-sm-1 control-label">市:</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b">
+                        <option value="0">北京</option>
+                        <option value="1">天津</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 form-group">
+                <label class="col-sm-1 control-label">区:</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b">
+                        <option value="0">东城</option>
+                        <option value="1">昌平</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校名称:</label>
                 <div class="col-sm-11">
                     <input type="text" class="form-control m-b" placeholder="请输入分校名称" ng-model="branchSchoolName">
@@ -40,13 +67,19 @@
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校校长:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入分校校长">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="headmaster">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校副校长:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入辅校长">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="headmaster">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                    </div>
                 </div>
             </div>
             <button class="btn btn-primary col-sm-1 col-sm-push-8">保存</button>
