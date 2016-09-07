@@ -11,9 +11,14 @@
                         <input type="text" class="form-control m-b" value="XXX">
                     </div>
                 </div>
-
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">姓名：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b" value="XXX">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">初始密码：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control m-b" value="XXX">
                     </div>
@@ -25,16 +30,16 @@
                         <label class="i-checks "><input type="radio"><i></i>女</label>
                     </div>
                 </div>
+            </div>
+            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">授课类型：</label>
                     <div class="col-sm-8">
-                        <select name="" id="" class="form-control m-b select-inline">
-                            <option value="0">1</option>
+                        <select ng-model ="teachingType" ng-options="m.teachingType as  m.teachingTypeName for m in teachingTypeList" class="form-control m-b select-inline" ng-click="seacherTeachingType()">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">省：</label>
                     <div class="col-sm-8">
@@ -59,14 +64,14 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">教龄：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control m-b" value="XXX">
                     </div>
                 </div>
-            </div>
-            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">联系电话：</label>
                     <div class="col-sm-8">
@@ -85,21 +90,20 @@
                         <input type="text" class="form-control m-b" value="XXX">
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">邮箱地址：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control m-b" value="XXX">
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">学历：</label>
                     <div class="col-sm-8">
-                        <select name="" class="form-control m-b select-inline">
-                            <option value="">1</option>
-                            <option value="">1</option>
+                        <select ng-model ="teacherEducation" ng-options="m.teacherEducation as  m.teacherEducationName for m in teacherEducationList" class="form-control m-b select-inline" ng-click="seacherTeacherEducation()">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
@@ -112,9 +116,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <label class="control-label col-sm-2">联系地址：</label>
-                    <div class="col-sm-10">
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">联系地址：</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control m-b" value="XXX">
                     </div>
                 </div>

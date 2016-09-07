@@ -4,31 +4,41 @@
             <h4>权限管理  &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">总校名称:</label>
                 <div class="col-sm-11">
                     <input type="text" class="form-control m-b" placeholder="请输入总校名称" ng-model="schoolName">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">总校编号:</label>
                 <div class="col-sm-11">
                     <input type="text" class="form-control m-b" placeholder="请输入总校编号" ng-model="schoolCode">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">总校校长:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入总校校长" ng-model="headmaster">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="headmaster">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">副校长:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入副校长" ng-model="viceHeadmaster">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="headmaster">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                    </div>
                 </div>
             </div>
-            <button class="btn btn-primary col-sm-1 col-sm-push-8" ng-click="savaMasterSchool()">保存</button>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="savaMasterSchool()">保存</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

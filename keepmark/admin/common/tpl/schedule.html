@@ -1,0 +1,53 @@
+<div class="course-content"  ng-controller="scheduleController">
+    <table class="schedule-table">
+        <tr>
+            <td>第一周</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>第二周</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>节\课</td>
+            <td>星期一</td>
+            <td>星期二</td>
+            <td>星期三</td>
+            <td>星期四</td>
+            <td>星期五</td>
+            <td>星期六</td>
+            <td>星期天</td>
+            <td>星期一</td>
+            <td>星期二</td>
+            <td>星期三</td>
+            <td>星期四</td>
+            <td>星期五</td>
+            <td>星期六</td>
+            <td>星期天</td>
+        </tr>
+        <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='0'">
+            <td>第{{schedule.day}}节</td>
+            <td ng-repeat="course in schedule.course" update="false" schedule-status ng-if="course.teacherName">{{course.courseName}}</br>{{course.teacherName}}</td>
+            <td ng-repeat="course in schedule.course" update="true" schedule-status ng-if="!course.teacherName"></td>
+        </tr>
+        <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='1'">
+            <td>第{{schedule.day}}节</td>
+            <td ng-repeat="course in schedule.course" update="false" schedule-status ng-if="course.teacherName">{{course.courseName}}</br>{{course.teacherName}}</td>
+            <td ng-repeat="course in schedule.course" update="false" schedule-status ng-if="!course.teacherName"></td>
+        </tr>
+        <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='2'">
+            <td>第{{schedule.day}}节</td>
+            <td ng-repeat="course in schedule.course" update="true" schedule-status ng-if="course.teacherName">{{course.courseName}}</br>{{course.teacherName}}</td>
+            <td ng-repeat="course in schedule.course" update="true" schedule-status ng-if="!course.teacherName"></td>
+        </tr>
+    </table>
+</div>

@@ -4,20 +4,52 @@
             <h4>权限管理  &gt;  排课  &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
-            <div class="form-group">
-                <label class="col-sm-1 control-label">班级</label>
-                <div class="col-sm-11">
-                    <select name="account" class="form-control m-b">
-                        <option>1班</option>
-                        <option>2班</option>
-                    </select>
+            <div class="panel-heading ">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select id="masterSchool" ng-model="masterSchool" class="form-control" ng-options="m.masterName for m in masterSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select id="branchSchool" ng-model="branchSchool" class="form-control" ng-options="b.branchName for b in branchSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">学区：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="districtSchool" class="form-control" ng-options="d.districtName for d in districtSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">学部：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="departmentSchool" class="form-control" ng-options="d.departmentName for d in departmentSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
             </div>
-            <div class="table-responsive col-sm-12 studentList">
-                <table class="table table-striped">
+            <div class="table-responsive col-sm-12">
+                <table class="table table-striped  b-t b-light">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>序号</th>
                             <th>地区</th>
                             <th>学生名称</th>
@@ -26,11 +58,11 @@
                             <th>联系方式</th>
                             <th>总分</th>
                             <th>课程</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><label class="i-checks"><input type="checkbox" class="i-checks"><i></i></label></td>
                             <td>{{}}</td>
                             <td>aa</td>
                             <td>张XX</td>
@@ -39,9 +71,9 @@
                             <td>张XX</td>
                             <td>理学部</td>
                             <td>120分</td>
+                            <td><label class="i-checks"><input type="radio" class="i-checks" name="class"><i></i></label></td>
                         </tr>
                         <tr>
-                            <td><label class="i-checks"><input type="checkbox" class="i-checks"><i></i></label></td>
                             <td>1.</td>
                             <td>BB</td>
                             <td>张XX</td>
@@ -50,13 +82,10 @@
                             <td>张XX</td>
                             <td>理学部</td>
                             <td>120分</td>
+                            <td><label class="i-checks"><input type="radio" class="i-checks"  name="class"><i></i></label></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="form-group text-right">
-               <label >已选：15个</label>
-               <label class="i-checks"><input type = "checkbox" ><i></i>全选</label>
             </div>
             <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.largeClassSchedule()">排大班课表</button>
         </div>

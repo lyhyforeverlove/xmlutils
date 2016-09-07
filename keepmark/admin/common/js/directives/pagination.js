@@ -1,5 +1,4 @@
-var directives = angular.module('app');
-directives.directive('xlPage', [function () {
+app.directive('xlPage', [function () {
     return {
         replace: true,
         templateUrl: 'admin/common/pagination.html',

@@ -4,9 +4,45 @@
             <h4>权限管理  &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
+            <div class="panel-heading ">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select id="masterSchool" ng-model="masterSchool" class="form-control" ng-options="m.masterName for m in masterSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select id="branchSchool" ng-model="branchSchool" class="form-control" ng-options="b.branchName for b in branchSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">学区：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="districtSchool" class="form-control" ng-options="d.districtName for d in districtSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addDistrictSchool()">添加学区</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
             <div class="table-responsive">
-                <button class="btn btn-primary" ui-sref="app.authorityManage.addDistrictSchool()">添加</button>
-                <table class="table table-striped">
+                <table class="table table-striped  b-t b-light">
                     <thead>
                     <tr>
                         <th>序号</th>

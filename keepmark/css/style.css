@@ -17,7 +17,7 @@
 .schedule-table{
     float:left;
     width:100%;
-    margin:100px 0;
+    margin:40px 0;
 }
 .day-student table{
     width:50%;
@@ -25,18 +25,18 @@
 .schedule-table td,.day-student td
 {
     padding:10px 0;
-    border-top: #CBD8AC solid 1px;
-    border-left:#CBD8AC solid 1px;
+    border-top: #7266ba solid 1px;
+    border-left:#7266ba solid 1px;
     text-align: center;
 }
 
 .schedule-table td:last-child,.day-student td:last-child
 {
-    border-right:#CBD8AC solid 1px;
+    border-right:#7266ba solid 1px;
 }
 .schedule-table tr:last-child td,.day-student tr:last-child td
 {
-    border-bottom:#CBD8AC solid 1px;
+    border-bottom:#7266ba solid 1px;
 }
 
 .course-content{
@@ -155,7 +155,7 @@
 
 .knowledge-scope{
     border:1px #5e5e5e solid;
-    padding-bottom:100px;
+    padding:10px 20px 100px;
 }
 
 .knowledgeTree{
@@ -229,4 +229,37 @@
 }
 .studentList{
     margin:50px 0;
+}
+h4>span{
+    margin:0 10px;
+}
+
+#tabs ul{
+    padding-left:0;
+}
+
+.control-label{
+    height:34px;
+    line-height:34px;
+}
+.schedule-table td{
+    cursor: pointer;
+}
+.freeTime{
+    background-color: #7266ba;
+    color:#fff;
+}
+
+.form-group span{
+    margin:0 10px 0 0;
+}
+
+.btn-a{
+    color:#7266ba;
+}
+.teacher-list{
+    list-style-type: none;
+}
+.teacher-list>li{
+    float:left;
 }
