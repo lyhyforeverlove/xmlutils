@@ -1,8 +1,9 @@
 'use strict';
 //我的学生
-app.controller('myStudentsController', function($scope,$state) {
+app.controller('myStudentsController', function($scope,$state,$controller) {
 	$scope.name='我的学生';
 	$scope.total_count =10;
+	$controller("getSchoolInfo",{$scope:$scope});
 	var id = 1;
 	$scope.learningDetail =function(){
 		$state.go("app.teacherOpearteManage.learningDetail",{"id":id});
@@ -54,9 +55,9 @@ app.controller('todayCourseController', function($scope) {
 
 })
 //学生作业
-app.controller('studentWorkController', function($scope,$state) {
+app.controller('studentWorkController', function($scope,$state,$controller) {
 	$scope.name='学生作业';
-
+	$controller("getSchoolInfo",{$scope:$scope});
 	$scope.studentWorkChecked = function(){
 		$state.go("app.teacherOpearteManage.studentWorkChecked");
 	}

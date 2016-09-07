@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">地区</label>
-                    <div class="col-sm-11">
+                    <div class="col-sm-2">
                         <select class="form-control m-b select-inline">
                             <option value="">高中</option>
                             <option value="">初中</option>
@@ -17,7 +17,7 @@
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">学历</label>
-                    <div class="col-sm-11">
+                    <div class="col-sm-2">
                         <select class="form-control m-b select-inline">
                             <option value="">高中</option>
                             <option value="">初中</option>
@@ -27,7 +27,7 @@
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">学科</label>
-                    <div class="col-sm-11">
+                    <div class="col-sm-2">
                         <select class="form-control m-b select-inline">
                             <option value="">文科</option>
                             <option value="">理科</option>
@@ -39,8 +39,11 @@
                     <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addFullTimeTeacher()">添加全职教师</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
             </div>
-            <button class="btn btn-primary btn-margin" ui-sref="app.authorityManage.addFullTimeTeacher()">添加全职教师</button>
             <div id="tabs">
                 <ul>
                     <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>

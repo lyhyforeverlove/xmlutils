@@ -1,0 +1,23 @@
+{
+	"teacherEducationList": [{
+		"teacherEducation": 0,
+		"teacherEducationName": "高中"
+	},
+	{
+		"teacherEducation": 1,
+		"teacherEducationName": "专科"
+	},
+	{
+		"teacherEducation": 2,
+		"teacherEducationName": "本科"
+	},
+	{
+		"teacherEducation": 3,
+		"teacherEducationName": "硕士"
+	},
+	{
+		"teacherEducation": 4,
+		"teacherEducationName": "博士"
+	}
+	]
+}

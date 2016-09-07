@@ -1,15 +1,16 @@
 'use strict';
 
 //总校
-app.controller("masterSchoolController",['$rootScope', '$scope', '$http',function($rootScope, $scope, $http){
+app.controller("masterSchoolController",function($scope, $http ,$controller){
     $scope.name = "总校";
-    $http.post('admin/json/test.json', {"id":1}).success(function(data){
+    $controller("getSchoolInfo",{$scope:$scope});
+    $http.post('', {"id":1}).success(function(data){
           $scope.list = data.list;
     });
     $scope.deleteMasterSchool = function(){
         alert("确定删除吗？");
     };
-}]);
+});
 
 app.controller("addMasterSchoolController",function($scope,$http){
     $scope.name = "新增总校";
@@ -29,12 +30,12 @@ app.controller("updateMasterSchoolController",function($scope){
 
 });
 //分校
-app.controller("branchSchoolController",function($scope,$http){
+app.controller("branchSchoolController",function($scope,$http,$controller){
     $scope.name = "分校";
-    $http.post('admin/json/test.json',{}).success(function(data){
+    $controller("getSchoolInfo",{$scope:$scope});
+    $http.post('',{}).success(function(data){
         $scope.list = data.list;
     });
-
     $scope.deletebranchSchool = function(){
         alert("确定删除此分校吗？");
     }
@@ -54,9 +55,10 @@ app.controller("updateBranchSchoolController",function($scope){
 
 });
 //学区
-app.controller("districtSchoolController",function($scope,$http){
+app.controller("districtSchoolController",function($scope,$http,$controller){
     $scope.name = "学区";
-    $http.post('admin/json/test.json',{}).success(function(data){
+    $controller("getSchoolInfo",{$scope:$scope});
+    $http.post('',{}).success(function(data){
         $scope.list = data.list;
     });
     //删除信息
@@ -78,9 +80,10 @@ app.controller("districtSchoolDetailController",function($scope){
 
 });
 //学部
-app.controller("departmentSchoolController",function($scope,$http){
+app.controller("departmentSchoolController",function($scope,$http,$controller){
     $scope.name = "学部";
-    $http.post('admin/json/test.json', {"id":1}).success(function(data){
+    $controller("getSchoolInfo",{$scope:$scope});
+    $http.post('', {"id":1}).success(function(data){
         $scope.list = data.list;
     });
     $scope.deleteDepartmentSchool = function(){
@@ -100,9 +103,10 @@ app.controller("departmentSchoolDetailController",function($scope){
 
 });
 //中心
-app.controller("centreOfSchoolController",function($scope,$http){
+app.controller("centreOfSchoolController",function($scope,$http,$controller){
     $scope.name = "中心";
-    $http.post('admin/json/test.json', {"id":1}).success(function(data){
+    $controller("getSchoolInfo",{$scope:$scope});
+    $http.post('', {"id":1}).success(function(data){
         $scope.list = data.list;
     });
     $scope.deleteCentreOfSchool = function(){
@@ -112,30 +116,63 @@ app.controller("centreOfSchoolController",function($scope,$http){
 });
 app.controller("addCentreOfSchoolController",function($scope){
     $scope.name = "新增中心";
+    $scope.subjectCode =2;
 
 });
 //班级
-app.controller("classAndGradeController",function($scope,$http){
+app.controller("classAndGradeController",function($scope,$http,$controller){
     $scope.name="创建班级";
-    $http.post('admin/json/test.json', {"id":1}).success(function(data){
-        $scope.list = data.list;
+    $http.post('', {"id":1}).success(function(data){
+        //$scope.list = data.list;
     });
     $scope.deleteClassAndGradeSchool = function(){
         alert("确定删除吗？");
     }
+    $controller("getSchoolInfo",{$scope:$scope});
 });
+
+
 app.controller("addClassAndGradeController",function($scope){
     $scope.name="新增班级";
-})
+    //subjectCode为1时  文科
+    //subjectCode为2时  理科
+    $scope.subjectCode = 1;
+    $scope.chineseTeacherList = [{"teacherId":"1","teacherName":"语文老师"},{"teacherId":"2","teacherName":"语文老师2"},{"teacherId":"3","teacherName":"语文老师3"}];
+    $scope.mathTeacherList = [{"teacherId":"1","teacherName":"数学老师"},{"teacherId":"2","teacherName":"数学老师2"},{"teacherId":"3","teacherName":"数学老师3"}];
+    $scope.englishTeacherList = [{"teacherId":"1","teacherName":"英语老师"},{"teacherId":"2","teacherName":"语文老师2"},{"teacherId":"3","teacherName":"英语老师3"}];
+    $scope.historyTeacherList = [{"teacherId":"1","teacherName":"历史老师"},{"teacherId":"2","teacherName":"历史老师2"},{"teacherId":"3","teacherName":"历史老师3"}];
+    $scope.geographyTeacherList = [{"teacherId":"1","teacherName":"地理老师"},{"teacherId":"2","teacherName":"地理老师2"},{"teacherId":"3","teacherName":"地理老师3"}];
+    $scope.politicalTeacherList = [{"teacherId":"1","teacherName":"政治老师"},{"teacherId":"2","teacherName":"政治老师2"},{"teacherId":"3","teacherName":"政治老师3"}];
+    $scope.chemistryTeacherList = [{"teacherId":"1","teacherName":"物理老师"},{"teacherId":"2","teacherName":"物理老师2"},{"teacherId":"3","teacherName":"物理老师3"}];
+    $scope.physicsTeacherList = [{"teacherId":"1","teacherName":"化学老师"},{"teacherId":"2","teacherName":"化学老师2"},{"teacherId":"3","teacherName":"化学老师3"}];
+    $scope.biologyTeacherList = [{"teacherId":"1","teacherName":"生物老师"},{"teacherId":"2","teacherName":"生物老师2"},{"teacherId":"3","teacherName":"生物老师3"}];
+
+
+});
+
 app.controller("updateClassAndGradeController",function($scope){
     $scope.name="编辑班级";
-})
+    //subjectCode为1时  文科
+    //subjectCode为2时  理科
+    $scope.subjectCode = 1;
+
+    $scope.chineseTeacherList = [{"teacherId":"1","teacherName":"语文老师"},{"teacherId":"2","teacherName":"语文老师2"},{"teacherId":"3","teacherName":"语文老师3"}];
+    $scope.mathTeacherList = [{"teacherId":"1","teacherName":"数学老师"},{"teacherId":"2","teacherName":"数学老师2"},{"teacherId":"3","teacherName":"数学老师3"}];
+    $scope.englishTeacherList = [{"teacherId":"1","teacherName":"英语老师"},{"teacherId":"2","teacherName":"语文老师2"},{"teacherId":"3","teacherName":"英语老师3"}];
+    $scope.historyTeacherList = [{"teacherId":"1","teacherName":"历史老师"},{"teacherId":"2","teacherName":"历史老师2"},{"teacherId":"3","teacherName":"历史老师3"}];
+    $scope.geographyTeacherList = [{"teacherId":"1","teacherName":"地理老师"},{"teacherId":"2","teacherName":"地理老师2"},{"teacherId":"3","teacherName":"地理老师3"}];
+    $scope.politicalTeacherList = [{"teacherId":"1","teacherName":"政治老师"},{"teacherId":"2","teacherName":"政治老师2"},{"teacherId":"3","teacherName":"政治老师3"}];
+    $scope.chemistryTeacherList = [{"teacherId":"1","teacherName":"物理老师"},{"teacherId":"2","teacherName":"物理老师2"},{"teacherId":"3","teacherName":"物理老师3"}];
+    $scope.physicsTeacherList = [{"teacherId":"1","teacherName":"化学老师"},{"teacherId":"2","teacherName":"化学老师2"},{"teacherId":"3","teacherName":"化学老师3"}];
+    $scope.biologyTeacherList = [{"teacherId":"1","teacherName":"生物老师"},{"teacherId":"2","teacherName":"生物老师2"},{"teacherId":"3","teacherName":"生物老师3"}];
+});
 app.controller("classAndGradeDetailController",function($scope){
     $scope.name="查看班级";
-})
+});
 //排大班课
-app.controller("largeClassesController",function($scope){
+app.controller("largeClassesController",function($scope,$controller){
     $scope.name="排大班课";
+    $controller("getSchoolInfo",{$scope:$scope});
 });
 app.controller("largeClassScheduleController",["$scope","$modal",function($scope,$modal){
     $scope.name = "排大班课表";
@@ -149,8 +186,9 @@ app.controller("largeClassScheduleController",["$scope","$modal",function($scope
 }])
 
 //排小班课
-app.controller("smallClassController",function($scope){
+app.controller("smallClassController",function($scope,$controller){
     $scope.name="排小班课";
+    $controller("getSchoolInfo",{$scope:$scope});
 });
 app.controller("smallClassScheduleController",["$scope","$modal",function($scope,$modal){
     $scope.name = "排小班课表";
@@ -200,19 +238,26 @@ app.controller("partTimeTeacherManageController",function($scope){
     $scope.isActiveTab = function(tabUrl) {
         return tabUrl == $scope.currentTab;
     }
-})
-app.controller("addPartTimeTeacherController",function($scope,$http){
+});
+
+//增加兼职教师
+app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataService){
     $scope.name="添加兼职教师";
     $scope.spareTimeShow = false;
+    $scope.teachingType = "";
+    $scope.teacherEducation = "";
+    $scope.teacherShip = "";
+    $scope.teacherPro = "";
     $scope.chooseSpareTime = function(){
         //初始化空余时间表
         $http.get("admin/json/freeTime.json").success(function(data){
-            //alert(data.freeTime);
             $scope.list = data.freeTime;
         });
         $scope.spareTimeShow = !($scope.spareTimeShow);
-    }
 
+    };
+
+    //省市区三级联动
     $scope.provinces = ['黑龙江', '吉林', '辽宁', '河北'];
     $scope.$watch('province', function(newVal) {
         if (newVal) $scope.cities = ['大连', '长春'];
@@ -220,6 +265,32 @@ app.controller("addPartTimeTeacherController",function($scope,$http){
     $scope.$watch('city', function(newVal) {
         if (newVal) $scope.suburbs = ['鸡冠区', '隶属', 'A区'];
     });
+
+    //授课类型
+    $scope.seacherTeachingType = function(){
+        acquireDataService.getTeachingTypeList().then(function(data){
+            $scope.teachingTypeList = data.teachingTypeList;
+        });
+    };
+    //学历类型
+    $scope.seacherTeacherEducation = function(){
+        acquireDataService.getTeacherEducationList().then(function(data){
+            $scope.teacherEducationList = data.teacherEducationList;
+        });
+    };
+    //合作关系
+    $scope.seacherTeacherShip = function(){
+        acquireDataService.getTeacherShipList().then(function(data){
+            $scope.teacherShipList = data.teacherShipList;
+        });
+    };
+    //职称
+    $scope.seacherTeacherPro = function(){
+        acquireDataService.getTeacherProList().then(function(data){
+            $scope.teacherProList = data.teacherProList;
+        });
+    };
+
     var free_time =[];
     $scope.savePartTimeTeacher = function(){
         $("td.freeTime").each(function(){
@@ -230,12 +301,45 @@ app.controller("addPartTimeTeacherController",function($scope,$http){
         });
     }
     var ss = {"teacherModel":{},"freeTimes":free_time};
-})
-app.controller("updatePartTimeTeacherController",function($scope,$http){
+});
+
+
+//修改兼职教师
+app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDataService){
     $scope.name="修改兼职教师";
     $scope.province='吉林';
     $scope.city="长春";
     $scope.suburb="鸡冠区";
+    $scope.teachingType = "";
+    $scope.teacherEducation = "";
+    $scope.teacherShip = "";
+    $scope.teacherPro = "";
+    //授课类型
+    $scope.seacherTeachingType = function(){
+        acquireDataService.getTeachingTypeList().then(function(data){
+            $scope.teachingTypeList = data.teachingTypeList;
+        });
+    };
+    //学历类型
+    $scope.seacherTeacherEducation = function(){
+        acquireDataService.getTeacherEducationList().then(function(data){
+            $scope.teacherEducationList = data.teacherEducationList;
+        });
+    };
+    //合作关系
+    $scope.seacherTeacherShip = function(){
+        acquireDataService.getTeacherShipList().then(function(data){
+            $scope.teacherShipList = data.teacherShipList;
+        });
+    };
+    //职称
+    $scope.seacherTeacherPro = function(){
+        acquireDataService.getTeacherProList().then(function(data){
+            $scope.teacherProList = data.teacherProList;
+        });
+    };
+
+
     $scope.provinces = ['黑龙江', '吉林', '辽宁', '河北'];
     $scope.$watch('province', function(newVal) {
         if (newVal) $scope.cities = ['大连', '长春'];
@@ -280,8 +384,22 @@ app.controller("fullTimeTeacherManageController",function($scope){
 
 })
 
-app.controller("addFullTimeTeacherController",function($scope){
+app.controller("addFullTimeTeacherController",function($scope,acquireDataService){
     $scope.name="添加全职教师";
+    $scope.teachingType = "";
+    $scope.teacherEducation = "";
+    //授课类型
+    $scope.seacherTeachingType = function(){
+        acquireDataService.getTeachingTypeList().then(function(data){
+            $scope.teachingTypeList = data.teachingTypeList;
+        });
+    };
+    //学历类型
+    $scope.seacherTeacherEducation = function(){
+        acquireDataService.getTeacherEducationList().then(function(data){
+            $scope.teacherEducationList = data.teacherEducationList;
+        });
+    };
 
     $scope.provinces = ['黑龙江', '吉林', '辽宁', '河北'];
     $scope.$watch('province', function(newVal) {
@@ -295,11 +413,27 @@ app.controller("addFullTimeTeacherController",function($scope){
     }
 
 })
-app.controller("updateFullTimeTeacherController",function($scope){
+app.controller("updateFullTimeTeacherController",function($scope,acquireDataService){
     $scope.name="修改全职教师";
     $scope.province='吉林';
     $scope.city="长春";
     $scope.suburb="鸡冠区";
+    $scope.teachingType = "";
+    $scope.teacherEducation = "";
+
+    //授课类型
+    $scope.seacherTeachingType = function(){
+        acquireDataService.getTeachingTypeList().then(function(data){
+            $scope.teachingTypeList = data.teachingTypeList;
+        });
+    };
+    //学历类型
+    $scope.seacherTeacherEducation = function(){
+        acquireDataService.getTeacherEducationList().then(function(data){
+            $scope.teacherEducationList = data.teacherEducationList;
+        });
+    };
+
     $scope.provinces = ['黑龙江', '吉林', '辽宁', '河北'];
     $scope.$watch('province', function(newVal) {
         if (newVal) $scope.cities = ['大连', '长春'];
@@ -311,8 +445,6 @@ app.controller("updateFullTimeTeacherController",function($scope){
 app.controller("fullTimeTeacherDetailController",function($scope){
     $scope.name="全职教师查看";
 })
-
-
 
 //学籍教师
 app.controller("schoolRollManageController",function($scope){
@@ -326,8 +458,6 @@ app.controller("scheduleController",function($scope,scheduleService){
         $scope.courses = data.schedule;
     });
 })
-
-
 //选择课程弹框
 app.controller("chooseScheduleController",function($scope){
     //列表隐藏

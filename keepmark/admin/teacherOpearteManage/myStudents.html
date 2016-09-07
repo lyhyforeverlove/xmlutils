@@ -8,8 +8,8 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">总校：</label>
                     <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>北京</option>
+                        <select id="masterSchool" ng-model="masterSchool" class="form-control" ng-options="m.masterName for m in masterSchoolList">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
@@ -17,8 +17,8 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">分校：</label>
                     <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>文科</option>
+                        <select id="branchSchool" ng-model="branchSchool" class="form-control" ng-options="b.branchName for b in branchSchoolList">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
@@ -26,8 +26,8 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">学区：</label>
                     <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>文科</option>
+                        <select ng-model="districtSchool" class="form-control" ng-options="d.districtName for d in districtSchoolList">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">学部：</label>
                     <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>文科</option>
+                        <select ng-model="departmentSchool" class="form-control" ng-options="d.departmentName for d in departmentSchoolList">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">中心：</label>
                     <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>文科</option>
+                        <select ng-model="centreOfSchool" class="form-control" ng-options="c.centreOfName for c in centreOfSchoolList">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
@@ -53,8 +53,8 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">班级：</label>
                     <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>文科</option>
+                        <select ng-model="classAndGrade" class="form-control" ng-options="c.classAndGradeName for c in classAndGradeList">
+                            <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 'use strict';
 /*诊断上架*/
-
 app.controller('DiagShelvesController', function($scope, $http, $controller,$resource, $stateParams, $modal, $state, CalcService) {
 
     //继承筛选条件控制器

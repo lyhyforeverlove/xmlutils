@@ -88,7 +88,48 @@
                     </div>
                 </div>
             </div>
-            <div class="artsAndScience">
+            <div class="arts" ng-if="subjectCode =='1'">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">历史老师:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">地理老师:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">政治老师:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="science" ng-if="subjectCode == '2'">
                 <div class="form-group">
                     <label class="col-sm-1 control-label">物理老师:</label>
                     <div class="col-sm-11">
@@ -146,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary">保存</button>
+            <button class="btn btn-primary btn-margin pull-right">保存</button>
         </div>
     </div>
 </div>

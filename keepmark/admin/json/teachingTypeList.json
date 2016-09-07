@@ -1,0 +1,13 @@
+{"teachingTypeList": [{
+		"teachingType":1,
+		"teachingTypeName": "易"
+	},
+	{
+		"teachingType":2,
+		"teachingTypeName": "中"
+	},
+	{
+		"teachingType": 3,
+		"teachingTypeName": "难"
+	}]
+}
