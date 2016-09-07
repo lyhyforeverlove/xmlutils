@@ -18,6 +18,7 @@ app.controller('DiagShelvesController', function($scope, $http, $controller,$res
     //默认为短板诊断
     $scope.formData.paperUseType = 0;
 
+    //列表
     $scope.getList = function(page, size, callback) {
        $http.post($scope.app.host + 'diagnosis/list?requestId=test123456', {
                 "subjectCode":$scope.formData.subjectCode,
@@ -39,96 +40,157 @@ app.controller('DiagShelvesController', function($scope, $http, $controller,$res
     
     //分配监考人
     $scope.allotBtn = function(data) {
-
-
+        var jsonString = angular.toJson(data);
         $state.go('app.teachManage.allot', {
-            value:$scope.PageData.Intent
+            jsonString : jsonString
         }, {
             reload : true
         });
 
-
-        console.log(data.gradeCode);
     };
-
-
-    console.log($stateParams);
-    $scope.PageData = {
-            ReceivValue:$stateParams.value
-    }
-
-
     
     //添加老师
-    
     $scope.list = [{id:100,age:30,name:'张三'}];
     $scope.addTeacher=function(){
         var obj={id:101,age:30,name:"李四"};
         $scope.list.push(obj);
     }
-
     $scope.del=function(idx){
         $scope.list.splice(idx,1);
     }
+
+    /*
+    *新增诊断商品
+    */
     $scope.postData = {};
-    //确定上架
-    $scope.ConfirmShelves = function(id) {
-
-        $http.post($scope.app.host +'/teacher/diagnosis/add?requestId=test123456',{
-            "gradeCode":"33",
-            "departmentType":"1",
-            "subjectCode":"1",
-            "bookVersionCode":"1",
-            "paperCode":"C2E0B766CF12454394230C94042F6E33",
-            "price":"600.00",
-            "diagnosisGoodsModels":[{
-                "times":["1","2","3"],
-                "teacherCode":"1",
-                "beginDate":"2016-09-01",
-                "endDate":"2016-09-02"}]
-            }).success(function(data){
-                console.log(data);
-        });
-        //$state.go('app.teachManage.diagGoods');
-    }
-
-    //诊断时间
+     //诊断时间
     $scope.groups = [{
-        'id': '1',
-        'name': '第一组时间',
-        'date': "2016.6.18 16:00 ~ 2016.6.18 18:00",
-        'group': '一组:5人',
-        'AM': '上午'
+        id: 1,
+        name : '第一组时间',
+        date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
+        group: '一组:5人',
+        AM: '上午',
+        active:true
     }, {
-        'id': '2',
-        'name': '第二组时间',
-        'date': '2016.6.18 16:00 ~ 2016.6.18 18:00',
-        'group': '一组:5人'
+        id: 2,
+        name : '第二组时间',
+        date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
+        group: '一组:5人',
+        active:false
     }, {
-        'id': '3',
-        'name': '第三组时间',
-        'date': '2016.6.18 16:00 ~ 2016.6.18 18:00',
-        'group': '一组:5人',
-        'PM': '下午'
+        id: 3,
+        name : '第三组时间',
+        date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
+        group: '一组:5人',
+        PM: '下午',
+        active:false
     }, {
-        'id': '4',
-        'name': '第四组时间',
-        'date': '2016.6.18 16:00 ~ 2016.6.18 18:00',
-        'group': '一组:5人'
+        id: 4,
+        name : '第四组时间',
+        date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
+        group: '一组:5人',
+        active:false
     }, {
-        'id': '5',
-        'name': '第五组时间',
-        'date': '2016.6.18 16:00 ~ 2016.6.18 18:00',
-        'group': '一组:5人'
+        id: 5,
+        name : '第五组时间',
+        date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
+        group: '一组:5人',
+        active:false
     }, {
-        'id': '6',
-        'name': '第六组时间',
-        'date': '2016.6.18 16:00 ~ 2016.6.18 18:00',
-        'group': '一组:5人'
+        id: 6,
+        name : '第六组时间',
+        date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
+        group: '一组:5人',
+        active:false
     }];
 
-});
+    $scope.toggleActive = function(s){
+        s.active = !s.active;
+    };
 
+    $scope.times = function(){
+
+        $scope.postData.times = [];
+
+        angular.forEach($scope.groups, function(s){
+            if (s.active){
+                $scope.postData.times.push(s.id);
+            }
+        });
+
+        return $scope.postData.times;
+    };
+    //确定上架
+    $scope.ConfirmShelves = function() {
+
+        //url参数对象  
+        var V_GoodsAddJson = null;  
+        // 获取上个界面传递的数据，并进行解析  
+        if ($stateParams.jsonString != '') {  
+            V_GoodsAddJson = angular.fromJson($stateParams.jsonString);  
+        } 
+           
+        var diagnosisGoodsModels = [];
+        var goodsArr = angular.fromJson($scope.postData); 
+       
+        diagnosisGoodsModels.push(goodsArr);
+        
+        var V_GoodsAddJson = angular.fromJson(V_GoodsAddJson);
+      
+        V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
+
+        
+        if(V_GoodsAddJson.departmentType == "SCIENCE"){
+            V_GoodsAddJson.departmentType = 1;
+        }else{
+             V_GoodsAddJson.departmentType = 0;
+        }
+
+        //console.log(V_GoodsAddJson);
+
+        $http.post($scope.app.host +'/teacher/diagnosis/add?requestId=test123456',V_GoodsAddJson)
+        .success(function(data){
+                if(data.result == "success"){
+                    console.log(data);
+                    $state.go('app.teachManage.diagGoods');
+                }
+               
+        });
+    }
+
+   
+
+    
+});
+//诊断商品列表
+app.controller("DiagGoodsCtrl",function($scope,$http,$controller,$resource, $stateParams, $modal, $state, CalcService){
+    //继承筛选条件控制器
+    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+
+    $scope.formData = {};
+    //默认类型为理科
+    $scope.formData.departmentType = 1;
+    //默认为语文
+    $scope.formData.subjectCode = 1;
+    //默认为全国卷一
+    $scope.formData.bookVersionCode = "national001";
+    //默认学年为33
+    $scope.formData.gradeCode = 33;
+
+    $scope.getList = function(page,size,callback){
+        $http.post($scope.app.host+"/teacher/diagnosis/list?requestId=test123456",{
+            "gradeCode":$scope.formData.gradeCode,
+            "departmentType": $scope.formData.departmentType,
+            "bookVersionCode": $scope.formData.bookVersionCode,
+            "currentPage": page,
+            "pageSize": size
+        })
+     .success(function(data){
+           $scope.results = data.result;
+        })
+    }
+    
+})
 /*试卷池*/
 app.controller('TestPoolControler', function($scope, $resource, $stateParams, $modal, $state) {
     //根据学年、类型、教材 查询试卷池
@@ -324,58 +386,6 @@ app.controller('DividClassesConfrimCtrl', function($scope, $resource, $statePara
         return tabUrl == $scope.currentTab;
     }
 
-});
-app.controller("MainCtrl", function($scope) {
-    $scope.subjects = [{
-            "id": 0,
-            "name": "文科",
-            "category": [{
-                "id": 0,
-                "name": "语文",
-                "checked": true
-            }, {
-                "id": 1,
-                "name": "数学",
-                "checked": false
-            }, {
-                "id": 2,
-                "name": "英语",
-                "checked": false
-            }, {
-                "id": 3,
-                "name": "历史",
-                "checked": false
-            }, {
-                "id": 4,
-                "name": "政治",
-                "checked": false
-            }]
-        }, {
-            "id": 1,
-            "name": "理科",
-            "category": [{
-                "id": 0,
-                "name": "语文",
-                "checked": true
-            }, {
-                "id": 1,
-                "name": "数学",
-                "checked": false
-            }, {
-                "id": 2,
-                "name": "英语",
-                "checked": false
-            }, {
-                "id": 3,
-                "name": "物理",
-                "checked": false
-            }, {
-                "id": 4,
-                "name": "化学",
-                "checked": false
-            }]
-        }]
-        //$scope.selectedGenre = '$scope.subjects[0].name';            
 });
 
 

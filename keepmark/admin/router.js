@@ -194,6 +194,10 @@ angular.module('app')
                         url: '/detail/{id}',
                         templateUrl: 'admin/common/tpl/detail.html',
                     })
+                    .state('app.teachResearchManage.groupsDetail', {
+                        url: '/groupsDetail/{complexPaperCode}',
+                        templateUrl: 'admin/common/tpl/groupsDetail.html',
+                    })
                     .state('app.teachResearchManage.detail', {
                         url: '/detail/{paperCode}',
                         templateUrl: 'admin/common/tpl/detail.html',
@@ -240,15 +244,19 @@ angular.module('app')
                     })
 
                 .state('app.teachResearchManage.createSingle', {
-                        url: '/createSingle',
+                        url: '/createSingle/{resourcePaperCode}',
                         templateUrl: 'admin/teachResearchManage/createSingle.html',
                     })
                     .state('app.teachResearchManage.list', {
                         url: '/list/:jsonString',
                         templateUrl: 'admin/teachResearchManage/addDiagPaper.html',
                     })
+                     .state('app.teachResearchManage.paperList', {
+                        url: '/paperList/{subjectCode}',
+                        templateUrl: 'admin/teachResearchManage/addGroupsPaper.html',
+                    })
                     .state('app.teachResearchManage.createDouble', {
-                        url: '/createDouble',
+                        url: '/createDouble/{diagnosisPaperCode}',
                         templateUrl: 'admin/teachResearchManage/createDouble.html',
                     })
                     .state('app.teachResearchManage.stageList', {

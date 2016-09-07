@@ -6,8 +6,8 @@
     font-weight: bold;
 }
 </style>
-<div class="wrapper-md" ng-controller="getPapersController">
-    <div class="panel panel-default">
+<div class="wrapper-md" ng-controller="DiagListController">
+    <div class="panel panel-default" ng-init="getList()">
         <div class="panel-heading">
             <h4>试卷</h4>
         </div>
@@ -24,11 +24,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in results.datas.data">
-                            <td>{{subjectCode}}</td>
-                            <td>{{data.paperName}}</td>
+                        <tr ng-repeat="data in results.content">
+                            <td>{{data.subjectCode}}</td>
+                            <td>{{data.repositoryPaperCode}}{{data.diagnosisPaperName}}</td>
+
                             <td>
-                                <button class="btn btn-primary" ui-sref="app.teachResearchManage.createSingle({resourcePaperCode:data.id})"><span class="p-d
+                                <button class="btn btn-primary" ui-sref="app.teachResearchManage.createDouble({diagnosisPaperCode:data.repositoryPaperCode})"><span class="p-d
                                 ">选用</span></button> 
                             </td>
                         </tr>

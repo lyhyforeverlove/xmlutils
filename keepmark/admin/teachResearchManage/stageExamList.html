@@ -5,7 +5,7 @@
         </div>
         <div class="wrapper">
             <div class="panel-body">
-                <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" ng-init="load()">
+                <form class="form-horizontal" ng-init="load()">
                     <!--包含公共筛选条件 start-->
                     <div  ng-include="'admin/common/tpl/filter.html'"></div>
                     <!--包含公共筛选条件 end-->
@@ -24,7 +24,7 @@
                         </select></span>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <button class="pull-right btn btn-primary"><span class="p-d">查询</span></button>
+                    <button class="pull-right btn btn-primary" ng-click="getList(page, size, callback)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <div class="table-responsive">
@@ -63,7 +63,7 @@
                         <tr>
                             <td colspan="8" class="text-center">
                                 <!-- 指令调用代码 -->
-                                <xl-page size="2" method="getList" class="text-center"></xl-page>
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
                                 <!-- 指令模板[pagination.html] -->
                             </td>
                         </tr>

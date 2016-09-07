@@ -1,4 +1,4 @@
-<div class="wrapper-md" ng-controller="TestPoolControler">
+<div class="wrapper-md" >
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>{{name}} &gt; 试卷池 &gt; 一判分卷</h4>
@@ -15,7 +15,7 @@
                         <tr>
                             <td align="right">类型：</td>
                             <td>
-                                <div ng-controller="MainCtrl">
+                                <div >
                                     <select class="form-control" ng-model="selectedPerson" ng-options="obj.name for obj in subjects">
                                         <option value="">请选择类型</option>
                                     </select>

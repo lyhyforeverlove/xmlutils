@@ -1,3 +1,42 @@
+<style>
+
+form ul{
+    list-style:none;
+    color:#fff;
+    font-size:16px;
+    text-align: left;
+    margin:20px 0 15px;
+}
+
+form ul li{
+    padding:10px 20px;
+    background-color:#e35885;
+    margin-bottom:8px;
+    box-shadow:0 1px 1px rgba(0,0,0,0.1);
+    cursor:pointer;
+}
+
+form ul li span{
+    float:right;
+}
+
+form ul li.active{
+    background-color:#8ec16d;
+}
+
+div.total{
+    border-top:1px solid rgba(255,255,255,0.5);
+    padding:15px 30px;
+    font-size:16px;
+    font-weight:bold;
+    text-align: left;
+    color:#000;
+}
+
+div.total span{
+    float:right;
+}
+</style>
 <div class="wrapper-md" ng-controller="DiagShelvesController">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -6,50 +45,70 @@
         </div>
         <div class="wrapper">
             <pre>{{postData}}</pre>
-            <div class="panel-container"  ng-repeat="person in list">
-                <a ng-show="$index!=0" style="color:red;" class="pull-right" ng-click="del($index)">移除</a>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">指定老师</label>
-                    <div class="col-sm-2">
-                        <select name="account" class="form-control m-b" ng-model="postData.teacherCode">
-                            <option>王丽丽</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">时间段：</label>
-                    <div class="controls">
-                        <div class="input-prepend input-group">
-                            <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                            <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control" class="span4" ng-model="postData.Date" />
+            <form action="">
+                <div class="panel-container">
+                    <a ng-show="$index!=0" style="color:red;" class="pull-right" ng-click="del($index)">移除</a>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">指定老师：</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control m-b" ng-model="postData.teacherCode">
+                                <option value="1">王丽丽</option>
+                            </select>
                         </div>
                     </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">时间段：</label>
+                        <div class="controls">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control"  class="span4"/>
+                                <input type="text"  id="startDate" ng-model="postData.startDate" >
+                                <input type="text"  id="endDate" ng-model="postData.endDate" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="checkDate">
+                        <ul>
+                            <!-- Loop through the services array, assign a click handler, and set or
+                            remove the "active" css class if needed -->
+                            <li ng-repeat="service in groups" ng-click="toggleActive(service)" ng-class="{active:service.active}">
+                                <!-- Notice the use of the currency filter, it will format the price -->
+                                {{item.AM}}{{item.PM}}{{service.name}} <span>{{service.group}} </span><span>{{service.date}}</span>
+                            </li>
+                        </ul>
+                        <div class="total">
+                            <!-- Calculate the total price of all chosen services. Format it as currency. -->
+                            Times: <span>{{times()}}</span>
+                        </div>
+                    </div>
+                    <div class="line line-solid b-b line-lg "></div>
+                    
                 </div>
-                <div class="line line-dashed b-b line-lg "></div>
-                <div class="checkDate">
-                    <ul>
-                        <li toggle-class="active" ng-repeat="item in groups" ng-model="postData.times" ng-click="clickme(item.id)"><span>{{item.AM}}{{item.PM}}</span> <span class="btnSelect">{{item.name}}</span>{{item.date}}{{item.group}}</li>
-                    </ul>
-                </div>
-                <div class="line line-solid b-b line-lg "></div>
-            </div>
+            </form>
             <button class="btn m-b-xs btn-primary btn-addon" ng-click='addTeacher()'><i class="fa fa-plus"></i>添加老师</button>
-            <input type="submit" class="btn btn-primary pull-right" ng-click='ConfirmShelves({id:data.id})' value="确定上架">
-
+            <input type="submit" class="btn btn-primary pull-right" ng-click='ConfirmShelves()' value="确定上架">
         </div>
     </div>
 </div>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        format: 'YYYY/MM/DD h:mm A',
-        pickerPosition: "bottom-top"
-    }, function(start, end, label) {
-        console.log(start, end);
-        console.log(start.toISOString(), end.toISOString(), label);
-    });
-});
-</script>
+ <script type="text/javascript">
+            $(document).ready(function() {
+                $('#reservationtime').daterangepicker({
+                    timePicker: true,
+                    timePickerIncrement: 30,
+                    format: 'MM/DD/YYYY h:mm A',
+                    pickerPosition: "bottom-top"
+                }, function(start, end, label) {
+                    var d = new Date(start.toISOString());
+                     var end = new Date(end.toISOString());
+                var startDate  = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(); var endDate = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate() + ' ' + end.getHours() + ':' + end.getMinutes() + ':' + end.getSeconds(); 
+                console.log(startDate,endDate);
+                $("#startDate").val(startDate);
+                $("#endDate").val(endDate);
+
+                });
+                
+
+            });
+            </script>

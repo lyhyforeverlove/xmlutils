@@ -1,67 +1,136 @@
 <style>
   .list-group-item{border-radius:0;line-height:36px;font-size:18px;font-weight:bold;}
 </style>
+<script src="admin/lib/spark-md5.js"></script>
+<script src="admin/lib/async.js"></script>
+<script src="admin/lib/upyun-mu.js"></script>
 <div class="wrapper-md" ng-controller="CreateController">
     <div class="panel panel-default" ng-init="load()">
+
         <div class="panel-heading">
             <div class="radio">
                 <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
-                    <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="formData.departmentType" ng-checked="val.checked" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+                    <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="postData.departmentType" ng-checked="val.checked" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
                 </label>
             </div>
         </div>
         <div class="wrapper">
+            <pre>{{postData}}</pre>
             <h4>诊断用卷(共6份)</h4>
             <div>
-                <pre>{{formData}}</pre>
-                <div class="">
-                    <div class="list-group">
-                        <span class="list-group-item" ng-repeat="(key, val) in category track by $index">
+                <!-- ng-repeat="(key, val) in category track by $index"  -->
+                <div class="list-group">
+                    <span class="list-group-item">
 
-                            <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>添加</button>
-                                 <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button>
-                            </span>
-                            <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
-                            <span>{{$index+1}} {{val.subjectName}} 诊断卷名称(A)</span>
+                        <span class="pull-right">
+                            <button class="btn m-b-xs w-xs btn-info" ui-sref='app.teachResearchManage.paperList({subjectCode:"1"})'>添加</button>
                         </span>
-                    </div>
+                        <input type="radio"  ng-value="1" ng-model="postData.chineseCode">
+
+                        <span>1、语文诊断卷名称(A)</span>
+                    </span>
+                    <span class="list-group-item">
+
+                        <span class="pull-right">
+                            <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.paperList({subjectCode:"2"})'>添加</button>
+                            <!--  <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button> -->
+                        </span>
+                        <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                        <input type="radio"  ng-value="2" ng-model="postData.mathCode">
+
+                        <span>2、数学诊断卷名称(A)</span>
+                    </span>
+                    <span class="list-group-item">
+
+                        <span class="pull-right">
+                            <button class="btn m-b-xs w-xs btn-info">添加</button>
+                            <!--  <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button> -->
+                        </span>
+                        <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                        <input type="radio"  ng-value="3" ng-model="postData.englishCode">
+
+                        <span>3、英语诊断卷名称(A)</span>
+                    </span>
+                    <span class="list-group-item">
+
+                        <span class="pull-right">
+                            <button class="btn m-b-xs w-xs btn-info">添加</button>
+                            <!--  <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button> -->
+                        </span>
+                        <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                        <input type="radio"  ng-value="4" ng-model="postData.physicsCode">
+
+                        <span>4、化学诊断卷名称(A)</span>
+                    </span>
+                    <span class="list-group-item">
+
+                        <span class="pull-right">
+                            <button class="btn m-b-xs w-xs btn-info">添加</button>
+                            <!--  <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button> -->
+                        </span>
+                        <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                        <input type="radio"  ng-value="5" ng-model="postData.chemistryCode">
+
+                        <span>5、物理诊断卷名称(A)</span>
+                    </span>
+                    <span class="list-group-item">
+
+                        <span class="pull-right">
+                            <button class="btn m-b-xs w-xs btn-info">添加</button>
+                            <!--  <button class="btn m-b-xs w-xs btn-info"  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})'>更换</button> -->
+                        </span>
+                        <!-- <i class="fa fa-envelope fa-fw m-r-xs"></i> -->
+                        <input type="radio"  ng-value="6" ng-model="postData.biologyCode">
+
+                        <span>6、生物诊断卷名称(A)</span>
+                    </span>
                 </div>
+             <!--  <ul class="subject">
+                          <li ng-model="chineseCode">语文</li>
+                          <li ng-repeat="service in category" ng-click="toggleActive(service)" ng-class="{active:service.active}" ng-model="postData.service.id">
+                             {{service.subjectName}} {{service.code}}
+                          </li>
+                      </ul>
+                      <div class="total">
+                          Times: <span>{{times()}}</span>
+                      </div> -->
             </div>
             <div class="">
                     <div class="form-group">
                         <!-- ng-model="diagnosis.name" -->
                         <label class="col-sm-2 control-label">诊断名称：</label>
-                        <span class="col-sm-6"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required></span>
+                        <span class="col-sm-6"><input type="text" class="form-control" ng-model="postData.name"  id="text_name" required></span>
                         <span class="col-sm-4"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">选择封面：</label>    
                         <span class="col-sm-10"> 
-                            <input type="file" file-model="myFile" required/>
-                            <div>
-                                <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
-                            </div>
+                            <input type="file" name="file" id="file" file-model="myFile" required>
+                             <div>
+                               <img ng-src="{{postData.coverUrl}}" ng-model="postData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
+                           </div> 
+                            <button class="btn btn-default pull-right" id="submit" ng-click="submit()" required>上传又拍云图片预览</button>
+                            <!-- <div id="log"></div> -->
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">    
                         <label class="col-sm-2 control-label">售价：</label>
                         <span class="col-sm-10"> 
-                            <input type="number" name="price" ng-model="formData.price" class="col-sm-6 form-control">   
+                            <input type="number" name="price" ng-model="postData.price" class="col-sm-6 form-control">   
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">    
                         <label class="col-sm-2 control-label">描述：</label>
                         <span class="col-sm-10"> 
-                            <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
+                            <textarea placeholder="{{placeholder}}" ng-model="postData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
                             </textarea>
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <button class="btn btn-primary pull-right" ng-click="creteGroup(formData)">确定组成诊断用卷</button>
+                    <button class="btn btn-primary pull-right" ng-click="creteGroup(postData)">确定组成诊断用卷</button>
                 </div>
         </div>
     </div>

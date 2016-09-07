@@ -15,18 +15,28 @@
             <h4>创建单科诊断</h4>
         </div>
         <div class="wrapper">
-            <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled">
+            <form class="form-horizontal">
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <!--包含公共筛选条件 end-->
+                <!-- <div class="form-group">
+                    <label class="col-sm-2 control-label">目标类型：</label>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                            <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.aimType"><i></i>{{val.aimName}}
+                        </label>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div> -->
                 <div class="">
                     <div class="list-group">
-                        <a href class="list-group-item"><span>{{subjectName}}</span>诊断卷名称(A)
-                        <input type="text" value="123" ng-model="formData.resourcePaperCode">
+                        <a href class="list-group-item"  ng-model="formData.resourcePaperCode">
+                        <!-- <span>{{subjectName}}</span> -->
+                        <span class="name">诊断卷名称</span>
                     <span class="pull-right">
-                        <button class="btn m-b-xs w-xs btn-info" >添加</button>
+                        <button class="btn m-b-xs w-xs btn-info" ng-click="GetPapers({subjectCode:formData.subjectCode})">添加</button>
                        <!--  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})' -->
-                       <!-- ng-click="GetPapers({'gradeCode':})" -->
+                       <!--  -->
                     </span>
                     </a>
                     </div>
@@ -43,24 +53,26 @@
                     <div class="form-group">
                         <!-- ng-model="diagnosis.name" -->
                         <label class="col-sm-2 control-label">诊断名称：</label>
-                        <span class="col-sm-6"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required></span>
+                        <span class="col-sm-6"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required ></span>
                         <span class="col-sm-4"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">选择封面：</label>    
                         <span class="col-sm-10"> 
-                            <input type="file" file-model="myFile" required/>
-                            <div>
-                                <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
-                            </div>
+                            <input type="file" name="file" id="file" file-model="myFile" required>
+                             <div>
+                               <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
+                           </div> 
+                            <button class="btn btn-default pull-right" id="submit" ng-click="submit()" required>上传又拍云图片预览</button>
+                            <!-- <div id="log"></div> -->
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">    
                         <label class="col-sm-2 control-label">售价：</label>
                         <span class="col-sm-10"> 
-                            <input type="number" name="price" ng-model="formData.price" class="col-sm-6 form-control">   
+                            <input type="number" name="price" ng-model="formData.diagnosisPaperPrice" class="col-sm-6 form-control" required>   
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>

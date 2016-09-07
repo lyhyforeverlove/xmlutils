@@ -94,10 +94,10 @@
 .nav-tabs li.active a{
   /* color:#1797be; */
 }
-
+.checkDate{margin-left:20px;}
 .checkDate > ul > li{margin-top:10px;}
 .checkDate  span:first-child{
-	width:100px;
+	/* width:100px; */
 	display:inline-block;
 }
 .checkDate .btnSelect{
@@ -143,7 +143,7 @@
 
 /**/
 .p-d{padding:0 10px;}
-
+.form-group{overflow: hidden}
 
 
 

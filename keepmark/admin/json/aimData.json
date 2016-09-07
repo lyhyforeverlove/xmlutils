@@ -1,15 +1,15 @@
 {
 	"aimData":[{
 		"id":0,
-		"aimType":0,
+		"aimType":3,
 		"aimName":"一本上线30分"
 	},{
 		"id":1,
-		"aimType":1,
+		"aimType":2,
 		"aimName":"一本"
 	},{
 		"id":2,
-		"aimType":2,
+		"aimType":1,
 		"aimName":"二本"
 	}]
 }

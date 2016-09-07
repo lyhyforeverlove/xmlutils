@@ -485,7 +485,7 @@ a.list-group-item.hover {
   border-top: 1px solid #eaedef;
 }
 .panel-select{
-  line-height:36px;
+  /* line-height:36px; */
 }
 
 .table > tbody > tr > td,
