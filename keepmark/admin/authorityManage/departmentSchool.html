@@ -1,14 +1,14 @@
-<div class="wrapper-md ng-scope" ng-controller="departmentSchoolController">
+<div class="wrapper-md ng-scope" ng-controller="departmentSchoolController" ng-init="load()">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>权限管理  &gt; {{name}} </h4>
+            <h4>权限管理  &gt; {{titleName}} </h4>
         </div>
         <div class="wrapper">
             <div class="panel-heading ">
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">总校：</label>
                     <div class="col-sm-2">
-                        <select id="masterSchool" ng-model="masterSchool" class="form-control" ng-options="m.masterName for m in masterSchoolList">
+                        <select id="masterSchool" ng-click="getBranchList(masterSchool)" ng-model="masterSchool" ng-value="{{m.code}}" class="form-control" ng-options="m.name for m in masterSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -17,7 +17,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">分校：</label>
                     <div class="col-sm-2">
-                        <select id="branchSchool" ng-model="branchSchool" class="form-control" ng-options="b.branchName for b in branchSchoolList">
+                        <select id="branchSchool" ng-click="getDistrictList(branchSchool)" ng-model="branchSchool" ng-value="{{m.code}}" class="form-control" ng-options="b.name for b in branchSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -26,24 +26,12 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">学区：</label>
                     <div class="col-sm-2">
-                        <select ng-model="districtSchool" class="form-control" ng-options="d.districtName for d in districtSchoolList">
+                        <select ng-model="districtSchool" ng-click="getDepartmentList(districtSchool)" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in districtSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">学部：</label>
-                    <div class="col-sm-2">
-                        <select ng-model="departmentSchool" class="form-control" ng-options="d.departmentName for d in departmentSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
-                </div>
+
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
                     <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addDepartmentSchool()">添加学部</button>
@@ -55,24 +43,24 @@
                     <thead>
                         <tr>
                             <th>序号</th>
-                            <th>学区名称</th>
-                            <th>学区负责人</th>
+                       <!--     <th>学区名称</th>
+                            <th>学区负责人</th>-->
                             <th>学部名称</th>
                             <th>学部负责人</th>
+                            <th>文理</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in list">
+                        <tr ng-repeat="data in results">
                             <td>{{$index+1}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.sex}}</td>
-                            <td>{{item.id}}</td>
-                            <td>{{item.url}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.personCharge}}</td>
+                            <td>{{data.divisionType}}</td>
                             <td>
-                                <a ui-sref="app.authorityManage.departmentSchoolDetail()">查看</a>
-                                <a ui-sref="app.authorityManage.updateDepartmentSchool()">修改</a>
-                                <a ng-click="deleteDepartmentSchool()">删除</a>
+                                <a ng-click="viewDepartmentSchool(data)">查看</a>
+                                <a ng-click="updateVDepartmentSchool(data)">修改</a>
+                                <!--<a ng-click="deleteDepartmentSchool()">删除</a>-->
                             </td>
                         </tr>
                     </tbody>

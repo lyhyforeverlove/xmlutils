@@ -5,19 +5,7 @@
         </div>
         <div class="wrapper">
             <div class="panel-heading ">
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">总校：</label>
-                    <div class="col-sm-2">
-                        <select id="masterSchool" ng-model="masterSchool" class="form-control" ng-options="m.masterName for m in masterSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
+
                 <div class="form-group col-sm-12">
                     <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addMasterSchool()">添加总校</button>
                 </div>
@@ -36,16 +24,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in list">
+                        <tr ng-repeat="data in results">
                             <td>{{$index+1}}</td>
-                            <td>{{item.email}}</td>
-                            <td>{{item.nickname}}</td>
-                            <td>{{item.created_at}}</td>
-                            <td>{{item.avatar}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.schoolNum}}</td>
+                            <td>{{data.president}}</td>
+                            <td>{{data.vicePresident}}</td>
                             <td>
-                                <a ui-sref="app.authorityManage.masterSchoolDetail()">查看</a>
-                                <a ui-sref="app.authorityManage.updateMasterSchool()">修改</a>
-                                <a ng-click="deleteMasterSchool()">删除</a>
+                                <a ng-click="viewMasterSchool(data)">查看</a>
+                                <a ng-click="updateVMasterSchool(data)">修改</a>
+                                <!--<a ng-click="deleteMasterSchool()">删除</a>-->
                             </td>
                         </tr>
                     </tbody>

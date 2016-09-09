@@ -1,56 +1,53 @@
 <div class="wrapper-md ng-scope" ng-controller="branchSchoolDetailController">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>权限管理  &gt; {{name}} </h4>
+            <h4>权限管理  &gt; {{titleName}}
+                <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.branchSchool()">返回</button>
+            </h4>
         </div>
         <div class="wrapper">
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">总校名称:</label>
-                <label class="col-sm-11 control-label">AA</label>
+                <label class="col-sm-11 control-label">{{authSchoolMainModelName}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">总校编号:</label>
-                <label class="col-sm-11 control-label">12131312</label>
+                <label class="col-sm-11 control-label">{{authSchoolMainModelSchoolNum}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">总校校长:</label>
-                <label class="col-sm-11 control-label">张校长</label>
+                <label class="col-sm-11 control-label">{{authSchoolMainModelPresident}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">副校长:</label>
-                <label class="col-sm-11 control-label">王校长</label>
+                <label class="col-sm-11 control-label">{{authSchoolMainModelVicePresident}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">省:</label>
-                <label class="col-sm-11 control-label">黑龙江</label>
-            </div>
-            <div class="col-sm-12 form-group">
-                <label class="col-sm-1 control-label">市:</label>
-                <label class="col-sm-11 control-label">哈尔滨</label>
-            </div>
-            <div class="col-sm-12 form-group">
-                <label class="col-sm-1 control-label">区:</label>
-                <label class="col-sm-11 control-label">江北</label>
+                <label class="col-sm-11 control-label">{{province}}</label>
             </div>
 
 
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校名称:</label>
-                <label class="col-sm-11 control-label">AA</label>
+                <label class="col-sm-11 control-label">{{name}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校编号:</label>
-                <label class="col-sm-11 control-label">AA</label>
+                <label class="col-sm-11 control-label">{{branchNum}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校校长:</label>
-                <label class="col-sm-11 control-label">AA</label>
+                <label class="col-sm-11 control-label">{{president}}</label>
             </div>
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校副校长:</label>
-                <label class="col-sm-11 control-label">AA</label>
+                <label class="col-sm-11 control-label">{{vicePresident}}</label>
             </div>
-            <button class="btn btn-primary">返回</button>
+            <div class="col-sm-12 form-group">
+                <label class="col-sm-1 control-label">创建时间:</label>
+                <label class="col-sm-11 control-label">{{createDate}}</label>
+            </div>
         </div>
     </div>
 </div>
