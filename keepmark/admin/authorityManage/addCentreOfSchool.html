@@ -4,47 +4,59 @@
             <h4>权限管理  &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
-            <div class="form-group">
-                <label class="col-sm-1 control-label">学部名称:</label>
-                <div class="col-sm-11">
-                    <select name="account" class="form-control m-b">
-                        <option>理工</option>
-                        <option>文科</option>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">总校：</label>
+                <div class="col-sm-2">
+                    <select id="masterSchool" ng-model="schoolMain"  ng-change="getBranchMainList(schoolMain)" class="form-control" ng-options="m.name for m in masterSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">分校：</label>
+                <div class="col-sm-2">
+                    <select id="branchSchool" ng-click="getDistrictList(branchSchool)" ng-model="branchSchool" ng-value="{{m.code}}" class="form-control" ng-options="b.name for b in branchSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">学区：</label>
+                <div class="col-sm-2">
+                    <select ng-model="division" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in districtSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">学部：</label>
+                <div class="col-sm-2">
+                    <select ng-model="formData.districtCode" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d departmentSchoolList ">
+                        <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 control-label">学部负责人:</label>
-                <label class="col-sm-11 control-label">12131312</label>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-1 control-label">中心名称:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入中心名称">
+                    <input type="text" class="form-control m-b" placeholder="请输入中心名称" ng-model="formData.name">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">中心负责人:</label>
                 <div class="col-sm-11">
-                    <select name="account" class="form-control m-b">
+                    <select name="account" class="form-control m-b" ng-model="formData.personCharge" ng-options="b.name for b in personChargeList">
                         <option value="1">张老师</option>
                         <option value="2">李老师</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 control-label">类型:</label>
-                <div class="col-sm-11">
-                    <select name="account" class="form-control m-b">
-                        <option value="0">统考</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-1 control-label">保分级别:</label>
                 <div class="col-sm-11">
-                    <select name="account" class="form-control m-b">
-                        <option value="0">保一本</option>
+                    <select name="account" class="form-control m-b" ng-model="formData.goalType" value="{{goalType}}">
+                        <option value="0">保一本30分上</option>
+                        <option value="1">保一本</option>
                         <option value="1">保二本</option>
                     </select>
                 </div>

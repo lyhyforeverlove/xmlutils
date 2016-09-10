@@ -1,4 +1,4 @@
-<div class="wrapper-md ng-scope" ng-controller="centreOfSchoolController">
+<div class="wrapper-md ng-scope" ng-controller="centreOfSchoolController"  ng-init="load()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{name}} </h4>
@@ -8,7 +8,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">总校：</label>
                     <div class="col-sm-2">
-                        <select id="masterSchool" ng-model="masterSchool" class="form-control" ng-options="m.masterName for m in masterSchoolList">
+                        <select id="masterSchool" ng-click="getBranchList(masterSchool)" ng-model="masterSchool" ng-value="{{m.code}}" class="form-control" ng-options="m.name for m in masterSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -17,7 +17,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">分校：</label>
                     <div class="col-sm-2">
-                        <select id="branchSchool" ng-model="branchSchool" class="form-control" ng-options="b.branchName for b in branchSchoolList">
+                        <select id="branchSchool" ng-click="getDistrictList(branchSchool)" ng-model="branchSchool" ng-value="{{m.code}}" class="form-control" ng-options="b.name for b in branchSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">学区：</label>
                     <div class="col-sm-2">
-                        <select ng-model="districtSchool" class="form-control" ng-options="d.districtName for d in districtSchoolList">
+                        <select ng-model="districtSchool" ng-click="getDepartmentList(districtSchool)" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in districtSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -35,24 +35,12 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">学部：</label>
                     <div class="col-sm-2">
-                        <select ng-model="departmentSchool" class="form-control" ng-options="d.departmentName for d in departmentSchoolList">
+                        <select ng-model="departmentSchool" ng-click="getCenterList(departmentSchool)" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in departmentSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">中心：</label>
-                    <div class="col-sm-2">
-                        <select ng-model="centreOfSchool" class="form-control" ng-options="c.centreOfName for c in centreOfSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
-                </div>
+
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
                     <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addCentreOfSchool()">添加中心</button>
@@ -64,28 +52,26 @@
                     <thead>
                     <tr>
                         <th>序号</th>
-                        <th>学部名称</th>
+<!--                        <th>学部名称</th>
+                        <th>类型</th>-->
                         <th>中心名称</th>
-                        <th>中心编号</th>
                         <th>中心负责人</th>
-                        <th>类型</th>
                         <th>保分级别</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="item in list">
+                    <tr ng-repeat="data in results">
                         <td>{{$index+1}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.sex}}</td>
-                        <td>{{item.url}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.sex}}</td>
-                        <td>{{item.name}}</td>
+  <!--                      <td>{{data.departmentName}}</td>
+                        <td>{{data.departmentDivisionType}}</td>-->
+                        <td>{{data.name}}</td>
+                        <td>{{data.centerLeader}}</td>
+                        <td>{{data.goalType}}</td>
                         <td>
-                            <a ui-sref="app.authorityManage.centreOfSchoolDetail()">查看</a>
-                            <a ui-sref="app.authorityManage.updateCentreOfSchool()">修改</a>
-                            <a ng-click="deleteCentreOfSchool()">删除</a>
+                            <a ng-click="viewCenterSchool(data)">查看</a>
+                            <a ng-click="updateVCenterSchool(data)">修改</a>
+                            <!--<a ng-click="deleteCentreOfSchool()">删除</a>-->
                         </td>
                     </tr>
                     </tbody>

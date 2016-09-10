@@ -1,7 +1,8 @@
-<div class="wrapper-md ng-scope" ng-controller="addBranchSchoolController">
+<div class="wrapper-md ng-scope" ng-controller="addBranchSchoolController" ng-init="load()">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>权限管理  &gt; {{titleName}} </h4>
+            <h4>权限管理  &gt; {{titleName}}
+            </h4>
         </div>
         <div class="wrapper">
             <pre>{{formData}}</pre>
@@ -29,7 +30,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-2 control-label">总校：</label>
                 <div class="col-sm-2">
-                    <select id="masterSchool" ng-model="formData.schoolMainCode" class="form-control" ng-options="m.masterName for m in masterSchoolList">
+                    <select id="masterSchool" ng-model="formData.schoolMain"  class="form-control" ng-options="m.name for m in masterSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -37,30 +38,11 @@
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">省:</label>
                 <div class="col-sm-11">
-                    <select class="form-control m-b" ng-model="formData.province">
-                        <option value="0">黑龙江</option>
-                        <option value="1">河北</option>
+                    <select class="form-control m-b" ng-model="formData.province"  class="form-control" ng-options="m.provinceName for m in allProvinceList">
+                        <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
-<!--            <div class="col-sm-12 form-group">
-                <label class="col-sm-1 control-label">市:</label>
-                <div class="col-sm-11">
-                    <select class="form-control m-b">
-                        <option value="0">北京</option>
-                        <option value="1">天津</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-12 form-group">
-                <label class="col-sm-1 control-label">区:</label>
-                <div class="col-sm-11">
-                    <select class="form-control m-b">
-                        <option value="0">东城</option>
-                        <option value="1">昌平</option>
-                    </select>
-                </div>
-            </div>-->
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">分校名称:</label>
                 <div class="col-sm-11">
