@@ -12,6 +12,7 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
             //console.log(data.filterData[departmentType].category[0].bookVersion);
         });
     }
+    
     $scope.getBookVersion = function(id){
        
        //console.log(id);

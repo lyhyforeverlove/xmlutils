@@ -244,7 +244,9 @@ app.controller('studentWorkController', function($scope,$state,$controller) {
 
 })
 //自主推送学习资源
-app.controller('autonmousPushResourcesController', function ($scope) {
+app.controller('autonmousPushResourcesController', function ($scope,$controller, CalcService) {
+
+    $controller('ParentGetDataCtrl', { $scope: $scope }); //继承
 	$scope.name = "自主推送学习资源";
 	$scope.studentsShow = false;
 	//选择推送学生

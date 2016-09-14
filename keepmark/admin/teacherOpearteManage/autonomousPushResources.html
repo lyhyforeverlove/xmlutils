@@ -4,6 +4,14 @@
             <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
+            <!--select start-->
+            <form class="form-horizontal" ng-init="load()">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
+                <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>
+            </form>
+            <!-- select close -->
             <div class="knowledgeTree">
                 <div class="modal-header">
                     <h3 class="modal-title">知识点选择</h3>

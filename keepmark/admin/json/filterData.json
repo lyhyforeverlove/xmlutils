@@ -1,6 +1,8 @@
 {
     "filterData": [{
         "id": "0",
+        "gradeCode":33,
+        "gradeName":"高考",
         "departmentType": 0,
         "departmentName": "文科",
         "checked" : false,
@@ -161,6 +163,8 @@
         }]
     }, {
         "id": "1",
+        "gradeCode":33,
+        "gradeName":"高考",
         "departmentType": 1,
         "departmentName": "理科",
         "checked" : "checked",
