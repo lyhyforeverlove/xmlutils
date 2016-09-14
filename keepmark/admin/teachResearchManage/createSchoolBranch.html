@@ -1,30 +1,35 @@
-<div class="wrapper-md">
+<div class="wrapper-md" ng-controller="branchSchoolControler">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>{{name}} &gt; 分校主界面</h4>
         </div>
-        <div class="row wrapper">
-            <div class=""><button class="btn btn-primary">新增分校</button></div>
+        <div class="wrapper">
+            <div class="panel-heading">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总校</label>
+                    <div class="col-sm-4">
+                        <select ng-model="headSchool.code"  ng-options="headSchool.code as headSchool.name for headSchool in headSchoolList" class="form-control" ng-click="seacherBranchByHeadSchool(headSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
+            <div class="text-right"><button class="btn btn-primary btn-margin" ui-sref="app.teachResearchManage.addSchoolBranch()">新增分校</button></div>
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <th>序号</th>
-                        <th>地区</th>
                         <th>分校名称</th>
-                        <th>分校编号</th>
-                        <th>分校校长</th>
-                        <th>分校副校长</th>
+                        <th>分校负责人</th>
                         <th>操作</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>北京</td>
-                            <td>北京XXXXXX</td>
-                            <td>CIB123456</td>
-                            <td>Apple</td>
-                            <td>Bananan</td>
-                            <td><a href="">编辑</a></td>
+                        <tr ng-repeat="branchSchool in list">
+                            <td>{{$index+1}}</td>
+                            <td>{{branchSchool.name}}</td>
+                            <td>{{branchSchool.personCharge}}</td>
+                            <td><a ng-click="updateSchoolBranch(branchSchool)">编辑</a></td>
                         </tr>
                     </tbody>
                 </table>

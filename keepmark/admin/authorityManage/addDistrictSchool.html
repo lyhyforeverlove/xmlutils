@@ -1,17 +1,15 @@
-<div class="wrapper-md ng-scope" ng-controller="addDistrictSchoolController"  ng-init="load()">
+<div class="wrapper-md ng-scope" ng-controller="addDistrictSchoolController"  ng-init="initMasterSchool()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{titleName}}
-
                 <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.departmentDistrictSchool()" ><span class="p-d">返回</span></button>
-
             </h4>
         </div>
         <div class="wrapper">
             <div class="form-group col-sm-12">
                 <label class="col-sm-2 control-label">总校：</label>
                 <div class="col-sm-2">
-                    <select id="masterSchool" ng-model="formData.schoolMain"  ng-change="getBranchMainList(formData.schoolMain)" class="form-control" ng-options="m.name for m in masterSchoolList">
+                    <select id="masterSchool" ng-model="schoolMain"  ng-click="getBranchSchoolList(schoolMain.code)" class="form-control" ng-options="m.name for m in masterSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -19,7 +17,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-2 control-label">分校：</label>
                 <div class="col-sm-2">
-                    <select id="branchSchool"  ng-model="formData.branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList">
+                    <select ng-model="formData.branchCode" class="form-control" ng-options="b.code as b.name for b in branchSchoolList" >
                         <option value="">--请选择--</option>
                     </select>
                 </div>

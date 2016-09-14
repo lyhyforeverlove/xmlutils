@@ -1,4 +1,4 @@
-<div class="wrapper-md ng-scope" ng-controller="addDepartmentSchoolController"  ng-init="load()">
+<div class="wrapper-md ng-scope" ng-controller="addDepartmentSchoolController"  ng-init="initMasterSchool()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{name}} </h4>
@@ -7,7 +7,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-2 control-label">总校：</label>
                 <div class="col-sm-2">
-                    <select id="masterSchool" ng-model="schoolMain"  ng-change="getBranchMainList(schoolMain)" class="form-control" ng-options="m.name for m in masterSchoolList">
+                    <select ng-model="schoolMain"  ng-change="getBranchSchoolList(schoolMain.code)" class="form-control" ng-options="m.name for m in masterSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -15,7 +15,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-2 control-label">分校：</label>
                 <div class="col-sm-2">
-                    <select id="branchSchool" ng-click="getDistrictList(branchSchool)" ng-model="branchSchool" ng-value="{{m.code}}" class="form-control" ng-options="b.name for b in branchSchoolList">
+                    <select ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool"  class="form-control" ng-options="b.name for b in branchSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -23,7 +23,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-2 control-label">学区：</label>
                 <div class="col-sm-2">
-                    <select ng-model="formData.districtCode" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in districtSchoolList">
+                    <select ng-model="formData.districtCode"  class="form-control" ng-options="d.code as d.name for d in districtSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -31,7 +31,8 @@
             <div class="form-group  col-sm-12">
                 <label class="col-sm-1 control-label">学部类型:</label>
                 <div class="col-sm-11 m-b">
-                    <select name="account" class="form-control" ng-model="formData.divisionType">
+                    <select class="form-control" ng-model="formData.divisionType">
+                        <option value="">--请选择--</option>
                         <option value="0">文学部</option>
                         <option value="1">理学部</option>
                     </select>

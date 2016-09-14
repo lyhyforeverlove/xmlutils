@@ -5,9 +5,9 @@
 app.factory("scheduleObject",function($http, $q){
     var factory = {};
     //获取课程表
-    factory.getScheduleList = function(){
+    factory.getScheduleList = function(url,parameters){
         var deferred = $q.defer();
-        $http.get("admin/json/schedule.json").success(function(data){
+        $http.post(url,parameters).success(function(data){
             deferred.resolve(data);
         }).error(function(){
             deferred.reject("error");
@@ -25,8 +25,8 @@ app.factory("scheduleObject",function($http, $q){
 
 
 app.service("scheduleService",function(scheduleObject){
-    this.getScheduleList = function(){
-        return scheduleObject.getScheduleList();
+    this.getScheduleList = function(url,parameters){
+        return scheduleObject.getScheduleList(url,parameters);
     }
 
     this.addScheduleObject = function(){

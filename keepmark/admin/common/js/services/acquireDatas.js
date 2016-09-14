@@ -54,6 +54,19 @@ app.factory("factory",function($http, $q){
         });
         return deferred.promise;
     };
+
+    //职务
+    factory.getDutyList = function(){
+        var deferred = $q.defer();
+        $http.get("admin/json/duty.json").success(function(data){
+            deferred.resolve(data);
+        }).error(function(){
+            deferred.reject("error");
+        });
+        return deferred.promise;
+    };
+
+    return factory;
 });
 
 
@@ -77,5 +90,9 @@ app.service("acquireDataService",function(factory){
     //获取学科
     this.getSubjectList = function(){
         return factory.getSubject();
+    }
+    //获取职务
+    this.getDutyList = function(){
+        return factory.getDutyList();
     }
 });

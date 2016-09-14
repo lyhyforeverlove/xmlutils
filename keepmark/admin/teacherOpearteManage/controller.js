@@ -26,9 +26,21 @@ app.controller('learningDetailController', function($scope) {
 
 })
 //一对一老师操作页面
-app.controller('oneToOneController', function($scope,$state,$rootScope) {
+app.controller('oneToOneController', function($scope,$state,$rootScope,scheduleService) {
 	$scope.name = "1对1老师操作页面";
 	$scope.scheduleStatus = "1";
+
+	//获取课程信息
+	var url="http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK";
+	var parameters = {
+		"weekTimeCode":"30A56BA2E71E4BE2BD5DD59BA044C1D6",
+		"ownerCode":"AEDBB67C70B24165817BAEA2B4EBF0D0"
+	}
+	scheduleService.getScheduleList(url,parameters).then(function(data){
+		$scope.courses = data.result.sections;
+	});
+
+	//进入课堂
 	$scope.enterTheClassroom = function(){
 		$state.go("app.teacherOpearteManage.enterTheClassroom",{"scheduleStatus":"1"});
 	}
@@ -527,8 +539,14 @@ app.controller("scheduleController",function($scope,scheduleService,$modal,$stat
 	if(typeof($scope.scheduleStatus) === "undefined"){
 		$scope.scheduleStatus = $stateParams.scheduleStatus;
 	}
-	scheduleService.getScheduleList().then(function(data){
-		$scope.courses = data.schedule;
+
+	var url="http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK";
+	var parameters = {
+		"weekTimeCode":"30A56BA2E71E4BE2BD5DD59BA044C1D6",
+		"ownerCode":"AEDBB67C70B24165817BAEA2B4EBF0D0"
+	}
+	scheduleService.getScheduleList(url,parameters).then(function(data){
+		$scope.courses = data.result.sections;
 	});
 
 

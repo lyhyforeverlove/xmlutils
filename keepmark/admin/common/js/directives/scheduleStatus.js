@@ -5,7 +5,10 @@ app.directive('scheduleStatus', [function () {
             if(scope.update ==="true"){
                 ele.on("click",function(){
                     //弹出选择老师框
-                    scope.$apply("chooseScheduleModal()");
+                    var index = ele.index();
+                    scope.eduSectionCode = ele.parent().children().eq(0).attr("eduSectionCode");
+                    scope.edudayCode = ele.parent().parent().children().eq(1).children().eq(index).attr("dayCode");
+                    scope.chooseScheduleModal(scope.eduSectionCode,scope.edudayCode);
                 });
             }
         }

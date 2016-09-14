@@ -5,7 +5,7 @@
         </div>
         <div class="wrapper">
             <div class="panel-heading">
-                <div class="form-group col-sm-12">
+               <!-- <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">地区</label>
                     <div class="col-sm-2">
                         <select class="form-control m-b select-inline">
@@ -37,7 +37,7 @@
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
                     <button class="btn btn-primary pull-right" ng-click="seacherByCondition()">查询</button>
-                </div>
+                </div>-->
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
                     <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addFullTimeTeacher()">添加全职教师</button>
@@ -58,47 +58,20 @@
                         <thead>
                         <tr>
                             <th>序号</th>
-                            <th>编号</th>
-                            <th>授课类型</th>
+                            <th>用户名</th>
                             <th>姓名</th>
-                            <th>性别</th>
                             <th>学科</th>
-                            <th>学历</th>
-                            <th>教龄</th>
-                            <th>联系电话</th>
-                            <th>入职时间</th>
+                            <th>工号</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1.</td>
-                                <td>AA</td>
-                                <td>qq</td>
-                                <td>理工</td>
-                                <td>0211</td>
-                                <td>张XX</td>
-                                <td>秦XX</td>
-                                <td>1.</td>
-                                <td>AA</td>
-                                <td>AA</td>
-                                <td>
-                                    <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
-                                    <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
-                                    <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1.</td>
-                                <td>AA</td>
-                                <td>qq</td>
-                                <td>理工</td>
-                                <td>0211</td>
-                                <td>张XX</td>
-                                <td>秦XX</td>
-                                <td>1.</td>
-                                <td>AA</td>
-                                <td>AA</td>
+                            <tr ng-repeat="teacher in list">
+                                <td>{{$index+1}}</td>
+                                <td>{{teacher.userName}}</td>
+                                <td>{{teacher.name}}</td>
+                                <td>{{teacher.subjectName }}</td>
+                                <td>{{teacher.teacherNum }}</td>
                                 <td>
                                     <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
                                     <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
@@ -115,47 +88,20 @@
                         <thead>
                         <tr>
                             <th>序号</th>
-                            <th>编号</th>
-                            <th>授课类型</th>
+                            <th>用户名</th>
                             <th>姓名</th>
-                            <th>性别</th>
                             <th>学科</th>
-                            <th>学历</th>
-                            <th>教龄</th>
-                            <th>联系电话</th>
-                            <th>入职时间</th>
+                            <th>工号</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>AA</td>
-                            <td>qq</td>
-                            <td>理工</td>
-                            <td>0211</td>
-                            <td>张XX</td>
-                            <td>秦XX</td>
-                            <td>1.</td>
-                            <td>AA</td>
-                            <td>AA</td>
-                            <td>
-                                <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
-                                <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
-                                <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>AA</td>
-                            <td>qq</td>
-                            <td>理工</td>
-                            <td>0211</td>
-                            <td>张XX</td>
-                            <td>秦XX</td>
-                            <td>1.</td>
-                            <td>AA</td>
-                            <td>AA</td>
+                        <tr ng-repeat="teacher in list">
+                            <td>{{$index+1}}</td>
+                            <td>{{teacher.userName}}</td>
+                            <td>{{teacher.name}}</td>
+                            <td>{{teacher.subjectName }}</td>
+                            <td>{{teacher.teacherNum }}</td>
                             <td>
                                 <a class="btn-a" ui-sref="app.authorityManage.fullTimeTeacherDetail()">详情</a>
                                 <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>

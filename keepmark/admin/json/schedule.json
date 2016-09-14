@@ -1,5 +1,5 @@
 {
-  "schedule":[{"day":"一","course":[
+  "schedule":[{"sectionName":"一","lessons":[
     {"courseName":"语文课1","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
     {"courseName":"英语课2","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
     {"courseName":"数学课3","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
@@ -15,7 +15,7 @@
     {"courseName":"语文课6","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"},
     {"courseName":"语文课6","teacherName":"李老师","pointName":1,"pointTime":"8:00~8:45"}
   ]},
-    {"day":"二","course":[
+    {"sectionName":"二","lessons":[
       {"courseName":"数文课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
       {"courseName":"语文课4","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
       {"courseName":"语文课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
@@ -31,7 +31,7 @@
       {"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"},
       {"courseName":"英语课","teacherName":"张老师","pointName":2,"pointTime":"9:00~9:45"}
     ]},
-    {"day":"三","course":[
+    {"sectionName":"三","lessons":[
       {"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
       {"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
       {"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
@@ -47,7 +47,7 @@
       {"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"},
       {"courseName":"数文课","teacherName":"孙老师","pointName":3,"pointTime":"10:00~10:45"}
     ]},
-    {"day":"四","course":[
+    {"sectionName":"四","lessons":[
       {"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
       {"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
       {"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
@@ -63,7 +63,7 @@
       {"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"},
       {"courseName":"自习课","teacherName":"","pointName":4,"pointTime":"11:00~11:45"}
     ]},
-    {"day":"五","course":[
+    {"sectionName":"五","lessons":[
       {"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
       {"courseName":"语文课4","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
       {"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
@@ -79,7 +79,7 @@
       {"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"},
       {"courseName":"语文课","teacherName":"李老师","pointName":5,"pointTime":"14:00~14:45"}
     ]},
-    {"day":"六","course":[
+    {"sectionName":"六","lessons":[
       {"courseName":"数文课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
       {"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
       {"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
@@ -95,7 +95,7 @@
       {"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"},
       {"courseName":"英语课","teacherName":"张老师","pointName":6,"pointTime":"15:00~15:45"}
     ]},
-    {"day":"七","course":[
+    {"sectionName":"七","lessons":[
       {"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
       {"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
       {"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
@@ -111,7 +111,7 @@
       {"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"},
       {"courseName":"数文课","teacherName":"孙老师","pointName":7,"pointTime":"16:00~16:45"}
     ]},
-    {"day":"八","course":[
+    {"sectionName":"八","lessons":[
       {"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
       {"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},
       {"courseName":"自习课","teacherName":"","pointName":8,"pointTime":"17:00~17:45"},

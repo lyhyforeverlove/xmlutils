@@ -1,4 +1,4 @@
-app.directive('freeTime', [function () {
+app.directive('chooseTeacher', [function () {
     return {
         link: function ($scope, $element) {
             $element.click(function(){

@@ -1,4 +1,4 @@
-<div class="wrapper-md ng-scope" ng-controller="departmentSchoolController" ng-init="load()">
+<div class="wrapper-md ng-scope" ng-controller="departmentSchoolController" ng-init="initMasterSchool()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{titleName}} </h4>
@@ -8,7 +8,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">总校：</label>
                     <div class="col-sm-2">
-                        <select id="masterSchool" ng-click="getBranchList(masterSchool)" ng-model="masterSchool" ng-value="{{m.code}}" class="form-control" ng-options="m.name for m in masterSchoolList">
+                        <select id="masterSchool" ng-click="getBranchSchoolList(masterSchool.code)" ng-model="masterSchool"  class="form-control" ng-options="m.name for m in masterSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -17,7 +17,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">分校：</label>
                     <div class="col-sm-2">
-                        <select id="branchSchool" ng-click="getDistrictList(branchSchool)" ng-model="branchSchool" ng-value="{{m.code}}" class="form-control" ng-options="b.name for b in branchSchoolList">
+                        <select id="branchSchool" ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">学区：</label>
                     <div class="col-sm-2">
-                        <select ng-model="districtSchool" ng-click="getDepartmentList(districtSchool)" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in districtSchoolList">
+                        <select ng-model="districtSchool" ng-click="getList(districtSchool)"  class="form-control" ng-options="d.name for d in districtSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -58,8 +58,8 @@
                             <td>{{data.personCharge}}</td>
                             <td>{{data.divisionType}}</td>
                             <td>
-                                <a ng-click="viewCenterSchool(data)">查看</a>
-                                <a ng-click="updateVCenterSchool(data)">修改</a>
+                                <a ng-click="viewDepartmentSchool(data)">查看</a>
+                                <a ng-click="updateVDepartmentSchool(data)">修改</a>
                                 <!--<a ng-click="deleteCenterSchool()">删除</a>-->
                             </td>
                         </tr>

@@ -3,78 +3,96 @@
  */
 app.controller("getSchoolInfo",function($scope,$http){
 
-    $http.get("admin/json/school.json").success(function(data){
-        $scope.masterSchoolList =data.masterSchool;
-    });
+    //总校列表
+    $scope.initMasterSchool =function(){
+        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+            {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "1"
 
-    //总校监听
-    $scope.$watch("masterSchool",function(newVal,oldVal){
-        if(newVal != oldVal){
-            $http.get("admin/json/school.json").success(function(data){
-                var branchSchoolList =data.branchSchool;
-                for(var i=0;i<branchSchoolList.length;i++){
-                    if(branchSchoolList[i].masterId == newVal.masterId){
-                        $scope.branchSchoolList = branchSchoolList[i].branchSchoolList;
-                    }
-                };
+            }).success(function (data) {
+                if(data) $scope.masterSchoolList = data.result;
+            });
+    };
+    //获取分校
+    $scope.getBranchSchoolList = function(masterSchoolCode){
+        if(typeof(masterSchoolCode) !=="undefined"){
+            $http.post( 'http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+                {
+                    "pageSize": 100,
+                    "pageNumber": 1,
+                    "type": "2",
+                    "schoolMainCode":masterSchoolCode
+                })
+                .success(function (data) {
+                    if(data) $scope.branchSchoolList = data.result;
+                });
+        }
+    };
+
+    //获取学区
+    $scope.getDistrictSchoolList = function(branchSchoolCode){
+        if(typeof(branchSchoolCode) !== "undefined"){
+            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+                {
+                    "pageSize": 100,
+                    "pageNumber": 1,
+                    "type": "3",
+                    "branchCode":branchSchoolCode
+                })
+                .success(function (data) {
+                    if(data) $scope.districtSchoolList = data.result;
+                });
+        }
+    };
+
+    //获取学部
+    $scope.getDepartmentSchoolList = function(districtSchoolCode){
+        if(typeof(districtSchoolCode) !== "undefined"){
+            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "4",
+                "districtCode":districtSchoolCode
+            }).success(function (data) {
+                if(data) $scope.departmentSchoolList = data.result;
             });
         }
-    });
+    };
 
-    //分校监听
-    $scope.$watch("branchSchool",function(newVal,oldVal){
-        if(newVal != oldVal){
-            $http.get("admin/json/school.json").success(function(data){
-                var districtSchoolList =data.districtSchool;
-                for(var i=0;i<districtSchoolList.length;i++){
-                    if(districtSchoolList[i].branchId == newVal.branchId){
-                        $scope.districtSchoolList = districtSchoolList[i].districtSchoolList;
-                    }
-                };
+    //获取中心
+    $scope.getCentreSchoolList = function(departmentSchoolCode){
+        if(typeof(departmentSchoolCode) !== "undefined"){
+            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "5",
+                "divisionCode":departmentSchoolCode
+            }).success(function (data) {
+                if(data) $scope.centreOfSchoolList = data.result;
             });
         }
-    });
+    };
 
-    //学区
-    $scope.$watch("districtSchool",function(newVal,oldVal){
-        if(newVal != oldVal){
-            $http.get("admin/json/school.json").success(function(data){
-                var departmentSchoolList =data.departmentSchool;
-                for(var i=0;i<departmentSchoolList.length;i++){
-                    if(departmentSchoolList[i].districtId == newVal.districtId){
-                        $scope.departmentSchoolList = departmentSchoolList[i].departmentSchoolList;
-                    }
-                };
+    //获取班级
+    $scope.getClassAndGrade= function(centreSchoolCode){
+        if(typeof(centreSchoolCode) !== "undefined"){
+            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "6",
+                "divisionCode":centreSchoolCode
+            }).success(function (data) {
+                if(data) $scope.classAndGradeList = data.result;
             });
         }
-    });
-
-    //学部
-    $scope.$watch("departmentSchool",function(newVal,oldVal){
-        if(newVal != oldVal){
-            $http.get("admin/json/school.json").success(function(data){
-                var centreOfSchoolList =data.centreOfSchool;
-                for(var i=0;i<centreOfSchoolList.length;i++){
-                    if(centreOfSchoolList[i].departmentId == newVal.departmentId){
-                        $scope.centreOfSchoolList = centreOfSchoolList[i].centreOfSchoolList;
-                    }
-                };
-            });
-        }
-    });
-
-    //中心
-    $scope.$watch("centreOfSchool",function(newVal,oldVal){
-        if(newVal != oldVal){
-            $http.get("admin/json/school.json").success(function(data){
-                var classAndGradeList =data.classAndGrade;
-                for(var i=0;i<classAndGradeList.length;i++){
-                    if(classAndGradeList[i].centreOfId == newVal.centreOfId){
-                        $scope.classAndGradeList = classAndGradeList[i].classAndGradeList;
-                    }
-                };
-            });
-        }
-    });
-
+    };
+    //获取所有的省
+    $scope.getAllProvince = function(){
+        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/area/allProvince?requestId=1',
+            {}).success(function (data) {
+            if(data) $scope.allProvinceList = data.result;
+        });
+    }
 });

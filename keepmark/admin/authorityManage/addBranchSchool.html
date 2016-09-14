@@ -1,4 +1,4 @@
-<div class="wrapper-md ng-scope" ng-controller="addBranchSchoolController" ng-init="load()">
+<div class="wrapper-md ng-scope" ng-controller="addBranchSchoolController" ng-init="initMasterSchool()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{titleName}}
@@ -38,8 +38,8 @@
             <div class="col-sm-12 form-group">
                 <label class="col-sm-1 control-label">省:</label>
                 <div class="col-sm-11">
-                    <select class="form-control m-b" ng-model="formData.province"  class="form-control" ng-options="m.provinceName for m in allProvinceList">
-                        <option value="">--请选择--</option>
+                    <select class="form-control m-b" ng-model="formData.province"  class="form-control" ng-options="m.provinceName for m in allProvinceList" >
+                        <option value="0">--请选择--</option>
                     </select>
                 </div>
             </div>

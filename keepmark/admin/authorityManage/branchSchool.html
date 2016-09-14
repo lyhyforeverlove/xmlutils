@@ -1,4 +1,4 @@
-<div class="wrapper-md ng-scope" ng-controller="branchSchoolController" ng-init="load()">
+<div class="wrapper-md ng-scope" ng-controller="branchSchoolController" ng-init="initMasterSchool()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{titleName}} </h4>
@@ -8,10 +8,9 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-2 control-label">总校：</label>
                     <div class="col-sm-2">
-                        <select id="masterSchool" ng-click="getList(masterSchool)" ng-model="masterSchool" ng-value="{{m.code}}" class="form-control" ng-options="m.name for m in masterSchoolList">
+                        <select ng-click="getList(masterSchool)" ng-model="masterSchool"  class="form-control" ng-options="m.name for m in masterSchoolList">
                             <option value="">--请选择--</option>
                         </select>
-
                     </div>
                 </div>
 

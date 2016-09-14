@@ -1,205 +1,185 @@
-<div class="wrapper-md ng-scope" ng-controller="addCentreOfSchoolController">
+<div class="wrapper-md ng-scope" ng-controller="addCentreOfSchoolController" ng-init="initMasterSchool()">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>权限管理  &gt; {{name}} </h4>
+            <h4>权限管理  &gt; {{titleName}} </h4>
         </div>
+        <pre>{{formData}}</pre>
         <div class="wrapper">
             <div class="form-group col-sm-12">
-                <label class="col-sm-2 control-label">总校：</label>
+                <label class="col-sm-1 control-label">总校：</label>
                 <div class="col-sm-2">
-                    <select id="masterSchool" ng-model="schoolMain"  ng-change="getBranchMainList(schoolMain)" class="form-control" ng-options="m.name for m in masterSchoolList">
+                    <select ng-model="schoolMain"  ng-click="getBranchSchoolList(schoolMain.code)" class="form-control" ng-options="m.name for m in masterSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-2 control-label">分校：</label>
+                <label class="col-sm-1 control-label">分校：</label>
                 <div class="col-sm-2">
-                    <select id="branchSchool" ng-click="getDistrictList(branchSchool)" ng-model="branchSchool" ng-value="{{m.code}}" class="form-control" ng-options="b.name for b in branchSchoolList">
+                    <select ng-model="branchSchool" ng-click="getDistrictSchoolList(branchSchool.code)"  class="form-control" ng-options="b.name for b in branchSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-2 control-label">学区：</label>
+                <label class="col-sm-1 control-label">学区：</label>
                 <div class="col-sm-2">
-                    <select ng-model="division" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d in districtSchoolList">
+                    <select ng-model="division"  ng-click="getDepartmentSchoolList(division.code)"  class="form-control" ng-options="d.name for d in districtSchoolList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-2 control-label">学部：</label>
+                <label class="col-sm-1 control-label">学部：</label>
                 <div class="col-sm-2">
-                    <select ng-model="formData.districtCode" ng-value="{{m.code}}" class="form-control" ng-options="d.name for d departmentSchoolList ">
+                    <select ng-model="formData.divisionCode" class="form-control" ng-options="d.name for d in departmentSchoolList" >
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">中心名称:</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入中心名称" ng-model="formData.name">
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" placeholder="请输入中心名称" ng-model="formData.name">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">中心负责人:</label>
-                <div class="col-sm-11">
-                    <select name="account" class="form-control m-b" ng-model="formData.personCharge" ng-options="b.name for b in personChargeList">
-                        <option value="1">张老师</option>
-                        <option value="2">李老师</option>
+                <div class="col-sm-2">
+                    <select class="form-control m-b" ng-model="formData.personCharge" ng-options="b.code as b.name for b in personChargeList" ng-click="getPersonChargeList()">
+                        <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">保分级别:</label>
-                <div class="col-sm-11">
-                    <select name="account" class="form-control m-b" ng-model="formData.goalType" value="{{goalType}}">
-                        <option value="0">保一本30分上</option>
+                <div class="col-sm-2">
+                    <select class="form-control m-b" ng-model="formData.goalType" >
+                        <option value="">--请选择--</option>
                         <option value="1">保一本</option>
-                        <option value="1">保二本</option>
+                        <option value="2">保二本</option>
+                        <option value="3">保一本30分上</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">语文老师:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                    <div class="form-group">
-                        <span class="form-inline">张老师</span>
-                        <button class="btn btn-primary form-inline">添加</button>
-                    </div>
-                    <div class="form-group">
-                        <span>XXX老师 <a class="btn-a">删除</a></span>
+                    <button class="btn btn-primary btn-margin" ng-click="addTeacher(1)">添加</button>
+                    <div id="chineseTeacher">
+                        <span class="teacher" ng-repeat="chineseTeacher in chineseTeacherList" teacher="{{chineseTeacher}}" choose-teacher>
+                            {{chineseTeacher.name}}
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">数学老师:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                    <div class="form-group">
-                        <span class="form-inline">张老师</span>
-                        <button class="btn btn-primary form-inline">添加</button>
-                    </div>
-                    <div class="form-group">
-                        <span>XXX老师 <a class="btn-a">删除</a></span>
+                    <button class="btn btn-primary btn-margin" ng-click="addTeacher(2)">添加</button>
+                    <div class="form-group" id="mathTeacher">
+                        <span class="form-inline teacher" ng-repeat="mathTeacher in mathTeacherList" teacher="{{mathTeacher}}" choose-teacher>
+                            {{mathTeacher.name}}
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">英语老师:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                    <div class="form-group">
-                        <span class="form-inline">张老师</span>
-                        <button class="btn btn-primary form-inline">添加</button>
-                    </div>
-                    <div class="form-group">
-                        <span>XXX老师 <a class="btn-a">删除</a></span>
+                    <button class="btn btn-primary btn-margin" ng-click="addTeacher(3)">添加</button>
+                    <div class="form-group" id="englishTeacher ">
+                        <span class="form-inline teacher" ng-repeat="englishTeacher in englishTeacherList" teacher="{{englishTeacher}}" choose-teacher>
+                            {{englishTeacher.name}}
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="arts" ng-if="subjectCode =='1'">
-                <div class="form-group">
+            <div class="arts" ng-show="formData.divisionCode.divisionType==0">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">历史老师:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addTeacher(7)">添加</button>
+                        <div class="form-group" id="historyTeacher">
+                            <span class="form-inline teacher" ng-repeat="historyTeacher in historyTeacherList" teacher="{{historyTeacher}}" choose-teacher>
+                                {{historyTeacher.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">地理老师:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addTeacher(8)">添加</button>
+                        <div class="form-group teacher" id="geographyTeacher">
+                            <span class="form-inline" ng-repeat="geographyTeacher in geographyTeacherList" teacher="{{geographyTeacher}}" choose-teacher>
+                               {{geographyTeacher.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">政治老师:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addTeacher(9)">添加</button>
+                        <div class="form-group" id="politicalTeacher">
+                            <span class="form-inline teacher" ng-repeat="politicalTeacher in politicalTeacherList" teacher="{{politicalTeacher}}" choose-teacher>
+                                {{politicalTeacher.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="science" ng-if="subjectCode == '2'">
-                <div class="form-group">
+            <div class="science" ng-show="formData.divisionCode.divisionType==1">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">物理老师:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addTeacher(4)">添加</button>
+                        <div class="form-group" id="physicsTeacher">
+                            <span class="form-inline teacher" ng-repeat="physicsTeacher in physicsTeacherList" teacher="{{physicsTeacher}}" choose-teacher>
+                                {{physicsTeacher.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">化学老师:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addTeacher(5)">添加</button>
+                        <div class="form-group" id="chemistryTeacher">
+                            <span class="form-inline teacher" ng-repeat="chemistryTeacher in chemistryTeacherList.code" teacher="{{chemistryTeacher}}" choose-teacher>
+                               {{chemistryTeacher.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">生物老师:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addTeacher(6)">添加</button>
+                        <div class="form-group" id="biologyTeacher">
+                            <span class="form-inline" ng-repeat="biologyTeacher in biologyTeacherList" teacher="{{biologyTeacher}}" choose-teacher>
+                                {{biologyTeacher.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--centerLeader 中心主管名字-->
             <div class="groupLeader">
                 <div class="form-group">
                     <label class="col-sm-1 control-label">组长:</label>
                     <div class="col-sm-11">
-                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
-                        <div class="form-group">
-                            <span class="form-inline">张老师</span>
-                            <button class="btn btn-primary form-inline">添加</button>
-                        </div>
-                        <div class="form-group">
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
-                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        <button class="btn btn-primary btn-margin" ng-click="addLeader()">添加</button>
+                        <div class="form-group" id="centerLeader">
+                            <span class="form-inline leader" ng-repeat="centerLeader in centerLeaderList" leader="{{centerLeader}}" choose-teacher>
+                                {{centerLeader.name}}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary btn-margin pull-right">保存</button>
+            <button class="btn btn-primary btn-margin pull-right" ng-click="saveCentreOf(formData)">保存</button>
         </div>
     </div>
 </div>

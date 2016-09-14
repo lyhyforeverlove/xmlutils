@@ -2,20 +2,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{name}}
-
                 <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.departmentDistrictSchool()" ><span class="p-d">返回</span></button>
-
             </h4>
         </div>
         <div class="wrapper">
-            <input type="hidden" class="form-control m-b" ng-model="formData.code" value="{{code}}">
-
             <div class="form-group">
                 <label class="col-sm-1 control-label">学区名称:</label>
                 <div class="col-sm-11 m-b">
-                    <select name="account" class="form-control" ng-model="formData.divisionType" value="{{divisionType}}">
-                        <option value="0">理工</option>
-                        <option value="1">文科</option>
+                    <select class="form-control" ng-model="formData.divisionType" >
+                        <option value="0">文科</option>
+                        <option value="1">理工</option>
                     </select>
                 </div>
             </div>
@@ -35,19 +31,19 @@
             <div class="form-group">
                 <label class="col-sm-1 control-label">学部名称:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入学部名称" ng-model="formData.name" value="{{name}}">
+                    <input type="text" class="form-control m-b" placeholder="请输入学部名称" ng-model="formData.name">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">学部负责人:</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="formData.personCharge" value="{{personCharge}}">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="formData.personCharge" >
                     <div class="form-group">
                         <span class="form-inline">张老师</span>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary col-sm-1 col-sm-push-8" ng-click="updateDepartmentSchool(formData)">保存</button>
+            <button class="btn btn-primary col-sm-1 col-sm-push-8" ng-click="saveUpdateDepartmentSchool(formData)">保存</button>
         </div>
     </div>
 </div>

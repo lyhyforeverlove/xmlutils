@@ -248,6 +248,7 @@ h4>span{
 .freeTime{
     background-color: #7266ba;
     color:#fff;
+    cursor: pointer;
 }
 
 .form-group span{
@@ -262,4 +263,14 @@ h4>span{
 }
 .teacher-list>li{
     float:left;
+}
+
+.leader,.teacher{
+    padding:5px 15px;
+    border:1px solid #7266ba;
+    display: inline-block;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    cursor: pointer;
 }

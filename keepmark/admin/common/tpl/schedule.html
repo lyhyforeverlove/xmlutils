@@ -1,4 +1,4 @@
-<div class="course-content"  ng-controller="scheduleController">
+<div class="course-content" xmlns="http://www.w3.org/1999/html">
     <table class="schedule-table">
         <tr>
             <td>第一周</td>
@@ -19,35 +19,35 @@
         </tr>
         <tr>
             <td>节\课</td>
-            <td>星期一</td>
-            <td>星期二</td>
-            <td>星期三</td>
-            <td>星期四</td>
-            <td>星期五</td>
-            <td>星期六</td>
-            <td>星期天</td>
-            <td>星期一</td>
-            <td>星期二</td>
-            <td>星期三</td>
-            <td>星期四</td>
-            <td>星期五</td>
-            <td>星期六</td>
-            <td>星期天</td>
+            <td dayCode="05F6AFE0F9C34D159F61285A3B5EB6FF">星期一</td>
+            <td dayCode="BA15920F395947D69C064A1543C00691">星期二</td>
+            <td dayCode="1E2C1ADE05BE4F5EB9B9A9CFDBC5CC62">星期三</td>
+            <td dayCode="BB8DD94E3BD744EB8ACFB3243CA71EC0">星期四</td>
+            <td dayCode="70C9DEA30FE8464B87795E9E066B2FB6">星期五</td>
+            <td dayCode="C6A2026B0DC84EAFB3952C2A470997AD">星期六</td>
+            <td dayCode="4873BF4A228540989BF8B76C02343A1C">星期天</td>
+            <td dayCode="36453DFD44154F4990AEA3EED9D555E5">星期一</td>
+            <td dayCode="F8949AA049254DE2B889C7A720A40AA5">星期二</td>
+            <td dayCode="5F1F4E3C7342470FA36CFD6D4AFF35EB">星期三</td>
+            <td dayCode="396A8459109E44C08C1B70AAA76000BF">星期四</td>
+            <td dayCode="0A1D74DB030543A28D78475A012FF6DC">星期五</td>
+            <td dayCode="8A68133A041B4AFD8198498F2173956E">星期六</td>
+            <td dayCode="7286BD5B2A8548C08D3F5D4BA9325C83">星期天</td>
         </tr>
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='0'">
-            <td>第{{schedule.day}}节</td>
-            <td ng-repeat="course in schedule.course" update="false" schedule-status ng-if="course.teacherName">{{course.courseName}}</br>{{course.teacherName}}</td>
-            <td ng-repeat="course in schedule.course" update="true" schedule-status ng-if="!course.teacherName"></td>
+            <td eduSectionCode ={{schedule.eduSectionCode}}>{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
+            <td ng-repeat="course in schedule.lessons track by $index" update="false" schedule-status ng-if="course">{{course.subjectName}}</td>
+            <td ng-repeat="course in schedule.lessons track by $index" update="true" schedule-status ng-if="!course"></td>
         </tr>
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='1'">
-            <td>第{{schedule.day}}节</td>
-            <td ng-repeat="course in schedule.course" update="false" schedule-status ng-if="course.teacherName">{{course.courseName}}</br>{{course.teacherName}}</td>
-            <td ng-repeat="course in schedule.course" update="false" schedule-status ng-if="!course.teacherName"></td>
+            <td eduSectionCode ={{schedule.eduSectionCode}}>{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
+            <td ng-repeat="course in schedule.lessons  track by $index" update="false" schedule-status ng-if="course">{{course.subjectName}}</td>
+            <td ng-repeat="course in schedule.lessons  track by $index" update="false" schedule-status ng-if="!course"></td>
         </tr>
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='2'">
-            <td>第{{schedule.day}}节</td>
-            <td ng-repeat="course in schedule.course" update="true" schedule-status ng-if="course.teacherName">{{course.courseName}}</br>{{course.teacherName}}</td>
-            <td ng-repeat="course in schedule.course" update="true" schedule-status ng-if="!course.teacherName"></td>
+            <td eduSectionCode ={{schedule.eduSectionCode}}>{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
+            <td ng-repeat="course in schedule.lessons  track by $index" update="true" schedule-status ng-if="course">{{course.subjectName}}</td>
+            <td ng-repeat="course in schedule.lessons  track by $index" update="true" schedule-status ng-if="!course"></td>
         </tr>
     </table>
 </div>

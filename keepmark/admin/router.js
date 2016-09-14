@@ -173,7 +173,9 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controller.js');
+                                    return $ocLazyLoad.load(['admin/teachResearchManage/js/controller.js',
+                                        'admin/teachResearchManage/js/controllerLY.js'
+                                    ]);
                                 }
                             ]
                         }
@@ -294,6 +296,7 @@ angular.module('app')
                         url: '/headSchool',
                         templateUrl: 'admin/teachResearchManage/createHeadSchool.html',
                     })
+
                     .state('app.teachResearchManage.schoolBranch', {
                         url: '/schoolBranch',
                         templateUrl: 'admin/teachResearchManage/createSchoolBranch.html',
@@ -304,7 +307,7 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.createSchool', {
                         url: '/createSchool',
-                        templateUrl: 'admin/common/tpl/createSchool.html',
+                        templateUrl: 'admin/teachResearchManage/addHeadSchool.html',
                     })
                     .state('app.teachResearchManage.changeCourseType', {
                         url: '/changeCourseType',
@@ -440,7 +443,10 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/authorityManage/controller.js');
+                                    return $ocLazyLoad.load(['admin/authorityManage/controller.js',
+                                        'admin/authorityManage/js/schoolController.js',
+                                        'admin/authorityManage/js/classController.js'
+                                    ]);
                                 }
                             ]
                         }
@@ -537,7 +543,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/addDepartmentSchool.html'
                     })
                     .state('app.authorityManage.addCentreOfSchool', {
-                        url: '/addCentreOfSchool:jsonString',
+                        url: '/addCentreOfSchool',
                         templateUrl: 'admin/authorityManage/addCentreOfSchool.html'
                     })
 
@@ -612,6 +618,54 @@ angular.module('app')
                         url: '/fullTimeTeacherDetail',
                         templateUrl: 'admin/authorityManage/fullTimeTeacherDetail.html'
                     })
+
+
+
+
+
+
+                //新增
+
+                    .state('app.teachResearchManage.updateHeadSchool', {
+                        url: '/updateHeadSchool/{headSchool}',
+                        templateUrl: 'admin/teachResearchManage/updateHeadSchool.html',
+                    })
+                    .state('app.teachResearchManage.addSchoolBranch', {
+                        url: '/addSchoolBranch',
+                        templateUrl: 'admin/teachResearchManage/addSchoolBranch.html',
+                    })
+                    .state('app.teachResearchManage.updateSchoolBranch', {
+                        url: '/updateSchoolBranch/{schoolBranch}',
+                        templateUrl: 'admin/teachResearchManage/updateSchoolBranch.html',
+                    })
+                    .state('app.teachResearchManage.addCentreSchool', {
+                        url: '/addCentreSchool',
+                        templateUrl: 'admin/teachResearchManage/addCentreSchool.html',
+                    })
+                    .state('app.teachResearchManage.updateCentreSchool', {
+                        url: '/updateCentreSchool/{centreSchool}',
+                        templateUrl: 'admin/teachResearchManage/updateCentreSchool.html',
+                    })
+
+
+
+                    .state('app.teachResearchManage.studyGroup', {
+                        url: '/studyGroup',
+                        templateUrl: 'admin/teachResearchManage/studyGroup.html',
+                    })
+                    .state('app.teachResearchManage.addStudyGroup', {
+                        url: '/addStudyGroup',
+                        templateUrl: 'admin/teachResearchManage/addStudyGroup.html',
+                    })
+                    .state('app.teachResearchManage.updateStudyGroup', {
+                        url: '/updateStudyGroup',
+                        templateUrl: 'admin/teachResearchManage/updateStudyGroup.html',
+                    })
+                    .state('app.teachResearchManage.studyGroupDetail', {
+                        url: '/studyGroupDetail',
+                        templateUrl: 'admin/teachResearchManage/studyGroupDetail.html',
+                    })
+
             }
         ]
     );
