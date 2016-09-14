@@ -1,17 +1,7 @@
 <script>
-    app.controller('myCtrl', function($scope) {
-        app.controller('myCtrl', function($scope, locals) {
-            $scope.names = ["易", "中", "难"];
-            $scope.getIndex = function(){
-                $.each($scope.names,function(index,item){
-                    if(item == $scope.selectedName){
-                        $scope.item = item;
-                    }
-                })
-                locals.set("courseOption", $scope.item);
-            }
-        });
-    });
+app.controller('myCtrl', function($scope) {
+    $scope.names = ["A课程", "B课程", "C课程"];
+});
 </script>
 <div class="modal-header">
     <h3 class="modal-title">更换课程类型</h3>
@@ -24,10 +14,10 @@
             </select>
         </div>
     </div>
-
-    <p>您选中的课程: <b>{{selectedName }}</b></p>
+   
+        <p>您选中的课程: <b>{{selectedName }}</b></p>
 </div>
-<div class="modal-footer">
+<div class="modal-footer">                  
     <button class="btn btn-default" ng-click="cancel()">Cancel</button>
     <button class="btn btn-primary" ng-click="ok()">OK</button>
 </div>

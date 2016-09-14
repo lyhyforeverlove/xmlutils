@@ -46,8 +46,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="z in tesarry">
-                                        <td>{{z}}</td>
+                                    <tr>
+                                        <td>1</td>
                                         <td>诊断</td>
                                         <td>1821058560</td>
                                         <td>LiLy</td>
@@ -62,8 +62,6 @@
                                                 <input id={{z}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(z,x)"><i></i>选择</label>
                                         </td>
                                     </tr>
-                                </tbody>
-                                <tfoot class="hide-if-no-paging">
                                     <tr>
                                         <td colspan="8" class="text-right">
                                             <label class="i-checks m-b-none">
@@ -73,16 +71,11 @@
                                         </td>
                                         <td>
                                             <!-- 手动分配 modal -->
-                                            <div ng-controller="categoryCtrl">
-                                                <script type="text/ng-template" id="myModalContent.html">
-                                                    <div ng-include="'admin/common/tpl/allot.html'"></div>
-                                                </script>
-                                                <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
-                                            </div>
+                                            <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
                                             <!-- 手动分配/modal -->
                                         </td>
                                     </tr>
-                                </tfoot>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -108,8 +101,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="z in tesarry">
-                                        <td>{{z}}</td>
+                                    <tr>
+                                        <td>2</td>
                                         <td>诊断</td>
                                         <td>1821058560</td>
                                         <td>LiLy</td>

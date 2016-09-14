@@ -13,6 +13,7 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
         });
     }
     $scope.getBookVersion = function(id){
+       
        //console.log(id);
         CalcService.filterData().then(function(data){
             $scope.bookVersion = data.filterData[1].category[id].bookVersion;
@@ -51,9 +52,13 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
         CalcService.CourseAimData().then(function(data){
             $scope.CourseAimData = data.CourseAimData;
             $scope.ctb_group = data.CourseAimData[0].ctb_group;
+
         });
+        
+        
     }
 });
+
 
 //通过ID获取value
 app.controller("getValue",function($http,$scope){
@@ -153,19 +158,23 @@ app.controller("getValue",function($http,$scope){
 });
 //获取JSON数据
 app.controller("getJsonData",function($scope,$http){
-    //获取类型（文/理） 默认为理科
-    $scope.getSubject = function(type){
-        $scope.category = $scope.departmentType[type].category;
-        $scope.bookVersion = $scope.departmentType[type].bookVersion;
-    };
-    //获取学科、教材、类型
+
+    //获取类型（文/理）
     $http.post("admin/json/filterData.json").then(function(result){
         $scope.departmentType = result.data.filterData;
-        $scope.getSubject(1);   //默认为理科
     })
+    //获取学科、教材
+    $scope.getSubject = function(type,value){
+        $http.post("admin/json/filterData.json").then(function(result){
+            $scope.category = result.data.filterData[type].category;
+            $scope.bookVersion = $scope.category[value].bookVersion;
+        })
+    };
     //获取目标
     $http.post("admin/json/aimData.json").then(function(result){
         $scope.aimTypes = result.data.aimData;
     });
 });
+   
+
    

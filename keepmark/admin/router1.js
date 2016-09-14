@@ -16,7 +16,7 @@ angular.module('app')
         ['$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider
-                    .otherwise('/app/teachManage/diagGoods');
+                    .otherwise('/app/teachManage/testPoolByFirst');
                 /*.otherwise('/auth/login');*/
                 $stateProvider
                 /**/
@@ -116,7 +116,7 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load("admin/teachManage/js/roundSentence.js");
+                                    return $ocLazyLoad.load('admin/teachManage/js/roundSentence.js');
                                 }
                             ]
                         }
@@ -124,24 +124,10 @@ angular.module('app')
                     .state('app.teachManage.exam', {
                         url: '/exam/:jsonString',
                         templateUrl: 'admin/teachManage/examDetail.html',
-                         resolve: {
-                            deps: ['$ocLazyLoad',
-                                function($ocLazyLoad) {
-                                    return $ocLazyLoad.load("admin/teachManage/js/roundSentence.js");
-                                }
-                            ]
-                        }
                     })
                     .state('app.teachManage.secondRound', {
                         url: '/secondRound',
                         templateUrl: 'admin/teachManage/secondRoundSentence.html',
-                         resolve: {
-                            deps: ['$ocLazyLoad',
-                                function($ocLazyLoad) {
-                                    return $ocLazyLoad.load("admin/teachManage/js/roundSentence.js");
-                                }
-                            ]
-                        }
                     })
                     .state('app.teachManage.examConfrim', {
                         url: '/examConfrim',
@@ -197,7 +183,9 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controller.js','admin/teachResearchManage/js/controllerLY.js','admin/teachResearchManage/js/areaCategory.js');
+                                    return $ocLazyLoad.load(['admin/teachResearchManage/js/controller.js',
+                                        'admin/teachResearchManage/js/controllerLY.js'
+                                    ]);
                                 }
                             ]
                         }
@@ -334,14 +322,13 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.createSchool', {
                         url: '/createSchool',
-                        templateUrl: 'admin/common/tpl/createSchool.html',
+                        templateUrl: 'admin/teachResearchManage/addHeadSchool.html',
                     })
                     .state('app.teachResearchManage.changeCourseType', {
                         url: '/changeCourseType',
                         templateUrl: 'admin/teachResearchManage/changeCourseType.html',
                     })
 
-                
                 .state('app.largeClassManage', { //配置调课管理
                         abstract: true,
                         url: '/largeClassManage',
@@ -689,6 +676,7 @@ angular.module('app')
                         url: '/studyGroupDetail',
                         templateUrl: 'admin/teachResearchManage/studyGroupDetail.html',
                     })
+
             }
         ]
     );

@@ -1,6 +1,7 @@
 'use strict';
 
 /*阅卷复审*/
+/*阅卷复审*/
 app.controller('MarkReviewController', function($scope, $resource, $http, $modal, $state,$controller,CalcService) {
     $controller('getValue', {$scope: $scope});//继承
     //渲染筛选信息
@@ -224,7 +225,8 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $controller, CalcServ
 app.controller('SBConfrimCtrl', function($scope, $controller,CalcService, $http) {
     $controller('getJsonData', {$scope: $scope});//继承
     $controller('getValue', {$scope: $scope});//继承
-    $scope.formData = {};
+
+
     //默认选中函数
     function checked(data,ele,value){
         for(var i=0; i<data.length; i++){
@@ -236,10 +238,12 @@ app.controller('SBConfrimCtrl', function($scope, $controller,CalcService, $http)
         }
     }
     //默认值
+    $scope.formData = {};
     $scope.formData.departmentType = "0";
     $scope.formData.subjectCode = "1";
     $scope.formData.bookVersionCode = "0";
     $scope.formData.aimType = "1";
+    $scope.getSubject($scope.formData.departmentType);       //获取教材
     //筛选条件改变时执行
     $scope.change = function(val,name){
         $scope.formData[name] = val;
@@ -428,7 +432,13 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'items', '$http
                 alert("短板课程创建成功");
             }
         })
-    }
+    };
+    //添加课程类型
+    $scope.changeCourseType = function(index){
+        $modalInstance.close($scope.selected.item);
+        console.log(index);
+
+    };
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
@@ -469,10 +479,31 @@ app.controller('CourseCategoryCtrl', function($scope, $resource, $stateParams, $
     }
 });
 /*更换学生课程类型*/
-app.controller('ChangeCourseTypeCtrl', function($scope, $http, $resource, $stateParams, $modal, $state) {
+app.controller('ChangeCourseTypeCtrl', function($scope, $http, $controller, CalcService) {
+    $controller('getJsonData', {$scope: $scope});//继承
+    $scope.formData = {};
+    //默认选中函数
+    function checked(data,ele,value){
+        for(var i=0; i<data.length; i++){
+            if(data[i].checked == true){
+                ele.eq(i).prop("checked",true);
+                $scope.formData[value] = data[i][value];
+                break;
+            }
+        }
+    }
+    //默认值
+    $scope.formData.departmentType = "1";
+    $scope.formData.aimType = "1";
+    $scope.formData.classes = "0";
+    $scope.formData.center = "0";
+    //筛选条件改变时执行
+    $scope.change = function(val,name){
+        $scope.formData[name] = val;
+    };
     //根据类型、目标、中心、班级 查询列表
     $scope.query = function(page,size,callback) {
-        $http.post($scope.app.testhost + '/teacher/diagnosis/getDiagnosisRecordList?requestId=test123456', {
+               /* $http.post($scope.app.testhost + '/teacher/diagnosis/getDiagnosisRecordList?requestId=test123456', {
             "gradeCode": "1",
             "departmentType": "1",
             "subjectCode": "1",
@@ -487,7 +518,7 @@ app.controller('ChangeCourseTypeCtrl', function($scope, $http, $resource, $state
                 $scope.result = data.result;
                 $scope.totalPage = data.result.totalPage;
                 callback && callback(data.result);
-            });
+            });*/
     }
 });
 /*课程管理*/
@@ -623,8 +654,8 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                 if(data.message = "success"){
                     console.log(data);
                     $scope.results = data.result;
-                    results = data.result.content;
-                    var subjectCode = data.result.content[0].subjectCode;
+                    results = data.result.list;
+                    var subjectCode = data.result.list[0].subjectCode;
                     if(subjectCode == 1){
                         $scope.subjectName = "语文";
                     }
