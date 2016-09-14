@@ -74,15 +74,14 @@ angular.module('app')
                         url: '/create',
                         templateUrl: 'admin/news/detail.html',
                     })
-
-                .state('app.teachManage', {
+                    .state('app.teachManage', {
                         abstract: true,
                         url: '/teachManage',
                         template: '<div ui-view class="fade-in"></div>',
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teachManage/js/controller.js');
+                                    return $ocLazyLoad.load("admin/teachManage/js/controller.js");
                                 }
                             ]
                         }
@@ -99,6 +98,10 @@ angular.module('app')
                         url: '/diagGoods',
                         templateUrl: 'admin/teachManage/diagnosisGoods.html',
                     })
+                    .state('app.teachManage.goodsDetail', {
+                        url: '/goodsDetail',
+                        templateUrl: 'admin/teachManage/goodsDetail.html',
+                    })
                     .state('app.teachManage.firstPool', {
                         url: '/testPoolByFirst',
                         templateUrl: 'admin/teachManage/testPoolByFirst.html',
@@ -110,9 +113,16 @@ angular.module('app')
                     .state('app.teachManage.round', {
                         url: '/round',
                         templateUrl: 'admin/teachManage/roundSentence.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachManage/js/roundSentence.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachManage.exam', {
-                        url: '/exam',
+                        url: '/exam/:jsonString',
                         templateUrl: 'admin/teachManage/examDetail.html',
                     })
                     .state('app.teachManage.secondRound', {
@@ -151,9 +161,9 @@ angular.module('app')
                         url: '/divideClassesConfrim',
                         templateUrl: 'admin/teachManage/divideClassesConfrim.html',
                     })
-                    .state('app.teachManage.reportDetail', {
-                        url: '/reportDetail',
-                        templateUrl: 'admin/teachManage/reportDetail.html',
+                    .state('app.teachManage.DiagDeportDetails', {
+                        url: '/DiagDeportDetails',
+                        templateUrl: 'admin/common/tpl/DiagDeportDetails.html',
                     })
                     .state('app.teachManage.look', {
                         url: '/look',
@@ -192,9 +202,9 @@ angular.module('app')
                         url: '/doubleList',
                         templateUrl: 'admin/teachResearchManage/doubleList.html',
                     })
-                    .state('app.teachManage.detail', {
-                        url: '/detail/{id}',
-                        templateUrl: 'admin/common/tpl/detail.html',
+                    .state('app.teachManage.ExamPaperDetails', {
+                        url: '/ExamPaperDetails/{id}',
+                        templateUrl: 'admin/common/tpl/ExamPaperDetails.html',
                     })
                     .state('app.teachResearchManage.groupsDetail', {
                         url: '/groupsDetail/{complexPaperCode}',
@@ -244,14 +254,9 @@ angular.module('app')
                         url: '/createCourse',
                         templateUrl: 'admin/teachResearchManage/createCourse.html',
                     })
-
-                .state('app.teachResearchManage.createSingle', {
+                    .state('app.teachResearchManage.createSingle', {
                         url: '/createSingle/{resourcePaperCode}',
                         templateUrl: 'admin/teachResearchManage/createSingle.html',
-                    })
-                    .state('app.teachResearchManage.list', {
-                        url: '/list/:jsonString',
-                        templateUrl: 'admin/teachResearchManage/addDiagPaper.html',
                     })
                      .state('app.teachResearchManage.paperList', {
                         url: '/paperList/{subjectCode}',
@@ -274,8 +279,19 @@ angular.module('app')
                         templateUrl: 'admin/teachResearchManage/courseList.html',
                     })
                     .state('app.teachResearchManage.courseDeatil', {
-                        url: '/courseDeatil',
+                        url: '/courseDeatil/{courseSystemCode}',
                         templateUrl: 'admin/teachResearchManage/courseDeatil.html',
+                    })
+                    .state('app.teachResearchManage.areaCategory', {
+                        url: '/areaCategory',
+                        templateUrl: 'admin/teachResearchManage/areaCategory.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/areaCategory.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachResearchManage.courseTree', {
                         url: '/courseTree',
@@ -296,7 +312,6 @@ angular.module('app')
                         url: '/headSchool',
                         templateUrl: 'admin/teachResearchManage/createHeadSchool.html',
                     })
-
                     .state('app.teachResearchManage.schoolBranch', {
                         url: '/schoolBranch',
                         templateUrl: 'admin/teachResearchManage/createSchoolBranch.html',
@@ -457,11 +472,11 @@ angular.module('app')
                     })
 
                 .state('app.authorityManage.masterSchoolDetail', {
-                        url: '/masterSchoolDetail/:jsonString',
+                        url: '/masterSchoolDetail',
                         templateUrl: 'admin/authorityManage/masterSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateMasterSchool', {
-                        url: '/updateMasterSchool:jsonString',
+                        url: '/updateMasterSchool',
                         templateUrl: 'admin/authorityManage/updateMasterSchool.html'
                     })
                     .state('app.authorityManage.branchSchool', {
@@ -469,11 +484,11 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/branchSchool.html'
                     })
                     .state('app.authorityManage.branchSchoolDetail', {
-                        url: '/branchSchoolDetail:jsonString',
+                        url: '/branchSchoolDetail',
                         templateUrl: 'admin/authorityManage/branchSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateBranchSchool', {
-                        url: '/updateBranchSchool:jsonString',
+                        url: '/updateBranchSchool',
                         templateUrl: 'admin/authorityManage/updateBranchSchool.html'
                     })
                     .state('app.authorityManage.districtSchool', {
@@ -481,11 +496,11 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/districtSchool.html'
                     })
                     .state('app.authorityManage.districtSchoolDetail', {
-                        url: '/districtSchoolDetail:jsonString',
+                        url: '/districtSchoolDetail',
                         templateUrl: 'admin/authorityManage/districtSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateDistrictSchool', {
-                        url: '/updateDistrictSchool:jsonString',
+                        url: '/updateDistrictSchool',
                         templateUrl: 'admin/authorityManage/updateDistrictSchool.html'
                     })
                     .state('app.authorityManage.departmentSchool', {
@@ -493,11 +508,11 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/departmentSchool.html'
                     })
                     .state('app.authorityManage.departmentSchoolDetail', {
-                        url: '/departmentSchoolDetail:jsonString',
+                        url: '/departmentSchoolDetail',
                         templateUrl: 'admin/authorityManage/departmentSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateDepartmentSchool', {
-                        url: '/updateDepartmentSchool:jsonString',
+                        url: '/updateDepartmentSchool',
                         templateUrl: 'admin/authorityManage/updateDepartmentSchool.html'
                     })
                     .state('app.authorityManage.centreOfSchool', {
@@ -505,11 +520,11 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/centreOfSchool.html'
                     })
                     .state('app.authorityManage.centreOfSchoolDetail', {
-                        url: '/centreOfSchoolDetail:jsonString',
+                        url: '/centreOfSchoolDetail',
                         templateUrl: 'admin/authorityManage/centreOfSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateCentreOfSchool', {
-                        url: '/updateCentreOfSchool:jsonString',
+                        url: '/updateCentreOfSchool',
                         templateUrl: 'admin/authorityManage/updateCentreOfSchool.html'
                     })
                     .state('app.authorityManage.classAndGrade', {
@@ -518,11 +533,11 @@ angular.module('app')
                     })
 
                 .state('app.authorityManage.classAndGradeDetail', {
-                        url: '/classAndGradeDetail:jsonString',
+                        url: '/classAndGradeDetail',
                         templateUrl: 'admin/authorityManage/classAndGradeDetail.html'
                     })
                     .state('app.authorityManage.updateClassAndGrade', {
-                        url: '/updateClassAndGrade:jsonString',
+                        url: '/updateClassAndGrade',
                         templateUrl: 'admin/authorityManage/updateClassAndGrade.html'
                     })
 
@@ -531,15 +546,15 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/addMasterSchool.html'
                     })
                     .state('app.authorityManage.addBranchSchool', {
-                        url: '/addBranchSchool:jsonString',
+                        url: '/addBranchSchool',
                         templateUrl: 'admin/authorityManage/addBranchSchool.html'
                     })
                     .state('app.authorityManage.addDistrictSchool', {
-                        url: '/addDistrictSchool:jsonString',
+                        url: '/addDistrictSchool',
                         templateUrl: 'admin/authorityManage/addDistrictSchool.html'
                     })
                     .state('app.authorityManage.addDepartmentSchool', {
-                        url: '/addDepartmentSchool:jsonString',
+                        url: '/addDepartmentSchool',
                         templateUrl: 'admin/authorityManage/addDepartmentSchool.html'
                     })
                     .state('app.authorityManage.addCentreOfSchool', {
@@ -624,7 +639,8 @@ angular.module('app')
 
 
 
-                //新增
+
+                    //新增
 
                     .state('app.teachResearchManage.updateHeadSchool', {
                         url: '/updateHeadSchool/{headSchool}',

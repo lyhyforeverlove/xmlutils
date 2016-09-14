@@ -361,6 +361,7 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
             "departmentType": $scope.formData.departmentType,
             "subjectCode": $scope.formData.subjectCode,
             "bookVersionCode":  $scope.formData.bookVersionCode,
+            "distributionState" :1,
             "currentPage": page,
             "pageSize": size
         }).success(function(data) {

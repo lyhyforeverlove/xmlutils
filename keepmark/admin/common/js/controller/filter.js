@@ -4,6 +4,7 @@ app.controller('ParentFilterCtrl', function($scope,CalcService) {
         CalcService.filterData()
                 .then(function(data) {
                     $scope.filterData = data.filterData;
+
                     $scope.citys = [];
                     $scope.districts = [];
                     $scope.regionText = {};

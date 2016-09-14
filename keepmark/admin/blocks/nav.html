@@ -56,12 +56,12 @@
                 </a>
             </li>
             <li ui-sref-active="active" class="subNav">
-                <a class="auto" ui-sref="app.teachManage.create">
+                <a class="auto">
                     <span class="pull-right text-muted">
                        <i class="fa fa-fw fa-angle-right text"></i>
                        <i class="fa fa-fw fa-angle-down text-active"></i>
                      </span>
-                    <span>诊断上架</span>
+                    <span>诊断商品</span>
                 </a>
                 <ul class="nav" style="display:none;">
                     <li class="nav-sub-header">
@@ -71,7 +71,12 @@
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="app.teachManage.diagGoods">
-                            <span>诊断商品</span>
+                            <span>诊断商品列表</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a  ui-sref="app.teachManage.create">
+                            <span>添加诊断商品</span>
                         </a>
                     </li>
                 </ul>
@@ -172,6 +177,11 @@
             <li ui-sref-active="active" class="firstNav">
                 <a ui-sref="app.teachResearchManage.markReview">
                     <span>阅卷复审</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="firstNav">
+                <a ui-sref="app.teachResearchManage.areaCategory">
+                    <span>地区标签分类</span>
                 </a>
             </li>
             <li ui-sref-active="active" class="subNav">

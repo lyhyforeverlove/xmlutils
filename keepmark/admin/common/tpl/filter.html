@@ -6,7 +6,7 @@
         <label class="col-sm-2 control-label">学年：</label>
         <label class="control-label" ng-model="formData.gradeCode">高考</label>
     </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <div class="line line-dashed b-b line-lg"></div>
     <div class="form-group">
         <label class="col-sm-2 control-label">类型：</label>
         <div class="radio">
@@ -15,16 +15,16 @@
             </label>
         </div>
     </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <div class="line line-dashed b-b line-lg"></div>
     <div class="form-group">
         <label class="col-sm-2 control-label">学科：</label>
         <div class="radio">
             <label class="i-checks" ng-repeat="(key, val) in category track by $index">
-                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getSubjectName(val.subjectName)"><i></i>{{val.subjectName}}
+                <input type="radio" name="subjectCode" ng-value='{{val.subjectCode}}' ng-model="formData.subjectCode" ng-click="getBookVersion(val.id)" ><i></i>{{val.subjectName}}
             </label>
         </div>
     </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <div class="line line-dashed b-b line-lg"></div>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
         <div class="radio">
@@ -34,5 +34,5 @@
             </label>
         </div>
     </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <div class="line line-dashed b-b line-lg"></div>
 </div>

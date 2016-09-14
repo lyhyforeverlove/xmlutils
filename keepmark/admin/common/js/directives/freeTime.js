@@ -1,6 +1,7 @@
-app.directive('freeTime', [function () {
+angular.module('app')
+  .directive('freeTime', [function () {
     return {
-        link: function ($scope, $element) {
+        link: function ($scope, $element, $attrs) {
             $element.click(function(){
                 if($element.hasClass("freeTime"))
                     $element.removeClass("freeTime");
