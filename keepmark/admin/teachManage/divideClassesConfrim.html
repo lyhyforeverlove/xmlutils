@@ -1,7 +1,7 @@
 <div class="wrapper-md" ng-controller="DividClassesConfrimCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &gt; 分班后确认</h4>
+            <h4>教学管理 &gt; 分班后确认</h4>
         </div>
         <div class="wrapper">
             <div class="panel-heading ">
@@ -127,14 +127,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="15" class="text-center">
-                                            <!-- <ul class="pagination"> -->
-                                            <!-- pagination -->
-                                            <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                            </div>
-                                            <!-- / pagination -->
-                                            <!-- </ul> -->
+                                        <td colspan="13" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                            <!--指令模板[pagination.html] -->
                                         </td>
                                     </tr>
                                 </tfoot>

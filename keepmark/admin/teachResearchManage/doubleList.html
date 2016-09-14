@@ -13,8 +13,8 @@
                     <!-- <div  ng-include="'admin/common/tpl/filter.html'"></div> -->
                     <!--包含公共筛选条件 end-->
                     <pre>
-    {{ formData }}
-</pre>
+                        {{ formData }}
+                    </pre>
                     <div class="panel-select">
                         <div class="line line-dashed b-b line-lg pull-in"></div>
                         <div class="form-group">
@@ -55,7 +55,7 @@
                     <thead>
                         <tr>
                             <th>序号</th>
-                            <th>学科</th>
+                            <th>文理类别</th>
                             <th>创建时间</th>
                             <th>创建人</th>
                             <th>封面</th>
@@ -66,9 +66,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in  results.content">
+                        <tr ng-repeat="data in  results.list">
                             <td>{{$index+1}}</td>
-                            <td>{{data.subjectCode}}</td>
+                            <td>{{data.artsType}}</td>
                             <td>{{data.createTime }}</td>
                             <td>{{data.operator}}</td>
                             <td>

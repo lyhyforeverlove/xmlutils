@@ -1,11 +1,12 @@
 <div class="wrapper-md" ng-controller="DiagGoodsCtrl">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-       <h4>负责监考教师:{{username}}</h4>
-    </div>
-    <div class="wrapper">
-           <div class="panel-body">
-                <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled"  ng-init="load()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教学管理 &gt; 诊断商品</h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-body">
+                <h4>负责监考教师:{{username}}</h4>
+                <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" ng-init="load()">
                     <!--包含公共筛选条件 start-->
                     <div ng-include="'admin/common/tpl/filter.html'"></div>
                     <!--包含公共筛选条件 end-->
@@ -13,46 +14,53 @@
                 </form>
             </div>
             <div class="panel-container">
-              <div class="table-responsive">
-                <table class="table table-striped b-t b-light">
-                  <thead>
-                    <tr>
-                      <th style="width:5%">序号</th>
-                      <th style="width:10%">学科</th>
-                      <th style="width:10%">创建时间</th>
-                      <th style="width:10%">监考人</th>
-                      <th style="width:20%">封面</th>
-                      <th style="width:15%">购买预约人</th>
-                      <th style="width:20%">状态</th>
-                      <th style="width:10%">操作</th>
-                      <th style="width:10%"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      <tr ng-repeat="data in data.content">
-                        <td>{{$index+1}}</td>
-                        <td>{{data.subjectCode}}</td>
-                        <td>{{data.createTime}}</td>
-                        <td>{{data.invigilatorTeacher}}</td>
-                        <td>{{data.imageUrl}}<img src="img/c5.jpg" width="200px" height="100px" /></td>
-                        <td>{{data.number}}</td>
-                        <td><p>开始时间:{{data.examStartDate}}</p><p>结束时间:{{data.examEndDate}}</p></td>
-                        <td><p><a>上架</a></p><p><a>下架</a></p><p><a>详情</a></p></td>
-                        <td><button type="button" class="btn btn-primary"  ui-sref="app.teachManage.detail()">详情</button></td>
-                      </tr>
-                  </tbody>
-                  <tfoot>
+                <h4>诊断商品列表</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">序号</th>
+                                <th style="width:10%">文理类型</th>
+                                <th style="width:10%">商品名称</th>
+                                <th style="width:10%">创建时间</th>
+                                <th style="width:10%">封面</th>
+                                <th style="width:20%">状态</th>
+                                <th style="width:25%">操作</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>  <!--  -->
+                            <tr ng-repeat="data in results.list">
+                                <td>{{$index+1}}</td>
+                                <td>{{data.subjectCode}}</td>
+                                <td>{{data.goodsName}}</td>
+                                <td>{{data.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                                <td><img src="{{data.imageUrl}}" width="100px" height="50px" /></td>
+                                <td>
+                                    <p>开始时间:{{data.examStartDate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+                                    <p>结束时间:{{data.examEndDate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+                                </td>
+                                <td>
+                                    <p><button class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" ng-click="allotBtn({gradeCode:data.gradeCode})">分配监考人</button>
+                                     <!--  ui-sref="app.teachManage.allot()"-->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
                             <tr>
                                 <td colspan="8" class="text-center">
                                     <!-- 指令调用代码 -->
-                                    <xl-page size="5" method="getList" class="text-center"></xl-page>
+                                    <xl-page size="2" method="getList" class="text-center"></xl-page>
                                     <!-- 指令模板[pagination.html] -->
                                 </td>
                             </tr>
                         </tfoot>
-                </table>
-              </div>
+                    </table>
+                </div>
             </div>
         </div>
-  </div>
+    </div>
 </div>

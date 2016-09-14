@@ -1,74 +1,16 @@
 <div class="wrapper-md" ng-controller="TestPoolControler">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &gt; 试卷池 &gt; 二判分卷</h4>
+            <h4>教学管理 &gt; 试卷池 &gt; 二判分卷</h4>
         </div>
         <div class="wrapper">
             <!--select start-->
-            <div class="panel-select">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td width="8%" align="right">学年：</td>
-                            <td ng-model=''>高考</td>
-                        </tr>
-                        <tr>
-                            <td align="right">类型：</td>
-                            <td>
-                                    <select class="form-control" ng-model="selectedPerson" ng-options="obj.name for obj in subjects">
-                                        <option value="">请选择类型</option>
-                                    </select>
-                                    <!-- <select ng-model="selectedGenre">
-                                    <option ng-repeat="label in subjects[selectedPerson.id].category">
-                                    {{label.name}}</option>
-                                    </select>  -->
-                                    <div class="line line-solid b-b line-lg"></div>
-                                    <ul ng-model="selectedGenre">
-                                        <li ng-repeat="label in subjects[selectedPerson.id].category" style="float:left;">
-                                            <label class="i-checks">
-                                                <input type="radio" name="e" value="option2">
-                                                <i></i>{{label.name}}
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">教材：</td>
-                            <td>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option1">
-                                    <i></i>全国卷一
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option2">
-                                    <i></i>全国卷二
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option3">
-                                    <i></i>全国卷三
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option4">
-                                    <i></i>自主命题北京 </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option5">
-                                    <i></i>自主命题天津
-                                </label>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">
-                                <button class="btn btn-primary pull-right" ng-click="query()">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <div class="b-b"></div>
-            </div>
+            <form class="form-horizontal" ng-init="load()">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
+                <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>
+            </form>
             <!-- select close -->
             <!-- tab -->
             <div>
@@ -123,11 +65,21 @@
                                 </tbody>
                                 <tfoot class="hide-if-no-paging">
                                     <tr>
-                                        <td colspan="9" class="text-right">
+                                        <td colspan="8" class="text-right">
                                             <label class="i-checks m-b-none">
                                                 <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
                                                 <!-- <a href="#" class="btn btn-danger" ng-click="delete()" > 删除</a> -->
                                             </label>
+                                        </td>
+                                        <td>
+                                            <!-- 手动分配 modal -->
+                                            <div ng-controller="categoryCtrl">
+                                                <script type="text/ng-template" id="myModalContent.html">
+                                                    <div ng-include="'admin/common/tpl/allot.html'"></div>
+                                                </script>
+                                                <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
+                                            </div>
+                                            <!-- 手动分配/modal -->
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -177,32 +129,6 @@
                 </script>
             </div>
             <!-- / tab -->
-            <!--btn-->
-            <div>
-                <button type="button" class="btn btn-primary pull-right">自动分配</button>
-                <!-- 手动分配 modal -->
-                <div ng-controller="categoryCtrl">
-                    <script type="text/ng-template" id="myModalContent.html">
-                        <div ng-include="'admin/common/allot.html'"></div>
-                    </script>
-                    <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
-                </div>
-                <!-- 手动分配/modal -->
-            </div>
         </div>
-        <footer class="panel-footer">
-            <div class="row">
-                <div class="col-sm-8 text-left">
-                    <small class="text-muted inline m-t-sm m-b-sm">{{data.total_count}}条记录</small>
-                </div>
-                <div ng-if="data.page_count>1" class="col-sm-4 text-right text-center-xs">
-                    <ul class="pagination pagination-sm m-t-none m-b-none">
-                        <li ng-class="{disabled:!data.previous}"><a ui-sref="app.news.list({page:data.page_index-1,search:search_context})"><i class="fa fa-chevron-left"></i></a></li>
-                        <li ng-repeat="page in data.pages" ng-class="{active:page==data.page_index}"><a ui-sref="app.news.list({page:page,search:search_context})">{{page}}</a></li>
-                        <li ng-class="{disabled:!data.next}"><a ui-sref="app.news.list({page:data.page_index+1,search:search_context})"><i class="fa fa-chevron-right"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>

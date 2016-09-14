@@ -38,10 +38,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in results.content">
+                        <tr ng-repeat="data in results.list">
                             <td>{{$index+1}}</td>
                             <td>{{data.diagnosisPaperName}}</td>
-                            <td>{{data.subjectCode}}</td>
+                            <td>{{subjectName}}</td>
                             <td>{{data.createTime }}</td>
                             <td>{{data.operator}}</td>
                             <td>
@@ -57,7 +57,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan="8" class="text-center">
                                 <!-- 指令调用代码 -->
                                 <xl-page size="5" method="getList" class="text-center"></xl-page>
                                 <!-- 指令模板[pagination.html] -->

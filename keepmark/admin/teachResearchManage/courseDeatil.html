@@ -1,15 +1,11 @@
-<div class="wrapper-md">
-  <div class="panel panel-default">
+<div class="wrapper-md" ng-controller="CourseDetailController">
+  <div class="panel panel-default" ng-init="load()">
     <div class="panel-heading">
-      <h4>课程名称</h4>
+      <h4>教研管理 &gt; 课程详情</h4>
     </div>
     <div class="wrapper">
-      <ul>
-        <li>第一小节：XXXXXXXXXXXXXXXXXXXXXXXX</li>
-        <li>第一小节：XXXXXXXXXXXXXXXXXXXXXXXX</li>
-        <li>第一小节：XXXXXXXXXXXXXXXXXXXXXXXX</li>
-        <li>第一小节：XXXXXXXXXXXXXXXXXXXXXXXX</li>
-        <li>第一小节：XXXXXXXXXXXXXXXXXXXXXXXX</li>
+      <ul ng-repeat="data in results">
+        <li>{{$index+1}}{{data.repositoryBurlName}}</li>
       </ul>
     </div>
   </div>

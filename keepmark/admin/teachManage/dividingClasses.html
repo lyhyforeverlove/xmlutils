@@ -1,11 +1,11 @@
 <div class="wrapper-md" ng-controller="DividingClassesCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &lt; 分班</h4>
+            <h4>教学管理 &gt; 分班</h4>
         </div>
         <div class="wrapper">
             <div class="panel-heading m-b-xl">
-                <form  class="form-horizontal">
+                <form class="form-horizontal" ng-init="load()">
                     <div class="radio">
                         <label class="col-sm-2 control-label">类型：</label>
                         <label class="i-checks">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-2 control-label">单科学科：</label>
                         <div class="col-sm-2">
                             <select name="account" class="form-control">
@@ -59,7 +59,7 @@
                                 <input type="text" class="form-control" value="80">
                             </div>
                     </div>
-                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="line line-dashed b-b line-lg"></div> -->
                     <div class="form-group col-sm-12">
                         <label class="col-sm-2 control-label">上课时间：</label>
                         <div class="col-sm-2">
@@ -70,23 +70,32 @@
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">目标类型：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                                <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
                     <button type="submit" class="btn m-b-xs w-xs btn-primary pull-right">查询</button>
                 </form>
             </div>
             <div class="line line-dashed b-b line-lg"></div>
-            <div class="panel-heading">
-                <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
-                    <input type="radio" name="ff" value="option3" checked  ng-click="query(sate:0)">
+            <!-- <div class="panel-heading">
+                <p><span class="p-d">:</span><span class="p-d"><label class="i-checks">
+                    <input type="radio" name="ff" value="option3" checked  ng-click="">
                     <i></i>一本线上30分
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
                     <input type="radio" name="ff" value="option3">
                     <i></i>一本线
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
                     <input type="radio" name="ff" value="option3">
                     <i></i>二本线
                 </label></span></p>
                 <div class="line line-dashed b-b line-lg"></div>
-            </div>
+            </div> -->
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light">
                     <thead>
@@ -108,112 +117,104 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>北京</td>
-                            <td>LiLy</td>
-                            <td>hello</td>
-                            <td>1821058560</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>450分</td>
+                        <tr ng-repeat="data in results.list">
+                            <td>{{$index+1}}</td>
+                            <td>{{data.areaName}}</td>
+                            <td>{{data.studentName}}</td>
+                            <td>{{data.studentCode}} | 用户名</td>
+                            <td>家长联系方式</td>
+                            <td>{{data.chineseScore}}分</td>
+                            <td>{{data.mathScore}}分</td>
+                            <td>{{data.englishScore}}分</td>
+                            <td>{{data.physicsScore}}分</td>
+                            <td>{{data.chemistryScore}}分</td>
+                            <td>生物（没找到字段）分</td>
+                            <td>{{data.totalScore}}分</td>
                             <td>周六日</td>
                             <td>
                                 <label class="i-checks">
-                                    <input type="checkbox"><i></i> 选择
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>北京</td>
-                            <td>LiLy</td>
-                            <td>hello</td>
-                            <td>1821058560</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>90分</td>
-                            <td>450分</td>
-                            <td>周六日</td>
-                            <td>
-                                <label class="i-checks">
-                                    <input type="checkbox"><i></i> 选择
+                                    <input id={{data.repositoryPaperCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.repositoryPaperCode,x)"><i></i>
                                 </label>
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot class="hide-if-no-paging">
+                    <tfoot>
                         <tr>
                             <td colspan="13"></td>
                             <td>
-                                <label class="i-checks">
-                                    <input type="checkbox"><i></i> 全选
+                                <label class="i-checks m-b-none">
+                                    <input type="checkbox" ng-model="master" ng-click="checkAll(master,choseArr)"><i></i>全选
                                 </label>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="15" class="text-center">
-                                <!-- <ul class="pagination"> -->
-                                <!-- pagination -->
-                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                </div>
-                                <!-- / pagination -->
-                                <!-- </ul> -->
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                <!--指令模板[pagination.html] -->
                             </td>
                         </tr>
                     </tfoot>
                 </table>
                 <!-- modal -->
-                <div ng-controller="ClassesCtrl">
-                    <script type="text/ng-template" id="myModalContent.html">
-                        <div ng-include="'admin/common/classes.html'"></div>
-                    </script>
-                    <div class="panel-body">
-                        <button class="btn btn-default m-b-xs w-xs pull-right" ng-click="open('lg')">班</button>
+                <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lg')">班</button>
+                <script type="text/ng-template" id="myModelContent.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title">班型</h3>
                     </div>
-                </div>
+                    <div class="modal-body">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label">学区：</label>
+                            <div class="col-sm-2">
+                                <select ng-model="districtSchool" class="form-control" ng-options="d.name for d in districtSchoolList" ng-click="getDepartmentSchoolList(districtSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label">学部：</label>
+                            <div class="col-sm-2">
+                                <select ng-model="departmentSchool" class="form-control" ng-options="d.name for d in departmentSchoolList" ng-click="getCentreSchoolList(departmentSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label">中心：</label>
+                            <div class="col-sm-2">
+                                <select ng-model="centreOfSchool" class="form-control" ng-options="c.name for c in centreOfSchoolList" ng-click="getList(centreOfSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <ul>
+                            <li ng-repeat="item in items">
+                                <a ng-click="selected.item = item">{{item}}</a>
+                            </li>
+                            <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="placementOk()">
+                            <span class="p-d">确认</span>
+                        </button>
+                        <button class="btn btn-warning" ng-click="cancel()">
+                            <span class="p-d">退出</span>
+                        </button>
+                    </div>
+                </script>
+                <!--  <div ng-controller="ClassesCtrl">
+                   <script type="text/ng-template" id="myModalContent.html">
+                       <div ng-include="'admin/common/tpl/classes.html'"></div>
+                   </script>
+                   <div class="panel-body">
+                       <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lg')">班</button>
+                   </div>
+               </div> -->
                 <!-- /modal -->
             </div>
         </div>
     </div>
 </div>
-<!-- <div class="wrapper-md">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-        </div>
-        <section class="row">
-            <section class="col-md-6" style="margin:40px auto; float:none; background:#fff; padding:30px;" ng-controller="tabDemoCtrl">
-                <p>通过设置改变开关：</p>
-                <p>
-                    <button class="btn btn-sm btn-danger" ng-click="tabs[0].active = true">选中第2个</button>
-                    <button class="btn btn-sm btn-default" ng-click="tabs[1].active = true">选中第3个</button>
-                    <button class="btn btn-sm btn-default" ng-click="tabs[1].disabled = !tabs[1].disabled">开启/禁用第3个</button>
-                </p>
-                <hr>
-                <tabset>
-                    <tab heading="单科">单科</tab>
-                    <tab heading="{{tab.title}}" ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled">{{tab.content}}</tab>
-                    <tab select="alertMe()">
-                        <tab-heading> //heading。 标题文本或者html内容
-                            <i class="glyphicon glyphicon-bell">弹出!</i>
-                        </tab-heading>
-                        html5jq-FE学习平台欢迎您！
-                    </tab>
-                </tabset>
-                <hr>
-                <tabset vertical="true" type="pills"> // vertical 方式 默认为false为水平方向 反之。。。
-                    <tab heading="第一列">第一列内容</tab>
-                    <tab heading="第二列">第二列内容</tab>
-                </tabset>
-            </section>
-        </section>
-    </div>
-</div> -->

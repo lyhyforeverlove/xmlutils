@@ -4,38 +4,99 @@
     line-height: 36px;
     font-size: 18px;
     font-weight: bold;
-    margin-top:0;
+    margin-top: 0;
 }
-
 </style>
-<div class="wrapper-md" ng-controller="DiagListController" >
+<div class="wrapper-md" ng-controller="CreateStageController">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>阶段考试用卷</h4>
+            <h4>试卷管理 &gt; 阶段考用卷</h4>
         </div>
         <div class="wrapper">
             <form class="form-horizontal">
-                <div  ng-init="load()">
-                    <!--包含公共筛选条件 start-->
-                    <div ng-include="'admin/common/tpl/filter.html'"></div>
-                    <!--包含公共筛选条件 end-->
-                    <p>
-                        <button class="btn btn-info" ng-click="getList()"><span class="p-d">查询</span></button>
-                    </p>
-                    <p>{{stageFormData}}</p>
-                    <div class="">
-                        <div ng-repeat="data in results.content">
-                            <p href  class="list-group-item">
-                        {{$index+1}}|{{data.diagnosisPaperName}}|{{data.repositoryPaperCode}}
-                        <span class="pull-right"><button class="btn btn-info" ng-click="diagnosisPaperCode(data.repositoryPaperCode)" ><span class="p-d">启用</span></button>
-                       <!--  <button class="btn btn-primary m-b" ui-sref='app.teachResearchManage.list'>更换</button> --></span>
-                        </p>
-                        </div>
+                <div ng-init="load()">
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">文理类型：</label>
+                        <span class="col-sm-6">
+                            <div class="radio">
+                                <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                                    <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="stageFormData.departmentType" ng-checked="val.checked" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+                                </label>
+                            </div>
+                        </span>
                     </div>
-                </div>
-                <div class="" >
                     <div class="line line-dashed b-b line-lg"></div>
-                    
+                    <pre> {{stageFormData}}</pre>
+                    <h4>阶段考用卷(共6份)</h4>
+                    <div>
+                        
+                        <ul class="list-group"><!--  ng-click="toggleActive(service)" ng-class="{active:service.active}" ng-model="postData.service.id" -->
+                            <li class="list-group-item" ng-repeat="(key,val) in category" >
+                            <!-- <input name="test" class="form-control" type="text" ng-trim="false"/>  --> 
+                            {{val.subjectName}} {{val.code}} | {{val.subjectCode}}
+                                <span class="pull-right"><button class="btn m-b-xs w-xs btn-info" ng-click="open('lg',{subjectCode:val.subjectCode,bookVersionCode:'national001',paperUseType:'0'},'getPapersByDiagStageCtrl',{code:val.code})">添加</button></span> 
+                            
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <p>
+                        <button class="btn btn-info"  ng-click="open('lg',{subjectCode:val.subjectCode,bookVersionCode:formData.bookVersionCode,paperUseType:formData.paperUseType},'getPapersByDiagCtrl')"><span class="p-d">查询</span></button>
+                    </p> -->
+                    <script type="text/ng-template" id="myModelContent.html">
+                        <div class="modal-header">
+                            <h3 class="modal-title">读取单科试卷列表</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                        <tr>
+                                            <th>学科</th>
+                                            <th>诊断试卷名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in results.content">
+                                            <td>{{subjectName}}</td>
+                                            <td>{{data.diagnosisPaperName}} | {{data.id}}</td>
+                                            <td>
+                                                <button class="btn btn-primary" ng-click="GetResourcePaperCode(data.repositoryPaperCode)"><span class="p-d">选用</span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <!--  指令调用代码 -->
+                                                <xl-page size="10" method="load" class="text-center"></xl-page>
+                                                <!-- 指令模板[pagination.html] -->
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-click="ok()">
+                                <span class="p-d">确认</span>
+                            </button>
+                            <button class="btn btn-warning" ng-click="cancel()"><span class="p-d">退出</span></button>
+                        </div>
+                    </script>
+                    <!-- <div class="">
+                        <div ng-repeat="data in results.content">
+                            <p href class="list-group-item">
+                                {{$index+1}}|{{data.diagnosisPaperName}}|{{data.repositoryPaperCode}}
+                                <span class="pull-right"><button class="btn btn-info" ng-click="diagnosisPaperCode(data.repositoryPaperCode)" ><span class="p-d">启用</span></button>
+                                <button class="btn btn-primary m-b" ui-sref='app.teachResearchManage.list'>更换</button>
+                                </span>
+                            </p>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="">
+                    <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
                         <!--  ng-model="diagnosis.name" -->
                         <label class="col-sm-2 control-label">诊断名称：</label>
@@ -43,7 +104,7 @@
                         <span class="col-sm-4"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">第几阶段：</label>
                         <span class="col-sm-6"><select class="form-control" ng-model="stageFormData.stage" ng-options="x.id as x.stageName for x in stageData" ng-value="{{x.stage}}" >
                         </select></span>
@@ -54,9 +115,9 @@
                         <div class="controls">
                             <div class="input-prepend input-group">
                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control"  class="span4"/>
-                                <input type="text"  id="startDate" ng-model="stageFormData.startDate" >
-                                <input type="text"  id="endDate" ng-model="stageFormData.endDate" >
+                                <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control" class="span4" />
+                                <input type="text" id="startDate" ng-model="stageFormData.startDate">
+                                <input type="text" id="endDate" ng-model="stageFormData.endDate">
                             </div>
                         </div>
                     </div>
@@ -73,14 +134,15 @@
                     pickerPosition: "bottom-top"
                 }, function(start, end, label) {
                     var d = new Date(start.toISOString());
-                     var end = new Date(end.toISOString());
-                var startDate  = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(); var endDate = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate() + ' ' + end.getHours() + ':' + end.getMinutes() + ':' + end.getSeconds(); 
-                console.log(startDate,endDate);
-                $("#startDate").val(startDate);
-                $("#endDate").val(endDate);
+                    var end = new Date(end.toISOString());
+                    var startDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                    var endDate = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate() + ' ' + end.getHours() + ':' + end.getMinutes() + ':' + end.getSeconds();
+                    console.log(startDate, endDate);
+                    $("#startDate").val(startDate);
+                    $("#endDate").val(endDate);
 
                 });
-                
+
 
             });
             </script>

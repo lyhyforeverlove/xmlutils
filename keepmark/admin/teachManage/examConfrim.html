@@ -1,161 +1,88 @@
-<div class="wrapper-md" ng-controller="ComfrimController">
+<div class="wrapper-md" ng-controller="ShortSlabController">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &lt; 短板考试确认</h4>
+            <h4>教学管理 &gt; 短板考试确认</h4>
         </div>
         <div class="wrapper">
-            <table class="table">
-                <tr>
-                    <td width="8%">学年:</td>
-                    <td>高考</td>
-                </tr>
-                <tr>
-                    <td>类型:</td>
-                    <td>
-                        <div class="radio">
-                            <label class="i-checks">
-                                <input type="radio" name="aa" value="option1" checked>
-                                <i></i>文科
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="aa" value="option2">
-                                <i></i>理科
-                            </label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>学科:</td>
-                    <td>
-                        <div class="radio">
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option1">
-                                <i></i>语文
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option2" checked>
-                                <i></i>数学
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option3">
-                                <i></i>英语
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option4">
-                                <i></i>物理
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option5">
-                                <i></i>化学
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option6">
-                                <i></i>生物
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option7">
-                                <i></i>历史
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="c" value="option8">
-                                <i></i>地理
-                            </label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>教材:</td>
-                    <td>
-                        <div class="radio">
-                            <label class="i-checks">
-                                <input type="radio" name="d" value="option1">
-                                <i></i>全国卷一
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="d" value="option2" checked>
-                                <i></i>全国卷二
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="d" value="option3">
-                                <i></i>全国卷三
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="d" value="option4">
-                                <i></i>自主命题北京 </label>
-                            <label class="i-checks">
-                                <input type="radio" name="d" value="option5">
-                                <i></i>自主命题天津
-                            </label>
-                        </div>
-                    </td>
-                </tr>
-                <tfoot>
-                    <tr>
-                        <td colspan="2">
-                            <button class="btn btn-primary pull-right" ng-click="query()">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-            <div class="line line-dashed b-b line-lg"></div>
-            <h4>学科：教研专属学科显示</h4>
-            <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
-                                    <input type="radio" name="f" value="option3" checked  ng-click="query(sate:0)">
-                                    <i></i>一本线上30分
-                                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
-                                    <input type="radio" name="f" value="option3">
-                                    <i></i>一本线
-                                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
-                                    <input type="radio" name="f" value="option3">
-                                    <i></i>二本线
-                                </label></span></p>
+            <form class="form-horizontal" ng-init="load()">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">目标类型：</label>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                            <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+                        </label>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="col-sm-12"><button class="btn btn-primary pull-right" ng-click="getList()"><span class="p-d">查询</span></button></div>
+            </form>
+            <div>
+                  <h4>学科：教研专属学科显示</h4>
+            <!--  <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
+               <input type="radio" name="f" value="option3" checked  ng-click="">
+               <i></i>一本线上30分
+            </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
+               <input type="radio" name="f" value="option3">
+               <i></i>一本线
+            </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
+               <input type="radio" name="f" value="option3">
+               <i></i>二本线
+            </label></span></p> -->
+            
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
-                            <th>序号</th>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>学科</th>
-                            <th>考试时间</th>
-                            <th>试卷</th>
-                            <th>客观题得分</th>
-                            <th>主观分</th>
-                            <th>总分</th>
-                            <th>诊断报告</th>
-                            <th>操作人</th>
-                            <th>联系</th>
-                            <th>家长</th>
-                            <th>短板用卷</th>
-                            <th>操作</th>
+                            <th width="5%">序号</th>
+                            <th width="5%">用户名</th>
+                            <th width="5%">姓名</th>
+                            <th width="5%">学科</th>
+                            <th width="10%">考试时间</th>
+                            <th width="10%">试卷</th>
+                            <th width="7%">客观题得分</th>
+                            <th width="5%">主观分</th>
+                            <th width="5%">总分</th>
+                            <th width="7%">诊断报告</th>
+                            <th width="5%">操作人</th>
+                            <th width="5%">联系</th>
+                            <th width="5%">家长</th>
+                            <th width="5%">短板用卷</th>
+                            <th width="16%">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1821058560</td>
-                            <td>LiLy</td>
-                            <td>英语</td>
-                            <td>2016.7.28 18:00-19:00</td>
+                        <tr ng-repeat="data in results.list">
+                            <td>{{$index+1}}</td>
+                            <td>{{data.userName}}</td>
+                            <td>{{data.studentName }}</td>
+                            <td>{{data.subjectName}}</td>
+                            <td>开始时间:{{ data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}<br />结束时间:{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                             <td>
                                 <button class="btn btn-primary">详情</button>
                             </td>
-                            <td>80分</td>
-                            <td>100分</td>
-                            <td>130分</td>
+                            <td>{{data.impersonalityScore}}分</td>
+                            <td>{{data.subjectivityScore}}分</td>
+                            <td>{{data.impersonalityScore }}分</td>
                             <td>
                                 <button class="btn btn-primary">详情</button>
                             </td>
-                            <td>XXX</td>
-                            <td>138XXXXXXXX</td>
-                            <td>XXX</td>
-                            <td>诊断卷名称(A)</td>
-                            <td>
-                                <button class="btn btn-primary">拒绝短板诊断</button>
-                                <button class="btn btn-primary">预约时间</button>
+                            <td>{{data.operator}}</td>
+                            <td>{{data.mobile}}</td>
+                            <td>{{data.parent}}</td>
+                            <td>{{data.diagnosisPaperName}} {{data.isAgreeJoinVulnerability }}</td>
+                            <td><!-- {{data.isAgreeJoinVulnerability}} -->
+                                <span id="{{data.eduVulnerabilityAnalyzeRecordCode}}" >
+                                    <button class="btn btn-primary" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode})">拒绝短板诊断</button>
+                                </span>
+                               <button class="btn btn-primary" ng-click="open('lg',{shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode})">预约时间</button> 
+                                <hr>
+                                <div class="h1" ng-show="selected">当前选择：{{selected}}</div>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>2</td>
                             <td>1821058560</td>
                             <td>LiLy</td>
@@ -177,24 +104,122 @@
                             <td>
                                 <span>已确认</span>
                                 <span>时间:16:00-18:00</span>
+                                 <button class="btn btn-primary" ng-click="">拒绝短板诊断</button>
+                               <button class="btn btn-primary" ng-click="open('lg')">预约时间</button> 
+                                <hr>
+                                <div class="h1" ng-show="selected">当前选择：{{selected}}</div>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
-                    <tfoot class="hide-if-no-paging">
+                    <tfoot>
                         <tr>
-                            <td colspan="15" class="text-center">
-                                <!-- <ul class="pagination"> -->
-                                <!-- pagination -->
-                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                </div>
-                                <!-- / pagination -->
-                                <!-- </ul> -->
+                            <td colspan="8" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                <!--指令模板[pagination.html] -->
                             </td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
+            </div>
+            <!-- 弹出框 预约时间 start -->
+            <script type="text/ng-template" id="myModelContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">预约时间</h3>
+                </div>
+                <div class="modal-body">
+                    <style>
+form ul {
+    list-style: none;
+    color: #333;
+    font-size: 16px;
+    text-align: left;
+    margin: 20px 0 15px;
+}
+
+form ul li {
+    padding: 10px 20px;
+    background-color: #fff;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+form ul li span {
+    float: right;
+}
+
+form ul li.active {
+    background-color: #8ec16d;
+    color: #fff;
+}
+
+div.total {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #000;
+}
+
+div.total span {
+    float: right;
+}
+</style>
+
+        <div class="wrapper">
+            <p>直播间地址：<input ng-model="postData.broadcastBoothUrl" /> 教师自己的直播间地址。教研权限分配的时候配置直播间</p>
+            <pre>{{postData}}</pre>
+            <form action="" >
+                <div class="panel-container">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">监考教师：</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control m-b" ng-model="postData.invigilatorTeacher">
+                                <option value="1">王丽丽</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <input type="text" ng-model="postData.appointmentExamStartDate">
+                    <input type="text" ng-model="postData.appointmentExamEndDate">
+                    <div class="checkDate">
+                        <ul class="list-group">
+                            <!-- Loop through the services array, assign a click handler, and set or
+                            remove the "active" css class if needed -->
+                            <li ng-repeat="service in groups" ng-click="toggleActive(service)" ng-class="{active:service.active}">
+                                <!-- Notice the use of the currency filter, it will format the price -->
+                                {{item.AM}}{{item.PM}}{{service.name}} <span>{{service.group}} </span><span>{{service.date}}</span>
+                            </li>
+                        </ul>
+                        <div class="total">
+                            <!-- Calculate the total price of all chosen services. Format it as currency. -->
+                            Times: <span>{{times()}}</span>
+                        </div>
+                    </div>
+                    <div class="line line-solid b-b line-lg "></div>
+                </div>
+            </form>
+           
+        </div>
+
+
+                    <ul>
+                        <li ng-repeat="item in items">
+                            <a ng-click="selected.item = item">{{item}}</a>
+                        </li>
+                        <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="AppointmentOK(postData)">
+                        确认
+                    </button>
+                    <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                </div>
+            </script>
+            <!-- 弹出框 预约时间 end -->
         </div>
     </div>
 </div>

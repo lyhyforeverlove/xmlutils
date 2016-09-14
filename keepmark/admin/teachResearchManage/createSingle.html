@@ -9,37 +9,70 @@
 <script src="admin/lib/spark-md5.js"></script>
 <script src="admin/lib/async.js"></script>
 <script src="admin/lib/upyun-mu.js"></script>
-<div class="wrapper-md" ng-controller="CreateController">
+<div class="wrapper-md" ng-controller="CreateSingleController">
     <div class="panel panel-default" ng-init="load()">
         <div class="panel-heading">
-            <h4>创建单科诊断</h4>
+            <h4>创建单科诊断{{name}}</h4>
         </div>
         <div class="wrapper">
             <form class="form-horizontal">
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <!--包含公共筛选条件 end-->
-                <!-- <div class="form-group">
-                    <label class="col-sm-2 control-label">目标类型：</label>
-                    <div class="radio">
-                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
-                            <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.aimType"><i></i>{{val.aimName}}
-                        </label>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div> -->
                 <div class="">
                     <div class="list-group">
-                        <a href class="list-group-item"  ng-model="formData.resourcePaperCode">
-                        <!-- <span>{{subjectName}}</span> -->
-                        <span class="name">诊断卷名称</span>
-                    <span class="pull-right">
-                        <button class="btn m-b-xs w-xs btn-info" ng-click="GetPapers({subjectCode:formData.subjectCode})">添加</button>
-                       <!--  ui-sref='app.teachResearchManage.list({{gradeCode=data.id}})' -->
-                       <!--  -->
-                    </span>
-                    </a>
+                        <a href class="list-group-item"  ng-model="formData.resourcePaperCode" >
+                            <span>{{subjectName}}</span>
+                            <span class="name">诊断卷名称</span>
+                            <span class="pull-right">
+                                <button class="btn m-b-xs w-xs btn-info" ng-click="open('lg',{subjectCode:formData.subjectCode},'getPapersController')">添加</button>
+                            </span>
+                        </a>
+                        <hr>
+                        
                     </div>
+                    <script type="text/ng-template" id="myModelContent.html">
+                        <div class="modal-header">
+                            <h3 class="modal-title">读取资源库列表</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                        <tr>
+                                            <th>学科</th>
+                                            <th>诊断试卷名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in results.datas.data">
+                                            <td>{{subjectCode}}</td>
+                                            <td>{{data.paperName}} | {{data.id}}</td>
+                                            <td>
+                                           <button class="btn btn-primary" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                               <!--  指令调用代码 -->
+                                                <xl-page size="10" method="load" class="text-center"></xl-page>
+                                                <!-- 指令模板[pagination.html] -->
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-click="ok()">
+                                确认
+                            </button>
+                            <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                        </div>
+                    </script>
                 </div>
                 <div class="radio">
                     <label class="col-sm-2 control-label" for="input-id-1">试卷用途：</label>
@@ -58,7 +91,7 @@
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">选择封面：</label>    
+                        <label class="col-sm-2 control-label">选择封面：</label>
                         <span class="col-sm-10"> 
                             <input type="file" name="file" id="file" file-model="myFile" required>
                              <div>
@@ -69,14 +102,14 @@
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group">    
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">售价：</label>
                         <span class="col-sm-10"> 
                             <input type="number" name="price" ng-model="formData.diagnosisPaperPrice" class="col-sm-6 form-control" required>   
                         </span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group">    
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">描述：</label>
                         <span class="col-sm-10"> 
                             <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
