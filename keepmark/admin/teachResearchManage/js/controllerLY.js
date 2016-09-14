@@ -2,13 +2,13 @@
  * Created by ying on 2016/9/9.
  */
 //总校列表
-app.controller("headSchoolControler",function($scope,$http,$state){
+app.controller("headSchoolController",function($scope,$http,$state){
     $http.post('http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456', {
         "pageSize":20,
         "pageNumber":1,
         "type":1
     }).success(function(data){
-        $scope.list = data.result.list;
+        $scope.list = data.result;
     });
 
     $scope.updateHeadSchool = function(headSchool){
@@ -44,8 +44,8 @@ app.controller("updateHeadSchoolController", function($scope,$http,$stateParams,
 })
 
 //分校列表
-app.controller("branchSchoolControler",function($scope,$http,$controller,$state){
-    $controller("headSchoolSelectControler",{$scope:$scope});
+app.controller("branchSchoolController",function($scope,$http,$controller,$state){
+    $controller("headSchoolSelectController",{$scope:$scope});
     $scope.seacherBranchByHeadSchool =function(code){
         if(typeof(code)!=="undefined"){
             $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
@@ -55,7 +55,7 @@ app.controller("branchSchoolControler",function($scope,$http,$controller,$state)
                     "type": 2,
                     "monitorMianCode": code
                 }).success(function (data) {
-                $scope.list = data.result.list;
+                $scope.list = data.result;
             });
         }
     }
@@ -67,7 +67,7 @@ app.controller("branchSchoolControler",function($scope,$http,$controller,$state)
 
 //新增分校
 app.controller("addSchoolBranchController",function($scope,$http,$state,$controller){
-    $controller("headSchoolSelectControler",{$scope:$scope});
+    $controller("headSchoolSelectController",{$scope:$scope});
     $scope.saveSchoolBranch = function(){
             $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/create/branch?requestId=test123456",
                 $scope.schoolBranch).success(function(data){
@@ -78,7 +78,7 @@ app.controller("addSchoolBranchController",function($scope,$http,$state,$control
 
 //修改分校
 app.controller("updateSchoolBranchController",function($scope,$http,$state,$controller,$stateParams){
-    $controller("headSchoolSelectControler",{$scope:$scope});
+    $controller("headSchoolSelectController",{$scope:$scope});
     $scope.schoolBranch = JSON.parse($stateParams.schoolBranch);
     $scope.saveUpdateSchoolBranch = function(){
         $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/update/branch?requestId=test123456",
@@ -90,16 +90,17 @@ app.controller("updateSchoolBranchController",function($scope,$http,$state,$cont
 
 
 //中心列表
-app.controller("subjectCentreControler",function($scope,$http,$state,$controller){
-    $controller("headSchoolSelectControler",{$scope:$scope});
+app.controller("subjectCentreController",function($scope,$http,$state,$controller){
+    $controller("headSchoolSelectController",{$scope:$scope});
     $scope.updateCentreSchool = function(centreSchool){
-        $state.go("app.teachResearchManage.updateCentreSchool",{centreSchool:JSON.stringify(centreSchool)})
+        $state.go("app.teachResearchManage.updateCentreSchool",
+            {centreSchool:JSON.stringify(centreSchool)})
     }
 });
 
 //新增中心
 app.controller("addCentreSchoolController",function($scope,$http,$state,$controller){
-    $controller("headSchoolSelectControler",{$scope:$scope});
+    $controller("headSchoolSelectController",{$scope:$scope});
 
     $scope.saveCentreSchool = function(){
         $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/create/center?requestId=test123456",
@@ -110,7 +111,7 @@ app.controller("addCentreSchoolController",function($scope,$http,$state,$control
 });
 //修改中心
 app.controller("updateCentreSchoolController",function($scope,$http,$state,$controller,$stateParams){
-    $controller("headSchoolSelectControler",{$scope:$scope});
+    $controller("headSchoolSelectController",{$scope:$scope});
     $scope.centreSchool = JSON.parse($stateParams.centreSchool);
     //保存修改
     $scope.saveUpdateCentreSchool = function(){
@@ -122,18 +123,18 @@ app.controller("updateCentreSchoolController",function($scope,$http,$state,$cont
 });
 
 //下拉框
-app.controller("headSchoolSelectControler",function($scope,$http){
+app.controller("headSchoolSelectController",function($scope,$http){
     $http.post('http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456', {
         "pageSize":20,
         "pageNumber":1,
         "type":1
     }).success(function(data){
-        $scope.headSchoolList = data.result.list;
+        $scope.headSchoolList = data.result;
     });
 
-    //根据主校获取中心
+    //根据主校获取分校
     $scope.seacherBranchByHeadSchool = function(headCode){
-        if(typeof(headCode) !== "undefined"  && headCode){
+        if(typeof(headCode) !== "undefined"){
             $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
                 {
                     "pageSize": 20,
@@ -141,7 +142,7 @@ app.controller("headSchoolSelectControler",function($scope,$http){
                     "type": 2,
                     "monitorMianCode": headCode
                 }).success(function (data) {
-                $scope.schoolBranchList = data.result.list;
+                $scope.schoolBranchList = data.result;
             });
         }
     };
@@ -155,7 +156,7 @@ app.controller("headSchoolSelectControler",function($scope,$http){
                     "type":3,
                     "monitorBranchCode":branchCode
                 }).success(function (data) {
-                $scope.list = data.result.list;
+                $scope.list = data.result;
             });
         }
     }
