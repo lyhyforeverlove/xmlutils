@@ -532,7 +532,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/classAndGrade.html'
                     })
 
-                .state('app.authorityManage.classAndGradeDetail', {
+                    .state('app.authorityManage.classAndGradeDetail', {
                         url: '/classAndGradeDetail',
                         templateUrl: 'admin/authorityManage/classAndGradeDetail.html'
                     })
@@ -541,7 +541,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/updateClassAndGrade.html'
                     })
 
-                .state('app.authorityManage.addMasterSchool', {
+                    .state('app.authorityManage.addMasterSchool', {
                         url: '/addMasterSchool',
                         templateUrl: 'admin/authorityManage/addMasterSchool.html'
                     })
@@ -614,7 +614,7 @@ angular.module('app')
                         }
                     })
                     .state('app.authorityManage.partTimeTeacherDetail', {
-                        url: '/partTimeTeacherDetail',
+                        url: '/partTimeTeacherDetail/{partTeacher}',
                         templateUrl: 'admin/authorityManage/partTimeTeacherDetail.html'
                     })
                     .state('app.authorityManage.updatePartTimeTeacher', {
@@ -630,18 +630,13 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/updateFullTimeTeacher.html'
                     })
                     .state('app.authorityManage.fullTimeTeacherDetail', {
-                        url: '/fullTimeTeacherDetail',
+                        url: '/fullTimeTeacherDetail/{fullTeacher}',
                         templateUrl: 'admin/authorityManage/fullTimeTeacherDetail.html'
                     })
 
 
 
-
-
-
-
                     //新增
-
                     .state('app.teachResearchManage.updateHeadSchool', {
                         url: '/updateHeadSchool/{headSchool}',
                         templateUrl: 'admin/teachResearchManage/updateHeadSchool.html',

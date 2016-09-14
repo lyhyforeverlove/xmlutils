@@ -31,7 +31,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">学部：</label>
                 <div class="col-sm-2">
-                    <select ng-model="classAndGrade.departmentSchool" class="form-control" ng-options="d.name for d in departmentSchoolList" ng-click="getCentreSchoolList(departmentSchool.code)">
+                    <select ng-model="departmentSchool" class="form-control" ng-options="d.name for d in departmentSchoolList" ng-click="getCentreSchoolList(departmentSchool.code)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -53,7 +53,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">语文老师</label>
                 <div class="col-sm-2">
-                    <select  class="form-control m-b" ng-model="classAndGrade.mathTeacher" ng-options="c.name for c in chineseTeacherList" ng-click="getTeacher(1)">
+                    <select  class="form-control m-b" ng-model="classAndGrade.chineseTeacher" ng-options="c.name for c in chineseTeacherList" ng-click="getTeacher(1)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>

@@ -7,106 +7,38 @@
             <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="col-sm-4 control-label">用户名：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.userName}}</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">姓名：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.name}}</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">初始密码：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.password}}</label>
                 </div>
                 <div class="col-sm-3">
-                    <label class="control-label col-sm-4">性别：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="control-label col-sm-4">工号：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.teacherNum}}</label>
                 </div>
             </div>
             <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">授课类型：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.lectureType}}</label>
                 </div>
                 <div class="col-sm-3">
-                    <label class="control-label col-sm-4">学历：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="control-label col-sm-4">职称：</label>
+                    <label class="col-sm-8">{{partTeacher.invigilator}}</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">学科：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.subject}}</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">合作关系：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.teacherShip}}</label>
                 </div>
-            </div>
-            <div class="form-group col-sm-12">
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">职称：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">省：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">市：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">区：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-            </div>
-
-            <div class="form-group col-sm-12">
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">教龄：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">课时费/小时：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">备用电话：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">省份证号码：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-            </div>
-            <div class="form-group col-sm-12">
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">联系电话：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-3">
-                    <label class="control-label col-sm-4">邮箱地址：</label>
-                    <label class="col-sm-8 control-label">XXX</label>
-                </div>
-                <div class="col-sm-6">
-                    <label class="control-label col-sm-2">联系地址：</label>
-                    <label class="col-sm-10 control-label">XXX</label>
-                </div>
-            </div>
-            <div class="spareTime">
-                <table class="schedule-table">
-                    <tr>
-                        <td>星期一</td>
-                        <td>星期二</td>
-                        <td>星期三</td>
-                        <td>星期四</td>
-                        <td>星期五</td>
-                        <td>星期六</td>
-                        <td>星期天</td>
-                    </tr>
-                    <tr ng-repeat="free in list" tr_code="{{free.time_code}}">
-                        <td ng-repeat="course in free.course"  td_code="{{course.day_code}}">{{course.free_time}}</td>
-                    </tr>
-                </table>
-                <button class="btn btn-primary pull-right">返回</button>
             </div>
         </div>
     </div>

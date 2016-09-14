@@ -1,13 +1,17 @@
 /**
  * Created by ying on 2016/9/14.
  */
+
+
+
 //兼职教师
-app.controller("partTimeTeacherManageController",function($scope,$http){
+app.controller("partTimeTeacherManageController",function($scope,$http,$state){
     $scope.titleName = "兼职教师管理";
-    //删除兼职教师
-    $scope.deletePartTimeTeacher = function(){
-        alert("确定删除？");
+    //查看兼职教师
+    $scope.partTimeTeacherDetail = function(partTimeTeacher){
+        $state.go("app.authorityManage.partTimeTeacherDetail",{partTeacher:JSON.stringify(partTimeTeacher)});
     }
+
     $scope.tabs = [{
         title: '在职员工名单',
         url: 'onJobTeacher.tpl.html'
@@ -159,20 +163,23 @@ app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDa
         $scope.list = data.freeTime;
     });
 
-})
+});
 //查看兼职教师
-app.controller("partTimeTeacherDetailController",function($scope,$http){
-    $scope.titleName="兼职教师查看";
-    //初始化空余时间表
-    $http.get("admin/json/freeTime.json").success(function(data){
-        $scope.list = data.freeTime;
-    });
-})
+app.controller("partTimeTeacherDetailController",function($scope,$stateParams){
+
+    $scope.partTeacher =JSON.parse($stateParams.partTeacher);
+    alert($scope.partTeacher);
+});
+
+
 
 
 //全职教师
-app.controller("fullTimeTeacherManageController",function($scope,$http){
+app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
     $scope.titleName = "全职教师管理";
+    $scope.fullTimeTeacherDetail = function(fullTeacher){
+        $state.go("app.authorityManage.fullTimeTeacherDetail",{fullTeacher:JSON.stringify(fullTeacher)});
+    }
     $scope.tabs = [{
         title: '在职员工名单',
         url: 'onJobTeacher.tpl.html'
@@ -219,7 +226,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http){
     $scope.isActiveTab = function(tabUrl) {
         return tabUrl == $scope.currentTab;
     }
-})
+});
 //增加全职教师
 app.controller("addFullTimeTeacherController",function($scope,acquireDataService,$http){
     $scope.titleName="添加全职教师";
@@ -269,11 +276,10 @@ app.controller("addFullTimeTeacherController",function($scope,acquireDataService
         $scope.teacher.state = 2;
         $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/fullTeacher?requestId=test123456",
             $scope.teacher).success(function(data){
-
         });
     }
-})
-
+});
+//修改全职教师
 app.controller("updateFullTimeTeacherController",function($scope,acquireDataService){
     $scope.teachingType = "";
     $scope.teacherEducation = "";
@@ -298,15 +304,18 @@ app.controller("updateFullTimeTeacherController",function($scope,acquireDataServ
     $scope.$watch('city', function(newVal) {
         if (newVal) $scope.suburbs = ['鸡冠区', '隶属', 'A区'];
     });
-})
-app.controller("fullTimeTeacherDetailController",function($scope){
+});
+//全职教师查看
+app.controller("fullTimeTeacherDetailController",function($scope,$stateParams){
     $scope.titleName="全职教师查看";
-})
+    $scope.fullTeacher = JSON.parse($stateParams.fullTeacher);
 
+})
 //学籍教师
 app.controller("schoolRollManageController",function($scope){
     $scope.titleName = "学籍管理";
-})
+});
+
 
 //选择课程弹框
 app.controller("chooseScheduleController",function($scope){
