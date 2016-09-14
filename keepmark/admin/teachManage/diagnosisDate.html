@@ -19,8 +19,8 @@ form ul li span {
 }
 
 form ul li.active {
-    background-color: #8ec16d;
-    color: #fff;
+    border:1px solid #8ec16d;
+    border-radius:4px;
 }
 
 div.total {
@@ -42,7 +42,7 @@ div.total span {
             <h3>诊断时间</h3>
             <p>具体开始时间，结束时间 ，每组时间开始时间，结束时间，由教学部统一规则决定。</p>
         </div>
-        <div class="wrapper"   ng-repeat="index in list">
+        <div class="wrapper" >
             <pre>{{postData}}</pre>
             <form action="" >
                 <div class="panel-container">

@@ -41,7 +41,7 @@
                                     <p>结束时间:{{data.examEndDate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
                                 </td>
                                 <td>
-                                    <p><button class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
+                                    <p><button  ng-show="" class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-primary" ng-click="allotBtn({gradeCode:data.gradeCode})">分配监考人</button>

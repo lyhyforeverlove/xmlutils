@@ -126,6 +126,21 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, 
                 .success(function(data) {
                     console.log(data);
                     $scope.results = data.result;
+
+                    var list = data.result.list;
+
+                    angular.forEach(list, function(data){
+                       // $scope.tesarry.push(data.repositoryPaperCode);
+                        if(data.onsaleStatus == "1"){
+                            data.onsaleStatus = "下架";
+                        }else{
+                             data.onsaleStatus = "上架";
+                        }
+                    });
+                    $scope.totalPage = data.result.totalPage;
+
+                    callback && callback(data.result);
+
                 }).error(function(data) {
 
                 })
@@ -351,8 +366,9 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
     $scope.formData.departmentType = 1; //默认类型为理科
     $scope.formData.subjectCode = 1;//默认为语文
     $scope.formData.bookVersionCode = "1";//默认为全国卷一
-    $scope.formData.gradeCode = 1;//默认学年为33
+    $scope.formData.gradeCode = 33;//默认学年为33
 
+    
     //根据学年、类型、教材 查询试卷池 （接口获取学生诊断记录列表）
     $scope.getList = function(page, size, callback) {
         var url = $scope.app.host + "/teacher/diagnosis/getDiagnosisRecordList?requestId=test123456";
@@ -372,11 +388,19 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
                 $scope.results = data.result;
                 $scope.total = data.total;
 
+            $scope.allotData = [];
+            $scope.noAllotData = [];
                 angular.forEach(list, function(data){
                     if(data.distributionStatus == 0){
+                        $scope.noAllotData.push(data);
+
                         data.distributionStatus = "未分配";
+
                     }else{
+                          $scope.allotData.push(data);
                          data.distributionStatus = "已分配";
+                         
+                
                     }
                 });
                 angular.forEach(list, function(data){

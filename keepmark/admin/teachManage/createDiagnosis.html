@@ -91,7 +91,7 @@
                                 <td>{{data.diagnosisExplanation}}</td>
                                 <td>
                                     <!--  ui-sref="app.teachManage.detail({id:data.id})" -->
-                                    <button type="button" class="btn btn-info"  ng-click="app.teachResearchManage.detail({'paperCode':'796EBDDCBDF7492CB7CCDA5729817767'})">详&nbsp;情</button>
+                                    <button type="button" class="btn btn-info" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">详&nbsp;情</button> <!-- ng-click="app.teachResearchManage.detail({'paperCode':'796EBDDCBDF7492CB7CCDA5729817767'})" -->
                                 </td>
                             </tr>
                         </tbody>
@@ -112,7 +112,7 @@
                             </tr>
                         </tfoot>
                     </table>
-                    {{choseArr}}  |  {{tesarry}}
+                   <!--  {{choseArr}}  |  {{tesarry}} -->
                     <p class="pull-right"><button class="btn btn-primary" ng-click='AddDiagGoods()'><span class="p-d">置为商品</span></button></p>
                 </div>
             </div>

@@ -10,11 +10,11 @@
                         <label class="col-sm-1 control-label">类型：</label>
                         <div class="col-sm-2">
                             <label class="i-checks">
-                                <input type="radio" name="aa" value="option1">
+                                <input type="radio" name="aa"    ng-click="checkBook('0')" >
                                 <i></i>文科
                             </label>
                             <label class="i-checks">
-                                <input type="radio" name="aa" value="option2" checked>
+                                <input type="radio" name="aa"    ng-click="checkBook('1')"  checked   >
                                 <i></i>理科
                             </label>
                         </div>
@@ -22,29 +22,29 @@
                 </form>
             </div>
             <div class="line line-dashed b-b line-lg"></div>
-            <div class="pael-body">
-                <ul>
-                    <li>
-                        <h3>全国卷一卷</h3>
-                        <p>福建、广东、安徽、湖北、湖南、江西、山西、河南、河北 、（山东）</p>
-                        <button class=" m-t btn btn-primary pull-right" ng-click="open('lg')" >+</button>
-                    </li>
+            <div class="pael-body" ng-init="checkBook('1')">
+                <ul   ng-repeat="bookType in list" class="areaBookType" >                            
+                        <li> <h3 align="center">{{bookType.testPaperTypeName}}</h3></li>
+                        <li><p align="center">{{bookType.provinces}}</p></li>
+                        <li><div align="center"><button class=" m-t btn btn-primary " ng-click="open('lg',bookType.testPaperTypeCode)" align="center" >+</button></div></li>          
+
                 </ul>
                 <!-- 弹框 model 开始 -->
                 <script type="text/ng-template" id="myModelContent.html">
                     <div class="modal-header">
                         <h3 class="modal-title">模态框</h3>
                     </div>
-                    <div class="modal-body">
-                        <ul>
-                            <li ng-repeat="item in items">
-                            <a ng-click="selected.item = item">{{item}}</a>
-                            </li>
-                            <div class="h2">当前选择： <b>{{selected.item}}</b></div>
-                        </ul>
+                    <div class="modal-body" ng-init="load()">
+                        <div>
+                            <ul ng-repeat="data in results" class="areaBox">
+                                <li>
+                                     <a ng-click="selected = save(data.provinceCode)" ng-model="areaName" >{{data.provinceName}}</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" ng-click="ok()">
+                    <div class="modal-footer">                       
+                        <button class="btn btn-primary" ng-click="saveresult()"   ng-disabled>
                         确认
                         </button>
                         <button class="btn btn-warning" ng-click="cancel()">退出</button>
@@ -55,3 +55,6 @@
         </div>
     </div>
 </div>
+<style>
+ul.areaBox li{border:1px solid #ccc;float:left;padding:6px 10px;font-size:14px;border-radius:4px;margin:4px;}
+</style>

@@ -46,17 +46,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
+                                    <tr ng-repeat="data in noAllotData">
+                                        <td>{{$index+1}}</td>
                                         <td>诊断</td>
-                                        <td>1821058560</td>
-                                        <td>LiLy</td>
-                                        <td>英语</td>
-                                        <td>2016.7.28 18:00-19:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{data.subjectCode}}</td>
+                                        <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref='app.teachManage.detail({id:data.id})'>&nbsp;详&nbsp;情&nbsp;</button>
+                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
-                                        <td>未分配</td>
+                                        <td> {{data.distributionStatus}}</td>
                                         <td>
                                             <label class="i-checks">
                                                 <input id={{z}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(z,x)"><i></i>选择</label>
@@ -71,12 +71,90 @@
                                         </td>
                                         <td>
                                             <!-- 手动分配 modal -->
-                                            <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
+                                            <button class="btn btn-primary m-r pull-right" ng-click="open('gt')">手动分配</button>
+                                            <hr>
+                                            <div class="h1" ng-show="selected">当前选择：{{selected}}</div>
                                             <!-- 手动分配/modal -->
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="5" method="getList" class="text-center"></xl-page>
+                                            <!-- 指令模板[pagination.html] -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
+                            <script type="text/ng-template" id="myModelContent.html">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">分配老师</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>学科：数学</p>
+                                    <p><span>需分配试卷：1000份</span><span>已选择900份</span></p>
+                                    <p>
+                                        <label class="col-sm-2">每人</label><span class="col-sm-2"><input type="text" value="10"  class="form-control input-sm"></span>份</p>
+                                    <div>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                        <label class="i-checks m-b-none">
+                                            <input type="checkbox"><i></i>我是老师
+                                        </label>
+                                    </div>
+                                    <!-- <ul>
+                                        <li ng-repeat="item in items">
+                                            <a ng-click="selected.item = item">{{item}}</a>
+                                        </li>
+                                        <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+                                    </ul> -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="ok()">
+                                        确认
+                                    </button>
+                                    <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                                </div>
+                            </script>
                         </div>
                     </div>
                 </script>
@@ -101,22 +179,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2</td>
+                                    <tr ng-repeat="data in allotData">
+                                       <td>{{$index+1}}</td>
                                         <td>诊断</td>
-                                        <td>1821058560</td>
-                                        <td>LiLy</td>
-                                        <td>英语</td>
-                                        <td>2016.7.28 18:00-19:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{data.subjectCode}}</td>
+                                        <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref='app.teachManage.detail({id:data.id})'>详情</button>
+                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
-                                        <td>已分配</td>
+                                        <td> {{data.distributionStatus}}</td>
                                         <td>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </script>
