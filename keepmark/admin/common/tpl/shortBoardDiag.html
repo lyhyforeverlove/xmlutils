@@ -1,127 +1,115 @@
-<div class="modal-header">
-    <h3 class="modal-title">短板诊断用卷</h3>
-</div>
-<div class="modal-body">
-    <table class="table">
-        <tr>
-            <td width="8%">学年:</td>
-            <td>高考</td>
-        </tr>
-        <tr>
-            <td>类型:</td>
-            <td>
+<script>
+    app.controller('shortBoardController', function($scope, CalcService, $controller, $http) {
+        $controller('getJsonData', {$scope: $scope});//继承
+        $scope.formData = {};
+        //默认值
+        $scope.formData.subjectCode = "5";
+        $scope.formData.bookVersionCode = "beijing010";
+        $scope.formData.paperUseType = "1";
+        //筛选条件改变时执行
+        $scope.change = function(val,name){
+            $scope.formData[name] = val;
+        };
+        $scope.query = function(page,size,callback){
+            $http.post(window.host1 + '/diagnosis/list?requestId=test123456', {
+                "subjectCode":"5",                  //$scope.formData.subjectCodePop
+                "bookVersionCode":"全国卷一",       //$scope.formData.bookVersionCodePop
+                "paperUseType":"1",                 //$scope.formData.paperUseTypePop
+                "currentPage":page,
+                "pageSize":size
+            }).then(function (data) {
+                console.log(data);
+                $scope.result = data.data.result.list;
+                console.log($scope.result)
+                $scope.totalPage = data.result.totalPage;
+                callback && callback(data.result);
+            });
+        }
+    });
+</script>
+<div ng-controller="shortBoardController">
+    <div class="modal-header">
+        <h3 class="modal-title">短板诊断用卷</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <tr>
                 <div class="radio">
-                    <label class="i-checks">
-                        <input type="radio" name="b" value="option1" checked>
-                        <i></i>文科
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="b" value="option2">
-                        <i></i>理科
-                    </label>
+                    <td width="8%">学年:</td>
+                    <td class="i-checks">高考</td>
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <td>学科:</td>
-            <td>
-                <div class="radio">
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option1">
-                        <i></i>语文
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option2" checked>
-                        <i></i>数学
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option3">
-                        <i></i>英语
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option4">
-                        <i></i>物理
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option5">
-                        <i></i>化学
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option6">
-                        <i></i>生物
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option7">
-                        <i></i>历史
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="c" value="option8">
-                        <i></i>地理
-                    </label>
+            </tr>
+            <tr>
+                <td>试卷类型:</td>
+                <td>
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="0" checked  ng-model="formData.paperUseType" ng-change="checked(formData.paperUseType,'paperUseType')">
+                            <i></i>短板诊断试卷
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="1" ng-model="formData.paperUseType" ng-change="checked(formData.paperUseType,'paperUseType')">
+                            <i></i> 诊断考试试卷
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="b" value="2" ng-model="formData.paperUseType" ng-change="checked(formData.paperUseType,'paperUseType')">
+                            <i></i> 阶段考试试卷
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>学科:</td>
+                <td>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in category track by $index">
+                            <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getSubjectName(val.subjectName)" ng-change="checked(formData.subjectCode,'subjectCode')">
+                            <i></i>{{val.subjectName}}
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>教材:</td>
+                <td>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="obj in bookVersion track by $index">
+                            <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode" ng-change="checked(formData.bookVersionCode,'bookVersionCode')">
+                            <i></i>{{obj.bookVersionName}}
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query()">查询</button>
+        <div class="row">
+            <div class="col-sm-12 shortBoardList" ng-repeat="item in result">
+                <div class="list-group">
+                    <span class="list-group-cate">{{item.bookVersion }}
+                        <label class="i-checks pull-right ">
+                            <input type="radio" name="dddd" ng-value="item">
+                            <i></i>选取
+                        </label>
+                    </span>
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <td>教材:</td>
-            <td>
-                <div class="radio">
-                    <label class="i-checks">
-                        <input type="radio" name="d" value="option1">
-                        <i></i>全国卷一
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="d" value="option2" checked>
-                        <i></i>全国卷二
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="d" value="option3">
-                        <i></i>全国卷三
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="d" value="option4">
-                        <i></i>自主命题
-                    </label>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="list-group">
-                
-                <span class="list-group-cate">1 语文 诊断卷名称(A)
-                    <label class="i-checks pull-right ">
-                        <input type="radio" name="dddd" value="option1">
-                        <i></i>选取
-                    </label>
-                </span>
-            </div>
-            <div class="list-group">
-                
-                <span class="list-group-cate">2 语文 诊断卷名称(B)
-                    <label class="i-checks pull-right ">
-                        <input type="radio" name="dddd" value="option1" checked="checked">
-                        <i></i>选取
-                    </label>
-                </span>
             </div>
         </div>
+        <ul>
+            <li ng-repeat="item in items">
+                <a ng-click="selected.item = item">{{ classes[0].city }}</a>
+                <!-- <label class="col-sm-1 control-label">中心:</label>
+                            <div class="col-sm-4">
+                                <select name="account" class="form-control">
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div> -->
+            </li>
+        </ul>
+        Selected: <b>{{ selected.item }}</b>
     </div>
-    <ul>
-        <li ng-repeat="item in items">
-            <a ng-click="selected.item = item">{{ classes[0].city }}</a>
-            <!-- <label class="col-sm-1 control-label">中心:</label>
-                        <div class="col-sm-4">
-                            <select name="account" class="form-control">
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div> -->
-        </li>
-    </ul>
-    Selected: <b>{{ selected.item }}</b>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="shortBoard()">OK</button>
+    </div>
 </div>

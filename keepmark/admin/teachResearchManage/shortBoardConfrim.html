@@ -7,134 +7,124 @@
             <div class="panel-heading m-b-xl">
                 <form action="">
                     <div class="radio form-group col-sm-12">
-                    <label class="col-sm-1 control-label">类型：</label>
+                        <label class="col-sm-1 control-label">类型：</label>
                         <div class="col-sm-2"><label class="i-checks">
                             <input type="radio" name="aa" value="option1">
                             <i></i>文科
                         </label>
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option2" checked>
-                            <i></i>理科
-                        </label></div>
+                            <label class="i-checks">
+                                <input type="radio" name="aa" value="option2" checked>
+                                <i></i>理科
+                            </label></div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group col-sm-12">
-                        <label class="col-sm-1 control-label">地区:</label>
-                        <div class="col-sm-2">
-                            <select name="account" class="form-control input-sm">
-                                <option>全部</option>
-                                <option>北京</option>
-                            </select>
+                    <div class="radio form-group col-sm-12">
+                        <label class="col-sm-1 control-label">学科：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="(key, val) in category track by $index">
+                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getSubjectName(val.subjectName)" ng-change="checked(formData.subjectCode,'subjectCode')">
+                                <i></i>{{val.subjectName}}
+                            </label>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group col-sm-12">
-                        <label class="col-sm-1 control-label">总分数:</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control input-sm" value="460">
+                    <div class="radio form-group col-sm-12">
+                        <label class="col-sm-1 control-label" for="input-id-1">教材：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="obj in bookVersion track by $index">
+                                <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode" ng-change="checked(formData.bookVersionCode,'bookVersionCode')">
+                                <i></i>{{obj.bookVersionName}}
+                            </label>
                         </div>
-                        <label class="col-sm-1" style="width:10px">-</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control input-sm" value="500">
-                        </div>
-                        <button type="submit" class="btn m-b-xs w-xs btn-primary pull-right">查询</button>
+                        <span class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query()">查询</span>
                     </div>
+                    <div class="line line-dashed b-b line-lg"></div>
                 </form>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">地区:</label>
+                <div class="col-sm-2">
+                    <select name="account" class="form-control input-sm">
+                        <option>全部</option>
+                        <option>北京</option>
+                    </select>
+                </div>
             </div>
             <div class="line line-dashed b-b line-lg"></div>
             <div class="table-responsive">
-                <div class="radio"><b>排序</b>
-                    <label class="i-checks">
-                        <input type="radio" name="sort" value="option1">
-                        <i></i>正序排序
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="sort" value="option2" checked>
-                        <i></i>倒序排序
-                    </label>
+                <div class="radio form-group col-sm-12">
+                    <label class="col-sm-1 control-label" for="input-id-1">目标：</label>
+                    <div class="p-d">
+                        <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
+                            <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="target(formData.aimType)">
+                            <i></i>{{obj.aimName}}
+                        </label>
+                    </div>
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
-               <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
-                    <input type="radio" name="f" value="option3" checked  ng-click="query(sate:0)">
-                    <i></i>一本线上30分
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
-                    <input type="radio" name="f" value="option3">
-                    <i></i>一本线
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
-                    <input type="radio" name="f" value="option3">
-                    <i></i>二本线
-                </label></span></p>
                 <table class="table table-striped b-t b-light">
                     <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>类型</th>
-                            <th>考试时间</th>
-                            <th>总分</th>
-                            <th>数学</th>
-                            <th>语文</th>
-                            <th>英语</th>
-                            <th>物理</th>
-                            <th>化学</th>
-                            <th>生物</th>
-                            <th>诊断报告</th>
-                            <th>上次操作人</th>
-                            <th>状态</th>
-                        </tr>
+                    <tr>
+                        <th>序号</th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>学年</th>
+                        <th>类型</th>
+                        <th>学科</th>
+                        <th>教材</th>
+                        <th>目标类型</th>
+                        <th>是否参加短板</th>
+                        <th>是否同意添加课时</th>
+                        <th>考试类型</th>
+                        <th>主观题得分</th>
+                        <th>客观题得分</th>
+                        <th>状态</th>
+                    </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td> <label class="i-checks">
-                                    <input type="checkbox"><i></i>
-                                </label>1</td>
-                            <td>1821058560</td>
-                            <td>XXX</td>
-                            <td>统考(理)</td>
-                            <td>2016.7.28：18：00-19：00</td>
-                            <td>430分</td>
-                            <td>90分</td>
-                            <td>100分</td>
-                            <td>100分</td>
-                            <td>180分</td>
-                            <td>50分</td>
-                            <td>100分</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>XXXX</td>
-                            <td>同意短板诊断</td>
-                           
-                        </tr>
+                    <tbody ng-repeat="item in result track by $index">
+                    <tr>
+                        <td> <label class="i-checks">
+                            <input type="checkbox" ng-checked="selectAll"><i></i>
+                        </label>{{$index+1}}</td>
+                        <td>{{item.userName }}</td>
+                        <td>{{item.studentName }}</td>
+                        <td>{{item.gradeName}}</td>
+                        <td>{{getDepartmentName(item.subjectType)}}</td>
+                        <td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
+                        <td>{{getBookVersionName(item.bookVersionCode,item.subjectType)}}</td>
+                        <td>{{getAimData(item.targetType)}}</td>
+                        <td>{{isAddClass(item.isAgreeJoinVulnerability) }}</td>
+                        <td>{{getExamType(item.examType)}}</td>
+                        <td>{{item.subjectivityScore}}</td>
+                        <td>{{item.impersonalityScore}}</td>
+                        <td><button class="btn btn-default" ng-click="getJuan(item.eduStudentDiagnoseResultCode )">详情</button></td>
+                        <td>{{isAddShort(item.isAgreeJoinVulnerability)}}</td>
+                    </tr>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
-                        <tr>
-                            <td colspan="14"></td>
-                            <td>
-                                <span>已选100人</span>
-                                <label class="i-checks">
-                                    <input type="checkbox" ng-model="data.selected"><i></i> 全选
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="15" class="text-center">
-                                <!-- <ul class="pagination"> -->
-                                <!-- pagination -->
-                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                </div>
-                                <!-- / pagination -->
-                                <!-- </ul> -->
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="14"></td>
+                        <td>
+                            <span>已选100人</span>
+                            <label class="i-checks">
+                                <input type="checkbox" ng-model="selectAll"><i></i> 全选
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="15" class="text-center">
+                            <!-- 指令调用代码-->
+                            <xl-page size="2" method="query" class="text-center"></xl-page>
+                            <!--指令模板（pagination.html）-->
+                        </td>
+                    </tr>
                     </tfoot>
                 </table>
-                
             </div>
             <!-- 学科用卷 modal -->
             <div ng-controller="categoryCtrl" class="pull-right">
                 <script type="text/ng-template" id="myModalContent.html">
-                    <div ng-include="'admin/common/shortBoardDiag.html'"></div>
+                    <div ng-include="'admin/common/tpl/shortBoardDiag.html'"></div>
                 </script>
                 <button class="btn btn-primary" ng-click="open('lg')">学科用卷</button>
             </div>
@@ -142,149 +132,3 @@
         </div>
     </div>
 </div>
-
-<!-- <div class="wrapper-md" ng-controller="teachResearchCtrl">
-    <div class="panel panel-default">
-        <div class="wrapper">
-           
-            <div class="panel-heading m-b-xl">
-                <form action="">
-                    <div class="radio form-group col-sm-12">
-                    <label class="col-sm-1 control-label">类型：</label>
-                        <div class="col-sm-2"><label class="i-checks">
-                            <input type="radio" name="aa" value="option1">
-                            <i></i>文科
-                        </label>
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option2" checked>
-                            <i></i>理科
-                        </label></div>
-                    </div>
-                    <div class="form-group col-sm-12">
-                        <label class="col-sm-1 control-label">地区:</label>
-                        <div class="col-sm-2">
-                            <select name="account" class="form-control input-sm">
-                                <option>全部</option>
-                                <option>北京</option>
-                            </select>
-                        </div>
-                    </div>
-                     <div class="form-group col-sm-12">
-                        <label class="col-sm-1 control-label">学科:</label>
-                        <div class="col-sm-10">
-                            <div class="col-sm-10"><label class="i-checks">
-                            <input type="radio" name="aa" value="option1">
-                            <i></i>语文
-                        </label>
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option2" checked>
-                            <i></i>数学
-                        </label>  <div class="col-sm-2"><label class="i-checks">
-                            <input type="radio" name="aa" value="option1">
-                            <i></i>英语
-                        </label>
-                        <label class="i-checks">
-                            <input type="radio" name="aa" value="option2" checked>
-                            <i></i>历史
-                        </label></div>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn m-b-xs w-xs btn-success pull-right">查询</button>
-                </form>
-            </div>
-            <div class="line line-dashed b-b line-lg"></div>
-            <div class="table-responsive">
-                <h4 class=""><span>目标类型：</span><span>一本线上30分</span>| <span>一本线 </span>| <span>二本线 </span></h4>
-                <table class="table table-striped b-t b-light">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>学科</th>
-                            <th>考试时间</th>
-                            <th>试卷</th>
-                            <th>客观题得分</th>
-                            <th>主观分</th>
-                            <th>总分</th>
-                            <th>诊断报告</th>
-                            <th>操作人</th>
-                            <th>联系</th>
-                            <th>家长</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><label class="i-checks">
-                                    <input type="checkbox"><i></i>
-                                </label>1</td>
-                            <td>1821058560</td>
-                            <td>XXX</td>
-                            <td>语文</td>
-                            <td>2016.7.28：18：00-19：00</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>90分</td>
-                            <td>100分</td>
-                            <td>130分</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>XXX</td>
-                            <td>138XXXX1231</td>
-                            <td>XXXX</td>
-                            <td>
-                                <div ng-controller="categoryCtrl">
-                                    <script type="text/ng-template" id="myModalContent.html">
-                                        <div ng-include="'admin/common/shortBoardDiag.html'"></div>
-                                    </script>
-                                    <button class="btn btn-primary" ng-click="open('lg')">学科用卷</button>
-                                </div></td>
-                        </tr>
-                        <tr>
-                            <td><label class="i-checks">
-                                    <input type="checkbox"><i></i>
-                                </label>2</td>
-                            <td>1821058560</td>
-                            <td>XXX</td>
-                            <td>语文</td>
-                            <td>2016.7.28：18：00-19：00</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>90分</td>
-                            <td>100分</td>
-                            <td>130分</td>
-                            <td><button class="btn btn-default">详情</button></td>
-                            <td>XXX</td>
-                            <td>138XXXX1231</td>
-                            <td>XXXX</td>
-                            <td><b>诊断试卷A</b></td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="hide-if-no-paging">
-                        <tr>
-                            <td colspan="14">
-                                 <div class="pull-right"><label class="i-checks">
-                                    <input type="checkbox" > <i></i>
-                                </label>全选</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="14" class="text-center">
-                                <ul class="pagination">
-                                pagination
-                               
-                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                </div>
-                                / pagination
-                                </ul>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <button class=" m-t btn btn-primary pull-right">转入教学</button>
-            </div>
-            
-        </div>
-    </div>
-</div>
- -->

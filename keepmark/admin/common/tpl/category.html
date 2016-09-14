@@ -14,14 +14,15 @@
         <div ng-hide="isShow" >
             <label class="col-sm-1 control-label">目标:</label>
             <div class="col-sm-4">
-                <select name="account" class="form-control">
-                    <option>一本线上30分(文)</option>
-                    <option>一本线上30分(理)</option>
+                <select name="account" class="form-control showHideControllerSelect">
+                    <option value="0">一本线上30</option>
+                    <option value="1">一本</option>
+                    <option value="2">二本</option>
                 </select>
             </div>
         </div>
     </div>
-   <ul>
+    <ul>
         <li ng-repeat="item in items">
             <a ng-click="selected.item = item">{{ classes[0].city }}</a>
             <!-- <label class="col-sm-1 control-label">中心:</label>
@@ -35,7 +36,7 @@
     </ul>
     Selected: <b>{{ selected.item }}</b>
 </div>
-<div class="modal-footer">                  
+<div class="modal-footer">
     <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-primary" ng-click="studentClassify()">OK</button>
 </div>
