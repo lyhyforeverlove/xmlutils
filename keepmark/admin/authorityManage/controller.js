@@ -9,7 +9,16 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
     $scope.titleName = "兼职教师管理";
     //查看兼职教师
     $scope.partTimeTeacherDetail = function(partTimeTeacher){
-        $state.go("app.authorityManage.partTimeTeacherDetail",{partTeacher:JSON.stringify(partTimeTeacher)});
+        var partTeacher={};
+        partTeacher.userName = partTimeTeacher.userName;
+        partTeacher.name = partTimeTeacher.name;
+        partTeacher.password = partTimeTeacher.password;
+        partTeacher.teacherNum = partTimeTeacher.teacherNum;
+        partTeacher.lectureType = partTimeTeacher.lectureType;
+        partTeacher.invigilator = partTimeTeacher.invigilator;
+        partTeacher.subjectName = partTimeTeacher.subjectName;
+        partTeacher.teacherShip = partTimeTeacher.teacherShip;
+        $state.go("app.authorityManage.partTimeTeacherDetail",{partTeacher:JSON.stringify(partTeacher)});
     }
 
     $scope.tabs = [{
@@ -166,9 +175,7 @@ app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDa
 });
 //查看兼职教师
 app.controller("partTimeTeacherDetailController",function($scope,$stateParams){
-
-    $scope.partTeacher =JSON.parse($stateParams.partTeacher);
-    alert($scope.partTeacher);
+    $scope.partTeacher = JSON.parse($stateParams.partTeacher);
 });
 
 
@@ -177,7 +184,16 @@ app.controller("partTimeTeacherDetailController",function($scope,$stateParams){
 //全职教师
 app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
     $scope.titleName = "全职教师管理";
-    $scope.fullTimeTeacherDetail = function(fullTeacher){
+    $scope.fullTimeTeacherDetail = function(fullTimeTeacher){
+        var fullTeacher={};
+        fullTeacher.userName = fullTimeTeacher.userName;
+        fullTeacher.name = fullTimeTeacher.name;
+        fullTeacher.password = fullTimeTeacher.password;
+        fullTeacher.teacherNum = fullTimeTeacher.teacherNum;
+        fullTeacher.lectureType = fullTimeTeacher.lectureType;
+        fullTeacher.invigilator = fullTimeTeacher.invigilator;
+        fullTeacher.subjectName = fullTimeTeacher.subjectName;
+        fullTeacher.roleType = fullTimeTeacher.roleType;
         $state.go("app.authorityManage.fullTimeTeacherDetail",{fullTeacher:JSON.stringify(fullTeacher)});
     }
     $scope.tabs = [{
@@ -309,7 +325,6 @@ app.controller("updateFullTimeTeacherController",function($scope,acquireDataServ
 app.controller("fullTimeTeacherDetailController",function($scope,$stateParams){
     $scope.titleName="全职教师查看";
     $scope.fullTeacher = JSON.parse($stateParams.fullTeacher);
-
 })
 //学籍教师
 app.controller("schoolRollManageController",function($scope){

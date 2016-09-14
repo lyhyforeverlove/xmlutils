@@ -53,7 +53,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">语文老师</label>
                 <div class="col-sm-2">
-                    <select  class="form-control m-b" ng-model="classAndGrade.chineseTeacher" ng-options="c.name for c in chineseTeacherList" ng-click="getTeacher(1)">
+                    <select  class="form-control m-b" ng-model="chineseTeacher" ng-options="chineseTeacher.name for chineseTeacher in chineseTeacherList" ng-click="getTeacher(1)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -61,7 +61,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">数学老师</label>
                 <div class="col-sm-2">
-                    <select  class="form-control m-b" ng-model="classAndGrade.mathTeacher" ng-options="m.name for m in mathTeacherList" ng-click="getTeacher(2)">
+                    <select  class="form-control m-b" ng-model="mathTeacher" ng-options="m.name for m in mathTeacherList" ng-click="getTeacher(2)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -69,7 +69,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">英语老师</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="classAndGrade.englishTeacher" ng-options="e.name for e in englishTeacherList" ng-click="getTeacher(3)">
+                    <select class="form-control m-b" ng-model="teacher.englishTeacher" ng-options="e.code as e.name for e in englishTeacherList" ng-click="getTeacher(3)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">历史老师</label>
                     <div class="col-sm-2">
-                        <select class="form-control m-b" ng-model="classAndGrade.historyTeacher" ng-options="h.name for h in historyTeacherList"  ng-click="getTeacher(7)">
+                        <select class="form-control m-b" ng-model="teacher.historyTeacher" ng-options="h.code as h.name for h in historyTeacherList"  ng-click="getTeacher(7)">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -86,7 +86,7 @@
                 <div class="form-group col-sm-12" >
                     <label class="col-sm-1 control-label">地理老师</label>
                     <div class="col-sm-2">
-                        <select class="form-control m-b" ng-model="class.geographyTeacher" ng-options="g.name for g in geographyTeacherList"  ng-click="getTeacher(8)">
+                        <select class="form-control m-b" ng-model="teacher.geographyTeacher" ng-options="g.code as g.name for g in geographyTeacherList"  ng-click="getTeacher(8)">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -94,7 +94,7 @@
                 <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">政治老师</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="classAndGrade.politicalTeacher" ng-options="p.name for p in politicalTeacherList"  ng-click="getTeacher(9)">
+                    <select class="form-control m-b" ng-model="teacher.politicalTeacher" ng-options="p.code as p.name for p in politicalTeacherList"  ng-click="getTeacher(9)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -104,7 +104,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">物理老师</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" ng-model="classAndGrade.physicsTeacher" ng-options="p.name for p in physicsTeacherList"  ng-click="getTeacher(4)">
+                        <select  class="form-control m-b" ng-model="teacher.physicsTeacher" ng-options="p.code as p.name for p in physicsTeacherList"  ng-click="getTeacher(4)">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -112,7 +112,7 @@
                 <div class="form-group col-sm-12" >
                     <label class="col-sm-1 control-label">化学老师</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" ng-model="classAndGrade.chemistryTeacher" ng-options="c.name for c in chemistryTeacherList" ng-click="getTeacher(5)">
+                        <select  class="form-control m-b" ng-model="teacher.chemistryTeacher" ng-options="c.code as c.name for c in chemistryTeacherList" ng-click="getTeacher(5)">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -120,7 +120,7 @@
                 <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">生物老师</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="classAndGrade.biologyTeacher" ng-options="b.name for b in biologyTeacherList" ng-click="getTeacher(6)">
+                    <select class="form-control m-b" ng-model="teacher.biologyTeacher" ng-options="b.code as b.name for b in biologyTeacherList" ng-click="getTeacher(6)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -130,17 +130,17 @@
                 <div class="form-group">
                     <label class="col-sm-1 control-label">负责人:</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" >
+                        <select  class="form-control m-b" ng-model="classAndGrade.personCharge">
                             <option value="">--请选择--</option>
-                            <option ng-if="chineseTeacher !=null && chineseTeacher !='--请选择--'" value={{chineseTeacher.teacherId}}>{{chineseTeacher.teacherName}}</option>
-                            <option ng-if="mathTeacher !=null && mathTeacher !='--请选择--'" value={{mathTeacher.teacherId}}>{{mathTeacher.teacherName}}</option>
-                            <option ng-if="englishTeacher !=null && englishTeacher !='--请选择--'" value={{englishTeacher.teacherId}}>{{englishTeacher.teacherName}}</option>
-                            <option ng-if="historyTeacher !=null && historyTeacher !='--请选择--'" value={{historyTeacher.teacherId}}>{{historyTeacher.teacherName}}</option>
-                            <option ng-if="geographyTeacher !=null && geographyTeacher !='--请选择--'" value={{geographyTeacher.teacherId}}>{{geographyTeacher.teacherName}}</option>
-                            <option ng-if="politicalTeacher !=null && politicalTeacher !='--请选择--'" value={{politicalTeacher.teacherId}}>{{politicalTeacher.teacherName}}</option>
-                            <option ng-if="physicsTeacher !=null && physicsTeacher !='--请选择--'" value={{physicsTeacher.teacherId}}>{{physicsTeacher.teacherName}}</option>
-                            <option ng-if="chemistryTeacher !=null && chemistryTeacher !='--请选择--'" value={{chemistryTeacher.teacherId}}>{{chemistryTeacher.teacherName}}</option>
-                            <option ng-if="biologyTeacher !=null && biologyTeacher !='--请选择--'" value={{biologyTeacher.teacherId}}>{{biologyTeacher.teacherName}}</option>
+                            <option ng-if="chineseTeacher !=null && chineseTeacher !='--请选择--'" value={{chineseTeacher.code}}>{{chineseTeacher.name}}</option>
+                            <option ng-if="mathTeacher !=null && mathTeacher !='--请选择--'" value={{mathTeacher.code}}>{{mathTeacher.name}}</option>
+                            <option ng-if="englishTeacher !=null && englishTeacher !='--请选择--'" value={{englishTeacher.code}}>{{englishTeacher.name}}</option>
+                            <option ng-if="historyTeacher !=null && historyTeacher !='--请选择--'" value={{historyTeacher.code}}>{{historyTeacher.name}}</option>
+                            <option ng-if="geographyTeacher !=null && geographyTeacher !='--请选择--'" value={{geographyTeacher.code}}>{{geographyTeacher.name}}</option>
+                            <option ng-if="politicalTeacher !=null && politicalTeacher !='--请选择--'" value={{politicalTeacher.code}}>{{politicalTeacher.name}}</option>
+                            <option ng-if="physicsTeacher !=null && physicsTeacher !='--请选择--'" value={{physicsTeacher.code}}>{{physicsTeacher.name}}</option>
+                            <option ng-if="chemistryTeacher !=null && chemistryTeacher !='--请选择--'" value={{chemistryTeacher.code}}>{{chemistryTeacher.name}}</option>
+                            <option ng-if="biologyTeacher !=null && biologyTeacher !='--请选择--'" value={{biologyTeacher.code}}>{{biologyTeacher.name}}</option>
                         </select>
                     </div>
                 </div>
