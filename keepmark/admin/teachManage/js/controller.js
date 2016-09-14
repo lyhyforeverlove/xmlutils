@@ -369,15 +369,14 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
     $scope.formData.gradeCode = 33;//默认学年为33
 
     
-    //根据学年、类型、教材 查询试卷池 （接口获取学生诊断记录列表）
-    $scope.getList = function(page, size, callback) {
+    $scope.getList1 = function(page, size,callback) {
         var url = $scope.app.host + "/teacher/diagnosis/getDiagnosisRecordList?requestId=test123456";
         $http.post(url, {
             "gradeCode": $scope.formData.gradeCode,
             "departmentType": $scope.formData.departmentType,
             "subjectCode": $scope.formData.subjectCode,
             "bookVersionCode":  $scope.formData.bookVersionCode,
-            "distributionState" :1,
+            "distributionState" :1, 
             "currentPage": page,
             "pageSize": size
         }).success(function(data) {
@@ -388,19 +387,53 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
                 $scope.results = data.result;
                 $scope.total = data.total;
 
-            $scope.allotData = [];
-            $scope.noAllotData = [];
+            //$scope.allotData = [];
+            //$scope.noAllotData = [];
+                angular.forEach(list, function(data){
+                    if(data.distributionStatus == 1){
+                        data.distributionStatus = "已分配";
+                    }
+                });
+                angular.forEach(list, function(data){
+                    if(data.subjectCode == 1){
+                        data.subjectCode = "语文";
+                    }else if(data.subjectCode == 2){
+                         data.subjectCode = "数学";
+                    }
+                });
+
+                $scope.totalPage = data.result.totalPage;
+                callback && callback(data.result);
+            }
+        }).error(function(data) {
+            console.log("fail");
+        });
+    }
+    //根据学年、类型、教材 查询试卷池 （接口获取学生诊断记录列表） 
+    $scope.getList = function(page, size,callback) {
+        var url = $scope.app.host + "/teacher/diagnosis/getDiagnosisRecordList?requestId=test123456";
+        $http.post(url, {
+            "gradeCode": $scope.formData.gradeCode,
+            "departmentType": $scope.formData.departmentType,
+            "subjectCode": $scope.formData.subjectCode,
+            "bookVersionCode":  $scope.formData.bookVersionCode,
+            "distributionState" :0, 
+            "currentPage": page,
+            "pageSize": size
+        }).success(function(data) {
+            console.log(data);
+            if (data.message == "Success") {
+               
+                var list = data.result.list;
+                $scope.results = data.result;
+                $scope.total = data.total;
+                
+            //$scope.allotData = [];
+            //$scope.noAllotData = [];
                 angular.forEach(list, function(data){
                     if(data.distributionStatus == 0){
-                        $scope.noAllotData.push(data);
-
                         data.distributionStatus = "未分配";
 
-                    }else{
-                          $scope.allotData.push(data);
-                         data.distributionStatus = "已分配";
-                         
-                
                     }
                 });
                 angular.forEach(list, function(data){

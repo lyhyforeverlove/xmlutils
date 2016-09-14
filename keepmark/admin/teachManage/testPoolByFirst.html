@@ -9,7 +9,7 @@
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <!--包含公共筛选条件 end-->
-                <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>
+               <!--  <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button> -->
             </form>
             <!-- select close -->
             <!-- tab -->
@@ -26,9 +26,9 @@
                 </div>
                 <script type="text/ng-template" id="one.tpl.html">
                     <div id="viewOne">
-                        <div class="panel-heading">
-                            <p><span>需判试卷：{{data.total_count}}份</span><span>监考人数：80人</span></p>
-                        </div>
+                        <!-- <div class="panel-heading">
+                            <p><span>需判试卷：{{total}}份</span><span>监考人数：80人</span></p>
+                        </div> -->
                         <!-- <pre>{{choseArr}}</pre> -->
                         <div class="table-responsive">
                             <table class="table table-striped b-t b-light">
@@ -46,7 +46,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="data in noAllotData">
+                                    <tr ng-repeat="data in results.list">
                                         <td>{{$index+1}}</td>
                                         <td>诊断</td>
                                         <td></td>
@@ -160,9 +160,9 @@
                 </script>
                 <script type="text/ng-template" id="two.tpl.html">
                     <div id="viewTwo">
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
                             <p><span>需判试卷：{{data.total_count}}份</span><span>监考人数：80人</span></p>
-                        </div>
+                        </div> -->
                         <div class="table-responsive">
                             <table class="table table-striped b-t b-light">
                                 <thead>
@@ -179,24 +179,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="data in allotData">
-                                       <td>{{$index+1}}</td>
+                                   <tr ng-repeat="data in results.list">
+                                        <td>{{$index+1}}</td>
                                         <td>诊断</td>
                                         <td></td>
                                         <td></td>
                                         <td>{{data.subjectCode}}</td>
                                         <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
+                                            <button class="btn btn-primary"  ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
                                         <td> {{data.distributionStatus}}</td>
                                         <td>
-                                            
+                                           &nbsp;
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="5" method="getList1" class="text-center"></xl-page>
+                                            <!-- 指令模板[pagination.html] -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
-
                         </div>
                     </div>
                 </script>
