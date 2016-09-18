@@ -175,7 +175,15 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 				"markModels": postObj.list
 			})
 			.success(function(data) {
-				//根据判卷轮次跳转不同的页面
+				if(markPaperRequestJson.markRound==0){
+					//跳转到一轮判列表					
+				}
+				if(markPaperRequestJson.markRound==1){
+					//跳转到二轮判列表	
+				}
+				if(markPaperRequestJson.markRound==2){
+					//跳转到复审列表
+				}
 			}).error(function(data) {
 
 			});
