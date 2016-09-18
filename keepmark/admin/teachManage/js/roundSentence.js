@@ -109,6 +109,8 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 	var postObj = {}; //判卷提交试题
 	var markModel = {}; //单题信息
 	var productionModel = {};
+	var subjectivityScore = 0; //主观得分
+	var impersonalityScore = 0; //客观得分
 	markModel.productionList = [];
 	postObj.list = [];
 	// 获取上个界面传递的数据，并进行解析  
@@ -118,14 +120,15 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 	console.log($stateParams.jsonString);
 	console.log(markPaperRequestJson);
 	$scope.paperDetail = markPaperRequestJson;
+	impersonalityScore = markPaperRequestJson.impersonalityScore;
 	//$scope.persons = markPaperFactory.getter();
 	//$scope.$on('$fromSubControllerClick', function(e,data){
 	//	console.log(data); // hello
 	//获取学生答题详情
 	$scope.load = function(){
 		$http.post($scope.app.host + 'student/diagnosis/getUserAnswer?requestId=test123456', {
-			"studentCode": "1111",
-			"singleDiagnosisRecordCode": "5948BBC0862844B3808D668FD0E4E51F"
+			"studentCode":  markPaperRequestJson.studentCode,
+			"singleDiagnosisRecordCode": markPaperRequestJson.eduSingleDiagnosisRecordCode
 		})
 		.success(function(data) {
 			console.log(data);
@@ -165,25 +168,49 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 		//markModel.questionType='';//试题类型
 		//markModel.sentenceResult='';//判卷结果
 		postObj.list.push(markModel);
+		subjectivityScore = parseFloat(subjectivityScore) + parseFloat(data.paperScore) + parseFloat(data.questionScore);
+		$("#" + data.code).attr('disabled', true);
 		console.log(postObj);
 	}
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
 		$http.post("http://192.168.1.156:8090/" + 'teacher/diagnosis/mark?requestId=test123456', {
-				"diagnosticRecordsCode": "1111",
-				"markType": 1, //一判 二判 复审
+				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
+				"markType":markPaperRequestJson.markRound , //一判 二判 复审
+				"teacherCode": "111111",//获取登录教师的code
+				"teacherName": "教师名称",//获取登录教师的名称
+				"subjectivityScore": subjectivityScore, //主观题得分
+				"singleScore": subjectivityScore + parseFloat(impersonalityScore), //单科总分
 				"markModels": postObj.list
 			})
 			.success(function(data) {
-				console.log(data);
-				//$state.go("app.teachManage.examDetail");
+				if(markPaperRequestJson.markRound==0){
+					//跳转到一轮判列表					
+				}
+				if(markPaperRequestJson.markRound==1){
+					//跳转到二轮判列表	
+				}
+				if(markPaperRequestJson.markRound==2){
+					//跳转到复审列表
+				}
 			}).error(function(data) {
 				console.log(data);
 
 			});
 
 	}
+	
+	
+	$scope.check = function() {
+		$(".col-sm-3 button").each(function(index, value) {
+			if(typeof($(this).attr('disabled')) == "undefined") {
+				alert("还有题未进行提交！！请检查！！！");
+				return false;
+			}
+		});
+	}
+	
 });
 
 function removehtml(id) {
