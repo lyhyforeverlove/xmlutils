@@ -1,5 +1,5 @@
 <div ng-controller="MarkExamController">
-    <div class="wrapper-md" >
+    <div class="wrapper-md" ng-init="load()">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4>试卷名称 XXXXX</h4>
@@ -8,10 +8,10 @@
                 <h4 align="center">
                   <span class="p-d">学科:{{paperDetail.subjectCode}}</span>
                   <span class="p-d">考试时间:{{paperDetail.examStartTime | date:'yyyy-MM-dd HH:mm:ss'}}--{{paperDetail.examEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
-                  <span class="p-d">监考教师:Bob</span>
+                  <span class="p-d">监考教师:{{paperDetail.invigilatorTeacherName}}</span>
                   <span class="p-d">考试用时:{{paperDetail.userTime}}</span>
                   <span class="p-d">总题数:55题</span>
-                  <span class="p-d">判卷老师:{{paperDetail.invigilatorTeacherName}}</span>
+                  <span class="p-d" style="color: red;">判卷老师:----无返回字段---</span>
                 </h4>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="m-t total-score col-sm-12">
@@ -29,7 +29,7 @@
                       <div class="col-sm-3">
                         <span>得分<input type="text" class="form-control" ng-model="data.questionScore"  class="score"></span>
                         <span>卷面得分<input type="text" class="form-control"  ng-model="data.paperScore" class="score1"></span>
-                        <button ng-click='submitQuestion(data)' class="btn btn-default">提交</button>
+                        <button ng-click='submitQuestion(data)' id={{data.code}} class="btn btn-default">提交</button>
                       </div>
                       <div class="col-sm-12 line line-dashed b-b line-lg  m-t" ></div>
                     </div>
