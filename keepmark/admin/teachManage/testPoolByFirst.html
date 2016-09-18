@@ -17,7 +17,7 @@
                 <div class="panel panel-heading">
                     <h3>试卷状态</h3></div>
                 <div id="tabs">
-                    <ul>
+                    <ul class="tabs_ul">
                         <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
                     </ul>
                     <div id="mainView">
@@ -50,16 +50,16 @@
                                         <td>{{$index+1}}</td>
                                         <td>诊断</td>
                                         <td></td>
-                                        <td></td>
-                                        <td>{{data.subjectCode}}</td>
+                                        <td>{{data.eduSingleDiagnosisRecordCode }}</td>
+                                        <td>{{subjectName}}</td>
                                         <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
+                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.diagnosisPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
                                         <td> {{data.distributionStatus}}</td>
                                         <td>
                                             <label class="i-checks">
-                                                <input id={{z}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(z,x)"><i></i>选择</label>
+                                                <input id={{data.eduSingleDiagnosisRecordCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.eduSingleDiagnosisRecordCode ,x)"><i></i>选择</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -71,9 +71,9 @@
                                         </td>
                                         <td>
                                             <!-- 手动分配 modal -->
-                                            <button class="btn btn-primary m-r pull-right" ng-click="open('gt')">手动分配</button>
-                                            <hr>
-                                            <div class="h1" ng-show="selected">当前选择：{{selected}}</div>
+                                            <button class="btn btn-primary m-r pull-right" ng-click="open('gt',choseArr,subjectCode,teacherList)">手动分配</button>
+                                            <!-- <hr>
+                                            <div class="h1" ng-show="selected">当前选择：{{selected}}</div> -->
                                             <!-- 手动分配/modal -->
                                         </td>
                                     </tr>
@@ -88,74 +88,33 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            <script type="text/ng-template" id="myModelContent.html">
-                                <div class="modal-header">
-                                    <h3 class="modal-title">分配老师</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>学科：数学</p>
-                                    <p><span>需分配试卷：1000份</span><span>已选择900份</span></p>
-                                    <p>
-                                        <label class="col-sm-2">每人</label><span class="col-sm-2"><input type="text" value="10"  class="form-control input-sm"></span>份</p>
-                                    <div>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                        <label class="i-checks m-b-none">
-                                            <input type="checkbox"><i></i>我是老师
-                                        </label>
-                                    </div>
-                                    <!-- <ul>
-                                        <li ng-repeat="item in items">
-                                            <a ng-click="selected.item = item">{{item}}</a>
-                                        </li>
-                                        <div class="h2">当前选择： <b>{{selected.item}}</b></div>
-                                    </ul> -->
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary" ng-click="ok()">
-                                        确认
-                                    </button>
-                                    <button class="btn btn-warning" ng-click="cancel()">退出</button>
-                                </div>
-                            </script>
                         </div>
+                        <script type="text/ng-template" id="myModelContent.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">分配试卷</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>学科：数学</p>
+                                <!-- <p><span>需分配试卷：1000份</span><span>已选择900份</span></p> -->
+                                <div>
+                                    <label class="i-checks m-b-none"  ng-repeat="data in teacherList">
+                                        <input type="checkbox" id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.code,x)"><i></i>{{data.name}} 
+                                    </label>
+                                </div>
+                                <!-- <ul>
+                                    <li ng-repeat="item in items">
+                                        <a ng-click="selected.item = item">{{item}}</a>
+                                    </li>
+                                    <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+                                </ul> -->
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="DistributionOk({round:0})">
+                                    确认
+                                </button>
+                                <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                            </div>
+                        </script>
                     </div>
                 </script>
                 <script type="text/ng-template" id="two.tpl.html">

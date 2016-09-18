@@ -37,24 +37,24 @@
                         <th>客观题得分</th>
                         <th>主观题分数</th>
                         <th>考试确认</th>
-                        <th>考试时间</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="data in results.list">
                         <td>{{$index+1}}</td>
                         <td>短板诊断</td>
-                        <td>1821058560</td>
-                        <td>LiLy</td>
-                        <td>英语</td>
-                        <td>2016.7.28 18:00-19:00</td>
+                        <td>{{data.userName}}</td>
+                        <td>{{data.studentName}}</td>
+                        <td>{{data.subjectName}}</td>
+                        <td>{{data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                         <td>
                             <button class="btn btn-primary">详情</button>
                         </td>
-                        <td>80分</td>
-                        <td>50分</td>
+                        <td>{{data.impersonalityScore}}分</td>
+                        <td>{{data.subjectivityScore}}分</td>
                         <td>参加考试</td>
-                        <td>2016.7.28 18:00-19:00</td>
+                        <td></td>
                     </tr>
                     
                 </tbody>

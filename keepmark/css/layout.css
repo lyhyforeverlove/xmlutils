@@ -154,7 +154,7 @@
 
 
 /*tab common*/
-#tabs ul{
+#tabs ul.tabs_ul{
 	border-bottom:1px solid #7266ba;
 }
 #tabs .ng-binding.ng-scope.active{

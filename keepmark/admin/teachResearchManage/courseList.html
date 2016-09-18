@@ -2,8 +2,9 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>教研管理 &gt; 课程管理 
-                <button type="button" class="pull-right btn btn-primary" ui-sref='app.teachResearchManage.createCourse'>新增课程体系</button>
-            }
+                <button type="button" class="pull-right btn btn-primary" ui-sref='app.teachResearchManage.createCourse'>新增课程体系
+                </button>
+           
             </h4>
         </div>
         <div class="wrapper">
@@ -70,8 +71,8 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr ng-repeat="data in results.list">
+                <tbody> <!-- ng-repeat="data in results.list" -->
+                    <tr>
                         <td>
                             <label class="i-checks m-b-none">
                                 <input type="checkbox" ng-model="data.selected"><i></i>{{$index+1}}</label>

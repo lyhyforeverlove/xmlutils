@@ -9,7 +9,7 @@
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <!--包含公共筛选条件 end-->
-                <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>
+                <!-- <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button> -->
             </form>
             <!-- select close -->
             <!-- tab -->
@@ -17,7 +17,7 @@
                 <div class="panel panel-heading">
                     <h3>试卷状态</h3></div>
                 <div id="tabs">
-                    <ul>
+                    <ul class="tabs_ul">
                         <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
                     </ul>
                     <div id="mainView">
@@ -26,9 +26,9 @@
                 </div>
                 <script type="text/ng-template" id="one.tpl.html">
                     <div id="viewOne">
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
                             <p><span>需判试卷：{{data.total_count}}份</span><span>监考人数：80人</span></p>
-                        </div>
+                        </div> -->
                         <!-- <pre>{{choseArr}}</pre> -->
                         <div class="table-responsive">
                             <table class="table table-striped b-t b-light">
@@ -46,20 +46,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
+                                    <tr ng-repeat = "data in results.list">
+                                        <td>{{$index+1}}</td>
                                         <td>诊断</td>
-                                        <td>1821058560</td>
-                                        <td>LiLy</td>
-                                        <td>英语</td>
-                                        <td>2016.7.28 18:00-19:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{data.subjectCode}}</td>
+                                        <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref='app.teachManage.detail({id:data.id})'>&nbsp;详&nbsp;情&nbsp;</button>
+                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
-                                        <td>未分配</td>
+                                        <td> {{data.distributionStatus}}</td>
                                         <td>
                                             <label class="i-checks">
-                                                <input id={{z}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(z,x)"><i></i>选择</label>
+                                                <input id={{data.eduSingleDiagnosisRecordCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.eduSingleDiagnosisRecordCode ,x)"><i></i>选择</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -71,13 +71,48 @@
                                         </td>
                                         <td>
                                             <!-- 手动分配 modal -->
-                                            <button class="btn btn-primary m-r pull-right" ng-click="open('lt')">手动分配</button>
+                                             <button class="btn btn-primary m-r pull-right" ng-click="open('gt',choseArr,subjectCode,teacherList)">手动分配</button>
                                             <!-- 手动分配/modal -->
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="5" method="getList3" class="text-center"></xl-page>
+                                            <!-- 指令模板[pagination.html] -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
+                        <script type="text/ng-template" id="myModelContent.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">分配试卷</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>学科：数学</p>
+                                <!-- <p><span>需分配试卷：1000份</span><span>已选择900份</span></p> -->
+                                <div>
+                                    <label class="i-checks m-b-none"  ng-repeat="data in teacherList">
+                                        <input type="checkbox" id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.code,x)"><i></i>{{data.name}} 
+                                    </label>
+                                </div>
+                                <!-- <ul>
+                                    <li ng-repeat="item in items">
+                                        <a ng-click="selected.item = item">{{item}}</a>
+                                    </li>
+                                    <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+                                </ul> -->
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="DistributionOk({round:1})">
+                                    确认
+                                </button>
+                                <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                            </div>
+                        </script>
                     </div>
                 </script>
                 <script type="text/ng-template" id="two.tpl.html">
@@ -101,21 +136,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2</td>
+                                    <tr ng-repeat="data in results.list">
+                                        <td>{{$index+1}}</td>
                                         <td>诊断</td>
-                                        <td>1821058560</td>
-                                        <td>LiLy</td>
-                                        <td>英语</td>
-                                        <td>2016.7.28 18:00-19:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{data.subjectCode}}</td>
+                                        <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref='app.teachManage.detail({id:data.id})'>详情</button>
+                                            <button class="btn btn-primary"  ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
-                                        <td>已分配</td>
+                                        <td> {{data.distributionStatus}}</td>
                                         <td>
+                                           &nbsp;
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="5" method="getList2" class="text-center"></xl-page>
+                                            <!-- 指令模板[pagination.html] -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

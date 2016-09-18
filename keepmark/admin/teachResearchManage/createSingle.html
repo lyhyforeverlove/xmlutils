@@ -40,15 +40,17 @@
                                 <table class="table table-striped b-t b-light">
                                     <thead>
                                         <tr>
+                                            <th>序号</th>
                                             <th>学科</th>
                                             <th>诊断试卷名称</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="data in results.datas.data">
+                                        <tr ng-repeat="data in results.data">
+                                            <td>{{$index+1}}</td>
                                             <td>{{subjectCode}}</td>
-                                            <td>{{data.paperName}} | {{data.id}}</td>
+                                            <td>{{data.paperName}}</td>
                                             <td>
                                            <button class="btn btn-primary" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
                                             </td>

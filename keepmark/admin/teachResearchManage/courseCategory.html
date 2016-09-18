@@ -87,7 +87,8 @@
                                     <input type="checkbox"><i></i>化学:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control input-sm" value="60">
+                                    <input type="text" class="form-control input-sm" value="60" id="6">
+                                     <input  type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(6,x)"><i></i>选择</label>
                                 </div>
                                 <span>分以上</span>
                             </div>
@@ -96,7 +97,9 @@
                                     <input type="checkbox"><i></i>物理:
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control input-sm" value="60">
+                                    <input type="text" class="form-control input-sm" value="60" id="7">
+                                    <label class="i-checks">
+                                                <input  type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(7,x)"><i></i>选择</label>
                                 </div>
                                 <span>分以上</span>
                             </div>
@@ -107,24 +110,24 @@
                 </form>
             </div>
                <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
-                    <input type="radio" name="ff" value="option3" checked  ng-click="query(sate:0)">
+                    <input type="radio" name="ff" value="option3" checked >
                     <i></i>一本线上30分
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
                     <input type="radio" name="ff" value="option3">
                     <i></i>一本线
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
                     <input type="radio" name="ff" value="option3">
                     <i></i>二本线
                 </label></span></p>
 
              <div class="line line-dashed b-b line-lg"></div>
                  <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
-                    <input type="radio" name="f" value="option3" checked  ng-click="query(sate:0)">
+                    <input type="radio" name="f" value="option3" checked  ng-click="">
                     <i></i>全部
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:1)">
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
                     <input type="radio" name="f" value="option3">
                     <i></i>已分配
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="query(sate:2)">
+                </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
                     <input type="radio" name="f" value="option3">
                     <i></i>未分配
                 </label></span></p>
