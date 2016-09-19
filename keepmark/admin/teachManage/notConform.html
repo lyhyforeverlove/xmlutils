@@ -4,6 +4,7 @@
             <h4>教学管理 &gt;不符合名单通知确认</h4>
         </div>
         <div class="wrapper">
+        <pre>{{formData}}</pre>
             <div class="panel-heading m-b-xl">
                 <form action="" class="form-horizontal">
                     <div class="form-group">
@@ -60,284 +61,88 @@
                 </form>
             </div>
             <div class="line line-dashed b-b line-lg"></div>
-            <!-- tab -->
             <div>
                 <p>备注：<b>未短板诊断</b>(教研确认需要短板而用户未参加)</p>
-                <div id="tabs">
-                    <ul>
-                        <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
-                    </ul>
-                    <div id="mainView">
-                        <div ng-include="currentTab"></div>
-                    </div>
-                    <script type="text/ng-template" id="one.tpl.html">
-                        <div id="viewOne">
-                            <div class="table-responsive">
-                                <table class="table table-striped b-t b-light">
-                                    <thead>
-                                        <tr>
-                                            <th>序号</th>
-                                            <th>用户名</th>
-                                            <th>姓名</th>
-                                            <th>考试时间</th>
-                                            <th>总分</th>
-                                            <th>数学</th>
-                                            <th>语文</th>
-                                            <th>英语</th>
-                                            <th>物理</th>
-                                            <th>化学</th>
-                                            <th>生物</th>
-                                            <th>地区</th>
-                                            <th>电话通知确认</th>
-                                            <th>备注赠送课程</th>
-                                            <th>上次操作人</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="data in results.list">
-                                            <td>{{$index+1}}</td>
-                                            <td>1821058560</td>
-                                            <td>{{data.studentName}}</td>
-                                            <td>{{data.examinationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                            <td>{{data.totalScore}}分</td>
-                                            <td>{{data.mathScore}}分</td>
-                                            <td>{{data.chineseScore}}分</td>
-                                            <td>{{data.englishScore}}分</td>
-                                            <td>{{data.physicsScore}}分</td>
-                                            <td>{{data.biologyScore}}分</td>
-                                            <td>生物分</td>
-                                            <td>{{data.areaName}}</td>
-                                            <td>
-                                                <button class="btn btn-primary">通知确认</button>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-primary">赠送</button>
-                                            </td>
-                                            <td>XXXX</td>
-                                            <td>
-                                                <a>查看</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>1821058560</td>
-                                            <td>XXX</td>
-                                            <td>2016.7.28：18：00-19：00</td>
-                                            <td>430分</td>
-                                            <td>90分</td>
-                                            <td>100分</td>
-                                            <td>100分</td>
-                                            <td>180分</td>
-                                            <td>50分</td>
-                                            <td>100分</td>
-                                            <td>北京</td>
-                                            <td>已确认</td>
-                                            <td>已赠送</td>
-                                            <td>XXXXXXX</td>
-                                            <td>
-                                                <a>查看</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="16" class="text-center">
-                                                <!-- 指令调用代码 -->
-                                                <xl-page size="10" method="getList" class="text-center"></xl-page>
-                                                <!--指令模板[pagination.html] -->
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </script>
-                    <script type="text/ng-template" id="two.tpl.html">
-                        <div id="viewTwo">
-                            <div class="table-responsive">
-                                <h4>
-                <span class="pull-right m-b">短板学科:
-                        <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
-                  <option value="0">英语</option>
-                  <option value="1">数学</option>
-                </select>
-                </span>
-                </h4>
-                                <table class="table table-striped b-t b-light">
-                                    <thead>
-                                        <tr>
-                                            <th>序号</th>
-                                            <th>用户名</th>
-                                            <th>姓名</th>
-                                            <th>考试时间</th>
-                                            <th>总分</th>
-                                            <th>数学</th>
-                                            <th>语文</th>
-                                            <th>英语</th>
-                                            <th>物理</th>
-                                            <th>化学</th>
-                                            <th>生物</th>
-                                            <th>短板学科</th>
-                                            <th>备注</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1821058560</td>
-                                            <td>XXX</td>
-                                            <td>2016.7.28：18：00-19：00</td>
-                                            <td>430分</td>
-                                            <td>90分</td>
-                                            <td>100分</td>
-                                            <td>100分</td>
-                                            <td>180分</td>
-                                            <td>50分</td>
-                                            <td>100分</td>
-                                            <td>英语</td>
-                                            <td>不参加短板诊断</td>
-                                            <td>未确认</td>
-                                            <td>
-                                                <button class="btn btn-primary">参加短板</button>
-                                                <button class="btn btn-primary pull-right">试卷详情</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>1821058560</td>
-                                            <td>XXX</td>
-                                            <td>2016.7.28：18：00-19：00</td>
-                                            <td>430分</td>
-                                            <td>90分</td>
-                                            <td>100分</td>
-                                            <td>100分</td>
-                                            <td>180分</td>
-                                            <td>50分</td>
-                                            <td>100分</td>
-                                            <td>英语</td>
-                                            <td>不参加短板诊断</td>
-                                            <td>已确认</td>
-                                            <td>
-                                                <!-- <button class="btn btn-primary">参加短板</button> -->
-                                                <button class="btn btn-primary pull-right">试卷详情</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <!-- <tfoot class="hide-if-no-paging">
-                                        <tr><td colspan="16"><input type="checkbox">全选</td> <button class="btn btn-primary">参加短板</button></tr>
-                                        <tr>
-                                            <td colspan="16" class="text-center">
-                                                <ul class="pagination">
-                                                pagination
-                                                <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                                    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                                </div>
-                                                / pagination
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </tfoot> -->
-                                </table>
-                            </div>
-                        </div>
-                    </script>
-                    <script type="text/ng-template" id="three.tpl.html">
-                        <div id="viewThree">
-                            <div class="table-responsive">
-                                <h4 class="">
-                                <span class="pull-right m-b">短板学科:
-                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="operate" ng-init="operate=0">
-                                          <option value="0">英语</option>
-                                          <option value="1">数学</option>
-                                        </select>
-                                </span>
-                            </h4>
-                                <table class="table table-striped b-t b-light">
-                                    <thead>
-                                        <tr>
-                                            <th>序号</th>
-                                            <th>用户名</th>
-                                            <th>姓名</th>
-                                            <th>考试时间</th>
-                                            <th>总分</th>
-                                            <th>数学</th>
-                                            <th>语文</th>
-                                            <th>英语</th>
-                                            <th>物理</th>
-                                            <th>化学</th>
-                                            <th>生物</th>
-                                            <th>短板学科</th>
-                                            <th>参加分数</th>
-                                            <th>需加课时</th>
-                                            <th>备注</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1821058560</td>
-                                            <td>XXX</td>
-                                            <td>2016.7.28：18：00-19：00</td>
-                                            <td>430分</td>
-                                            <td>90分</td>
-                                            <td>100分</td>
-                                            <td>100分</td>
-                                            <td>180分</td>
-                                            <td>50分</td>
-                                            <td>100分</td>
-                                            <td>英语</td>
-                                            <td>100分</td>
-                                            <td>50课时 <a>修改</a></td>
-                                            <td>课时太多</td>
-                                            <td>未确认</td>
-                                            <td>
-                                                <button class="btn btn-primary">拒绝</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>1821058560</td>
-                                            <td>XXX</td>
-                                            <td>2016.7.28：18：00-19：00</td>
-                                            <td>430分</td>
-                                            <td>90分</td>
-                                            <td>100分</td>
-                                            <td>100分</td>
-                                            <td>180分</td>
-                                            <td>50分</td>
-                                            <td>100分</td>
-                                            <td>英语</td>
-                                            <td>100分</td>
-                                            <td>50课时 <a>修改</a></td>
-                                            <td>课时太多</td>
-                                            <td>已拒绝</td>
-                                            <td>-</td>
-                                        </tr>
-                                    </tbody>
-                                   <!--  <tfoot class="hide-if-no-paging">
-                                       <tr>
-                                           <td colspan="16" class="text-center">
-                                               <ul class="pagination">
-                                               pagination
-                                               <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                                   <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                               </div>
-                                               / pagination
-                                               </ul>
-                                           </td>
-                                       </tr>
-                                   </tfoot> -->
-                                </table>
-                            </div>
-                        </div>
-                    </script>
+                <h4>不符合名单通知确认</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>用户名</th>
+                                <th>姓名</th>
+                                <th>考试时间</th>
+                                <th>总分</th>
+                                <th>数学</th>
+                                <th>语文</th>
+                                <th>英语</th>
+                                <th>物理</th>
+                                <th>化学</th>
+                                <th>生物</th>
+                                <th>地区</th>
+                                <th>电话通知确认</th>
+                                <th>备注赠送课程</th>
+                                <th>上次操作人</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody> <!-- ng-repeat="data in results.list" -->
+                            <tr>
+                                <td>{{$index+1}}</td>
+                                <td>1821058560</td>
+                                <td>{{data.studentName}}</td>
+                                <td>{{data.examinationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td>{{data.totalScore}}分</td>
+                                <td>{{data.mathScore}}分</td>
+                                <td>{{data.chineseScore}}分</td>
+                                <td>{{data.englishScore}}分</td>
+                                <td>{{data.physicsScore}}分</td>
+                                <td>{{data.biologyScore}}分</td>
+                                <td>生物分</td>
+                                <td>{{data.areaName}}</td>
+                                <td>
+                                    <button class="btn btn-primary">通知确认</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary">赠送</button>
+                                </td>
+                                <td>XXXX</td>
+                                <td>
+                                    <a>查看</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>1821058560</td>
+                                <td>XXX</td>
+                                <td>2016.7.28：18：00-19：00</td>
+                                <td>430分</td>
+                                <td>90分</td>
+                                <td>100分</td>
+                                <td>100分</td>
+                                <td>180分</td>
+                                <td>50分</td>
+                                <td>100分</td>
+                                <td>北京</td>
+                                <td>已确认</td>
+                                <td>已赠送</td>
+                                <td>XXXXXXX</td>
+                                <td>
+                                    <a>查看</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="16" class="text-center">
+                                    <!-- 指令调用代码 -->
+                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                    <!--指令模板[pagination.html] -->
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-                <!-- / tab -->
             </div>
         </div>
     </div>

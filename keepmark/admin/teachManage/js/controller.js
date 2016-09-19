@@ -701,23 +701,24 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
                 $scope.results = data.result;
 
                 var isAgreeArr = data.result.list;
-                
+                console.log();
                 angular.forEach(isAgreeArr, function(data) {
                    //isAgreeJoinVulnerability  0=>不同意  1=>同意
                     if(data.isAgreeJoinVulnerability == 0){
-                       //data.isAgreeJoinVulnerability = "";
-                       var html="<a>33</a>";
-               var template = angular.element(html);
-               var mobileDialogElement = $compile(template)($scope);
-               angular.element("#"+data.eduVulnerabilityAnalyzeRecordCode).append(mobileDialogElement);
+                           //data.isAgreeJoinVulnerability = "";
+                   /* var html="<a>33</a>";
+                   var template = angular.element(html);
+                   var mobileDialogElement = $compile(template)($scope);
+                   angular.element("#"+data.eduVulnerabilityAnalyzeRecordCode).append(mobileDialogElement);*/
                
                        //console.log(angular.element("#"+data.eduVulnerabilityAnalyzeRecordCode).html());
                         // remove移除创建的元素
                //var closeMobileDialog = function () {if (mobileDialogElement) {  mobileDialogElement.remove();}}
 
                        // angular.element('#'+data.eduVulnerabilityAnalyzeRecordCode).append('ssss');
-                    }else{console.log(222);
-                        angular.element(".aa").html("已确认");
+                    }else{
+                        console.log(222);
+                       // angular.element(".aa").html("已确认");
                     }
                 });
 
@@ -740,15 +741,20 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
     }
     //教学-确认同学不同意短板诊断 (拒绝短板诊断)
     $scope.DiagDisagree = function(jsonString){
-        var id = shortSlabAnalysisRecordCode.shortSlabAnalysisRecordCode;
+        console.log(1111);
+        var id = jsonString.shortSlabAnalysisRecordCode;
+        console.log(jsonString.isAgreeJoinVulnerability);
         var url = $scope.app.host + '/shortSlab/teaching/diagnosis/disagree?requestId=test123456';
-        $http.post(url,shortSlabAnalysisRecordCode).success(function(data){
+        $http.post(url,jsonString).success(function(data){
             if(data.message == "Success"){
                 console.log(data.result);
                 if(data.result == true){
+                    jsonString.isAgreeJoinVulnerability = 1;
                     console.log("#"+id);
                     angular.element("#"+id).find("button").remove(); // remove移除创建的元素
                     angular.element("#"+id).html("已确认");
+
+                   console.log(jsonString.isAgreeJoinVulnerability); 
                 }
             }
         }).error(function(data){
@@ -1001,33 +1007,34 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
         });
        
     }
-    
+
+    //确认学生同意添加课时
+    $scope.AgreeAddClassHour = function(shortSlabAnalysisRecordCode){
+        var url = $scope.app.host + '/shortSlab/teaching/period/agree?requestId=test123456';
+        $http.post(url,{
+            "shortSlabAnalysisRecordCode":shortSlabAnalysisRecordCode 
+        }).success(function(data){
+            console.log(data);
+        }).error(function(data){
+             console.log('fail');
+        });
+    };
+    //确认学生不同意添加课时
+    $scope.DisAgreeAddClassHour = function(shortSlabAnalysisRecordCode){
+        var url = $scope.app.host + '/shortSlab/teaching/period/disagree?requestId=test123456';
+        $http.post(url,{
+            "shortSlabAnalysisRecordCode":shortSlabAnalysisRecordCode 
+        }).success(function(data){
+            console.log(data);
+        }).error(function(data){
+             console.log('fail');
+        });
+    }
 });
 /*不符合名单通知确认*/
 app.controller('NotConformCtrl', function($scope,$http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
     $controller('ParentGetDataCtrl', { $scope: $scope }); //继承
    
-    //试卷池 Tab 切换
-    $scope.tabs = [{
-        title: '不符合',
-        url: 'one.tpl.html'
-    }, {
-        title: '未短板诊断',
-        url: 'two.tpl.html'
-    }, {
-        title: '短板诊断后拒绝',
-        url: 'three.tpl.html'
-    }];
-
-    $scope.currentTab = 'one.tpl.html';
-
-    $scope.onClickTab = function(tab) {
-        $scope.currentTab = tab.url;
-    }
-
-    $scope.isActiveTab = function(tabUrl) {
-        return tabUrl == $scope.currentTab;
-    }
     $scope.formData = {};
     //根据类型、地区、总分数、用户名不符合名单通知确认 (不符合VIP学生列表)
     $scope.getList = function(page,size,callback){
@@ -1050,22 +1057,7 @@ app.controller('NotConformCtrl', function($scope,$http,$controller,$resource, $s
             console.log("fail!");
         })
     }
-    //教学-确认学生同意短板诊断
-    $scope.DiagAgree = function(){
-        var url = $scope.app.host + '/shortSlab/teaching/diagnosis/agree?requestId=test123456';
-        $http.post(url,{
-            "shortSlabAnalysisRecordCode":"DE484E80B6DA40BEA5A2975AB78F3E00" 
-        }).success(function(data){
-            if(data.message == "Success"){
-                console.log(data);
-            }
-        }).error(function(data){
-            console.log("fail!");
-        })
-    }
     
-   
-       
     
 });
 
