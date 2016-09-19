@@ -1,4 +1,4 @@
-<div class="wrapper-md" ng-controller="SBConfrimCtrl">
+<div class="wrapper-md" ng-controller="SBConfrimCtrl" id="SBConfrimCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>{{name}} &gt; 短板确认</h4>
@@ -8,21 +8,23 @@
                 <form action="">
                     <div class="radio form-group col-sm-12">
                         <label class="col-sm-1 control-label">类型：</label>
-                        <div class="col-sm-2"><label class="i-checks">
-                            <input type="radio" name="aa" value="option1">
-                            <i></i>文科
-                        </label>
+                        <div class="col-sm-2">
                             <label class="i-checks">
-                                <input type="radio" name="aa" value="option2" checked>
+                                <input type="radio" name="aa" ng-value="0" ng-model="formData.departmentType" ng-click="getSubject(formData.departmentType)">
+                                <i></i>文科
+                            </label>
+                            <label class="i-checks">
+                                <input type="radio" name="aa" ng-value="1" ng-model="formData.departmentType" ng-click="getSubject(formData.departmentType)">
                                 <i></i>理科
-                            </label></div>
+                            </label>
+                        </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="radio form-group col-sm-12">
                         <label class="col-sm-1 control-label">学科：</label>
                         <div class="radio">
                             <label class="i-checks" ng-repeat="(key, val) in category track by $index">
-                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getSubjectName(val.subjectName)" ng-change="checked(formData.subjectCode,'subjectCode')">
+                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-change="checked(formData.subjectCode,'subjectCode')" ng-click="getBookVersion(val.subjectCode)">
                                 <i></i>{{val.subjectName}}
                             </label>
                         </div>
@@ -78,14 +80,18 @@
                         <th>考试类型</th>
                         <th>主观题得分</th>
                         <th>客观题得分</th>
-                        <th>状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="item in result track by $index">
                     <tr>
-                        <td> <label class="i-checks">
-                            <input type="checkbox" ng-checked="selectAll"><i></i>
-                        </label>{{$index+1}}</td>
+                        <td>
+                            <label class="i-checks isChecked constAll">
+                                <input type="hidden" ng-value="item.eduVulnerabilityAnalyzeRecordCode" />
+                                <input type="checkbox" ng-checked="selectAll" ng-model="value" ng-change="const('SBConfrimCtrl')"><i></i>
+                            </label>
+                            {{$index+1}}{{item.eduVulnerabilityAnalyzeRecordCode}}
+                        </td>
                         <td>{{item.userName }}</td>
                         <td>{{item.studentName }}</td>
                         <td>{{item.gradeName}}</td>
@@ -98,16 +104,16 @@
                         <td>{{item.subjectivityScore}}</td>
                         <td>{{item.impersonalityScore}}</td>
                         <td><button class="btn btn-default" ng-click="getJuan(item.eduStudentDiagnoseResultCode )">详情</button></td>
-                        <td>{{isAddShort(item.isAgreeJoinVulnerability)}}</td>
+                        <td>{{item.diagnosisPaperCode  }}</td>
                     </tr>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
                     <tr>
                         <td colspan="14"></td>
                         <td>
-                            <span>已选100人</span>
+                            <span>已选{{ num }}人</span>
                             <label class="i-checks">
-                                <input type="checkbox" ng-model="selectAll"><i></i> 全选
+                                <input type="checkbox" ng-model="selectAll" ng-click="constAll('SBConfrimCtrl',checked)"><i></i> 全选
                             </label>
                         </td>
                     </tr>
@@ -126,7 +132,7 @@
                 <script type="text/ng-template" id="myModalContent.html">
                     <div ng-include="'admin/common/tpl/shortBoardDiag.html'"></div>
                 </script>
-                <button class="btn btn-primary" ng-click="open('lg')">学科用卷</button>
+                <button class="btn btn-primary" ng-click="open()">学科用卷</button>
             </div>
             <!-- 学科用卷/modal -->
         </div>

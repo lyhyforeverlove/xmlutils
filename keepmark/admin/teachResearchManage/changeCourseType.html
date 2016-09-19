@@ -1,7 +1,7 @@
 <div class="wrapper-md" ng-controller="ChangeCourseTypeCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &gt; 更换课程类型</h4>
+            <h4>{{formData}} &gt; 更换课程类型</h4>
         </div>
         <div class="wrapper">
             <div class="">
@@ -11,131 +11,141 @@
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <form class="form-horizontal">
+                    <!-- <div class="radio form-group col-sm-12">
+                         <label class="col-sm-1 control-label">类型：</label>
+                         <div class="radio">
+                             <label class="i-checks" ng-repeat="(key, val) in departmentType ">
+                                 <input type="radio" name="departmentType" ng-value='val.departmentType' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"  ng-change="checked(formData.departmentType,'departmentType')">
+                                 <i></i>{{val.departmentName}}
+                             </label>
+                         </div>
+                     </div>-->
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">类型：</label>
-                        <div class="col-sm-10">
-                            <div class="radio">
-                                <label class="i-checks">
-                                    <input type="radio" name="aa" value="option1">
-                                    <i></i>文科
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="aa" value="option2" checked>
-                                    <i></i>理科
-                                </label>
-                            </div>
+                        <label class="col-sm-2 control-label">课程类型：</label>
+                        <div class="col-sm-2">
+                            <select name="centers" class="form-control" ng-model="formData.departmentType" ng-click="checked(obj.departmentType,'departmentType')" ng-options="obj.departmentType as obj.departmentName for obj in departmentTypeAll"  ng-selected="formData.departmentType">
+                            </select>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
+                    <!-- <div class="radio form-group col-sm-12">
+                         <label class="col-sm-1 control-label">考生类型：</label>
+                         <div class="radio">
+                             <label class="i-checks" ng-repeat="item in studentType">
+                                 <input type="radio" name="studentType" ng-value='item.studentTypeCode' ng-model="formData.studentType" ng-change="checked(formData.studentType,'studentType')">
+                                 <i></i>{{item.studentTypeName}}
+                             </label>
+                         </div>
+                     </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">考生类型：</label>
+                        <div class="col-sm-2">
+                            <select name="studentType" class="form-control" ng-model="formData.studentType" ng-click="checked(obj.studentType,'studentType')" ng-options="obj.studentTypeCode as obj.studentTypeName for obj in studentTypeAll"  ng-selected="formData.studentType">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <!-- <div class="radio form-group col-sm-12">
+                         <label class="col-sm-1 control-label">入学年份：</label>
+                         <div class="radio">
+                             <label class="i-checks" ng-repeat="item in inScrollYear">
+                                 <input type="radio" name="inScrollYear" ng-value='item.inScrollYearName' ng-model="formData.inScrollYear" ng-change="checked(formData.inScrollYear,'inScrollYear')">
+                                 <i></i>{{item.inScrollYearName}}
+                             </label>
+                         </div>
+                     </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">入学年份：</label>
+                        <div class="col-sm-2">
+                            <select name="inScrollYear" class="form-control" ng-model="formData.inScrollYear" ng-click="checked(formData.inScrollYear,'inScrollYear')" ng-options="obj.inScrollYearCode as obj.inScrollYearName for obj in inScrollYearAll"  ng-selected="formData.inScrollYear">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <!-- <div class="radio form-group col-sm-12">
+                         <label class="col-sm-1 control-label" for="input-id-1">目标：</label>
+                         <div class="radio">
+                             <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
+                                 <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="checked(formData.aimType,'aimType')">
+                                 <i></i>{{obj.aimName}}
+                             </label>
+                         </div>
+                     </div>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label">目标：</label>
-                        <div class="col-sm-10">
-                            <div class="radio">
-                                <label class="i-checks">
-                                    <input type="radio" name="bb" value="option1">
-                                    <i></i>保一本30分
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option2" checked>
-                                    <i></i>保一本
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="d" value="option3">
-                                    <i></i>保二本
-                                </label>
-                            </div>
+                        <div class="col-sm-2">
+                            <select name="aimType" class="form-control" ng-model="formData.aimType" ng-click="checked(obj.aimType,'aimType')" ng-options="obj.aimType as obj.aimName for obj in aimTypesAll"  ng-selected="formData.aimType">
+                            </select>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">中心：</label>
                         <div class="col-sm-2">
-                            <select name="account" class="form-control">
-                                <option>全部</option>
-                                <option>中心一</option>
+                            <select name="centers" class="form-control" ng-model="formData.center" ng-click="checked(obj.code,'center')" ng-options="obj.code as obj.name for obj in centerAll" ng-change="getClasses(formData.center)" ng-click="first()" ng-selected="formData.center">
                             </select>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">班级：</label>
                         <div class="col-sm-2">
-                            <select name="account" class="form-control">
-                                <option>全部</option>
-                                <option>班级一</option>
+                            <select name="classes" class="form-control" ng-model="formData.classes" ng-click="checked(formData.classes,'classes')" ng-options="obj.code as obj.name for obj in classesAll">
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary m-p">查&nbsp;询</button>
+                        <button type="submit" class="btn btn-primary m-p" ng-click="query()">查&nbsp;询</button>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    
                 </form>
             </div>
         </div>
-        <!-- <p>
-                <button class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-plus"></i>新增</button>
-                <button class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-graduation-cap"></i>毕业</button>
-                <button class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-trash-o"></i>删除</button>
-            </p> -->
         <div class="table-responsive">
             <table class="table table-striped b-t b-light">
                 <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>学生姓名</th>
-                        <th>保分目标</th>
-                        <th>考生类型</th>
-                        <th>所在班级</th>
-                        <th>课程类型</th>
-                        <th>操作</th>
-                    </tr>
+                <tr>
+                    <th>序号</th>
+                    <th>学生姓名</th>
+                    <th>保分目标</th>
+                    <th>考生类型</th>
+                    <th>上课类型</th>
+                    <th>课程类型</th>
+                    <th>操作</th>
+                </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <label class="i-checks i-checks-sm">
-                                <input type="checkbox"><i></i>1</label>
-                        </td>
-                        <td>王XXX</td>
-                        <td>一本</td>
-                        <td>文科</td>
-                        <td>中心一1班</td>
-                        <td>{{selected}}selected</td>
-                        <td>
-                            <!-- 更换课程类型 modal -->
-                            <div ng-controller="categoryCtrl">
-                                <script type="text/ng-template" id="myModalContent.html">
-                                    <div ng-include="'admin/common/changeCourseType.html'"></div>
-                                </script>
-                                <button class="btn btn-primary" ng-click="open('lt')">更换</button>
-                            </div>
-                            <!-- 更换课程类型/modal -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="i-checks i-checks-sm">
-                                <input type="checkbox"><i></i>2</label>
-                        </td>
-                        <td>王XXX</td>
-                        <td>一本</td>
-                        <td>文科</td>
-                        <td>中心一1班</td>
-                        <td>A课程</td>
-                        <td>
-                            <!-- 更换课程类型 modal -->
-                            <div ng-controller="categoryCtrl">
-                                <script type="text/ng-template" id="myModalContent.html">
-                                    <div ng-include="'admin/common/changeCourseType.html'"></div>
-                                </script>
-                                <button class="btn btn-primary" ng-click="open('lt')">更换</button>
-                            </div>
-                            <!-- 更换课程类型/modal -->
-                        </td>
-                    </tr>
+                <tbody ng-repeat="item in result track by $index">
+                <tr>
+                    <td>
+                        <label class="i-checks i-checks-sm">
+                            <input type="checkbox"><i></i>{{$index}}
+                        </label>
+                    </td>
+                    <td>{{item.userName}}</td>
+                    <td>{{getAimData(item.goalType)}}</td>
+                    <td>{{getStudentType(item.type)}}</td>
+                    <td>{{getCourseType(item.courseType)}}</td>
+                    <td>{{getArtType(item.artType)}}</td>
+                    <td>
+                        <!-- 更换课程类型 modal -->
+                        <div ng-controller="categoryCtrl">
+                            <script type="text/ng-template" id="myModalContent.html">
+                                <div ng-include="'admin/common/tpl/changeCourseType.html'"></div>
+                            </script>
+                            <button class="btn btn-primary" ng-click="open(item)">更换</button>
+                        </div>
+                        <!-- 更换课程类型/modal -->
+                    </td>
+                </tr>
                 </tbody>
+                <tfood>
+                    <tr>
+                        <td colspan="13" class="text-center">
+                            <!-- 指令调用代码-->
+                            <xl-page size="5" method="query" class="text-center"></xl-page>
+                            <!--指令模板（pagination.html）-->
+                        </td>
+                    </tr>
+                </tfood>
             </table>
         </div>
     </div>
-</div>
 </div>

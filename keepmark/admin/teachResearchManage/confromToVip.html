@@ -20,7 +20,7 @@
                         <label class="col-sm-1 control-label">学科：</label>
                         <div class="radio">
                             <label class="i-checks" ng-repeat="(key, val) in category track by $index">
-                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getSubjectName(val.subjectName)" ng-change="checked(formData.subjectCode,'subjectCode')">
+                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getBookVersion(val.subjectCode)" ng-change="checked(formData.subjectCode,'subjectCode')">
                                 <i></i>{{val.subjectName}}
                             </label>
                         </div>
@@ -41,11 +41,11 @@
                         <div class="radio">
                             <label class="i-checks">
                                 <input type="radio" name="isShortlabStatus" ng-value="'0'" ng-change="checked(formData.shortState,'isShortlabStatus')" ng-model="formData.isShortlabStatus">
-                                <i></i>未做
+                                <i></i>已分析
                             </label>
                             <label class="i-checks">
                                 <input type="radio" name="isShortlabStatus" ng-value="'1'"  ng-change="checked(formData.shortState,'isShortlabStatus')" ng-model="formData.isShortlabStatus">
-                                <i></i>已做
+                                <i></i>未分析
                             </label>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
             <div class="table-responsive">
                 <div class="radio"><b>排序</b>
                     <label class="i-checks">
-                        <input type="radio" name="sort" ng-value="0" ng-model="sortValue" ng-change="arrsort(sortValue)" >
+                        <input type="radio" name="sort" ng-value="0" ng-model="sortValue" ng-change="arrsort(sortValue)">
                         <i></i>正序排序
                     </label>
                     <label class="i-checks">
@@ -126,8 +126,8 @@
                         </td>
                         <td>XXXX</td>
                         <td>
-                            <label class="i-checks">
-                                <input class="const" type="checkbox" ng-change="const()" ng-model="checked"><i></i>
+                            <label class="i-checks constAll">
+                                <input class="const" type="checkbox" ng-change="const('confromToVip')" ng-model="checked"><i></i>
                             </label>
                         </td>
                         <td>
@@ -135,7 +135,7 @@
                                 <script type="text/ng-template" id="myModalContent.html">
                                     <div ng-include="'admin/common/tpl/shortBoard.html'"></div>
                                 </script>
-                                <button class="btn btn-primary" ng-click="open(item)">短板分析</button>
+                                <button class="" ng-click="open(item)">短板分析</button>
                             </div>
                         </td>
                     </tr>
@@ -146,7 +146,7 @@
                         <td>
                             <span>已选{{num}}人</span>
                             <label class="i-checks">
-                                <input type="checkbox" ng-model="checked" ng-change="constAll(checked)"><i></i> 全选
+                                <input type="checkbox" ng-model="checked" ng-change="constAll('confromToVip',checked)"><i></i> 全选
                             </label>
                         </td>
                     </tr>
