@@ -1,149 +1,200 @@
 <div class="wrapper-md" ng-controller="NotConformCtrl">
-    <div class="panel panel-default" ng-init="load()">
-        <div class="panel-heading">
-            <h4>教学管理 &gt;不符合名单通知确认</h4>
-        </div>
-        <div class="wrapper">
-        <pre>{{formData}}</pre>
-            <div class="panel-heading m-b-xl">
-                <form action="" class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">类型：</label>
-                        <div class="col-sm-10">
-                            <div class="radio">
-                                <label class="i-checks">
-                                    <input type="radio" name="aa" value="option1">
-                                    <i></i>文科
-                                </label>
-                                <label class="i-checks">
-                                    <input type="radio" name="aa" value="option2" checked>
-                                    <i></i>理科
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">地区：</label>
-                        <div class="col-sm-10">
-                            <select name="account" class="form-control">
-                                <option>全部</option>
-                                <option>北京</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group ">
-                        <label class="col-sm-2 control-label">总分数：</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" value="460" ng-model="formData.minTotalScore">
-                        </div>
-                        <label class="col-sm-1" style="width:10px">-</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" value="500" ng-model="formData.maxTotalScore">
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">目标类型：</label>
-                        <div class="radio">
-                            <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
-                                <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.studentObjective" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+	<div class="panel panel-default" ng-init="load()">
+		<div class="panel-heading">
+			<h4>教学管理 &gt;不符合名单通知确认</h4>
+		</div>
+		<div class="wrapper">
+			<pre>{{formData}}</pre>
+			<div class="panel-heading m-b-xl">
+				<form action="" class="form-horizontal">
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">地区：</label>
+						<div class="col-sm-10">
+							<select name="account" class="form-control">
+								<option>全部</option>
+								<option>北京</option>
+							</select>
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group ">
+						<label class="col-sm-2 control-label">总分数：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" value="460" ng-model="formData.minTotalScore">
+						</div>
+						<label class="col-sm-1" style="width:10px">-</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" value="500" ng-model="formData.maxTotalScore">
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">目标类型：</label>
+						<div class="radio">
+							<label class="i-checks">
+                    <input type="radio" name="studentObjective" value="0" ng-model="formData.studentObjective"   >
+                  			  <i></i>一本线上30
+               			 </label>
+							<label class="i-checks">
+                    <input type="radio" name="studentObjective" value="1" ng-model="formData.studentObjective">
+                    <i></i>一本
+                		</label>
+							<label class="i-checks">
+                   			 <input type="radio" name="studentObjective" value="2" ng-model="formData.studentObjective">
+                  		  <i></i>二本
+                		</label>
+						</div>
+
+						<!--<div class="radio">
+							<label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                                <input type="radio" name="studentObjective" ng-value='{{val.aimType}}' ng-model="formData.studentObjective"><i></i>{{val.aimName}}
                             </label>
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <button type="submit" class="btn m-b-xs w-xs btn-primary pull-right" ng-click="getList(1,10)">查询</button>
-                    <div class="input-group  col-sm-4">
-                        <input type="text" class="form-control" placeholder="用户搜索">
-                        <span class="input-group-btn"><button class="btn btn-primary">搜&nbsp;索</button></span>
-                    </div>
-                </form>
-            </div>
-            <div class="line line-dashed b-b line-lg"></div>
-            <div>
-                <p>备注：<b>未短板诊断</b>(教研确认需要短板而用户未参加)</p>
-                <h4>不符合名单通知确认</h4>
-                <div class="table-responsive">
-                    <table class="table table-striped b-t b-light">
-                        <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>用户名</th>
-                                <th>姓名</th>
-                                <th>考试时间</th>
-                                <th>总分</th>
-                                <th>数学</th>
-                                <th>语文</th>
-                                <th>英语</th>
-                                <th>物理</th>
-                                <th>化学</th>
-                                <th>生物</th>
-                                <th>地区</th>
-                                <th>电话通知确认</th>
-                                <th>备注赠送课程</th>
-                                <th>上次操作人</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody> <!-- ng-repeat="data in results.list" -->
-                            <tr>
-                                <td>{{$index+1}}</td>
-                                <td>1821058560</td>
-                                <td>{{data.studentName}}</td>
-                                <td>{{data.examinationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                <td>{{data.totalScore}}分</td>
-                                <td>{{data.mathScore}}分</td>
-                                <td>{{data.chineseScore}}分</td>
-                                <td>{{data.englishScore}}分</td>
-                                <td>{{data.physicsScore}}分</td>
-                                <td>{{data.biologyScore}}分</td>
-                                <td>生物分</td>
-                                <td>{{data.areaName}}</td>
-                                <td>
-                                    <button class="btn btn-primary">通知确认</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary">赠送</button>
-                                </td>
-                                <td>XXXX</td>
-                                <td>
-                                    <a>查看</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>1821058560</td>
-                                <td>XXX</td>
-                                <td>2016.7.28：18：00-19：00</td>
-                                <td>430分</td>
-                                <td>90分</td>
-                                <td>100分</td>
-                                <td>100分</td>
-                                <td>180分</td>
-                                <td>50分</td>
-                                <td>100分</td>
-                                <td>北京</td>
-                                <td>已确认</td>
-                                <td>已赠送</td>
-                                <td>XXXXXXX</td>
-                                <td>
-                                    <a>查看</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="16" class="text-center">
-                                    <!-- 指令调用代码 -->
-                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
-                                    <!--指令模板[pagination.html] -->
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>-->
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<button class="btn m-b-xs w-xs btn-primary pull-right" ng-click="getList(1,10,callback)">查询</button>
+					<div class="input-group  col-sm-4">
+						<input type="text" class="form-control" placeholder="用户搜索">
+						<span class="input-group-btn"><button class="btn btn-primary">搜&nbsp;索</button></span>
+					</div>
+				</form>
+			</div>
+			<div class="line line-dashed b-b line-lg"></div>
+			<div>
+				<p>备注：<b>未短板诊断</b>(教研确认需要短板而用户未参加)</p>
+				<h4>不符合名单通知确认</h4>
+
+				<div id="tabs">
+					<ul class="tabs_ul">
+						<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+					</ul>
+					<div id="mainView">
+						<div ng-include="currentTab"></div>
+					</div>
+				</div>
+				<script type="text/ng-template" id="one.tpl.html">
+					<div id="viewOne">
+						<div class="table-responsive">
+							<table class="table table-striped b-t b-light">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>用户名</th>
+										<th>姓名</th>
+										<th>考试时间</th>
+										<th>总分</th>
+										<th>数学</th>
+										<th>语文</th>
+										<th>英语</th>
+										<th>物理</th>
+										<th>化学</th>
+										<th>生物</th>
+										<th>地区</th>
+										<th>电话通知确认</th>
+										<th>备注赠送课程</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- ng-repeat="data in results.list" -->
+									<tr ng-repeat="data in results.list">
+										<td>{{$index+1}}</td>
+										<td>1821058560</td>
+										<td>{{data.studentName}}</td>
+										<td>{{data.examinationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+										<td>{{data.totalScore}}分</td>
+										<td>{{data.mathScore}}分</td>
+										<td>{{data.chineseScore}}分</td>
+										<td>{{data.englishScore}}分</td>
+										<td>{{data.physicsScore}}分</td>
+										<td>{{data.chemistryScore}}分</td>
+										<td>{{data.biologyScore}}分</td>
+										<td>{{data.areaName}}</td>
+										<td>
+												<span ng-if="data.phoneAffirmStatus==1" >已确认</span>
+											<button  ng-if="data.phoneAffirmStatus==0" class="btn btn-primary" ng-click="notice(data.studentCode)">通知确认</button>
+										</td>
+										<td>
+											<span ng-if="data.presentationStatus==1" >已赠送</span>
+											<button ng-if="data.presentationStatus==0" class="btn btn-primary" ng-click="giveToUser(data.studentCode)">赠送</button>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="16" class="text-center">
+											<!-- 指令调用代码 -->
+											<xl-page size=5 method="getList" class="text-center"></xl-page>
+											<!--指令模板[pagination.html] -->
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</script>
+				<script type="text/ng-template" id="two.tpl.html">
+					<div id="viewTwo">
+						<div class="table-responsive">
+							<table class="table table-striped b-t b-light">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>用户名</th>
+										<th>姓名</th>
+										<th>考试时间</th>
+										<th>总分</th>
+										<th>数学</th>
+										<th>语文</th>
+										<th>英语</th>
+										<th>政治</th>
+										<th>历史</th>
+										<th>地理</th>
+										<th>地区</th>
+										<th>电话通知确认</th>
+										<th>备注赠送课程</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- ng-repeat="data in results.list" -->
+									<tr ng-repeat="data in results.list">
+										<td>{{$index+1}}</td>
+										<td>1821058560</td>
+										<td>{{data.studentName}}</td>
+										<td>{{data.examinationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+										<td>{{data.totalScore}}分</td>
+										<td>{{data.mathScore}}分</td>
+										<td>{{data.chineseScore}}分</td>
+										<td>{{data.englishScore}}分</td>
+										<th>{{data.politicsScore}}分</th>
+										<th>{{data.historyScore}}分</th>
+										<th>{{data.geographyScore}}分</th>
+										<td>{{data.areaName}}</td>
+										<td>
+											<span ng-if="data.phoneAffirmStatus==1" >已确认</span>
+											<button  ng-if="data.phoneAffirmStatus==0" class="btn btn-primary" ng-click="notice(data.studentCode)">通知确认</button>
+										</td>
+										<td>
+											<span ng-if="data.presentationStatus==1" >已赠送</span>
+											<button ng-if="data.presentationStatus==0" class="btn btn-primary" ng-click="giveToUser(data.studentCode)">赠送</button>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="16" class="text-center">
+											<!-- 指令调用代码 -->
+											<xl-page size=5 method="getList" class="text-center"></xl-page>
+											<!--指令模板[pagination.html] -->
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</script>
+
+			</div>
+		</div>
+	</div>
 </div>
