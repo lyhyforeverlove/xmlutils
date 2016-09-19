@@ -200,7 +200,8 @@ angular.module('app')
                                     return $ocLazyLoad.load(['admin/teachResearchManage/js/controller.js',
                                         'admin/teachResearchManage/js/controllerLY.js',
                                         'admin/teachResearchManage/js/controllerHXY.js',
-                                        'admin/teachResearchManage/js/areaCategory.js'
+                                        'admin/teachResearchManage/js/areaCategory.js',
+                                        'admin/teachResearchManage/js/controllerDR.js'
                                     ]);
                                 }
                             ]
@@ -402,7 +403,8 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teacherOpearteManage/controller.js');
+                                    return $ocLazyLoad.load(['admin/teacherOpearteManage/controller.js'
+                                    ,'admin/teacherOpearteManage/controllerDR.js']);
                                 }
                             ]
                         }

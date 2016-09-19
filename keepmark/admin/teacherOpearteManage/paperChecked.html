@@ -1,4 +1,4 @@
-<div class="wrapper-md" ng-controller="paperCheckedController">
+<div class="wrapper-md" ng-controller="paperCheckedControllerDR" >
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
@@ -12,8 +12,8 @@
                    <thead>
                         <th>序号</th>
                         <th>来源</th>
-                        <th>手机号</th>
-                        <th>姓名</th>
+                        <!--<th>手机号</th>-->
+                        <!--<th>姓名</th>-->
                         <th>学科</th>
                         <th>考试时间</th>
                         <th>试卷</th>
@@ -25,35 +25,31 @@
                    </thead>
                     <tbody>
                         <!-- ng-repeat="data in data.results"-->
-                        <tr>
-                            <td>1.</td>
-                            <td>XXX老师</td>
-                            <td>121212</td>
-                            <td>XXX</td>
-                            <td>语文</td>
-                            <td>2016.7.28</td>
-                            <td><button class="btn btn-primary" ng-click="paperDetail()">详情</button></td>
-                            <td>80分</td>
-                            <td>60分</td>
-                            <td>100分</td>
-                            <td>未处理</td>
-                            <td><button class="btn btn-primary" ng-click="paperChecked()">判卷</button></td>
-                        </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>XXX老师</td>
-                            <td>121212</td>
-                            <td>XXX</td>
-                            <td>语文</td>
-                            <td>2016.7.28</td>
-                            <td><button class="btn btn-primary" ng-click="paperDetail()">详情</button></td>
-                            <td>80分</td>
-                            <td>60分</td>
-                            <td>100分</td>
-                            <td>已判</td>
-                            <td><button class="btn btn-primary" ng-click="paperChecked()">查看</button></td>
+                        <tr  ng-repeat="data in list" class="sub-science-tr">
+                            <td>{{$index+1}}</td>
+                            <td>诊断</td>
+                            <!--<td>121212</td>-->
+                            <!--<td>XXX</td>-->
+                            <td>{{data.singleDiagnosisRecord.subjectCode}}</td>
+                            <td>{{data.singleDiagnosisRecord.examStartTime}}</td>
+                            <td><button class="btn btn-primary" ng-click="paperDetail({{data.singleDiagnosisRecord.diagnosisPaperCode}})">详情</button></td>
+                            <td>{{data.singleDiagnosisRecord.impersonalityScore}}分</td>
+                            <td>{{data.singleDiagnosisRecord.subjectivityOneScore}}分</td>
+                            <td>{{data.singleDiagnosisRecord.diagnosisScore}}分</td>
+                            <td>{{data.paperStatus}}</td>
+                            <td  ng-if="opraterSel(data.paperStatus,0)"><button class="btn btn-primary" ng-click="paperChecked()">判卷</button></td>
+                            <td  ng-if="opraterSel(data.paperStatus,1)"><button class="btn btn-primary" ng-click="paperDetail({{data.singleDiagnosisRecordCode}})">详情</button></td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <!-- 指令调用代码 -->
+                            <xl-page size="10" method="load" class="text-center"></xl-page>
+                            <!-- 指令模板[pagination.html] -->
+                        </td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
