@@ -1,0 +1,9 @@
+{"studentType": [{
+  "studentTypeCode":0,
+  "studentTypeName": "统考"
+},
+  {
+    "studentTypeCode":1,
+    "studentTypeName": "艺考"
+  }]
+}
