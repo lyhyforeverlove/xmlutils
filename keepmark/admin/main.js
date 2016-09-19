@@ -12,7 +12,7 @@ angular.module('app')
 
       // config
       $scope.app = {
-        testhost: 'http://192.168.1.156:8090/',
+        testhost: 'http://192.168.1.169:8888/',
         host:"http://192.168.1.201:7777/keepMark-teacher-business/",
         name: '保分计划',
         version: '1.3.3',
