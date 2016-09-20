@@ -13,8 +13,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">试卷用途：</label>
                         <div class="radio">
-                            <label class="i-checks" ng-repeat="(key, val) in paperUseType track by $index">
-                                <input type="radio" name="paperUseType" ng-value='{{val.paperUseType}}' ng-model="formData.paperUseType"><i></i>{{val.paperUseName}}
+                            <label class="i-checks" ng-repeat="obj in paperUseType">
+                                <input type="radio" name="paperUseType" ng-value="obj.paperUseType" ng-checked="{{obj.checked}}" ng-model="formData.paperUseType">
+                                <i></i>{{obj.paperUseName}}
                             </label>
                         </div>
                     </div>

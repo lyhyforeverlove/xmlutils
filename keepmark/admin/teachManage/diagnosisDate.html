@@ -46,7 +46,7 @@ div.total span {
             <pre>{{postData}}</pre>
             <form action="" >
                 <div class="panel-container">
-                    <a ng-show="$index!=0" style="color:red;" class="pull-right" ng-click="del($index)">移除</a>
+                    <!--<a ng-show="$index!=0" style="color:red;" class="pull-right" ng-click="del($index)">移除</a>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label">指定老师：</label>
                         <div class="col-sm-2">
@@ -62,7 +62,7 @@ div.total span {
                             <div class="input-prepend input-group">
                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
                                 <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control" class="span4" />
-                                <input type="text" id="startDate" ng-model="postData.startDate">
+                                <input type="text" id="startDate" ng-model="postData.beginDate">
                                 <input type="text" id="endDate" ng-model="postData.endDate">
                             </div>
                         </div>
@@ -77,16 +77,16 @@ div.total span {
                                 {{item.AM}}{{item.PM}}{{service.name}} <span>{{service.group}} </span><span>{{service.date}}</span>
                             </li>
                         </ul>
-                        <div class="total">
-                            <!-- Calculate the total price of all chosen services. Format it as currency. -->
+                       <!-- <div class="total">
+                            &lt;!&ndash; Calculate the total price of all chosen services. Format it as currency. &ndash;&gt;
                             Times: <span>{{times()}}</span>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="line line-solid b-b line-lg "></div>
                 </div>
             </form>
-            <button class="btn m-b-xs btn-primary btn-addon" ng-click='addTeacher()'><i class="fa fa-plus"></i>添加老师</button>
-            <input type="submit" class="btn btn-primary pull-right" ng-click='ConfirmShelves(postData)' value="确定上架">
+            <button class="btn m-b-xs btn-primary btn-addon" ng-click='addTeacher(postData)'><i class="fa fa-plus"></i>添加老师</button>
+            <input type="submit" class="btn btn-primary pull-right" ng-click='ConfirmShelves()' value="确定上架">
         </div>
     </div>
 </div>

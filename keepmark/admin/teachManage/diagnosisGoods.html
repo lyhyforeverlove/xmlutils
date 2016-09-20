@@ -10,7 +10,7 @@
                     <!--包含公共筛选条件 start-->
                     <div ng-include="'admin/common/tpl/filter.html'"></div>
                     <!--包含公共筛选条件 end-->
-                    <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>
+                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <div class="panel-container">
@@ -33,7 +33,7 @@
                             <tr ng-repeat="data in results.list">
                                 <td>{{$index+1}}</td>
                                 <td>{{data.subjectCode}}</td>
-                                <td>{{data.goodsName}}</td>
+                                <td>{{data.goodsName}}{{data.eduGoodsCode}}</td>
                                 <td>{{data.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                 <td><img src="{{data.imageUrl}}" width="100px" height="50px" /></td>
                                 <td>
@@ -44,7 +44,7 @@
                                     <p><button  ng-show="" class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" ng-click="allotBtn({gradeCode:data.gradeCode})">分配监考人</button>
+                                    <button type="button" class="btn btn-primary" ng-click="allotBtn({goodsCode:data.eduGoodsCode})">分配监考人</button>
                                      <!--  ui-sref="app.teachManage.allot()"-->
                                 </td>
                             </tr>
@@ -53,7 +53,7 @@
                             <tr>
                                 <td colspan="8" class="text-center">
                                     <!-- 指令调用代码 -->
-                                    <xl-page size="2" method="getList" class="text-center"></xl-page>
+                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
                                     <!-- 指令模板[pagination.html] -->
                                 </td>
                             </tr>

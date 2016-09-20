@@ -44,9 +44,12 @@
                             <h3 class="modal-title">读取资源库列表</h3>
                         </div>
                         <div class="modal-body">
+                            <div ng-if="results.datas == null" >
+                                <h4>没用符合条件的卷子</h4>
+                            </div>
                             <div class="table-responsive">
-                                <table class="table table-striped b-t b-light">
-                                    <thead>
+                                <table class="table table-striped b-t b-light" >
+                                    <thead ng-if="results.datas != null">
                                         <tr>
                                             <th>序号</th>
                                             <th>学科</th>
@@ -55,12 +58,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="data in results.data">
+                                        <tr ng-repeat="data in results.datas.data">
                                             <td>{{$index+1}}</td>
                                             <td>{{subjectCode}}</td>
                                             <td>{{data.paperName}}</td>
                                             <td>
-                                           <button class="btn btn-primary" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
+                                           <button id="{{data.id}}" class="btn btn-default" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
                                             </td>
                                         </tr>
                                     </tbody>
