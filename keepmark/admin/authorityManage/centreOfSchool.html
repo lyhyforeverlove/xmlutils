@@ -5,48 +5,47 @@
         </div>
         <div class="wrapper">
             <div class="panel-heading ">
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">总校：</label>
-                    <div class="col-sm-2">
-                        <select ng-click="getBranchSchoolList(masterSchool.code)" ng-model="masterSchool" class="form-control" ng-options="m.name for m in masterSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">总校：</label>
+                <div class="col-sm-2">
+                    <select ng-click="getBranchSchoolList(masterSchool.code)" ng-model="masterSchool" class="form-control" ng-options="m.name for m in masterSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
                 </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">分校：</label>
-                    <div class="col-sm-2">
-                        <select ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool"  class="form-control" ng-options="b.name for b in branchSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">学区：</label>
-                    <div class="col-sm-2">
-                        <select ng-model="districtSchool" ng-click="getDepartmentSchoolList(districtSchool.code)"  class="form-control" ng-options="d.name for d in districtSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">学部：</label>
-                    <div class="col-sm-2">
-                        <select ng-model="departmentSchool" ng-click="getList(departmentSchool)"  class="form-control" ng-options="d.name for d in departmentSchoolList">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="form-group col-sm-12">
-                    <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addCentreOfSchool()">添加中心</button>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
             </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">分校：</label>
+                <div class="col-sm-2">
+                    <select ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool"  class="form-control" ng-options="b.name for b in branchSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">学区：</label>
+                <div class="col-sm-2">
+                    <select ng-model="districtSchool" ng-click="getDepartmentSchoolList(districtSchool.code)"  class="form-control" ng-options="d.name for d in districtSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">学部：</label>
+                <div class="col-sm-2">
+                    <select ng-model="departmentSchool" ng-click="getList(departmentSchool)"  class="form-control" ng-options="d.name for d in departmentSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="form-group col-sm-12">
+                <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addCentreOfSchool()">添加中心</button>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+        </div>
             <div class="table-responsive">
                 <table class="table table-striped  b-t b-light">
                     <thead>

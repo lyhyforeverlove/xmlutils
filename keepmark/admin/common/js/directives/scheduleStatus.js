@@ -7,8 +7,8 @@ app.directive('scheduleStatus', [function () {
                     //弹出选择老师框
                     var index = ele.index();
                     scope.eduSectionCode = ele.parent().children().eq(0).attr("eduSectionCode");
-                    scope.edudayCode = ele.parent().parent().children().eq(1).children().eq(index).attr("dayCode");
-                    scope.chooseScheduleModal(scope.eduSectionCode,scope.edudayCode);
+                    scope.eduDayCode = ele.parent().parent().children().eq(1).children().eq(index).attr("dayCode");
+                    scope.chooseScheduleModal(scope.eduSectionCode,scope.eduDayCode);
                 });
             }
         }

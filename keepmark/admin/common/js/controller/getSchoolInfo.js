@@ -82,17 +82,33 @@ app.controller("getSchoolInfo",function($scope,$http){
                 "pageSize": 100,
                 "pageNumber": 1,
                 "type": "6",
-                "divisionCode":centreSchoolCode
+                "centerCode":centreSchoolCode
             }).success(function (data) {
                 if(data) $scope.classAndGradeList = data.result;
             });
         }
     };
-    //获取所有的省
-    $scope.getAllProvince = function(){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/area/allProvince?requestId=1',
-            {}).success(function (data) {
-            if(data) $scope.allProvinceList = data.result;
+
+    //获取学习小组
+    $scope.getStudyGroup = function(classCode){
+        if(typeof(classCode) !== "undefined"){
+            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+                {
+                    "pageSize":20,
+                    "pageNumber":1,
+                    "type":7,
+                    "classCode":classCode
+                }).success(function(data){
+                if(data) $scope.studyGroupList = data.result;
+            });
+        }
+    };
+
+    //获取所有的教学周期
+    $scope.getWeekTimes = function(){
+        $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/getWeekTimes?requestId=WEUOW343KL34L26NBSK3",
+            {}).success(function(data){
+            $scope.weekTimes = data.result.weekTimes;
         });
-    }
+    };
 });

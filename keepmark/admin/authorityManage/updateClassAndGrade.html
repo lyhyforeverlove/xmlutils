@@ -4,7 +4,7 @@
             <h4>权限管理 &gt; 班级 &gt; 创建班级 &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
-            <div class="form-group">
+           <!-- <div class="form-group">
                 <label class="col-sm-1 control-label">中心名称</label>
                 <div class="col-sm-11">
                     <select name="account" class="form-control m-b">
@@ -12,14 +12,14 @@
                         <option>A中心</option>
                     </select>
                 </div>
-            </div>
+            </div>-->
             <div class="form-group">
                 <label class="col-sm-1 control-label">班级名称</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入班级名称" value="XX">
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入班级名称" ng-model = "classAndGrade.name">
                 </div>
             </div>
-            <div class="form-group">
+           <!-- <div class="form-group">
                 <label class="col-sm-1 control-label">语文老师</label>
                 <div class="col-sm-11">
                     <select  class="form-control m-b" ng-model="chineseTeacher"  ng-options="c.teacherName for c in chineseTeacherList">
@@ -109,8 +109,8 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <button class="btn btn-primary col-sm-1 col-sm-push-8">保存</button>
+            </div>-->
+            <button class="btn btn-primary pull-right" ng-click="saveUpdateClassAndGrade()">保存</button>
         </div>
     </div>
 </div>
