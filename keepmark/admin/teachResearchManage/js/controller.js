@@ -1,40 +1,4 @@
 'use strict';
-
-/*学生分类=》不符合名单*/
-app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $modal, $state) {
-    //根据类型、地区、总分数查询不符合名单列表
-    $scope.query = function() {
-
-        }
-        //不符合名单 Tab 切换
-    $scope.tabs = [{
-        title: '不符合',
-        url: 'one.tpl.html'
-    }, {
-        title: '未短板诊断',
-        url: 'two.tpl.html'
-    }, {
-        title: '短板诊断后拒绝',
-        url: 'three.tpl.html'
-    }];
-
-    $scope.currentTab = 'one.tpl.html';
-
-    $scope.onClickTab = function(tab) {
-        $scope.currentTab = tab.url;
-    }
-
-    $scope.isActiveTab = function(tabUrl) {
-        return tabUrl == $scope.currentTab;
-    }
-});
-/*学生分类=》符合确认名单-课程分类*/
-app.controller('CourseCategoryCtrl', function($scope, $resource, $stateParams, $modal, $state) {
-    //根据类型、地区、总分数、单科学科 查询列表
-    $scope.query = function() {
-
-    }
-});
 /*课程管理*/
 app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $stateParams, $modal, $state,$log,CalcService) {
    
@@ -95,7 +59,7 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
         });
     }
 });
-app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$modalInstance,$resource, $stateParams, $modal, $state,CalcService) {
+app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$modalInstance,$resource, $stateParams, $modal, $state,host,CalcService) {
     $controller('ParentGetDataCtrl', {$scope: $scope});//继承
      // ok click
     $scope.ok = function() {
@@ -108,21 +72,21 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
     }
 
     //初始化调取资源库列表
-   // $scope.load = function(page,size,callback){
-       /* if(V_PapersListJson.subjectCode == 1){
+   $scope.load = function(page,size,callback){
+        if(V_PapersListJson.subjectCode == 1){
             $scope.subjectName ="语文";
         }
         V_PapersListJson["currentPage"] = page;  //当前页参数
         V_PapersListJson["pageSize"] = size; //每页显示多少条
 
-        var url = host + "/resource/get/papers?requestId=1";
+        var url = host + "resource/get/papers?requestId=1";
         $http.post(url,V_PapersListJson).success(function(data) {
 
             $scope.results = data.result;
 
             callback && callback(data.result); //调取分页回调
-        })*/
-    //}
+        })
+    }
 });
 /*试卷管理=》详情*/
 app.controller('CourseDetailController', function($scope, $http,$resource, $stateParams, $modal, $state) {
@@ -727,7 +691,7 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
 });
 /*根据学年、学科、教材版本、试卷用途、单元知识点code获取试卷列表*/
 app.controller("getPapersController", function($scope, $http, $resource, $stateParams, $modal, $state, $modalInstance, host,V_PapersListJson) {
-    
+    console.log(V_PapersListJson);
     $scope.formData = {};  //formData.resourcePaperCode
     //选用按钮
     $scope.GetResourcePaperCode = function(resourcePaperCode){
@@ -752,11 +716,21 @@ app.controller("getPapersController", function($scope, $http, $resource, $stateP
         V_PapersListJson["pageSize"] = size; //每页显示多少条
 
         var url = host + "/resource/get/papers?requestId=1";
-        $http.post(url,V_PapersListJson).success(function(data) {
+        $http.post(url,{
+            "gradeCode":V_PapersListJson.gradeCode,
+            "subjectCode":V_PapersListJson.subjectCode,
+            "booktype":V_PapersListJson.bookVersionCode,
+            "type":V_PapersListJson.paperUseType,
+            //"difficultStar":V_PapersListJson.,
+            "cp":page,
+            "pageSize":size 
+        }).success(function(data) {
 
-            $scope.results = data.result;
+            console.log(data);
 
-            callback && callback(data.result); //调取分页回调
+            /*$scope.results = data.result;
+
+            callback && callback(data.result); //调取分页回调*/
         })
     }
 });
