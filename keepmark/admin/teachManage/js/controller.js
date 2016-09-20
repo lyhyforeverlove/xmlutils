@@ -1251,7 +1251,7 @@ app.controller('ClassesController', function($scope, $controller, $modalInstance
 	}
 });
 /*分班后确认*/
-app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService) {
+app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $resource, $stateParams, $modal, $state) {
 	$controller('ParentGetDataCtrl', {
 		$scope: $scope
 	});
@@ -1259,16 +1259,19 @@ app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $
 
 	//分班后确认 Tab 切换
 	$scope.tabs = [{
-		title: '通过',
+		title: '理科',
+		code:1,
 		url: 'one.tpl.html'
 	}, {
-		title: '未通过',
+		title: '文科',
+		code:0,
 		url: 'two.tpl.html'
 	}];
-
+	$scope.artType=1;
 	$scope.currentTab = 'one.tpl.html';
 
 	$scope.onClickTab = function(tab) {
+		$scope.artType=tab.code;
 		$scope.currentTab = tab.url;
 	}
 
@@ -1277,10 +1280,13 @@ app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $
 	}
 
 	$scope.getList = function(page, size, callback) {
-		var url = $scope.app.host + 'teaching/placement/list?requestId=1'; //符合vip学生列表
-		$http.post(url, {
-			"schoolCenterCode": "133"
-		}).success(function(data) {
+		var url = $scope.app.testhost + 'student/accord/list?requestId=1';
+			console.log(url);
+			$http.post(url, {
+				"pageNumber": 1,
+				"pageSize": 10,
+				"type":$scope.artType
+			}).success(function(data) {
 			console.log(data);
 			if(data.message == "Success") {
 
@@ -1294,6 +1300,52 @@ app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $
 			console.log("fail");
 		})
 	}
+	
+	
+	//拒绝上课
+	$scope.refuse=function(studentCode){
+		$http.post($scope.app.host + '/teaching/placement/disagree?requestId=SDFDW3F343JLKL3L5LN43J434', {
+			"studentCode": studentCode
+		}).success(function(data) {
+			if(data.message == "Success") {
+				console.log(data);
+				$scope.getList(1, 5);
+			}
+		}).error(function(data) {
+			console.log("fail!");
+		})
+		
+	}
+	//同意上课
+	$scope.agree=function(studentCode){
+		$http.post($scope.app.host + '/teaching/placement/agree?requestId=SDFDW3F343JLKL3L5LN43J434', {
+			"studentCode": studentCode
+		}).success(function(data) {
+			if(data.message == "Success") {
+				console.log(data);
+				$scope.getList(1, 5);
+			}
+		}).error(function(data) {
+			console.log("fail!");
+		})
+		
+	}
+	//确认缴费
+	$scope.confirmPayment=function(studentCode){
+		$http.post($scope.app.host + '/teaching/payAgree?requestId=SDFDW3F343JLKL3L5LN43J434', {
+			"studentCode": studentCode
+		}).success(function(data) {
+			if(data.message == "Success") {
+				console.log(data);
+				$scope.getList(1, 5);
+			}
+		}).error(function(data) {
+			console.log("fail!");
+		})
+		
+	}
+	
+	
 });
 
 /*chart*/
