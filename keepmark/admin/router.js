@@ -299,6 +299,28 @@ angular.module('app')
                         url: '/courseDeatil/{courseSystemCode}',
                         templateUrl: 'admin/teachResearchManage/courseDeatil.html',
                     })
+                  .state('app.teachResearchManage.teacherManage', {
+                        url: '/teacherManage',
+                        templateUrl: 'admin/teachResearchManage/teacherManage.html',
+                         resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.addTeacher', {
+                        url: '/addTeacher',
+                        templateUrl: 'admin/teachResearchManage/addTeacher.html',
+                          resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
                     .state('app.teachResearchManage.areaCategory', {
                         url: '/areaCategory',
                         templateUrl: 'admin/teachResearchManage/areaCategory.html',
@@ -327,19 +349,47 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.headSchool', {
                         url: '/headSchool',
-                        templateUrl: 'admin/teachResearchManage/createHeadSchool.html'
+                        templateUrl: 'admin/teachResearchManage/createHeadSchool.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachResearchManage.schoolBranch', {
                         url: '/schoolBranch',
-                        templateUrl: 'admin/teachResearchManage/createSchoolBranch.html'
+                        templateUrl: 'admin/teachResearchManage/createSchoolBranch.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachResearchManage.subjectCenter', {
                         url: '/subjectCenterList',
-                        templateUrl: 'admin/teachResearchManage/subjectCenterList.html'
+                        templateUrl: 'admin/teachResearchManage/subjectCenterList.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachResearchManage.createSchool', {
                         url: '/createSchool',
-                        templateUrl: 'admin/teachResearchManage/addHeadSchool.html'
+                        templateUrl: 'admin/teachResearchManage/addHeadSchool.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachResearchManage.changeCourseType', {
                         url: '/changeCourseType',
