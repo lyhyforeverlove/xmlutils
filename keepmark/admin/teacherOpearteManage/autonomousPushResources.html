@@ -9,7 +9,7 @@
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <!--包含公共筛选条件 end-->
-                <button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>
+                <button class="pull-right btn btn-primary" ng-click="getKnowledgeList()"><span class="p-d">查询</span></button>
             </form>
             <!-- select close -->
             <div class="knowledgeTree">
@@ -57,6 +57,16 @@
                                     <td>xinxi </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <!-- 指令调用代码 -->
+                                    <xl-page size="10" method="getListData" class="text-center"></xl-page>
+                                    <!-- 指令模板[pagination.html] -->
+                                </td>
+                            </tr>
+                            </tfoot>
+
                         </table>
                     </div>
                 </script>
@@ -75,6 +85,15 @@
                                     <td>信息</td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <!-- 指令调用代码 -->
+                                    <xl-page size="10" method="getListData" class="text-center"></xl-page>
+                                    <!-- 指令模板[pagination.html] -->
+                                </td>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </script>
