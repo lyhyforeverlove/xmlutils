@@ -23,16 +23,6 @@
             </form>
             <div>
                 <h4>学科：教研专属学科显示</h4>
-                <!--  <p><span class="p-d">目标类型:</span><span class="p-d"><label class="i-checks">
-               <input type="radio" name="f" value="option3" checked  ng-click="">
-               <i></i>一本线上30分
-            </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
-               <input type="radio" name="f" value="option3">
-               <i></i>一本线
-            </label></span>|<span class="p-d"><label class="i-checks" ng-click="">
-               <input type="radio" name="f" value="option3">
-               <i></i>二本线
-            </label></span></p> -->
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
                         <thead>
@@ -78,11 +68,10 @@
                                 <td>
 
                                     <div id="{{data.eduVulnerabilityAnalyzeRecordCode}}">
-                                    <!-- {{data.isAgreeJoinVulnerability}} -->
-                                        <button class="btn btn-primary" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode})">拒绝短板诊断</button>
-                                    
-                                        <button ng-if="data.appointmentExamStartDate.length == 0" class="btn btn-primary" id="{{$index}}" ng-click="open('lg',{shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,broadcastBoothUrl:data.broadcastBoothUrl,invigilatorTeacher:data.invigilatorTeacher})">预约时间</button>
-                                        
+                                    <!-- {{data.isAgreeJoinVulnerability}}   "-->
+                                        <p class="p_btn_1"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">拒绝短板诊断</button>已确认</p>
+                                        <p class="p_btn_2"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">同意短板诊断</button></p>
+                                        <p class="p_btn_3"><button ng-if="data.appointmentExamStartDate.length != 0" class="btn btn-primary" id="{{$index}}" ng-click="open('lg',{shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,broadcastBoothUrl:data.broadcastBoothUrl,invigilatorTeacher:data.invigilatorTeacher})">预约时间</button></p>
                                     </div>
                                 </td>
                             </tr>

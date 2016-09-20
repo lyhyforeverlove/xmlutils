@@ -80,12 +80,15 @@
                         <td>{{data.operator}}</td>
                         <td>{{data.mobile}}</td>
                         <td>{{data.parent}}</td>
-                        <td>110分</td>
-                        <td>50课时</td>
+                        <td></td>
+                        <td>{{data.addHourNumber}}</td>
                         <td><button class="btn btn-primary">查看</button></td>
                         <td>
-                            <button class="btn btn-primary">不参加</button>
-                            <button class="btn btn-primary">参加</button>
+                            <div id="{{data.eduVulnerabilityAnalyzeRecordCode}}">
+                                <p class="p_btn_1"><button ng-if="data.isAgreeAddHour == -1" class="btn btn-primary" ng-click="AgreeAddClassHour(data.eduVulnerabilityAnalyzeRecordCode)">不参加</button></p>
+                                <p class="p_btn_2"><button  ng-if="data.isAgreeAddHour == -1" class="btn btn-primary" ng-click="DisAgreeAddClassHour(data.eduVulnerabilityAnalyzeRecordCode)">参加</button></p>
+                                已确认同意加课 / 已确认不同意加课
+                            </div>
                         </td>
                     </tr>
                 </tbody>

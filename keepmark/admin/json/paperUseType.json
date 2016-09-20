@@ -1,15 +1,15 @@
 {
 	"paperUse":[{
-		"paperUseType":0,
-		"paperUseName":"短板诊断试卷",
+		"paperUseType":"p_004",
+		"paperUseName":"诊断卷",
 		"checked":true
 	},{
-		"paperUseType":1,
-		"paperUseName":"诊断考试试卷",
+		"paperUseType":"p_005",
+		"paperUseName":"短板诊断卷",
 		"checked":false
 	},{
-		"paperUseType":2,
-		"paperUseName":"诊断考试试卷",
+		"paperUseType":"p_014",
+		"paperUseName":"阶段考试卷",
 		"checked":false
 	}]
 }

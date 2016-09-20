@@ -22,7 +22,7 @@
             </form>
             <!-- select close -->
             <div class="line line-dashed b-b line-lg"></div>
-            <p><span class="p-d">学科：{{formData.subjectName}}</span><span class="p-d">监考人数：80人</span><span class="p-d">需判试卷：100份（转接20份）</span><span class="p-d">已判卷85份</span><span>未判卷15份</span></p>
+            <!-- <p><span class="p-d">学科：{{formData.subjectName}}</span><span class="p-d">监考人数：80人</span><span class="p-d">需判试卷：100份（转接20份）</span><span class="p-d">已判卷85份</span><span>未判卷15份</span></p> -->
             <div class="table-responsive">
             <table class="table table-striped b-t b-light">
                 <thead>
@@ -37,13 +37,12 @@
                         <th>客观题得分</th>
                         <th>主观题分数</th>
                         <th>考试确认</th>
-                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="data in results.list">
                         <td>{{$index+1}}</td>
-                        <td>短板诊断</td>
+                        <td>短板诊断考</td>
                         <td>{{data.userName}}</td>
                         <td>{{data.studentName}}</td>
                         <td>{{data.subjectName}}</td>
@@ -54,13 +53,12 @@
                         <td>{{data.impersonalityScore}}分</td>
                         <td>{{data.subjectivityScore}}分</td>
                         <td>参加考试</td>
-                        <td></td>
                     </tr>
                     
                 </tbody>
                 <tfoot>
                         <tr>
-                            <td colspan="8" class="text-center">
+                            <td colspan="10" class="text-center">
                                 <!-- 指令调用代码 -->
                                 <xl-page size="10" method="getList" class="text-center"></xl-page>
                                 <!--指令模板[pagination.html] -->
