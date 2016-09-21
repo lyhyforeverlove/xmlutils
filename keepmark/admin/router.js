@@ -17,10 +17,9 @@ angular.module('app')
             function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider
                     .otherwise('/app/teachManage/diagGoods');
-                /*.otherwise('/auth/login');*/
+                    /*.otherwise('/auth/loading');*/
                 $stateProvider
-                /**/
-                    .state('app.auth', {
+                    .state('auth', {
                         abstract: true,
                         url: '/auth',
                         template: '<div ui-view class="fade-in"></div>',
@@ -34,21 +33,21 @@ angular.module('app')
                     })
                     .state('auth.loading', {
                         url: '/loading',
-                        templateUrl: 'admin/auth/loading.html',
+                        templateUrl: 'admin/auth/loading.html'
                     })
                     .state('auth.login', {
                         url: '/login',
-                        templateUrl: 'admin/auth/login.html',
+                        templateUrl: 'admin/auth/login.html'
                     })
                     //首页
                     .state('auth.index', {
                         url: '/index',
-                        templateUrl: 'admin/auth/index.html',
+                        templateUrl: 'admin/auth/index.html'
                     })
                     .state('app', {
                         abstract: true,
                         url: '/app',
-                        templateUrl: 'admin/app.html',
+                        templateUrl: 'admin/app.html'
                     })
                     .state('app.news', {
                         abstract: true,
