@@ -1267,40 +1267,54 @@ app.controller('ClassesController', function($scope,$http, $controller,$modalIns
 });
 /*分班后确认*/
 app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $resource, $stateParams, $modal, $state) {
- 	$controller('ParentGetDataCtrl', {
- 		$scope: $scope
- 	});
-  
- 	//分班后确认 Tab 切换
- 	$scope.tabs = [{
+	$controller('ParentGetDataCtrl', {
+		$scope: $scope
+	});
+	//根据类型、地区、总分数、单科学科、分数、上课时间查询列表
+
+	//分班后确认 Tab 切换
+	$scope.tabs = [{
 		title: '理科',
 		code:1,
- 		url: 'one.tpl.html'
- 	}, {
+		url: 'one.tpl.html'
+	}, {
 		title: '文科',
 		code:0,
- 		url: 'two.tpl.html'
- 	}];
+		url: 'two.tpl.html'
+	}];
 	$scope.artType=1;
- 	$scope.currentTab = 'one.tpl.html';
- 	$scope.onClickTab = function(tab) {
+	$scope.currentTab = 'one.tpl.html';
+
+	$scope.onClickTab = function(tab) {
 		$scope.artType=tab.code;
- 		$scope.currentTab = tab.url;
- 	}
- 	}
- 	$scope.getList = function(page, size, callback) {
-		var url = $scope.app.testhost + 'student/accord/list?requestId=1';
+		$scope.currentTab = tab.url;
+	}
+
+	$scope.isActiveTab = function(tabUrl) {
+		return tabUrl == $scope.currentTab;
+	}
+
+	$scope.getList = function(page, size, callback) {
+		var url = $scope.app.host + 'student/accord/list?requestId=1';
 			console.log(url);
 			$http.post(url, {
 				"pageNumber": 1,
 				"pageSize": 10,
 				"type":$scope.artType
 			}).success(function(data) {
- 			console.log(data);
- 			if(data.message == "Success") {
- 			console.log("fail");
- 		})
- 	}
+			console.log(data);
+			if(data.message == "Success") {
+
+				$scope.results = data.result;
+
+				$scope.totalPage = data.result.totalPage;
+				callback && callback(data.result);
+
+			}
+		}).error(function(data) {
+			console.log("fail");
+		})
+	}
 	
 	
 	//拒绝上课
@@ -1343,8 +1357,11 @@ app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $
 		}).error(function(data) {
 			console.log("fail!");
 		})
+		
 	}
- });
+	
+	
+});
 
 /*监考老师*/
 app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resource, $stateParams, $state) {
