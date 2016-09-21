@@ -376,8 +376,8 @@ app.controller("schoolRollManageController",function($controller,$scope,$http,ac
     $scope.searchStudent = function(page, size, callback){
         $http.post($scope.app.host+"/teaching/organization/student/page?requestId=test123456",
             {
-                "pageNumber":1,
-                "pageSize":10,
+                "pageNumber":page,
+                "pageSize":size,
                 "name":$scope.name,
                 "accessionYear":"2016",
                 "goalType":$scope.goalType,
