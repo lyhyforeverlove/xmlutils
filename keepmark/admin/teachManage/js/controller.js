@@ -10,43 +10,15 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
     //默认类型为理科
     $scope.formData.departmentType = 1;
     //默认为语文
-    $scope.formData.subjectCode = 1;
+    //$scope.formData.subjectCode = 1;
     //默认为全国卷一
-    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
+    //$scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     //默认学年为33
-    $scope.formData.gradeCode = 33;
+    //$scope.formData.gradeCode = 33;
     //默认为短板诊断
-    $scope.formData.paperUseType = "p_004";
+    //$scope.formData.paperUseType = "p_004";
 
-    //获取诊断试卷列表
-    $scope.getList = function(page, size, callback) {
-        $http.post($scope.app.host + '/diagnosis/group/list?requestId=test123456', {
-            "departmentType":$scope.formData.departmentType,
-            /*"bookVersionCode":$scope.formData.bookVersionCode,*/
-            "currentPage":page,
-            "pageSize":size
-        }).success(function(data) {
-                if(data.message == "Success"){
-                    $scope.results = data.result;
-                    var list = data.result.list;
-                     console.log(data);
-                    angular.forEach(list, function(data){
-                        $scope.tesarry.push(data.repositoryPaperCode);
-                        if(data.artsType == "SCIENCE"){
-                            data.artsType = "理科";
-                        }else{
-                            data.artsType = "文科";
-                        }
-                    });
-
-                    $scope.totalPage = data.result.totalPage;
-
-                    callback && callback(data.result);
-                }
-            });
-    };
     //全选
-    $scope.tesarry = ['1', '2', '3']; //初始化数据
     $scope.choseArr = []; //定义数组用于存放前端显示
     var str = ""; //
     var flag = ''; //是否点击了全选，是为a
@@ -73,6 +45,33 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
         }
         $scope.choseArr = (str.substr(0, str.length - 1)).split(',');
     };
+    //获取诊断试卷列表
+    $scope.getList = function(page, size, callback) {
+        $http.post($scope.app.host + '/diagnosis/group/list?requestId=test123456', {
+            "departmentType":$scope.formData.departmentType,
+            /*"bookVersionCode":$scope.formData.bookVersionCode,*/
+            "currentPage":page,
+            "pageSize":size
+        })
+            .success(function(data) {
+                if(data.message = "success"){
+                    angular.forEach(data.result.list, function(data){
+                        if(data.artsType == "SCIENCE"){
+                            data.artsType = "理科";
+                        }else{
+                            data.artsType = "文科";
+                        }
+                    });
+                    $scope.results = data.result;
+
+                    $scope.totalPage = data.result.totalPage;
+
+                    callback && callback(data.result);
+                }
+            }).error(function(data){
+                console.log("fail");
+            });
+    }
     /*置为诊断商品*/
     $scope.AddDiagGoods = function(code){
         var url=$scope.app.host + '/teacher/diagnosis/add/good?requestId=test123456';
@@ -96,7 +95,7 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
             console.log("fail!");
         });
     }
-    console.log($scope.tesarry);
+    //console.log($scope.tesarry);
 });//诊断商品列表
 app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService,passParameter) {
         //继承筛选条件控制器
@@ -128,14 +127,6 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, 
 
                        $scope.list = data.result.list;
 
-                       angular.forEach($scope.list, function(data){
-                           // $scope.tesarry.push(data.repositoryPaperCode);
-                           if(data.onsaleStatus == "1"){
-                               data.onsaleStatus = "下架";
-                           }else{
-                               data.onsaleStatus = "上架";
-                           }
-                       });
                        $scope.totalPage = data.result.totalPage;
 
                        callback && callback(data.result);
@@ -150,10 +141,9 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, 
             //diagnosisGoodsCode =>json
             var url = $scope.app.host + "/teacher/diagnosis/update/status?requestId=test123456";
             $http.post(url, diagnosisGoodsCode).success(function(data) {
-                /*if(data.message == ""){
-
-                }*/
-                console.log(data);
+                if(data.result == true){
+                    self.location.reload();
+                }
             }).error(function(data) {
                 console.log("fail");
             })
@@ -178,8 +168,7 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, 
 app.controller("DistributionCtrl", function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService) {
 
     //添加老师
-
-    var V_GoodsAddJson = null;
+    $scope.V_GoodsAddJson = null;
 
     var diagnosisGoodsModels = []; //定义诊断商品列表
     //$scope.list = [{ teacherCode: 0, beginDate: 30, endDate: '张三' }];
@@ -187,34 +176,23 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
 
         // 获取上个界面传递的数据，并进行解析
         if ($stateParams.jsonString != '') {
-            V_GoodsAddJson = angular.fromJson($stateParams.jsonString);
+            $scope.V_GoodsAddJson = angular.fromJson($stateParams.jsonString);
         }
 
-        //console.log($scope.postData);
         var goodsArr = angular.fromJson($scope.postData);
-        //console.log(goodsArr);
         diagnosisGoodsModels.push(goodsArr);
-
-        var V_GoodsAddJson = angular.fromJson(V_GoodsAddJson);
-
-        console.log(diagnosisGoodsModels);
-        console.log(V_GoodsAddJson);
-
-        V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
-
-        console.log(V_GoodsAddJson);
-
-        //console.log(V_GoodsAddJson);
-
-        //var obj = { teacherCode: 0, beginDate: 30, endDate: '张三' };
-        //$scope.list.push($scope.formData);
+        $scope.V_GoodsAddJson = angular.fromJson($scope.V_GoodsAddJson);
+        $scope.V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
 
         $scope.postData  = {};
+        angular.forEach($scope.groups, function(s) {
+            angular.element(".times li").removeClass('active');
+        });
 
-    }
+    };
     $scope.del = function(idx) {
         $scope.list.splice(idx, 1);
-    }
+    };
       
     $scope.postData = {};
     //诊断时间
@@ -275,13 +253,13 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
         return $scope.postData.times;
     };
     //确定上架
-    $scope.ConfirmShelves = function(V_GoodsAddJson) {
+    $scope.ConfirmShelves = function() {
 
+        console.log($scope.V_GoodsAddJson);
 
-
-        $http.post($scope.app.host + '/teacher/diagnosis/distribution/invigilate?requestId=test123456', V_GoodsAddJson)
+        $http.post($scope.app.host + '/teacher/diagnosis/distribution/invigilate?requestId=test123456', $scope.V_GoodsAddJson)
             .success(function(data) {
-                if (data.result == "success") {
+                if (data.result == "Success") {
                     console.log(data);
                     $state.go('app.teachManage.diagGoods');
                 }
@@ -1374,14 +1352,16 @@ app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resourc
             console.log("fail");
         })
     };
+    $scope.subjectCode = 0;
     //获取获取监考老师分页列表
-    $scope.getList = function(page,size,callback){
-        $scope.getSubject();
+    $scope.getList = function(subjectCode,page,size,callback){
+        //$scope.getSubject();
+        console.log(subjectCode);
         var url = $scope.app.host + 'teaching/organization/teacher/page?requestId=test123456';
         $http.post(url,{
             "pageNumber":page,
             "pageSize":size,
-            "subjectCode": $scope.subjectCode,
+            "subjectCode": subjectCode,
             "invigilator":0
         }).success(function(data){
             console.log(data);

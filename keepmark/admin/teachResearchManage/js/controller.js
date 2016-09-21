@@ -134,9 +134,9 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                     $scope.results = data.result;
                     results = data.result.list;
                     var subjectCode = data.result.list[0].subjectCode;
-                    if(subjectCode == 1){
+                    /*if(subjectCode == 1){
                         $scope.subjectName = "语文";
-                    }
+                    }*/
                     $scope.totalPage = data.result.totalPage;
 
                     callback && callback(data.result);
@@ -697,8 +697,8 @@ app.controller("getPapersController", function($scope, $http, $resource, $stateP
         if(V_PapersListJson.subjectCode == 1){
             $scope.subjectName ="语文";
         }
-        V_PapersListJson["currentPage"] = page;  //当前页参数
-        V_PapersListJson["pageSize"] = size; //每页显示多少条
+       // V_PapersListJson["currentPage"] = page;  //当前页参数
+       // V_PapersListJson["pageSize"] = size; //每页显示多少条
 
         var url = host + "/resource/get/papers?requestId=1";
         $http.post(url,{
@@ -931,6 +931,30 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
                 .success(function(data) {
                     if(data.message == "Success"){
                         console.log(data);
+                        var list = data.result.list;
+
+                        angular.forEach(list, function(data){
+
+                            if(data.subjectCode == 1 ){
+                                data.subjectCode = "语文";
+                            }else if(data.subjectCode == 2){
+                                data.subjectCode = "数学";
+                            }else if(data.subjectCode == 3){
+                                data.subjectCode = "英语";
+                            }else if(data.subjectCode == 4){
+                                data.subjectCode = "物理";
+                            }else if(data.subjectCode == 5){
+                                data.subjectCode = "化学";
+                            }else if(data.subjectCode == 6){
+                                data.subjectCode = "生物";
+                            }else if(data.subjectCode == 7){
+                                data.subjectCode = "历史";
+                            }else if(data.subjectCode == 8){
+                                data.subjectCode = "地理";
+                            }else if(data.subjectCode == 9){
+                                data.subjectCode = "政治";
+                            }
+                        });
                         $scope.results = data.result;
 
                         $scope.totalPage = data.result.totalPage;

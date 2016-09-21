@@ -8,8 +8,18 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">学科:</label>
                     <div class="col-sm-4">
-                        <select  name="account" class="form-control"  ng-model="subject" ng-value="{{data.subjectCode}}" ng-options="data.subjectName for data in subjects">
-                            <option>--全部--</option>
+                        {{subjects}}
+                        <select class="form-control"  ng-model="subjectCode" ng-change="getList(subjectCode,1,10)" >
+                            <option value="0">--请选择--</option>
+                            <option value="1">语文</option>
+                            <option value="2">数学</option>
+                            <option value="3">英语</option>
+                            <option value="4">物理</option>
+                            <option value="5">化学</option>
+                            <option value="6">生物</option>
+                            <option value="7">历史</option>
+                            <option value="8">地理</option>
+                            <option value="9">政治</option>
                         </select>
                     </div> <!-- ui-sref="app.teachManage.allot" -->
                     <button type="submit" class="m-b-sm btn btn-primary btn-addon" ng-click="AddMonitorTeacher(choseArr)" ><i class="fa fa-plus"></i>添加监考老师</button>

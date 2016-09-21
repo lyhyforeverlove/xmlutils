@@ -3,7 +3,7 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
  
     $scope.getSubject = function(departmentType){
          //获取类型（文/理）
-        console.log(departmentType);
+        //console.log(departmentType);
         CalcService.filterData().then(function(data){
             $scope.departmentType = data.filterData;
             var category = data.filterData[departmentType].category;
@@ -13,13 +13,13 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
         });
     }
     
-    $scope.getBookVersion = function(id){
-       
-       //console.log(id);
-        CalcService.filterData().then(function(data){
-            $scope.bookVersion = data.filterData[1].category[id].bookVersion;
-        });
-    }
+    $scope.getBookVersion = function(departmentType,id){
+       console.log(departmentType);
+       console.log(id);
+       CalcService.filterData().then(function(data){
+            $scope.bookVersion = data.filterData[departmentType].category[id].bookVersion;
+       });
+    };
     //获取直播课程类型
     $scope.getCtb = function(id){
         CalcService.CourseAimData().then(function(data){

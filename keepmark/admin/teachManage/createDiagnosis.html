@@ -82,9 +82,9 @@
                                 </td>
                                 <td>{{data.artsType}}</td>
                                 <td>{{data.createTime }}{{data.diagnosisPaperName}}</td>
-                                <td><!--{{data.repositoryPaperCode}}|-->{{data.operator }}</td>
+                                <td>{{data.repositoryPaperCode}}|{{data.operator }}</td>
                                 <td>
-                                    <img src="{{data.diagnosisImgUrl}}" width="100" height="50" /></td>
+                                    <img src="{{data.paperImgUrl}}" width="100" height="50" /></td>
                                 <td>{{data.diagnosisExplanation}}</td>
                                 <td>
                                     <!--  ui-sref="app.teachManage.detail({id:data.id})" -->
@@ -96,7 +96,7 @@
                             <tr>
                                 <td colspan="7" class="text-right">
                                     <label class="i-checks m-b-none">
-                                        <input type="checkbox" ng-model="master" ng-click="checkAll(master,choseArr)"><i></i>全选
+                                        <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
                                     </label>
                                 </td>
                             </tr>
@@ -108,7 +108,7 @@
                                 </td>
                             </tr>
                         </tfoot>
-                    </table> <!--{{choseArr}}-->
+                    </table> {{choseArr}}
                    <!--   |  {{tesarry}} -->
                     <p class="pull-right"><button class="btn btn-primary" ng-click='AddDiagGoods(choseArr)'><span class="p-d">置为商品</span></button></p>
                 </div>
