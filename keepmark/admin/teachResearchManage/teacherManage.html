@@ -1,0 +1,82 @@
+<div class="wrapper-md ng-scope" ng-controller="teacherManageController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{name}} &gt;  教师管理 </h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-heading">
+                 <!-- <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总校</label>
+                    <div class="col-sm-4">
+                        <select ng-model="headSchool.code"  ng-options="headSchool.code as headSchool.name for headSchool in headSchoolList" class="form-control" ng-click="seacherBranchByHeadSchool(headSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                                 </div>
+                                 <div class="line line-dashed b-b line-lg"></div> -->
+                                 <div class="form-group col-sm-12" ng-init="seacherBranchByHeadSchool('183d9d0eeeba4375a442b3b0e00be68d')">
+                                    <label class="col-sm-1 control-label">分校</label>
+                                    <div class="col-sm-4">
+                                        <select ng-model="schoolBranch.code"  ng-options="schoolBranch.code as schoolBranch.name for schoolBranch in schoolBranchList" class="form-control"  ng-change="seacherCentreBySchoolBranch(schoolBranch.code)">
+                                            <option value="">--请选择--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg"></div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-1 control-label">学科中心</label>
+                                    <div class="col-sm-4">
+                                        <select ng-model="subjectCenter.code"  ng-options="subjectCenter.code as subjectCenter.name for subjectCenter in list" class="form-control" 
+                                        ng-change="myChanger(subjectCenter.code)" >
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group col-sm-12">
+                                <button class="btn btn-primary pull-right" ui-sref="app.teachResearchManage.addTeacher()">添加成员</button>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="table-responsive"  >
+                            <table class="table table-striped  b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>姓名</th>
+                                        <th>部门</th>
+                                        <th>学科</th>
+                                        <th>地区</th>
+                                        <th>教龄</th>
+                                        <th>联系电话</th>
+                                        <th>级别</th>
+                                        <th>电子邮箱</th>
+                                        <th>身份证号</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="teacher in lists">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{teacher.name}}</td>
+                                        <td>教研部</td>
+                                        <td>{{teacher.subjectName}}</td>
+                                        <td>{{teacher.province}}-{{teacher.city}}-{{teacher.county}}</td>
+                                        <td>{{teacher.teachYear}}</td>
+                                        <td>{{teacher.mobile}}</td>
+                                        <td>{{teacher.resRoleType}}</td>
+                                        <td>{{teacher.email}}</td>
+                                        <td>{{teacher.identCard}}</td>
+                                        <td>
+                              <!--   <a class="btn-a" >详情</a>
+                              <a class="btn-a" ui-sref="app.authorityManage.updateFullTimeTeacher()">编辑</a>
+                              <a class="btn-a" ng-click="deleteFullTimeTeacher()">删除</a> -->
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>            
+      </div>
+  </div>
+</div>
+</div>      

@@ -7,8 +7,41 @@
             <div class="panel-body">
                 <form class="form-horizontal" ng-init="load()">
                     <!--包含公共筛选条件 start-->
-                    <div  ng-include="'admin/common/tpl/filter.html'"></div>
+                    <!--<div  ng-include="'admin/common/tpl/filter.html'"></div>-->
                     <!--包含公共筛选条件 end-->
+                    <!--<div class="form-group">
+                        <label class="col-sm-2 control-label">学年：</label>
+                        <label class="control-label" ng-model="formData.gradeCode">高考</label>
+                    </div>-->
+                   <!-- <div class="line line-dashed b-b line-lg"></div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">类型：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                                <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+                            </label>
+                        </div>
+                    </div>
+                    <!--<div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">学科：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="(key, val) in category track by $index">
+                                <input type="radio" name="subjectCode" ng-value='{{val.subjectCode}}' ng-model="formData.subjectCode" ng-click="getBookVersion(val.id)" ><i></i>{{val.subjectName}}
+                            </label>
+                        </div>
+                    </div>--><!--
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="obj in bookVersion">
+                                <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode">
+                                <i></i>{{obj.bookVersionName}}
+                            </label>
+                        </div>
+                    </div>-->
+                    <!--<div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">目标类型：</label>
                         <div class="radio">
@@ -16,7 +49,7 @@
                                 <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.aimType"><i></i>{{val.aimName}}
                             </label>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">第几阶段：</label>
@@ -24,7 +57,7 @@
                         </select></span>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <button class="pull-right btn btn-primary" ng-click="getList(page, size, callback)"><span class="p-d">查询</span></button>
+                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <div class="table-responsive">

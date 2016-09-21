@@ -451,7 +451,7 @@ app.controller("centreOfSchoolController",function($scope, $http ,$controller,$s
     $scope.deleteCenterSchool = function(){
         alert("确定删除此中心吗？");
     };
-
+    //查看中心
     $scope.viewCenterSchool = function(data){
         var jsonString = angular.toJson(data);
         $state.go('app.authorityManage.centreOfSchoolDetail', {
@@ -460,8 +460,8 @@ app.controller("centreOfSchoolController",function($scope, $http ,$controller,$s
             reload : true
         });
     };
+    //修改中心
     $scope.updateVCenterSchool = function(data){
-        alert(111);
         var jsonString = angular.toJson(data);
         $state.go('app.authorityManage.updateCentreOfSchool', {
             jsonString : jsonString
@@ -535,7 +535,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
     }
     //保存中心信息
     $scope.saveCentreOf = function(formData){
-        alert(formData);
+        formData.divisionType = formData.divisionCode.divisionType;
         formData.divisionCode = formData.divisionCode.code;
         //老师的list
         formData.authTeacherClassModels = [];
@@ -554,7 +554,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
         //组长
         formData.centerLeader ="AAAA";
         console.log(formData);
-        $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/center?requestId=test123456",
+        $http.post("http://192.168.1.35:8070/keepMark-teacher-business/teaching/organization/create/center?requestId=test123456",
             formData).success(function(data){
             $state.go("app.authorityManage.centreOfSchool");
         })
@@ -588,9 +588,11 @@ app.controller("centreOfSchoolDetailController",function($scope,$stateParams,$co
 });
 
 
+
+
 //班级
-app.controller("classAndGradeController",function($scope,$http,$controller){
-    $scope.titleName="创建班级";
+app.controller("classAndGradeController",function($scope,$http,$controller,$state){
+    $scope.titleName="班级";
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.getList = function(centreCode){
         if(typeof(centreCode) !== "undefined"){
@@ -602,16 +604,24 @@ app.controller("classAndGradeController",function($scope,$http,$controller){
                     "centerCode":centreCode
 
                 }).success(function(data){
-                $scope.list = data.list;
+                $scope.list = data.result;
             });
         }
     };
     $scope.deleteClassAndGradeSchool = function(){
         alert("确定删除吗？");
+    };
+    //班级查看详情
+    $scope.classAndGradeDetail =function(classAndGrade){
+        $state.go("app.authorityManage.classAndGradeDetail",{"classAndGrade":JSON.stringify(classAndGrade)});
+    };
+    //修改班级
+    $scope.updateClassAndGrade =function(classAndGrade){
+        $state.go("app.authorityManage.updateClassAndGrade",{"classAndGrade":JSON.stringify(classAndGrade)});
     }
 });
 //新增班级
-app.controller("addClassAndGradeController",function($scope,$http,$controller){
+app.controller("addClassAndGradeController",function($scope,$http,$controller,$state){
     $scope.titleName="新增班级";
     //subjectCode为1时  文科
     //subjectCode为2时  理科
@@ -622,6 +632,7 @@ app.controller("addClassAndGradeController",function($scope,$http,$controller){
                 "type":1,
                 "roleType":7,
                 "subjectCode":code
+                //"centerCode":$scope.classAndGrade.centerCode
             })
             .success(function(data){
                 switch(code)
@@ -657,15 +668,187 @@ app.controller("addClassAndGradeController",function($scope,$http,$controller){
             })
     };
 
+    //保存班级
+    $scope.saveClassAndGrade = function(){
+        var authTeacherClassModels = [];
+        if(typeof($scope.chineseTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.chineseTeacher.code});
+        }
+        if(typeof($scope.mathTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.mathTeacher.code});
+        }
+        if(typeof($scope.englishTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.englishTeacher.code});
+        }
+        if(typeof($scope.historyTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.historyTeacher.code});
+        }
+        if(typeof($scope.geographyTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.geographyTeacher.code});
+        }
+        if(typeof($scope.politicalTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.politicalTeacher.code});
+        }
+        if(typeof($scope.physicsTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.physicsTeacher.code});
+        }
+        if(typeof($scope.chemistryTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.chemistryTeacher.code});
+        }
+        if(typeof($scope.biologyTeacher)!=='undefined'){
+            authTeacherClassModels.push({"teacherCode":$scope.biologyTeacher.code});
+        }
+        $scope.classAndGrade.authTeacherClassModels = authTeacherClassModels;
+        $http.post("http://192.168.1.35:8070/keepMark-teacher-business/teaching/organization/create/class?requestId=test123456",
+            $scope.classAndGrade).success(function(data){
+                $state.go("");
+        });
+    }
+
 });
 //编辑班级
-app.controller("updateClassAndGradeController",function($scope){
+app.controller("updateClassAndGradeController",function($scope,$http,$stateParams,$state){
     $scope.titleName="编辑班级";
     //subjectCode为1时  文科
     //subjectCode为2时  理科
     $scope.subjectCode = 1;
+    $scope.classAndGrade = JSON.parse($stateParams.classAndGrade);
+    $scope.saveUpdateClassAndGrade = function(){
+        $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/class?requestId=test123456",
+            $scope.classAndGrade).success(function(data){
+                $state.go("app.authorityManage.classAndGrade");
+        });
+    };
 });
 //查看班级
-app.controller("classAndGradeDetailController",function($scope){
+app.controller("classAndGradeDetailController",function($scope,$stateParams){
+    $scope.name="查看班级";
+    $scope.classAndGrade = JSON.parse($stateParams.classAndGrade);
+});
+
+
+
+
+
+//学习小组
+app.controller("studyGroupController",function($scope,$http,$controller,$state){
+    $scope.titleName="学习小组";
+    $controller("getSchoolInfo",{$scope:$scope});
+    $scope.getList = function(classCode){
+        if(typeof(classCode) !== "undefined"){
+            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+                {
+                    "pageSize":20,
+                    "pageNumber":1,
+                    "type":7,
+                    "classCode":classCode
+
+                }).success(function(data){
+                $scope.list = data.result;
+            });
+        }
+    };
+    $scope.deleteClassAndGradeSchool = function(){
+        alert("确定删除吗？");
+    };
+    $scope.studyGroupDetail = function(studyGroup){
+        $state.go("app.authorityManage.studyGroupDetail",{"studyGroup":JSON.stringify(studyGroup)});
+    };
+    $scope.updateStudyGroup = function(studyGroup){
+        $state.go("app.authorityManage.updateStudyGroup",{"studyGroup":JSON.stringify(studyGroup)});
+    };
+});
+//新增学习小组
+app.controller("addStudyGroupController",function($scope,$http,$controller,$state){
+    $scope.titleName="新增学习小组";
+    $scope.studentsStatus =false;
+    $controller("getSchoolInfo",{$scope:$scope});
+    //获取未被分组的学生
+    $scope.getStudents = function(classCode){
+        if(typeof(classCode) !== "undefined"){
+            $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/findAllStudentNoGroupByClassCode?requestId=WEUOW343KL34L26NBSK3",
+                {
+                    "classCode":classCode
+                }
+            ).success(function(data){
+                $scope.list= data.result.students;
+            });
+        }
+    };
+    //保存小组信息
+    $scope.saveStudyGroup =function(){
+        $scope.studentsStatus = !$scope.studentsStatus;
+        $scope.formData = {};
+        $scope.selected = [];
+        //$scope.selectedTags = [];
+
+        var updateSelected = function(action,id,name){
+            if(action == 'add' && $scope.selected.indexOf(id) == -1){
+                $scope.selected.push(id);
+            }
+            if(action == 'remove' && $scope.selected.indexOf(id)!=-1){
+                var idx = $scope.selected.indexOf(id);
+                $scope.selected.splice(idx,1);
+            }
+        }
+        $scope.updateSelection = function($event, id){
+            var checkbox = $event.target;
+            var action = (checkbox.checked?'add':'remove');
+            updateSelected(action,id,checkbox.name);
+        }
+        $scope.isSelected = function(id){
+            return $scope.selected.indexOf(id)>=0;
+        }
+
+        $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/createAuthSchoolGroupModel?requestId=WEUOW343KL34L26NBSK3",
+            {
+                "name":$scope.studyGroup.name,
+                "classCode":$scope.studyGroup.classAndGrade
+            }
+        ).success(function(data){
+            $scope.groupCode = data.result.groupCode;
+        });
+    };
+
+    //向小组内添加学生
+    $scope.addStudentIntoGroup = function(){
+        var students = [];
+        if($scope.selected.length>0){
+            for(var i=0;i<$scope.selected.length;i++){
+                students.push({"studentCode":$scope.selected[i]});
+            }
+        }
+        if(students.length>5){
+            alert("小组最多只能添加5个学生");
+        }
+        else{
+            $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/groupStudents?requestId=WEUOW343KL34L26NBSK3",
+                {
+                    "groupCode":$scope.groupCode,
+                    "students":students
+                }
+            ).success(function(data){
+                $state.go("app.authorityManage.studyGroup");
+            });
+        }
+    }
+
+
+});
+//编辑学习小组
+app.controller("updateStudyGroupController",function($scope,$http,$stateParams,$state){
+    $scope.titleName ="编辑小组";
+    $scope.studyGroup = JSON.parse($stateParams.studyGroup);
+    $scope.saveUpdateStudyGroup = function(){
+        $http.post("http://192.168.1.35:8070/keepMark-teacher-business/teaching/organization/update/group?requestId=test123456",
+            $scope.studyGroup
+         ).success(function(){
+            $state.go("app");
+        });
+    };
+});
+//查看学习小组
+app.controller("studyGroupControllerDetailController",function($scope,$stateParams){
     $scope.titleName="查看班级";
+    $scope.studyGroup= JSON.parse($stateParams.studyGroup);
 });

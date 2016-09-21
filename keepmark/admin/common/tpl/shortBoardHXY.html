@@ -1,0 +1,52 @@
+<script>
+    app.controller('shortBoardController', function($scope, CalcService, $controller) {
+        $controller('getJsonData', {$scope: $scope});//继承
+        $scope.formIndex = {};
+        //获取学科（短板）
+        $scope.getIndex = function(value) {
+            $scope.formIndex[value] = $scope[value];
+        };
+        //是否添加短板
+        $scope.whetherMothed = function(){
+            if($scope.whether == "1"){
+                $scope.display = true;
+            }
+        };
+        $scope.display = false;
+    });
+</script>
+<div ng-controller="shortBoardController">
+    <div class="modal-header">
+        <h3 class="modal-title">短板分析</h3>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="shortBoard_whether">
+                <select ng-model="whether" ng-click="whetherMothed()">
+                    <option value="" selected="selected">是否需要添加“短板”</option>
+                    <option value="1">添加“短板”</option>
+                    <option value="2">不需要“短板”</option>
+                </select>
+            </div>
+            <label class="col-sm-2 control-label" ng-show="display">短板学科:</label>
+            <div class="col-sm-4" ng-show="display">
+                <select name="account" class="form-control" ng-model="checked" ng-click="getIndex('checked')">
+                    <option value="" selected="selected">请选择短板科目</option>
+                    <option ng-repeat="a in category" ng-value="a.subjectCode">{{a.subjectName}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2 control-label" ng-show="display">地区:</label>
+            <div class="col-sm-4" ng-show="display">
+                <select name="account" class="form-control" ng-model="checkedCity" ng-click="getIndex('checkedCity')">
+                    <option value="" selected="selected">请选择地区</option>
+                    <option ng-repeat="obj in city" ng-value="obj.provinceCode">{{obj.provinceName}}</option>
+                </select>
+            </div>
+        </div>
+        Selected: <b></b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="shortBoard(formIndex.checked,formIndex.checkedCity,display)">ok</button>
+    </div>
+</div>

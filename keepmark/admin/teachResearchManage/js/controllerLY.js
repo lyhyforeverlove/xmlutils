@@ -3,7 +3,7 @@
  */
 //总校列表
 app.controller("headSchoolController",function($scope,$http,$state){
-    $http.post('http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456', {
+    $http.post('http://192.168.1.201:7777/keepMark-teacher-business/section/organization/list?requestId=test123456', {
         "pageSize":20,
         "pageNumber":1,
         "type":1
@@ -13,14 +13,14 @@ app.controller("headSchoolController",function($scope,$http,$state){
 
     $scope.updateHeadSchool = function(headSchool){
         $state.go("app.teachResearchManage.updateHeadSchool",
-            { "headSchool":JSON.stringify(headSchool) });
+            {"headSchool":JSON.stringify(headSchool)});
     }
 });
 
 //新增总校
 app.controller("addHeadSchoolController",function($scope,$http,$state){
     $scope.saveHeadSchool = function(){
-        $http.post('http://192.168.1.12:7777/keepMark-teacher-business/section/organization/create/main?requestId=test123456',$scope.formData).success(function(data){
+        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/section/organization/create/main?requestId=test123456',$scope.formData).success(function(data){
             $state.go('app.teachResearchManage.headSchool');
         });
     }
@@ -29,6 +29,7 @@ app.controller("addHeadSchoolController",function($scope,$http,$state){
 //修改总校
 app.controller("updateHeadSchoolController", function($scope,$http,$stateParams,$state){
     $scope.headSchool = JSON.parse($stateParams.headSchool);
+
     $scope.saveUpdateHeadSchool = function(){
         $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/update/main?requestId=test123456",
             {
@@ -161,6 +162,71 @@ app.controller("headSchoolSelectController",function($scope,$http){
     }
 
 });
+//教师管理列表
+app.controller("teacherManageController",function($scope,$http,$controller,$state){
+    //根据主校获取分校
+    $scope.seacherBranchByHeadSchool = function(headCode){
+        if(typeof(headCode) !== "undefined"){
+            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
+                {
+                    "pageSize": 20,
+                    "pageNumber": 1,
+                    "type": 2,
+                    "monitorMianCode": headCode
+                }).success(function (data) {
+                $scope.schoolBranchList = data.result;
+            });
+        }
+    };
+    //根据分校获取中心
+    $scope.seacherCentreBySchoolBranch = function(branchCode){
+        if(typeof(branchCode) !== "undefined" && branchCode){
+            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
+                {
+                    "pageSize":20,
+                    "pageNumber":1,
+                    "type":3,
+                    "monitorBranchCode":branchCode
+                }).success(function (data) {
+                $scope.list = data.result;
+            });
+        }
+    }
+/*获得教研中心下的教研教师*/    
+$scope.myChanger = function(code){
+    console.log("-----------------------code="+code);
+    if(typeof(code) !== "undefined" && code){
+            $http.post("http://192.168.1.35:8070/keepMark-teacher-business/section/organization/teacher/list?requestId=test123456",
+                {
+                    "monitorCenterCode":code
+                }).success(function (data) {
+                $scope.lists = data.result;
+            });
+        }
+    }
+});
+//添加教師管理-教研老師
+app.controller("addTeacherController",function($scope,$http,$state,$controller,$stateParams,acquireDataService){
 
+    $scope.level =[
+                 {id:1,value: "da42abd78c3a4a039e09eba32d0b0acc" , name: "总校长" },
+                 {id:2,value: "6804d2181c604aa1926ff7a75a297749" , name: "分校长" },
+                 {id:3,value: "1be524ec9845465da072638089c37f66" , name: "中心主管" }
+             ];
+  //获取学科
+    $scope.getSubject = function(){
+        $http.get("admin/json/subject.json").success(function(data){
+            $scope.subjectList = data.subject;
+        });
+    };
+  //学历类型
+    $scope.seacherTeacherEducation = function(){     
+        acquireDataService.getTeacherEducationList().then(function(data){
+               console.log("data"+data)
+            $scope.teacherEducationList = data.teacherEducationList;
+        });
+    };
+
+});
 
 

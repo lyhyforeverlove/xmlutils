@@ -1,19 +1,18 @@
-<div class="wrapper-md" ng-controller="RoundController">
+<div class="wrapper-md" ng-controller="MonitorTeacherCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &gt; 监考教师管理</h4>
+            <h4>教学管理 &gt; 监考教师管理</h4>
         </div>
         <div class="wrapper">
-            <form action=""  class="form-horizontal">
+            <form action="" class="form-horizontal">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">学科:</label>
-                    <div class="col-sm-2">
-                        <select name="account" class="form-control">
-                            <option>数学</option>
-                            <option>英语</option>
+                    <div class="col-sm-4">
+                        <select  name="account" class="form-control"  ng-model="subject" ng-value="{{data.subjectCode}}" ng-options="data.subjectName for data in subjects">
+                            <option>--全部--</option>
                         </select>
-                    </div>
-                    <button type="submit" class="m-b-sm btn btn-primary btn-addon" ui-sref="app.teachManage.allot"><i class="fa fa-plus"></i>添加监考老师</button>
+                    </div> <!-- ui-sref="app.teachManage.allot" -->
+                    <button type="submit" class="m-b-sm btn btn-primary btn-addon" ng-click="AddMonitorTeacher(choseArr)" ><i class="fa fa-plus"></i>添加监考老师</button>
                 </div>
             </form>
             <div class="table-responsive">
@@ -24,26 +23,41 @@
                             <th>老师姓名</th>
                             <th>学科</th>
                             <th>所在中心</th>
+                            <th>选择</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>王XX</td>
-                            <td>语文</td>
-                            <td>中心一1班</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>王XX</td>
-                            <td>语文</td>
-                            <td>中心一1班</td>
+                        <tr ng-repeat="data in results.list">
+                            <td>{{$index+1}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.subjectName}}</td>
+                            <td>{{data.authSchoolClassModel.name}}</td>
+                            <td>
+                                <label class="i-checks">
+                                    <input id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.code ,x)"><i></i></label>
+                            </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <label class="i-checks m-b-none">
+                                    <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                    <!-- <a href="#" class="btn btn-danger" ng-click="delete()" > 删除</a> -->
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                <!-- 指令模板[pagination.html] -->
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
-                
+                {{choseArr}}
             </div>
         </div>
-        
     </div>
 </div>

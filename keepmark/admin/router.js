@@ -299,6 +299,28 @@ angular.module('app')
                         url: '/courseDeatil/{courseSystemCode}',
                         templateUrl: 'admin/teachResearchManage/courseDeatil.html',
                     })
+                  .state('app.teachResearchManage.teacherManage', {
+                        url: '/teacherManage',
+                        templateUrl: 'admin/teachResearchManage/teacherManage.html',
+                         resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.addTeacher', {
+                        url: '/addTeacher',
+                        templateUrl: 'admin/teachResearchManage/addTeacher.html',
+                          resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
                     .state('app.teachResearchManage.areaCategory', {
                         url: '/areaCategory',
                         templateUrl: 'admin/teachResearchManage/areaCategory.html',
@@ -346,7 +368,6 @@ angular.module('app')
                                 }
                             ]
                         }
-                        
                     })
                     .state('app.teachResearchManage.subjectCenter', {
                         url: '/subjectCenterList',
@@ -361,7 +382,7 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.createSchool', {
                         url: '/createSchool',
-                        templateUrl: 'admin/common/tpl/createSchool.html',
+                        templateUrl: 'admin/teachResearchManage/addHeadSchool.html',
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
@@ -372,7 +393,7 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.changeCourseType', {
                         url: '/changeCourseType',
-                        templateUrl: 'admin/teachResearchManage/changeCourseType.html',
+                        templateUrl: 'admin/teachResearchManage/changeCourseType.html'
                     })
 
                 
@@ -581,11 +602,11 @@ angular.module('app')
                     })
 
                     .state('app.authorityManage.classAndGradeDetail', {
-                        url: '/classAndGradeDetail',
+                        url: '/classAndGradeDetail/{classAndGrade}',
                         templateUrl: 'admin/authorityManage/classAndGradeDetail.html'
                     })
                     .state('app.authorityManage.updateClassAndGrade', {
-                        url: '/updateClassAndGrade',
+                        url: '/updateClassAndGrade/{classAndGrade}',
                         templateUrl: 'admin/authorityManage/updateClassAndGrade.html'
                     })
 
@@ -627,15 +648,15 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/addClassAndGrade.html'
                     })
                     .state('app.authorityManage.largeClassSchedule', {
-                        url: '/largeClassSchedule/{id}',
+                        url: '/largeClassSchedule/{centreOfSchool}',
                         templateUrl: 'admin/authorityManage/largeClassSchedule.html'
                     })
                     .state('app.authorityManage.smallClassSchedule', {
-                        url: '/smallClassSchedule',
+                        url: '/smallClassSchedule/{studyGroup}',
                         templateUrl: 'admin/authorityManage/smallClassSchedule.html'
                     })
                     .state('app.authorityManage.oneToOneClassesSchedule', {
-                        url: '/oneToOneClassesSchedule',
+                        url: '/oneToOneClassesSchedule/{oneToOneClass}',
                         templateUrl: 'admin/authorityManage/oneToOneClassesSchedule.html'
                     })
                     .state('app.authorityManage.partTimeTeacherManage', {
@@ -708,21 +729,21 @@ angular.module('app')
 
 
 
-                    .state('app.teachResearchManage.studyGroup', {
+                    .state('app.authorityManage.studyGroup', {
                         url: '/studyGroup',
-                        templateUrl: 'admin/teachResearchManage/studyGroup.html',
+                        templateUrl: 'admin/authorityManage/studyGroup.html',
                     })
-                    .state('app.teachResearchManage.addStudyGroup', {
+                    .state('app.authorityManage.addStudyGroup', {
                         url: '/addStudyGroup',
-                        templateUrl: 'admin/teachResearchManage/addStudyGroup.html',
+                        templateUrl: 'admin/authorityManage/addStudyGroup.html',
                     })
-                    .state('app.teachResearchManage.updateStudyGroup', {
-                        url: '/updateStudyGroup',
-                        templateUrl: 'admin/teachResearchManage/updateStudyGroup.html',
+                    .state('app.authorityManage.updateStudyGroup', {
+                        url: '/updateStudyGroup/{studyGroup}',
+                        templateUrl: 'admin/authorityManage/updateStudyGroup.html',
                     })
-                    .state('app.teachResearchManage.studyGroupDetail', {
-                        url: '/studyGroupDetail',
-                        templateUrl: 'admin/teachResearchManage/studyGroupDetail.html',
+                    .state('app.authorityManage.studyGroupDetail', {
+                        url: '/studyGroupDetail/{studyGroup}',
+                        templateUrl: 'admin/authorityManage/studyGroupDetail.html',
                     })
             }
         ]

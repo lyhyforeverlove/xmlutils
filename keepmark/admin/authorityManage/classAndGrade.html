@@ -60,12 +60,7 @@
                     <thead>
                         <tr>
                             <th>序号</th>
-                            <th>班级</th>
-                            <th>负责人</th>
-                            <th>1对1专属</th>
-                            <th>语文老师</th>
-                            <th>数学老师</th>
-                            <th>英语老师</th>
+                            <th>班级名称</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -73,14 +68,9 @@
                         <tr ng-repeat="item in list">
                             <td>{{$index+1}}</td>
                             <td>{{item.name}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.name}}</td>
                             <td>
-                                <a ui-sref="app.authorityManage.classAndGradeDetail(item)">查看</a>
-                                <a ui-sref="app.authorityManage.updateClassAndGrade(item)">修改</a>
+                                <a ng-click ="classAndGradeDetail(item)">查看</a>
+                                <a ng-click ="updateClassAndGrade(item)">修改</a>
                                 <!--<a ng-click="deleteClassAndGradeSchool()">删除</a>-->
                             </td>
                         </tr>

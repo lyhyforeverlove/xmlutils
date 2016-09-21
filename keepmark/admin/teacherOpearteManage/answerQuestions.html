@@ -19,26 +19,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>北京</td>
-                            <td>XXX</td>
-                            <td>ggdgf</td>
-                            <td>18:00-19:00</td>
-                            <td>法国发过法国大使馆收到贵司的</td>
+                        <tr ng-repeat="ContentPageasd in results.studentAnswerRecord">
+
+                            <td>{{$index+1}}</td>
+                            <td>{{ContentPageasd.area}}</td>
+                            <td>{{ContentPageasd.studentName}}</td>
+                            <td>{{ContentPageasd.userName}}</td>
+                            <td>{{ContentPageasd.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{ContentPageasd.answerDescribe | limitToNum:10}}</td>
                             <td>
-                                <button class="btn btn-primary" ng-click="answerQuestions()">答疑</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>北京</td>
-                            <td>XXX</td>
-                            <td>ggdgf</td>
-                            <td>18:00-19:00</td>
-                            <td>法国发过法国大使馆收到贵司的</td>
-                            <td>
-                                <button class="btn btn-primary" ng-click="answerQuestions()">答疑</button>
+                                <button class="btn btn-primary" ng-click="answerQuestions($index)">答疑</button>
                             </td>
                         </tr>
                     </tbody>

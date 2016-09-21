@@ -1,35 +1,31 @@
-<script>
-    app.controller('myCtrl', function($scope) {
-        $scope.names = ["A课程","B课程","C课程"];
-        $scope.value = "A课程";
-        $scope.index = 0;
-        $scope.getIndex = function(id){
-            for(var i=0; i< $scope.names.length; i++){
-                if($scope.names[i] == id){
-                    $scope.index = i;
-                    break;
-                }
-            }
-        }
-    });
-</script>
-<div ng-controller='myCtrl'>
-    <div class="modal-header">
-        <h3 class="modal-title">更换课程类型</h3>
-    </div>
-    <div class="modal-body">
-        <div class="col-sm-12">
-            <label class="col-sm-2 control-label">课程类型:</label>
-            <div class="col-sm-10">
-                <select name="account" class="form-control"ng-model="value" ng-click="getIndex(value)">
-                    <option ng-repeat="act in names"  ng-value="act">{{act}}</option>
-                </select>
-            </div>
+<div class="modal-header">
+    <h3 class="modal-title">短板分析</h3>
+</div>
+<div class="modal-body">
+    <div>
+        <label class="col-sm-2 control-label">短板学科:</label>
+        <div class="col-sm-4">
+            <select name="account" class="form-control">
+                <option>语文</option>
+                <option>英语</option>
+            </select>
         </div>
-        <p>您选中的课程: <b>{{index}}</b></p>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-primary" ng-click="changeCourseType(index)">OK</button>
-    </div>
+   <ul>
+        <li ng-repeat="item in items">
+            <a ng-click="selected.item = item">{{ classes[0].city }}</a>
+            <!-- <label class="col-sm-1 control-label">中心:</label>
+            	        <div class="col-sm-4">
+            	            <select name="account" class="form-control">
+            	                <option></option>
+            	                <option></option>
+            	            </select>
+            	        </div> -->
+        </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
 </div>

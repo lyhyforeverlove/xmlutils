@@ -1,0 +1,146 @@
+<div class="wrapper-md ng-scope"  ng-controller="addTeacherController">   
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>添加教研教师 &gt; {{name}} </h4>
+    </div>
+    <div class="wrapper">
+      <div class="form-group col-sm-12">
+        <div class="col-sm-4">
+          <label class="control-label col-sm-4">级别：</label>
+          <div class="col-sm-8">
+            <select  ng-model ="teacher.level"  class="form-control m-b select-inline" ng-change="">
+              <option value="">--请选择--</option>                         
+              <option ng-repeat="x in level " value="{{x.value}}" id="{{x.id}}">{{x.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label class="control-label col-sm-4">中心：</label>
+          <div class="col-sm-8">
+            <select ng-model ="teacher.teachAndResearch" ng-options="m.teacherPro as  m.teacherProName for m in teacherProList" class="form-control m-b select-inline" ng-click="seacherTeacherPro()">
+              <option value="">--请选择--</option>
+            </select>
+          </div>
+        </div>
+      </div>    
+      <div class="form-group col-sm-12">       
+        <div class="col-sm-4">
+          <label class="control-label col-sm-4">姓名：</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control m-b" ng-model="teacher.name">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label class="control-label col-sm-4">性别：</label>
+          <div class="col-sm-8 control-label">
+            <label class="i-checks "><input type="radio" name="sex" ng-model="sex" value="0"><i></i>男</label>
+            <label class="i-checks "><input type="radio" name="sex" ng-model="sex" value="1"><i></i>女</label>
+          </div>
+        </div>            
+      </div>
+      <div class="form-group col-sm-12">
+       <div class="col-sm-4">
+        <label class="control-label col-sm-4">学历：</label>
+        <div class="col-sm-8">
+          <select ng-model ="teacherEducation" ng-options="m.teacherEducation as  m.teacherEducationName for m in teacherEducationList" class="form-control m-b select-inline" ng-click="seacherTeacherEducation()">
+            <option value="">--请选择--</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <label class="control-label col-sm-4">学科：</label>
+        <div class="col-sm-8">
+          <select ng-model="subject.subjectName" ng-options="subject.subjectName for subject in subjectList" class="form-control m-b select-inline" ng-click="getSubject()">
+            <option value="">--请选择--</option>
+          </select>
+        </div>
+      </div>   
+      <div class="col-sm-4">
+        <label class="control-label col-sm-4">教龄：</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control m-b">
+        </div>
+      </div> 
+    </div>  
+    <div class="form-group col-sm-12">       
+      <div class="col-sm-4">
+        <label class="control-label col-sm-4">省：</label>
+        <div class="col-sm-8">
+          <select id="province" ng-model="province" ng-options="province for province in provinces" class="form-control m-b select-inline">
+            <option value="">{{province}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <label class="control-label col-sm-4">市：</label>
+        <div class="col-sm-8">
+          <select  id="city" ng-disabled="!cities" ng-model="city" ng-options="city for city in cities" class="form-control m-b select-inline">
+            <option value="">{{city}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <label class="control-label col-sm-4">县：</label>
+        <div class="col-sm-8">
+          <select id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs" class="form-control m-b select-inline">
+            <option value="">{{suburb}}</option>
+          </select>
+        </div>
+      </div>
+    </div> 
+          <!-- <div class="form-group col-sm-12">       
+              <div class="col-sm-4">
+                 <label class="control-label col-sm-4">地区：</label>
+                 <div class="col-sm-8">
+                     <input type="text" class="form-control m-b">
+                 </div>
+             </div> 
+              <div class="col-sm-4">
+                  <label class="control-label col-sm-4">教龄：</label>
+                  <div class="col-sm-8">
+                      <input type="text" class="form-control m-b">
+                  </div>
+              </div> 
+            </div>           -->
+            <div class="form-group col-sm-12">       
+              <div class="col-sm-4">
+                <label class="control-label col-sm-4">联系电话：</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control m-b">
+                </div>
+              </div> 
+              <div class="col-sm-4">
+                <label class="control-label col-sm-4">备用电话：</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control m-b">
+                </div>
+              </div> 
+            </div>          
+            <div class="form-group col-sm-12">           
+              <div class="col-sm-12">
+                <label class="control-label col-sm-2">联系地址：</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control m-b">
+                </div>
+              </div>
+            </div>   
+            <div class="form-group col-sm-12">
+             <div class="col-sm-6">
+              <label class="control-label col-sm-4">有效邮箱地址：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control m-b">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label class="control-label col-sm-4">身份证号码：</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control m-b">
+              </div>
+            </div>
+          </div>  
+
+          <button class ="btn btn-primary pull-right" ng-click="saveFullTimeTeacher()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>

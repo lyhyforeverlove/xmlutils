@@ -1,40 +1,4 @@
 'use strict';
-
-/*学生分类=》不符合名单*/
-app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $modal, $state) {
-    //根据类型、地区、总分数查询不符合名单列表
-    $scope.query = function() {
-
-        }
-        //不符合名单 Tab 切换
-    $scope.tabs = [{
-        title: '不符合',
-        url: 'one.tpl.html'
-    }, {
-        title: '未短板诊断',
-        url: 'two.tpl.html'
-    }, {
-        title: '短板诊断后拒绝',
-        url: 'three.tpl.html'
-    }];
-
-    $scope.currentTab = 'one.tpl.html';
-
-    $scope.onClickTab = function(tab) {
-        $scope.currentTab = tab.url;
-    }
-
-    $scope.isActiveTab = function(tabUrl) {
-        return tabUrl == $scope.currentTab;
-    }
-});
-/*学生分类=》符合确认名单-课程分类*/
-app.controller('CourseCategoryCtrl', function($scope, $resource, $stateParams, $modal, $state) {
-    //根据类型、地区、总分数、单科学科 查询列表
-    $scope.query = function() {
-
-    }
-});
 /*课程管理*/
 app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $stateParams, $modal, $state,$log,CalcService) {
    
@@ -95,7 +59,7 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
         });
     }
 });
-app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$modalInstance,$resource, $stateParams, $modal, $state,CalcService) {
+app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$modalInstance,$resource, $stateParams, $modal, $state,host,CalcService) {
     $controller('ParentGetDataCtrl', {$scope: $scope});//继承
      // ok click
     $scope.ok = function() {
@@ -108,21 +72,21 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
     }
 
     //初始化调取资源库列表
-   // $scope.load = function(page,size,callback){
-       /* if(V_PapersListJson.subjectCode == 1){
+   $scope.load = function(page,size,callback){
+        if(V_PapersListJson.subjectCode == 1){
             $scope.subjectName ="语文";
         }
         V_PapersListJson["currentPage"] = page;  //当前页参数
         V_PapersListJson["pageSize"] = size; //每页显示多少条
 
-        var url = host + "/resource/get/papers?requestId=1";
+        var url = host + "resource/get/papers?requestId=1";
         $http.post(url,V_PapersListJson).success(function(data) {
 
             $scope.results = data.result;
 
             callback && callback(data.result); //调取分页回调
-        })*/
-    //}
+        })
+    }
 });
 /*试卷管理=》详情*/
 app.controller('CourseDetailController', function($scope, $http,$resource, $stateParams, $modal, $state) {
@@ -150,11 +114,11 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
     //默认为语文
     $scope.formData.subjectCode = 1;
     //默认为全国卷一
-    $scope.formData.bookVersionCode = "national001";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
+    //默认为短板诊断
+    $scope.formData.paperUseType = "p_004";
     //默认学年为33
     $scope.formData.gradeCode = 33;
-    //默认为短板诊断
-    $scope.formData.paperUseType = 0;
     var results;
     $scope.getList = function(page, size, callback) {
        $http.post($scope.app.host + 'diagnosis/list?requestId=test123456', {
@@ -235,11 +199,12 @@ app.controller('CreateSingleController', function($scope, $http,$controller, $re
     //默认为语文
     $scope.formData.subjectCode = 1;
     //默认为全国卷一
-    $scope.formData.bookVersionCode = "national001";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     $scope.formData.gradeCode = 33;
 
     //默认为短板诊断
-    $scope.formData.paperUseType = 0;
+    $scope.formData.paperUseType = "p_004";
+    $scope.formData.aimType = 2;
 
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
@@ -305,14 +270,11 @@ app.controller('CreateSingleController', function($scope, $http,$controller, $re
     
         instance.upload('/upload/test' + parseInt((new Date().getTime() + 3600000) / 1000) + '.jpg');
     }
-   
 
     document.addEventListener('uploaded', function(e) {
         $scope.formData.coverUrl= 'http://keepmark.b0.upaiyun.com'+e.detail.path;
       
-    });    
-
-   
+    });
     /*弹出模态框 （公共模态框）
     *@params size  模态框大小
     *@params selectedJson 根据学年、类型、学科、教材查询资源库/诊断试卷列表列表
@@ -352,7 +314,7 @@ app.controller('CreateSingleController', function($scope, $http,$controller, $re
             if($scope.formData.resourcePaperCode == null){
                 alert("请添加诊断卷资源");
             }
-            if(data.message == "success"){
+            if(data.message == "Success"){
 
                 $state.go('app.teachResearchManage.diagExamList');
             }
@@ -362,23 +324,6 @@ app.controller('CreateSingleController', function($scope, $http,$controller, $re
         })
     };
     
-    /*function postMultipart(url, data) {
-        var fd = new FormData();
-        angular.forEach(data, function(val, key) {
-            fd.append(key, val);
-        });
-        var args = {
-            method: 'POST',
-            url: url,
-            data: data,
-            headers: {
-                'Content-Type': undefined
-            },
-            transformRequest: angular.identity
-        };
-        return $http(args);
-    }*/
-    
 });
 //组织全科诊断卷
 app.controller('CreateGroupController', function($scope, $http,$controller, $resource, $stateParams, $modal,$log, $state ,fileReader,CalcService) {
@@ -387,6 +332,7 @@ app.controller('CreateGroupController', function($scope, $http,$controller, $res
 
     //组成全科postData对象
     $scope.postData = { };
+    $scope.postData.paperUseType = "p_004";
 
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
@@ -520,6 +466,8 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
     $scope.stageFormData.departmentType = 1;//默认为理科
    
     $scope.stageFormData.stage = 1; //默认为第一阶段
+
+    $scope.stageFormData.paperUseType = "p_004";
 
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
@@ -727,11 +675,12 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
 });
 /*根据学年、学科、教材版本、试卷用途、单元知识点code获取试卷列表*/
 app.controller("getPapersController", function($scope, $http, $resource, $stateParams, $modal, $state, $modalInstance, host,V_PapersListJson) {
-    
+    console.log(V_PapersListJson);
     $scope.formData = {};  //formData.resourcePaperCode
     //选用按钮
     $scope.GetResourcePaperCode = function(resourcePaperCode){
         $scope.formData.resourcePaperCode = resourcePaperCode;
+       // angular.element("#"+resourcePaperCode).remove("btn-default")
     }
     // ok click
     $scope.ok = function() {
@@ -752,7 +701,17 @@ app.controller("getPapersController", function($scope, $http, $resource, $stateP
         V_PapersListJson["pageSize"] = size; //每页显示多少条
 
         var url = host + "/resource/get/papers?requestId=1";
-        $http.post(url,V_PapersListJson).success(function(data) {
+        $http.post(url,{
+            "gradeCode":V_PapersListJson.gradeCode,
+            "subjectCode":V_PapersListJson.subjectCode,
+            "booktype":V_PapersListJson.bookVersionCode,
+            "type":V_PapersListJson.paperUseType,
+            "difficultStar":V_PapersListJson.aimType,
+            "cp":page,
+            "pageSize":size 
+        }).success(function(data) {
+
+            console.log(data.message);
 
             $scope.results = data.result;
 
@@ -780,10 +739,10 @@ app.controller("getPapersByDiagCtrl", function($scope, $http, $resource, $stateP
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     }
-
+    console.log(V_PapersListJson);
     //初始化调取资源库列表
     $scope.load = function(page,size,callback){
-       
+
         if(V_PapersListJson.subjectCode == 1){
             $scope.subjectName ="语文";
         }
@@ -793,19 +752,13 @@ app.controller("getPapersByDiagCtrl", function($scope, $http, $resource, $stateP
         var url = host + "diagnosis/list?requestId=test123456";
         $http.post(url,V_PapersListJson).success(function(data) {
 
-            //$scope.results = data.result;
-            //callback && callback(data.result); //调取分页回调
-
-
-            if(data.message = "success"){
+            if(data.message = "Success"){
                 console.log(data);
                 $scope.results = data.result;
-
                 $scope.totalPage = data.result.totalPage;
-
                 callback && callback(data.result);
+
             }
-            
         }).error(function(data){
             console.log("fail");
         })
@@ -817,7 +770,7 @@ app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $s
     $scope.stageFormData = {};  //formData.resourcePaperCode
     //选用按钮
     $scope.GetResourcePaperCode = function(resourcePaperCode){
-        console.log(resourcePaperCode);
+        //console.log(resourcePaperCode);
         $scope.stageFormData.diagnosisPaperCode = resourcePaperCode;
          
     }
@@ -833,7 +786,7 @@ app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $s
 
     //初始化调取资源库列表
     $scope.load = function(page,size,callback){
-       
+
         if(V_PapersListJson.subjectCode == 1){
             $scope.subjectName ="语文";
         }
@@ -843,19 +796,13 @@ app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $s
         var url = host + "diagnosis/list?requestId=test123456";
         $http.post(url,V_PapersListJson).success(function(data) {
 
-            //$scope.results = data.result;
-            //callback && callback(data.result); //调取分页回调
-
-
-            if(data.message = "success"){
-                //console.log(data);
+            if(data.message == "Success"){
+                console.log(data);
                 $scope.results = data.result;
-
                 $scope.totalPage = data.result.totalPage;
-
                 callback && callback(data.result);
+
             }
-            
         }).error(function(data){
             console.log("fail");
         })
@@ -891,7 +838,7 @@ app.controller("getPapersByCourseCtrl", function($scope, $http, $resource, $stat
         $http.post(url,V_PapersListJson).success(function(data) {
             console.log(data);
             if(data.result == null){
-                
+
                 $scope.results = data.result;
                 callback && callback(data.result); //调取分页回调
             }
@@ -912,21 +859,26 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
     //默认为语文
     //$scope.formData.subjectCode = 1;
     //默认为全国卷一
-    $scope.formData.bookVersionCode = "national001";
-    //默认为短板诊断
-    $scope.formData.paperType = 1;
+    /*$scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";*/
+    /*$scope.formData.gradeCode = 33;*/
+
     
     $scope.getList = function(page, size, callback) {
            $http.post($scope.app.host + '/diagnosis/group/list?requestId=test123456', {
-                    "paperType":$scope.formData.paperType,
                     "departmentType":$scope.formData.departmentType,
-                    "bookVersionCode":$scope.formData.bookVersionCode,
+                    /*"bookVersionCode":$scope.formData.bookVersionCode,*/
                     "currentPage":page,
                     "pageSize":size
                 })
                 .success(function(data) {
                     if(data.message = "success"){
-                        console.log(data);
+                        angular.forEach(data.result.list, function(data){
+                            if(data.artsType == "SCIENCE"){
+                                data.artsType = "理科";
+                            }else{
+                                data.artsType = "文科";
+                            }
+                        });
                         $scope.results = data.result;
 
                         $scope.totalPage = data.result.totalPage;
@@ -951,11 +903,11 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
 
     $scope.formData = {};
     //默认类型为理科
-    $scope.formData.departmentType = 1;
+    $scope.formData.departmentType = 0;
     //默认为语文
     $scope.formData.subjectCode = 1;
     //默认为全国卷一
-    $scope.formData.bookVersionCode = "national001";
+   /* $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";*/
     //默认学年为33
     $scope.formData.gradeCode = 33;
     //默认为短板诊断
@@ -967,17 +919,17 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
 
     $scope.getList = function(page, size, callback) {
            $http.post($scope.app.host + '/diagnosis/stage/list?requestId=test123456', {
-                    "gradeCode": $scope.formData.gradeCode,
+                    /*"gradeCode": $scope.formData.gradeCode,*/
                     "departmentType":$scope.formData.departmentType,
-                    "subjectCode":$scope.formData.subjectCode,
-                    "bookVersionCode": $scope.formData.bookVersionCode,
+                   /* "subjectCode":$scope.formData.subjectCode,*/
+                    /*"bookVersionCode": $scope.formData.bookVersionCode,*/
                     "stage":$scope.formData.stage,
-                    "aimType": $scope.formData.aimType,
+                    /*"aimType": $scope.formData.aimType,*/
                     "currentPage":page,
                     "pageSize":size
                 })
                 .success(function(data) {
-                    if(data.message = "success"){
+                    if(data.message == "Success"){
                         console.log(data);
                         $scope.results = data.result;
 
