@@ -1,0 +1,19 @@
+<div class="wrapper-md ng-scope" ng-controller="smallClassMyScheduleController" ng-init="getWeekTimes()">
+ <div class="panel panel-default">
+  <div class="panel-heading">
+   <h4>权限管理 &gt; 排课 &gt; 排小班课 &gt; {{name}} </h4>
+  </div>
+  <div class="wrapper">
+   <div class="form-group col-sm-12">
+    <label class="col-sm-1 control-label">教学周期：</label>
+    <div class="col-sm-2">
+     <select ng-click="getTeacherSchedule(weekTime.eduWeekTimeCode)" ng-model="weekTime" class="form-control" ng-options="w.weekTimeName for w in weekTimes">
+      <option value="">--请选择--</option>
+     </select>
+    </div>
+   </div>
+   <div ng-include="scheduleUrl"></div>
+   <button class="btn btn-primary pull-right">保存</button>
+  </div>
+ </div>
+</div>

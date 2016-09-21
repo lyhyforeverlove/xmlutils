@@ -1,0 +1,116 @@
+<div class="wrapper-md ng-scope" ng-controller="updateStudyGroupController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+           <!-- <div class="form-group">
+                <label class="col-sm-1 control-label">中心名称</label>
+                <div class="col-sm-11">
+                    <select name="account" class="form-control m-b">
+                        <option>A中心</option>
+                        <option>A中心</option>
+                    </select>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-1 control-label">小组名称</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入学习小组名称" ng-model = "studyGroup.name">
+                </div>
+            </div>
+           <!-- <div class="form-group">
+                <label class="col-sm-1 control-label">语文老师</label>
+                <div class="col-sm-11">
+                    <select  class="form-control m-b" ng-model="chineseTeacher"  ng-options="c.teacherName for c in chineseTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">数学老师</label>
+                <div class="col-sm-11">
+                    <select  class="form-control m-b" ng-model="mathTeacher" ng-options="m.teacherName for m in mathTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">英语老师</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b" ng-model="englishTeacher" ng-options="e.teacherName for e in englishTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="subjectCode ===1">
+                <label class="col-sm-1 control-label">历史老师</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b" ng-model="historyTeacher" ng-options="h.teacherName for h in historyTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="subjectCode ===1">
+                <label class="col-sm-1 control-label">地理老师</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b" ng-model="geographyTeacher" ng-options="g.teacherName for g in geographyTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="subjectCode ===1">
+                <label class="col-sm-1 control-label">政治老师</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b" ng-model="politicalTeacher" ng-options="p.teacherName for p in politicalTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="subjectCode === 2">
+                <label class="col-sm-1 control-label">化学老师</label>
+                <div class="col-sm-11">
+                    <select  class="form-control m-b" ng-model="chemistryTeacher" ng-options="c.teacherName for c in chemistryTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="subjectCode === 2">
+                <label class="col-sm-1 control-label">物理老师</label>
+                <div class="col-sm-11">
+                    <select  class="form-control m-b" ng-model="physicsTeacher" ng-options="p.teacherName for p in physicsTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="subjectCode === 2">
+                <label class="col-sm-1 control-label">生物老师</label>
+                <div class="col-sm-11">
+                    <select class="form-control m-b" ng-model="biologyTeacher" ng-options="b.teacherName for b in biologyTeacherList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="groupLeader">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">负责人:</label>
+                    <div class="col-sm-11">
+                        <select  class="form-control m-b" >
+                            <option value="">--请选择--</option>
+                            <option ng-if="chineseTeacher !=null && chineseTeacher !='--请选择--'" value={{chineseTeacher.teacherId}}>{{chineseTeacher.teacherName}}</option>
+                            <option ng-if="mathTeacher !=null && mathTeacher !='--请选择--'" value={{mathTeacher.teacherId}}>{{mathTeacher.teacherName}}</option>
+                            <option ng-if="englishTeacher !=null && englishTeacher !='--请选择--'" value={{englishTeacher.teacherId}}>{{englishTeacher.teacherName}}</option>
+                            <option ng-if="historyTeacher !=null && historyTeacher !='--请选择--'" value={{historyTeacher.teacherId}}>{{historyTeacher.teacherName}}</option>
+                            <option ng-if="geographyTeacher !=null && geographyTeacher !='--请选择--'" value={{geographyTeacher.teacherId}}>{{geographyTeacher.teacherName}}</option>
+                            <option ng-if="politicalTeacher !=null && politicalTeacher !='--请选择--'" value={{politicalTeacher.teacherId}}>{{politicalTeacher.teacherName}}</option>
+                            <option ng-if="physicsTeacher !=null && physicsTeacher !='--请选择--'" value={{physicsTeacher.teacherId}}>{{physicsTeacher.teacherName}}</option>
+                            <option ng-if="chemistryTeacher !=null && chemistryTeacher !='--请选择--'" value={{chemistryTeacher.teacherId}}>{{chemistryTeacher.teacherName}}</option>
+                            <option ng-if="biologyTeacher !=null && biologyTeacher !='--请选择--'" value={{biologyTeacher.teacherId}}>{{biologyTeacher.teacherName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>-->
+            <button class="btn btn-primary pull-right" ng-click="saveUpdateStudyGroup()">保存</button>
+        </div>
+    </div>
+</div>

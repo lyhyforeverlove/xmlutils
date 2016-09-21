@@ -3,7 +3,7 @@
  */
 //总校列表
 app.controller("headSchoolController",function($scope,$http,$state){
-    $http.post('http://192.168.1.201:7777/keepMark-teacher-business/section/organization/list?requestId=test123456', {
+    $http.post($scope.app.host +'section/organization/list?requestId=test123456', {
         "pageSize":20,
         "pageNumber":1,
         "type":1
@@ -20,7 +20,7 @@ app.controller("headSchoolController",function($scope,$http,$state){
 //新增总校
 app.controller("addHeadSchoolController",function($scope,$http,$state){
     $scope.saveHeadSchool = function(){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/section/organization/create/main?requestId=test123456',$scope.formData).success(function(data){
+        $http.post($scope.app.host +'section/organization/create/main?requestId=test123456',$scope.formData).success(function(data){
             $state.go('app.teachResearchManage.headSchool');
         });
     }
@@ -31,7 +31,7 @@ app.controller("updateHeadSchoolController", function($scope,$http,$stateParams,
     $scope.headSchool = JSON.parse($stateParams.headSchool);
 
     $scope.saveUpdateHeadSchool = function(){
-        $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/update/main?requestId=test123456",
+        $http.post($scope.app.host +"section/organization/update/main?requestId=test123456",
             {
                 "code":$scope.headSchool.code,
                 "name":$scope.headSchool.name,
@@ -48,7 +48,7 @@ app.controller("branchSchoolController",function($scope,$http,$controller,$state
     $controller("headSchoolSelectController",{$scope:$scope});
     $scope.seacherBranchByHeadSchool =function(code){
         if(typeof(code)!=="undefined"){
-            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
+            $http.post($scope.app.host +"section/organization/list?requestId=test123456",
                 {
                     "pageSize": 20,
                     "pageNumber": 1,
@@ -69,7 +69,7 @@ app.controller("branchSchoolController",function($scope,$http,$controller,$state
 app.controller("addSchoolBranchController",function($scope,$http,$state,$controller){
     $controller("headSchoolSelectController",{$scope:$scope});
     $scope.saveSchoolBranch = function(){
-            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/create/branch?requestId=test123456",
+            $http.post($scope.app.host +"section/organization/create/branch?requestId=test123456",
                 $scope.schoolBranch).success(function(data){
                     $state.go("app.teachResearchManage.schoolBranch");
             });
@@ -81,7 +81,7 @@ app.controller("updateSchoolBranchController",function($scope,$http,$state,$cont
     $controller("headSchoolSelectController",{$scope:$scope});
     $scope.schoolBranch = JSON.parse($stateParams.schoolBranch);
     $scope.saveUpdateSchoolBranch = function(){
-        $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/update/branch?requestId=test123456",
+        $http.post($scope.app.host +"section/organization/update/branch?requestId=test123456",
             $scope.schoolBranch).success(function(data){
             $state.go("app.teachResearchManage.schoolBranch");
         });
@@ -103,7 +103,7 @@ app.controller("addCentreSchoolController",function($scope,$http,$state,$control
     $controller("headSchoolSelectController",{$scope:$scope});
 
     $scope.saveCentreSchool = function(){
-        $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/create/center?requestId=test123456",
+        $http.post($scope.app.host +"section/organization/create/center?requestId=test123456",
             $scope.centreSchool).success(function(data){
             $state.go("app.teachResearchManage.subjectCenter");
         });
@@ -115,7 +115,7 @@ app.controller("updateCentreSchoolController",function($scope,$http,$state,$cont
     $scope.centreSchool = JSON.parse($stateParams.centreSchool);
     //保存修改
     $scope.saveUpdateCentreSchool = function(){
-        $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/update/center?requestId=test123456",
+        $http.post($scope.app.host +"section/organization/update/center?requestId=test123456",
             $scope.centreSchool).success(function(data){
                 $state.go("app.teachResearchManage.subjectCenter");
         });
@@ -135,7 +135,7 @@ app.controller("headSchoolSelectController",function($scope,$http){
     //根据主校获取分校
     $scope.seacherBranchByHeadSchool = function(headCode){
         if(typeof(headCode) !== "undefined"){
-            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
+            $http.post($scope.app.host +"section/organization/list?requestId=test123456",
                 {
                     "pageSize": 20,
                     "pageNumber": 1,
@@ -149,7 +149,7 @@ app.controller("headSchoolSelectController",function($scope,$http){
     //根据分校获取中心
     $scope.seacherCentreBySchoolBranch = function(branchCode){
         if(typeof(branchCode) !== "undefined" && branchCode){
-            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/section/organization/list?requestId=test123456",
+            $http.post($scope.app.host +"section/organization/list?requestId=test123456",
                 {
                     "pageSize":20,
                     "pageNumber":1,

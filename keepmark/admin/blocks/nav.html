@@ -584,7 +584,7 @@
                 </a>
             </li>
             <li ui-sref-active="active" class="subNav">
-                <a href class="auto" ui-sref="app.teacherOpearteManage.oneToOneOperate">
+                <a href class="auto">
                     <span class="pull-right text-muted">
                        <i class="fa fa-fw fa-angle-right text"></i>
                        <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -592,6 +592,11 @@
                     <span>1对1老师操作页面</span>
                 </a>
                 <ul style="display:none">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.teacherOpearteManage.oneToOneMySchedule">
+                            <span>我的课表</span>
+                        </a>
+                    </li>
                     <li ui-sref-active="active">
                         <a ui-sref="app.teacherOpearteManage.oneToOneAdjustCourse">
                             <span>一对一调课</span>
@@ -690,6 +695,11 @@
                     <span>小班课老师操作页面</span>
                 </a>
                 <ul style="display:none;">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.teacherOpearteManage.smallClassMySchedule">
+                            <span>我的课表</span>
+                        </a>
+                    </li>
                     <li ui-sref-active="active">
                         <a ui-sref="app.teacherOpearteManage.myStudents">
                             <span>我的学生</span>

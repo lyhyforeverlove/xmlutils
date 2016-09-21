@@ -6,7 +6,7 @@ app.controller("masterSchoolController",function($scope, $http ,$controller,$sta
     $scope.titleName = "总校";
     $scope.formData={};
     $scope.load = function(){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+        $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
             "pageSize": 100,
             "pageNumber": 1,
             "type": "1"
@@ -40,7 +40,7 @@ app.controller("addMasterSchoolController",function($scope, $http, $resource, $s
     $scope.titleName = "新增总校";
     $scope.formData={};
     $scope.saveMasterSchool = function(formData){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/main?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/create/main?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.masterSchool');
@@ -83,7 +83,7 @@ app.controller("updateMasterSchoolController",function($scope,$stateParams, $sta
     $scope.formData.createDate = V_GoodsAddJson.createDate;
     $scope.formData.code = V_GoodsAddJson.code;
     $scope.updateMasterSchool = function(formData){
-        $http.post( 'http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/main?requestId=test123456',formData)
+        $http.post( $scope.app.host +'teaching/organization/update/main?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.masterSchool');
@@ -103,7 +103,7 @@ app.controller("branchSchoolController",function($scope, $http ,$controller,$sta
     //列表
     $scope.getList=function(data){
         if(typeof(data) !=="undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
                 "pageSize": 100,
                 "pageNumber": 1,
                 "type": "2",
@@ -121,7 +121,7 @@ app.controller("branchSchoolController",function($scope, $http ,$controller,$sta
     $scope.viewBranchSchool = function(data){
         var jsonString = angular.toJson(data);
         console.log(data);
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/detail?requestId=test123456',{
+        $http.post($scope.app.host +'teaching/organization/detail?requestId=test123456',{
                 "type": "2",
                 "branchCode":data.code
             }
@@ -155,7 +155,7 @@ app.controller("addBranchSchoolController",function($scope,$state,$http,$control
     $scope.saveBranchSchool = function(formData){
         formData.provinceCode=formData.province.provinceCode;
         formData.schoolMainCode=formData.schoolMain.code;
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/branch?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/create/branch?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.branchSchool');
@@ -198,7 +198,7 @@ app.controller("updateBranchSchoolController",function($scope,$stateParams, $sta
     $scope.formData=V_GoodsAddJson;
 
     $scope.updateMasterSchool = function(formData){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/branch?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/update/branch?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.branchSchool');
@@ -221,7 +221,7 @@ app.controller("districtSchoolController",function($scope, $http ,$controller,$s
     //学区列表
     $scope.getList=function(data){
         if(typeof(data) !=="undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
                     "pageSize": 100,
                     "pageNumber": 1,
                     "type": "3",
@@ -240,7 +240,7 @@ app.controller("districtSchoolController",function($scope, $http ,$controller,$s
     $scope.viewDistrictSchool = function(data){
         var jsonString = angular.toJson(data);
         console.log(data);
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/detail?requestId=test123456',{
+        $http.post($scope.app.host +'teaching/organization/detail?requestId=test123456',{
                 "type": "3",
                 "districtCode":data.code
             }
@@ -270,7 +270,7 @@ app.controller("addDistrictSchoolController",function($scope,$controller, $state
     $scope.titleName = "新增学区";
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.saveDistrictSchool = function(formData){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/district?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/create/district?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.districtSchool');
@@ -306,7 +306,7 @@ app.controller("updateDistrictSchoolController",function($scope,$stateParams, $s
     $scope.formData=V_GoodsAddJson;
 
     $scope.updateDistrictSchool = function(formData){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/district?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/update/district?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.districtSchool');
@@ -325,7 +325,7 @@ app.controller("departmentSchoolController",function($scope, $http ,$controller,
     $controller("getSchoolInfo",{$scope:$scope});
     //列表
     $scope.getList=function(data){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+        $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
             "pageSize": 100,
             "pageNumber": 1,
             "type": "4",
@@ -345,7 +345,7 @@ app.controller("departmentSchoolController",function($scope, $http ,$controller,
     $scope.viewDepartmentSchool = function(data){
         var jsonString = angular.toJson(data);
         console.log(data);
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/detail?requestId=test123456',{
+        $http.post($scope.app.host +'teaching/organization/detail?requestId=test123456',{
                 "type": "4",
                 "divisionCode":data.code
             }
@@ -376,7 +376,7 @@ app.controller("addDepartmentSchoolController",function($scope,$controller, $sta
     $scope.titleName = "新增学部";
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.saveDepartmentSchool = function(formData){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/division?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/create/division?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.departmentSchool');
@@ -415,7 +415,7 @@ app.controller("updateDepartmentSchoolController",function($scope,$stateParams, 
     $scope.formData = V_GoodsAddJson;
     $scope.saveUpdateDepartmentSchool = function(formData){
         alert(1111);
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/division?requestId=test123456',formData)
+        $http.post($scope.app.host +'teaching/organization/update/division?requestId=test123456',formData)
             .success(function(data){
                 console.log(data);
                 $state.go('app.authorityManage.departmentSchool');
@@ -436,7 +436,7 @@ app.controller("centreOfSchoolController",function($scope, $http ,$controller,$s
     //列表
     $scope.getList=function(data){
         if(typeof(data)!=="undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
                 "pageSize": 100,
                 "pageNumber": 1,
                 "type": "5",
@@ -476,7 +476,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
     $scope.titleName = "新增中心";
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.getPersonChargeList = function(){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456',
+        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
             {
                 "type":1,
                 "roleType":5
@@ -487,7 +487,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
         });
     };
     $scope.addTeacher = function(code){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456',
+        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
             {
                 "type":1,
                 "roleType":7,
@@ -565,7 +565,7 @@ app.controller("updateCentreOfSchoolController",function($scope,$http,$statePara
     if ($stateParams.jsonString != '') {
         $scope.centreShool = angular.fromJson($stateParams.jsonString);
     }
-    $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/center?requestId=test123456",
+    $http.post($scope.app.host +"teaching/organization/update/center?requestId=test123456",
         $scope.centreShool).success(function(date){
         $state.go("app.authorityManage.centreOfSchool");
     });
@@ -596,7 +596,7 @@ app.controller("classAndGradeController",function($scope,$http,$controller,$stat
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.getList = function(centreCode){
         if(typeof(centreCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456',
                 {
                     "pageSize":20,
                     "pageNumber":1,
@@ -627,7 +627,7 @@ app.controller("addClassAndGradeController",function($scope,$http,$controller,$s
     //subjectCode为2时  理科
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.getTeacher =function(code){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456',
+        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
             {
                 "type":1,
                 "roleType":7,
@@ -714,7 +714,7 @@ app.controller("updateClassAndGradeController",function($scope,$http,$stateParam
     $scope.subjectCode = 1;
     $scope.classAndGrade = JSON.parse($stateParams.classAndGrade);
     $scope.saveUpdateClassAndGrade = function(){
-        $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/update/class?requestId=test123456",
+        $http.post($scope.app.host +"teaching/organization/update/class?requestId=test123456",
             $scope.classAndGrade).success(function(data){
                 $state.go("app.authorityManage.classAndGrade");
         });
@@ -736,7 +736,7 @@ app.controller("studyGroupController",function($scope,$http,$controller,$state){
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.getList = function(classCode){
         if(typeof(classCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456',
                 {
                     "pageSize":20,
                     "pageNumber":1,
@@ -766,7 +766,7 @@ app.controller("addStudyGroupController",function($scope,$http,$controller,$stat
     //获取未被分组的学生
     $scope.getStudents = function(classCode){
         if(typeof(classCode) !== "undefined"){
-            $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/findAllStudentNoGroupByClassCode?requestId=WEUOW343KL34L26NBSK3",
+            $http.post($scope.app.host +"teaching/course/findAllStudentNoGroupByClassCode?requestId=WEUOW343KL34L26NBSK3",
                 {
                     "classCode":classCode
                 }
@@ -778,10 +778,8 @@ app.controller("addStudyGroupController",function($scope,$http,$controller,$stat
     //保存小组信息
     $scope.saveStudyGroup =function(){
         $scope.studentsStatus = !$scope.studentsStatus;
-        $scope.formData = {};
         $scope.selected = [];
-        //$scope.selectedTags = [];
-
+        //复选框是否被选中
         var updateSelected = function(action,id,name){
             if(action == 'add' && $scope.selected.indexOf(id) == -1){
                 $scope.selected.push(id);
@@ -800,7 +798,7 @@ app.controller("addStudyGroupController",function($scope,$http,$controller,$stat
             return $scope.selected.indexOf(id)>=0;
         }
 
-        $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/createAuthSchoolGroupModel?requestId=WEUOW343KL34L26NBSK3",
+        $http.post($scope.app.host +"teaching/course/createAuthSchoolGroupModel?requestId=WEUOW343KL34L26NBSK3",
             {
                 "name":$scope.studyGroup.name,
                 "classCode":$scope.studyGroup.classAndGrade
@@ -822,7 +820,7 @@ app.controller("addStudyGroupController",function($scope,$http,$controller,$stat
             alert("小组最多只能添加5个学生");
         }
         else{
-            $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/groupStudents?requestId=WEUOW343KL34L26NBSK3",
+            $http.post($scope.app.host +"teaching/course/groupStudents?requestId=WEUOW343KL34L26NBSK3",
                 {
                     "groupCode":$scope.groupCode,
                     "students":students

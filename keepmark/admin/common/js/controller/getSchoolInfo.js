@@ -5,7 +5,7 @@ app.controller("getSchoolInfo",function($scope,$http){
 
     //总校列表
     $scope.initMasterSchool =function(){
-        $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+        $http.post($scope.app.host +'teaching/organization/list?requestId=test123456',
             {
                 "pageSize": 100,
                 "pageNumber": 1,
@@ -18,7 +18,7 @@ app.controller("getSchoolInfo",function($scope,$http){
     //获取分校
     $scope.getBranchSchoolList = function(masterSchoolCode){
         if(typeof(masterSchoolCode) !=="undefined"){
-            $http.post( 'http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+            $http.post( $scope.app.host +'teaching/organization/list?requestId=test123456',
                 {
                     "pageSize": 100,
                     "pageNumber": 1,
@@ -34,7 +34,7 @@ app.controller("getSchoolInfo",function($scope,$http){
     //获取学区
     $scope.getDistrictSchoolList = function(branchSchoolCode){
         if(typeof(branchSchoolCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456',
                 {
                     "pageSize": 100,
                     "pageNumber": 1,
@@ -50,7 +50,7 @@ app.controller("getSchoolInfo",function($scope,$http){
     //获取学部
     $scope.getDepartmentSchoolList = function(districtSchoolCode){
         if(typeof(districtSchoolCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
                 "pageSize": 100,
                 "pageNumber": 1,
                 "type": "4",
@@ -64,7 +64,7 @@ app.controller("getSchoolInfo",function($scope,$http){
     //获取中心
     $scope.getCentreSchoolList = function(departmentSchoolCode){
         if(typeof(departmentSchoolCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
                 "pageSize": 100,
                 "pageNumber": 1,
                 "type": "5",
@@ -78,7 +78,7 @@ app.controller("getSchoolInfo",function($scope,$http){
     //获取班级
     $scope.getClassAndGrade= function(centreSchoolCode){
         if(typeof(centreSchoolCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456', {
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
                 "pageSize": 100,
                 "pageNumber": 1,
                 "type": "6",
@@ -92,7 +92,7 @@ app.controller("getSchoolInfo",function($scope,$http){
     //获取学习小组
     $scope.getStudyGroup = function(classCode){
         if(typeof(classCode) !== "undefined"){
-            $http.post('http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/list?requestId=test123456',
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456',
                 {
                     "pageSize":20,
                     "pageNumber":1,
@@ -106,7 +106,7 @@ app.controller("getSchoolInfo",function($scope,$http){
 
     //获取所有的教学周期
     $scope.getWeekTimes = function(){
-        $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/getWeekTimes?requestId=WEUOW343KL34L26NBSK3",
+        $http.post($scope.app.host +"teaching/course/getWeekTimes?requestId=WEUOW343KL34L26NBSK3",
             {}).success(function(data){
             $scope.weekTimes = data.result.weekTimes;
         });
