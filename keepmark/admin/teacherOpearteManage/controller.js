@@ -148,21 +148,36 @@ var DataSource = [
 
 
 //我的学生
-app.controller('myStudentsController', function($scope, $state){
-    $scope.name = '我的学生';
-    $scope.total_count = 10;
+app.controller('myStudentsController', function($scope,$http,$controller,$resource,$stateParams, $modal, $state,CalcService){
+
+    $scope.name='我的学生';
+    $scope.total_count =10;
     var id = 1;
+    // 学生动态数据
+    var url = $scope.app.host + "fullTeacher/getMyStudentList?requestId=test123456";
+    $http.post(url,{
+        "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227"
+    }).success(function(data){
+        console.log(data)
+        if(data.message == "Success"){
+            $scope.results = data.result;
+        }
+    }).error(function(data){
+        console.log("fail");
+    });
+    // 到这结束
     $scope.learningDetail = function(){
-        $state.go("app.teacherOpearteManage.learningDetail", {"id": id});
+        $state.go("app.teacherOpearteManage.learningDetail",{"id":id});
     }
 
     $scope.answerQuestionsRecord = function(){
-        $state.go("app.teacherOpearteManage.answerQuestions", {"id": id});
+        $state.go("app.teacherOpearteManage.answerQuestions",{"id":id});
     }
 
     $scope.checkMySchedule = function(){
-        $state.go("app.teacherOpearteManage.classSchedule", {"id": id});
+        $state.go("app.teacherOpearteManage.classSchedule",{"id":id});
     }
+
 })
 
 
@@ -456,40 +471,135 @@ app.controller("classOnDutyController", function($scope){
     }
 })
 //答疑
-app.controller("answerQuestionsController", function($scope, $state){
-    $scope.name = '答疑';
+app.controller("answerQuestionsController",function($scope,$http,$controller,$resource, $stateParams, $modal,$state,CalcService){
+    $scope.name='答疑';
 
-    $scope.answerQuestions = function(){
-        $state.go("app.teacherOpearteManage.answerQuestionsDetail");
+    var url =  $scope.app.host + "fullTeacher/getStudentAnswerRecordList?requestId=test123456";
+
+    $http.post(url,{
+
+        "teacherCode":"1"
+
+    }).success(function(data){
+        console.log(data)
+        if(data.message == "Success"){
+            $scope.results = data.result;
+
+            console.log($scope.results.studentAnswerRecord)
+        }
+    }).error(function(data){
+        console.log("fail");
+    });
+
+    $scope.answerQuestions = function(ContentPageasd){
+        // console.log(ContentPageasd)
+        // var ContentPageasd = angular.toJson(ContentPageasd);
+        var ContentPageasd = ContentPageasd;
+        $state.go("app.teacherOpearteManage.answerQuestionsDetail",{
+            ContentPageasd:ContentPageasd
+        },{
+            reload:true
+        });
     }
 })
 //答疑详情
-app.controller("studentWorkDetailController", ['$scope', '$modal', function($scope, $modal){
-    $scope.name = '答疑详情';
-    $scope.addErrorKnown = function(){
-        var modalInstance = $modal.open({
-            templateUrl: 'admin/teacherOpearteManage/knowledgeTree.html',
-            size: "sm",
-            resolve: {
-                deps: ['$ocLazyLoad',
-                    function($ocLazyLoad){
-                        return $ocLazyLoad.load('angularBootstrapNavTree');
-                    }
-                ]
-            }
-        });
+app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$modal,$stateParams,$controller,$state,CalcService){
+
+    $scope.name='答疑详情';
+
+    var ContentPageasd = null;
+    // 获取上个界面传递的数据，并进行解析
+    if ($stateParams.ContentPageasd != '') {
+        ContentPageasd = $stateParams.ContentPageasd;
     }
-}])
+    var url =  $scope.app.host + "fullTeacher/getStudentAnswerRecordList?requestId=test123456";
+
+    $http.post(url,{
+        "teacherCode":"1"
+    }).success(function(data){
+        if(data.message == "Success"){
+            $scope.results = data.result;
+            //console.log($scope.results.studentAnswerRecord[ContentPageasd])
+            $scope.ContentPageasd = $scope.results.studentAnswerRecord[ContentPageasd]
+            var BookTreeData = JSON.stringify($scope.ContentPageasd);
+            window.localStorage.setItem("BookObj",BookTreeData);
+            //callback && callback(data.result);
+        }
+    }).error(function(data){
+        console.log("fail");
+    });
+
+    $scope.dumpThisBtn = function(){
+        $state.go("app.teacherOpearteManage.answerQuestions")
+    };
+
+    // 将节点放到已有json树的合适位置
+    function findTreeChild(arr, tmp, isChild){
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i].ctbCode == tmp.parentCode){
+                if(!arr[i].children)arr[i].children = [];
+                arr[i].children.push(tmp);
+                return true;
+            }else if(arr[i].parentCode == tmp.ctbCode){
+                tmp.children =[arr[i]];
+                arr.splice(i, 1);
+                arr.unshift(tmp);
+                return true;
+            }else if(arr[i].children){
+                if(findTreeChild(arr[i].children, tmp, true)){
+                    return true;
+                }
+            }
+        }
+        if(!isChild){
+            arr.push(tmp);
+        }
+    }
+
+    //点击出现知识树
+    $scope.addErrorKnown = function () {
+        // var BookData = JSON.parse(window.localStorage.getItem("BookObj"));
+        // var subjectCode = BookData.subjectCode;
+        $http.post($scope.app.host +'/resource/knowledge/tree?requestId='+(Math.random()*100),
+            {gradeCode:33,subjectCode:1,booktypeCode:'7HCcMZTzpcThi6RaByWysKQPPbtTHSj8'}
+        ).success(function(data,header,config,status){
+                if(!data.code=='Success'){
+                    return alert('抱歉，请求知识点失败!');
+                }else if(!data.result.datas||data.result.datas.length==0){
+                    return alert('未获取到相应知识点!');
+                }
+                var result = [];
+                data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
+                for(var i = 0, l = data.result.datas.length; i < l; i++){
+                    data.result.datas[i].label = data.result.datas[i].knowledgeName;
+                    findTreeChild(result, data.result.datas[i]);
+                }
+                //console.log(result);
+                var scope = $rootScope.$new();
+                scope.my_data = result;
+                var modalInstance = $modal.open({
+                    templateUrl: 'admin/teacherOpearteManage/knowledgeTree.html',
+                    size: "lg",
+                    controller:'knowledgeTreeController',
+                    scope:scope,
+                    resolve: {}
+                });
+                result = data=null;
+            }).error(function(data,header,config,status){
+                return alert('抱歉，请求知识点失败!');
+            });
+    }
+})
 //批改
-app.controller("studentWorkCheckedController", ['$scope', '$modal', function($scope, $modal){
-    $scope.name = "批改";
-    $scope.addErrorKnown = function(){
+app.controller("studentWorkCheckedController",['$scope', '$modal',function($scope,$modal){
+    $scope.name="批改";
+    $scope.addErrorKnown = function () {
         var modalInstance = $modal.open({
             templateUrl: 'admin/teacherOpearteManage/knowledgeTree.html',
             size: "sm",
             resolve: {
                 deps: ['$ocLazyLoad',
-                    function($ocLazyLoad){
+                    function( $ocLazyLoad ){
                         return $ocLazyLoad.load('angularBootstrapNavTree');
                     }
                 ]
@@ -499,111 +609,50 @@ app.controller("studentWorkCheckedController", ['$scope', '$modal', function($sc
 }])
 
 //知识点树
-app.controller("knowledgeTreeController", function($scope, $timeout){
-    var apple_selected, tree, treedata_avm, treedata_geography;
-    $scope.my_tree_handler = function(branch){
-        var _ref;
-        $scope.output = "You selected: " + branch.label;
-        if((_ref = branch.data) != null ? _ref.description : void 0){
-            return $scope.output += '(' + branch.data.description + ')';
-        }
-    };
-    apple_selected = function(branch){
-        return $scope.output = "APPLE! : " + branch.label;
-    };
-    treedata_avm = [
-        {
-            label: '1分数乘法',
-            children: [
-                {
-                    label: '分数乘法计算',
-                    data: {
-                        description: "man's best friend"
-                    }
-                }, {
-                    label: '分数乘法应用题',
-                    data: {
-                        description: "Felis catus"
-                    }
-                }
-            ]
-        },
-        {
-            label: '2位置与方向',
-            children: [
-                {
-                    label: '位置与方向',
-                    children: ['分数乘法应用题', '位置与方向', '位置与方向']
-                }, {
-                    label: '分数乘法应用题',
-                    children: ['分数乘法计算', '分数乘法计算', '分数乘法计算']
-                }, {
-                    label: '3分数除法',
-                    children: [
-                        {
-                            label: '分数乘法计算',
-                            children: ['比', '圆', '百分数', '数学广角']
-                        }, {
-                            label: '位置与方向',
-                            children: ['百分数', '圆', '扇形统计图', '数与形']
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
-    treedata_geography = [
-        {
-            label: '扇形统计图',
-            children: [
-                {
-                    label: '百分数',
-                    children: ['比', '数学广角']
-                }, {
-                    label: '数学广角',
-                    children: ['百分数', '数学广角']
-                }, {
-                    label: 'Mexico',
-                    children: ['比', '数学广角']
-                }
-            ]
-        }
-    ];
-    $scope.my_data = treedata_avm;
-    $scope.try_changing_the_tree_data = function(){
-        if($scope.my_data === treedata_avm){
-            return $scope.my_data = treedata_geography;
-        }else{
-            return $scope.my_data = treedata_avm;
-        }
+app.controller("knowledgeTreeController",function($scope,$timeout){
+    var  tree;
+    $scope.my_tree_handler = function(branch) {
+
     };
     $scope.my_tree = tree = {};
-    $scope.try_async_load = function(){
-        $scope.my_data = [];
-        $scope.doing_async = true;
-        return $timeout(function(){
-            if(Math.random() < 0.5){
-                $scope.my_data = treedata_avm;
-            }else{
-                $scope.my_data = treedata_geography;
-            }
-            $scope.doing_async = false;
-            return tree.expand_all();
-        }, 1000);
-    };
-    return $scope.try_adding_a_branch = function(){
-        var b;
-        b = tree.get_selected_branch();
-        return tree.add_branch(b, {
-            label: 'New Branch',
-            data: {
-                something: 42,
-                "else": 43
-            }
-        });
-    };
-})
 
+
+
+//	$scope.my_data = $scope.tree;
+    console.log('-----000------',$scope.my_data)
+    //$scope.try_changing_the_tree_data = function() {
+    //	if ($scope.my_data === treedata_avm) {
+    //		return $scope.my_data = treedata_geography;
+    //	} else {
+    //		return $scope.my_data = treedata_avm;
+    //	}
+    //};
+
+    //$scope.try_async_load = function() {
+    //	$scope.my_data = [];
+    //	$scope.doing_async = true;
+    //	return $timeout(function() {
+    //		if (Math.random() < 0.5) {
+    //			$scope.my_data = treedata_avm;
+    //		} else {
+    //			$scope.my_data = treedata_geography;
+    //		}
+    //		$scope.doing_async = false;
+    //		return tree.expand_all();
+    //	}, 1000);
+    //};
+    //return $scope.try_adding_a_branch = function() {
+    //	var b;
+    //	b = tree.get_selected_branch();
+    //	return tree.add_branch(b, {
+    //		label: 'New Branch',
+    //		data: {
+    //			something: 42,
+    //			"else": 43
+    //		}
+    //	});
+    //};
+});
 
 //学生考试
 app.controller("studentExamsController", ['$scope', '$modal', function($scope, $modal){
