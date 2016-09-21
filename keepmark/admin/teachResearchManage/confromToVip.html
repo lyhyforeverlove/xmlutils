@@ -17,26 +17,6 @@
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="radio form-group col-sm-12">
-                        <label class="col-sm-1 control-label">学科：</label>
-                        <div class="radio">
-                            <label class="i-checks" ng-repeat="(key, val) in category track by $index">
-                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getBookVersion(val.subjectCode)" ng-change="checked(formData.subjectCode,'subjectCode')">
-                                <i></i>{{val.subjectName}}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <div class="radio form-group col-sm-12">
-                        <label class="col-sm-1 control-label" for="input-id-1">教材：</label>
-                        <div class="radio">
-                            <label class="i-checks" ng-repeat="obj in bookVersion track by $index">
-                                <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode" ng-change="checked(formData.bookVersionCode,'bookVersionCode')">
-                                <i></i>{{obj.bookVersionName}}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <div class="radio form-group col-sm-12">
                         <label class="col-sm-1 control-label">短板状态：</label>
                         <div class="radio">
                             <label class="i-checks">
@@ -47,6 +27,14 @@
                                 <input type="radio" name="isShortlabStatus" ng-value="'1'"  ng-change="checked(formData.shortState,'isShortlabStatus')" ng-model="formData.isShortlabStatus">
                                 <i></i>未分析
                             </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="radio form-group col-sm-12">
+                        <label class="col-sm-1 control-label">地区：</label>
+                        <div class="col-sm-2">
+                            <select name="city" class="form-control input-sm" ng-model="formData.city" ng-click="checked(obj.provinceCode,'city')" ng-options="obj.provinceCode as obj.provinceName for obj in cityAll"  ng-selected="formData.city">
+                            </select>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
@@ -86,7 +74,7 @@
                     </div>
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
-                <table class="table table-striped b-t b-light">
+                <table class="table table-striped b-t b-light" id="confromToVipTbody">
                     <thead>
                     <tr>
                         <th>序号</th>
@@ -107,10 +95,10 @@
                         <th>短板</th>
                     </tr>
                     </thead>
-                    <tbody ng-repeat="item in result track by $index" id="confromToVipTbody">
+                    <tbody ng-repeat="item in result track by $index">
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>XXX<input type="hidden" ng-value="item"/></td>
+                        <td data-ng-init="items(item,$index)">{{ $index + 1 }}</td>
+                        <td>XXX</td>
                         <td>{{item.studentName }}</td>
                         <td>{{getDepartmentName(item.type)}}</td>
                         <td>{{item.examinationTime }}</td>
@@ -119,22 +107,19 @@
                         <td>{{item.mathScore }}</td>
                         <td>{{item.englishScore }}</td>
                         <td>{{item.physicsScore }}</td>
-                        <td>{{itrem.chemistryScore }}</td>
+                        <td>{{item.chemistryScore }}</td>
                         <td>{{item.biologyScore }}</td>
                         <td>
-                            <button class="btn btn-default" ng-click="getJuan(item.eduStudentDiagnoseResultCode )">详情</button>
+                            <button class="btn btn-default">详情</button>
                         </td>
                         <td>XXXX</td>
                         <td>
-                            <label class="i-checks constAll">
+                            <label class="i-checks const">
                                 <input class="const" type="checkbox" ng-change="const('confromToVip')" ng-model="checked"><i></i>
                             </label>
                         </td>
                         <td>
-                            <div ng-controller="categoryCtrl">
-                                <script type="text/ng-template" id="myModalContent.html">
-                                    <div ng-include="'admin/common/tpl/shortBoard.html'"></div>
-                                </script>
+                            <div ng-controller="categoryCtrl" data-ng-init="btnSH('confromToVipTbody','btnList',item,$index,'isWeaknessAffirm','已短板诊断')" class="btnList">
                                 <button class="" ng-click="open(item)">短板分析</button>
                             </div>
                         </td>
@@ -145,15 +130,23 @@
                         <td colspan="15"></td>
                         <td>
                             <span>已选{{num}}人</span>
-                            <label class="i-checks">
-                                <input type="checkbox" ng-model="checked" ng-change="constAll('confromToVip',checked)"><i></i> 全选
+                            <label class="i-checks constAll">
+                                <input type="checkbox" ng-model="checked" ng-change="constAll('confromToVip')"><i></i> 全选
                             </label>
+                        </td>
+                        <td>
+                            <div ng-controller="categoryCtrl">
+                                <script type="text/ng-template" id="myModalContent.html">
+                                    <div ng-include="'admin/common/tpl/shortBoardHXY.html'"></div>
+                                </script>
+                                <button class="" ng-click="open(result)">短板分析</button>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="16" class="text-center">
                             <!-- 指令调用代码-->
-                            <xl-page size="2" method="query" class="text-center"></xl-page>
+                            <xl-page size="5" method="query" class="text-center"></xl-page>
                             <!--指令模板（pagination.html）-->
                         </td>
                     </tr>

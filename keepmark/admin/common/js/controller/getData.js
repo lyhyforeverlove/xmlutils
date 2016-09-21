@@ -60,7 +60,6 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
     }
 });
 
-
 //通过ID获取value
 app.controller("getValue",function($http,$scope){
     $http.post("admin/json/filterData.json").then(function(data){
@@ -77,7 +76,7 @@ app.controller("getValue",function($http,$scope){
         };
         //获取 科目
         $scope.getSubjectName = function(id,type){
-            var category = newData[type].category;
+            var category = data.data.filterData[type].category;
             for(var i=0; i<category.length; i++){
                 if(category[i].subjectCode == id){
                     return category[i].subjectName;
@@ -109,7 +108,7 @@ app.controller("getValue",function($http,$scope){
             }
         }
     });
-    $http.get("admin/json/aimData.json").then(function(data){
+    $http.post("admin/json/aimData.json").then(function(data){
         //获取 目标类型
         $scope.getAimData = function(id){
             var aimData = data.data.aimData;
@@ -120,14 +119,25 @@ app.controller("getValue",function($http,$scope){
             }
         }
     });
+    //获取诊断类型
+    $http.post("admin/json/paperUse.json").then(function (data) {
+        $scope.getPaperUseName = function(id){
+            var PaperUse = data.paperUse;
+            for(var i=0; i<PaperUse.length; i++){
+                if(PaperUse[i].paperUseType == id){
+                    return PaperUse[i].paperUseName;
+                }
+            }
+        }
+    })
     //是否添加课时
     $scope.isAddClass = function(id){
         switch(id){
             case "0":
-                return "是";
+                return "否";
                 break;
             case "1":
-                return "否";
+                return "是";
                 break;
         }
     };
@@ -135,10 +145,10 @@ app.controller("getValue",function($http,$scope){
     $scope.isAddShort = function(id){
         switch(id){
             case "0":
-                return "同意添加短板";
+                return "拒绝";
                 break;
             case "1":
-                return "不同意添加短板";
+                return "同意";
                 break;
         }
     };
@@ -165,20 +175,16 @@ app.controller("getValue",function($http,$scope){
         }
     };
     //获取课程类型
-    $scope.getArtType = function(id){
+    $scope.getLessonLevel = function(id){
         var value;
-        switch(id){
-            case "0":
-                value = "A课程";
-                break;
-            case "1":
-                value = "B课程";
-                break;
-            case "2":
-                value = "C课程";
-                break;
-            default:
-                value = "未分类"
+        if(id == 0){
+            value = "A课程";
+        } else if(id == 1){
+            value = "B课程";
+        } else if(id == 2){
+            value = "C课程";
+        } else {
+            value = "未分类"
         }
         return value;
     };
@@ -193,7 +199,7 @@ app.controller("getValue",function($http,$scope){
         return value;
     };
     //获取入学年份
-    $http.get("admin/json/inScrollYear.json").then(function(result){
+    $http.post("admin/json/inScrollYear.json").then(function(result){
         var data = result.data.inScrollYear;
         $scope.getScrollYearName = function(id){
             for(var i=0; i<data.length; i++){
@@ -217,11 +223,22 @@ app.controller("getJsonData",function($scope, $http){
         });
         $scope.getSubject(0);
         $scope.getBookVersion(1);
-    })
+    });
     //获取 学科（集合）
     $scope.getSubject = function(departmentType){
         $scope.category = $scope.departmentType[departmentType].category;
     };
+    //获取 全部学科（集合）
+    $http.post("admin/json/subject.json").then(function(result){
+        $scope.AllSubject = result.data.subject;
+        $scope.getAllSubjectName = function(code){
+            for(var i=0; i<$scope.AllSubject.length; i++){
+                if($scope.AllSubject[i].subjectCode == code){
+                    return $scope.AllSubject[i].subjectName;
+                }
+            }
+        }
+    })
     //获取 教材（集合）
     $scope.getBookVersion = function(subjectCode,departmentType){
         if(departmentType){
@@ -235,8 +252,8 @@ app.controller("getJsonData",function($scope, $http){
                 break;
             }
         }
-    }
-    //获取目标
+    };
+    //获取目标（集合）
     $http.post("admin/json/aimData.json").then(function(result){
         var data = result.data.aimData;
         $scope.aimTypes = data;
@@ -247,13 +264,23 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
     //获取中心（集合）
-    $http.post($scope.app.testhost + 'teaching/organization/centers?requestId=test123456').then(function (result) {
+    $http.post(window.host1 + 'teaching/organization/centers?requestId=test123456').then(function (result) {
         var data = result.data.result;
         $scope.center = data;
         //带全部
         $scope.centerAll = [{code:"all",name:"全部"}];
         $.each(data,function(index,item){
             $scope.centerAll.push(item);
+        });
+    });
+    //获取诊断类型（集合）
+    $http.post("admin/json/paperUse.json").then(function (result) {
+        var data = result.paperUse;
+        $scope.paperUse = data;
+        //带全部
+        $scope.paperUseAll = [{paperUseType:"all",paperUseName:"全部"}];
+        $.each(data,function(index,item){
+            $scope.paperUseAll.push(item);
         });
     });
     //获取班级（集合）
@@ -273,7 +300,7 @@ app.controller("getJsonData",function($scope, $http){
             });
         });
     };
-    //获取考生类型
+    //获取考生类型（集合）
     $http.post("admin/json/studentType.json").then(function(result) {
         var data = result.data.studentType;
         $scope.studentType = data;
@@ -283,7 +310,7 @@ app.controller("getJsonData",function($scope, $http){
             $scope.studentTypeAll.push(item);
         });
     });
-    //获取入学年份
+    //获取入学年份（集合）
     $http.post("admin/json/inScrollYear.json").then(function(result){
         var data = result.data.inScrollYear;
         $scope.inScrollYear = data;
@@ -292,27 +319,40 @@ app.controller("getJsonData",function($scope, $http){
         $.each(data,function(index,item){
             $scope.inScrollYearAll.push(item);
         });
-    })
+    });
+    //获取地区（集合）
+    $http.post(window.testhost + "/area/allProvince?requestId=1").then(function(result){
+        var data = result.data.result;
+        $scope.city = data;
+        //带全部
+        $scope.cityAll = [{provinceCode:"all",provinceName:"全部"}];
+        $.each(data,function(index,item){
+            $scope.cityAll.push(item);
+        });
+    });
 });
 //已选总数
 app.controller("constAll",function($scope){
     $scope.num = 0;
-
-    $scope.constAll = function(id,type){
+    $scope.constAll = function(id){
         var $Box =$("#"+id);
-        var $input = $Box.find(".constAll");
+        var $input = $Box.find(".const").find("input:checkbox");
+        var $all = $Box.find(".constAll").find("input:checked");
         var num = 0;
         $.each($input,function(index,item){
-            $(item).prop('checked',type);
-            if($(item).prop('checked') == true){
+            if($all.prop('checked') == true){
                 num++;
+                $(item).prop("checked",true);
+            } else {
+                $(item).prop("checked",false);
             }
+
         })
         $scope.num = num;
     }
     $scope.const = function(id){
         var $Box = $("#"+id);
-        var $input = $Box.find(".constAll");
+        var $input = $Box.find(".const").find("input:checkbox");
         var num = 0;
         $.each($input,function(index,item){
             if($(item).prop('checked') == true){
@@ -322,6 +362,22 @@ app.controller("constAll",function($scope){
         $scope.num = num;
     }
 });
-   
-
-   
+// 数据 || 按钮
+app.controller("btnSH",function($scope){
+    $scope.btnSH = function(id,className,item,index,value1,value2){
+        console.log(value2)
+        var $box = $("#" + id);
+        var $btnBox = $box.find("." + className);
+        if(item[value1]){
+            $btnBox.eq(index).empty().html(value2);
+        }
+    }
+});
+//获取 试卷详情
+app.controller("getPaper",function($scope,$state){
+    //获取诊断卷详情
+    $scope.getPaper = function (code) {
+        sessionStorage.setItem("testpaperCode",code);
+        $state.go('app.teachResearchManage.testPaper');
+    };
+});

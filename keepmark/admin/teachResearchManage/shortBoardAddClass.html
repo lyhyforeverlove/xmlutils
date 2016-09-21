@@ -82,34 +82,34 @@
                         <th>家长</th>
                         <th>短板诊断得分</th>
                         <th>上课内容</th>
-                        <th>加课时</th>
+                        <th>课时</th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="item in result track by $index">
                     <tr>
-                        <td>{{$index+1}}</td>
-                        <td>1821058560</td>
-                        <td>XXX</td>
-                        <td>语文</td>
-                        <td>2016.7.28：18：00-19：00</td>
-                        <td><button class="btn btn-default" ng-click="getJuan(item.diagnosisPaperCode )">详情</button></td>
-                        <td>90分</td>
-                        <td>100分</td>
-                        <td>100分</td>
+                        <td class="index">{{$index+1}}</td>
+                        <td>{{item.userName}}</td>
+                        <td>{{item.studentName }}</td>
+                        <td>{{getSubjectName(item.subjectCode,item.subjectType )}}</td>
+                        <td>2016.7.28：18：00</td>
+                        <td><span class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</span></td>
+                        <td>{{item.impersonalityScore }}</td>
+                        <td>{{item.subjectivityScore}}</td>
+                        <td>--</td>
                         <td><button class="btn btn-default">详情</button></td>
-                        <td>XXX</td>
-                        <td>XXXX</td>
-                        <td>1821058560</td>
-                        <td>xxx</td>
+                        <td>{{item.operator }}</td>
+                        <td>{{item.mobile }}</td>
+                        <td>{{item.parent }}</td>
+                        <td>--</td>
                         <td><button class="btn btn-default" ui-sref='app.teachResearchManage.courseTree'>添加课程</button></td>
-                        <td class="shortBoardHour"><button class="btn btn-default" ng-click="addHour(item.eduVulnerabilityAnalyzeRecordCode)">添加课时</button></td>
+                        <td class="shortBoardHour" data-ng-init="btnSH('shortBoardAddClass','shortBoardHour',item,$index,'addHourNumber',item.addHourNumber+'课时')"><button class="btn btn-default" ng-click="addHour(item.eduVulnerabilityAnalyzeRecordCode)">添加课时</button></td>
                     </tr>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
                     <tr>
                         <td colspan="15" class="text-center">
                             <!-- 指令调用代码-->
-                            <xl-page size="10" method="query" class="text-center"></xl-page>
+                            <xl-page size="5" method="query" class="text-center"></xl-page>
                             <!--指令模板（pagination.html）-->
                         </td>
                     </tr>
