@@ -6,7 +6,7 @@
         <div class="wrapper">
             <div class="panel-heading m-b-xl">
                 <form class="form-horizontal" ng-init="load()">
-                   <div class="form-group">
+                   <!--<div class="form-group">
                         <label class="col-sm-2 control-label">类型：</label>
                         <div class="radio">
                             <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
@@ -24,15 +24,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="line line-dashed b-b line-lg"></div>-->
+                    <pre>{{formData}}</pre>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">总分数：</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" value="460">
+                            <input type="text" class="form-control" value="460" ng-model="formData.minTotalScore">
                         </div>
                         <label class="col-sm-1" style="width:10px">-</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" value="500">
+                            <input type="text" class="form-control" value="500" ng-model="formData.maxTotalScore">
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
@@ -40,12 +41,12 @@
                         <label class="col-sm-2 control-label">目标类型：</label>
                         <div class="radio">
                             <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
-                                <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+                                <input type="radio" name="category_code" ng-value='val.aimType' ng-model="formData.studentObjective"><i></i>{{val.aimName}}
                             </label>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <button type="button" class="btn m-b-xs w-xs btn-primary pull-right" ng-click="getList()"><span class="p-d">查询</span></button>
+                    <button type="button" class="btn m-b-xs w-xs btn-primary pull-right" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <div class="line line-dashed b-b line-lg"></div>
@@ -193,7 +194,7 @@
                     <div class="modal-header">
                         <h3 class="modal-title">班型</h3>
                     </div>
-                    <div class="modal-body"  ng-init="initMasterSchool()">
+                    <div class="modal-body" ng-init="initMasterSchool()">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">总校：</label>
                             <div class="col-sm-10">

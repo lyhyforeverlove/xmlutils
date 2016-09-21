@@ -467,7 +467,7 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
    
     $scope.stageFormData.stage = 1; //默认为第一阶段
 
-    $scope.stageFormData.paperUseType = "p_004";
+    $scope.stageFormData.paperUseType = "p_014";
 
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
@@ -506,9 +506,11 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
         });
         // model返回结果
         modalInstance.result.then(function(selectedItem) {
-
+            console.log(selectedItem);
+            //$scope.subjectCode = subjectCode;
            // console.log(selectedItem);
-            $scope.stageFormData.diagnosisPaperCode.push(selectedItem);
+            //$scope.stageFormData.diagnosisPaperCode.push(selectedItem);
+
 
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
@@ -519,6 +521,10 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
     *新增阶段考试用卷
     */
     $scope.createStage = function(stageFormData){
+
+        $scope.stageFormData.startDate = angular.element("#startDate").val();//开始时间
+        $scope.stageFormData.endDate = angular.element("#endDate").val();//结束时间
+
         var url = $scope.app.host +"section/diagnosis/stage/paper/add?requestId=test123456";
 
         $http.post(url,stageFormData).success(function(data){
@@ -769,14 +775,15 @@ app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $s
     
     $scope.stageFormData = {};  //formData.resourcePaperCode
     //选用按钮
-    $scope.GetResourcePaperCode = function(resourcePaperCode){
-        //console.log(resourcePaperCode);
-        $scope.stageFormData.diagnosisPaperCode = resourcePaperCode;
+    $scope.GetResourcePaperCode = function(diagnosisPaperCode,subjectCode){
+        console.log(subjectCode);
+        $scope.stageFormData.diagnosisPaperCode = diagnosisPaperCode;
+        $scope.stageFormData.subjectCode = subjectCode;
          
     }
     // ok click
     $scope.ok = function() {
-        $modalInstance.close($scope.stageFormData.diagnosisPaperCode);
+        $modalInstance.close($scope.stageFormData);
         //$modalInstance.close($scope.selected.item);
     };
     // cancel click
@@ -797,7 +804,7 @@ app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $s
         $http.post(url,V_PapersListJson).success(function(data) {
 
             if(data.message == "Success"){
-                console.log(data);
+                //console.log(data);
                 $scope.results = data.result;
                 $scope.totalPage = data.result.totalPage;
                 callback && callback(data.result);
@@ -903,7 +910,7 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
 
     $scope.formData = {};
     //默认类型为理科
-    $scope.formData.departmentType = 0;
+    $scope.formData.departmentType = 1;
     //默认为语文
     $scope.formData.subjectCode = 1;
     //默认为全国卷一

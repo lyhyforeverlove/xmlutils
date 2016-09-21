@@ -47,10 +47,10 @@ div.total span {
             <form action="" >
                 <div class="panel-container">
                     <!--<a ng-show="$index!=0" style="color:red;" class="pull-right" ng-click="del($index)">移除</a>-->
-                    <div class="form-group">
+                    <div class="form-group" ng-init="teacherList()">
                         <label class="col-sm-2 control-label">指定老师：</label>
-                        <div class="col-sm-2">
-                            <select ng-model="postData.teacherCode" ng-options="m.productName for m in model">
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="postData.teacherCode" ng-value="m.code" ng-options="m.code as m.name for m in results">
                                 <option value="">-- 请选择 --</option>
                             </select>
                         </div>
@@ -62,18 +62,18 @@ div.total span {
                             <div class="input-prepend input-group">
                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
                                 <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control" class="span4" ng-model="Date"/>
-                                <input type="text" id="startDate" ng-model="postData.beginDate">
-                                <input type="text" id="endDate" ng-model="postData.endDate">
+                                <input type="hidden" id="beginDate" ng-model="postData.beginDate">
+                                <input type="hidden" id="endDate" ng-model="postData.endDate">
                             </div>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="checkDate">
+                    <div class="checkDate" ng-init="times()">
                         <ul class="list-group times">
                             <li ng-repeat="service in groups" ng-click="toggleActive(service)" ng-class="{active:service.active}">
                                 <!-- Notice the use of the currency filter, it will format the price -->
                                 {{item.AM}}{{item.PM}}{{service.name}} <span>{{service.group}} </span><span>{{service.date}}</span>
-                            </li>
+                            </li><!--{{times()}}-->
                         </ul>
                     </div>
                     <div class="line line-solid b-b line-lg "></div>
@@ -97,7 +97,7 @@ $(document).ready(function() {
         var startDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
         var endDate = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate() + ' ' + end.getHours() + ':' + end.getMinutes() + ':' + end.getSeconds();
         console.log(startDate, endDate);
-        $("#startDate").val(startDate);
+        $("#beginDate").val(startDate);
         $("#endDate").val(endDate);
 
     });
