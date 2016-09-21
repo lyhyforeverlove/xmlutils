@@ -1266,45 +1266,82 @@ app.controller('ClassesController', function($scope,$http, $controller,$modalIns
 
 });
 /*分班后确认*/
-app.controller('DividClassesConfrimCtrl' ,function($scope, $http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
-    $controller('ParentGetDataCtrl', { $scope: $scope });
-    //根据类型、地区、总分数、单科学科、分数、上课时间查询列表
-    
+app.controller('DividClassesConfrimCtrl', function($scope, $http, $controller, $resource, $stateParams, $modal, $state) {
+    $controller('ParentGetDataCtrl', {
+        $scope: $scope
+    });
+
     //分班后确认 Tab 切换
     $scope.tabs = [{
-        title: '通过',
+        title: '理科',
+        code:1,
         url: 'one.tpl.html'
     }, {
-        title: '未通过',
+        title: '文科',
+        code:0,
         url: 'two.tpl.html'
     }];
-
+    $scope.artType=1;
     $scope.currentTab = 'one.tpl.html';
-
     $scope.onClickTab = function(tab) {
+        $scope.artType=tab.code;
         $scope.currentTab = tab.url;
     }
-
-    $scope.isActiveTab = function(tabUrl) {
-        return tabUrl == $scope.currentTab;
+}
+$scope.getList = function(page, size, callback) {
+    var url = $scope.app.testhost + 'student/accord/list?requestId=1';
+    console.log(url);
+    $http.post(url, {
+        "pageNumber": 1,
+        "pageSize": 10,
+        "type":$scope.artType
+    }).success(function(data) {
+        console.log(data);
+        if(data.message == "Success") {
+            console.log("fail");
+        })
     }
 
-    $scope.getList = function(page,size,callback) {
-        var url = $scope.app.host + 'teaching/placement/list?requestId=1';//符合vip学生列表
-        $http.post(url,{    
-            "schoolCenterCode":"133"
-        }).success(function(data){
-            console.log(data);
-            if(data.message == "Success"){
 
-                $scope.results = data.result;
-               
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
-
+    //拒绝上课
+    $scope.refuse=function(studentCode){
+        $http.post($scope.app.host + '/teaching/placement/disagree?requestId=SDFDW3F343JLKL3L5LN43J434', {
+            "studentCode": studentCode
+        }).success(function(data) {
+            if(data.message == "Success") {
+                console.log(data);
+                $scope.getList(1, 5);
             }
-        }).error(function(data){
-            console.log("fail");
+        }).error(function(data) {
+            console.log("fail!");
+        })
+
+    }
+    //同意上课
+    $scope.agree=function(studentCode){
+        $http.post($scope.app.host + '/teaching/placement/agree?requestId=SDFDW3F343JLKL3L5LN43J434', {
+            "studentCode": studentCode
+        }).success(function(data) {
+            if(data.message == "Success") {
+                console.log(data);
+                $scope.getList(1, 5);
+            }
+        }).error(function(data) {
+            console.log("fail!");
+        })
+
+    }
+    //确认缴费
+    $scope.confirmPayment=function(studentCode){
+        $http.post($scope.app.host + '/teaching/payAgree?requestId=SDFDW3F343JLKL3L5LN43J434', {
+            "studentCode": studentCode
+        }).success(function(data) {
+            if(data.message == "Success") {
+                console.log(data);
+                $scope.getList(1, 5);
+            }
+        }).error(function(data) {
+            console.log("fail!");
         })
     }
 });
@@ -1356,7 +1393,7 @@ app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resourc
     //获取获取监考老师分页列表
     $scope.getList = function(subjectCode,page,size,callback){
         //$scope.getSubject();
-        console.log(subjectCode);
+        //console.log(subjectCode);
         var url = $scope.app.host + 'teaching/organization/teacher/page?requestId=test123456';
         $http.post(url,{
             "pageNumber":page,
@@ -1382,14 +1419,15 @@ app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resourc
             console.log("fail");
         });
     };
+    //添加监考老师
     $scope.AddMonitorTeacher = function(choseArr){
         console.log(choseArr);
         var url = $scope.app.host + 'teaching/add/invigilateTeacher?requestId=SDDL234LSDK';
-        $http.post('http://192.168.1.213:8080/keepMark-teacher-business/teaching/add/invigilateTeacher?requestId=SDDL234LSDK',{
+        $http.post(url,{
             "teacherCodes":choseArr
         }).success(function(data){
-            if(data.addInvigilateTeacher == true){
-
+            if(data.result.addInvigilateTeacher == true){
+                self.location.reload();//刷新本页面
             }
         }).error(function(data){
             console.log("fail");
