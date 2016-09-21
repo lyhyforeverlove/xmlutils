@@ -38,3 +38,15 @@
     bottom:20px;
     left:0;
 }
+#MarkReviewController .tab li{
+    display: inline-block;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+    width: 140px;
+}
+#MarkReviewController .toggleTab{
+    background:#7266ba;
+    border-radius:4px;
+    color:#fff;
+}
