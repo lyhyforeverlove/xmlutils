@@ -6,13 +6,13 @@ app.controller('LoadingController',function($scope,$resource,$state){
         $state.go('auth.index');
     },function(){
         $state.go('auth.login');
-    })  
+    })
 });
 app.controller('LoginController',function($scope,$state,$http,$resource,Base64,$localStorage){
     $scope.login = function(){
         $scope.authError = "";
         var authdata = Base64.encode($scope.user.username + ':' + $scope.user.password);
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;//为请求头添加Authorization属性为'Basic' + authdata 
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;//为请求头添加Authorization属性为'Basic' + authdata
         var $com = $resource($scope.app.host + "/auth/info/?");
         $com.get(function(data){//引入data
             $scope.session_user = $localStorage.user = data; //保存用户信息
@@ -107,5 +107,5 @@ app.factory('Base64',function(){
 })
 //
 app.controller('IndexController',function($scope){
-    
+
 })

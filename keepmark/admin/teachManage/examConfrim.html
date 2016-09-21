@@ -69,9 +69,11 @@
 
                                     <div id="{{data.eduVulnerabilityAnalyzeRecordCode}}">
                                     <!-- {{data.isAgreeJoinVulnerability}}   "-->
-                                        <p class="p_btn_1"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">拒绝短板诊断</button>已确认</p>
+                                        <p class="p_btn_1"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">拒绝短板诊断</button></p>
                                         <p class="p_btn_2"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">同意短板诊断</button></p>
-                                        <p class="p_btn_3"><button ng-if="data.appointmentExamStartDate.length != 0" class="btn btn-primary" id="{{$index}}" ng-click="open('lg',{shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,broadcastBoothUrl:data.broadcastBoothUrl,invigilatorTeacher:data.invigilatorTeacher})">预约时间</button></p>
+                                        <p ng-if="data.isAgreeJoinVulnerability == 0">已拒绝</p>
+                                        <p ng-if="data.isAgreeJoinVulnerability == 1">已同意</p>
+                                        <p class="p_btn_3"><button ng-if="data.appointmentExamStartDate.length == 0" class="btn btn-primary" id="{{$index}}" ng-click="open('lg',{shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,broadcastBoothUrl:data.broadcastBoothUrl,invigilatorTeacher:data.invigilatorTeacher})">预约时间</button></p>
                                     </div>
                                 </td>
                             </tr>

@@ -166,13 +166,26 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, 
 })
 //给诊断商品分配监考人
 app.controller("DistributionCtrl", function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService) {
-
+    $scope.postData = {};
+    //专职老师列表
+    $scope.teacherList = function(){
+        var url = $scope.app.host +'/teaching/organization/teacher/list?requestId=test123456';
+        $http.post(url,{"type":1}).success(function(data){
+            //console.log(data);
+            $scope.results = data.result;
+        }).error(function(data){
+            console.log("fail");
+        })
+    };
     //添加老师
     $scope.V_GoodsAddJson = null;
 
     var diagnosisGoodsModels = []; //定义诊断商品列表
     //$scope.list = [{ teacherCode: 0, beginDate: 30, endDate: '张三' }];
     $scope.addTeacher = function(postData) {
+        $scope.postData.times = [];
+        $scope.postData.beginDate = angular.element("#beginDate").val();//开始时间
+        $scope.postData.endDate = angular.element("#endDate").val();//结束时间
 
         // 获取上个界面传递的数据，并进行解析
         if ($stateParams.jsonString != '') {
@@ -180,21 +193,21 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
         }
 
         var goodsArr = angular.fromJson($scope.postData);
+        //console.log(goodsArr);
         diagnosisGoodsModels.push(goodsArr);
         $scope.V_GoodsAddJson = angular.fromJson($scope.V_GoodsAddJson);
         $scope.V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
 
         $scope.postData  = {};
+
         angular.forEach($scope.groups, function(s) {
             angular.element(".times li").removeClass('active');
         });
-
+        //console.log($scope.V_GoodsAddJson);
     };
-    $scope.del = function(idx) {
+   /* $scope.del = function(idx) {
         $scope.list.splice(idx, 1);
-    };
-      
-    $scope.postData = {};
+    };*/
     //诊断时间
     $scope.groups = [{
         id: 1,
@@ -259,13 +272,11 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
 
         $http.post($scope.app.host + '/teacher/diagnosis/distribution/invigilate?requestId=test123456', $scope.V_GoodsAddJson)
             .success(function(data) {
-                if (data.result == "Success") {
-                    console.log(data);
+                if (data.result == true) {
                     $state.go('app.teachManage.diagGoods');
                 }
             });
     }
-
 })
 //获取诊断商品详情 controller
 app.controller("GoodsDetailController", function($scope, $http, $stateParams, $state,passParameter) {
@@ -710,11 +721,7 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
             if(data.message == "Success"){
 
                 if(data.result == true){
-                    jsonString.isAgreeJoinVulnerability = 0; //0:拒绝
-                    angular.element("#"+id).find("p.p_btn_1 button").remove(); // remove移除创建的元素
-                    angular.element("#"+id).find("p.p_btn_2 button").remove();
-                    angular.element("#"+id).find("p.p_btn_1").html("已确认");
-                    $scope.disagree = "已确认";
+                    self.location.reload();//刷新本页面
                 }
             }
         }).error(function(data){
@@ -728,11 +735,7 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
         $http.post(url,jsonString).success(function(data){
             if(data.message == "Success"){
                 if(data.result == true){
-                    jsonString.isAgreeJoinVulnerability = 1; //1:同意
-                    angular.element("#"+id).find("p.p_btn_1 button").remove(); // remove移除创建的元素
-                    angular.element("#"+id).find("p.p_btn_2 button").remove();
-                    angular.element("#"+id).find("p.p_btn_1").html("已确认");
-                    $scope.disagree = "已确认";
+                    self.location.reload();//刷新本页面
                 }
             }
         }).error(function(data){
@@ -757,12 +760,12 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
         });
         // modal return result
         modalInstance.result.then(function(postData) {
-            console.log(postData);
+            //console.log(postData);
             var id = postData.shortSlabAnalysisRecordCode;
             var startDate = postData.startDate;
             var endDate = postData.endDate;
 
-            $("#"+id).find("button#0").css("display","none");
+            //$("#"+id).find("button#0").css("display","none");
             //$("#"+id).append(startDate+'-'+endDate);
         }, function() {
             $log.info('Modal dismissed at: ' + new Date())
@@ -866,7 +869,7 @@ app.controller('MonitorController', function($scope, $http,$controller,$resource
     }
     $scope.formData.departmentType = "1";
     $scope.formData.subjectCode = "1";
-    $scope.formData.bookVersionCode = "1";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     $scope.formData.aimType = "1";
     //根据学年、类型、学科、教材查询短板诊断监考列表
     $scope.getList = function(page,size,callback) {
@@ -954,13 +957,14 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
     $scope.formData.bookVersionCode = "1";
     $scope.formData.aimType = "1";
 
-    $scope.getList = function(page,size,callback) {
+    $scope.getList = function(isAgreeHour,page,size,callback) {
         var url=$scope.app.host + "/shortSlab/teaching/getShortSlabStudentList?requestId=test123456";
         $http.post(url,{
             "departmentType":$scope.formData.departmentType,
             "subjectCode":$scope.formData.subjectCode,
             "bookVersionCode":$scope.formData.bookVersionCode,
             "aimType":$scope.formData.aimType,
+            "isAgreeAddHour":isAgreeHour,
             "currentPage":page,
             "pageSize":size 
         }).success(function(data){
@@ -993,7 +997,10 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
         $http.post(url,{
             "shortSlabAnalysisRecordCode":shortSlabAnalysisRecordCode 
         }).success(function(data){
-            console.log(data);
+            //console.log(data);
+            if(data.result == true){
+                self.location.reload();//刷新本页面
+            }
         }).error(function(data){
              console.log('fail');
         });
@@ -1004,7 +1011,9 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
         $http.post(url,{
             "shortSlabAnalysisRecordCode":shortSlabAnalysisRecordCode 
         }).success(function(data){
-            console.log(data);
+            if(data.result == true){
+                self.location.reload();//刷新本页面
+            }
         }).error(function(data){
              console.log('fail');
         });
@@ -1148,15 +1157,16 @@ app.controller('DividingClassesCtrl', function($scope, $http,$log,$controller,$r
         }
         $scope.choseArr = (str.substr(0, str.length - 1)).split(',');
     };
-
+    $scope.formData = {};
+    $scope.formData.studentObjective = 1; //目标类型默认为二本
     $scope.getList = function(page,size,callback) {
         var url = $scope.app.host + '/student/accord/list?requestId=123456';//符合vip学生列表
         $http.post(url,{    
-           "pageNumber": page, 
-           "pageSize": size,
-           "studentObjective":1,
-            "minTotalScore":1,
-            "maxTotalScore":1000 
+            "pageNumber": page,
+            "pageSize": size,
+            "studentObjective":$scope.formData.studentObjective,
+            "minTotalScore":$scope.formData.minTotalScore,
+            "maxTotalScore":$scope.formData.maxTotalScore
             /*""*/
         }).success(function(data){
             console.log(data);
@@ -1212,7 +1222,6 @@ app.controller('ClassesController', function($scope,$http, $controller,$modalIns
     
     //得到班级
     $scope.getClassesList = function(code){
-        console.log(1111);
         //console.log(code);
         var url = host + '/teaching/organization/list?requestId=test123456';
         $http.post(url,{
@@ -1230,31 +1239,29 @@ app.controller('ClassesController', function($scope,$http, $controller,$modalIns
     }
     //选中的班级
     $scope.selectedClasses = function(data){
+        $scope.data = data;
+        //console.log(data);
         var id = data.code;
         console.log(id);
         $("#"+id).addClass('active').siblings().removeClass('active');
-        return data;
+        //return data;
     }
     //分班 ok
     $scope.placementOk = function(){
-        $scope.selectedClasses();
+        console.log( $scope.data);
         //console.log($scope.selectedClasses());
-        $modalInstance.close($scope.selected.item);
-        var url = $scope.app.host + 'teaching/placement?requestId=SDDL234LSDK';
+        //$modalInstance.close($scope.selected.item);
+        /*var url = host + 'teaching/placement?requestId=SDDL234LSDK';*/
+        var url = 'http://192.168.1.213:8080/keepMark-teacher-business/teaching/placement?requestId=SDDL234LSDK';
         $http.post(url,{
-            "schoolCenterCode":code,
-            "schoolClassCode":1,
+            "schoolCenterCode":$scope.data.centerCode,
+            "schoolClassCode":$scope.data.code,
             "userCodeList":userCodeList
         }).success(function(data){
-            console.log(data);
-            if(data.message == "Success"){
-
-                $scope.results = data.result;
-               
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
-
+            if(data.result.placement == false){
+                alert("您已经分过班了");
             }
+
         }).error(function(data){
             console.log("fail");
         })

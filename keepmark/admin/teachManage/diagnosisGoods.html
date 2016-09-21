@@ -41,8 +41,9 @@
                                     <p>结束时间:{{data.examEndDate | date:'yyyy-MM-dd HH:mm:ss' }}<!-- |{{data.onsaleStatus }}--></p>
                                 </td>
                                 <td>
-                                    <p><button ng-if="data.onsaleStatus == 0" class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>
-                                &nbsp;<button ng-if="data.onsaleStatus == 1" class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>&nbsp;&nbsp;<button class="btn btn-primary" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
+                                    <p><button ng-if="data.onsaleStatus == 0" class="btn btn-info" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>
+                                &nbsp;<button ng-if="data.onsaleStatus == 1" class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>
+                                        &nbsp;&nbsp;<button class="btn btn-default" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-primary" ng-click="allotBtn({goodsCode:data.eduGoodsCode})">分配监考人</button>
