@@ -174,7 +174,7 @@ app.controller('MarkExamController', function($scope, $http, $controller,$resour
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
-		$http.post("http://192.168.1.156:8090/" + 'teacher/diagnosis/mark?requestId=test123456', {
+		$http.post($scope.app.host + 'teacher/diagnosis/mark?requestId=test123456', {
 				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
 				"markType":markPaperRequestJson.markRound , //一判 二判 复审
 				"teacherCode": "111111",//获取登录教师的code
