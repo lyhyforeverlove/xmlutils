@@ -66,6 +66,28 @@ app.factory("factory",function($http, $q){
         return deferred.promise;
     };
 
+
+    //获取学生类型
+    factory.getStudentType = function(){
+        var deferred = $q.defer();
+        $http.get("admin/json/studentType.json").success(function(data){
+            deferred.resolve(data);
+        }).error(function(){
+            deferred.reject("error");
+        });
+        return deferred.promise;
+    };
+
+    //获取目标类型
+    factory.getGoalType = function(){
+        var deferred = $q.defer();
+        $http.get("admin/json/aimData.json").success(function(data){
+            deferred.resolve(data);
+        }).error(function(){
+            deferred.reject("error");
+        });
+        return deferred.promise;
+    };
     return factory;
 });
 
@@ -94,5 +116,13 @@ app.service("acquireDataService",function(factory){
     //获取职务
     this.getDutyList = function(){
         return factory.getDutyList();
+    }
+    //获取学生类型
+    this.getStudentType = function(){
+        return factory.getStudentType();
+    }
+    //获取目标类型
+    this.getGoalType = function(){
+        return factory.getGoalType();
     }
 });
