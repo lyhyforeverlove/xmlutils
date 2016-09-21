@@ -15,6 +15,19 @@ html {
 </div> -->
         <form name="form" class="form-validation">
             <div class="list-group list-group-sm">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="radio">
+                        <label class="i-checks">
+                            <input type="radio" name="studentObjective" value="0" ng-model="user.type">
+                            <i></i>教学
+                        </label>
+                        <label class="i-checks">
+                            <input type="radio" name="studentObjective" value="1" ng-model="user.type">
+                            <i></i>教学质量监控
+                        </label>
+                    </div>
+                </div>
                 <div class="list-group-item m-b-lg">
                     <label for="">用户名:</label>
                     <input style="margin-left:60px;width:230px" type="text" placeholder="username" class="login-txt form-control no-border" ng-model="user.username" required>

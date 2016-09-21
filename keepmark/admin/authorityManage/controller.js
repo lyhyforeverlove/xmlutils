@@ -29,7 +29,7 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
         url: 'dimissionTeacher.tpl.html'
     }];
     $scope.currentTab = 'onJobTeacher.tpl.html';
-    $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456",
+    $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
         {
             "type":0,
             "roleType":7,
@@ -40,7 +40,7 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
     $scope.onClickTab = function(tab) {
         // 1是离职 2 是在职
         if($scope.currentTab === "dimissionTeacher.tpl.html"){
-            $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456",
+            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
                 {
                     "type":0,
                     "roleType":7,
@@ -49,7 +49,7 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
                 $scope.list = data.result;
             });
         }else{
-            $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456",
+            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
                 {
                     "type":0,
                     "roleType":7,
@@ -128,7 +128,7 @@ app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataS
             console.log(free_time);
         });
         var partTimeTeacher = {"teacherModel":$scope.teacher,"freeTimes":free_time};
-        $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/partTeacher?requestId=test123456",
+        $http.post($scope.app.host +"teaching/organization/create/partTeacher?requestId=test123456",
             partTimeTeacher).success(function(data){
                 $state.go("app.teachResearchManage.updateCentreOfSchool");
         });
@@ -204,7 +204,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
         url: 'dimissionTeacher.tpl.html'
     }];
 
-    $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456",
+    $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
         {
             "type":1,
             "roleType":7,
@@ -218,7 +218,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
     $scope.onClickTab = function(tab) {
         // 1是离职 2 是在职
         if($scope.currentTab === "dimissionTeacher.tpl.html"){
-            $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456",
+            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
                 {
                     "type":1,
                     "roleType":7,
@@ -227,7 +227,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
                 $scope.list = data.result;
             });
         }else{
-            $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/teacher/list?requestId=test123456",
+            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
                 {
                     "type":1,
                     "roleType":7,
@@ -290,7 +290,7 @@ app.controller("addFullTimeTeacherController",function($scope,acquireDataService
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
         $scope.teacher.type = 1;
         $scope.teacher.state = 2;
-        $http.post("http://192.168.1.201:7777/keepMark-teacher-business/teaching/organization/create/fullTeacher?requestId=test123456",
+        $http.post($scope.app.host +"teaching/organization/create/fullTeacher?requestId=test123456",
             $scope.teacher).success(function(data){
         });
     }
@@ -326,10 +326,7 @@ app.controller("fullTimeTeacherDetailController",function($scope,$stateParams){
     $scope.titleName="全职教师查看";
     $scope.fullTeacher = JSON.parse($stateParams.fullTeacher);
 })
-//学籍教师
-app.controller("schoolRollManageController",function($scope){
-    $scope.titleName = "学籍管理";
-});
+
 
 
 //选择课程弹框
@@ -343,3 +340,114 @@ app.controller("chooseScheduleController",function($scope){
 
     }
 });
+
+
+
+
+
+//学生管理
+app.controller("schoolRollManageController",function($controller,$scope,$http,acquireDataService){
+    $scope.titleName = "学生管理";
+    $controller("getSchoolInfo",{$scope:$scope});
+
+    //获取目标类型
+    $scope.getAimType = function(){
+        acquireDataService.getGoalType().then(function(data){
+            $scope.aimList = data.aimData;
+        });
+    };
+
+    //获取学生类型
+    $scope.getStudentType = function(){
+        acquireDataService.getStudentType().then(function(data){
+            $scope.studentTypeList = data.studentType;
+        });
+    };
+
+    //获取班级信息
+    $scope.getClasses = function(){
+        $http.post($scope.app.host+"teaching/organization/classes?requestId=test123456",{}
+        ).success(function(data){
+            $scope.classList = data.result;
+        });
+    };
+
+    //查询按钮
+    $scope.searchStudent = function(page, size, callback){
+        $http.post($scope.app.host+"/teaching/organization/student/page?requestId=test123456",
+            {
+                "pageNumber":page,
+                "pageSize":size,
+                "name":$scope.name,
+                "accessionYear":"2016",
+                "goalType":$scope.goalType,
+                "type":$scope.studentType,
+                "classCode":$scope.class
+            }
+        ).success(function(data){
+            $scope.studentList = data.result.list;
+            $scope.totalPage = data.result.totalPage;
+            callback && callback(data.result);
+        });
+    };
+    $scope.searchStudent(1,10);
+
+    $scope.selected = [];
+    //复选框是否被选中
+    var updateSelected = function(action,id,name){
+        if(action == 'add' && $scope.selected.indexOf(id) == -1){
+            $scope.selected.push({"code":id});
+        }
+        if(action == 'remove' && $scope.selected.indexOf(id)!=-1){
+            var idx = $scope.selected.indexOf(id);
+            $scope.selected.splice(idx,1);
+        }
+    }
+    $scope.updateSelection = function($event, id){
+        var checkbox = $event.target;
+        var action = (checkbox.checked?'add':'remove');
+        updateSelected(action,id,checkbox.name);
+    }
+    $scope.isSelected = function(id){
+        return $scope.selected.indexOf(id)>=0;
+    }
+    //graduated 毕业属性(0没有，1已毕业)
+    //delFlag 删除属性 （0未删除，1已删除）
+    $scope.graduate =function(){
+        console.log($scope.selected);
+        $http.post($scope.app.host+"/teaching/organization/update/students?requestId=test123456",
+            {
+                "graduated":1,
+                "delFlag":0,
+                "authStudentModels":$scope.selected
+            }).success(function(){
+
+        });
+
+    };
+
+    $scope.deleteStudent =function(){
+        console.log($scope.selected);
+        $http.post($scope.app.host+"/teaching/organization/update/students?requestId=test123456",
+            {
+                "graduated":0,
+                "delFlag":1,
+                "authStudentModels":$scope.selected
+            }).success(function(){
+
+        });
+    };
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

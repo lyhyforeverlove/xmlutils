@@ -174,8 +174,12 @@ app.controller('myStudentsController', function($scope,$http,$controller,$resour
         $state.go("app.teacherOpearteManage.answerQuestions",{"id":id});
     }
 
-    $scope.checkMySchedule = function(){
-        $state.go("app.teacherOpearteManage.classSchedule",{"id":id});
+    $scope.checkMySchedule = function(studentCode){
+        var studentSchedule = {
+            "scheduleStatus":"1",
+            "studentCode":studentCode
+        };
+        $state.go("app.teacherOpearteManage.classSchedule",{"mySchedule":JSON.stringify(studentSchedule)});
     }
 
 })
@@ -187,7 +191,7 @@ app.controller("scheduleController", function($scope, scheduleService, $modal, $
         $scope.scheduleStatus = $stateParams.scheduleStatus;
     }
 
-    var url = "http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK";
+    var url = $scope.app.host +"teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK";
     var parameters = {
         "weekTimeCode": "30A56BA2E71E4BE2BD5DD59BA044C1D6",
         "ownerCode": "AEDBB67C70B24165817BAEA2B4EBF0D0"
@@ -229,7 +233,7 @@ app.controller('oneToOneController', function($scope, $state, $rootScope, schedu
     $scope.scheduleStatus = "1";
 
     //获取课程信息
-    var url = "http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK";
+    var url = $scope.app.host +"teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK";
     var parameters = {
         "weekTimeCode": "30A56BA2E71E4BE2BD5DD59BA044C1D6",
         "ownerCode": "AEDBB67C70B24165817BAEA2B4EBF0D0"
@@ -243,22 +247,6 @@ app.controller('oneToOneController', function($scope, $state, $rootScope, schedu
         $state.go("app.teacherOpearteManage.enterTheClassroom", {"scheduleStatus": "1"});
     }
 });
-
-
-//1对1调课
-app.controller('oneToOneAdjustCourseController', function($scope, $state){
-    $scope.name = "一对一调课";
-    var id = 1;
-    $scope.checkMySchedule = function(){
-        $state.go("app.teacherOpearteManage.classSchedule", {"id": id, "scheduleStatus": "2"});
-    }
-
-    $scope.studentSchedule = function(){
-        $state.go("app.teacherOpearteManage.classSchedule", {"id": id, "scheduleStatus": "1"});
-    }
-
-
-})
 
 //进入课堂
 app.controller('todayCourseController', function($scope){

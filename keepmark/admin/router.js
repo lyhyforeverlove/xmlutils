@@ -5,6 +5,7 @@
  */
 angular.module('app')
     .run(
+
         ['$rootScope', '$state', '$stateParams',
             function($rootScope, $state, $stateParams) {
                 $rootScope.$state = $state;
@@ -298,28 +299,6 @@ angular.module('app')
                         url: '/courseDeatil/{courseSystemCode}',
                         templateUrl: 'admin/teachResearchManage/courseDeatil.html',
                     })
-                  .state('app.teachResearchManage.teacherManage', {
-                        url: '/teacherManage',
-                        templateUrl: 'admin/teachResearchManage/teacherManage.html',
-                         resolve: {
-                            deps: ['$ocLazyLoad',
-                                function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
-                                }
-                            ]
-                        }
-                    })
-                    .state('app.teachResearchManage.addTeacher', {
-                        url: '/addTeacher',
-                        templateUrl: 'admin/teachResearchManage/addTeacher.html',
-                          resolve: {
-                            deps: ['$ocLazyLoad',
-                                function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
-                                }
-                            ]
-                        }
-                    })
                     .state('app.teachResearchManage.areaCategory', {
                         url: '/areaCategory',
                         templateUrl: 'admin/teachResearchManage/areaCategory.html',
@@ -327,18 +306,6 @@ angular.module('app')
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load('admin/teachResearchManage/js/areaCategory.js');
-                                }
-                            ]
-                        }
-                    })
-                    .state('app.teachResearchManage.testPaper', {
-                        url: '/testPaper',
-                        templateUrl: 'admin/teachResearchManage/testPaper.html',
-                        controller: 'testpaperController',
-                        resolve: {
-                            deps: ['$ocLazyLoad',
-                                function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllers/ui.js')
                                 }
                             ]
                         }
@@ -354,6 +321,40 @@ angular.module('app')
                                             return $ocLazyLoad.load('js/controllers/tree.js');
                                         }
                                     );
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.teacherManage', {
+                        url: '/teacherManage',
+                        templateUrl: 'admin/teachResearchManage/teacherManage.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.addTeacher', {
+                        url: '/addTeacher',
+                        templateUrl: 'admin/teachResearchManage/addTeacher.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.testPaper', {
+                        url: '/testPaper',
+                        templateUrl: 'admin/teachResearchManage/testPaper.html',
+                        controller: 'testpaperController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllers/ui.js')
                                 }
                             ]
                         }
@@ -436,7 +437,9 @@ angular.module('app')
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load(['admin/teacherOpearteManage/controller.js'
-                                    ,'admin/teacherOpearteManage/controllerDR.js']);
+                                    ,'admin/teacherOpearteManage/controllerDR.js',
+                                     'admin/teacherOpearteManage/js/schedule.js'
+                                    ]);
                                 }
                             ]
                         }
@@ -446,7 +449,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/oneToOneAdjustCourse.html'
                     })
                     .state('app.teacherOpearteManage.classSchedule', {
-                        url: '/classSchedule/{id}/{scheduleStatus}',
+                        url: '/classSchedule/{mySchedule}/',
                         templateUrl: 'admin/teacherOpearteManage/classSchedule.html'
                     })
                     .state('app.teacherOpearteManage.oneToOneOperate', {
@@ -552,7 +555,7 @@ angular.module('app')
                     })
 
                 .state('app.authorityManage.masterSchoolDetail', {
-                        url: '/masterSchoolDetail',
+                        url: '/masterSchoolDetail:jsonString',
                         templateUrl: 'admin/authorityManage/masterSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateMasterSchool', {
@@ -564,7 +567,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/branchSchool.html'
                     })
                     .state('app.authorityManage.branchSchoolDetail', {
-                        url: '/branchSchoolDetail',
+                        url: '/branchSchoolDetail:jsonString',
                         templateUrl: 'admin/authorityManage/branchSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateBranchSchool', {
@@ -576,7 +579,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/districtSchool.html'
                     })
                     .state('app.authorityManage.districtSchoolDetail', {
-                        url: '/districtSchoolDetail',
+                        url: '/districtSchoolDetail:jsonString',
                         templateUrl: 'admin/authorityManage/districtSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateDistrictSchool', {
@@ -588,7 +591,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/departmentSchool.html'
                     })
                     .state('app.authorityManage.departmentSchoolDetail', {
-                        url: '/departmentSchoolDetail',
+                        url: '/departmentSchoolDetail:jsonString',
                         templateUrl: 'admin/authorityManage/departmentSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateDepartmentSchool', {
@@ -600,7 +603,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/centreOfSchool.html'
                     })
                     .state('app.authorityManage.centreOfSchoolDetail', {
-                        url: '/centreOfSchoolDetail',
+                        url: '/centreOfSchoolDetail:jsonString',
                         templateUrl: 'admin/authorityManage/centreOfSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateCentreOfSchool', {
@@ -755,6 +758,14 @@ angular.module('app')
                     .state('app.authorityManage.studyGroupDetail', {
                         url: '/studyGroupDetail/{studyGroup}',
                         templateUrl: 'admin/authorityManage/studyGroupDetail.html',
+                    })
+                    .state('app.teacherOpearteManage.smallClassMySchedule', {
+                        url: '/smallClassMySchedule',
+                        templateUrl: 'admin/teacherOpearteManage/smallClassMySchedule.html',
+                    })
+                    .state('app.teacherOpearteManage.oneToOneMySchedule', {
+                        url: '/oneToOneMySchedule',
+                        templateUrl: 'admin/teacherOpearteManage/oneToOneMySchedule.html',
                     })
             }
         ]
