@@ -21,6 +21,7 @@
     <!--自主推送资源-->
     <link rel="stylesheet" href="css/tree-control.css" type="text/css" />
     <link rel="stylesheet" href="css/tree-control-attribute.css" type="text/css" />
+
 </head>
 <body ng-controller="AppCtrl">
   <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
@@ -105,7 +106,8 @@
   <!-- 知识树引入 -->
   <script src="vendor/modules/angular-bootstrap-nav-tree/abn_tree_directive.js"></script>
   <script type="text/javascript" src="admin/common/js/directives/filter.js"></script>
-<!--自主推送资源-->
+  <!--自主推送资源-->
   <script src="admin/common/js/controller/angular-tree-control.js"></script>
+
 </body>
 </html>

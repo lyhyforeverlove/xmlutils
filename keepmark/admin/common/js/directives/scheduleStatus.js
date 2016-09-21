@@ -8,7 +8,14 @@ app.directive('scheduleStatus', [function () {
                     var index = ele.index();
                     scope.eduSectionCode = ele.parent().children().eq(0).attr("eduSectionCode");
                     scope.eduDayCode = ele.parent().parent().children().eq(1).children().eq(index).attr("dayCode");
-                    scope.chooseScheduleModal(scope.eduSectionCode,scope.eduDayCode);
+
+                    var info = ele.html();
+
+                    if(info){
+                        scope.deleteCourse(scope.eduSectionCode,scope.eduDayCode);
+                    }else{
+                        scope.chooseScheduleModal(scope.eduSectionCode,scope.eduDayCode);
+                    }
                 });
             }
         }

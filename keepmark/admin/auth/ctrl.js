@@ -6,19 +6,30 @@ app.controller('LoadingController',function($scope,$resource,$state){
         $state.go('auth.index');
     },function(){
         $state.go('auth.login');
-    })
+    })  
 });
 app.controller('LoginController',function($scope,$state,$http,$resource,Base64,$localStorage){
     $scope.login = function(){
+        console.log("user---->"+$scope.user.username);
+        console.log("password---->"+$scope.user.password);
         $scope.authError = "";
         var authdata = Base64.encode($scope.user.username + ':' + $scope.user.password);
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;//为请求头添加Authorization属性为'Basic' + authdata
-        var $com = $resource($scope.app.host + "/auth/info/?");
-        $com.get(function(data){//引入data
-            $scope.session_user = $localStorage.user = data; //保存用户信息
-            $localStorage.auth = authdata;
-            $state.go('auth.index');
-        },function(){
+//        $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;//为请求头添加Authorization属性为'Basic' + authdata
+        var url=$scope.app.host + "/teacherLogin/resTeaLogin?requestId=test123";
+        if($scope.user.type=="0"){//教学
+            url=$scope.app.host + "/teacherLogin/teaLogin?requestId=test123";
+        }
+        $http.post(url,{
+            "userName":$scope.user.username,
+            "password":hex_md5($scope.user.password)
+        }).success(function(data){//引入data
+            if(data.httpCode=="200"){
+                $scope.session_user = $localStorage.user = data.result; //保存用户信息
+                $localStorage.auth = authdata;
+                $state.go('auth.index');
+            }else $scope.authError = "用户名或密码错误";
+
+        }).error(function(){
             $scope.authError = "服务器登录错误";
         })
 
@@ -107,5 +118,5 @@ app.factory('Base64',function(){
 })
 //
 app.controller('IndexController',function($scope){
-
+    
 })

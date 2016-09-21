@@ -7,43 +7,27 @@
             <div class="table-responsive">
                 <div class="form-group">
                     <label class="control-label">学科:</label>数学
-                    <button class="btn btn-primary pull-right btn-margin" ng-click="checkMySchedule()">查看我的课表</button>
                 </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <td>序号</td>
                             <td>学生名称</td>
-                            <td>用户账户</td>
-                            <td>总成绩</td>
+                            <td>用户名</td>
+                           <!-- <td>总成绩</td>
                             <td>数学</td>
-                            <td>1对1排课</td>
+                            <td>1对1排课</td>-->
+                            <td>操作</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>王大锤</td>
-                            <td>130544982</td>
-                            <td>500分</td>
-                            <td>120分</td>
-                            <td><button class="btn btn-primary" ng-click="studentSchedule()">课表</button></td>
-                        </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>王大锤</td>
-                            <td>130544982</td>
-                            <td>500分</td>
-                            <td>120分</td>
-                            <td><button class="btn btn-primary" ng-click="studentSchedule()">课表</button></td>
-                        </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>王大锤</td>
-                            <td>130544982</td>
-                            <td>500分</td>
-                            <td>120分</td>
-                            <td><button class="btn btn-primary" ng-click="studentSchedule()">课表</button></td>
+                        <tr ng-repeat="student in studentList">
+                            <td>{{$index+1}}</td>
+                            <td>{{student.name}}</td>
+                            <td>{{student.userName}}</td>
+                            <!--<td>{{student}}</td>
+                            <td>{{student}}</td>-->
+                            <td><button class="btn btn-primary" ng-click="studentSchedule(student.code)">课表</button></td>
                         </tr>
                     </tbody>
                 </table>

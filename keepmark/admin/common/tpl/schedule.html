@@ -47,7 +47,7 @@
         </tr>
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='2'">
             <td eduSectionCode ={{schedule.eduSectionCode}}>{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
-            <td ng-repeat="lesson in schedule.lessons  track by $index" update="true" schedule-status >{{lesson.subjectName}}</td>
+            <td ng-repeat="lesson in schedule.lessons  track by $index" update={{lesson==null||lesson.mainTeacherCode=='e44a0c2ad33a40d1a9c54bf4e801c227'}} schedule-status >{{lesson.subjectName}}</td>
         </tr>
     </table>
 </div>
