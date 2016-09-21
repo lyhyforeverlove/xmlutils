@@ -1,4 +1,10 @@
 <div class="wrapper-md" ng-controller="autonmousPushResourcesController">
+    <style>
+        .knowledgeTree li.mutiple >a{
+            color: #fff !important;
+            background-color: #23b7e5;
+        }
+    </style>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
@@ -18,21 +24,16 @@
                 </div>
                 <div class="modal-body">
                     <span ng-if="doing_async">...loading...</span>
-                    <abn-tree
-                            tree-data         = "my_data"
-                            tree-control      = "my_tree"
-                            on-select         = "my_tree_handler(branch)"
-                            expand-level      = "2"
-                            initial-selection = "Granny Smith"
-                            icon-leaf         = "fa fa-file-o"
-                            icon-expand       = "fa fa-plus"
-                            icon-collapse     = "fa fa-minus"
-                    >
-                    </abn-tree>
+
+                    <treecontrol class="tree-classic" tree-model="my_data" selected-nodes="selectedNodes" on-selection="showSelected(node, selected)" options="treeOptions">
+                        label: {{node.knowledgeName}}
+                    </treecontrol>
+
                 </div>
             </div>
             <div class="resource-list">
-                <button class="btn btn-primary btn-margin" ng-click="chooseStudents()">选择</button>
+                <button class="btn btn-primary btn-margin" ng-click="chooseStudents()">选择学生</button>
+                <button class="btn btn-primary btn-margin" ng-click="chooseStudents()">查询</button>
                 <div id="tabs">
                     <ul>
                         <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
@@ -46,25 +47,29 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>视频</th>
-                                    <th>信息</th>
-                                </tr>
+                            <tr>
+                                <th>视频</th>
+                                <th>url</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>视频</td>
-                                    <td>xinxi </td>
-                                </tr>
+                            <tr ng-repeat="v in videos">
+                                <td>{{v.videoName}}</td>
+                                <td>{{v.videoUrl}}</td>
+                            </tr>
                             </tbody>
                             <tfoot>
-                            <tr>
+                           <!-- <tr>
                                 <td colspan="2" class="text-center">
-                                    <!-- 指令调用代码 -->
-                                    <xl-page size="10" method="getListData" class="text-center"></xl-page>
-                                    <!-- 指令模板[pagination.html] -->
+                                    &lt;!&ndash; 指令调用代码 &ndash;&gt;
+                                  <ul class="pagination">
+                                      <li ng-repeat="p in pagination" class="{{p.className}}">
+                                          <a ng-click="getList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                      </li>
+                                  </ul>
+                                    &lt;!&ndash; 指令模板[pagination.html] &ndash;&gt;
                                 </td>
-                            </tr>
+                            </tr>-->
                             </tfoot>
 
                         </table>
@@ -74,22 +79,26 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>视频</th>
-                                    <th>信息</th>
-                                </tr>
+                            <tr >
+                                <th>试卷名</th>
+                                <th>url</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>试题</td>
-                                    <td>信息</td>
-                                </tr>
+                            <tr ng-repeat="v in papers">
+                                <td>{{v.videoName}}</td>
+                                <td>{{v.videoUrl}}</td>
+                            </tr>
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td colspan="2" class="text-center">
                                     <!-- 指令调用代码 -->
-                                    <xl-page size="10" method="getListData" class="text-center"></xl-page>
+                                    <ul class="pagination">
+                                        <li ng-repeat="p in pagination" class="{{p.className}}">
+                                            <a ng-click="getList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                        </li>
+                                    </ul>
                                     <!-- 指令模板[pagination.html] -->
                                 </td>
                             </tr>
