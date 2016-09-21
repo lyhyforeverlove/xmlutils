@@ -35,16 +35,16 @@
                     </div>
                     <div class="error-Knowledge Knowledge">
                         <p>错误知识点：</p>
-                        <button ng-click='addErrorKnown({id:data.id})'>+</button><div id="selectKnow" class="selectKnow"></div></div>
+                        <div id="selectKnow_{{data.code}}" class="selectKnow">
+                        	
+                        	
+                        </div>
+                    
+                    </div>
                     <div class="survey-knowledge Knowledge">
                         <p>本题考察知识点范围：</p>
-                        <div id="useKnow">
-                        <a class="btn btn-default " role="button" id="1">函数</a>
-                        <a class="btn btn-default " role="button" id="2">javascript</a>
-                        <a class="btn btn-default " role="button" id="3">html</a>
-                        <a class="btn btn-default " role="button" id="4">css</a>
-                        <a class="btn btn-default " role="button" id="5">angularjs</a>
-                        <a class="btn btn-default " role="button" id="6">nodejs</a>
+                        <div id="useKnow_{{data.code}}">
+                        <a id="prodution{{$index}}_{{pro.productionCode}}"  ng-repeat="pro in data.productionJson" ng-click="addErrorKnown(data.code,pro,$index)" class="btn btn-default " role="button">{{pro.productionName}}</a>
                         </div>
                     </div>   
                 </section>

@@ -35,6 +35,7 @@ app.controller('RoundController', function($scope, $http, $controller, $resource
 	};
 
 	$scope.markPaper = function(data) {
+		data.goHtml=0;
 		var jsonString = angular.toJson(data);
 		$state.go('app.teachManage.exam', {
 			jsonString: jsonString
@@ -83,6 +84,7 @@ app.controller('SecondRoundController', function($scope, $http, $controller, $re
 	};
 
 	$scope.markPaper = function(data) {
+		data.goHtml=1;
 		var jsonString = angular.toJson(data);
 		$state.go('app.teachManage.exam', {
 			jsonString: jsonString
@@ -99,7 +101,7 @@ app.controller('SecondRoundController', function($scope, $http, $controller, $re
 });
 
 /**判卷详情*/
-app.controller('MarkExamController', function($scope, $http, $controller, $resource, $stateParams, $modal, $state) {
+app.controller('MarkExamController', function($scope, $http, $controller,$resource, $stateParams, $modal, $state) {
 	
 	$controller('ParentGetDataCtrl', {
 		$scope: $scope
@@ -111,14 +113,11 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 	var productionModel = {};
 	var subjectivityScore = 0; //主观得分
 	var impersonalityScore = 0; //客观得分
-	markModel.productionList = [];
 	postObj.list = [];
 	// 获取上个界面传递的数据，并进行解析  
 	if($stateParams.jsonString != '') {
 		markPaperRequestJson = angular.fromJson($stateParams.jsonString);
 	}
-	console.log($stateParams.jsonString);
-	console.log(markPaperRequestJson);
 	$scope.paperDetail = markPaperRequestJson;
 	impersonalityScore = markPaperRequestJson.impersonalityScore;
 	//$scope.persons = markPaperFactory.getter();
@@ -139,32 +138,32 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 
 		});
 	}
-
-	$scope.addErrorKnown = function() {
-			var addHtml = $('.survey-knowledge').children('div').children('a');
-			addHtml.on('click', function() {
-				var id = $(this).attr('id');
-				$("#selectKnow").append('<a id=' + id + ' onclick="removehtml(\'' + id + '\')">' + $(this).html() + '</a>');
-				$(this).addClass("hidden");
-
-			})
-		}
-		//组装判卷信息
+    //选中知识点
+	$scope.addErrorKnown = function(code,pro,index) {
+		
+		$("#selectKnow_"+code).append('<a id="prodution'+index+"_"+pro.productionCode+'"    onclick="removeKnowledge(\'' + code + '\',\'' + index + '\',\'' + pro.productionCode + '\')" class="btn btn-default " role="button">'+pro.productionName+'</a>');
+		$("#useKnow_"+code).find("#prodution"+index+"_"+pro.productionCode).addClass("disabled");
+	}
+	//组装判卷信息
 	$scope.submitQuestion = function(data) {
-
-		console.log(data);
+		markModel.errorProductions=[];
+		angular.forEach($("#selectKnow_"+data.code).find("a"),function(pro,index,objs){
+			angular.forEach(data.productionJson,function(obj,index){
+				if(obj.productionCode==angular.element(pro).attr("id").split("_")[1]){
+					markModel.errorProductions.push(obj);
+				}
+			});
+			
+		});
+		console.log(markModel.errorProductions);
+		$("#selectKnow_"+data.code).find("a").addClass("disabled");
+		$("#useKnow_"+data.code).find("a").addClass("disabled");
 		data.productionList = [];
 		//根据组装数据填充 产生式信息
-		//		productionModel.productionName = '产生式名称';
-		//		productionModel.productionCode = '产生式code';
-		//		productionModel.knowledgeName = '知识点名称';
-		//		productionModel.knowledgeCode = '知识点code';
-		//		markModel.productionList.push(productionModel);
 		markModel.answerRecordCode=data.eduSingleDiagnosisRecordCode;
 		markModel.questionScore=data.questionScore;
 		markModel.score=data.paperScore+data.questionScore;
 		markModel.urfaceScore=data.paperScore;
-		markModel.errorProductions='[{"productionName":"productionName0","productionCode":"productionCode0","knowledgeName":"knowledgeName0","knowledgeCode":"knowledgeCode0"}]';
 		//markModel.questionType='';//试题类型
 		//markModel.sentenceResult='';//判卷结果
 		postObj.list.push(markModel);
@@ -185,18 +184,21 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 				"markModels": postObj.list
 			})
 			.success(function(data) {
-				if(markPaperRequestJson.markRound==0){
-					//跳转到一轮判列表					
-				}
-				if(markPaperRequestJson.markRound==1){
-					//跳转到二轮判列表	
-				}
-				if(markPaperRequestJson.markRound==2){
-					//跳转到复审列表
+				if(data.message == "Success"){
+					if(markPaperRequestJson.goHtml==0){
+						//跳转到一轮判列表				
+						 $state.go("app.teachManage.round");
+					}
+					if(markPaperRequestJson.goHtml==1){
+						//跳转到二轮判列表	
+						$state.go("app.teachManage.secondRound");
+					}
+					if(markPaperRequestJson.goHtml==2){
+						//跳转到复审列表
+					}
 				}
 			}).error(function(data) {
 				console.log(data);
-
 			});
 
 	}
@@ -213,8 +215,9 @@ app.controller('MarkExamController', function($scope, $http, $controller, $resou
 	
 });
 
-function removehtml(id) {
-	$('.survey-knowledge').find('#' + id).removeClass("disabled");
-	$('#useKnow').append('<a id=' + id + '></a>');
-	$('#' + id).remove();
+//取消选中知识点
+function removeKnowledge(code,index,pro){
+	$("#selectKnow_"+code).find("#prodution"+index+"_"+pro).remove();
+	$("#useKnow_"+code).find("#prodution"+index+"_"+pro).removeClass("disabled");
+
 }
