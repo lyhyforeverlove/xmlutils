@@ -19,6 +19,7 @@ directives.directive('xlPage', [function () {
             };
             //上一页
             scope.prev = function () {
+                scope.pages = [];
                 if (scope.currentPage > 1) {
                     scope.currentPage--;
                     scope.getData();
@@ -52,6 +53,7 @@ directives.directive('xlPage', [function () {
                                 scope.currentPage + 4
                             ]
                         }else{
+                            scope.pages = [];
                             for(var i=0;i<scope.totalPage;i++){
                                 scope.pages.push(i+1);
                             }
