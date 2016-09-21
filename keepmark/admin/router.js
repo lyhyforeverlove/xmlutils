@@ -325,6 +325,40 @@ angular.module('app')
                             ]
                         }
                     })
+                    .state('app.teachResearchManage.teacherManage', {
+                        url: '/teacherManage',
+                        templateUrl: 'admin/teachResearchManage/teacherManage.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.addTeacher', {
+                        url: '/addTeacher',
+                        templateUrl: 'admin/teachResearchManage/addTeacher.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllerLY.js');
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.testPaper', {
+                        url: '/testPaper',
+                        templateUrl: 'admin/teachResearchManage/testPaper.html',
+                        controller: 'testpaperController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllers/ui.js')
+                                }
+                            ]
+                        }
+                    })
                     .state('app.teachResearchManage.headSchool', {
                         url: '/headSchool',
                         templateUrl: 'admin/teachResearchManage/createHeadSchool.html',
