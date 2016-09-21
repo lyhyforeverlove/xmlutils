@@ -20,7 +20,7 @@ app.controller('RoundController', function($scope, $http, $controller, $resource
 				"gradeCode": $scope.formData.gradeCode,
 				"distributionState": 1,
 				"markPaperStatus": $scope.formData.markPaperStatus,
-				"markRound": 1,
+				"markRound": 0,
 				"pageSize": size
 			})
 			.success(function(data) {
@@ -66,7 +66,7 @@ app.controller('SecondRoundController', function($scope, $http, $controller, $re
 				"departmentType": $scope.formData.departmentType,
 				"gradeCode": $scope.formData.gradeCode,
 				"distributionState": 1,
-				"markRound": 2,
+				"markRound": 1,
 				"markPaperStatus": $scope.formData.markPaperStatus,
 				"pageSize": size
 			})
