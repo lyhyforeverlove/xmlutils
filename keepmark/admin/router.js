@@ -331,6 +331,18 @@ angular.module('app')
                             ]
                         }
                     })
+                    .state('app.teachResearchManage.testPaper', {
+                        url: '/testPaper',
+                        templateUrl: 'admin/teachResearchManage/testPaper.html',
+                        controller: 'testpaperController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('admin/teachResearchManage/js/controllers/ui.js')
+                                }
+                            ]
+                        }
+                    })
                     .state('app.teachResearchManage.courseTree', {
                         url: '/courseTree',
                         templateUrl: 'admin/teachResearchManage/courseTree.html',
