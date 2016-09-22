@@ -564,7 +564,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/masterSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateMasterSchool', {
-                        url: '/updateMasterSchool',
+                        url: '/updateMasterSchool:jsonString',
                         templateUrl: 'admin/authorityManage/updateMasterSchool.html'
                     })
                     .state('app.authorityManage.branchSchool', {
@@ -576,7 +576,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/branchSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateBranchSchool', {
-                        url: '/updateBranchSchool',
+                        url: '/updateBranchSchool:jsonString',
                         templateUrl: 'admin/authorityManage/updateBranchSchool.html'
                     })
                     .state('app.authorityManage.districtSchool', {
@@ -588,7 +588,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/districtSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateDistrictSchool', {
-                        url: '/updateDistrictSchool',
+                        url: '/updateDistrictSchool:jsonString',
                         templateUrl: 'admin/authorityManage/updateDistrictSchool.html'
                     })
                     .state('app.authorityManage.departmentSchool', {
@@ -600,7 +600,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/departmentSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateDepartmentSchool', {
-                        url: '/updateDepartmentSchool',
+                        url: '/updateDepartmentSchool:jsonString',
                         templateUrl: 'admin/authorityManage/updateDepartmentSchool.html'
                     })
                     .state('app.authorityManage.centreOfSchool', {
@@ -612,7 +612,7 @@ angular.module('app')
                         templateUrl: 'admin/authorityManage/centreOfSchoolDetail.html'
                     })
                     .state('app.authorityManage.updateCentreOfSchool', {
-                        url: '/updateCentreOfSchool',
+                        url: '/updateCentreOfSchool:jsonString',
                         templateUrl: 'admin/authorityManage/updateCentreOfSchool.html'
                     })
                     .state('app.authorityManage.classAndGrade', {
