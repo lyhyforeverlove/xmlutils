@@ -79,15 +79,15 @@ app.controller('StudentCategoryCtrlDR', function($scope, $http, $resource, $stat
     };
     $scope.getStudentCategoryList = function(page,size,callback){
         if(page!=null && page!=undefined && size!=null && size!=undefined){
-            dataMap.remove("CurrentPage");
-            dataMap.put("CurrentPage",page);
+            dataMap.remove("currentPage");
+            dataMap.put("currentPage",page);
             dataMap.remove("pageSize");
             dataMap.put("pageSize",size);
         }
         $scope.dataStr();
 
         $http.post($scope.app.host +"/shortSlab/getStudentClassifyList?requestId=test123456",
-            dataStuString
+            strToJson(dataStuString)
         ).success(function (data) {
                 $scope.list = data.result.list;
                 $scope.totalPage = data.result.totalPage;
@@ -98,6 +98,10 @@ app.controller('StudentCategoryCtrlDR', function($scope, $http, $resource, $stat
                 }
             });
     };
+    function strToJson(str){
+        var json = (new Function("return " + str))();
+        return json;
+    }
     //全选
     $scope.tesarry = ['1', '2', '3']; //初始化数据
     $scope.choseArr = []; //定义数组用于存放前端显示
@@ -305,8 +309,8 @@ app.controller('CourseCategoryCtrlDR', function($scope, $resource, $stateParams,
     };
     $scope.getList = function(page,size,callback){
         if(page!=null && page!=undefined && size!=null && size!=undefined){
-            dataMap.remove("CurrentPage");
-            dataMap.put("CurrentPage",page);
+            dataMap.remove("currentPage");
+            dataMap.put("currentPage",page);
             dataMap.remove("pageSize");
             dataMap.put("pageSize",size);
         }

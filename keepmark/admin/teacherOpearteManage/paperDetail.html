@@ -1,76 +1,71 @@
-<div class="wrapper-md" ng-controller="paperDetailController">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>试卷 &gt; {{name}} </h4>
-        </div>
-        <div class="wrapper">
-           <h3 class="text-center">试卷名称XXXX</h3>
-           <div class="form-group">
-               <span>学科：语文</span>
-               <span>考试时间：2016.8.27</span>
-               <span>监考教师：XXX</span>
-               <span>考试用时：60分钟</span>
-               <span>总题数：55题</span>
-               <span>判卷老师</span>
-           </div>
-           <h3>总得分</h3>
-           <div class="form-group">
-               <label class="control-label">客观部分：60分</label>
-           </div>
-           <div class="form-group">
-               <label class="control-label">填空部分：30分</label>
-           </div>
-           <div class="form-group">
-               <label class="control-label">主观部分：10分</label>
-           </div>
-           <div class="form-group">
-               <h4 class="control-label">总分：10分</h4>
-           </div>
-           <div class="work-question">
-               <h3>1.</h3>
-               <img src = "img/c5.jpg">
-               <textarea cols="98" rows="9" style="float:left">正确答案：喝咖啡和对方的回复是否是大方大方的说法大方大方的说法</textarea>
-               <div class="score-div">
-                   <p><label>得分：</label><input type="text"></p>
-                   <p><label>卷面得分：</label><input type="text"></p>
-                   <button type="button" class="btn btn-primary">提交</button>
-               </div>
-           </div>
-           <div class="work-question">
-                <h3>2.</h3>
-                <img src = "img/c5.jpg">
-                <textarea cols="98" rows="9" style="float:left">正确答案：喝咖啡和对方的回复是否是大方大方的说法大方大方的说法</textarea>
-                <div class="score-div">
-                    <p><label>得分：</label><input type="text"></p>
-                    <p><label>卷面得分：</label><input type="text"></p>
-                    <button type="button" class="btn btn-primary">提交</button>
-                </div>
+<div ng-controller="paperDetailController">
+    <div class="wrapper-md" ng-init="load()">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>试卷名称 XXXXX</h4>
             </div>
+            <div class="wrapper">
+               <!--<h4 align="center">
+                  <span class="p-d">学科:{{paperDetail.subjectCode}}</span>
+                  <span class="p-d">考试时间:{{paperDetail.examStartTime | date:'yyyy-MM-dd HH:mm:ss'}}--{{paperDetail.examEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                  <span class="p-d">监考教师:{{paperDetail.invigilatorTeacherName}}</span>
+                  <span class="p-d">考试用时:{{paperDetail.userTime}}</span>
+                 <span class="p-d">总题数:55题</span>
+                  <span class="p-d" style="color: red;">判卷老师:----无返回字段---</span>
+                </h4>-->
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="m-t total-score col-sm-12">
+                  <p class="col-sm-6">
+                  	<span>客观部分：{{paperDetail.impersonalityScore}}分</span>
+                 <!-- <span>主观部分：{{paperDetail.impersonalityScore}}分</span>-->
+                  </p>
+                 <p class="col-sm-6">60分</p>
+                </div>
+                <section ng-if="data.isImg==1" ng-repeat="data in results">
+                    <div class="line line-solid b-b line-lg"></div>
+                    <div class="col-sm-12">
+                      <h4  class="col-sm-1">{{data.questionSn}}</h4>
+                      <div class="col-sm-4"><img src="{{data.answerResult}}" alt=""></div>
+                      <div class="col-sm-4" ><textarea name="textare" class="form-control" id="" cols="30"  >{{data.rightResult}}</textarea></div>
+                      <div class="col-sm-3">
+                        <span>得分<input type="text" class="form-control" ng-model="data.questionScore"  class="score"></span>
+                        <span>卷面得分<input type="text" class="form-control"  ng-model="data.paperScore" class="score1"></span>
+						<button ng-click='submitQuestion(data)' id={{data.code}} class="btn btn-default">提交</button>
+                      </div>
+                      <div class="col-sm-12 line line-dashed b-b line-lg  m-t" ></div>
+                    </div>
+                    <div class="error-Knowledge Knowledge">
+                        <p>错误知识点：</p>
+                        <div id="selectKnow_{{data.code}}" class="selectKnow">
+                        	
+                        	
+                        </div>
+                    
+                    </div>
+                    <div class="survey-knowledge Knowledge">
+                        <p>本题考察知识点范围：</p>
+                        <div id="useKnow_{{data.code}}">
+                        <a id="prodution{{$index}}_{{pro.productionCode}}"  ng-repeat="pro in data.productionJson" ng-click="addErrorKnown(data.code,pro,$index)" class="btn btn-default " role="button">{{pro.productionName}}</a>
+                        </div>
+                    </div>   
+                </section>
+                
 
-           <div class="error-knowledge">
-               <h3>错误知识点</h3>
-               <button class="btn  btn-primary btn-addon" ng-click="addErrorKnown()"><i class="fa fa-plus"></i>添加错误知识点</button>
-               <div id = "knowledgeList" >
-                   <label class="knowledge-point error">10以内加减法<img src="./img/error.png" ></label>
-               </div>
-           </div>
-           <div class="knowledge-scope">
-               <h3>本题考查知识点范围：</h3>
-               <div id="knowledgeScopeList">
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/error.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/correct.png" ></label>
-                   <label class="knowledge-point">10以内加减法<img src="./img/error.png" ></label>
-               </div>
-           </div>
+            </div>
         </div>
+    <button ng-click='submitPaper()' class="btn btn-default">提交</button>
     </div>
 </div>
+<!--<div class="examLayer">
+  <h4>客观题：30题</h4>
+  <p>对:15 <a href="">1</a></p>
+  <p>错:15 <a href="">2</a></p>
+  <h4>填空题：(10题未判)</h4>
+  <p><a href="">31</a><a href="">32</a></p>
+  <p>对:n </p>
+  <p>错:n </p>
+  <h4>主观题：(10题未判)</h4>
+  <p><a href="">31</a><a href="">32</a></p>
+  <p>对:n </p>
+  <p>错:n </p>
+</div>-->
