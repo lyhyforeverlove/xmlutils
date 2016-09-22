@@ -206,11 +206,161 @@ var myScheduleModalCtrl = function($scope,$modalInstance,info,$http,$rootScope){
 
 
 
+//阶段考试卷待批改列表
+app.controller('stageExamsController', function($scope, $state,$http){
+    $scope.name = "阶段考试卷列表";
+    $scope.getList = function() {
+    	  $http.post($scope.app.host + "teacher/diagnosis/getStagePaperForMark?requestId=test123456",
+        {
+            "teacher":"e44a0c2ad33a40d1a9c54bf4e801c227",
+            "stage":"1"
+        }).success(function(data){
+        	if(data.message=="Success"){
+        		$scope.results=data.result;
+        	}
+        	console.log(data);
+        }).error(function(data){
+            console.log("fail");
+        });
+    	
+    }
+	$scope.paperChecked=function(data){
+				data.markRound=2;//判卷为最终状态
+				data.impersonalityScore=data.objectiveScore;
+				data.eduSingleDiagnosisRecordCode=data.singleDiagnosisRecordCode;
+				data.goHtml=1;
+		var jsonString = angular.toJson(data);
+		$state.go('app.teacherOpearteManage.paperDetail', {
+			jsonString: jsonString
+		}, {
+			reload: true
+		});
+
+		
+	}
+});
 
 
+/**判卷详情*/
+app.controller('paperDetailController', function($scope, $http, $controller,$resource, $stateParams, $modal, $state) {
+	
+	$controller('ParentGetDataCtrl', {
+		$scope: $scope
+	}); //继承
 
+	var markPaperRequestJson = null;
+	var postObj = {}; //判卷提交试题
+	var markModel = {}; //单题信息
+	var productionModel = {};
+	var subjectivityScore = 0; //主观得分
+	var impersonalityScore = 0; //客观得分
+	postObj.list = [];
+	// 获取上个界面传递的数据，并进行解析  
+	if($stateParams.jsonString != '') {
+		markPaperRequestJson = angular.fromJson($stateParams.jsonString);
+	}
+	$scope.paperDetail = markPaperRequestJson;
+	impersonalityScore = markPaperRequestJson.impersonalityScore;
+	//$scope.persons = markPaperFactory.getter();
+	//$scope.$on('$fromSubControllerClick', function(e,data){
+	//	console.log(data); // hello
+	//获取学生答题详情
+	$scope.load = function(){
+		$http.post($scope.app.host + 'student/diagnosis/getUserAnswer?requestId=test123456', {
+			"studentCode":  markPaperRequestJson.studentCode,
+			"singleDiagnosisRecordCode": markPaperRequestJson.eduSingleDiagnosisRecordCode
+		})
+		.success(function(data) {
+			console.log(data);
+			$scope.results = data.result;
+			//$state.go("app.teachManage.examDetail");
+		}).error(function(data) {
+			console.log(data);
 
+		});
+	}
+    //选中知识点
+	$scope.addErrorKnown = function(code,pro,index) {
+		
+		$("#selectKnow_"+code).append('<a id="prodution'+index+"_"+pro.productionCode+'"    onclick="removeKnowledge(\'' + code + '\',\'' + index + '\',\'' + pro.productionCode + '\')" class="btn btn-default " role="button">'+pro.productionName+'</a>');
+		$("#useKnow_"+code).find("#prodution"+index+"_"+pro.productionCode).addClass("disabled");
+	}
+	//组装判卷信息
+	$scope.submitQuestion = function(data) {
+		markModel.errorProductions=[];
+		angular.forEach($("#selectKnow_"+data.code).find("a"),function(pro,index,objs){
+			angular.forEach(data.productionJson,function(obj,index){
+				if(obj.productionCode==angular.element(pro).attr("id").split("_")[1]){
+					markModel.errorProductions.push(obj);
+				}
+			});
+			
+		});
+		console.log(markModel.errorProductions);
+		$("#selectKnow_"+data.code).find("a").addClass("disabled");
+		$("#useKnow_"+data.code).find("a").addClass("disabled");
+		data.productionList = [];
+		//根据组装数据填充 产生式信息
+		markModel.answerRecordCode=data.eduSingleDiagnosisRecordCode;
+		markModel.questionScore=data.questionScore;
+		markModel.score=data.paperScore+data.questionScore;
+		markModel.urfaceScore=data.paperScore;
+		//markModel.questionType='';//试题类型
+		//markModel.sentenceResult='';//判卷结果
+		postObj.list.push(markModel);
+		subjectivityScore = parseFloat(subjectivityScore) + parseFloat(data.paperScore) + parseFloat(data.questionScore);
+		$("#" + data.code).attr('disabled', true);
+		console.log(postObj);
+	}
 
+	//提交最终判卷结果
+	$scope.submitPaper = function() {
+		$http.post($scope.app.testhost + 'teacher/diagnosis/stagePaperMark?requestId=test123456', {
+				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
+				"teacherCode": "111111",//获取登录教师的code
+				"teacherName": "教师名称",//获取登录教师的名称
+				"subjectivityScore": subjectivityScore, //主观题得分
+				"singleScore": subjectivityScore + parseFloat(impersonalityScore), //单科总分
+				"markModels": postObj.list
+			})
+			.success(function(data) {
+				if(data.message == "Success"){
+					if(markPaperRequestJson.goHtml==0){
+						//跳转到一轮判列表				
+						 $state.go("app.teachManage.round");
+					}
+					if(markPaperRequestJson.goHtml==1){
+						//跳转到二轮判列表	
+						$state.go("app.teachManage.secondRound");
+					}
+					if(markPaperRequestJson.goHtml==2){
+						//跳转到复审列表
+					}
+				}
+			}).error(function(data) {
+				console.log(data);
+			});
+
+	}
+	
+	
+	$scope.check = function() {
+		$(".col-sm-3 button").each(function(index, value) {
+			if(typeof($(this).attr('disabled')) == "undefined") {
+				alert("还有题未进行提交！！请检查！！！");
+				return false;
+			}
+		});
+	}
+	
+});
+
+//取消选中知识点
+function removeKnowledge(code,index,pro){
+	$("#selectKnow_"+code).find("#prodution"+index+"_"+pro).remove();
+	$("#useKnow_"+code).find("#prodution"+index+"_"+pro).removeClass("disabled");
+
+}
 
 
 

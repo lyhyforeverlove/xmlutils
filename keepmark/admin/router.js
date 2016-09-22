@@ -438,7 +438,7 @@ angular.module('app')
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load(['admin/teacherOpearteManage/controller.js'
                                     ,'admin/teacherOpearteManage/controllerDR.js',
-                                     'admin/teacherOpearteManage/js/schedule.js'
+                                     'admin/teacherOpearteManage/js/schedule.js',"admin/teachManage/js/roundSentence.js"
                                     ]);
                                 }
                             ]
@@ -496,7 +496,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/stageExams.html'
                     })
                     .state('app.teacherOpearteManage.paperDetail', {
-                        url: '/paperDetail',
+                        url: '/paperDetail/:jsonString',
                         templateUrl: 'admin/teacherOpearteManage/paperDetail.html'
                     })
                     .state('app.teacherOpearteManage.paperChecked', {
