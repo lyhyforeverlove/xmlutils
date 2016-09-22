@@ -14,10 +14,17 @@
               <p><label></label><img class="bigImg" src="img/c5.jpg"></p>
           </div>
           <div class="answer-div">
-             <p><label>解析描述：</label><textarea rows="10" cols="150"></textarea></p>
+             <p><label>解析描述：</label><textarea rows="10" cols="150" id="Booktext"></textarea></p>
              <p><label>标注知识点:</label><button class="btn  btn-default btn-addon" ng-click="addErrorKnown()">+添加知识点</button></p>
              <p><label>解析过程:</label><img class="smallImg" src="img/c5.jpg"><img class="smallImg" src="img/c5.jpg"><img class="smallImg" src="img/c5.jpg"></p>
              <p><label></label><img class="bigImg" src="img/c5.jpg"></p>
+              <p><label></label>
+                  <input type="file" name="file" id="file" file-model="myFile" required>
+              <div>
+                  <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
+              </div>
+              <button class="btn btn-default pull-left" id="submit" ng-click="submit()" required>上传又拍云图片预览</button>
+              </p>
           </div>
           <button class="btn btn-primary pull-right" ng-click="dumpThisBtn()">保存</button>
         </div>

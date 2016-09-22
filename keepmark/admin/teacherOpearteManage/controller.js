@@ -180,6 +180,36 @@ app.controller('myStudentsController', function($scope,$http,$controller,$resour
             "studentCode":studentCode
         };
         $state.go("app.teacherOpearteManage.classSchedule",{"mySchedule":JSON.stringify(studentSchedule)});
+//学生二
+
+app.controller('myStudentsControllertwo', function($scope,$http,$controller,$resource,$stateParams, $modal, $state,CalcService){
+
+    $scope.name='我的学生';
+    $scope.total_count =10;
+    var id = 1;
+    // 学生动态数据
+    var url = $scope.app.host + "fullTeacher/getMyStudentList?requestId=test123456";
+    $http.post(url,{
+        "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227"
+    }).success(function(data){
+        console.log(data)
+        if(data.message == "Success"){
+            $scope.results = data.result;
+        }
+    }).error(function(data){
+        console.log("fail");
+    });
+    // 到这结束
+    $scope.learningDetail = function(){
+        $state.go("app.teacherOpearteManage.learningDetail",{"id":id});
+    }
+
+    $scope.answerQuestionsRecord = function(){
+        $state.go("app.teacherOpearteManage.answerQuestions",{"id":id});
+    }
+
+    $scope.checkMySchedule = function(){
+        $state.go("app.teacherOpearteManage.classSchedule",{"id":id});
     }
 
 })
@@ -475,14 +505,14 @@ app.controller("answerQuestionsController",function($scope,$http,$controller,$re
 
     $http.post(url,{
 
-        "teacherCode":"1"
+        "teacherCode":"e97e313d9f6f4166b75c4e308529490e",
+        "doubtStatus":"0"
 
     }).success(function(data){
-        console.log(data)
+        //console.log(data)
         if(data.message == "Success"){
             $scope.results = data.result;
-
-            console.log($scope.results.studentAnswerRecord)
+            //console.log($scope.results.studentAnswerRecord)
         }
     }).error(function(data){
         console.log("fail");
@@ -509,13 +539,17 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
     if ($stateParams.ContentPageasd != '') {
         ContentPageasd = $stateParams.ContentPageasd;
     }
+    //console.log(ContentPageasd)
     var url =  $scope.app.host + "fullTeacher/getStudentAnswerRecordList?requestId=test123456";
 
     $http.post(url,{
-        "teacherCode":"1"
+        "teacherCode":"e97e313d9f6f4166b75c4e308529490e",
+        "doubtStatus":"0"
     }).success(function(data){
+        //console.log(data)
         if(data.message == "Success"){
             $scope.results = data.result;
+
             //console.log($scope.results.studentAnswerRecord[ContentPageasd])
             $scope.ContentPageasd = $scope.results.studentAnswerRecord[ContentPageasd]
             var BookTreeData = JSON.stringify($scope.ContentPageasd);
@@ -529,7 +563,6 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
     $scope.dumpThisBtn = function(){
         $state.go("app.teacherOpearteManage.answerQuestions")
     };
-
     // 将节点放到已有json树的合适位置
     function findTreeChild(arr, tmp, isChild){
         for(var i = 0; i < arr.length; i++){
@@ -553,13 +586,13 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
         }
     }
 
-    //点击出现知识树
     $scope.addErrorKnown = function () {
-        // var BookData = JSON.parse(window.localStorage.getItem("BookObj"));
-        // var subjectCode = BookData.subjectCode;
-        $http.post($scope.app.host +'/resource/knowledge/tree?requestId='+(Math.random()*100),
-            {gradeCode:33,subjectCode:1,booktypeCode:'7HCcMZTzpcThi6RaByWysKQPPbtTHSj8'}
+        //var BookData = JSON.parse(window.localStorage.getItem("BookObj"));
+        //var subjectCode = BookData.subjectCode;
+        $http.post($scope.app.host +'/resource/knowledge/tree?requestId=test123456',
+            {gradeCode:33,subjectCode:1,booktypeCode:'7HCcMZTzpcThi6RaByWysKQPPbtTHSj8',knowledgeType:"1" }
         ).success(function(data,header,config,status){
+                //console.log(data)
                 if(!data.code=='Success'){
                     return alert('抱歉，请求知识点失败!');
                 }else if(!data.result.datas||data.result.datas.length==0){
@@ -571,13 +604,11 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
                     data.result.datas[i].label = data.result.datas[i].knowledgeName;
                     findTreeChild(result, data.result.datas[i]);
                 }
-                //console.log(result);
                 var scope = $rootScope.$new();
-                scope.my_data = result;
+                scope.tree = result;
                 var modalInstance = $modal.open({
                     templateUrl: 'admin/teacherOpearteManage/knowledgeTree.html',
                     size: "lg",
-                    controller:'knowledgeTreeController',
                     scope:scope,
                     resolve: {}
                 });
@@ -586,7 +617,71 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
                 return alert('抱歉，请求知识点失败!');
             });
     }
+    //又拍云服务
+    $scope.submit = function(){
+        /* var ext = angular.element('#file').files[0].name.split('.').pop();*/
+        var date =parseInt((new Date().getTime() + 3600000) / 1000);
+        console.log(date)
+        var config = {
+            "bucket": 'keepmark', //空间名称
+            "expiration": date, //上传请求过期时间
+            "save-key":"/img.jpg",
+            //"signature" : aaaa
+            // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
+            form_api_secret: 'WwbrepSiLMoTpx/+D2c+3klosIA='
+        };
+        var instance = new Sand(config);
+        var options = {
+            'notify_url': 'http://upyun.com'
+        };
+        instance.setOptions(options);
+        instance.upload('/upload/test' + parseInt((new Date().getTime() + 3600000) / 1000) + '.jpg');
+        console.log(instance.upload)
+        //console.log(instance)
+    }
+    document.addEventListener('uploaded', function(e) {
+
+        $scope.formData.coverUrl= 'http://keepmark.b0.upaiyun.com'+e.detail.path;
+    });
+    //又拍云服务到此
+    $scope.dumpThisBtn = function(){
+
+        var BookData = JSON.parse(window.localStorage.getItem("BookObj"));
+        var subjectCode = BookData.subjectCode;
+
+        var url =  $scope.app.host + "fullTeacher/addTeacherAnswerDoubtRecord?requestId=test123456";
+        var oji = document.getElementById('Booktext').value;
+        var resuleGoback = {
+            "answerName":BookData.answerName,
+            "answerDescribe": oji,
+            "answerImgUrl":'answerImgUrl',
+            "audioUrl":'audioUrl',
+            "sAnswerRecordCode":BookData.eduStudentAnswerRecordCode,
+            "studentCode":BookData.studentCode,
+            "teacherCode":BookData.teacherCode
+        };
+        var jsonString = JSON.stringify(resuleGoback);
+        $http.post(url,jsonString).success(function(data){
+            console.log(data)
+            $state.go('app.teacherOpearteManage.answerQuestions');
+        }).error(function(data){
+            console.log("fail");
+        });
+    }
+
 })
+
+//知识点树
+app.controller("knowledgeTreeController",function($scope,$timeout,$rootScope,$http,$modal,$stateParams,$controller,$state,CalcService){
+    var  tree;
+    $scope.my_tree_handler = function(branch) {
+
+    };
+    $scope.my_data = $scope.tree;
+    console.log('-----000------',$scope.tree);
+    $scope.my_tree = tree = {};
+
+});
 //批改
 app.controller("studentWorkCheckedController",['$scope', '$modal',function($scope,$modal){
     $scope.name="批改";
@@ -604,53 +699,6 @@ app.controller("studentWorkCheckedController",['$scope', '$modal',function($scop
         });
     }
 }])
-
-//知识点树
-app.controller("knowledgeTreeController",function($scope,$timeout){
-    var  tree;
-    $scope.my_tree_handler = function(branch) {
-
-    };
-    $scope.my_tree = tree = {};
-
-
-
-//	$scope.my_data = $scope.tree;
-    console.log('-----000------',$scope.my_data)
-    //$scope.try_changing_the_tree_data = function() {
-    //	if ($scope.my_data === treedata_avm) {
-    //		return $scope.my_data = treedata_geography;
-    //	} else {
-    //		return $scope.my_data = treedata_avm;
-    //	}
-    //};
-
-    //$scope.try_async_load = function() {
-    //	$scope.my_data = [];
-    //	$scope.doing_async = true;
-    //	return $timeout(function() {
-    //		if (Math.random() < 0.5) {
-    //			$scope.my_data = treedata_avm;
-    //		} else {
-    //			$scope.my_data = treedata_geography;
-    //		}
-    //		$scope.doing_async = false;
-    //		return tree.expand_all();
-    //	}, 1000);
-    //};
-    //return $scope.try_adding_a_branch = function() {
-    //	var b;
-    //	b = tree.get_selected_branch();
-    //	return tree.add_branch(b, {
-    //		label: 'New Branch',
-    //		data: {
-    //			something: 42,
-    //			"else": 43
-    //		}
-    //	});
-    //};
-});
-
 //学生考试
 app.controller("studentExamsController", ['$scope', '$modal', function($scope, $modal){
     $scope.name = "学生考试";
