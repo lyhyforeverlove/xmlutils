@@ -170,7 +170,7 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                 "pageSize": size
             })
             .success(function(data) {
-                if(data.message = "success"){
+                if(data.message == "Success"){
                     console.log(data);
                     $scope.results = data.result;
                     results = data.result.list;
@@ -188,9 +188,47 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
             });
     };
 
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+       // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
 
 });
-//=》详情
+//单科试卷=》详情
+app.controller('paperDetailController', ['$scope','$http','$stateParams',function($scope,$http,$stateParams) {
+    //$scope.oneAtATime = true;
+    console.log(1111);
+    console.log($stateParams.jsonString);
+    $scope.paperCode = null;
+    // 获取上个界面传递的数据，并进行解析
+    if ($stateParams.jsonString != '') {
+        $scope.json = angular.fromJson($stateParams.jsonString);
+    }
+    $scope.paperCode =  $scope.json.paperCode;
+    console.log($scope.paperCode);
+
+    $scope.GetPaperDetail = function(){
+        var url = $scope.app.host + 'diagnosis/detail?requestId=test123456';
+        $http.post(url,{
+            'paperCode':$scope.paperCode
+        }).success(function(data){
+            $scope.data = angular.fromJson(data);
+            console.log($scope.data);
+            $scope.diagnosisName = $scope.data.result.paperDetailDto.diagnosisName;
+            $scope.bigQusetions = $scope.data.result.paperSystem.bigQusetions;
+        }).error(function(data){
+            console.log("fail");
+        })
+    }
+
+}]);
 app.controller('DetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
  
     var paperCode = $stateParams.paperCode;
