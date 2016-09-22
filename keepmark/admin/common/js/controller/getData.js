@@ -59,7 +59,6 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
         
     }
 });
-
 //通过ID获取value
 app.controller("getValue",function($http,$scope){
     $http.post("admin/json/filterData.json").then(function(data){
@@ -210,10 +209,11 @@ app.controller("getValue",function($http,$scope){
         };
     });
 });
+
 //获取JSON数据
 app.controller("getJsonData",function($scope, $http){
     //获取类型（集合）
-    $http.post("admin/json/filterData.json").then(function(result){
+    $http.post("./admin/json/filterData.json").then(function(result){
         var data = result.data.filterData;
         $scope.departmentType = data;
         //带全部
@@ -228,23 +228,13 @@ app.controller("getJsonData",function($scope, $http){
     $scope.getSubject = function(departmentType){
         $scope.category = $scope.departmentType[departmentType].category;
     };
-    //获取 全部学科（集合）
-    $http.post("admin/json/subject.json").then(function(result){
-        $scope.AllSubject = result.data.subject;
-        $scope.getAllSubjectName = function(code){
-            for(var i=0; i<$scope.AllSubject.length; i++){
-                if($scope.AllSubject[i].subjectCode == code){
-                    return $scope.AllSubject[i].subjectName;
-                }
-            }
-        }
-    })
     //获取 教材（集合）
     $scope.getBookVersion = function(subjectCode,departmentType){
+        var data;
         if(departmentType){
-            var data = $scope.departmentType[departmentType].category;
+            data = $scope.departmentType[departmentType].category;
         } else {
-            var data = $scope.category;
+            data = $scope.category;
         }
         for(var i=0; i<data.length; i++){
             if(data[i].subjectCode == subjectCode){
@@ -253,8 +243,12 @@ app.controller("getJsonData",function($scope, $http){
             }
         }
     };
+    //获取 全部学科（集合）
+    $http.post("./admin/json/subject.json").then(function(result){
+        $scope.AllSubject = result.data.subject;
+    })
     //获取目标（集合）
-    $http.post("admin/json/aimData.json").then(function(result){
+    $http.post("./admin/json/aimData.json").then(function(result){
         var data = result.data.aimData;
         $scope.aimTypes = data;
         //带全部
@@ -262,9 +256,10 @@ app.controller("getJsonData",function($scope, $http){
         $.each(data,function(index,item){
             $scope.aimTypesAll.push(item);
         });
+
     });
     //获取中心（集合）
-    $http.post(window.host1 + 'teaching/organization/centers?requestId=test123456').then(function (result) {
+    $http.post(window.testhost + '/teaching/organization/centers?requestId=test123456').then(function (result) {
         var data = result.data.result;
         $scope.center = data;
         //带全部
@@ -274,8 +269,8 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
     //获取诊断类型（集合）
-    $http.post("admin/json/paperUse.json").then(function (result) {
-        var data = result.paperUse;
+    $http.post("./admin/json/paperUseType.json").then(function(result){
+        var data = result.data.paperUse;
         $scope.paperUse = data;
         //带全部
         $scope.paperUseAll = [{paperUseType:"all",paperUseName:"全部"}];
@@ -301,7 +296,7 @@ app.controller("getJsonData",function($scope, $http){
         });
     };
     //获取考生类型（集合）
-    $http.post("admin/json/studentType.json").then(function(result) {
+    $http.post("./admin/json/studentType.json").then(function(result) {
         var data = result.data.studentType;
         $scope.studentType = data;
         //带全部
@@ -311,7 +306,7 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
     //获取入学年份（集合）
-    $http.post("admin/json/inScrollYear.json").then(function(result){
+    $http.post("./admin/json/inScrollYear.json").then(function(result){
         var data = result.data.inScrollYear;
         $scope.inScrollYear = data;
         //带全部
@@ -331,22 +326,24 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
 });
-//已选总数
+//全选
 app.controller("constAll",function($scope){
     $scope.num = 0;
     $scope.constAll = function(id){
         var $Box =$("#"+id);
         var $input = $Box.find(".const").find("input:checkbox");
-        var $all = $Box.find(".constAll").find("input:checked");
+        var $all = $Box.find(".constAll").find("input:checkbox");
         var num = 0;
+
         $.each($input,function(index,item){
             if($all.prop('checked') == true){
-                num++;
-                $(item).prop("checked",true);
+                if(!$(item).prop("disabled")){
+                    num++;
+                    $(item).prop("checked",true);
+                }
             } else {
                 $(item).prop("checked",false);
             }
-
         })
         $scope.num = num;
     }
@@ -358,14 +355,22 @@ app.controller("constAll",function($scope){
             if($(item).prop('checked') == true){
                 num++;
             }
+            $scope.num = num;
         })
-        $scope.num = num;
+    }
+});
+//禁用多选框
+app.controller("disabled",function($scope){
+    $scope.isDisable = function(id,type,index){
+        var $input = $("#"+id).find(".isDisable");
+        if(type){
+            $input.eq(index).prop("disabled",true);
+        }
     }
 });
 // 数据 || 按钮
 app.controller("btnSH",function($scope){
     $scope.btnSH = function(id,className,item,index,value1,value2){
-        console.log(value2)
         var $box = $("#" + id);
         var $btnBox = $box.find("." + className);
         if(item[value1]){
@@ -378,6 +383,8 @@ app.controller("getPaper",function($scope,$state){
     //获取诊断卷详情
     $scope.getPaper = function (code) {
         sessionStorage.setItem("testpaperCode",code);
+
+        console.log(sessionStorage.getItem("testpaperCode"))
         $state.go('app.teachResearchManage.testPaper');
     };
 });

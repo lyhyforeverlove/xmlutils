@@ -325,6 +325,10 @@ angular.module('app')
                             ]
                         }
                     })
+/*                    .state('app.teachResearchManage.testPaper', {
+                        url: '/testPaper',
+                        templateUrl: 'admin/teachResearchManage/testPaper.html'
+                    })*/
                     .state('app.teachResearchManage.teacherManage', {
                         url: '/teacherManage',
                         templateUrl: 'admin/teachResearchManage/teacherManage.html',

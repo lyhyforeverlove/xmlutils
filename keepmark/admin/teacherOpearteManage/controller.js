@@ -268,6 +268,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     $controller('ParentGetDataCtrl', {$scope: $scope}); //继承
     $scope.name = "自主推送学习资源";
     $scope.studentsShow = false;
+    var baseHost = 'http://192.168.1.102:8080/keepMark-teacher-business/';//$scope.app.host;
     //选择推送学生
     $scope.chooseStudents = function(){
         $scope.studentsShow = !($scope.studentsShow);
@@ -330,49 +331,65 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     $scope.my_tree = tree = {};
 
     // 学年类型学科教材被选中项
-    $scope.formData =   {};
+    $scope.formData =   {knowledge:[]};
     //查询 视频/试卷 列表条件
     var searchCondition = {};
-
+    $scope.pagination = [];
+    // 视频列表
+    $scope.videos = [];
+    //试题列表
+    $scope.papers = [];
+    //组装分页
     function makePagination(pageNo,totalPage){
-        var p = '<div>';
+       var arr=[], upage=pageNo,lpage=pageNo,showIndexs=5;
         if(totalPage>1){
-            p+='   <ul class="pagination">';
-            var pli='',c= 0,upage=pageNo,lpage=pageNo;
             if(pageNo==1){
-                upage=totalPage>5?pageNo+4:totalPage;
+                upage=totalPage>showIndexs?pageNo+showIndexs-1:totalPage;
             }else if(pageNo>1){
-                lpage = pageNo-2>0?pageNo-2:pageNo-1;
-                upage = lpage+4;
-                upage = upage > totalPage ? totalPage:upage;
+                upage = totalPage-pageNo > 2 ? pageNo+2:totalPage;
+                lpage = upage -4 >0 ? upage-4 :1;
+
             }
-            pli +='<li >'+
-                '<a href="javascript:void(0);" >首页</a>'+
-                '</li>';
-            for(var i=lpage;i<=upage;i++){
-                pli +='<li >'+
-                    '<a href="javascript:void(0);" >上一页</a>'+
-                    '</li>';
-            }
-            pli +='<li >'+
-                '<a href="javascript:void(0);" >尾页</a>'+
-                '</li>';
-            p+='   </ul>';
         }
-        p += '</div>';
-        return p;
+        arr.push({page:1,name:'首页',className:pageNo==1?'active':'',edge:pageNo==1?'e':''});
+        arr.push({page:pageNo-1>1?pageNo-1:1,name:'上一页',className:pageNo==1?'disabled':''});
+        for(var i=lpage;i<=upage;i++){
+            arr.push({page:i,name:i,className:pageNo==i?'active':''});
+        }
+        arr.push({page:pageNo+1>totalPage?totalPage:pageNo+1,name:'下一页',className:totalPage==pageNo?'disabled':''});
+        arr.push({page:totalPage,name:'尾页',className:totalPage==pageNo?'active':'',edge:'e'});
+        return arr;
     }
 
-    //获取 视频/试卷 列表
-    $scope.getListData = function(page,size,callback){
-   
 
-        //callback({totalPage:total||1,currentPage:page});
+
+    //获取 视频/试卷 列表
+    $scope.getList = function(page,flag,total){
+        page = page||1;
+        if(searchCondition.listsXHR)
+            searchCondition.listsXHR.resolve('abort');
+        searchCondition.listsXHR = $q.defer();
+        var ks = []
+        if($scope.currentTab.url=='video.tpl.html'){
+            $http.post(baseHost+'/resource/get/videos?requestId='+Math.random(),
+                {
+                    "gradeCode":searchCondition.gradeCode,
+                    "subjectCode":searchCondition.subjectCode,
+                    "knowledges": ks
+                }
+            ).success(function(b){
+
+            }).error(function(e){
+                    if(status.timeout&&status.timeout.$$state.value=='abort'){
+                        return false;
+                    }
+                    modalAlert({content:'抱歉，请求树失败!'});
+            });
+        }else{
+            $scope.pagination = makePagination(page,total);
+        }
     };
-    $timeout(function(){
-        $scope.totalPage = 20;
-        $scope.getListData(4,10);
-    },3000);
+
     // 弹框提醒用户(作用似alert)
     function modalAlert(data){
         $modal.open({
@@ -386,61 +403,53 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     }
     // 获取知识点列表
     $scope.getKnowledgeList = function(){
-       if(!$scope.formData.bookVersionCode){
-          modalAlert({content:'请先选择教材版本!',size:'sm'});
-           return false;
-       }
+        if(!$scope.formData.bookVersionCode){
+            modalAlert({content:'请先选择教材版本!',size:'sm'});
+            return false;
+        }
         $scope.my_data = [];
-        if(searchCondition.listXHR)
-            searchCondition.listXHR.resolve('abort');
-        searchCondition.listXHR = $q.defer();
-        $http.post($scope.app.host +'/resource/knowledge/tree?requestId='+(Math.random()*100),
-            {gradeCode:$scope.formData.gradeCode,subjectCode:$scope.formData.subjectCode,booktypeCode:$scope.formData.bookVersionCode},
+        searchCondition.subjectCode = $scope.formData.subjectCode;
+        searchCondition.gradeCode = $scope.formData.gradeCode;
+        searchCondition.bookVersionCode = $scope.formData.bookVersionCode;
+
+        if(searchCondition.KlistXHR)
+            searchCondition.KlistXHR.resolve('abort');
+        searchCondition.KlistXHR = $q.defer();
+        $http.post(baseHost +'resource/knowledge/tree?requestId='+(Math.random()*100),
+            {gradeCode:$scope.formData.gradeCode,subjectCode:$scope.formData.subjectCode,booktypeCode:$scope.formData.bookVersionCode,knowledgeType:1},
             {timeout:searchCondition.listXHR.promise}
         ).success(function(data,header,config,status){
-            if(!data.code=='Success'){
-                return modalAlert({content:'抱歉，请求知识点失败!'});
-            }else if(!data.result.datas||data.result.datas.length==0){
-                return modalAlert({content:'未获取到相应知识点!'});
-            }
-            var result = [];
-            data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
-            for(var i = 0, l = data.result.datas.length; i < l; i++){
-                data.result.datas[i].label = data.result.datas[i].knowledgeName;
-                findTreeChild(result, data.result.datas[i]);
-            }
-                console.log(result);
-            $scope.my_data = result;
-            result = data.result.datas=null;
-        }).error(function(data,header,config,status){
-         //   console.log('error....',data,'header--',header,'cfg--',config,'sts--',status);
-            if(status.timeout&&status.timeout.$$state.value=='abort'){
-                return false;
-            }
-            modalAlert({content:'抱歉，请求知识点失败!'});
-        });
-
-
+                if(!data.code=='Success'){
+                    return modalAlert({content:'抱歉，请求知识点失败!'});
+                }else if(!data.result.datas||data.result.datas.length==0){
+                    return modalAlert({content:'未获取到相应知识点!'});
+                }
+                var result = [];
+                data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
+                for(var i = 0, l = data.result.datas.length; i < l; i++){
+                    data.result.datas[i].label = data.result.datas[i].knowledgeName;
+                    findTreeChild(result, data.result.datas[i]);
+                }
+                console.log('tree data....',result);
+                $scope.my_data = result;
+                result = data.result.datas=null;
+            }).error(function(data,header,config,status){
+                if(status.timeout&&status.timeout.$$state.value=='abort'){
+                    return false;
+                }
+                modalAlert({content:'抱歉，请求知识点失败!'});
+            });
 
     };
-        //	tree.expand_all()
-    //选择知识点操作
-    $scope.my_tree_handler = function(node){
-        $scope.formData.knowledge = {ctbCode:node.ctbCode,knowledgeName:node.knowledgeName};
-        if(node&&!node.children||node.children.length == 0){
-            $scope.formData.knowledge.isLeaf = true;
-            searchCondition.subjectCode = $scope.formData.subjectCode;
-            searchCondition.gradeCode = $scope.formData.gradeCode;
-            searchCondition.booktypeCode = $scope.formData.bookVersionCode;
-            searchCondition.knowledge = $scope.formData.knowledge;
-            console.log(searchCondition)
-            $scope.totalPage = 20;
-            $scope.getListData(1,10);
-        }else{
-            $scope.formData.knowledge.isLeaf = false;
-        }
+    // 2版树
+    $scope.showSelected = function(node,selected){
+        console.log(node,tree,$scope.selectedNodes);
+    };
+    $scope.selectedNodes = [];
+    // 2版树配置
+    $scope.treeOptions = {multiSelection: true};
 
-    }
+
 });
 // alert优雅弹框
 app.controller('WarningController', function($scope, $modalInstance,data){
