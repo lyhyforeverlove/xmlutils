@@ -69,10 +69,6 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
 app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataService,$state){
     $scope.titleName="添加兼职教师";
     $scope.spareTimeShow = false;
-    $scope.teachingType = "";
-    $scope.teacherEducation = "";
-    $scope.teacherShip = "";
-    $scope.teacherPro = "";
     $scope.chooseSpareTime = function(){
         //初始化空余时间表
         $http.get("admin/json/freeTime.json").success(function(data){
@@ -125,15 +121,13 @@ app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataS
             var hourType = [];
             hourType.push(tr_code);
             free_time.push({"weekDay":td_code,"hourTypes":hourType});
-            console.log(free_time);
         });
         var partTimeTeacher = {"teacherModel":$scope.teacher,"freeTimes":free_time};
         $http.post($scope.app.host +"teaching/organization/create/partTeacher?requestId=test123456",
             partTimeTeacher).success(function(data){
-                $state.go("app.teachResearchManage.updateCentreOfSchool");
+                $state.go("app.authorityManage.partTimeTeacherManage");
         });
     };
-
 });
 //修改兼职教师
 app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDataService){
@@ -176,6 +170,52 @@ app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDa
 //查看兼职教师
 app.controller("partTimeTeacherDetailController",function($scope,$stateParams){
     $scope.partTeacher = JSON.parse($stateParams.partTeacher);
+    //授课类型
+    switch ($scope.partTeacher.lectureType)
+    {
+        case 1:
+            $scope.partTeacher.lectureType ="易";
+            break;
+        case 2:
+            $scope.partTeacher.lectureType ="中";
+            break;
+        case 3:
+            $scope.partTeacher.lectureType ="难";
+            break;
+    };
+    //职称
+    switch ($scope.partTeacher.invigilator)
+    {
+        case 0:
+            $scope.partTeacher.invigilator ="初级";
+            break;
+        case 1:
+            $scope.partTeacher.invigilator ="中级";
+            break;
+        case 2:
+            $scope.partTeacher.invigilator ="高级";
+            break;
+        case 3:
+            $scope.partTeacher.invigilator ="特级";
+            break;
+        case 4:
+            $scope.partTeacher.invigilator ="教授";
+            break;
+    };
+    //合作关系
+    switch ($scope.partTeacher.teacherShip)
+    {
+        case 1:
+            $scope.partTeacher.teacherShip ="临时合作";
+            break;
+        case 2:
+            $scope.partTeacher.teacherShip ="签约协议";
+            break;
+        case 3:
+            $scope.partTeacher.teacherShip ="储备";
+            break;
+    };
+
 });
 
 
@@ -244,7 +284,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
     }
 });
 //增加全职教师
-app.controller("addFullTimeTeacherController",function($scope,acquireDataService,$http){
+app.controller("addFullTimeTeacherController",function($scope,acquireDataService,$http,$state){
     $scope.titleName="添加全职教师";
     $scope.teachingType = "";
     $scope.teacherEducation = "";
@@ -292,6 +332,7 @@ app.controller("addFullTimeTeacherController",function($scope,acquireDataService
         $scope.teacher.state = 2;
         $http.post($scope.app.host +"teaching/organization/create/fullTeacher?requestId=test123456",
             $scope.teacher).success(function(data){
+                $state.go("app.authorityManage.fullTimeTeacherManage");
         });
     }
 });
@@ -325,7 +366,66 @@ app.controller("updateFullTimeTeacherController",function($scope,acquireDataServ
 app.controller("fullTimeTeacherDetailController",function($scope,$stateParams){
     $scope.titleName="全职教师查看";
     $scope.fullTeacher = JSON.parse($stateParams.fullTeacher);
-})
+
+    //授课类型
+    switch ($scope.fullTeacher.lectureType)
+    {
+        case 1:
+            $scope.fullTeacher.lectureType ="易";
+            break;
+        case 2:
+            $scope.fullTeacher.lectureType ="中";
+            break;
+        case 3:
+            $scope.fullTeacher.lectureType ="难";
+            break;
+    };
+    //职称
+    switch ($scope.fullTeacher.invigilator)
+    {
+        case 0:
+            $scope.fullTeacher.invigilator ="初级";
+            break;
+        case 1:
+            $scope.fullTeacher.invigilator ="中级";
+            break;
+        case 2:
+            $scope.fullTeacher.invigilator ="高级";
+            break;
+        case 3:
+            $scope.fullTeacher.invigilator ="特级";
+            break;
+        case 4:
+            $scope.fullTeacher.invigilator ="教授";
+            break;
+    };
+
+    //职务
+    switch ($scope.fullTeacher.roleType)
+    {
+        case 1:
+            $scope.fullTeacher.roleType ="总校校长";
+            break;
+        case 2:
+            $scope.fullTeacher.roleType ="分校校长";
+            break;
+        case 3:
+            $scope.fullTeacher.roleType ="学区长";
+            break;
+        case 4:
+            $scope.fullTeacher.roleType ="学部长";
+            break;
+        case 5:
+            $scope.fullTeacher.roleType ="中心主管";
+            break;
+        case 6:
+            $scope.fullTeacher.roleType ="班主任";
+            break;
+        case 7:
+            $scope.fullTeacher.roleType ="普通教师";
+            break;
+    }
+});
 
 
 

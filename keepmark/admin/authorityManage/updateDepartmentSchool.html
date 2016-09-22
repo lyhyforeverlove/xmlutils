@@ -7,15 +7,15 @@
         </div>
         <div class="wrapper">
             <div class="form-group">
-                <label class="col-sm-1 control-label">学区名称:</label>
-                <div class="col-sm-11 m-b">
+                <label class="col-sm-1 control-label">学部类型:</label>
+                <div class="col-sm-2 m-b">
                     <select class="form-control" ng-model="formData.divisionType" >
-                        <option value="0">文科</option>
-                        <option value="1">理工</option>
+                        <option value="0">文学部</option>
+                        <option value="1">理学部</option>
                     </select>
                 </div>
             </div>
-            <!--           <div class="form-group">
+            <!-- <div class="form-group">
                           <label class="col-sm-1 control-label">学区负责人:</label>
                           <label class="col-sm-11 control-label">12131312</label>
                       </div>
@@ -30,20 +30,17 @@
                       </div>-->
             <div class="form-group">
                 <label class="col-sm-1 control-label">学部名称:</label>
-                <div class="col-sm-11">
+                <div class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入学部名称" ng-model="formData.name">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">学部负责人:</label>
-                <div class="col-sm-11">
+                <div class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="formData.personCharge" >
-                    <div class="form-group">
-                        <span class="form-inline">张老师</span>
-                    </div>
                 </div>
             </div>
-            <button class="btn btn-primary col-sm-1 col-sm-push-8" ng-click="saveUpdateDepartmentSchool(formData)">保存</button>
+            <button class="btn btn-primary pull-right" ng-click="saveUpdateDepartmentSchool(formData)">保存</button>
         </div>
     </div>
 </div>

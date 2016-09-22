@@ -15,6 +15,7 @@ app.controller("getSchoolInfo",function($scope,$http){
                 if(data) $scope.masterSchoolList = data.result;
             });
     };
+
     //获取分校
     $scope.getBranchSchoolList = function(masterSchoolCode){
         if(typeof(masterSchoolCode) !=="undefined"){
@@ -109,6 +110,14 @@ app.controller("getSchoolInfo",function($scope,$http){
         $http.post($scope.app.host +"teaching/course/getWeekTimes?requestId=WEUOW343KL34L26NBSK3",
             {}).success(function(data){
             $scope.weekTimes = data.result.weekTimes;
+        });
+    };
+
+    //获取所有的省
+    $scope.getAllProvinceList = function(){
+        $http.post($scope.app.host +"area/allProvince?requestId=1",
+            {}).success(function(data){
+            $scope.allProvinceList = data.result;
         });
     };
 });

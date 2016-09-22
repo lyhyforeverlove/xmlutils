@@ -2,45 +2,36 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>权限管理  &gt; {{titleName}}
-
-                <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.masterSchool()" ><span class="p-d">返回</span></button>
-
+                <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.masterSchool()" >返回</button>
             </h4>
         </div>
         <div class="wrapper">
             <input type="hidden" class="form-control m-b" placeholder="请输入总校名称" ng-model="formData.code">
             <div class="form-group">
                 <label class="col-sm-1 control-label">总校名称:</label>
-                <div class="col-sm-11">
+                <div class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入总校名称" ng-model="formData.name">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">总校编号:</label>
-                <div class="col-sm-11">
+                <div class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入总校编号" ng-model="formData.schoolNum">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">总校校长:</label>
-                <div class="col-sm-11">
+                <div class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入总校校长编号查询" ng-model="formData.president" >
-                    <div class="form-group">
-                        <span class="form-inline"></span>
-                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">副校长:</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入总校副校长编号查询" ng-model="formData.vicePresident" value="{{vicePresident}}">
-                    <div class="form-group">
-                        <span class="form-inline">张老师</span>
-                    </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入总校副校长编号查询" ng-model="formData.vicePresident">
                 </div>
             </div>
-            <button class="btn btn-primary col-sm-1 col-sm-push-8"
-                    ng-click="updateMasterSchool(formData)">保存</button>
+            <button class="btn btn-primary pull-right" ng-click="updateMasterSchool(formData)">保存</button>
         </div>
     </div>
 </div>
