@@ -81,34 +81,34 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
-                                    return $ocLazyLoad.load("admin/teachManage/js/controller.js");
+                                    return $ocLazyLoad.load(["admin/teachManage/js/controller.js","admin/common/js/controller/paperDetailCtrl.js"]);
                                 }
                             ]
                         }
                     })
                     .state('app.teachManage.create', {
                         url: '/create',
-                        templateUrl: 'admin/teachManage/createDiagnosis.html',
+                        templateUrl: 'admin/teachManage/createDiagnosis.html'
                     })
                     .state('app.teachManage.allot', {
                         url: '/allot/:jsonString',
-                        templateUrl: 'admin/teachManage/diagnosisDate.html',
+                        templateUrl: 'admin/teachManage/diagnosisDate.html'
                     })
                     .state('app.teachManage.diagGoods', {
                         url: '/diagGoods',
-                        templateUrl: 'admin/teachManage/diagnosisGoods.html',
+                        templateUrl: 'admin/teachManage/diagnosisGoods.html'
                     })
                     .state('app.teachManage.goodsDetail', {
                         url: '/goodsDetail',
-                        templateUrl: 'admin/teachManage/goodsDetail.html',
+                        templateUrl: 'admin/teachManage/goodsDetail.html'
                     })
                     .state('app.teachManage.firstPool', {
                         url: '/testPoolByFirst',
-                        templateUrl: 'admin/teachManage/testPoolByFirst.html',
+                        templateUrl: 'admin/teachManage/testPoolByFirst.html'
                     })
                     .state('app.teachManage.secondPool', {
                         url: '/testPoolBySecond',
-                        templateUrl: 'admin/teachManage/testPoolBySecond.html',
+                        templateUrl: 'admin/teachManage/testPoolBySecond.html'
                     })
                     .state('app.teachManage.round', {
                         url: '/round',
@@ -145,47 +145,47 @@ angular.module('app')
                     })
                     .state('app.teachManage.examConfrim', {
                         url: '/examConfrim',
-                        templateUrl: 'admin/teachManage/examConfrim.html',
+                        templateUrl: 'admin/teachManage/examConfrim.html'
                     })
                     .state('app.teachManage.examMonitor', {
                         url: '/examMonitor',
-                        templateUrl: 'admin/teachManage/examMonitor.html',
+                        templateUrl: 'admin/teachManage/examMonitor.html'
                     })
                     .state('app.teachManage.monitorRoom', {
                         url: '/monitorRoom',
-                        templateUrl: 'admin/teachManage/monitorRoom.html',
+                        templateUrl: 'admin/teachManage/monitorRoom.html'
                     })
                     .state('app.teachManage.shortBoard', {
                         url: '/shortBoard',
-                        templateUrl: 'admin/teachManage/shortBoardDiag.html',
+                        templateUrl: 'admin/teachManage/shortBoardDiag.html'
                     })
                     .state('app.teachManage.notConform', {
                         url: '/notConform',
-                        templateUrl: 'admin/teachManage/notConform.html',
+                        templateUrl: 'admin/teachManage/notConform.html'
                     })
                     .state('app.teachManage.shortBoardClass', {
                         url: '/shortBoardClass',
-                        templateUrl: 'admin/teachManage/shortBoardClass.html',
+                        templateUrl: 'admin/teachManage/shortBoardClass.html'
                     })
                     .state('app.teachManage.dividingClasses', {
                         url: '/dividingClasses',
-                        templateUrl: 'admin/teachManage/dividingClasses.html',
+                        templateUrl: 'admin/teachManage/dividingClasses.html'
                     })
                     .state('app.teachManage.divideClassesConfrim', {
                         url: '/divideClassesConfrim',
-                        templateUrl: 'admin/teachManage/divideClassesConfrim.html',
+                        templateUrl: 'admin/teachManage/divideClassesConfrim.html'
                     })
                     .state('app.teachManage.DiagDeportDetails', {
                         url: '/DiagDeportDetails',
-                        templateUrl: 'admin/common/tpl/DiagDeportDetails.html',
+                        templateUrl: 'admin/common/tpl/DiagDeportDetails.html'
                     })
                     .state('app.teachManage.look', {
                         url: '/look',
-                        templateUrl: 'admin/teachManage/look.html',
+                        templateUrl: 'admin/teachManage/look.html'
                     })
                     .state('app.teachManage.monitorTeacher', {
                         url: '/monitorTeacher',
-                        templateUrl: 'admin/teachManage/monitorTeacher.html',
+                        templateUrl: 'admin/teachManage/monitorTeacher.html'
                     })
                     /*
                      *教研管理
@@ -209,95 +209,95 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.markReview', {
                         url: '/markReview',
-                        templateUrl: 'admin/teachResearchManage/markReview.html',
+                        templateUrl: 'admin/teachResearchManage/markReview.html'
                     })
                     .state('app.teachResearchManage.diagExamList', {
                         url: '/diagExamList',
-                        templateUrl: 'admin/teachResearchManage/diagExamList.html',
+                        templateUrl: 'admin/teachResearchManage/diagExamList.html'
                     })
                     .state('app.teachResearchManage.doubleList', {
                         url: '/doubleList',
-                        templateUrl: 'admin/teachResearchManage/doubleList.html',
+                        templateUrl: 'admin/teachResearchManage/doubleList.html'
                     })
                     .state('app.teachManage.ExamPaperDetails', {
                         url: '/ExamPaperDetails/{id}',
-                        templateUrl: 'admin/common/tpl/ExamPaperDetails.html',
+                        templateUrl: 'admin/common/tpl/ExamPaperDetails.html'
                     })
                     .state('app.teachResearchManage.groupsDetail', {
                         url: '/groupsDetail/{complexPaperCode}',
-                        templateUrl: 'admin/common/tpl/groupsDetail.html',
+                        templateUrl: 'admin/common/tpl/groupsDetail.html'
                     })
-                    .state('app.teachResearchManage.detail', {
+                    .state('app.paperDatail', {
                         url: '/detail/{paperCode}',
-                        templateUrl: 'admin/common/tpl/detail.html',
+                        templateUrl: 'admin/common/tpl/detail.html'
                     })
                     .state('app.teachResearchManage.createDiag', {
                         url: '/createDiag',
-                        templateUrl: 'admin/teachResearchManage/createDiag.html',
+                        templateUrl: 'admin/teachResearchManage/createDiag.html'
                     })
                     .state('app.teachResearchManage.studentCategory', {
                         url: '/studentCategory',
-                        templateUrl: 'admin/teachResearchManage/studentCategory.html',
+                        templateUrl: 'admin/teachResearchManage/studentCategory.html'
                     })
                     .state('app.teachResearchManage.confromToVip', {
                         url: '/confromToVip',
-                        templateUrl: 'admin/teachResearchManage/confromToVip.html',
+                        templateUrl: 'admin/teachResearchManage/confromToVip.html'
                     })
                     .state('app.teachResearchManage.shortBoardConfrim', {
                         url: '/shortBoardConfrim',
-                        templateUrl: 'admin/teachResearchManage/shortBoardConfrim.html',
+                        templateUrl: 'admin/teachResearchManage/shortBoardConfrim.html'
                     })
                     .state('app.teachResearchManage.shortBoardPaper', {
                         url: '/shortBoardPaper',
-                        templateUrl: 'admin/teachResearchManage/shortBoardPaper.html',
+                        templateUrl: 'admin/teachResearchManage/shortBoardPaper.html'
                     })
                     .state('app.teachResearchManage.addClasses', {
                         url: '/addClasses',
-                        templateUrl: 'admin/teachResearchManage/shortBoardAddClass.html',
+                        templateUrl: 'admin/teachResearchManage/shortBoardAddClass.html'
                     })
                     .state('app.teachResearchManage.notConform', {
                         url: '/notConform',
-                        templateUrl: 'admin/teachResearchManage/notConform.html',
+                        templateUrl: 'admin/teachResearchManage/notConform.html'
                     })
                     .state('app.teachResearchManage.category', {
                         url: '/category',
-                        templateUrl: 'admin/teachResearchManage/courseCategory.html',
+                        templateUrl: 'admin/teachResearchManage/courseCategory.html'
                     })
                     .state('app.teachResearchManage.analyse', {
                         url: '/analyse',
-                        templateUrl: 'admin/teachResearchManage/shortBoardAnalyse.html',
+                        templateUrl: 'admin/teachResearchManage/shortBoardAnalyse.html'
                     })
                     .state('app.teachResearchManage.createCourse', {
                         url: '/createCourse',
-                        templateUrl: 'admin/teachResearchManage/createCourse.html',
+                        templateUrl: 'admin/teachResearchManage/createCourse.html'
                     })
                     .state('app.teachResearchManage.createSingle', {
                         url: '/createSingle/{resourcePaperCode}',
-                        templateUrl: 'admin/teachResearchManage/createSingle.html',
+                        templateUrl: 'admin/teachResearchManage/createSingle.html'
                     })
                      .state('app.teachResearchManage.paperList', {
                         url: '/paperList/{subjectCode}',
-                        templateUrl: 'admin/teachResearchManage/addGroupsPaper.html',
+                        templateUrl: 'admin/teachResearchManage/addGroupsPaper.html'
                     })
                     .state('app.teachResearchManage.createDouble', {
                         url: '/createDouble/{diagnosisPaperCode}',
-                        templateUrl: 'admin/teachResearchManage/createDouble.html',
+                        templateUrl: 'admin/teachResearchManage/createDouble.html'
                     })
                     .state('app.teachResearchManage.stageList', {
                         url: '/stageList',
-                        templateUrl: 'admin/teachResearchManage/stageExamList.html',
+                        templateUrl: 'admin/teachResearchManage/stageExamList.html'
                     })
                     .state('app.teachResearchManage.createStage', {
                         url: '/createStage',
-                        templateUrl: 'admin/teachResearchManage/createStage.html',
+                        templateUrl: 'admin/teachResearchManage/createStage.html'
                     })
                     .state('app.teachResearchManage.courseList', {
                         url: '/courseList',
-                        templateUrl: 'admin/teachResearchManage/courseList.html',
+                        templateUrl: 'admin/teachResearchManage/courseList.html'
                     })
                     .state('app.teachResearchManage.courseDeatil', {
                         url: '/courseDeatil/{courseSystemCode}',
-                        templateUrl: 'admin/teachResearchManage/courseDeatil.html',
+                        templateUrl: 'admin/teachResearchManage/courseDeatil.html'
                     })
                     .state('app.teachResearchManage.areaCategory', {
                         url: '/areaCategory',
@@ -325,10 +325,10 @@ angular.module('app')
                             ]
                         }
                     })
-                    .state('app.teachResearchManage.testPaper', {
+                   /* .state('app.teachResearchManage.testPaper', {
                         url: '/testPaper',
                         templateUrl: 'admin/teachResearchManage/testPaper.html'
-                    })
+                    })*/
                     .state('app.teachResearchManage.teacherManage', {
                         url: '/teacherManage',
                         templateUrl: 'admin/teachResearchManage/teacherManage.html',
@@ -726,50 +726,50 @@ angular.module('app')
                     //新增
                     .state('app.teachResearchManage.updateHeadSchool', {
                         url: '/updateHeadSchool/{headSchool}',
-                        templateUrl: 'admin/teachResearchManage/updateHeadSchool.html',
+                        templateUrl: 'admin/teachResearchManage/updateHeadSchool.html'
                     })
                     .state('app.teachResearchManage.addSchoolBranch', {
                         url: '/addSchoolBranch',
-                        templateUrl: 'admin/teachResearchManage/addSchoolBranch.html',
+                        templateUrl: 'admin/teachResearchManage/addSchoolBranch.html'
                     })
                     .state('app.teachResearchManage.updateSchoolBranch', {
                         url: '/updateSchoolBranch/{schoolBranch}',
-                        templateUrl: 'admin/teachResearchManage/updateSchoolBranch.html',
+                        templateUrl: 'admin/teachResearchManage/updateSchoolBranch.html'
                     })
                     .state('app.teachResearchManage.addCentreSchool', {
                         url: '/addCentreSchool',
-                        templateUrl: 'admin/teachResearchManage/addCentreSchool.html',
+                        templateUrl: 'admin/teachResearchManage/addCentreSchool.html'
                     })
                     .state('app.teachResearchManage.updateCentreSchool', {
                         url: '/updateCentreSchool/{centreSchool}',
-                        templateUrl: 'admin/teachResearchManage/updateCentreSchool.html',
+                        templateUrl: 'admin/teachResearchManage/updateCentreSchool.html'
                     })
 
 
 
                     .state('app.authorityManage.studyGroup', {
                         url: '/studyGroup',
-                        templateUrl: 'admin/authorityManage/studyGroup.html',
+                        templateUrl: 'admin/authorityManage/studyGroup.html'
                     })
                     .state('app.authorityManage.addStudyGroup', {
                         url: '/addStudyGroup',
-                        templateUrl: 'admin/authorityManage/addStudyGroup.html',
+                        templateUrl: 'admin/authorityManage/addStudyGroup.html'
                     })
                     .state('app.authorityManage.updateStudyGroup', {
                         url: '/updateStudyGroup/{studyGroup}',
-                        templateUrl: 'admin/authorityManage/updateStudyGroup.html',
+                        templateUrl: 'admin/authorityManage/updateStudyGroup.html'
                     })
                     .state('app.authorityManage.studyGroupDetail', {
                         url: '/studyGroupDetail/{studyGroup}',
-                        templateUrl: 'admin/authorityManage/studyGroupDetail.html',
+                        templateUrl: 'admin/authorityManage/studyGroupDetail.html'
                     })
                     .state('app.teacherOpearteManage.smallClassMySchedule', {
                         url: '/smallClassMySchedule',
-                        templateUrl: 'admin/teacherOpearteManage/smallClassMySchedule.html',
+                        templateUrl: 'admin/teacherOpearteManage/smallClassMySchedule.html'
                     })
                     .state('app.teacherOpearteManage.oneToOneMySchedule', {
                         url: '/oneToOneMySchedule',
-                        templateUrl: 'admin/teacherOpearteManage/oneToOneMySchedule.html',
+                        templateUrl: 'admin/teacherOpearteManage/oneToOneMySchedule.html'
                     })
             }
         ]
