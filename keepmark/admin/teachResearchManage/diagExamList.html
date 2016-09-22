@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <button class="pull-right btn btn-primary" ng-click="getList(page, size, callback)"><span class="p-d">查询</span></button>
+                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <!-- ng-if="data.total_count>0" -->
@@ -47,11 +47,11 @@
                             <td>{{data.operator}}</td>
                             <td>
                                 <img ng-src="{{data.diagnosisImgUrl}}" width="100" height="50" /> </td>
-                            <td>{{data.diagnosisExplanation}}<!--{{data.repositoryPaperCode }}--></td>
+                            <td>{{data.diagnosisExplanation}}{{data.diagnosisPaperCode }}</td>
                             <td>
                                 <!--  ui-sref="app.teachManage.detail({id:data.id})" -->
                                 <!-- <button type="button" class="btn btn-primary" ng-click="getDiagnosisDetail({paperCode:data.diagnosisPaperCode})">详&nbsp;情</button> -->
-                                <button type="button" class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">详&nbsp;情</button>
+                                <button type="button" class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详&nbsp;情</button>
                                 <!--  ng-click="getDiagnosisDetail('796EBDDCBDF7492CB7CCDA5729817767')" -->
                             </td>
                         </tr>

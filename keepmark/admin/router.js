@@ -201,7 +201,8 @@ angular.module('app')
                                         'admin/teachResearchManage/js/controllerLY.js',
                                         'admin/teachResearchManage/js/controllerHXY.js',
                                         'admin/teachResearchManage/js/areaCategory.js',
-                                        'admin/teachResearchManage/js/controllerDR.js'
+                                        'admin/teachResearchManage/js/controllerDR.js'/*,
+                                        "admin/common/js/controller/paperDetailCtrl.js"*/
                                     ]);
                                 }
                             ]
@@ -227,9 +228,9 @@ angular.module('app')
                         url: '/groupsDetail/{complexPaperCode}',
                         templateUrl: 'admin/common/tpl/groupsDetail.html',
                     })
-                    .state('app.teachResearchManage.detail', {
-                        url: '/detail/{paperCode}',
-                        templateUrl: 'admin/common/tpl/detail.html',
+                    .state('app.paperDetail', {
+                        url: '/paperDetail/:jsonString',
+                        templateUrl: 'admin/common/tpl/paperDetail.html'
                     })
                     .state('app.teachResearchManage.createDiag', {
                         url: '/createDiag',
@@ -442,7 +443,7 @@ angular.module('app')
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load(['admin/teacherOpearteManage/controller.js'
                                     ,'admin/teacherOpearteManage/controllerDR.js',
-                                     'admin/teacherOpearteManage/js/schedule.js',"admin/teachManage/js/roundSentence.js"
+                                     'admin/teacherOpearteManage/js/schedule.js'
                                     ]);
                                 }
                             ]
@@ -500,7 +501,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/stageExams.html'
                     })
                     .state('app.teacherOpearteManage.paperDetail', {
-                        url: '/paperDetail/:jsonString',
+                        url: '/paperDetail:jsonstring',
                         templateUrl: 'admin/teacherOpearteManage/paperDetail.html'
                     })
                     .state('app.teacherOpearteManage.paperChecked', {
