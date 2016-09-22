@@ -174,12 +174,12 @@ app.controller('myStudentsController', function($scope,$http,$controller,$resour
         $state.go("app.teacherOpearteManage.answerQuestions",{"id":id});
     }
 
-    $scope.checkMySchedule = function(studentCode){
-        var studentSchedule = {
-            "scheduleStatus":"1",
-            "studentCode":studentCode
-        };
-        $state.go("app.teacherOpearteManage.classSchedule",{"mySchedule":JSON.stringify(studentSchedule)});
+    $scope.checkMySchedule = function(){
+        $state.go("app.teacherOpearteManage.classSchedule",{"id":id});
+    }
+
+})
+
 //学生二
 
 app.controller('myStudentsControllertwo', function($scope,$http,$controller,$resource,$stateParams, $modal, $state,CalcService){
