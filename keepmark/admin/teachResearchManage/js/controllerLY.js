@@ -223,7 +223,8 @@ app.controller("addTeacherController",function($scope,$http,$state,$controller,$
     $scope.levels =[
         {id:1,code: "da42abd78c3a4a039e09eba32d0b0acc" , name: "总校长",type:"1"},
         {id:2,code: "6804d2181c604aa1926ff7a75a297749" , name: "分校长",type:"2" },
-        {id:3,code: "1be524ec9845465da072638089c37f66" , name: "中心主管",type:"3"}
+        {id:3,code: "1be524ec9845465da072638089c37f66" , name: "中心主管",type:"3"},
+        {id:4,code: "e7bf61eaf5c44028a9c536f236d896f6" , name: "普通教师",type:"4"}
     ];
     // //点击级别弹出相应列表
     // $scope.changeList = function(jsonData){

@@ -45,7 +45,7 @@
                                     <i></i>{{obj.bookVersionName}}
                                 </label>
                             </div>
-                            <button class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query()">查询</button>
+                            <button class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query(1,3,null)">查询</button>
                         </td>
                     </tr>
                 </table>
@@ -57,7 +57,7 @@
                         <td>
                             <div class="radio" colspan="10">
                                 <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
-                                    <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-change="checked(formData.aimType,'aimType')">
+                                    <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-change="target(formData.aimType,'aimType')">
                                     <i></i>{{obj.aimName}}
                                 </label>
                             </div>
@@ -109,7 +109,7 @@
                     <tr>
                         <td colspan="15" class="text-center">
                             <!-- 指令调用代码-->
-                            <xl-page size="5" method="query" class="text-center"></xl-page>
+                            <xl-page size="3" method="query" class="text-center"></xl-page>
                             <!--指令模板（pagination.html）-->
                         </td>
                     </tr>

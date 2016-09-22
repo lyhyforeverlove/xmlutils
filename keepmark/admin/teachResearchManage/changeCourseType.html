@@ -93,48 +93,50 @@
                             <select name="classes" class="form-control" ng-model="formData.classes" ng-click="checked(formData.classes,'classes')" ng-options="obj.code as obj.name for obj in classesAll">
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary m-p" ng-click="query()">查&nbsp;询</button>
+                        <button type="submit" class="btn btn-primary m-p" ng-click="query('1','5',null)">查&nbsp;询</button>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                 </form>
             </div>
         </div>
         <div class="table-responsive">
+            <div ng-controller="categoryCtrl">
+                <script type="text/ng-template" id="myModalContent.html">
+                    <div ng-include="'admin/common/tpl/changeCourseType.html'"></div>
+                </script>
+            </div>
             <table class="table table-striped b-t b-light">
                 <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>学生姓名</th>
-                    <th>保分目标</th>
-                    <th>考生类型</th>
-                    <th>上课类型</th>
-                    <th>课程类型</th>
-                    <th>操作</th>
-                </tr>
+                    <tr>
+                        <th>序号</th>
+                        <th>学生姓名</th>
+                        <th>保分目标</th>
+                        <th>考生类型</th>
+                        <th>上课类型</th>
+                        <th>课程类型</th>
+                        <th>操作</th>
+                    </tr>
                 </thead>
                 <tbody ng-repeat="item in result track by $index">
-                <tr>
-                    <td>
-                        <label class="i-checks i-checks-sm">
-                            <input type="checkbox"><i></i>{{$index}}
-                        </label>
-                    </td>
-                    <td>{{item.userName}}</td>
-                    <td>{{getAimData(item.goalType)}}</td>
-                    <td>{{getStudentType(item.type)}}</td>
-                    <td>{{getCourseType(item.courseType)}}</td>
-                    <td>{{getLessonLevel(item.lessonLevel)}}</td>
-                    <td>
-                        <!-- 更换课程类型 modal -->
-                        <div ng-controller="categoryCtrl">
-                            <script type="text/ng-template" id="myModalContent.html">
-                                <div ng-include="'admin/common/tpl/changeCourseType.html'"></div>
-                            </script>
-                            <button class="btn btn-primary" ng-click="open(item)">更换</button>
-                        </div>
-                        <!-- 更换课程类型/modal -->
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <label class="i-checks i-checks-sm">
+                                <input type="checkbox"><i></i>{{$index}}
+                            </label>
+                        </td>
+                        <td>{{item.userName}}</td>
+                        <td>{{getAimData(item.goalType)}}</td>
+                        <td>{{getStudentType(item.type)}}</td>
+                        <td>{{getCourseType(item.courseType)}}</td>
+                        <td>{{getLessonLevel(item.lessonLevel)}}</td>
+                        <td>
+                            <!-- 更换课程类型 modal -->
+                            <div ng-controller="categoryCtrl">
+                                <button class="btn btn-primary" ng-click="open(item)">更换</button>
+                            </div>
+                            <!-- 更换课程类型/modal -->
+                        </td>
+                    </tr>
                 </tbody>
                 <tfood>
                     <tr>

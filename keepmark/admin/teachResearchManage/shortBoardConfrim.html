@@ -1,7 +1,7 @@
 <div class="wrapper-md" ng-controller="SBConfrimCtrl" id="SBConfrimCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &gt; 短板确认</h4>
+            <h4>{{formData}} &gt; 短板确认</h4>
         </div>
         <div class="wrapper">
             <div class="panel-heading m-b-xl">
@@ -38,7 +38,7 @@
                                 <i></i>{{obj.bookVersionName}}
                             </label>
                         </div>
-                        <span class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query()">查询</span>
+                        <span class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query(1,1,null)">查询</span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                 </form>
@@ -78,7 +78,7 @@
                         <td>
                             <label class="i-checks isChecked const">
                                 <input type="hidden" ng-value="item.eduVulnerabilityAnalyzeRecordCode" />
-                                <input type="checkbox" ng-checked="selectAll" ng-model="value" ng-change="const('SBConfrimCtrl')"><i></i>
+                                <input type="checkbox" class="isDisable" data-ng-init="isDisable('SBConfrimCtrl',item.diagnosisPaperCode,$index)" ng-model="value" ng-change="const('SBConfrimCtrl')"><i></i>
                             </label>
                             {{$index+1}}
                         </td>
