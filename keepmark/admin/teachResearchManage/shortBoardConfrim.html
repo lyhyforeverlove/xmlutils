@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <h4>{{formData}} &gt; 短板确认</h4>
         </div>
-        <div class="wrapper">
+        <div class="wrapper" id="shortBoardConfrimDiv">
             <div class="panel-heading m-b-xl">
                 <form action="">
                     <div class="radio form-group col-sm-12">
@@ -71,15 +71,13 @@
                         <th>联系</th>
                         <th>家长</th>
                         <th>学科用卷</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="item in result track by $index">
                     <tr>
                         <td>
-                            <label class="i-checks isChecked const">
-                                <input type="hidden" ng-value="item.eduVulnerabilityAnalyzeRecordCode" />
-                                <input type="checkbox" class="isDisable" data-ng-init="isDisable('SBConfrimCtrl',item.diagnosisPaperCode,$index)" ng-model="value" ng-change="const('SBConfrimCtrl')"><i></i>
-                            </label>
+
                             {{$index+1}}
                         </td>
                         <td>{{item.userName}}</td>
@@ -101,11 +99,19 @@
                             </div>
                             <!-- 学科用卷/modal -->
                         </td>
+                        <td>
+                            <label class="i-checks isChecked const">
+                                <!--<input type="hidden" ng-value="item.eduVulnerabilityAnalyzeRecordCode" />-->
+                                <!--<input type="checkbox" class="isDisable" data-ng-init="isDisable('SBConfrimCtrl',item.diagnosisPaperCode,$index)" ng-model="value" ng-change="const('SBConfrimCtrl')"><i></i>-->
+                                <input class="shortBoardChecked" id="{{item.eduVulnerabilityAnalyzeRecordCode}}"  name="check-entities" type="checkbox" ng-model="x" ng-checked="master" ng-click="checkSub(item.diagnosisPaperCode ,x,$index+1)"><i></i></label>
+
+                            </label>
+                        </td>
                     </tr>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
-                    <tr>
-                        <td colspan="14"></td>
+<!--                    <tr>
+                        <td colspan="15"></td>
                         <td>
                             <span>已选{{ num }}人</span>
                             <label class="i-checks constAll">
@@ -113,16 +119,16 @@
                             </label>
                         </td>
                         <td>
-                            <!-- 学科用卷 modal -->
+                            &lt;!&ndash; 学科用卷 modal &ndash;&gt;
                             <div ng-controller="categoryCtrl" class="pull-right">
                                 <script type="text/ng-template" id="myModalContent.html">
                                     <div ng-include="'admin/common/tpl/shortBoardDiagHXY.html'"></div>
                                 </script>
-                                <button class="btn btn-primary" ng-click="open()">学科用卷</button>
+                                <button class="btn btn-primary" ng-click="open(dataMap)">学科用卷</button>
                             </div>
-                            <!-- 学科用卷/modal -->
+                            &lt;!&ndash; 学科用卷/modal &ndash;&gt;
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td colspan="15" class="text-center">
                             <!-- 指令调用代码-->
@@ -133,6 +139,84 @@
                     </tfoot>
                 </table>
             </div>
+            <div >
+                <!--  <script type="text/ng-template" id="myModalContent.html">
+                      <div ng-include="'admin/common/tpl/category.html'"></div>
+                  </script>-->
+                <script type="text/ng-template" id="myModelContent.html">
+
+                        <div class="modal-header">
+                            <h3 class="modal-title">短板诊断用卷</h3>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <tr>
+                                    <div class="radio">
+                                        <td width="8%">学年:</td>
+                                        <td class="i-checks">{{formData}}高考</td>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td>试卷类型:</td>
+                                    <td>
+                                        <div class="radio">
+                                            <label class="i-checks" ng-repeat="val in paperUse track by $index">
+                                                <input type="radio" name="paperUseType" ng-value='val.paperUseType' ng-model="formData.paperUseType" ng-click="getBookVersion(val.val.paperUseType)" ng-change="checked(formData.paperUseType,'paperUseType')">
+                                                <i></i>{{val.paperUseName}}
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>学科:</td>
+                                    <td>
+                                        <div class="radio">
+                                            <label class="i-checks" ng-repeat="(key, val) in category track by $index">
+                                                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getBookVersion(val.subjectCode)" ng-change="checked(formData.subjectCode,'subjectCode')">
+                                                <i></i>{{val.subjectName}}
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>教材:</td>
+                                    <td>
+                                        <div class="radio">
+                                            <label class="i-checks" ng-repeat="obj in bookVersion track by $index">
+                                                <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode" ng-change="checked(formData.bookVersionCode,'bookVersionCode')">
+                                                <i></i>{{obj.bookVersionName}}
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query()">查询</button>
+                            <div class="row">
+                                <div class="col-sm-12 shortBoardList" ng-repeat="item in result">
+                                    <div class="list-group">
+                    <span class="list-group-cate">{{item.diagnosisPaperName }}
+                        <label class="i-checks pull-right isChecked">
+                            <input type="hidden" ng-value="item.diagnosisPaperCode " />
+                            <input type="radio" name="dddd" ng-value="item">
+                            <i></i>选取
+                        </label>
+                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 指令调用代码-->
+                            <xl-page size="5" method="query" class="text-center"></xl-page>
+                            <!--指令模板（pagination.html）-->
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                            <button class="btn btn-primary" ng-click="addShortBoardDiag()">OK</button>
+                        </div>
+
+                </script>
+
+            </div>
+            <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lt',dataMap)">学科用卷</button>
         </div>
     </div>
 </div>
