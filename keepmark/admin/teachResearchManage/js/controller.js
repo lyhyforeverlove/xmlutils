@@ -174,7 +174,7 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                     console.log(data);
                     $scope.results = data.result;
                     results = data.result.list;
-                    var subjectCode = data.result.list[0].subjectCode;
+                    //var subjectCode = data.result.list[0].subjectCode;
                     /*if(subjectCode == 1){
                         $scope.subjectName = "语文";
                     }*/
@@ -229,6 +229,12 @@ app.controller('paperDetailController', ['$scope','$http','$stateParams',functio
     }
 
 }]);
+//试卷管理-全科-》详情
+app.controller('GroupDetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
+
+
+});
+
 app.controller('DetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
  
     var paperCode = $stateParams.paperCode;
@@ -935,7 +941,8 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
                     "pageSize":size
                 })
                 .success(function(data) {
-                    if(data.message = "success"){
+                   console.log(data);
+                    if(data.message == "Success"){
                         angular.forEach(data.result.list, function(data){
                             if(data.artsType == "SCIENCE"){
                                 data.artsType = "理科";
@@ -1029,39 +1036,3 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
 
 })
 
-
-
-
-
-
-
-
-
-app.controller('teachResearchCtrl', function($scope) {
-    //全选
-    var selected = false;
-    $scope.selectAll = function() {
-        selected = !selected;
-        angular.forEach($scope.data.results, function(item) {
-            item.selected = selected;
-        });
-    }
-})
-
-
-/*符合VIP*/
-app.controller('showHideController', function($scope) {
-    $scope.isShow = true;
-    $scope.showorhide = function() {
-        $scope.isShow = !$scope.isShow;
-    }
-});
-
-
-
-
-
-
-/*app.controller('modalDemo', function($scope, $modal, $log) {
-    
-})*/

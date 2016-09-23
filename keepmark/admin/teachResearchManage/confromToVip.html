@@ -1,14 +1,15 @@
 <div class="wrapper-md" ng-controller="ConfromToVipCtrl" id="confromToVip">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{formData}} &gt; 符合VIP报分 短板分析</h4>
+            <h4>教研管理 &gt; 符合VIP报分 短板分析</h4>
         </div>
         <div class="wrapper" id="confromToVipDiv">
             <div class="panel-heading m-b-xl">
-                <form action="" class="ConfromToVipCtrl_form" >
-                    <div class="radio form-group col-sm-12">
-                        <label class="col-sm-1 control-label">类型：</label>
-                        <div class="radio">
+                <pre>{{formData}}</pre>
+                <form action="" class="ConfromToVipCtrl_form form-horizontal" >
+                    <div class="radio form-group">
+                        <label class="col-sm-2 control-label">类型：</label>
+                        <div class="radio col-sm-10 ">
                             <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
                                 <input type="radio" name="departmentType" ng-value='val.departmentType' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"  ng-change="checked(formData.departmentType,'departmentType')">
                                 <i></i>{{val.departmentName}}
@@ -16,64 +17,68 @@
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="radio form-group col-sm-12">
-                        <label class="col-sm-1 control-label">短板状态：</label>
-                        <div class="radio">
+                    <div class="radio form-group">
+                        <label class="col-sm-2 control-label">短板状态：</label>
+                        <div class="radio col-sm-10">
                             <label class="i-checks">
-                                <input type="radio" name="isShortlabStatus" ng-value="'1'" ng-change="query()" ng-model="formData.isShortlabStatus">
+                                <input type="radio" name="isShortlabStatus" ng-value="'1'" ng-change="getList(1,10)" ng-model="formData.isShortlabStatus">
                                 <i></i>已分析
                             </label>
                             <label class="i-checks">
-                                <input type="radio" name="isShortlabStatus" ng-value="'0'"  ng-change="query()" ng-model="formData.isShortlabStatus">
+                                <input type="radio" name="isShortlabStatus" ng-value="'0'"  ng-change="getList(1,10)" ng-model="formData.isShortlabStatus">
                                 <i></i>未分析
                             </label>
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="radio form-group col-sm-12">
-                        <label class="col-sm-1 control-label">地区：</label>
-                        <div class="col-sm-2">
-                            <select name="city" class="form-control input-sm" ng-model="formData.city" ng-click="checked(obj.provinceCode,'city')" ng-options="obj.provinceCode as obj.provinceName for obj in cityAll"  ng-selected="formData.city">
+                    <div class="radio form-group">
+                        <label class="col-sm-2 control-label">地区：</label>
+                        <div class="col-sm-4">
+                            <!--<select name="city" class="form-control input-sm" ng-model="formData.city" ng-click="checked(obj.provinceCode,'city')" ng-options="obj.provinceCode as obj.provinceName for obj in cityAll"  ng-selected="formData.city">
+                            </select>-->
+                            <select class="form-control" name="city" ng-model="formData.city" ng-options="m.provinceCode as m.provinceName for m in results" >
+                                <option value="">-- 请选择地区 --</option>
                             </select>
+
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
-                    <div class="radio form-group col-sm-12">
-                        <label class="col-sm-1 control-label">总分数:</label>
+                    <div class="radio form-group">
+                        <label class="col-sm-2 control-label">总分数:</label>
                         <div class="col-sm-2">
                             <input type="text" name="totalStart" class="form-control input-sm" ng-change="checked(formData.totalStart,'totalStart')" ng-model="formData.totalStart">
                         </div>
-                        <label class="col-sm-1" style="width:10px">-</label>
+                        <label class="col-sm-2" style="width:10px">-</label>
                         <div class="col-sm-2">
                             <input type="text" name="totalEnd" class="form-control input-sm" ng-change="checked(formData.totalStart,'totalStart')" ng-model="formData.totalEnd">
                         </div>
-                        <span class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query()">查询</span>
                     </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="radio form-group">
+                        <label class="col-sm-2 control-label" for="input-id-1">目标类型：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
+                                <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="target(formData.aimType)">
+                                <i></i>{{obj.aimName}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <span class="btn m-b-xs w-xs btn-primary pull-right" ng-click="getList(1,10)">查询</span>
                 </form>
             </div>
             <div class="line line-dashed b-b line-lg"></div>
+            <div class="radio form-group">
+                <label class="i-checks">
+                    <input type="radio" name="sort" ng-value="0" ng-model="formData.sortValue" ng-change="arrsort(formData.sortValue)">
+                    <i></i>正序排序
+                </label>
+                <label class="i-checks">
+                    <input type="radio" name="sort" ng-value="1" ng-model="formData.sortValue" ng-change="arrsort(formData.sortValue)">
+                    <i></i>倒序排序
+                </label>
+            </div>
             <div class="table-responsive">
-                <div class="radio"><b>排序</b>
-                    <label class="i-checks">
-                        <input type="radio" name="sort" ng-value="0" ng-model="sortValue" ng-change="arrsort(sortValue)">
-                        <i></i>正序排序
-                    </label>
-                    <label class="i-checks">
-                        <input type="radio" name="sort" ng-value="1" ng-model="sortValue" ng-change="arrsort(sortValue)">
-                        <i></i>倒序排序
-                    </label>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
-                <div class="radio form-group col-sm-12">
-                    <label class="col-sm-1 control-label" for="input-id-1">目标：</label>
-                    <div class="radio">
-                        <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
-                            <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="target(formData.aimType)">
-                            <i></i>{{obj.aimName}}
-                        </label>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg"></div>
                 <table class="table table-striped b-t b-light" id="confromToVipTbody">
                     <thead>
                     <tr>
@@ -91,12 +96,12 @@
                         <th>生物</th>
                         <th>诊断报告</th>
                         <!--<th>上次操作人</th>-->
-                        <th>操作</th>
                         <th>状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
-                    <tbody ng-repeat="item in result track by $index">
-                    <tr>
+                    <tbody>
+                    <tr ng-repeat="item in result track by $index">
                         <td data-ng-init="items(item,$index)">{{ $index + 1 }}</td>
                         <td>XXX</td>
                         <td>{{item.studentName }}</td>
@@ -110,68 +115,55 @@
                         <td>{{item.chemistryScore }}</td>
                         <td>{{item.biologyScore }}</td>
                         <td>
-                            <button class="btn btn-default">详情</button>
+                            <button class="btn btn-primary">详情</button>
                         </td>
                         <!--<td>XXXX</td>-->
                         <!--<td>XXXX</td>-->
                         <td ng-if="status(item.isWeaknessAffirm,1)">
                             -
                         </td>
-                        <td ng-if="status(item.isWeaknessAffirm,0)">
-                            <label class="i-checks const">
-                                <!--<input class="isDisable toVipChecked" name= "toVipChecked" type="checkbox" id="{{item.studentCode}}"  ng-click="checkSub()" ng-model="checked"><i></i>-->
-                                <input class="toVipChecked" id="{{item.studentCode}}"  name="check-entities" type="checkbox" ng-model="x" ng-checked="master" ng-click="checkSub(item.studentCode ,x,$index+1)"><i></i></label>
-
-                            </label>
-                        </td>
                         <td ng-if="status(item.isWeaknessAffirm,1)">
                             已短板分析
                         </td>
                         <td ng-if="status(item.isWeaknessAffirm,0)">
                             未短板分析
-                          <!--  <div ng-controller="categoryCtrl">
-                                <script type="text/ng-template" id="myModalContent.html">
-                                    <div ng-include="'admin/common/tpl/shortBoardHXY.html'"></div>
-                                </script>-->
-                                <!--<button class="btn btn-default" ng-click="open(item)">短板分析</button>-->
-                            <!--</div>-->
-
                         </td>
+                        <td ng-if="status(item.isWeaknessAffirm,0)">
+                            <!--<label class="i-checks const">
+                                &lt;!&ndash;<input class="isDisable toVipChecked" name= "toVipChecked" type="checkbox" id="{{item.studentCode}}"  ng-click="checkSub()" ng-model="checked"><i></i>&ndash;&gt;
+                                <input class="toVipChecked" id="{{item.studentCode}}"  name="check-entities" type="checkbox" ng-model="x" ng-checked="master" ng-click="checkSub(item.studentCode ,x,$index+1)"><i></i></label>
+                            --><label class="i-checks">
+                            <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
+                            </label>
+                        </td>
+
                     </tr>
-                    </tbody>
-                    <tfoot class="hide-if-no-paging">
-<!--                    <tr ng-if="status(formData.isShortlabStatus,0)">
-                        <td colspan="14"></td>
-                        <td>
-                            <span>已选{{num}}人</span>
-                            <label class="i-checks constAll">
-                                <input type="checkbox" ng-model="checkeds" ng-change="constAll('confromToVip')"><i></i> 全选
+                    <tr ng-if="formData.isShortlabStatus == 0">
+                        <td colspan="14" class="text-right">
+                            <label class="i-checks m-b-none">
+                                <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
                             </label>
                         </td>
                         <td>
-                          &lt;!&ndash;  <div ng-controller="categoryCtrl">
-                                <script type="text/ng-template" id="myModalContent.html">
-                                    <div ng-include="'admin/common/tpl/shortBoardHXY.html'"></div>
-                                </script>
-                                <button class="btn btn-default btn-primary" ng-click="open('lt',formData,dataMap)">短板分析</button>
-                            </div>&ndash;&gt;
-                            <button class="btn btn-default btn-primary" ng-click="open('lt',formData,dataMap)">短板分析</button>
-
-                        </td>
-                    </tr>-->
-                    <tr>
-                        <td colspan="15" class="text-center">
-                            <!-- 指令调用代码-->
-                            <xl-page size="5" method="query" class="text-center"></xl-page>
-                            <!--指令模板（pagination.html）-->
+                            <!-- 短板分析 modal -->
+                            <!--{{choseArr}}-->
+                            <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lt',choseArr)">短板分析</button>
+                            <!-- 短板分析/modal -->
                         </td>
                     </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="15" class="text-center">
+                                <!-- 指令调用代码-->
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                <!--指令模板（pagination.html）-->
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>
             <div>
-
-
                 <script type="text/ng-template" id="myModelContent.html">
                     <div >
                         <div class="modal-header">
@@ -180,39 +172,33 @@
                         <div class="modal-body">
                             <div>
                                 <div class="shortBoard_whether">
-                                    <select ng-model="whether" ng-click="whetherMothed()">
-                                        <option value="" selected="selected">--请选择--</option>
-                                        <option value="1">添加“短板”</option>
-                                        <option value="2">不需要“短板”</option>
-                                    </select>
-                                </div>
-                                <label class="col-sm-2 control-label" ng-show="display">短板学科:</label>
-                                <div class="col-sm-4" ng-show="display">
-                                    <select name="account" class="form-control" ng-model="checked" ng-click="getIndex('checked')">
-                                        <option value="" selected="selected">请选择短板科目</option>
-                                        <option ng-repeat="a in category" ng-value="a.subjectCode">{{a.subjectName}}</option>
-                                    </select>
-                                </div>
-                                <!--     <label class="col-sm-2 control-label" ng-show="display">地区:</label>
-                                <div class="col-sm-4" ng-show="display">
-                                        <select name="account" class="form-control" ng-model="checkedCity" ng-click="getIndex('checkedCity')">
-                                        <option value="" selected="selected">请选择地区</option>
-                                <option ng-repeat="obj in city" ng-value="obj.provinceCode">{{obj.provinceName}}</option>
-                                </select>
-                                </div>-->
+                                    <div class="radio form-group">
+                                        <label class="i-checks">
+                                            <input type="radio" name="addOrno" ng-value="0" ng-model="whether" ng-change="whetherMothed()">
+                                            <i></i>添加短板
+                                        </label>
+                                        <label class="i-checks">
+                                            <input type="radio" name="addOrno" ng-value="1" ng-model="whether" ng-change="whetherMothed()">
+                                            <i></i>不需要短板
+                                        </label>
+                                    </div>
+                                    <div ng-show="display" class="col-sm-4">
+                                        <b>短板学科：</b>
+                                        <select class="form-control" ng-model="subjectCode" ng-options="m.subjectCode as m.subjectName for m in subjects">
+                                            <option value="">-- 请选择短板科目 --</option>
+                                        </select>
+                                    </div>
+
                             </div>
-                            <!--Selected: <b></b>-->
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-default" ng-click="cancel()">取消</button>
-                            <button class="btn btn-primary" ng-click="shortBoardOk(formIndex.checked,formIndex.checkedCity,whether)">确认</button>
+                            <button class="btn btn-warning" ng-click="cancel()">取消</button>
+                            <button class="btn btn-primary" ng-click="shortBoardOk(subjectCode)">确认</button>
                         </div>
                     </div>
 
                 </script>
             </div>
-            <!--<button class=" m-t btn btn-primary pull-right" ng-click="open('lt')">无需短板(待确认)</button>-->
-            <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lt',formData,dataMap)">短板分析</button>
         </div>
     </div>
 

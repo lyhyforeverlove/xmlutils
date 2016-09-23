@@ -92,18 +92,30 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     }
 });
 /*学生分类=》符合VIP报分短板分析*/
-app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $stateParams, $modal, $state,$log,$controller,CalcService) {
-    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
-    $controller('getJsonData', {$scope: $scope});//继承
-    $controller('constAll', {$scope: $scope});//继承
-//    $controller('getPaper', {$scope: $scope});//继承
-//    $controller('btnSH', {$scope: $scope});//继承
-//    $controller('disabled', {$scope: $scope});//继承
+app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $stateParams, $modal, $state,$log,$controller) {
+    //$controller('ParentGetDataCtrl', {$scope: $scope});//继承
+    $controller('getJsonData', {$scope: $scope});//继承  文理 目标类型
+    //$controller('constAll', {$scope: $scope});//继承 全选
+ //$controller('getPaper', {$scope: $scope});//继承
+ //$controller('btnSH', {$scope: $scope});//继承
+ //$controller('disabled', {$scope: $scope});//继承
+
+
+    //获取所有地区列表
+    $scope.GetAreaAllProvince = function(){
+        var url = $scope.app.host + '/area/allProvince?requestId=1';
+        $http.post(url).success(function(data){
+            $scope.results = data.result;
+        }).error(function(data){
+            console.log("fail");
+        })
+    };
+    $scope.GetAreaAllProvince();//初始所有地区下拉框
 
     $scope.formData = {};
-    $scope.dataMap=new Array();
+    //$scope.dataMap=new Array();
     //默认选中函数
-    function checked(data,ele,value){
+    /*function checked(data,ele,value){
         for(var i=0; i<data.length; i++){
             if(data[i].checked == true){
                 ele.eq(i).prop("checked",true);
@@ -111,12 +123,12 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
                 break;
             }
         }
-    }
+    }*/
     //状态显示
-    $scope.status = function(val,type){
+   /* $scope.status = function(val,type){
         return val==type;
-    };
-    //多选
+    };*/
+  /*  //多选
     $scope.x = false; //默认未选中
     $scope.checkSub = function() { //单选或者多选
 
@@ -129,19 +141,19 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
                 console.log($scope.dataMap);
             }
         })
-    };
+    };*/
     //默认值
-    $scope.formData.departmentType = "1";
-    $scope.formData.aimType = 1;
-    $scope.formData.isShortlabStatus = "1";
-    $scope.formData.totalStart = "400";
-    $scope.formData.totalEnd = "600";
-    $scope.formData.paperUseType = "1";
-    $scope.formData.city = "1";
+    $scope.formData.departmentType = "1";//文理科
+    $scope.formData.isShortlabStatus = "1";//短板状态 默认为已分析
+    $scope.formData.city = "1";//地区
+    $scope.formData.totalStart = "1"; //总分数开始值
+    $scope.formData.totalEnd = "600"; //总分数结束值
+    $scope.formData.sortValue = "1";//排序
+    $scope.formData.aimType = 1;//目标类型
     //筛选条件改变时执行
-    $scope.change = function(val,name){
+   /* $scope.change = function(val,name){
         $scope.formData[name] = val;
-    };
+    };*/
     //排序
     $scope.arrsort = function(type){
         $scope.result.sort(function(value1,value2){
@@ -152,41 +164,12 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
             }
         })
     }
-    //目标分类
+    //目标分类 点击切换列表
     $scope.target = function(type){
         $scope.formData.aimType = type;
-        $scope.query();
-    };
-    //根据类型、地区、总分数 查询列表
-    $scope.query = function(page,size,callback){
-        if(page==null || page==undefined){
-            page=1;
-        }
-        if(size==null || size==undefined){
-            size=5;
-        }
-        $scope.status();
-        console.log("----->"+$scope.formData.isShortlabStatus);
-        $http.post($scope.app.host + '/shortSlab/list?requestId=test123456', {
-            "departmentType": $scope.formData.departmentType,
-            "aimType":$scope.formData.aimType,
-            "isShortlabStatus":$scope.formData.isShortlabStatus,
-            "startTotalScore":$scope.formData.totalStart,
-            "endTotalScore":$scope.formData.totalEnd,
-            "areaCode":$scope.formData.city,
-            "currentPage": page,
-            "pageSize":size
-        })
-            .success(function (data) {
-                console.log(data);
-                $scope.data = data;
-                $scope.result = data.result.list;
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
-            });
+        $scope.getList(1,10);
     };
     //全选
-    $scope.tesarry = ['1', '2', '3']; //初始化数据
     $scope.choseArr = []; //定义数组用于存放前端显示
     var str = ""; //
     var flag = ''; //是否点击了全选，是为a
@@ -195,22 +178,14 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
     $scope.checkAll = function(c, v) { //全选
         if (c == true) {
             $scope.x = true;
-            var entities=$("#courseCategory-div input[type=checkbox][name=check-entities]");
-            for (var i = 0; i < entities.length; i++) {
-                var entity = entities[i];
-                $scope.choseArr.push(entity.id);
-            }
-//            $scope.choseArr = v;
+            $scope.choseArr = v;
         } else {
             $scope.x = false;
             $scope.choseArr = [""];
         }
         flag = 'a';
-        console.log($scope.choseArr);
     };
     $scope.chk = function(z, x) { //单选或者多选
-
-
         if (flag == 'a') { //在全选的基础上操作
             str = $scope.choseArr.join(',') + ',';
         }
@@ -219,31 +194,59 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
         } else {
             str = str.replace(z + ',', ''); //取消选中
         }
-
         $scope.choseArr = (str.substr(0, str.length - 1)).split(',');
-        console.log($scope.choseArr);
-
     };
-    $scope.open = function(size,formData,choseArr) {
-        alert(choseArr);
-        if (choseArr == "" || choseArr.length == 0) { //没有选择一个的时候提示
-            alert("请至少选中一条数据在操作！");
-            return;
+    //根据类型、地区、总分数 查询列表
+    $scope.getList = function(page,size,callback){
+        if(page == null || page == undefined){
+            page = 1;
         }
+        if(size == null || size == undefined){
+            size = 5;
+        }
+        //$scope.status();
+        $http.post($scope.app.host + 'shortSlab/list?requestId=test123456', {
+            "departmentType": $scope.formData.departmentType,
+            "areaCode":$scope.formData.city,
+            "aimType":$scope.formData.aimType,
+            "isShortlabStatus":$scope.formData.isShortlabStatus, //0:未做,1:已做
+            "startTotalScore":$scope.formData.totalStart,
+            "endTotalScore":$scope.formData.totalEnd,
+            "currentPage": page,
+            "pageSize":size
+        }).success(function (data) {
+            if(data.message == "Success"){
+
+                $scope.data = data;
+                $scope.result = data.result.list;
+
+                $scope.tesarry = []; //初始化数据
+                angular.forEach($scope.result, function(data){
+                    $scope.tesarry.push(data.studentCode);
+                });
+                $scope.totalPage = data.result.totalPage;
+                callback && callback(data.result);
+            }
+
+        });
+    };
+
+    $scope.open = function(size,choseArr) {
+        //console.log(choseArr);
+        if ($scope.choseArr[0] == "" || $scope.choseArr.length == 0) { //没有选择一个的时候提示
+            alert("请至少选中一条数据在操作！")
+            return;
+        };
         var modalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalShortSlabCtrlDR',
-            size: size,
-            resolve: {
-                formData: function() {
-                    return formData;
-                },
-                studentCodes : function(){
-                    // return $scope.diagnosticRecordsCodes;
-                    return choseArr;
-                },
+            templateUrl : 'myModelContent.html',
+            controller : 'ModalShortSlabCtrlDR', // specify controller for modal
+            size : size,
+            resolve : {
                 host : function(){
                     return $scope.app.host;
+                },
+                studentCodes : function(){
+                    return choseArr;
                 }
             }
         });
@@ -254,59 +257,69 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
             $log.info('Modal dismissed at: ' + new Date())
         });
     };
-
-
 });
 //短板分析-弹出框 控制器
-app.controller('ModalShortSlabCtrlDR',function($scope,$http,$controller, $modalInstance, formData,studentCodes,host) {
+app.controller('ModalShortSlabCtrlDR',function($scope,$http,$controller, $modalInstance,host,studentCodes) {
+    console.log(studentCodes);
+    $controller('getJsonData', {$scope: $scope});//继承
 
-    /* $scope.selected = {
-     item: $scope.items
-     };*/
-//    $controller('getJsonData', {$scope: $scope});//继承
-    $scope.formIndex = {};
-    //  取消
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
+    /*$scope.formIndex = {};
     $scope.isShow = true;
     $scope.showOrHide = function() {
         $scope.isShow = !$scope.isShow;
-    };
+    };*/
 
     //获取学科（短板）
-    $scope.getIndex = function(value) {
+   /* $scope.getIndex = function(value) {
         $scope.formIndex[value] = $scope[value];
     };
+*/
+    //获取九大学科
+    $scope.getSubject = function(){
+        $http.post('admin/json/subject.json').success(function(data){
+            console.log(data.subject);
+            $scope.subjects = data.subject;
+        }).error(function(data){
+            console.log("fail");
+        })
+    };
     //是否添加短板
+    $scope.whether = 0;//默认添加短板
+    $scope.display = true;
     $scope.whetherMothed = function(){
-        if($scope.whether == "1"){
+        if($scope.whether == 1){
+            $scope.display = false;
+        }else{
             $scope.display = true;
         }
     };
-    $scope.display = false;
-
-    //短板分析
-    $scope.shortBoardOk = function(code,city,display){
-        console.log("code---?"+code);
-        console.log("city---?"+city);
-        console.log("display---?"+display);
-        if(!code || !display){
+    //短板分析Ok
+    $scope.shortBoardOk = function(subjectCode){
+        console.log(studentCodes);
+        console.log($scope.whether);
+        console.log(subjectCode);
+        if(!studentCodes || !subjectCode){
             return;
         }
-        var url = host + "/shortSlab/section/add/Subject?requestId=test123456";
-        if(display==0){
-            url = host + "/shortSlab/section/through?requestId=test123456";
+        var url = host + "shortSlab/section/through?requestId=test123456";
+        if($scope.whether == 0){//添加短板学科
+            url = host + "shortSlab/section/add/Subject?requestId=test123456";
         }
         $http.post(url,{
             "studentCodes":studentCodes,
-            "subjectCode": code
+            "subjectCode": subjectCode
         }).success(function(data){
             console.log(data);
-            location.reload(true);
+            if(data.result == true){
+                $modalInstance.close(data);
+            }
+            //location.reload(true);重新加载页面
         });
     };
-
+    //取消
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
 });
 /*学生分类=》短板确认*/
 app.controller('SBConfrimCtrl', function($scope, $http, $resource, $stateParams, $modal,$log, $state,$controller,CalcService) {
@@ -402,7 +415,6 @@ app.controller('SBConfrimCtrl', function($scope, $http, $resource, $stateParams,
     };
 });
 app.controller('ModalShortSlabConfrimCtrlDR',function($scope,$http,$controller, $modalInstance, dataMap,host) {
-    alert("jinru ")
 
     /* $scope.selected = {
      item: $scope.items
