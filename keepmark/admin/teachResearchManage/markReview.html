@@ -2,131 +2,187 @@
     {{ formData }}
 </pre>
 <div class="wrapper-md" ng-controller="MarkReviewController" id="MarkReviewController">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>}教研管理 &gt; 阅卷复审</h4>
-        </div>
-        <div class="wrapper">
-            <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled"  ng-init="load()">
-                <!--包含公共筛选条件 start-->
-                <div ng-include="'admin/common/tpl/filter.html'"></div>
-                <!--包含公共筛选条件 end-->
-                <!--<button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>-->
-            </form>
-            <!-- tab -->
-            <div>
-                <div>
-                    <ul class="tab">
-                        <li class="toggleTab" ng-click="tab1()">未审核</li>
-                        <li ng-click="tab2()">已审核</li>
-                    </ul>
-                    <div class="panel-heading">
-                        <div class="form-group" style="overflow:hidden;">
-                            <label class="col-sm-2 control-label">分数:</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm" ng-model="point1" ng-change="poor(point1,'point1')">
-                            </div>
-                            <label class="col-sm-2 " style="width:10px">-</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm" ng-model="point2" ng-change="poor(point2,'point2')">
-                            </div>
-                        </div>
-                        <div class="form-group poorBox" ng-show="display">
-                            <div class="line line-dashed b-b line-lg"></div>
-                            <label class="col-sm-2 control-label">1判2判差值分数:</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm"  ng-model="poor1" ng-change="poor(poor1,'poor1')">
-                            </div>
-                            <label class="col-sm-2 " style="width:10px">-</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm" ng-model="poor2" ng-change="poor(poor2,'poor2')">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn m-b-xs w-xs btn-primary" ng-click="query(1,1,null)">查询</button>
-                    </div>
-                    <!-- <pre>{{choseArr}}</pre> -->
-                    <div class="table-responsive">
-                        <div class="radio">
-                            <b>1判、2判差值排序</b>
-                            <label class="i-checks">
-                                <input type="radio" name="sort" ng-value="0" ng-model="sortValue" ng-change="arrsort(sortValue)">
-                                <i></i>正序排序
-                            </label>
-                            <label class="i-checks">
-                                <input type="radio" name="sort" ng-value="1"  ng-model="sortValue" ng-change="arrsort(sortValue)">
-                                <i></i>倒序排序
-                            </label>
-                        </div>
-                        <table class="table table-striped b-t b-light">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>用户名</th>
-                                <th>姓名</th>
-                                <th>学科</th>
-                                <th>考试时间</th>
-                                <th>试卷</th>
-                                <th>客观题得分</th>
-                                <th>判卷人(1)得分</th>
-                                <th>判卷人(2)得分</th>
-                                <th>总分</th>
-                                <th>差值</th>
-                                <th>操作</th>
-                                <th>教研复审</th>
-                            </tr>
-                            </thead>
-                            <tbody ng-repeat="item in result track by $index">
-                            <tr>
-                                <td>{{$index+1}}</td>
-                                <td>{{item.studentCode}}</td>
-                                <td>{{item.studentCode}}</td>
-                                <td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
-                                <td>2016.7.28：18：00-19：00</td>
-                                <td>
-                                    <button class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</button>
-                                </td>
-                                <td>{{item.impersonalityScore}}</td>
-                                <td>{{item.subjectivityOneScore}}</td>
-                                <td>{{item.subjectivityTwoScore }}</td>
-                                <td>{{item.diagnosisScore}}</td>
-                                <td>{{D_value(item.subjectivityOneScore,item.subjectivityTwoScore)}}</td>
-                                <td>
-                                    <label class="i-checks const">
-                                        <input type="checkbox" ng-value="data.selected" class="isDisable" ng-click="const('MarkReviewController')" data-ng-init="isDisable('MarkReviewController',item.markPaperStatus,$index)"><i></i> 选择
-                                    </label>
-                                </td>
-                                <td data-ng-init="btnSH('MarkReviewController','btnList',item,$index,'markPaperStatus','已复审')" class="btnList">
-                                    <button class="btn btn-primary" ng-click="examine(item)">复审</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                            <tfoot class="hide-if-no-paging">
-                            <tr>
-                                <td colspan="11"></td>
-                                <td>
-                                    <span>已选{{num}}人</span>
-                                    <label class="i-checks constAll">
-                                        <input type="checkbox" ng-model="selectAll" ng-change="constAll('MarkReviewController',item.markPaperStatus)"><i></i> 全选
-                                        {{data.selected}}
-                                    </label>
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary">批量复审</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="13" class="text-center">
-                                    <!-- 指令调用代码-->
-                                    <xl-page size="2" method="query" class="text-center"></xl-page>
-                                    <!--指令模板（pagination.html）-->
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- / tab -->
-        </div>
-    </div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4>}教研管理 &gt; 阅卷复审</h4>
+		</div>
+		<div class="wrapper">
+			<form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" ng-init="load()">
+				<!--包含公共筛选条件 start-->
+				<div ng-include="'admin/common/tpl/filter.html'"></div>
+				<!--包含公共筛选条件 end-->
+				<!--<button class="pull-right btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button>-->
+				<div class="form-group" style="overflow:hidden;">
+					<label class="col-sm-2 control-label">分数 :</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control input-sm" ng-model="formData.oneTotalScore">
+					</div>
+					<label class="col-sm-2 " style="width:10px">-</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control input-sm" ng-model="formData.twoTotalScore">
+					</div>
+				</div>
+				<div class="form-group poorBox">
+					<div class="line line-dashed b-b line-lg"></div>
+					<label class="col-sm-2 control-label">1判2判差值分数 :</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control input-sm" ng-model="formData.oneDifference">
+					</div>
+					<label class="col-sm-2 " style="width:10px">-</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control input-sm" ng-model="formData.twoDifference">
+					</div>
+					<button  class="btn btn-primary pull-right" style="margin-right: 50px;" ng-click="getList(1, 2)">查询</button>
+				</div>
+			</form>
+			<!-- tab -->
+			<div>
+				<div id="tabs">
+					<ul>
+						<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+					</ul>
+					<div id="mainView">
+						<div ng-include="currentTab"></div>
+					</div>
+				</div>
+				<script type="text/ng-template" id="one.tpl.html">
+					<div id="viewOne">
+						<div class="table-responsive">
+							<table class="table table-striped b-t b-light">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>用户名</th>
+										<th>姓名</th>
+										<th>学科</th>
+										<th>考试时间</th>
+										<th>试卷</th>
+										<th>客观题得分</th>
+										<th>判卷人(1)得分</th>
+										<th>判卷人(2)得分</th>
+										<th>总分</th>
+										<th>差值</th>
+										<th>操作</th>
+										<th>教研复审</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in result track by $index">
+										<td>{{$index+1}}</td>
+										<td>{{item.studentCode}}</td>
+										<td>{{item.studentCode}}</td>
+										<td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
+										<td>2016.7.28：18：00-19：00</td>
+										<td>
+											<button class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</button>
+										</td>
+										<td>{{item.impersonalityScore}}</td>
+										<td>{{item.subjectivityOneScore}}</td>
+										<td>{{item.subjectivityTwoScore }}</td>
+										<td>{{item.diagnosisScore}}</td>
+										<td>{{D_value(item.subjectivityOneScore,item.subjectivityTwoScore)}}</td>
+										<td>
+												<label class="i-checks">
+                              					  <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
+											</label>
+										</td>
+										<td>
+											<span ng-if="item.distributionStatus==1">已复审</span>
+											<div ng-if="item.distributionStatus!=1">
+											<button class="btn btn-primary" ng-click="markReview(item)">复审</button>
+											<button class="btn btn-primary" ng-click="tongguo(item)">通过</button>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot class="hide-if-no-paging">
+									<tr>
+										<td colspan="11"></td>
+										<td>
+											<span>已选{{num}}人</span>
+											<label class="i-checks constAll">
+                                         <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                   		 </label>
+										</td>
+										<td>
+											<button class="btn btn-primary">批量 通过</button>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</script>
+
+				<script type="text/ng-template" id="two.tpl.html">
+					<div id="viewTwo">
+						<div class="table-responsive">
+							<table class="table table-striped b-t b-light">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>用户名</th>
+										<th>姓名</th>
+										<th>学科</th>
+										<th>考试时间</th>
+										<th>试卷</th>
+										<th>客观题得分</th>
+										<th>判卷人(1)得分</th>
+										<th>判卷人(2)得分</th>
+										<th>总分</th>
+										<th>差值</th>
+										<th>操作</th>
+										<th>教研复审</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in result track by $index">
+										<td>{{$index+1}}</td>
+										<td>{{item.studentCode}}</td>
+										<td>{{item.studentCode}}</td>
+										<td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
+										<td>2016.7.28：18：00-19：00</td>
+										<td>
+											<button class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</button>
+										</td>
+										<td>{{item.impersonalityScore}}</td>
+										<td>{{item.subjectivityOneScore}}</td>
+										<td>{{item.subjectivityTwoScore }}</td>
+										<td>{{item.diagnosisScore}}</td>
+										<td>{{D_value(item.subjectivityOneScore,item.subjectivityTwoScore)}}</td>
+										<td>
+											<label class="i-checks">
+                              					  <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
+											</label>
+
+										</td>
+										<td>
+											<button class="btn btn-primary" ng-click="markReview(item)">复审</button>
+											<button class="btn btn-primary" ng-click="tongguo(item)">通过</button>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot class="hide-if-no-paging">
+									<tr>
+										<td colspan="11"></td>
+										<td>
+											<span>已选{{num}}人</span>
+											<label class="i-checks constAll">
+                                         <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                   		 </label>
+										</td>
+										<td>
+											<button class="btn btn-primary">批量 通过</button> 
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</script>
+			</div>
+			<!-- / tab -->
+			<xl-page size="2" method="getList" class="text-center"></xl-page>
+		</div>
+	</div>
 </div>

@@ -212,6 +212,10 @@ angular.module('app')
                         url: '/markReview',
                         templateUrl: 'admin/teachResearchManage/markReview.html',
                     })
+                    .state('app.teachResearchManage.markReviewPaper', {
+                        url: '/markReviewPaper/:jsonString',
+                        templateUrl: 'admin/teachResearchManage/paperDetail.html',
+                    })
                     .state('app.teachResearchManage.diagExamList', {
                         url: '/diagExamList',
                         templateUrl: 'admin/teachResearchManage/diagExamList.html',
