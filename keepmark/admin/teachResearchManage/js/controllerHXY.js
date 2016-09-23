@@ -125,9 +125,9 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
         }
     }*/
     //状态显示
-   /* $scope.status = function(val,type){
+    $scope.status = function(val,type){
         return val==type;
-    };*/
+    }
   /*  //多选
     $scope.x = false; //默认未选中
     $scope.checkSub = function() { //单选或者多选
@@ -204,7 +204,7 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
         if(size == null || size == undefined){
             size = 5;
         }
-        //$scope.status();
+        $scope.status();
         $http.post($scope.app.host + 'shortSlab/list?requestId=test123456', {
             "departmentType": $scope.formData.departmentType,
             "areaCode":$scope.formData.city,

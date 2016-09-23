@@ -605,7 +605,7 @@ app.controller('ModalDistributionCtrl', function($scope,$http, $modalInstance,di
     $scope.TeacherList = function(){
        
     }
-     //全选
+
     $scope.teacherCodes = []; //定义数组用于存放前端显示
     var str = ""; //
     var flag = ''; //是否点击了全选，是为a
@@ -629,7 +629,7 @@ app.controller('ModalDistributionCtrl', function($scope,$http, $modalInstance,di
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     }
-    console.log($scope.teacherCodes );
+    //console.log($scope.teacherCodes );
     //手动分配试卷
     $scope.DistributionOk = function(round){
         //console.log(round);
