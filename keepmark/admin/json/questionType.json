@@ -1,0 +1,146 @@
+[
+  {
+    "subjectCode": 1,
+    "subjectName": "语文",
+    "types": [{
+      "id": "402881b951dd6d230151dd8cf375000c",
+      "questiontypeCode": "1",
+      "enlargeType": "单选题",
+      "subjectCode": "1"
+    }, {
+      "id": "402881b951dd91520151dd94c4720000",
+      "questiontypeCode": "2",
+      "enlargeType": "多选题",
+      "subjectCode": "1"
+    }, {
+      "id": "402881b45194ffbc0151951092700010",
+      "questiontypeCode": "3",
+      "enlargeType": "判断题",
+      "subjectCode": "1"
+    }]
+  },
+  {
+    "subjectCode": 2,
+    "subjectName": "数学",
+    "types": [{
+      "id": "402881c5529ab64101529b4b3ea2002a",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "2"
+    }]
+  },
+  {
+    "subjectCode": 3,
+    "subjectName": "英语",
+    "types": [{
+      "id": "402881b951dd91520151dd9e74a60008",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "听力单选题",
+      "subjectCode": "3"
+    },{
+      "id": "402881b951dd91520151dd9e4cbc0007",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "3"
+    }, {
+      "id": "402881b951dd91520151dd9ea5880009",
+      "questiontypeCode": "2",
+      "isdel": "0",
+      "enlargeType": "多选题",
+      "subjectCode": "3"
+    },  {
+      "id": "8a2a7468562bd9e001563040de070170",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "判断题",
+      "subjectCode": "3"
+    }, {
+      "id": "ff8080815372b03d01539d7855540001",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "阅读理解",
+      "subjectCode": "3"
+    }, {
+      "id": "8a2a7468544c359901545a983db60a41",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "完形填空",
+      "subjectCode": "3"
+    }]
+  },
+  {
+    "subjectCode": 4,
+    "subjectName": "物理",
+    "types": [{
+      "id": "402881c5529ab64101529b4ffa080030",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "4"
+    }, {
+      "id": "8a2a7468559088eb0155bf731f190a1d",
+      "questiontypeCode": "2",
+      "isdel": "0",
+      "enlargeType": "多选题",
+      "subjectCode": "4"
+    }]
+  },
+  {
+    "subjectCode": 5,
+    "subjectName": "化学",
+    "types": [{
+      "id": "402881c5529ab64101529b4e206c002b",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "5"
+    }]
+  },
+  {
+    "subjectCode": 6,
+    "subjectName": "生物",
+    "types": [{
+      "id": "402881c5529ab64101529b4e8fc2002c",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "6"
+    }]
+  },
+  {
+    "subjectCode": 7,
+    "subjectName": "历史",
+    "types": [{
+      "id": "402881c5529ab64101529b4eb75f002d",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "7"
+    }]
+  },
+  {
+    "subjectCode": 8,
+    "subjectName": "地理",
+    "types": [{
+      "id": "402881c5529ab64101529b4f2207002e",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "8"
+    }]
+  },
+  {
+    "subjectCode": 9,
+    "subjectName": "政治",
+    "types": [{
+      "id": "402881c5529ab64101529b4f458e002f",
+      "questiontypeCode": "1",
+      "isdel": "0",
+      "enlargeType": "单选题",
+      "subjectCode": "9"
+    }]
+  }
+]
