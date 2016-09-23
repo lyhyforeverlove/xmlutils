@@ -59,7 +59,7 @@
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
-                    <button class="btn btn-primary pull-right" ng-click="searchStudent()" >查询</button>
+                    <button class="btn btn-primary pull-right" ng-click="searchStudent(1,10)" >查询</button>
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12 text-right">
@@ -85,8 +85,8 @@
                             <td>{{$index+1}}</td>
                             <td>{{student.name}}</td>
                             <td>{{student.userName}}</td>
-                            <td>{{student.artType}}</td>
-                            <td>{{student.studentType}}</td>
+                            <td>{{student.artType==0?"一本线上30分":student.artType==1?"一本":"二本"}}</td>
+                            <td>{{student.type==0?"统考":"艺考"}}</td>
                             <td><label class="i-checks"><input type="checkbox"  id={{student.code}} name="{{student.name}}" ng-checked="isSelected(student.code)" ng-click="updateSelection($event,student.code)"><i></i></label></td>
                         </tr>
                         <tr>

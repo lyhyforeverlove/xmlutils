@@ -65,8 +65,10 @@
   <!--                      <td>{{data.departmentName}}</td>
                         <td>{{data.departmentDivisionType}}</td>-->
                         <td>{{data.name}}</td>
-                        <td>{{data.centerLeader}}</td>
-                        <td>{{data.goalType}}</td>
+                        <td>{{data.personCharge}}</td>
+                        <td ng-if = "data.goalType==1">二本</td>
+                        <td ng-if = "data.goalType==2">一本</td>
+                        <td ng-if = "data.goalType==3"></td>
                         <td>
                             <a class="btn-a" ng-click="viewCenterSchool(data)">查看</a>
                             <a class="btn-a" ng-click="updateVCenterSchool(data)">修改</a>

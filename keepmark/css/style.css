@@ -279,4 +279,5 @@ h4>span{
     padding:5px 10px;
     border:1px #7266ba solid;
     border-radius: 5px;
+    cursor: pointer;
 }

@@ -12,7 +12,7 @@ app.controller("masterSchoolController",function($scope, $http ,$controller,$sta
             "type": "1"
 
         }).success(function (data) {
-            if(data) $scope.results = data.result;
+            if(data.result) $scope.results = data.result;
         });
     }
     //查看总校详细信息
@@ -97,7 +97,7 @@ app.controller("branchSchoolController",function($scope, $http ,$controller,$sta
                 "type": "2",
                 "schoolMainCode":data.code
             }).success(function (data) {
-                if(data.result)$scope.results = data.result;
+                if(data.result) $scope.results = data.result;
             });
         }
     };
@@ -339,8 +339,15 @@ app.controller("departmentSchoolDetailController",function($scope,$stateParams){
     $scope.formData = V_GoodsAddJson;
     $scope.authDistrictBranchModelName = V_GoodsAddJson.authSchoolDistrictModel.name;
     $scope.name = V_GoodsAddJson.name;
-    alert(V_GoodsAddJson.divisionType);
     $scope.divisionType = V_GoodsAddJson.divisionType;
+    switch (V_GoodsAddJson.divisionType){
+        case 0:
+            $scope.divisionType ="文学部";
+            break;
+        case 1:
+            $scope.divisionType ="理学部";
+            break;
+    }
     $scope.personCharge = V_GoodsAddJson.personCharge;
     $scope.createDate = V_GoodsAddJson.createDate;
 });
@@ -402,6 +409,7 @@ app.controller("centreOfSchoolController",function($scope, $http ,$controller,$s
 app.controller("addCentreOfSchoolController",function($scope,$controller, $state,$http){
     $scope.titleName = "新增中心";
     $controller("getSchoolInfo",{$scope:$scope});
+
     //获取中心负责人
     $scope.getPersonChargeList = function(){
         $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
@@ -410,7 +418,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
                 "roleType":5
             })
             .success(function(data){
-                $scope.personChargeList = data.result;
+                if(data.result) $scope.personChargeList = data.result;
             }).error(function(data){
         });
     };
@@ -420,42 +428,42 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
             {
                 "type":1,
                 "roleType":7,
-                "subjectCode":code
+                "subjectCode":code,
+                "centerCode":$scope.classAndGrade.centerCode
             })
             .success(function(data){
                 switch(code)
                 {
                     case 1:
-                        $scope.chineseTeacherList = data.result ;
+                        if(data.result) $scope.chineseTeacherList = data.result ;
                         break;
                     case 2:
-                        $scope.mathTeacherList = data.result ;
+                        if(data.result) $scope.mathTeacherList = data.result ;
                         break;
                     case 3:
-                        $scope.englishTeacherList = data.result ;
+                        if(data.result) $scope.englishTeacherList = data.result ;
                         break;
                     case 4:
-                        $scope.physicsTeacherList = data.result ;
+                        if(data.result) $scope.physicsTeacherList = data.result ;
                         break;
                     case 5:
-                        $scope.chemistryTeacherList = data.result ;
+                        if(data.result) $scope.chemistryTeacherList = data.result ;
                         break;
                     case 6:
-                        $scope.biologyTeacherList = data.result ;
+                        if(data.result) $scope.biologyTeacherList = data.result ;
                         break;
                     case 7:
-                        $scope.historyTeacherList = data.result ;
+                        if(data.result) $scope.historyTeacherList = data.result ;
                         break;
                     case 8:
-                        $scope.geographyTeacherList = data.result ;
+                        if(data.result) $scope.geographyTeacherList = data.result ;
                         break;
                     case 9:
-                        $scope.politicalTeacherList = data.result ;
+                        if(data.result) $scope.politicalTeacherList = data.result ;
                         break;
                 }
             })
     }
-    $scope.centerLeaderList =[];
     //添加组长
     $scope.addLeader =function(){
         $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
@@ -463,13 +471,15 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
                 "type":1,
                 "roleType":6
             }).success(function(data){
-                $scope.centerLeaderList= data.result;
+              if(data.result) $scope.centerLeaderList= data.result;
         });
     }
     //保存中心信息
     $scope.saveCentreOf = function(formData){
         formData.divisionType = formData.divisionCode.divisionType;
         formData.divisionCode = formData.divisionCode.code;
+        //组长
+        formData.centerLeader ="AAAA";
         //老师的list
         formData.authTeacherClassModels = [];
         //所有教师
@@ -484,7 +494,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
             teacher.subjectName = ter.subjectName ;
             formData.authTeacherClassModels.push(teacher);
         });
-        //组长
+
         $http.post($scope.app.host+"teaching/organization/create/center?requestId=test123456",
             formData).success(function(data){
             $state.go("app.authorityManage.centreOfSchool");
@@ -543,49 +553,8 @@ app.controller("classAndGradeController",function($scope,$http,$controller,$stat
 //新增班级
 app.controller("addClassAndGradeController",function($scope,$http,$controller,$state){
     $scope.titleName="新增班级";
-    //subjectCode为1时  文科
-    //subjectCode为2时  理科
     $controller("getSchoolInfo",{$scope:$scope});
-    $scope.getTeacher =function(code){
-        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
-            {
-                "type":1,
-                "roleType":7,
-                "subjectCode":code
-                //"centerCode":$scope.classAndGrade.centerCode
-            })
-            .success(function(data){
-                switch(code)
-                {
-                    case 1:
-                        $scope.chineseTeacherList = data.result ;
-                        break;
-                    case 2:
-                        $scope.mathTeacherList = data.result ;
-                        break;
-                    case 3:
-                        $scope.englishTeacherList = data.result ;
-                        break;
-                    case 4:
-                        $scope.physicsTeacherList = data.result ;
-                        break;
-                    case 5:
-                        $scope.chemistryTeacherList = data.result ;
-                        break;
-                    case 6:
-                        $scope.biologyTeacherList = data.result ;
-                        break;
-                    case 7:
-                        $scope.historyTeacherList = data.result ;
-                        break;
-                    case 8:
-                        $scope.geographyTeacherList = data.result ;
-                        break;
-                    case 9:
-                        $scope.politicalTeacherList = data.result ;
-                        break;
-                }
-            })
+    $scope.getTeacher =function(centerCode){
     };
     //保存班级
     $scope.saveClassAndGrade = function(){
@@ -618,9 +587,9 @@ app.controller("addClassAndGradeController",function($scope,$http,$controller,$s
             authTeacherClassModels.push({"teacherCode":$scope.biologyTeacher.code});
         }
         $scope.classAndGrade.authTeacherClassModels = authTeacherClassModels;
-        $http.post("http://192.168.1.35:8070/keepMark-teacher-business/teaching/organization/create/class?requestId=test123456",
+        $http.post($scope.app.host + "teaching/organization/create/class?requestId=test123456",
             $scope.classAndGrade).success(function(data){
-                $state.go("");
+                $state.go("app.authorityManage.classAndGrade");
         });
     }
 
@@ -663,7 +632,7 @@ app.controller("studyGroupController",function($scope,$http,$controller,$state){
                     "classCode":classCode
 
                 }).success(function(data){
-                $scope.list = data.result;
+                  if(data.result) $scope.list = data.result;
             });
         }
     };
@@ -690,7 +659,7 @@ app.controller("addStudyGroupController",function($scope,$http,$controller,$stat
                     "classCode":classCode
                 }
             ).success(function(data){
-                $scope.list= data.result.students;
+                if(data.result) $scope.list= data.result.students;
             });
         }
     };
@@ -723,7 +692,7 @@ app.controller("addStudyGroupController",function($scope,$http,$controller,$stat
                 "classCode":$scope.studyGroup.classAndGrade
             }
         ).success(function(data){
-            $scope.groupCode = data.result.groupCode;
+            if(data.result) $scope.groupCode = data.result.groupCode;
         });
     };
 

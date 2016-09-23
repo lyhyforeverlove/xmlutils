@@ -71,7 +71,7 @@ app.controller("getSchoolInfo",function($scope,$http){
                 "type": "5",
                 "divisionCode":departmentSchoolCode
             }).success(function (data) {
-                if(data) $scope.centreOfSchoolList = data.result;
+                $scope.centreOfSchoolList = data.result;
             });
         }
     };

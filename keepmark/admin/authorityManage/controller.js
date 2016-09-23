@@ -485,13 +485,13 @@ app.controller("schoolRollManageController",function($controller,$scope,$http,ac
                 "classCode":$scope.class
             }
         ).success(function(data){
-            $scope.studentList = data.result.list;
-            $scope.totalPage = data.result.totalPage;
-            callback && callback(data.result);
+           if(data.result){
+               $scope.studentList = data.result.list;
+               $scope.totalPage = data.result.totalPage;
+               callback && callback(data.result);
+           }
         });
     };
-    $scope.searchStudent(1,10);
-
     $scope.selected = [];
     //复选框是否被选中
     var updateSelected = function(action,id,name){
@@ -508,6 +508,7 @@ app.controller("schoolRollManageController",function($controller,$scope,$http,ac
         var action = (checkbox.checked?'add':'remove');
         updateSelected(action,id,checkbox.name);
     }
+
     $scope.isSelected = function(id){
         return $scope.selected.indexOf(id)>=0;
     }
