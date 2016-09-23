@@ -102,32 +102,22 @@
                             <button class="btn btn-primary btn-margin pull-right" ng-click="getVideoList()">搜索视频</button>
                             <!--<button class="btn btn-primary btn-margin pull-right" >保留选中</button>-->
                         </div>
+
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>视频</th>
+                                <th>视频名称</th>
+                                <th>知识点</th>
                                 <th>url</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr ng-repeat="v in videos">
-                                <td><label class="i-checks" ><input type="radio" ><i></i>{{v.videoName}}</label></td>
-                                <td>{{v.videoUrl}}</td>
-                            </tr>
+                            <tbody ng-repeat="v in videos">
+                                <tr ng-if="v.resourceVideoList.length>0" ng-repeat="vd in v.resourceVideoList">
+                                    <td><label class="i-checks" ><input type="checkbox" ng-click="toggleSelectVideo(vd)"><i></i>{{vd.videoName}}</label></td>
+                                    <td>{{v.knowledgeName}}</td>
+                                    <td>{{vd.videoUrl}}</td>
+                                </tr>
                             </tbody>
-                            <tfoot>
-                           <!-- <tr>
-                                <td colspan="2" class="text-center">
-                                    &lt;!&ndash; 指令调用代码 &ndash;&gt;
-                                  <ul class="pagination">
-                                      <li ng-repeat="p in pagination" class="{{p.className}}">
-                                          <a ng-click="getList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
-                                      </li>
-                                  </ul>
-                                    &lt;!&ndash; 指令模板[pagination.html] &ndash;&gt;
-                                </td>
-                            </tr>-->
-                            </tfoot>
                         </table>
                     </div>
                 </script>
