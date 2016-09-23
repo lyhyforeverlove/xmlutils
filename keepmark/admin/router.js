@@ -212,6 +212,10 @@ angular.module('app')
                         url: '/markReview',
                         templateUrl: 'admin/teachResearchManage/markReview.html',
                     })
+                    .state('app.teachResearchManage.markReviewPaper', {
+                        url: '/markReviewPaper/:jsonString',
+                        templateUrl: 'admin/teachResearchManage/paperDetail.html',
+                    })
                     .state('app.teachResearchManage.diagExamList', {
                         url: '/diagExamList',
                         templateUrl: 'admin/teachResearchManage/diagExamList.html',
@@ -469,6 +473,10 @@ angular.module('app')
                         url: '/myStudent',
                         templateUrl: 'admin/teacherOpearteManage/myStudents.html'
                     })
+                    .state('app.teacherOpearteManage.myStudentstwo', {
+                        url: '/myStudent',
+                        templateUrl: 'admin/teacherOpearteManage/myStudentstwo.html'
+                    })
                     .state('app.teacherOpearteManage.learningDetail', {
                         url: '/learningDetail/',
                         templateUrl: 'admin/teacherOpearteManage/learningDetail.html'
@@ -536,7 +544,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/answerQuestions.html'
                     })
                     .state('app.teacherOpearteManage.answerQuestionsDetail', {
-                        url: '/answerQuestionsDetail',
+                        url: '/answerQuestionsDetail/:ContentPageasd',
                         templateUrl: 'admin/teacherOpearteManage/answerQuestionsDetail.html'
                     })
                     .state('app.authorityManage', { //权限管理

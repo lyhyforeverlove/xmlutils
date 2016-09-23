@@ -559,12 +559,12 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
         console.log(data);
     })
 
-    $scope.items = [ 'angularjs', 'backbone', 'canjs', 'Ember', 'react' ];
+    //$scope.items = [ 'angularjs', 'backbone', 'canjs', 'Ember', 'react' ];
     // open click
     $scope.open = function(size,diagnosticRecordsCodes,subjectCode,teacherList) {
-        console.log(diagnosticRecordsCodes);
-        console.log(subjectCode);
-        console.log(teacherList);
+        //console.log(diagnosticRecordsCodes);
+        //console.log(subjectCode);
+        //console.log(teacherList);
         if ($scope.choseArr[0] == "" || $scope.choseArr.length == 0) { //没有选择一个的时候提示
             alert("请至少选中一条数据在操作！")
             return;
@@ -574,9 +574,6 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
             controller : 'ModalDistributionCtrl', // specify controller for modal
             size : size,
             resolve : {
-                items : function() {
-                    return $scope.items;
-                },
                 diagnosticRecordsCodes : function(){
                    // return $scope.diagnosticRecordsCodes;
                     return diagnosticRecordsCodes;
@@ -600,16 +597,15 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
 });
 
 // modal controller 分配试卷
-app.controller('ModalDistributionCtrl', function($scope,$http, $modalInstance, items,diagnosticRecordsCodes,teacherList,host) {
-    console.log(diagnosticRecordsCodes);
-    console.log(teacherList);
+app.controller('ModalDistributionCtrl', function($scope,$http, $modalInstance,diagnosticRecordsCodes,teacherList,host) {
+    //console.log(diagnosticRecordsCodes);
+    //console.log(teacherList);
      //
     $scope.teacherList = teacherList;
     $scope.TeacherList = function(){
        
     }
 
-     //全选
     $scope.teacherCodes = []; //定义数组用于存放前端显示
     var str = ""; //
     var flag = ''; //是否点击了全选，是为a
@@ -628,25 +624,16 @@ app.controller('ModalDistributionCtrl', function($scope,$http, $modalInstance, i
         }
 
         $scope.teacherCodes = (str.substr(0, str.length - 1)).split(',');
-        //console.log($scope.choseArr);
-
-    };
-
-    $scope.items = items;
-    
-    $scope.selected = {
-        item : $scope.items[0]
     };
     // cancel click
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     }
-    console.log($scope.teacherCodes );
+    //console.log($scope.teacherCodes );
     //手动分配试卷
     $scope.DistributionOk = function(round){
-        console.log(round);
+        //console.log(round);
         var url = host + '/teacher/diagnosis/distribution?requestId=test123456';
-        
         $http.post(url,{
             "teacherCodes":$scope.teacherCodes,
             "diagnosticRecordsCodes":diagnosticRecordsCodes,
@@ -1252,7 +1239,7 @@ app.controller('ClassesController', function($scope,$http, $controller,$modalIns
         //console.log($scope.selectedClasses());
         //$modalInstance.close($scope.selected.item);
         /*var url = host + 'teaching/placement?requestId=SDDL234LSDK';*/
-        var url = 'http://192.168.1.213:8080/keepMark-teacher-business/teaching/placement?requestId=SDDL234LSDK';
+        var url = host + 'teaching/placement?requestId=SDDL234LSDK';
         $http.post(url,{
             "schoolCenterCode":$scope.data.centerCode,
             "schoolClassCode":$scope.data.code,

@@ -1,8 +1,60 @@
 <div class="wrapper-md" ng-controller="autonmousPushResourcesController">
     <style>
-        .knowledgeTree li.mutiple >a{
-            color: #fff !important;
-            background-color: #23b7e5;
+        treecontrol span{
+            font-size: 13px !important;
+            width: auto !important;
+            border: none !important;
+            line-height: normal !important;
+            display: inherit !important;
+            border-radius: 0 !important;
+        }
+        treecontrol li{
+            white-space: nowrap;
+        }
+        treecontrol ul{
+            overflow: inherit !important;
+        }
+        .knowledgeTree  .modal-body{
+           overflow-x: auto !important;
+        }
+        .knowledgeTree{
+            margin-top: 26px;
+        }
+        treecontrol {
+            overflow-x: auto;
+        }
+        .resource-list{
+           margin: 0;
+            width: 100%;
+        }
+        .btn-margin{
+            margin: 10px !important;
+        }
+        .questionTypes label{
+            width: auto !important;
+        }
+        .student-list{
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 50px 20px 0 50px;
+        }
+        .student-list ul{
+            width: 100%;
+            min-width: 200px;
+            float: left;
+            clear: both;
+        }
+        .student-list li{
+            width: 200px;
+            float: left;
+            text-align: left;
+        }
+        .student-list li label{
+            width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            white-space: nowrap;
         }
     </style>
     <div class="panel panel-default">
@@ -15,26 +67,14 @@
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <!--包含公共筛选条件 end-->
-                <button class="pull-right btn btn-primary" ng-click="getKnowledgeList()"><span class="p-d">查询</span></button>
+                <button class="pull-right btn btn-primary" ng-click="getKnowledgeList()"><span class="p-d">查询知识点</span></button>
             </form>
             <!-- select close -->
-            <div class="knowledgeTree">
-                <div class="modal-header">
-                    <h3 class="modal-title">知识点选择</h3>
-                </div>
-                <div class="modal-body">
-                    <span ng-if="doing_async">...loading...</span>
 
-                    <treecontrol class="tree-classic" tree-model="my_data" selected-nodes="selectedNodes" on-selection="showSelected(node, selected)" options="treeOptions">
-                        label: {{node.knowledgeName}}
-                    </treecontrol>
-
-                </div>
-            </div>
             <div class="resource-list">
-                <button class="btn btn-primary btn-margin" ng-click="chooseStudents()">选择学生</button>
-                <button class="btn btn-primary btn-margin" ng-click="chooseStudents()">查询</button>
-                <div id="tabs">
+                <button class="btn btn-primary btn-margin pull-right" ng-click="chooseStudents()">选择学生</button>
+              <!--  <button class="btn btn-primary btn-margin" ng-click="getList()">查询</button>-->
+                <div id="tabs" ng-show="!studentsShow">
                     <ul>
                         <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
                     </ul>
@@ -44,7 +84,24 @@
                 </div>
 
                 <script type="text/ng-template" id="video.tpl.html">
+                    <div class="knowledgeTree">
+                        <div class="modal-header">
+                            <h3 class="modal-title">知识点选择</h3>
+                        </div>
+                        <div class="modal-body">
+                            <span ng-if="doing_async">...loading...</span>
+
+                            <treecontrol class="tree-classic" tree-model="my_data" selected-nodes="selectedNodes" options="videoTreeOptions">
+                                {{node.knowledgeName}}
+                            </treecontrol>
+
+                        </div>
+                    </div>
                     <div class="table-responsive">
+                        <div>
+                            <button class="btn btn-primary btn-margin pull-right" ng-click="getVideoList()">搜索视频</button>
+                            <!--<button class="btn btn-primary btn-margin pull-right" >保留选中</button>-->
+                        </div>
                         <table class="table">
                             <thead>
                             <tr>
@@ -54,7 +111,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="v in videos">
-                                <td>{{v.videoName}}</td>
+                                <td><label class="i-checks" ><input type="radio" ><i></i>{{v.videoName}}</label></td>
                                 <td>{{v.videoUrl}}</td>
                             </tr>
                             </tbody>
@@ -71,55 +128,115 @@
                                 </td>
                             </tr>-->
                             </tfoot>
-
                         </table>
                     </div>
                 </script>
                 <script type="text/ng-template" id="paper.tpl.html">
+                    <div class="knowledgeTree">
+                        <div class="modal-header">
+                            <h3 class="modal-title">知识点选择</h3>
+                        </div>
+                        <div class="modal-body">
+                            <span ng-if="doing_async">...loading...</span>
+                            <treecontrol class="tree-classic" tree-model="my_data" on-selection="showSelected(node, selected)" options="paperTreeOptions">
+                                {{node.knowledgeName}}
+                            </treecontrol>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr >
-                                <th>试卷名</th>
-                                <th>url</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="v in papers">
-                                <td>{{v.videoName}}</td>
-                                <td>{{v.videoUrl}}</td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="2" class="text-center">
-                                    <!-- 指令调用代码 -->
-                                    <ul class="pagination">
-                                        <li ng-repeat="p in pagination" class="{{p.className}}">
-                                            <a ng-click="getList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
-                                        </li>
-                                    </ul>
-                                    <!-- 指令模板[pagination.html] -->
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
+                        <div style="clear: both;" class="questionTypes">
+                            试题类型：<label class="i-checks" ng-repeat="t in questionTypes.types"><input
+                                type="radio" name="QType" ng-checked="$index==0" ng-click="nowQuestionType=='{{t.id}}'"><i></i>{{t.enlargeType}}</label>
+
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-margin pull-right" ng-click="getQuestionList(1)">搜索试题</button>
+                            <button class="btn btn-primary btn-margin pull-right" ng-click="packagePaper()">组合为试卷</button>
+                        </div>
+                        <div style="text-align: center;">
+                            已选试题数：&nbsp;{{selectedQuestions.length}}
+                        </div>
+
+                        <!-- 题 start-->
+                        <div style="clear: both;margin: 20px 0;">
+                            <div class="questionSelect" ng-if="questionDatas!=null&&questionDatas.data.length>0" ng-repeat="q in questionDatas.data  track by $index ">
+                                <div class="title" ><span>{{$index+1}}</span>.&nbsp;<span ng-bind-html="q.stem | strToUrl "></span></div>
+                                <div class="opt">
+                                    <button class="btn btn-primary" ng-if="!q.added" ng-click="questionAdd(q)">加入试卷</button>
+                                    <button class="btn btn-primary" ng-if="!!q.added">已加入</button>
+                                    <button class="btn btn-primary" ng-if="q.type==6" ng-click="q.showSmallQ = !q.showSmallQ">展开小题</button>
+                                    <button class="btn btn-primary" ng-click="q.showAnswer=!q.showAnswer">显示解析</button>
+                                </div>
+                                <div style="padding-left: 20px;" ng-if="q.type==6" class="question"> <!-- 复合题 -->
+                                    <div ng-show="q.showSmallQ" ng-repeat="s in q.Subtitle track by $index  " class="smallQuestions">
+                                        <span>{{$index+1}}</span>.&nbsp;<span ng-bind-html="q.stem | strToUrl "></span>
+                                        <div style="padding-left: 20px;">
+                                            <div >选项
+                                                <ul><li ng-repeat="option in s.quesOption">
+                                                    <span>{{option.optionKey}}</span>
+                                                    <span ng-bind-html="option.optionValue| strToUrl"></span>
+                                                </li></ul>
+                                            </div>
+                                            <div ng-show="q.showAnswer">
+                                                <div>答案：{{s.answer}}</div>
+                                                解析
+                                                <ul>
+                                                    <li ng-repeat="ana in s.quesAnalyze ">
+                                                        <span>{{ana.analyzeKey||''}}</span>
+                                                        <span ng-bind-html="ana.analyzeValue| strToUrl"></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="q.type==1 || q.type==2 || q.type==3"> <!-- 单多选题 -->
+                                    <div style="padding-left: 20px;">
+                                        <div >选项
+                                            <ul>
+                                                <li ng-repeat="option in q.quesOptionJ">
+                                                    <span>{{option.optionKey}}</span>
+                                                    <span ng-bind-html="option.optionValue| strToUrl"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div ng-show="q.showAnswer">
+                                            <div>答案：{{q.answer}}</div>
+                                            解析
+                                            <ul>
+                                                <li ng-repeat="ana in q.quesAnalyzeJ ">
+                                                    <span>{{ana.analyzeKey||''}}</span>
+                                                    <span ng-bind-html="ana.analyzeValue| strToUrl"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="questionDatas==null">试题查询失败</div>
+                            <div ng-if="questionDatas!=null&&questionDatas.data.length==0">未查找到试题</div>
+                        </div>
+                        <!-- 题 end-->
+
+                        <div class="center-block">
+                            <ul class="pagination">
+                                <li ng-repeat="p in pagination" class="{{p.className}}">
+                                    <a ng-click="getQuestionList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </script>
             </div>
             <div class="student-list" ng-show="studentsShow">
                 <h4>1对1学生</h4>
                 <ul>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生1</label></li>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生2</label></li>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生3</label></li>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生4</label></li>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生5</label></li>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生6</label></li>
-                    <li><label class="i-checks" ><input type="checkbox" ng-modal="student"><i></i>学生7</label></li>
+                    <li ng-repeat="st in myStudents"><label class="i-checks" ><input type="checkbox" ng-click="toggleStudent(st)"><i></i>{{st.name}}</label></li>
+
                 </ul>
-                <h4>已选：20人</h4>
-                <button class="btn btn-primary">推送资源</button>
+                <h4>已选：{{choosedStudents.length}}人</h4>
+                <button class="btn btn-primary" ng-click="pushSource()" ng-disabled="choosedStudents.length==0">推送资源</button>
             </div>
         </div>
     </div>

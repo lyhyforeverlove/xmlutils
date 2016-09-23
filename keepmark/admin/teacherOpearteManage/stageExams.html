@@ -36,7 +36,10 @@
                             <td>{{data.diagnosisScore}}</td>
                              <td>{{data.diagnosisRecordStatus}}</td>
                             <td>{{data.stage}}</td>
-                            <td><button class="btn btn-primary" ng-click="paperChecked(data)">判卷</button></td>
+                            <td>
+                            	<span ng-if="data.diagnosisRecordStatus==1">已判卷</span>
+                            	<button ng-if="data.diagnosisRecordStatus==0" class="btn btn-primary" ng-click="paperChecked(data)">判卷</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

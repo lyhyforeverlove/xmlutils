@@ -14,8 +14,8 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
     }
     
     $scope.getBookVersion = function(departmentType,id){
-       console.log(departmentType);
-       console.log(id);
+      // console.log(departmentType);
+       //console.log(id);
        CalcService.filterData().then(function(data){
             $scope.bookVersion = data.filterData[departmentType].category[id].bookVersion;
        });
