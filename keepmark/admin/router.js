@@ -211,6 +211,10 @@ angular.module('app')
                         url: '/markReview',
                         templateUrl: 'admin/teachResearchManage/markReview.html',
                     })
+                    .state('app.teachResearchManage.markReviewPaper', {
+                        url: '/markReviewPaper/:jsonString',
+                        templateUrl: 'admin/teachResearchManage/paperDetail.html',
+                    })
                     .state('app.teachResearchManage.diagExamList', {
                         url: '/diagExamList',
                         templateUrl: 'admin/teachResearchManage/diagExamList.html',
@@ -442,7 +446,7 @@ angular.module('app')
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load(['admin/teacherOpearteManage/controller.js'
                                     ,'admin/teacherOpearteManage/controllerDR.js',
-                                     'admin/teacherOpearteManage/js/schedule.js',"admin/teachManage/js/roundSentence.js"
+                                     'admin/teacherOpearteManage/js/schedule.js'
                                     ]);
                                 }
                             ]

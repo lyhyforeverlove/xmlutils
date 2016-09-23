@@ -315,7 +315,7 @@ app.controller('paperDetailController', function($scope, $http, $controller,$res
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
-		$http.post($scope.app.testhost + 'teacher/diagnosis/stagePaperMark?requestId=test123456', {
+		$http.post($scope.app.host + 'teacher/diagnosis/stagePaperMark?requestId=test123456', {
 				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
 				"teacherCode": "111111",//获取登录教师的code
 				"teacherName": "教师名称",//获取登录教师的名称
@@ -325,17 +325,7 @@ app.controller('paperDetailController', function($scope, $http, $controller,$res
 			})
 			.success(function(data) {
 				if(data.message == "Success"){
-					if(markPaperRequestJson.goHtml==0){
-						//跳转到一轮判列表				
-						 $state.go("app.teachManage.round");
-					}
-					if(markPaperRequestJson.goHtml==1){
-						//跳转到二轮判列表	
-						$state.go("app.teachManage.secondRound");
-					}
-					if(markPaperRequestJson.goHtml==2){
-						//跳转到复审列表
-					}
+						 $state.go("app.teacherOpearteManage.stageExams");
 				}
 			}).error(function(data) {
 				console.log(data);
