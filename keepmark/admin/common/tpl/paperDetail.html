@@ -1,0 +1,53 @@
+<style>
+    #log {
+        /*border: 2px solid #f8f8f8;*/
+    }
+    #log ul {
+        list-style: none;
+        font: 14px;
+        line-height: 30px;
+        color: #666;
+    }
+    #log ul li strong {
+        display: inline-block;
+        min-width: 140px;
+        color: #39b3d7;
+        text-align:right;
+    }
+</style>
+<div class="wrapper-md" ng-controller="paperDetailController">
+    <div class="panel panel-default" ng-init="GetPaperDetail()">
+        <div class="panel-heading">
+            <h4 class="text-center">{{diagnosisName}}</h4>
+        </div>
+        <div class="wrapper">
+            <!--<p>{{paperSystem}}</p>-->
+            <div id="log">
+                <ul ng-repeat="data in bigQusetions track by $index">
+                   <li>
+                       <p>标题：{{data.itemContent}}</p>
+                       <p>大题分数：{{data.itemScore}}</p>
+                       <ul ng-repeat="item in data.list track by $index">
+                           <li><b>学科：</b>{{item.subjectName}}</li>
+                           <li><b>标题：</b>{{item.title}}</li>
+                           <li>{{item.productions}}</li>
+                           <li><b>题干：</b>{{item.stem }}</li>
+                           {{item.quesOption | json}}
+                          <!-- <li ng-repeat="question in item.quesOption track by | filter:json ">
+                               <b>选项：</b>{{question.optionKey}}{{question.optionValue }}
+                           </li>-->
+                           <li><b>正确答案：</b>{{item.answer}}</li>
+                           <li><b>解析选项：</b>{{item.quesAnalyze}}</li>
+                           <li><b>难度系数：</b>{{item.difficultStar}}</li>
+
+                           <li><b>视频路径：</b>{{item.videoPath}}</li>
+                           <li><b>音频路径：</b>{{item.audioListenPath}}</li>
+                           <li><b>分数：</b>{{item.score}}</li>
+                           <li><b>知识点：</b>{{item.knowledges}}</li>
+                       </ul>
+                   </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

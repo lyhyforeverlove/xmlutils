@@ -14,4 +14,29 @@ angular.module('app')
       }
       return input;  
    };  
+}).filter('strToUrl',function($sce){
+    return function(str){
+        if(!str || typeof  str != "string")return "";
+        return $sce.trustAsHtml(str.replace(/http:\/\/.*?\.(mp3|jpg|jpeg|png|gif)/ig, function(w){
+            if(/mp3$/i.test(w)){
+                return '<audio src="' + w + '"/>'
+            }else{
+                return '<img class="media-middle" style="max-width: 100%;" src="' + w + '"/>'
+            }
+        }));
+    }
+}).filter('questionStrToArr',function(){
+    return function(str){
+        if(angular.isArray(str)){
+            return str;
+        }else if( typeof str !== "string" || !/^\s*\[.*\]\s*$/.test(str)){
+            return [];
+        }else{
+            try{
+                return angular.fromJson(str);
+            }catch(e){
+                return [];
+            }
+        }
+    }
 });

@@ -10,7 +10,7 @@
                     <!--包含公共筛选条件 start-->
                     <div ng-include="'admin/common/tpl/filter.html'"></div>
                     <!--包含公共筛选条件 end-->
-                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
+                    <button class="pull-right btn btn-primary" ng-click="getList(1,5)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <div class="panel-container">
@@ -55,7 +55,7 @@
                             <tr>
                                 <td colspan="8" class="text-center">
                                     <!-- 指令调用代码 -->
-                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                    <xl-page size="5" method="getList" class="text-center"></xl-page>
                                     <!-- 指令模板[pagination.html] -->
                                 </td>
                             </tr>
