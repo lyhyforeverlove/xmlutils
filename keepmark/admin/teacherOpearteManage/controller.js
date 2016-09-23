@@ -1,151 +1,4 @@
 'use strict';
-var DataSource = [
-    {
-        "day": "一", "course": [
-        {"courseName": "语文课1", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "英语课2", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "数学课3", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课4", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课5", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课6", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课6", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课1", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "英语课2", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "数学课3", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课4", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课5", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课6", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"},
-        {"courseName": "语文课6", "teacherName": "李老师", "pointName": 1, "pointTime": "8:00~8:45"}
-    ]
-    },
-    {
-        "day": "二", "course": [
-        {"courseName": "数文课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "语文课4", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "语文课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "数文课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "语文课4", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "语文课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 2, "pointTime": "9:00~9:45"}
-    ]
-    },
-    {
-        "day": "三", "course": [
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 3, "pointTime": "10:00~10:45"}
-    ]
-    },
-    {
-        "day": "四", "course": [
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 4, "pointTime": "11:00~11:45"}
-    ]
-    },
-    {
-        "day": "五", "course": [
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课4", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "数文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课4", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "数文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"},
-        {"courseName": "语文课", "teacherName": "李老师", "pointName": 5, "pointTime": "14:00~14:45"}
-    ]
-    },
-    {
-        "day": "六", "course": [
-        {"courseName": "数文课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "语文课4", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "数文课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "语文课4", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"},
-        {"courseName": "英语课", "teacherName": "张老师", "pointName": 6, "pointTime": "15:00~15:45"}
-    ]
-    },
-    {
-        "day": "七", "course": [
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "语文课4", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "语文课4", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"},
-        {"courseName": "数文课", "teacherName": "孙老师", "pointName": 7, "pointTime": "16:00~16:45"}
-    ]
-    },
-    {
-        "day": "八", "course": [
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"},
-        {"courseName": "自习课", "teacherName": "", "pointName": 8, "pointTime": "17:00~17:45"}
-    ]
-    }
-];
-
 
 //我的学生
 app.controller('myStudentsController', function($scope,$http,$controller,$resource,$stateParams, $modal, $state,CalcService){
@@ -173,17 +26,20 @@ app.controller('myStudentsController', function($scope,$http,$controller,$resour
     $scope.answerQuestionsRecord = function(){
         $state.go("app.teacherOpearteManage.answerQuestions",{"id":id});
     }
-
-    $scope.checkMySchedule = function(){
-        $state.go("app.teacherOpearteManage.classSchedule",{"id":id});
+    $scope.checkMySchedule = function(student){
+        var studentSchedule = {
+            "scheduleStatus":"1",
+            "studentCode":student.code,
+            "goalType":student.goalType,
+            "artsType":student.artType
+        };
+        $state.go("app.teacherOpearteManage.classSchedule",{"mySchedule":JSON.stringify(studentSchedule)});
     }
-
-})
+});
 
 //学生二
 
 app.controller('myStudentsControllertwo', function($scope,$http,$controller,$resource,$stateParams, $modal, $state,CalcService){
-
     $scope.name='我的学生';
     $scope.total_count =10;
     var id = 1;

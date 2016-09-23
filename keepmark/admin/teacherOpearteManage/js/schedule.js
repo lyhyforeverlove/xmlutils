@@ -47,7 +47,6 @@ app.controller("oneToOneMyScheduleController",function($controller,$scope,$http,
                     $scope.courses = data.result.sections;
                     $scope.scheduleUrl = 'admin/common/tpl/schedule.html'
                 }else{
-                    alert("此老师没有课表！");
                     $scope.scheduleUrl = '';
                 }
             });
@@ -63,20 +62,19 @@ app.controller('oneToOneAdjustCourseController', function($scope, $state,$http){
         {
             "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227"
         }).success(function(data){
-            if(data.result){
-                $scope.studentList = data.result;
-            }
-        }).error(function(data){
-            console.log("fail");
-        });
+        if(data.result){
+            $scope.studentList = data.result;
+        }
+    }).error(function(data){
+        console.log("fail");
+    });
 
     $scope.studentSchedule = function(student){
         var studentSchedule = {
             "scheduleStatus":"2",
             "studentCode":student.code,
             "goalType":student.goalType,
-            "artsType":student.artsType
-
+            "artsType":student.artType
         };
         $state.go("app.teacherOpearteManage.classSchedule",{"mySchedule":JSON.stringify(studentSchedule)});
     }
@@ -92,8 +90,7 @@ app.controller("classScheduleController",function($http,$controller,$rootScope,$
     $rootScope.schedule = JSON.parse($stateParams.mySchedule);
     //根据教学周期获取课表
     $scope.getMySchedule = function(weekTimeCode){
-        $rootScope.weekTimeCode = weekTimeCode;
-
+        $scope.weekTimeCode = weekTimeCode;
         if(typeof(weekTimeCode) !== "undefined"){
             var parameters = {
                 "weekTimeCode":weekTimeCode,
@@ -107,7 +104,6 @@ app.controller("classScheduleController",function($http,$controller,$rootScope,$
                     $rootScope.eduScheduleCode = data.result.eduScheduleCode;
                     $scope.scheduleUrl = 'admin/common/tpl/schedule.html'
                 }else{
-                    alert("此学生没有课表！");
                     $scope.scheduleUrl = '';
                 }
             });
@@ -129,19 +125,27 @@ app.controller("classScheduleController",function($http,$controller,$rootScope,$
                 }
             }
         });
+        //模态框关闭时返回数据
+        modalInstance.result.then(function() {
+            $scope.getMySchedule($scope.weekTimeCode);
+        }, function() {
+            $log.info('Modal dismissed at: ' + new Date())
+        });
     };
+
     //删除课表
     $scope.deleteCourse = function(eduSectionCode,eduDayCode){
         alert("删除课时");
-        $http.post("http://192.168.1.213:8080/keepMark-teacher-business/teaching/course/delectLession?requestId=WEUOW343KL34L26NBSK3",
-        {
-            "weekTimeCode":$rootScope.weekTimeCode,
-            "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227",
-            "studentCode":$rootScope.schedule.studentCode,
-            "eduDayCode":eduDayCode,
-            "eduSectionCode":eduSectionCode
-        }).success(function(data){
+        $http.post("http://192.168.1.12:7777/keepMark-teacher-business/teaching/course/delectLession?requestId=WEUOW343KL34L26NBSK3",
+            {
+                "weekTimeCode":$scope.weekTimeCode,
+                "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227",
+                "studentCode":$rootScope.schedule.studentCode,
+                "eduDayCode":eduDayCode,
+                "eduSectionCode":eduSectionCode
+            }).success(function(data){
             alert("删除成功！！");
+            $scope.getMySchedule($scope.weekTimeCode);
         });
     };
 });
@@ -150,6 +154,7 @@ app.controller("classScheduleController",function($http,$controller,$rootScope,$
 
 //弹框数据
 var myScheduleModalCtrl = function($scope,$modalInstance,info,$http,$rootScope){
+    $scope.teacherDiv =false;
     $scope.formData = {};
     var schedule = $rootScope.schedule;
     //根据学部获取学科
@@ -173,7 +178,7 @@ var myScheduleModalCtrl = function($scope,$modalInstance,info,$http,$rootScope){
                     "subjectCode": subjectCode,//学科code
                     "aimType":schedule.goalType//中心目标
                 }).success(function(data){
-                $scope.courseList = data.result;
+                if(data.result) $scope.courseList = data.result;
             });
         }
     };
@@ -197,14 +202,14 @@ var myScheduleModalCtrl = function($scope,$modalInstance,info,$http,$rootScope){
             formData).success(function(data){
             if(data.result.isAddLesson){
                 alert("添加成功！");
+                $modalInstance.close();
             }else{
                 alert("添加失败！");
+                $modalInstance.close();
             }
         });
     };
 };
-
-
 
 //阶段考试卷待批改列表
 app.controller('stageExamsController', function($scope, $state,$http){
@@ -315,7 +320,7 @@ app.controller('paperDetailController', function($scope, $http, $controller,$res
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
-		$http.post($scope.app.testhost + 'teacher/diagnosis/stagePaperMark?requestId=test123456', {
+		$http.post($scope.app.host + 'teacher/diagnosis/stagePaperMark?requestId=test123456', {
 				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
 				"teacherCode": "111111",//获取登录教师的code
 				"teacherName": "教师名称",//获取登录教师的名称
@@ -325,17 +330,7 @@ app.controller('paperDetailController', function($scope, $http, $controller,$res
 			})
 			.success(function(data) {
 				if(data.message == "Success"){
-					if(markPaperRequestJson.goHtml==0){
-						//跳转到一轮判列表				
-						 $state.go("app.teachManage.round");
-					}
-					if(markPaperRequestJson.goHtml==1){
-						//跳转到二轮判列表	
-						$state.go("app.teachManage.secondRound");
-					}
-					if(markPaperRequestJson.goHtml==2){
-						//跳转到复审列表
-					}
+						 $state.go("app.teacherOpearteManage.stageExams");
 				}
 			}).error(function(data) {
 				console.log(data);

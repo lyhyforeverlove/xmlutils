@@ -58,7 +58,7 @@
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">学科：</label>
                     <div class="col-sm-8">
-                        <select ng-model="subject" ng-options="subject.subjectName for subject in subjectList" class="form-control m-b select-inline" ng-click="getSubject()">
+                        <select ng-model="subject" ng-options="subject.subjectName for subject in subjectList" class="form-control m-b select-inline" ng-init="getSubject()">
                             <option value="">--请选择--</option>
                         </select>
                     </div>

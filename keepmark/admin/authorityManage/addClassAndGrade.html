@@ -39,62 +39,62 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">中心：</label>
                 <div class="col-sm-2">
-                    <select ng-model="classAndGrade.centerCode" class="form-control" ng-options="c.code as c.name for c in centreOfSchoolList">
+                    <select ng-model="classAndGrade.centerCode" class="form-control" ng-options="c.code as c.name for c in centreOfSchoolList" ng-click ="getTeacher(classAndGrade.centerCode)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-1 control-label">班级名称</label>
+                <label class="col-sm-1 control-label">班级名称：</label>
                 <div class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入班级名称" ng-model="classAndGrade.name">
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-1 control-label">语文老师</label>
+                <label class="col-sm-1 control-label">语文老师：</label>
                 <div class="col-sm-2">
-                    <select  class="form-control" ng-model="chineseTeacher" ng-options="m.name for m in chineseTeacherList" ng-init="getTeacher(1)">
+                    <select  class="form-control" ng-model="chineseTeacher" ng-options="m.name for m in chineseTeacherList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-1 control-label">数学老师</label>
+                <label class="col-sm-1 control-label">数学老师：</label>
                 <div class="col-sm-2">
-                    <select  class="form-control m-b" ng-model="mathTeacher" ng-options="math.name for math in mathTeacherList" ng-init="getTeacher(2)">
+                    <select  class="form-control m-b" ng-model="mathTeacher" ng-options="math.name for math in mathTeacherList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-sm-12">
-                <label class="col-sm-1 control-label">英语老师</label>
+                <label class="col-sm-1 control-label">英语老师：</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="englishTeacher" ng-options="english.name for english in englishTeacherList" ng-init="getTeacher(3)">
+                    <select class="form-control m-b" ng-model="englishTeacher" ng-options="english.name for english in englishTeacherList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div ng-show="departmentSchool.divisionType ==0">
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-1 control-label">历史老师</label>
+                    <label class="col-sm-1 control-label">历史老师：</label>
                     <div class="col-sm-2">
-                        <select class="form-control m-b" ng-model="historyTeacher" ng-options="history.name for history in historyTeacherList"  ng-init="getTeacher(7)">
+                        <select class="form-control m-b" ng-model="historyTeacher" ng-options="history.name for history in historyTeacherList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-sm-12" >
-                    <label class="col-sm-1 control-label">地理老师</label>
+                    <label class="col-sm-1 control-label">地理老师：</label>
                     <div class="col-sm-2">
-                        <select class="form-control m-b" ng-model="geographyTeacher" ng-options="geography.name for geography in geographyTeacherList"  ng-init="getTeacher(8)">
+                        <select class="form-control m-b" ng-model="geographyTeacher" ng-options="geography.name for geography in geographyTeacherList" >
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-sm-12">
-                <label class="col-sm-1 control-label">政治老师</label>
+                <label class="col-sm-1 control-label">政治老师：</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="politicalTeacher" ng-options="political.name for political in politicalTeacherList"  ng-init="getTeacher(9)">
+                    <select class="form-control m-b" ng-model="politicalTeacher" ng-options="political.name for political in politicalTeacherList" >
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -102,31 +102,31 @@
             </div>
             <div ng-show="departmentSchool.divisionType==1">
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-1 control-label">物理老师</label>
+                    <label class="col-sm-1 control-label">物理老师：</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" ng-model="physicsTeacher" ng-options="physics.name for physics in physicsTeacherList"  ng-init="getTeacher(4)">
+                        <select  class="form-control m-b" ng-model="physicsTeacher" ng-options="physics.name for physics in physicsTeacherList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-sm-12" >
-                    <label class="col-sm-1 control-label">化学老师</label>
+                    <label class="col-sm-1 control-label">化学老师：</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" ng-model="chemistryTeacher" ng-options="chemistry.name for chemistry in chemistryTeacherList" ng-init="getTeacher(5)">
+                        <select  class="form-control m-b" ng-model="chemistryTeacher" ng-options="chemistry.name for chemistry in chemistryTeacherList" >
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-sm-12">
-                <label class="col-sm-1 control-label">生物老师</label>
+                <label class="col-sm-1 control-label">生物老师：</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="biologyTeacher" ng-options="b.name for b in biologyTeacherList" ng-click="getTeacher(6)">
+                    <select class="form-control m-b" ng-model="biologyTeacher" ng-options="b.name for b in biologyTeacherList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             </div>
-            <div class="groupLeader">
+            <div class="groupLeader col-sm-12">
                 <div class="form-group">
                     <label class="col-sm-1 control-label">负责人:</label>
                     <div class="col-sm-2">
