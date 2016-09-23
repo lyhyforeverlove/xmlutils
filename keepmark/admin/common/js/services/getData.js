@@ -59,6 +59,22 @@ app.factory('GetDataFactory', function($http, $q) {
             })
         return deferred.promise;
     };
+    //(组卷时)获取试题类型
+    factory.getQuestionTypes = function(subjectCode){
+        var deferred = $q.defer();
+        $http.get('admin/json/questionType.json')
+            .success(function(data) {
+                for(var i=0;i<data.length;i++){
+                    if(data[i].subjectCode== subjectCode){
+                        return  deferred.resolve(data[i]);
+                    }
+                }
+                deferred.reject("试题类型未找到!");
+            }).error(function() {
+                deferred.reject("there was an error");
+            });
+        return deferred.promise;
+    };
     return factory;   
 });
 
@@ -81,6 +97,9 @@ app.service('CalcService', function(GetDataFactory) {
     };
     this.CourseAimData = function() {
         return GetDataFactory.getCourseAim();
+    };
+    this.getQuestionTypes = function(q) {
+        return GetDataFactory.getQuestionTypes(q);
     };
     
 });
