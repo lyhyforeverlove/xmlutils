@@ -5,12 +5,12 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
     $controller('ParentGetDataCtrl', {$scope: $scope});//继承
 
     $scope.formData = {};
-    /*//默认为语文
+    //默认为语文
     $scope.formData.subjectCode = 1;
     //默认班型
-    $scope.formData.aaa = "c_001";
+    $scope.formData.aimType = "c_001";
     //默认保分类型
-    $scope.formData.categoriesCode = "001001";*/
+    $scope.formData.categoriesCode = "001001";
 
     //根据考生类型、班型、保分类型、科目 查询列表
     $scope.getList = function(page,size,callback) {
@@ -88,7 +88,7 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
         })
     }
 });
-/*试卷管理=》详情*/
+/*课程管理=》详情*/
 app.controller('CourseDetailController', function($scope, $http,$resource, $stateParams, $modal, $state) {
 
     var courseSystemCode = $stateParams.courseSystemCode;
@@ -104,6 +104,47 @@ app.controller('CourseDetailController', function($scope, $http,$resource, $stat
     }
 
 });
+//读取新增课程列表 弹框
+app.controller("getPapersByCourseCtrl", function($scope, $http, $resource, $stateParams, $modal, $state, $modalInstance, host,V_PapersListJson) {
+
+    $scope.formCourseData = {};  //formData.resourcePaperCode
+    //选用按钮
+    $scope.GetResourcePaperCode = function(resourcePaperCode){
+        $scope.formCourseData.resourcePaperCode = resourcePaperCode;
+    }
+    // ok click
+    $scope.ok = function() {
+        $modalInstance.close($scope.formCourseData.resourcePaperCode);
+        //$modalInstance.close($scope.selected.item);
+    };
+    // cancel click
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+
+    //初始化调取资源库列表
+    $scope.load = function(page,size,callback){
+        if(V_PapersListJson.subjectCode == 1){
+            $scope.subjectName ="语文";
+        }
+        V_PapersListJson["currentPage"] = page;  //当前页参数
+        V_PapersListJson["pageSize"] = size; //每页显示多少条
+        //console.log(V_PapersListJson);
+        var url = host + "course/getRepositoryCourse?requestId=123456";
+        $http.post(url,V_PapersListJson).success(function(data) {
+            console.log(data);
+            if(data.result == null){
+
+                $scope.results = data.result;
+                callback && callback(data.result); //调取分页回调
+            }
+        }).error(function(data){
+            console.log("fail");
+        })
+    }
+});
+
+
 /*试卷管理=》单科诊断列表*/
 app.controller('DiagListController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state,CalcService) {
     
@@ -129,7 +170,7 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                 "pageSize": size
             })
             .success(function(data) {
-                if(data.message = "success"){
+                if(data.message == "Success"){
                     console.log(data);
                     $scope.results = data.result;
                     results = data.result.list;
@@ -147,9 +188,47 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
             });
     };
 
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+       // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
 
 });
-//
+//单科试卷=》详情
+app.controller('paperDetailController', ['$scope','$http','$stateParams',function($scope,$http,$stateParams) {
+    //$scope.oneAtATime = true;
+    console.log(1111);
+    console.log($stateParams.jsonString);
+    $scope.paperCode = null;
+    // 获取上个界面传递的数据，并进行解析
+    if ($stateParams.jsonString != '') {
+        $scope.json = angular.fromJson($stateParams.jsonString);
+    }
+    $scope.paperCode =  $scope.json.paperCode;
+    console.log($scope.paperCode);
+
+    $scope.GetPaperDetail = function(){
+        var url = $scope.app.host + 'diagnosis/detail?requestId=test123456';
+        $http.post(url,{
+            'paperCode':$scope.paperCode
+        }).success(function(data){
+            $scope.data = angular.fromJson(data);
+            console.log($scope.data);
+            $scope.diagnosisName = $scope.data.result.paperDetailDto.diagnosisName;
+            $scope.bigQusetions = $scope.data.result.paperSystem.bigQusetions;
+        }).error(function(data){
+            console.log("fail");
+        })
+    }
+
+}]);
 app.controller('DetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
  
     var paperCode = $stateParams.paperCode;
@@ -485,7 +564,7 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
     *@params size  模态框大小
     *@params selectedJson 根据学年、类型、学科、教材查询资源库/诊断试卷列表列表
     */
-    $scope.open = function(size,selectedJson,controller,codeJson) {
+    $scope.open = function(size,selectedJson,controller,codeJson,state,removediagnosisPaperCode) {
         //console.log(selectedJson);
         //console.log(codeJson);
         var modalInstance = $modal.open({
@@ -501,17 +580,35 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
                 },
                 codeJson : function(){
                     return codeJson;
+                },
+                state : function(){
+                    return state;
+                },
+                removePaperCode : function(){
+                    return removediagnosisPaperCode;
                 }
             }
         });
         // model返回结果
         modalInstance.result.then(function(selectedItem) {
-            console.log(selectedItem);
-            //$scope.subjectCode = subjectCode;
-           // console.log(selectedItem);
-            //$scope.stageFormData.diagnosisPaperCode.push(selectedItem);
-
-
+            //console.log(selectedItem.diagnosisPaperCode);
+            console.log(selectedItem.removePaperCode);
+            $scope.subjectCode = selectedItem.subjectCode;
+            $scope.diagnosisPaperCode = selectedItem.diagnosisPaperCode;
+            var removePaperCode = selectedItem.removePaperCode;
+            if(state == 0){
+                $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);
+            }else{
+                console.log($scope.stageFormData.diagnosisPaperCode); //splice
+                angular.forEach($scope.stageFormData.diagnosisPaperCode,function(key,val){
+                    if(removePaperCode == $scope.stageFormData.diagnosisPaperCode[val]){
+                        //alert(val);
+                        $scope.stageFormData.diagnosisPaperCode.splice(val,1);
+                    }
+                })
+                //$scope.stageFormData.diagnosisPaperCode.remove(selectedItem.removePaperCode);//删除之前的  再追加
+                $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);
+            }
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -771,14 +868,16 @@ app.controller("getPapersByDiagCtrl", function($scope, $http, $resource, $stateP
     }
 });
 //阶段考  弹框
-app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $stateParams, $modal, $state, $modalInstance, host,V_PapersListJson) {
+app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $stateParams, $modal, $state, $modalInstance, host,V_PapersListJson,state,removePaperCode) {
     
     $scope.stageFormData = {};  //formData.resourcePaperCode
     //选用按钮
-    $scope.GetResourcePaperCode = function(diagnosisPaperCode,subjectCode){
-        console.log(subjectCode);
+    $scope.GetResourcePaperCode = function(diagnosisPaperCode,subjectCode,state){
+        //console.log(subjectCode);
         $scope.stageFormData.diagnosisPaperCode = diagnosisPaperCode;
         $scope.stageFormData.subjectCode = subjectCode;
+        $scope.stageFormData.state = state;
+        $scope.stageFormData.removePaperCode = removePaperCode;
          
     }
     // ok click
@@ -815,48 +914,6 @@ app.controller("getPapersByDiagStageCtrl", function($scope, $http, $resource, $s
         })
     }
 });
-//读取新增课程列表 弹框
-app.controller("getPapersByCourseCtrl", function($scope, $http, $resource, $stateParams, $modal, $state, $modalInstance, host,V_PapersListJson) {
-    
-    $scope.formCourseData = {};  //formData.resourcePaperCode
-    //选用按钮
-    $scope.GetResourcePaperCode = function(resourcePaperCode){
-        $scope.formCourseData.resourcePaperCode = resourcePaperCode;
-    }
-    // ok click
-    $scope.ok = function() {
-        $modalInstance.close($scope.formCourseData.resourcePaperCode);
-        //$modalInstance.close($scope.selected.item);
-    };
-    // cancel click
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    }
-
-    //初始化调取资源库列表
-    $scope.load = function(page,size,callback){
-        if(V_PapersListJson.subjectCode == 1){
-            $scope.subjectName ="语文";
-        }
-        V_PapersListJson["currentPage"] = page;  //当前页参数
-        V_PapersListJson["pageSize"] = size; //每页显示多少条
-        //console.log(V_PapersListJson);
-        var url = host + "/course/getRepositoryCourse?requestId";
-        $http.post(url,V_PapersListJson).success(function(data) {
-            console.log(data);
-            if(data.result == null){
-
-                $scope.results = data.result;
-                callback && callback(data.result); //调取分页回调
-            }
-        }).error(function(data){
-            console.log("fail");
-        })
-    }
-});
-
-
-
 //试卷管理=》诊断全科试卷列表
 app.controller('GroupListController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state,CalcService) {
    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
@@ -900,10 +957,7 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
 });
 app.controller('GroupsDetailCtrl', function($scope, $http,$resource, $stateParams, $modal, $state) {
     $scope.name = "诊断试卷组详情";
-
 });
-
-
 //试卷管理=》阶段考试卷列表
 app.controller('StageListController', function($scope, $http,$controller, $resource, $stateParams, $modal, $state,CalcService) {
     $controller('ParentGetDataCtrl', {$scope: $scope});//继承

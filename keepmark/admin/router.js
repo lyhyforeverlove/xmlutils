@@ -201,7 +201,8 @@ angular.module('app')
                                         'admin/teachResearchManage/js/controllerLY.js',
                                         'admin/teachResearchManage/js/controllerHXY.js',
                                         'admin/teachResearchManage/js/areaCategory.js',
-                                        'admin/teachResearchManage/js/controllerDR.js'
+                                        'admin/teachResearchManage/js/controllerDR.js'/*,
+                                        "admin/common/js/controller/paperDetailCtrl.js"*/
                                     ]);
                                 }
                             ]
@@ -227,9 +228,9 @@ angular.module('app')
                         url: '/groupsDetail/{complexPaperCode}',
                         templateUrl: 'admin/common/tpl/groupsDetail.html',
                     })
-                    .state('app.teachResearchManage.detail', {
-                        url: '/detail/{paperCode}',
-                        templateUrl: 'admin/common/tpl/detail.html',
+                    .state('app.paperDetail', {
+                        url: '/paperDetail/:jsonString',
+                        templateUrl: 'admin/common/tpl/paperDetail.html'
                     })
                     .state('app.teachResearchManage.createDiag', {
                         url: '/createDiag',
@@ -325,6 +326,10 @@ angular.module('app')
                             ]
                         }
                     })
+/*                    .state('app.teachResearchManage.testPaper', {
+                        url: '/testPaper',
+                        templateUrl: 'admin/teachResearchManage/testPaper.html'
+                    })*/
                     .state('app.teachResearchManage.teacherManage', {
                         url: '/teacherManage',
                         templateUrl: 'admin/teachResearchManage/teacherManage.html',
@@ -464,6 +469,10 @@ angular.module('app')
                         url: '/myStudent',
                         templateUrl: 'admin/teacherOpearteManage/myStudents.html'
                     })
+                    .state('app.teacherOpearteManage.myStudentstwo', {
+                        url: '/myStudent',
+                        templateUrl: 'admin/teacherOpearteManage/myStudentstwo.html'
+                    })
                     .state('app.teacherOpearteManage.learningDetail', {
                         url: '/learningDetail/',
                         templateUrl: 'admin/teacherOpearteManage/learningDetail.html'
@@ -496,7 +505,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/stageExams.html'
                     })
                     .state('app.teacherOpearteManage.paperDetail', {
-                        url: '/paperDetail',
+                        url: '/paperDetail:jsonstring',
                         templateUrl: 'admin/teacherOpearteManage/paperDetail.html'
                     })
                     .state('app.teacherOpearteManage.paperChecked', {
@@ -531,7 +540,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/answerQuestions.html'
                     })
                     .state('app.teacherOpearteManage.answerQuestionsDetail', {
-                        url: '/answerQuestionsDetail',
+                        url: '/answerQuestionsDetail/:ContentPageasd',
                         templateUrl: 'admin/teacherOpearteManage/answerQuestionsDetail.html'
                     })
                     .state('app.authorityManage', { //权限管理

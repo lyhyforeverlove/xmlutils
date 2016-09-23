@@ -84,6 +84,7 @@ app.controller('SecondRoundController', function($scope, $http, $controller, $re
 	};
 
 	$scope.markPaper = function(data) {
+		
 		data.goHtml=1;
 		var jsonString = angular.toJson(data);
 		$state.go('app.teachManage.exam', {
@@ -125,7 +126,7 @@ app.controller('MarkExamController', function($scope, $http, $controller,$resour
 	//	console.log(data); // hello
 	//获取学生答题详情
 	$scope.load = function(){
-		$http.post($scope.app.host + 'student/diagnosis/getUserAnswer?requestId=test123456', {
+		$http.post($scope.app.testhost + 'student/diagnosis/getUserAnswer?requestId=test123456', {
 			"studentCode":  markPaperRequestJson.studentCode,
 			"singleDiagnosisRecordCode": markPaperRequestJson.eduSingleDiagnosisRecordCode
 		})

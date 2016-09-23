@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <h4>{{formData}} &gt; 符合VIP报分 短板分析</h4>
         </div>
-        <div class="wrapper">
+        <div class="wrapper" id="confromToVipDiv">
             <div class="panel-heading m-b-xl">
                 <form action="" class="ConfromToVipCtrl_form" >
                     <div class="radio form-group col-sm-12">
@@ -20,11 +20,11 @@
                         <label class="col-sm-1 control-label">短板状态：</label>
                         <div class="radio">
                             <label class="i-checks">
-                                <input type="radio" name="isShortlabStatus" ng-value="'0'" ng-change="checked(formData.shortState,'isShortlabStatus')" ng-model="formData.isShortlabStatus">
+                                <input type="radio" name="isShortlabStatus" ng-value="'1'" ng-change="query()" ng-model="formData.isShortlabStatus">
                                 <i></i>已分析
                             </label>
                             <label class="i-checks">
-                                <input type="radio" name="isShortlabStatus" ng-value="'1'"  ng-change="checked(formData.shortState,'isShortlabStatus')" ng-model="formData.isShortlabStatus">
+                                <input type="radio" name="isShortlabStatus" ng-value="'0'"  ng-change="query()" ng-model="formData.isShortlabStatus">
                                 <i></i>未分析
                             </label>
                         </div>
@@ -90,9 +90,9 @@
                         <th>化学</th>
                         <th>生物</th>
                         <th>诊断报告</th>
-                        <th>上次操作人</th>
+                        <!--<th>上次操作人</th>-->
                         <th>操作</th>
-                        <th>短板</th>
+                        <th>状态</th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="item in result track by $index">
@@ -112,39 +112,55 @@
                         <td>
                             <button class="btn btn-default">详情</button>
                         </td>
-                        <td>XXXX</td>
-                        <td>
+                        <!--<td>XXXX</td>-->
+                        <!--<td>XXXX</td>-->
+                        <td ng-if="status(item.isWeaknessAffirm,1)">
+                            -
+                        </td>
+                        <td ng-if="status(item.isWeaknessAffirm,0)">
                             <label class="i-checks const">
-                                <input class="const" type="checkbox" ng-change="const('confromToVip')" ng-model="checked"><i></i>
+                                <!--<input class="isDisable toVipChecked" name= "toVipChecked" type="checkbox" id="{{item.studentCode}}"  ng-click="checkSub()" ng-model="checked"><i></i>-->
+                                <input class="toVipChecked" id="{{item.studentCode}}"  name="check-entities" type="checkbox" ng-model="x" ng-checked="master" ng-click="checkSub(item.studentCode ,x,$index+1)"><i></i></label>
+
                             </label>
                         </td>
-                        <td>
-                            <div ng-controller="categoryCtrl" data-ng-init="btnSH('confromToVipTbody','btnList',item,$index,'isWeaknessAffirm','已短板诊断')" class="btnList">
-                                <button class="" ng-click="open(item)">短板分析</button>
-                            </div>
+                        <td ng-if="status(item.isWeaknessAffirm,1)">
+                            已短板分析
+                        </td>
+                        <td ng-if="status(item.isWeaknessAffirm,0)">
+                            未短板分析
+                          <!--  <div ng-controller="categoryCtrl">
+                                <script type="text/ng-template" id="myModalContent.html">
+                                    <div ng-include="'admin/common/tpl/shortBoardHXY.html'"></div>
+                                </script>-->
+                                <!--<button class="btn btn-default" ng-click="open(item)">短板分析</button>-->
+                            <!--</div>-->
+
                         </td>
                     </tr>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
-                    <tr>
-                        <td colspan="15"></td>
+<!--                    <tr ng-if="status(formData.isShortlabStatus,0)">
+                        <td colspan="14"></td>
                         <td>
                             <span>已选{{num}}人</span>
                             <label class="i-checks constAll">
-                                <input type="checkbox" ng-model="checked" ng-change="constAll('confromToVip')"><i></i> 全选
+                                <input type="checkbox" ng-model="checkeds" ng-change="constAll('confromToVip')"><i></i> 全选
                             </label>
                         </td>
                         <td>
-                            <div ng-controller="categoryCtrl">
+                          &lt;!&ndash;  <div ng-controller="categoryCtrl">
                                 <script type="text/ng-template" id="myModalContent.html">
                                     <div ng-include="'admin/common/tpl/shortBoardHXY.html'"></div>
                                 </script>
-                                <button class="" ng-click="open(result)">短板分析</button>
-                            </div>
+                                <button class="btn btn-default btn-primary" ng-click="open('lt',formData,dataMap)">短板分析</button>
+                            </div>&ndash;&gt;
+                            <button class="btn btn-default btn-primary" ng-click="open('lt',formData,dataMap)">短板分析</button>
+
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
-                        <td colspan="16" class="text-center">
+                        <td colspan="15" class="text-center">
                             <!-- 指令调用代码-->
                             <xl-page size="5" method="query" class="text-center"></xl-page>
                             <!--指令模板（pagination.html）-->
@@ -153,7 +169,52 @@
                     </tfoot>
                 </table>
             </div>
-            <button class=" m-t btn btn-primary pull-right" ng-click="open('lt')">无需短板(待确认)</button>
+            <div>
+
+
+                <script type="text/ng-template" id="myModelContent.html">
+                    <div >
+                        <div class="modal-header">
+                            <h3 class="modal-title">短板分析</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div class="shortBoard_whether">
+                                    <select ng-model="whether" ng-click="whetherMothed()">
+                                        <option value="" selected="selected">--请选择--</option>
+                                        <option value="1">添加“短板”</option>
+                                        <option value="2">不需要“短板”</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label" ng-show="display">短板学科:</label>
+                                <div class="col-sm-4" ng-show="display">
+                                    <select name="account" class="form-control" ng-model="checked" ng-click="getIndex('checked')">
+                                        <option value="" selected="selected">请选择短板科目</option>
+                                        <option ng-repeat="a in category" ng-value="a.subjectCode">{{a.subjectName}}</option>
+                                    </select>
+                                </div>
+                                <!--     <label class="col-sm-2 control-label" ng-show="display">地区:</label>
+                                <div class="col-sm-4" ng-show="display">
+                                        <select name="account" class="form-control" ng-model="checkedCity" ng-click="getIndex('checkedCity')">
+                                        <option value="" selected="selected">请选择地区</option>
+                                <option ng-repeat="obj in city" ng-value="obj.provinceCode">{{obj.provinceName}}</option>
+                                </select>
+                                </div>-->
+                            </div>
+                            <!--Selected: <b></b>-->
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" ng-click="cancel()">取消</button>
+                            <button class="btn btn-primary" ng-click="shortBoardOk(formIndex.checked,formIndex.checkedCity,whether)">确认</button>
+                        </div>
+                    </div>
+
+                </script>
+            </div>
+            <!--<button class=" m-t btn btn-primary pull-right" ng-click="open('lt')">无需短板(待确认)</button>-->
+            <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lt',formData,dataMap)">短板分析</button>
         </div>
     </div>
+
+
 </div>
