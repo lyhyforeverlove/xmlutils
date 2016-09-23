@@ -175,7 +175,7 @@
                                             <div >选项
                                                 <ul><li ng-repeat="option in s.quesOption">
                                                     <span>{{option.optionKey}}</span>
-                                                    <span ng-bind-html="ana.analyzeValue| strToUrl"></span>
+                                                    <span ng-bind-html="option.optionValue| strToUrl"></span>
                                                 </li></ul>
                                             </div>
                                             <div ng-show="q.showAnswer">
@@ -197,7 +197,7 @@
                                             <ul>
                                                 <li ng-repeat="option in q.quesOptionJ">
                                                     <span>{{option.optionKey}}</span>
-                                                    <span>{{option.optionValue | strToUrl }}</span>
+                                                    <span ng-bind-html="option.optionValue| strToUrl"></span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -207,7 +207,7 @@
                                             <ul>
                                                 <li ng-repeat="ana in q.quesAnalyzeJ ">
                                                     <span>{{ana.analyzeKey||''}}</span>
-                                                    <span>{{ana.analyzeValue | strToUrl }}</span>
+                                                    <span ng-bind-html="ana.analyzeValue| strToUrl"></span>
                                                 </li>
                                             </ul>
                                         </div>
