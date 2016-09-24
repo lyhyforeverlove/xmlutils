@@ -663,7 +663,7 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
     $scope.target = function(code){
         $scope.formData.aimType = code;
         $scope.query(1,3,null);
-    }
+    };
     var $wrapPop = $(".wrapPop");
     var $innerPop = $(".innerPopBox");
     //添加课时
@@ -675,19 +675,24 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
     $scope.ok = function(){
         $wrapPop.hide(10);
         $innerPop.hide(10);
-        $http.post($scope.app.testhost + '/shortSlab/section/add/period?requestId=test123456', {
+        $http.post($scope.app.host + '/shortSlab/section/add/period?requestId=test123456', {
             "shortSlabAnalysisRecordCode":$scope.newCode,
             "addHourNumber":$scope.formData.Hour
         })
             .success(function (data) {
                 console.log(data);
-                $scope.query();
+                $scope.query(1,10);
             });
     }
     $scope.cancel = function(){
         $wrapPop.hide(10);
         $innerPop.hide(10);
         $scope.query();
+    };
+    //添加课程
+    $scope.addCourse = function(item){
+        console.log(item);
+        $state.go("app.teachResearchManage.courseTree",{"item":JSON.stringify(item)});
     }
     //根据学年、类型、学科、教材 查询列表
     $scope.query = function(page,size,callback) {
@@ -700,11 +705,12 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
             "pageSize": size
         })
             .success(function (data) {
-                console.log(data);
-                $scope.data = data;
-                $scope.result = data.result.list;
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
+               if(data.result){
+                   $scope.data = data;
+                   $scope.result = data.result.list;
+                   $scope.totalPage = data.result.totalPage;
+                   callback && callback(data.result);
+               }
             });
     }
 });
@@ -909,4 +915,10 @@ app.controller("testpaperController",function($scope,$http, $controller, CalcSer
     $scope.goLast = function(){
         history.go(-1);
     }
+});
+
+
+//添加课程体系
+app.controller('AbnTestController', function($scope,$http) {
+
 });

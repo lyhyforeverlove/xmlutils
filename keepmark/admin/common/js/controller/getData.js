@@ -213,7 +213,7 @@ app.controller("getValue",function($http,$scope){
 //获取JSON数据
 app.controller("getJsonData",function($scope, $http){
     //获取类型（集合）
-    $http.post("./admin/json/filterData.json").then(function(result){
+    $http.get("./admin/json/filterData.json").then(function(result){
         var data = result.data.filterData;
         $scope.departmentType = data;
         //带全部
@@ -244,11 +244,11 @@ app.controller("getJsonData",function($scope, $http){
         }
     };
     //获取 全部学科（集合）
-    $http.post("./admin/json/subject.json").then(function(result){
+    $http.get("./admin/json/subject.json").then(function(result){
         $scope.AllSubject = result.data.subject;
     })
     //获取目标（集合）
-    $http.post("./admin/json/aimData.json").then(function(result){
+    $http.get("./admin/json/aimData.json").then(function(result){
         var data = result.data.aimData;
         $scope.aimTypes = data;
         //带全部
@@ -259,7 +259,7 @@ app.controller("getJsonData",function($scope, $http){
 
     });
     //获取中心（集合）
-    $http.post(window.testhost + '/teaching/organization/centers?requestId=test123456').then(function (result) {
+    $http.post(window.testhost + '/teaching/organization/centers?requestId=test123456',{}).then(function (result) {
         var data = result.data.result;
         $scope.center = data;
         //带全部
@@ -269,7 +269,7 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
     //获取诊断类型（集合）
-    $http.post("./admin/json/paperUseType.json").then(function(result){
+    $http.get("admin/json/paperUseType.json").then(function(result){
         var data = result.data.paperUse;
         $scope.paperUse = data;
         //带全部
@@ -296,7 +296,7 @@ app.controller("getJsonData",function($scope, $http){
         });
     };
     //获取考生类型（集合）
-    $http.post("./admin/json/studentType.json").then(function(result) {
+    $http.get("admin/json/studentType.json").then(function(result) {
         var data = result.data.studentType;
         $scope.studentType = data;
         //带全部
@@ -306,7 +306,7 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
     //获取入学年份（集合）
-    $http.post("./admin/json/inScrollYear.json").then(function(result){
+    $http.get("admin/json/inScrollYear.json").then(function(result){
         var data = result.data.inScrollYear;
         $scope.inScrollYear = data;
         //带全部
@@ -316,7 +316,7 @@ app.controller("getJsonData",function($scope, $http){
         });
     });
     //获取地区（集合）
-    $http.post(window.testhost + "/area/allProvince?requestId=1").then(function(result){
+    $http.post(window.testhost + "/area/allProvince?requestId=1",{}).then(function(result){
         var data = result.data.result;
         $scope.city = data;
         //带全部

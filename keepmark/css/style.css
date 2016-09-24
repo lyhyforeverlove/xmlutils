@@ -249,7 +249,9 @@ h4>span{
     background-color: #7266ba;
     color:#fff;
 }
-
+.freeTime a{
+    color:#fff;
+}
 .form-group span{
     margin:0 10px 0 0;
 }
@@ -280,4 +282,8 @@ h4>span{
     border:1px #7266ba solid;
     border-radius: 5px;
     cursor: pointer;
+}
+.chooseCourseNum{
+    font-size: 18px;
+    margin-top:30px;
 }
