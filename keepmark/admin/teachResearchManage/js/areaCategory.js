@@ -43,7 +43,7 @@ app.controller('areaCategoryCtrl', function($scope, $http,$resource, $stateParam
 var arr = [];
 // modal controller
 app.controller('ModalAreaCtrl', function($scope, $http,$modalInstance,items,host,code) {
-	
+	$scope.ngclick = false;
 	$scope.items = items;
 	
 	$scope.selected = {

@@ -428,8 +428,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
             {
                 "type":1,
                 "roleType":7,
-                "subjectCode":code,
-                "centerCode":$scope.classAndGrade.centerCode
+                "subjectCode":code
             })
             .success(function(data){
                 switch(code)
@@ -554,8 +553,65 @@ app.controller("classAndGradeController",function($scope,$http,$controller,$stat
 app.controller("addClassAndGradeController",function($scope,$http,$controller,$state){
     $scope.titleName="新增班级";
     $controller("getSchoolInfo",{$scope:$scope});
-    $scope.getTeacher =function(centerCode){
+    $scope.getTeacher = function(centerCode){
+        var subCode = [1,2,3];
+        if($scope.departmentSchool.divisionType==0){
+            subCode.push(7);
+            subCode.push(8);
+            subCode.push(9);
+        }else{
+            subCode.push(4);
+            subCode.push(5);
+            subCode.push(6);
+        }
+
+        for(var i=0;i<subCode.length;i++){
+            var code = subCode[i];
+            $scope.addTeacher(code);
+        }
     };
+    //获取各科教师
+    $scope.addTeacher = function(code){
+        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
+            {
+                "type":1,
+                "roleType":7,
+                "subjectCode":code,
+                "centerCode":$scope.classAndGrade.centerCode
+            })
+            .success(function(data){
+                switch(code)
+                {
+                    case 1:
+                        if(data.result) $scope.chineseTeacherList = data.result ;
+                        break;
+                    case 2:
+                        if(data.result) $scope.mathTeacherList = data.result ;
+                        break;
+                    case 3:
+                        if(data.result) $scope.englishTeacherList = data.result ;
+                        break;
+                    case 4:
+                        if(data.result) $scope.physicsTeacherList = data.result ;
+                        break;
+                    case 5:
+                        if(data.result) $scope.chemistryTeacherList = data.result ;
+                        break;
+                    case 6:
+                        if(data.result) $scope.biologyTeacherList = data.result ;
+                        break;
+                    case 7:
+                        if(data.result) $scope.historyTeacherList = data.result ;
+                        break;
+                    case 8:
+                        if(data.result) $scope.geographyTeacherList = data.result ;
+                        break;
+                    case 9:
+                        if(data.result) $scope.politicalTeacherList = data.result ;
+                        break;
+                }
+            })
+    }
     //保存班级
     $scope.saveClassAndGrade = function(){
         var authTeacherClassModels = [];

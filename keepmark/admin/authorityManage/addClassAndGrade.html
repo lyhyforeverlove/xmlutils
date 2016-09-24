@@ -39,7 +39,7 @@
             <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">中心：</label>
                 <div class="col-sm-2">
-                    <select ng-model="classAndGrade.centerCode" class="form-control" ng-options="c.code as c.name for c in centreOfSchoolList" ng-click ="getTeacher(classAndGrade.centerCode)">
+                    <select ng-model="classAndGrade.centerCode" class="form-control" ng-options="c.code as c.name for c in centreOfSchoolList" ng-click="getTeacher(classAndGrade.centerCode)">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="form-group col-sm-12" >
                     <label class="col-sm-1 control-label">地理老师：</label>
                     <div class="col-sm-2">
-                        <select class="form-control m-b" ng-model="geographyTeacher" ng-options="geography.name for geography in geographyTeacherList" >
+                        <select class="form-control m-b" ng-model="geographyTeacher" ng-options="geography.name for geography in geographyTeacherList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -94,7 +94,7 @@
                 <div class="form-group col-sm-12">
                 <label class="col-sm-1 control-label">政治老师：</label>
                 <div class="col-sm-2">
-                    <select class="form-control m-b" ng-model="politicalTeacher" ng-options="political.name for political in politicalTeacherList" >
+                    <select class="form-control m-b" ng-model="politicalTeacher" ng-options="political.name for political in politicalTeacherList">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -104,7 +104,7 @@
                 <div class="form-group col-sm-12">
                     <label class="col-sm-1 control-label">物理老师：</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" ng-model="physicsTeacher" ng-options="physics.name for physics in physicsTeacherList">
+                        <select  class="form-control m-b" ng-model="physicsTeacher" ng-options="physics.name for physics in physicsTeacherList" >
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -112,7 +112,7 @@
                 <div class="form-group col-sm-12" >
                     <label class="col-sm-1 control-label">化学老师：</label>
                     <div class="col-sm-2">
-                        <select  class="form-control m-b" ng-model="chemistryTeacher" ng-options="chemistry.name for chemistry in chemistryTeacherList" >
+                        <select  class="form-control m-b" ng-model="chemistryTeacher" ng-options="chemistry.name for chemistry in chemistryTeacherList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
