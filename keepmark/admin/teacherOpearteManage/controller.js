@@ -542,13 +542,34 @@ app.controller('AutoPushResourcePaperController', function($scope, $modalInstanc
 
 
 //大班值守
-app.controller("classOnDutyController", function($scope){
+app.controller("classOnDutyController", function($scope,$controller,$http,scheduleService){
+    $controller("getSchoolInfo",{$scope:$scope});
     $scope.name = '大班值守';
     $scope.scheduleStatus = 1;
+    var host = $scope.app.host;
+
+    $scope.getTeacherSOnDutyList = function(weekTimeCode){
+        if(typeof(weekTimeCode) !== "undefined"){
+            var parameters = {
+                "weekTimeCode":weekTimeCode,
+                "ownerCode":"12"
+            };
+            var url = host +"teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK3";
+            scheduleService.getScheduleList(url,parameters).then(function(data){
+                if(data.result !== null) {
+                    $scope.courses = data.result.sections;
+
+                }else{
+                    alert("此老师没有课表！");
+                    $scope.courses="";
+                }
+            });
+        }
+    };
     $scope.enterLargelassroom = function(){
         alert('非上课时间，无大班课！');
-    }
-})
+    };
+});
 //答疑
 app.controller("answerQuestionsController",function($scope,$http,$controller,$resource, $stateParams, $modal,$state,CalcService){
     $scope.name='答疑';

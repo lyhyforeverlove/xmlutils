@@ -75,7 +75,7 @@
                 <button class="btn btn-primary btn-margin pull-right" ng-click="chooseStudents()">选择学生</button>
               <!--  <button class="btn btn-primary btn-margin" ng-click="getList()">查询</button>-->
                 <div id="tabs" ng-show="!studentsShow">
-                    <ul>
+                    <ul class="tabs_ul">
                         <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
                     </ul>
                     <div id="mainView">
