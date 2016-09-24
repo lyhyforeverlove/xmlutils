@@ -228,13 +228,33 @@ angular.module('app')
                         url: '/ExamPaperDetails/{id}',
                         templateUrl: 'admin/common/tpl/ExamPaperDetails.html',
                     })
-                    .state('app.teachResearchManage.groupsDetail', {
-                        url: '/groupsDetail/{complexPaperCode}',
+                    .state('app.groupsDetail', {
+                        url: '/groupsDetail/:jsonString',
                         templateUrl: 'admin/common/tpl/groupsDetail.html',
+                        controller:'GroupDetailController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load(
+                                        "admin/common/js/controller/paperDetailCtrl.js"
+                                    );
+                                }
+                            ]
+                        }
                     })
                     .state('app.paperDetail', {
                         url: '/paperDetail/:jsonString',
-                        templateUrl: 'admin/common/tpl/paperDetail.html'
+                        templateUrl: 'admin/common/tpl/paperDetail.html',
+                        controller:'paperDetailController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load(
+                                         "admin/common/js/controller/paperDetailCtrl.js"
+                                    );
+                                }
+                            ]
+                        }
                     })
                     .state('app.teachResearchManage.createDiag', {
                         url: '/createDiag',

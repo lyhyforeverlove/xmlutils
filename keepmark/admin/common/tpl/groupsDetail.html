@@ -5,24 +5,40 @@
 	#log ul {
 			list-style: none;
 			font: 14px;
-			line-height: 30px;
+			line-height: 40px;
 			color: #666;
 		}
-	#log ul li strong {
+	#log ul li b {
 		display: inline-block;
 		min-width: 140px;
-		color: #39b3d7;
 		text-align:right;
 	}
 </style>
 <div class="wrapper-md" ng-controller="GroupDetailController">
     <div class="panel panel-default" ng-init="load()">
         <div class="panel-heading">
-           <h4>{{name}}</h4>
+           <h4 align="center">{{complexName}}</h4>
         </div>
         <div class="wrapper">
         	<div id="log">
         		<ul>
+                    <li><b>创建时间：</b>{{createTime  | date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                    <li><b>综合诊断卷价格：</b>{{complexPrice | currency:"RMB ￥ "}}</li>
+                    <li><b>综合诊断卷封面路径：</b><img ng-src="{{complexImgUrl}}" width="100px" height="50px" /></li>
+                    <li><b>综合诊断卷描述：</b>{{complexExplanation}}</li>
+                    <li><b>综合诊断卷状态：</b>{{complexStatus}}</li>
+                    <li><b>语文诊断卷名称：</b>{{chineseDiagnosisPaperName}}</li>
+                    <li><b>数学诊断卷名称：</b>{{mathematicsDiagnosisPaperName}}</li>
+                    <li><b>英语诊断卷名称：</b>{{englishDiagnosisPaperName}}</li>
+                    <li ng-if="artsType == 'SCIENCE'"><b>物理诊断卷名称：</b>{{physicalDiagnosisPaperName}}</li>
+                    <li ng-if="artsType == 'SCIENCE'"><b>化学诊断卷名称：</b>{{chemistryDiagnosisPaperName}}</li>
+                    <li ng-if="artsType == 'SCIENCE'"><b>生物诊断卷名称：</b>{{biologicalDiagnosisPaperName}}</li>
+                    <li ng-if="artsType == 'LIBERALARTS'"><b>地理诊断卷名称：</b>{{geographyDiagnosisPaperName}}</li>
+                    <li ng-if="artsType == 'LIBERALARTS'"><b>政治诊断卷名称：</b>{{politicsDiagnosisPaperName}}</li>
+                    <li ng-if="artsType == 'LIBERALARTS'"><b>历史诊断卷名称：</b>{{historyDiagnosisPaperName}}</li>
+
+
+
 	        		<!--<li><strong>试卷名称：</strong>{{diagnosisName}}</li>
 	        		<li><strong>学年：</strong>{{gradeCode}}</li>
 	        		<li><strong>版本：</strong>{{bookVersion}}</li>

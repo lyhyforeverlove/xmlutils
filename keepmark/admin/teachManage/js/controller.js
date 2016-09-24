@@ -54,13 +54,17 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
             "pageSize":size
         })
             .success(function(data) {
-                if(data.message = "success"){
+                console.log(data);
+                if(data.message == "Success"){
+
+                    $scope.tesarry = []; //初始化数据
                     angular.forEach(data.result.list, function(data){
                         if(data.artsType == "SCIENCE"){
                             data.artsType = "理科";
                         }else{
                             data.artsType = "文科";
                         }
+                        $scope.tesarry.push(data.complexCode);
                     });
                     $scope.results = data.result;
 
@@ -94,7 +98,18 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
         }).error(function(data){
             console.log("fail!");
         });
-    }
+    };
+    //点击全科详情
+    $scope.GetGroupDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.groupsDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    };
     //console.log($scope.tesarry);
 });//诊断商品列表
 app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService,passParameter) {
