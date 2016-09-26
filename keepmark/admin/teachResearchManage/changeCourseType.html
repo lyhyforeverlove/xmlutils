@@ -126,8 +126,8 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="item in studentList.list track by $index">
-                    <tr>
+                <tbody >
+                    <tr ng-repeat="item in studentList.list track by $index">
                         <td>
                             <label class="i-checks i-checks-sm">
                                 <input type="checkbox"><i></i>{{$index+1}}
