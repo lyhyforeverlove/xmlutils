@@ -79,9 +79,10 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     $scope.tongguo=function(data){
     	 var list=[];
     	 var obj={};
+    	 obj.studentCode=data.studentCode;
     	 obj.diagnosticRecordsCode=data.eduSingleDiagnosisRecordCode;
     	 list.push(obj);
-    	$http.post($scope.app.host + 'section/diagnosis/review/through?requestId=test123456', {
+    	$http.post($scope.app.testhost + 'section/diagnosis/review/through?requestId=test123456', {
 				"diagnosticRecordsCodes": list
 			})
 			.success(function(data) {
@@ -198,7 +199,7 @@ app.controller('reviwePaperDetailController', function($scope, $http, $controlle
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
-		$http.post($scope.app.host + 'section/diagnosis/review?requestId=test123456', {
+		$http.post($scope.app.testhost + 'section/diagnosis/review?requestId=test123456', {
 				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
 				"teacherCode": "111111",//获取登录教师的code
 				"teacherName": "教师名称",//获取登录教师的名称

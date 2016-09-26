@@ -356,4 +356,29 @@ function removeKnowledge(code,index,pro){
 
 
 
+//老师判卷列表
+app.controller("paperCheckedControllerDR",function($controller,$scope,$http,scheduleService){
+    $scope.name = "小班课我的课表";
+    $scope.scheduleStatus = "1";
 
+    $controller("getSchoolInfo",{$scope:$scope});
+    $scope.getTeacherSchedule = function(weekTimeCode){
+        if(typeof(weekTimeCode) !== "undefined"){
+            var parameters = {
+                "weekTimeCode":weekTimeCode,
+                "ownerCode":"12"
+            };
+            var url = $scope.app.host +"teaching/course/getSchedule?requestId=WEUOW343KL34L26NBSK3";
+            scheduleService.getScheduleList(url,parameters).then(function(data){
+                if(data.result !== null) {
+                    $scope.scheduleUrl = 'admin/common/tpl/schedule.html';
+                    $scope.courses = data.result.sections;
+                }else{
+                    alert("此老师没有课表！");
+                    $scope.scheduleUrl = '';
+                }
+            });
+        }
+    };
+
+});
