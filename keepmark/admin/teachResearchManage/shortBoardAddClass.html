@@ -101,7 +101,7 @@
                         <td>{{item.mobile }}</td>
                         <td>{{item.parent }}</td>
                         <td>--</td>
-                        <td><button class="btn btn-default" ui-sref='app.teachResearchManage.courseTree'>添加课程</button></td>
+                        <td><button class="btn btn-default" ng-click='addCourse(item)'>添加课程</button></td>
                         <td class="shortBoardHour" data-ng-init="btnSH('shortBoardAddClass','shortBoardHour',item,$index,'addHourNumber',item.addHourNumber+'课时')"><button class="btn btn-default" ng-click="addHour(item.eduVulnerabilityAnalyzeRecordCode)">添加课时</button></td>
                     </tr>
                     </tbody>
@@ -121,8 +121,8 @@
     <!--添加课时 弹窗-->
     <div class="wrapPop"></div>
     <div class="innerPopBox">
-        <p>请选择需要添加的课时数量：</p>
-        <select name="addHour" ng-model="formData.Hour" ng-change="change(formData.Hour,'Hour')">
+        <p class=""">请选择需要添加的课时数量：</p>
+        <select name="addHour" ng-model="formData.Hour" ng-change="change(formData.Hour,'Hour')" class="form-control">
             <option value="1">1课时</option>
             <option value="2">2课时</option>
             <option value="3">3课时</option>

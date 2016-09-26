@@ -6,7 +6,7 @@
         <div class="wrapper">
             <div class="panel-heading ">
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">总校：</label>
+                    <label class="col-sm-1 control-label">总校：</label>
                     <div class="col-sm-2">
                         <select  ng-model="masterSchool"  class="form-control" ng-options="m.name for m in masterSchoolList" ng-click="getBranchSchoolList(masterSchool.code)">
                             <option value="">--请选择--</option>
@@ -15,9 +15,9 @@
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">分校：</label>
+                    <label class="col-sm-1 control-label">分校：</label>
                     <div class="col-sm-2">
-                        <select id="branchSchool" ng-click="getList(branchSchool)" ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList">
+                        <select id="branchSchool" ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
@@ -41,13 +41,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in results">
+                        <tr ng-repeat="data in districtSchoolList">
                             <td>{{$index+1}}</td>
                             <td>{{data.name}}</td>
                             <td>{{data.personCharge}}</td>
                             <td>
-                                <a ng-click="viewDistrictSchool(data)">查看</a>
-                                <a ng-click="updateVDistrictSchool(data)">修改</a>
+                                <a class="btn-a" ng-click="viewDistrictSchool(data)">查看</a>
+                                <a class="btn-a" ng-click="updateVDistrictSchool(data)">修改</a>
                                 <!--<a ng-click="deleteDistrictSchool(item.id)">删除</a>-->
                             </td>
                         </tr>

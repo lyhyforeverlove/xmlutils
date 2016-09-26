@@ -10,7 +10,7 @@ angular.module('app')
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
       window.host1 = "http://192.168.1.156:8090/";
-      window.testhost = "http://192.168.1.201:7777/keepMark-teacher-business";
+      window.testhost = "http://192.168.1.12:7777/keepMark-teacher-business";
 
       // config
       $scope.app = {

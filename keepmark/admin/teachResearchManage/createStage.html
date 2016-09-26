@@ -43,8 +43,8 @@
                             <li class="list-group-item" ng-repeat="(key,val) in category" >
                             <!-- <input name="test" class="form-control" type="text" ng-trim="false"/>  --> 
                             {{val.subjectName}}<!-- {{val.code}} | {{val.subjectCode}}-->
-                                {{val.subjectCode}}<span class="pull-right" ng-if="subjectCode != val.subjectCode"><button class="btn m-b-xs w-xs btn-primary" ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:stageFormData.paperUseType},'getPapersByDiagStageCtrl',{code:val.code},0,null)">添加</button></span>
-                                <span class="pull-right" ng-if="subjectCode == val.subjectCode"><button class="btn m-b-xs w-xs btn-info" ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:stageFormData.paperUseType},'getPapersByDiagStageCtrl',{code:val.code},1,diagnosisPaperCode)">更换</button></span>
+                                {{val.subjectCode}}<span class="pull-right" ng-if="subjectCode[key] != val.subjectCode"><button class="btn m-b-xs w-xs btn-primary" ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:stageFormData.paperUseType},'getPapersByDiagStageCtrl',{code:val.code},0,null)">添加</button></span>
+                                <span class="pull-right" ng-if="subjectCode[key] == val.subjectCode"><button class="btn m-b-xs w-xs btn-info" ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:stageFormData.paperUseType},'getPapersByDiagStageCtrl',{code:val.code},1,diagnosisPaperCode)">更换</button></span>
                             </li>
                         </ul>
                         {{subjectCode}}

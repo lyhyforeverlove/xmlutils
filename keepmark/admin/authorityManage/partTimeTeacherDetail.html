@@ -1,7 +1,9 @@
 <div class="wrapper-md ng-scope" ng-controller="partTimeTeacherDetailController">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>权限管理  &gt; {{name}} </h4>
+            <h4>权限管理  &gt; {{name}}
+                <button class ="btn btn-primary pull-right" ui-sref="app.authorityManage.partTimeTeacherManage()">返回</button>
+            </h4>
         </div>
         <div class="wrapper">
             <div class="form-group col-sm-12">
@@ -13,23 +15,23 @@
                     <label class="control-label col-sm-4">姓名：</label>
                     <label class="col-sm-8 control-label">{{partTeacher.name}}</label>
                 </div>
-                <div class="col-sm-3">
+                <!--<div class="col-sm-3">
                     <label class="control-label col-sm-4">初始密码：</label>
                     <label class="col-sm-8 control-label">{{partTeacher.password}}</label>
-                </div>
+                </div>-->
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">工号：</label>
                     <label class="col-sm-8 control-label">{{partTeacher.teacherNum}}</label>
                 </div>
-            </div>
-            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">授课类型：</label>
                     <label class="col-sm-8 control-label">{{partTeacher.lectureType}}</label>
                 </div>
+            </div>
+            <div class="form-group col-sm-12">
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">职称：</label>
-                    <label class="col-sm-8">{{partTeacher.invigilator}}</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.invigilator}}</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="control-label col-sm-4">学科：</label>

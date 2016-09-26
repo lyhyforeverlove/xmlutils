@@ -35,9 +35,9 @@
                         <h3 class="modal-title">模态框</h3>
                     </div>
                     <div class="modal-body" ng-init="load()">
-                        <div>
+                        <div class="form-group">
                             <ul ng-repeat="data in results" class="areaBox">
-                                <li>
+                                <li ng-class="{'freeTime':ngclick}" ng-click="ngclick = !ngclick">
                                      <a ng-click="selected = save(data.provinceCode)" ng-model="areaName" >{{data.provinceName}}</a>
                                 </li>
                             </ul>
@@ -56,5 +56,6 @@
     </div>
 </div>
 <style>
+ul.areaBox{display: inline-block;padding:0;}
 ul.areaBox li{border:1px solid #ccc;float:left;padding:6px 10px;font-size:14px;border-radius:4px;margin:4px;}
 </style>

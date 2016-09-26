@@ -4,8 +4,7 @@
             <h4>权限管理  &gt; {{name}} </h4>
         </div>
         <div class="wrapper">
-            <div class="panel-heading ">
-
+            <div class="panel-heading">
                 <div class="form-group col-sm-12">
                     <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addMasterSchool()">添加总校</button>
                 </div>
@@ -31,8 +30,8 @@
                             <td>{{data.president}}</td>
                             <td>{{data.vicePresident}}</td>
                             <td>
-                                <a ng-click="viewMasterSchool(data)">查看</a>
-                                <a ng-click="updateVMasterSchool(data)">修改</a>
+                                <a class="btn-a" ng-click="viewMasterSchool(data)">查看</a>
+                                <a class="btn-a" ng-click="updateVMasterSchool(data)">修改</a>
                                 <!--<a ng-click="deleteMasterSchool()">删除</a>-->
                             </td>
                         </tr>

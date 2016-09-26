@@ -19,10 +19,12 @@
             </div>
         </div>
         <div class="wrapper">
-            <h4>教师列表</h4>
-            <ul class="teacher-list">
-                <li ng-repeat="teacher in teacherList"><label class="i-checks"><input type="radio" ng-model="formData.teacherCode" value={{teacher.teacherCode}}><i></i>{{teacher.teacherName}}</label></li>
-            </ul>
+            <div class="col-sm-12" ng-show="teacherDiv">
+                <h4>教师列表</h4>
+                <ul class="teacher-list">
+                    <li ng-repeat="teacher in teacherList"><label class="i-checks"><input type="radio" ng-model="formData.teacherCode" value={{teacher.teacherCode}}><i></i>{{teacher.teacherName}}</label></li>
+                </ul>
+            </div>
             <button class="btn btn-primary pull-right" ng-click="saveCourse()">保存</button>
             <!--<div class="table-responsive col-sm-12" ng-show="courseList">
                 <table class="table table-striped  b-t b-light">
