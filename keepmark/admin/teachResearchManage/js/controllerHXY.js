@@ -82,7 +82,7 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     	 obj.studentCode=data.studentCode;
     	 obj.diagnosticRecordsCode=data.eduSingleDiagnosisRecordCode;
     	 list.push(obj);
-    	$http.post($scope.app.testhost + 'section/diagnosis/review/through?requestId=test123456', {
+    	$http.post($scope.app.host + 'section/diagnosis/review/through?requestId=test123456', {
 				"diagnosticRecordsCodes": list
 			})
 			.success(function(data) {
@@ -93,7 +93,7 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     }	
     //根据学年、类型、学科、教材 查询诊断列表
     $scope.getList = function (page, size, callback) {
-        $http.post($scope.app.testhost + '/section/diagnosis/getReviewPaper?requestId=test123456', {
+        $http.post($scope.app.host + '/section/diagnosis/getReviewPaper?requestId=test123456', {
             "gradeCode": "33",
             "oneDifference":$scope.formData.oneDifference,
             "oneTotalScore":$scope.formData.oneTotalScore,
@@ -121,8 +121,16 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
                 callback && callback(data.result);
             });
     }
-    
-    
+    	//试卷详情
+      $scope.GetPaperDetail = function(data){
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
+
 
 });
 

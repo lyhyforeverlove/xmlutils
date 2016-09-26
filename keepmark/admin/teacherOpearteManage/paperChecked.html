@@ -27,25 +27,36 @@
                         <!-- ng-repeat="data in data.results"-->
                         <tr  ng-repeat="data in list" class="sub-science-tr">
                             <td>{{$index+1}}</td>
-                            <td>诊断</td>
-                            <!--<td>121212</td>-->
-                            <!--<td>XXX</td>-->
-                            <td>{{data.singleDiagnosisRecord.subjectCode}}</td>
-                            <td>{{data.singleDiagnosisRecord.examStartTime}}</td>
-                            <td><button class="btn btn-primary" ng-click="paperDetail({{data.singleDiagnosisRecord.diagnosisPaperCode}})">详情</button></td>
-                            <td>{{data.singleDiagnosisRecord.impersonalityScore}}分</td>
-                            <td>{{data.singleDiagnosisRecord.subjectivityOneScore}}分</td>
-                            <td>{{data.singleDiagnosisRecord.diagnosisScore}}分</td>
+                            <td>
+                            	<span ng-if="data.markRound==1">
+									一判
+                            	</span>
+                            	<span ng-if="data.markRound==2">
+									二判
+                            	</span>
+                            </td>
+                            <td>{{data.subjectCode}}</td>
+                            <td>{{data.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td><button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button></td>
+                            <td>{{data.impersonalityScore}}分</td>
+                            <td>
+                            	<span ng-if="data.markRound==1">
+                            		{{data.subjectivityOneScore}}分
+                            	</span>
+                            	<span ng-if="data.markRound==2">
+                            		{{data.subjectivityTwoScore}}分
+                            	</span>
+                            </td>
+                            <td>{{data.diagnosisScore}}分</td>
                             <td>{{data.paperStatus}}</td>
-                            <td  ng-if="opraterSel(data.paperStatus,0)"><button class="btn btn-primary" ng-click="paperChecked()">判卷</button></td>
-                            <td  ng-if="opraterSel(data.paperStatus,1)"><button class="btn btn-primary" ng-click="paperDetail({{data.singleDiagnosisRecordCode}})">详情</button></td>
+                            <td><button class="btn btn-primary" ng-click="paperChecked(data)">判卷</button></td>
                         </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <td colspan="10" class="text-center">
                             <!-- 指令调用代码 -->
-                            <xl-page size="10" method="load" class="text-center"></xl-page>
+                            <xl-page size="10" method="getList" class="text-center"></xl-page>
                             <!-- 指令模板[pagination.html] -->
                         </td>
                     </tr>

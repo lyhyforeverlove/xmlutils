@@ -74,7 +74,7 @@
 										<td>{{item.subjectCode}}</td>
 										<td>{{item.createTime   | date:'yyyy-MM-dd HH:mm:ss'}}</td>
 										<td>
-											<button class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</button>
+											<button class="btn btn-default" ng-click="GetPaperDetail({paperCode:item.diagnosisPaperCode})">详情</button>
 										</td>
 										<td>{{item.impersonalityScore}}</td>
 										<td>{{item.subjectivityOneScore}}</td>
@@ -143,7 +143,7 @@
 										<td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
 										<td>2016.7.28：18：00-19：00</td>
 										<td>
-											<button class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</button>
+											<button class="btn btn-default" ng-click="GetPaperDetail({paperCode:item.diagnosisPaperCode})">详情</button>
 										</td>
 										<td>{{item.impersonalityScore}}</td>
 										<td>{{item.subjectivityOneScore}}</td>
