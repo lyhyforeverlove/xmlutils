@@ -79,9 +79,10 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     $scope.tongguo=function(data){
     	 var list=[];
     	 var obj={};
+    	 obj.studentCode=data.studentCode;
     	 obj.diagnosticRecordsCode=data.eduSingleDiagnosisRecordCode;
     	 list.push(obj);
-    	$http.post($scope.app.host + 'section/diagnosis/review/through?requestId=test123456', {
+    	$http.post($scope.app.testhost + 'section/diagnosis/review/through?requestId=test123456', {
 				"diagnosticRecordsCodes": list
 			})
 			.success(function(data) {
@@ -198,7 +199,7 @@ app.controller('reviwePaperDetailController', function($scope, $http, $controlle
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
-		$http.post($scope.app.host + 'section/diagnosis/review?requestId=test123456', {
+		$http.post($scope.app.testhost + 'section/diagnosis/review?requestId=test123456', {
 				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
 				"teacherCode": "111111",//获取登录教师的code
 				"teacherName": "教师名称",//获取登录教师的名称
@@ -271,9 +272,9 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
         }
     }*/
     //状态显示
-   /* $scope.status = function(val,type){
+    $scope.status = function(val,type){
         return val==type;
-    };*/
+    }
   /*  //多选
     $scope.x = false; //默认未选中
     $scope.checkSub = function() { //单选或者多选
@@ -350,7 +351,7 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
         if(size == null || size == undefined){
             size = 5;
         }
-        //$scope.status();
+        $scope.status();
         $http.post($scope.app.host + 'shortSlab/list?requestId=test123456', {
             "departmentType": $scope.formData.departmentType,
             "areaCode":$scope.formData.city,
@@ -663,7 +664,7 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
     $scope.target = function(code){
         $scope.formData.aimType = code;
         $scope.query(1,3,null);
-    }
+    };
     var $wrapPop = $(".wrapPop");
     var $innerPop = $(".innerPopBox");
     //添加课时
@@ -675,19 +676,24 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
     $scope.ok = function(){
         $wrapPop.hide(10);
         $innerPop.hide(10);
-        $http.post($scope.app.testhost + '/shortSlab/section/add/period?requestId=test123456', {
+        $http.post($scope.app.host + '/shortSlab/section/add/period?requestId=test123456', {
             "shortSlabAnalysisRecordCode":$scope.newCode,
             "addHourNumber":$scope.formData.Hour
         })
             .success(function (data) {
                 console.log(data);
-                $scope.query();
+                $scope.query(1,10);
             });
     }
     $scope.cancel = function(){
         $wrapPop.hide(10);
         $innerPop.hide(10);
         $scope.query();
+    };
+    //添加课程
+    $scope.addCourse = function(item){
+        console.log(item);
+        $state.go("app.teachResearchManage.courseTree",{"item":JSON.stringify(item)});
     }
     //根据学年、类型、学科、教材 查询列表
     $scope.query = function(page,size,callback) {
@@ -700,11 +706,12 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
             "pageSize": size
         })
             .success(function (data) {
-                console.log(data);
-                $scope.data = data;
-                $scope.result = data.result.list;
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
+               if(data.result){
+                   $scope.data = data;
+                   $scope.result = data.result.list;
+                   $scope.totalPage = data.result.totalPage;
+                   callback && callback(data.result);
+               }
             });
     }
 });
@@ -909,4 +916,10 @@ app.controller("testpaperController",function($scope,$http, $controller, CalcSer
     $scope.goLast = function(){
         history.go(-1);
     }
+});
+
+
+//添加课程体系
+app.controller('AbnTestController', function($scope,$http) {
+
 });

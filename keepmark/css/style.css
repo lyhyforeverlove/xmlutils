@@ -249,7 +249,9 @@ h4>span{
     background-color: #7266ba;
     color:#fff;
 }
-
+.freeTime a{
+    color:#fff;
+}
 .form-group span{
     margin:0 10px 0 0;
 }
@@ -262,4 +264,26 @@ h4>span{
 }
 .teacher-list>li{
     float:left;
+}
+
+.tr-title{
+    font-weight:bolder;
+    font-size: 20px;
+    color:#7266ba;
+}
+.td-week{
+    font-weight:bold;
+    font-size:16px;
+    color:#7266ba;
+}
+
+.teacher{
+    padding:5px 10px;
+    border:1px #7266ba solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.chooseCourseNum{
+    font-size: 18px;
+    margin-top:30px;
 }

@@ -6,18 +6,18 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
 
     $scope.formData = {};
     //默认为语文
-    $scope.formData.subjectCode = 1;
-    //默认班型
-    $scope.formData.aimType = "c_001";
+    $scope.formData.subjectCode = 5;
     //默认保分类型
-    $scope.formData.categoriesCode = "001001";
+    $scope.formData.aimType = 0;
+    //默认班型
+    $scope.formData.classType = 1;
 
     //根据考生类型、班型、保分类型、科目 查询列表
     $scope.getList = function(page,size,callback) {
-        var url = $scope.app.testhost + "course/list?requestId=1";
+        var url = $scope.app.host + "course/list?requestId=1";
         $http.post(url,{
             "aimType":  $scope.formData.aimType,
-            "classType": $scope.formData.classType,
+            "classType": $scope.formData.categoriesCode,
             "subjectCode": $scope.formData.subjectCode,
             "pageSize":size,
             "pageNumber":page
@@ -37,7 +37,7 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
     /*弹出模态框 （公共模态框）
     *@params size  模态框大小
     *//*,controller,selectedJson*/
-    $scope.open = function(size) {
+    $scope.open = function(size,data) {
         //console.log(selectedJson);
         var modalInstance = $modal.open({
             templateUrl : 'myModelContent.html',
@@ -46,6 +46,9 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
             resolve : {
                 host : function(){
                     return $scope.app.host;
+                },
+                data : function(){
+                    return data;
                 }
             }
         });
@@ -59,34 +62,57 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
         });
     }
 });
-app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$modalInstance,$resource, $stateParams, $modal, $state,host,CalcService) {
+//课程管理 =》课程体系分配老师
+app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$modalInstance,$resource, $stateParams, $modal, $state,host,data,CalcService) {
     $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+
+    $scope.teacherGoalType = 0;
+    $scope.authTeacherModels = []; //定义数组用于存放前端显示
+    var str = ""; //
+    $scope.x = false; //默认未选中
+    var Index;
+    $scope.chk = function(z, x) { //单选或者多选
+        if (x == true) { //选中
+            $scope.authTeacherModels.push(z);
+        } else {
+            //str = str.replace(z + ',', ''); //取消选中
+            angular.forEach($scope.authTeacherModels,function(cb,index){
+                if (cb.code === z.code) {
+                    $scope.authTeacherModels.splice(index, 1);
+                }
+            });
+        }
+    };
      // ok click
     $scope.ok = function() {
-        $modalInstance.close($scope.formData.resourcePaperCode);
+        var url = 'http://192.168.1.35:8070/keepMark-teacher-business/course/distribute/teacher?requestId=1';
+        $http.post(url,{
+            "subject": data.subjectCode,
+            "targetType": $scope.teacherGoalType,
+            "courseSystemCode": data.courseCode,
+            "authTeacherModels": $scope.authTeacherModels
+        }).success(function(data){
+            $modalInstance.close();
+        }).error(function(data){
+
+        })
+        //$modalInstance.close($scope.formData.resourcePaperCode);
         //$modalInstance.close($scope.selected.item);
     };
     // cancel click
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
-
-    //初始化调取资源库列表
-   $scope.load = function(page,size,callback){
-        if(V_PapersListJson.subjectCode == 1){
-            $scope.subjectName ="语文";
-        }
-        V_PapersListJson["currentPage"] = page;  //当前页参数
-        V_PapersListJson["pageSize"] = size; //每页显示多少条
-
-        var url = host + "resource/get/papers?requestId=1";
-        $http.post(url,V_PapersListJson).success(function(data) {
-
-            $scope.results = data.result;
-
-            callback && callback(data.result); //调取分页回调
-        })
-    }
+    };
+    //读取课程分配老师  老师列表（专职老师
+    //
+    // ）
+    var url = host +'teaching/course/getTeachers?requestId=test123456';
+    $http.post(url,{"type":1,"subjectCode":data.subjectCode}).success(function(data){
+       console.log(data);
+        $scope.results = data.result;
+    }).error(function(data){
+        console.log("fail");
+    })
 });
 /*课程管理=》详情*/
 app.controller('CourseDetailController', function($scope, $http,$resource, $stateParams, $modal, $state) {
@@ -121,7 +147,7 @@ app.controller("getPapersByCourseCtrl", function($scope, $http, $resource, $stat
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     }
-
+    console.log(V_PapersListJson);
     //初始化调取资源库列表
     $scope.load = function(page,size,callback){
         if(V_PapersListJson.subjectCode == 1){
@@ -129,14 +155,16 @@ app.controller("getPapersByCourseCtrl", function($scope, $http, $resource, $stat
         }
         V_PapersListJson["currentPage"] = page;  //当前页参数
         V_PapersListJson["pageSize"] = size; //每页显示多少条
-        //console.log(V_PapersListJson);
+        console.log(V_PapersListJson);
         var url = host + "course/getRepositoryCourse?requestId=123456";
         $http.post(url,V_PapersListJson).success(function(data) {
             console.log(data);
-            if(data.result == null){
-
-                $scope.results = data.result;
+            $scope.results = data.result;
+            if(data.result != null){
+                $scope.totalPage = data.result.totalPage;
                 callback && callback(data.result); //调取分页回调
+            }else{
+                $scope.message = "没有符合的记录";
             }
         }).error(function(data){
             console.log("fail");
@@ -201,39 +229,7 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
     }
 
 });
-//单科试卷=》详情
-app.controller('paperDetailController', ['$scope','$http','$stateParams',function($scope,$http,$stateParams) {
-    //$scope.oneAtATime = true;
-    console.log(1111);
-    console.log($stateParams.jsonString);
-    $scope.paperCode = null;
-    // 获取上个界面传递的数据，并进行解析
-    if ($stateParams.jsonString != '') {
-        $scope.json = angular.fromJson($stateParams.jsonString);
-    }
-    $scope.paperCode =  $scope.json.paperCode;
-    console.log($scope.paperCode);
 
-    $scope.GetPaperDetail = function(){
-        var url = $scope.app.host + 'diagnosis/detail?requestId=test123456';
-        $http.post(url,{
-            'paperCode':$scope.paperCode
-        }).success(function(data){
-            $scope.data = angular.fromJson(data);
-            console.log($scope.data);
-            $scope.diagnosisName = $scope.data.result.paperDetailDto.diagnosisName;
-            $scope.bigQusetions = $scope.data.result.paperSystem.bigQusetions;
-        }).error(function(data){
-            console.log("fail");
-        })
-    }
-
-}]);
-//试卷管理-全科-》详情
-app.controller('GroupDetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
-
-
-});
 
 app.controller('DetailController', function($scope, $http, $resource, $stateParams, $modal, $state ) {
  
@@ -570,6 +566,7 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
     *@params size  模态框大小
     *@params selectedJson 根据学年、类型、学科、教材查询资源库/诊断试卷列表列表
     */
+    $scope.subjectCode = [];//存放学科数组 判断添加/更换按钮
     $scope.open = function(size,selectedJson,controller,codeJson,state,removediagnosisPaperCode) {
         //console.log(selectedJson);
         //console.log(codeJson);
@@ -595,25 +592,39 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
                 }
             }
         });
+
+
         // model返回结果
         modalInstance.result.then(function(selectedItem) {
-            //console.log(selectedItem.diagnosisPaperCode);
-            console.log(selectedItem.removePaperCode);
-            $scope.subjectCode = selectedItem.subjectCode;
+            angular.forEach($scope.subjectCode, function(data,index,array){
+                //data等价于array[index]
+                if($scope.subjectCode[index] == selectedItem.subjectCode){
+                    //console.log(true);
+                    $scope.subjectCode.splice(index,1);//删除之前的
+                }
+            });
+
+            $scope.subjectCode.push(selectedItem.subjectCode);
             $scope.diagnosisPaperCode = selectedItem.diagnosisPaperCode;
-            var removePaperCode = selectedItem.removePaperCode;
+            $scope.removePaperCode = selectedItem.removePaperCode;
+
+            console.log($scope.removePaperCode);
+            console.log($scope.subjectCode);
+            console.log($scope.diagnosisPaperCode);
+
             if(state == 0){
                 $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);
             }else{
                 console.log($scope.stageFormData.diagnosisPaperCode); //splice
-                angular.forEach($scope.stageFormData.diagnosisPaperCode,function(key,val){
-                    if(removePaperCode == $scope.stageFormData.diagnosisPaperCode[val]){
-                        //alert(val);
-                        $scope.stageFormData.diagnosisPaperCode.splice(val,1);
+                angular.forEach($scope.stageFormData.diagnosisPaperCode, function(data,index,array){
+                    //data等价于array[index]
+                    if($scope.removePaperCode == $scope.stageFormData.diagnosisPaperCode[index]){
+                        console.log(index);
+                        $scope.stageFormData.diagnosisPaperCode.splice(index,1);//删除之前的
                     }
-                })
-                //$scope.stageFormData.diagnosisPaperCode.remove(selectedItem.removePaperCode);//删除之前的  再追加
-                $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);
+                });
+                console.log($scope.stageFormData.diagnosisPaperCode);
+                $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);//再追加
             }
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
@@ -636,7 +647,7 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
         }).error(function(data) {
             console.log("fail");
         })
-    }
+    };
 });
 //新增课程
 app.controller('CreateCourseController', function($scope, $http,$controller, $resource, $stateParams, $modal,$log, $state ,fileReader,CalcService) {
@@ -644,8 +655,7 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
     
     $controller('ParentGetDataCtrl', {$scope: $scope}); //
 
-    $scope.formCourseData = {}; //组织新增课程对象
-    
+    $scope.formData = {};//组织新增课程对象
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
     };
@@ -664,18 +674,18 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
     $scope.placeholder = defaultTitle + ' ' + defaultPlaceholder;
 
     
-    $scope.formCourseData.describe = '';
+    $scope.formData.describe = '';
 
     $scope.focus = function() {
        
-        if (!$scope.formCourseData.describe) {
-            $scope.formCourseData.describe = defaultTitle;
+        if (!$scope.formData.describe) {
+            $scope.formData.describe = defaultTitle;
         }
     };
 
     $scope.blur = function() {
-        if ($scope.formCourseData.describe === defaultTitle) {
-            $scope.formCourseData.describe = '';
+        if ($scope.formData.describe === defaultTitle) {
+            $scope.formData.describe = '';
         }
     };
 
@@ -713,7 +723,7 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
    
 
     document.addEventListener('uploaded', function(e) {
-        $scope.formCourseData.coverUrl= 'http://keepmark.b0.upaiyun.com'+e.detail.path;
+        $scope.formData.coverUrl= 'http://keepmark.b0.upaiyun.com'+e.detail.path;
     });    
 
    
@@ -751,28 +761,35 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
     *新增课程体系
     */
     //学科
-    $scope.formCourseData.subjectCode = 2;
+    $scope.formData.gradeCode = 33;
+   $scope.formData.departmentType = 1;
+    $scope.formData.subjectCode = 1;
     //默认为全国卷一
-    $scope.formCourseData.bookType = "national001";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     //默认学年为33
-    $scope.formCourseData.gradeCode = 21;
+
     //默认保分类型
-    $scope.formCourseData.bigCategoriesCode = "c_003";
+    $scope.formData.bigCategoriesCode = "c_001";
     //默认班型
-    $scope.formCourseData.categoriesCode = "002001";
+    $scope.formData.categoriesCode = "001001";
+    $scope.formData.classType = 0;
+    //判断大班课
+    $scope.getClassType = function(classType){
+        $scope.formData.classType = classType
+    };
 
     $scope.conf = [];
     $scope.AddCourse = function(){
         var url = $scope.app.host + "/course/add?requestId=1";
         $http.post(url,{
-            "bookVersion":'352a6e5c2f894239881f380448faaedd',   //$scope.formData.bookType,
+            "bookVersion":$scope.formData.bookVersionCode,
             "subjectCode":$scope.formCourseData.subjectCode,
             "gradeCode":$scope.formCourseData.gradeCode,
-            "courseName":"aaabbbb",//$scope.formData.name,
-            "courseImgUrl": "http:", //$scope.formData.coverUrl,
-            "repositoryCourseCode":"22222222222",//$scope.formData.repositoryCourseCode ,
-            "repositoryBigcourseCode":"c_001", //$scope.formData.bigCategoriesCode,
-            "categoriesCode":"002", //$scope.formData.categoriesCode 
+            "courseName":$scope.formData.name,
+            "courseImgUrl":$scope.formData.coverUrl,
+            "repositoryCourseCode":$scope.formData.repositoryCourseCode ,
+            "repositoryBigcourseCode": $scope.formData.bigCategoriesCode,
+            "categoriesCode":$scope.formData.categoriesCode,
             "classType":$scope.formCourseData.classType
         }).success(function(data){
             console.log(data);
@@ -857,7 +874,7 @@ app.controller("getPapersByDiagCtrl", function($scope, $http, $resource, $stateP
         }
         V_PapersListJson["currentPage"] = page;  //当前页参数
         V_PapersListJson["pageSize"] = size; //每页显示多少条
-        //console.log(V_PapersListJson);
+        console.log(V_PapersListJson);
         var url = host + "diagnosis/list?requestId=test123456";
         $http.post(url,V_PapersListJson).success(function(data) {
 
@@ -941,7 +958,7 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
                     "pageSize":size
                 })
                 .success(function(data) {
-                   console.log(data);
+                  /* console.log(data);*/
                     if(data.message == "Success"){
                         angular.forEach(data.result.list, function(data){
                             if(data.artsType == "SCIENCE"){
@@ -959,7 +976,18 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
                 }).error(function(data){
                     console.log("fail");
                 });
-    }   
+    };
+    //点击全科详情
+    $scope.GetGroupDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.groupsDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
 
 });
 app.controller('GroupsDetailCtrl', function($scope, $http,$resource, $stateParams, $modal, $state) {
@@ -1032,7 +1060,18 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
                 }).error(function(data){
                     console.log("fail");
                 });
-    }   
+    };
 
-})
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
+});
 

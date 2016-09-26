@@ -66,12 +66,12 @@ app.controller('ListController', function($scope, $resource,$stateParams,$modal,
     $scope.query($stateParams.page,$stateParams.search);
 });
 
-app.controller('ConfirmController', ['$scope', '$modalInstance', function($scope, $modalInstance){
+app.controller('ConfirmController', ['$scope', 'Instance', function($scope, Instance){
      $scope.ok = function () {
-        $modalInstance.close();
+        Instance.close();
     };
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        Instance.dismiss('cancel');
   };
 }]);
 

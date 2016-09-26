@@ -6,7 +6,7 @@
         <div class="wrapper">
             <div class="panel-heading ">
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">总校：</label>
+                    <label class="col-sm-1 control-label">总校：</label>
                     <div class="col-sm-2">
                         <select ng-click="getBranchSchoolList(masterSchool.code)" ng-model="masterSchool" class="form-control" ng-options="m.name for m in masterSchoolList">
                             <option value="">--请选择--</option>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">分校：</label>
+                    <label class="col-sm-1 control-label">分校：</label>
                     <div class="col-sm-2">
                         <select ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool"  class="form-control" ng-options="b.name for b in branchSchoolList">
                             <option value="">--请选择--</option>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">学区：</label>
+                    <label class="col-sm-1 control-label">学区：</label>
                     <div class="col-sm-2">
                         <select ng-model="districtSchool" ng-click="getDepartmentSchoolList(districtSchool.code)"  class="form-control" ng-options="d.name for d in districtSchoolList">
                             <option value="">--请选择--</option>
@@ -33,13 +33,15 @@
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label">学部：</label>
+                    <label class="col-sm-1 control-label">学部：</label>
                     <div class="col-sm-2">
-                        <select ng-model="departmentSchool" ng-click="getList(departmentSchool)"  class="form-control" ng-options="d.name for d in departmentSchoolList">
+                        <select ng-model="departmentSchool" ng-click="getCentreSchoolList(departmentSchool.code)"  class="form-control" ng-options="d.name for d in departmentSchoolList">
                             <option value="">--请选择--</option>
                         </select>
                     </div>
                 </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <button class="btn btn-primary btn-margin pull-right" ng-click="largeClassSchedule()">排大班课表</button>
                 <div class="line line-dashed b-b line-lg"></div>
             </div>
             <div class="table-responsive">
@@ -54,7 +56,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in results">
+                    <tr ng-repeat="data in centreOfSchoolList">
                         <td>{{$index+1}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.centerLeader}}</td>
@@ -66,7 +68,6 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-primary pull-right" ng-click="largeClassSchedule()">排大班课表</button>
         </div>
     </div>
 </div>

@@ -30,7 +30,7 @@ directives.directive('xlPage', [function () {
                 page && (scope.currentPage = page);
                 //标签加载方法
                 scope[attrs.method](scope.currentPage, scope.pageSize, function (data) {
-                    scope.totalPage =data.totalPage;
+                    scope.totalPage = data.totalPage;
                     if (scope.currentPage > 1 && scope.currentPage < scope.totalPage) {
                         if(scope.totalPage>5){
                             if(scope.currentPage -2 >= 1 && scope.currentPage + 2<= scope.totalPage){

@@ -11,6 +11,9 @@
     padding-left: 50px;
 }
 </style>
+<script src="admin/lib/spark-md5.js"></script>
+<script src="admin/lib/async.js"></script>
+<script src="admin/lib/upyun-mu.js"></script>
 <div class="wrapper-md" ng-controller="CreateCourseController">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -21,51 +24,24 @@
                 <!--包含公共筛选条件 start-->
                 <!-- <div  ng-include="'admin/common/tpl/filter.html'"></div> -->
                 <!--包含公共筛选条件 end-->
-                <pre>
-                    {{ formCourseData }}
-                </pre>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">学年：</label>
-                    <label class="control-label" ng-model="formCourseData.gradeCode">高考</label>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">学科：</label>
-                    <div class="radio">
-                        <label class="i-checks" ng-repeat="(key, val) in category track by $index">
-                            <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formCourseData.subjectCode"><i></i>{{val.subjectName}}
-                            <!-- ng-click="getSubjectName(val.subjectName)" -->
-                        </label>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
-                    <div class="radio">
-                        <label class="i-checks" ng-repeat="obj in bookVersion">
-                            <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formCourseData.bookType">
-                            <i></i>{{obj.bookVersionName}}
-                        </label>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">保分类型：</label>
                     <div class="radio">
                         <label class="i-checks" ng-repeat="(key, val) in CourseAimData track by $index">
-                            <input type="radio" name="category_code" ng-value='val.category_code' ng-model="formCourseData.bigCategoriesCode" ng-click="getCtb(val.id)"><i></i>{{val.category_name}} | {{val.id}} | {{val.category_code}}
+                            <input type="radio" name="category_code" ng-value='val.category_code' ng-model="formData.bigCategoriesCode" ng-click="getCtb(val.id)"><i></i>{{val.category_name}} <!--| {{val.id}} | {{val.category_code}}-->
                         </label>
                     </div>
                 </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="line line-dashed b-b line-lg"></div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">班型：</label>
-                    <div class="radio"  ng-repeat="(key, val) in ctb_group track by $index">
-                        <label class="i-checks">
-                            <input type="radio" name="ctb_code" ng-value='val.ctb_code' ng-model="formCourseData.categoriesCode"><i></i>{{val.ct_name}} |{{val.ctb_code}} |{{val.classType}}
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in ctb_group track by $index">
+                            <input type="radio" name="ctb_code" ng-value='val.ctb_code' ng-click="getClassType(val.classType)" ng-model="formData.categoriesCode"><i></i>{{val.ct_name}}<!-- |{{val.ctb_code}} |{{val.classType}}-->
                         </label>
                     </div>
-                     <input type="text" ng-model="formCourseData.classType" ng-value="val.classType"><i></i> {{val.classType}}
+                     <input type="hidden" ng-model="formData.classType" ng-value="val.classType"><i></i> {{val.classType}}
                 </div>
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <p class="pull-right">
@@ -74,15 +50,17 @@
                           "gradeCode": $scope.formData.gradeCode,
                           "subjectCode": $scope.formData.subjectCode,
                           "bookType": "170a286029b24ed78626c5203fc1c816"  -->
-                    <button class=" btn btn-primary" ng-click="open('lg',{categoriesCode:'002001',bigCategoriesCode:'c_003',gradeCode:2,subjectCode:11,bookType:'170a286029b24ed78626c5203fc1c816'},'getPapersByCourseCtrl')"><span class="p-d">查询</span></button>
+                    <button class=" btn btn-primary" ng-click="open('lg',{bookType:formData.bookVersionCode,categoriesCode:formData.categoriesCode,bigCategoriesCode:formData.bigCategoriesCode,gradeCode:33,subjectCode:formData.subjectCode},'getPapersByCourseCtrl')"><span class="p-d">查询</span></button>
                 </p>
             </form>
             <script type="text/ng-template" id="myModelContent.html">
                 <div class="modal-header">
                     <h3 class="modal-title">列表</h3>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body"  ng-init="load()">
+                    <p>{{message}}</p>
                     <div class="table-responsive">
+
                         <table class="table table-striped b-t b-light">
                             <thead>
                                 <tr>
@@ -92,11 +70,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="data in results.content">
+                                <tr ng-repeat="data in results.smallList">
                                     <td>{{subjectName}}</td>
                                     <td>{{data.diagnosisPaperName}} | {{data.id}}</td>
                                     <td>
-                                        <button class="btn btn-primary" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
+                                        <button class="btn btn-default" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -137,7 +115,7 @@
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">选择封面：</label>
-                        <span class="col-sm-10"> 
+                        <span class="col-sm-8">
                             <input type="file" name="file" id="file" file-model="myFile" required>
                              <div>
                                <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
@@ -149,7 +127,7 @@
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">描述：</label>
-                        <span class="col-sm-10"> 
+                        <span class="col-sm-8">
                             <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
                             </textarea>
                         </span>

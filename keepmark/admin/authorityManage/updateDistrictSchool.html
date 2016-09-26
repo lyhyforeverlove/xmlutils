@@ -1,7 +1,9 @@
 <div class="wrapper-md ng-scope" ng-controller="updateDistrictSchoolController">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>权限管理  &gt; {{name}} </h4>
+            <h4>权限管理  &gt; {{name}}
+                <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.districtSchool()" ><span class="p-d">返回</span></button>
+            </h4>
         </div>
         <div class="wrapper">
 <!--            <div class="form-group">
@@ -28,20 +30,17 @@
             <input type="hidden" class="form-control m-b" ng-model="formData.code" value="{{code}}">
             <div class="form-group">
                 <label class="col-sm-1 control-label">学区名称:</label>
-                <label class="col-sm-11">
+                <label class="col-sm-2">
                     <input type="text" class="form-control m-b" placeholder="请输入学区名称" ng-model="formData.name" >
                 </label>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">学区负责人:</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="formData.personCharge">
-                    <div class="form-group">
-                        <span class="form-inline">张老师</span>
-                    </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入学区负责人" ng-model="formData.personCharge">
                 </div>
             </div>
-            <button class="btn btn-primary col-sm-1 col-sm-push-8" ng-click="updateDistrictSchool(formData)">保存</button>
+            <button class="btn btn-primary pull-right" ng-click="updateDistrictSchool(formData)">保存</button>
         </div>
     </div>
 </div>

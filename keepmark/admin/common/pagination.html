@@ -8,7 +8,7 @@
         <li ng-class="{true:'disabled'}[currentPage==1]">
             <a href="javascript:void(0);" ng-click="prev()">上一页</a>
         </li>
-        <li ng-repeat="page in pages track by page" ng-class="{true:'active',false:''}[currentPage==page]">
+        <li ng-repeat="page in pages" ng-class="{true:'active',false:''}[currentPage==page]">
             <a href="javascript:void(0);" ng-click="getData(page)">{{ page }}</a>
         </li>
         <li ng-class="{true:'disabled'}[currentPage==totalPage]">

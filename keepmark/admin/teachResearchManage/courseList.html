@@ -8,7 +8,6 @@
             </h4>
         </div>
         <div class="wrapper">
-            <pre>{{formData}}</pre>
             <form class="form-horizontal" ng-init="load()">
                 <div class="panel-select">
                     <!--<div class="form-group">
@@ -25,7 +24,7 @@
                         <label class="col-sm-2 control-label">目标类型：</label>
                         <div class="radio">
                             <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
-                                <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+                                <input type="radio" name="category_code" ng-value='{{val.id}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}{{val.id}}
                             </label>
                         </div>
                     </div>
@@ -34,7 +33,7 @@
                         <label class="col-sm-2 control-label">班型：</label>
                         <div class="radio">
                             <label class="i-checks" ng-repeat="(key, val) in ctb_group track by $index">
-                                <input type="radio" name="ctb_code" ng-value='{{val.classType}}' ng-model="formData.classType"><i></i>{{val.ct_name}}
+                                <input type="radio" name="ctb_code" ng-value='{{val.classType}}' ng-model="formData.classType"><i></i>{{val.ct_name}} {{val.classType}}
                             </label>
                         </div>
                     </div>
@@ -68,30 +67,31 @@
                         <th>课程类型</th>
                         <th>班型</th>
                         <th>适用考生类型</th>
+                        <th>封面</th>
+                        <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody> <!-- ng-repeat="data in results.list" -->
-                    <tr>
-                        <td>
-                            <label class="i-checks m-b-none">
-                                <input type="checkbox" ng-model="data.selected"><i></i>{{$index+1}}</label>
-                        </td>
+                <tbody> <!---->
+                    <tr  ng-repeat="data in results.list" >
+                        <td>{{$index+1}}</td>
                         <td>{{data.courseName}}</td>
-                        <td>物理</td>
-                        <td>{{data.classType}}</td>
-                        <td>大班课</td>
+                        <td>{{data.subjectCode}}</td>
+                        <td>{{data.courseSystemType}}</td>
+                        <td>{{data.classType }}</td>
                         <td>统考</td>
+                        <td>{{data.courseImgUrl}}</td>
+                        <td>{{data.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}<!--{{data.code}}--></td>
                         <!-- ui-sref="app.teachResearchManage.courseDetail({id:data.id})" -->
                         <td>
-                            <button class="btn btn-info" ui-sref="app.teachResearchManage.courseDeatil({courseSystemCode:data.code})"><span class="p-d">详情</span></button>
-                            <button class="btn btn-info" ng-click="open('lg')"><span class="p-d">分配</span></button>
+                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.courseDeatil({courseSystemCode:data.code})"><span class="p-d">详情</span></button>
+                            <button class="btn btn-primary" ng-click="open('lg',{courseCode:data.code,subjectCode:data.subjectCode})"><span class="p-d">分配</span></button>
                         </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="7" class="text-center">
+                        <td colspan="9" class="text-center">
                             <!-- 指令调用代码 -->
                             <xl-page size="10" method="getList" class="text-center"></xl-page>
                             <!-- 指令模板[pagination.html] -->
@@ -101,22 +101,24 @@
             </table>
         </div>
         <!-- 弹框 分配老师 -->
-        <script type="text/ng-template" id="myModelContent.html" ng-init="load()">
+        <script type="text/ng-template" id="myModelContent.html">
             <div class="modal-header">
                 <h3 class="modal-title">课程体系分配老师</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" ng-init="load()">
                 <div class="form-group">
-                        <label class="col-sm-2 control-label">老师授课类型：</label>
-                        <div class="radio">
-                            <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
-                                <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
-                            </label>
-                        </div>
+                    <label class="col-sm-2 control-label"><b>老师授课类型：</b></label>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                            <input type="radio" name="category_code" ng-value='{{val.id}}' ng-model="teacherGoalType"><i></i>{{val.aimName}}<!--{{val.id}}-->
+                        </label>
                     </div>
+                </div>
                 <div class="line line-solid b-b line-lg pull-in"></div>
                 <div>
-                    <input type="checkbox">我是老师<input type="checkbox">我是老师<input type="checkbox">我是老师<input type="checkbox">我是老师
+                    <label class="i-checks m-b-none"  ng-repeat="data in results">
+                        <input type="checkbox" id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk({code:data.code,name:data.name},x)"><i></i>{{data.name}}
+                    </label>
                 </div>
             </div>
             <div class="modal-footer">

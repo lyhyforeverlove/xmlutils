@@ -8,9 +8,35 @@
                 <h4>负责监考教师:{{username}}</h4>
                 <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" ng-init="load()">
                     <!--包含公共筛选条件 start-->
-                    <div ng-include="'admin/common/tpl/filter.html'"></div>
+                    <!--<div ng-include="'admin/common/tpl/filter.html'"></div>-->
                     <!--包含公共筛选条件 end-->
-                    <button class="pull-right btn btn-primary" ng-click="getList(1,5)"><span class="p-d">查询</span></button>
+                    <div class="panel-select">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学年：</label>
+                            <label class="control-label" ng-model="formData.gradeCode">高考</label>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">类型：</label>
+                            <div class="radio">
+                                <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                                    <input type="radio" name="departmentType" ng-value='val.departmentType' ng-model="formData.departmentType" ><i></i>{{val.departmentName}}
+                                </label>
+                            </div>
+                        </div>
+                        <!--<div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
+                            <div class="radio">
+                                <label class="i-checks" ng-repeat="obj in bookVersion">
+                                    <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode">
+                                    <i></i>{{obj.bookVersionName}}
+                                </label>
+                            </div>
+                        </div>-->
+                        <div class="line line-dashed b-b line-lg"></div>
+                    </div>
+                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
                 </form>
             </div>
             <div class="panel-container">
@@ -33,7 +59,7 @@
                             <tr ng-repeat="data in results.list">
                                 <td>{{$index+1}}</td>
                                 <td>{{data.subjectCode}}</td>
-                                <td>{{data.goodsName}}{{data.eduGoodsCode}}</td>
+                                <td>{{data.goodsName}}</td>
                                 <td>{{data.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                 <td><img src="{{data.imageUrl}}" width="100px" height="50px" /></td>
                                 <td>
@@ -55,7 +81,7 @@
                             <tr>
                                 <td colspan="8" class="text-center">
                                     <!-- 指令调用代码 -->
-                                    <xl-page size="5" method="getList" class="text-center"></xl-page>
+                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
                                     <!-- 指令模板[pagination.html] -->
                                 </td>
                             </tr>
