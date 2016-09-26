@@ -1,13 +1,14 @@
 <div class="wrapper-md" ng-controller="ChangeCourseTypeCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{formData}} &gt; 更换课程类型</h4>
+            <h4>教研管理 &gt; 更换课程类型</h4>
+            <div>{{formData}}</div>
         </div>
         <div class="wrapper">
             <div class="">
                 <div class="input-group  col-sm-4">
-                    <input type="text" class="form-control" placeholder="学生姓名">
-                    <span class="input-group-btn"><button class="btn btn-primary">&nbsp;查&nbsp;&nbsp;询&nbsp;</button></span>
+                    <input type="text" class="form-control" ng-model="formData.studentName" placeholder="学生姓名">
+                    <span class="input-group-btn"><button class="btn btn-primary" ng-click="query('1')">&nbsp;查&nbsp;&nbsp;询&nbsp;</button></span>
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
                 <form class="form-horizontal">
@@ -23,7 +24,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">课程类型：</label>
                         <div class="col-sm-2">
-                            <select name="centers" class="form-control" ng-model="formData.departmentType" ng-click="checked(obj.departmentType,'departmentType')" ng-options="obj.departmentType as obj.departmentName for obj in departmentTypeAll"  ng-selected="formData.departmentType">
+                           <!-- <select name="centers" class="form-control" ng-model="formData.departmentType"  ng-options="d.departmentType as d.departmentName for d in departmentTypeAll"> </select>-->
+                            <select name="centers" class="form-control" ng-model="formData.departmentType">
+                                <option ng-repeat="d in departmentTypeAll" value="{{d.departmentType}}">{{d.departmentName}}</option>
                             </select>
                         </div>
                     </div>
@@ -40,7 +43,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">考生类型：</label>
                         <div class="col-sm-2">
-                            <select name="studentType" class="form-control" ng-model="formData.studentType" ng-click="checked(obj.studentType,'studentType')" ng-options="obj.studentTypeCode as obj.studentTypeName for obj in studentTypeAll"  ng-selected="formData.studentType">
+                            <select name="centers" class="form-control" ng-model="formData.studentTypeCode">
+                                <option ng-repeat="d in studentTypeAll" value="{{d.studentTypeCode}}">{{d.studentTypeName}}</option>
                             </select>
                         </div>
                     </div>
@@ -57,7 +61,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">入学年份：</label>
                         <div class="col-sm-2">
-                            <select name="inScrollYear" class="form-control" ng-model="formData.inScrollYear" ng-click="checked(formData.inScrollYear,'inScrollYear')" ng-options="obj.inScrollYearCode as obj.inScrollYearName for obj in inScrollYearAll"  ng-selected="formData.inScrollYear">
+                            <select name="centers" class="form-control" ng-model="formData.inScrollYearCode">
+                                <option ng-repeat="d in inScrollYearAll" value="{{d.code}}">{{d.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -74,7 +79,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">目标：</label>
                         <div class="col-sm-2">
-                            <select name="aimType" class="form-control" ng-model="formData.aimType" ng-click="checked(obj.aimType,'aimType')" ng-options="obj.aimType as obj.aimName for obj in aimTypesAll"  ng-selected="formData.aimType">
+                            <select name="centers" class="form-control" ng-model="formData.aimType">
+                                <option ng-repeat="d in aimTypesAll" value="{{d.aimType}}">{{d.aimName}}</option>
                             </select>
                         </div>
                     </div>
@@ -82,7 +88,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">中心：</label>
                         <div class="col-sm-2">
-                            <select name="centers" class="form-control" ng-model="formData.center" ng-click="checked(obj.code,'center')" ng-options="obj.code as obj.name for obj in centerAll" ng-change="getClasses(formData.center)" ng-click="first()" ng-selected="formData.center">
+
+                            <select name="centers" class="form-control" ng-model="formData.centerCode" ng-change="getClasses()">
+                                <option ng-repeat="d in centerAll" value="{{d.code}}">{{d.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -90,10 +98,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">班级：</label>
                         <div class="col-sm-2">
-                            <select name="classes" class="form-control" ng-model="formData.classes" ng-click="checked(formData.classes,'classes')" ng-options="obj.code as obj.name for obj in classesAll">
+                            <select name="centers" class="form-control" ng-model="formData.classesCode" ng-options="d.code as d.name for d in classesAll">
+                               <!-- <option ng-repeat="d in classesAll"  value="{{d.code}}">{{d.name}}</option>-->
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary m-p" ng-click="query('1','5',null)">查&nbsp;询</button>
+                        <button type="submit" class="btn btn-primary m-p" ng-click="query('1')">查&nbsp;询</button>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                 </form>
@@ -117,22 +126,22 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="item in result track by $index">
+                <tbody ng-repeat="item in studentList.list track by $index">
                     <tr>
                         <td>
                             <label class="i-checks i-checks-sm">
-                                <input type="checkbox"><i></i>{{$index}}
+                                <input type="checkbox"><i></i>{{$index+1}}
                             </label>
                         </td>
-                        <td>{{item.userName}}</td>
-                        <td>{{getAimData(item.goalType)}}</td>
-                        <td>{{getStudentType(item.type)}}</td>
-                        <td>{{getCourseType(item.courseType)}}</td>
-                        <td>{{getLessonLevel(item.lessonLevel)}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.goalType | translator:aimTypesAll:'aimType':'aimName'}}</td>
+                        <td>{{item.type| translator:studentTypeAll:'studentTypeCode':'studentTypeName'}}</td>
+                        <td>{{item.courseType|translator:courseTypeAll:'code':'name'}}</td>
+                        <td>{{item.artType| translator : departmentTypeAll :'departmentType':'departmentName'}}</td>
                         <td>
                             <!-- 更换课程类型 modal -->
                             <div ng-controller="categoryCtrl">
-                                <button class="btn btn-primary" ng-click="open(item)">更换</button>
+                                <button class="btn btn-primary" ng-click="changeDepartmentType(item)">更换</button>
                             </div>
                             <!-- 更换课程类型/modal -->
                         </td>
@@ -142,8 +151,15 @@
                     <tr>
                         <td colspan="13" class="text-center">
                             <!-- 指令调用代码-->
-                            <xl-page size="5" method="query" class="text-center"></xl-page>
+                          <!--  <xl-page size="5" method="query" class="text-center"></xl-page>-->
                             <!--指令模板（pagination.html）-->
+                            <div class="center-block">
+                                <ul class="pagination">
+                                    <li ng-repeat="p in pagination" class="{{p.className}}">
+                                        <a ng-click="query({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 </tfood>

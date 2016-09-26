@@ -233,7 +233,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
                 }else{
                     modalAlert({content:'抱歉，请求获取学生列表失败!'});
                 }
-        }).error(function(e){
+        }).error(function(data,header,config,status){
             if(status.timeout&&status.timeout.$$state.value=='abort'){
                 return false;
             }
@@ -379,7 +379,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             }else{
                 modalAlert({content:'抱歉，请求树失败!'});
             }
-        }).error(function(e){
+        }).error(function(data,header,config,status){
             if(status.timeout&&status.timeout.$$state.value=='abort'){
                 return false;
             }
@@ -413,7 +413,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             }else{
                 modalAlert({content:'没用符合条件的试题!'});
             }
-        }).error(function(e){
+        }).error(function(data,header,config,status){
             if(status.timeout&&status.timeout.$$state.value=='abort'){
                 return false;
             }
@@ -895,7 +895,7 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$modal,$q
             }else{
                 modalAlert({content:'请求时间安排出错!'});
             }
-        }).error(function(e){
+        }).error(function(data,header,config,status){
                 if(status.timeout&&status.timeout.$$state.value=='abort'){
                     return false;
                 }
