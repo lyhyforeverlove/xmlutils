@@ -80,39 +80,14 @@
                                     <tr>
                                         <td colspan="8" class="text-center">
                                             <!-- 指令调用代码 -->
-                                            <xl-page size="5" method="getList3" class="text-center"></xl-page>
+                                            <xl-page size="10" method="getList3" class="text-center"></xl-page>
                                             <!-- 指令模板[pagination.html] -->
                                         </td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
-                        <script type="text/ng-template" id="myModelContent.html">
-                            <div class="modal-header">
-                                <h3 class="modal-title">分配试卷</h3>
-                            </div>
-                            <div class="modal-body">
-                                <p>学科：数学</p>
-                                <!-- <p><span>需分配试卷：1000份</span><span>已选择900份</span></p> -->
-                                <div>
-                                    <label class="i-checks m-b-none"  ng-repeat="data in teacherList">
-                                        <input type="checkbox" id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.code,x)"><i></i>{{data.name}} 
-                                    </label>
-                                </div>
-                                <!-- <ul>
-                                    <li ng-repeat="item in items">
-                                        <a ng-click="selected.item = item">{{item}}</a>
-                                    </li>
-                                    <div class="h2">当前选择： <b>{{selected.item}}</b></div>
-                                </ul> -->
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" ng-click="DistributionOk({round:1})">
-                                    确认
-                                </button>
-                                <button class="btn btn-warning" ng-click="cancel()">退出</button>
-                            </div>
-                        </script>
+
                     </div>
                 </script>
                 <script type="text/ng-template" id="two.tpl.html">
@@ -156,7 +131,7 @@
                                     <tr>
                                         <td colspan="8" class="text-center">
                                             <!-- 指令调用代码 -->
-                                            <xl-page size="5" method="getList2" class="text-center"></xl-page>
+                                            <xl-page size="10" method="getList2" class="text-center"></xl-page>
                                             <!-- 指令模板[pagination.html] -->
                                         </td>
                                     </tr>
@@ -170,3 +145,29 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="myModelContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">分配试卷</h3>
+    </div>
+    <div class="modal-body">
+        <p>学科：数学</p>
+        <!-- <p><span>需分配试卷：1000份</span><span>已选择900份</span></p> -->
+        <div>
+            <label class="i-checks m-b-none"  ng-repeat="data in teacherList">
+                <input type="checkbox" id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.code,x)"><i></i>{{data.name}}
+            </label>
+        </div>
+        <!-- <ul>
+            <li ng-repeat="item in items">
+                <a ng-click="selected.item = item">{{item}}</a>
+            </li>
+            <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+        </ul> -->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="DistributionOk({round:1})">
+            确认
+        </button>
+        <button class="btn btn-warning" ng-click="cancel()">退出</button>
+    </div>
+</script>

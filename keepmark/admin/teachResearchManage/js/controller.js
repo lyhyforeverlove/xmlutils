@@ -85,13 +85,14 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
     };
      // ok click
     $scope.ok = function() {
-        var url = 'http://192.168.1.35:8070/keepMark-teacher-business/course/distribute/teacher?requestId=1';
+        var url = host + 'course/distribute/teacher?requestId=1';
         $http.post(url,{
             "subject": data.subjectCode,
             "targetType": $scope.teacherGoalType,
             "courseSystemCode": data.courseCode,
             "authTeacherModels": $scope.authTeacherModels
         }).success(function(data){
+            //console.log(data);
             $modalInstance.close();
         }).error(function(data){
 
@@ -108,8 +109,11 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
     // ）
     var url = host +'teaching/course/getTeachers?requestId=test123456';
     $http.post(url,{"type":1,"subjectCode":data.subjectCode}).success(function(data){
-       console.log(data);
+       //console.log(data);
         $scope.results = data.result;
+        if(data.result.length === 0 ){
+           $scope.message = '没有符合课程的教师!';
+        }
     }).error(function(data){
         console.log("fail");
     })
@@ -218,8 +222,6 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
 
     //详情跳转传参数
     $scope.GetPaperDetail = function(data){
-       // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
-        console.log(data);
         var jsonString = angular.toJson(data);
         $state.go('app.paperDetail', {
             jsonString: jsonString

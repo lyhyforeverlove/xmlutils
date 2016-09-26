@@ -562,7 +562,19 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
         }).error(function(data) {
             console.log("fail");
         });
-    }
+    };
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    };
+
     var teacherList;
     var url = $scope.app.host + "/teaching/organization/teacher/list?requestId=test123456";
     $http.post(url,{"type": 0}).success(function(data){
@@ -572,7 +584,7 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
         
     }).error(function(data){
         console.log(data);
-    })
+    });
 
     //$scope.items = [ 'angularjs', 'backbone', 'canjs', 'Ember', 'react' ];
     // open click
@@ -660,17 +672,14 @@ app.controller('ModalDistributionCtrl', function($scope,$http, $modalInstance,di
             //console.log(data);
             if(data.result == true){
                 alert("分配成功！");
+                self.location.reload();//刷新本页面
             }
-            $scope.getList();
+           // $scope.getList();
+
         }).error(function(data){
             console.log("fail");
         });
-
-        
-    }
-
-    
-
+    };
 });
 
 /*
@@ -686,10 +695,10 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
     //根据学年、类型、学科、教材查询短板考试确认列表
     $scope.formData.departmentType = "1";
     $scope.formData.subjectCode = "1";
-    $scope.formData.bookVersionCode = "1";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     $scope.formData.aimType = "1";
     $scope.getList = function(page,size,callback){
-        var url=$scope.app.host + "/shortSlab/teaching/getShortSlabStudentList?requestId=test123456";
+        var url=$scope.app.host + "shortSlab/teaching/getShortSlabStudentList?requestId=test123456";
         $http.post(url,{
             "departmentType":$scope.formData.departmentType,
             "subjectCode":$scope.formData.subjectCode,
@@ -914,7 +923,7 @@ app.controller('ShortBoardDiagCtrl', function($scope,$http,$controller,$resource
     //根据学年、类型、学科、教材查询短板诊断判卷列表
     $scope.formData.departmentType = "1";
     $scope.formData.subjectCode = "1";
-    $scope.formData.bookVersionCode = "1";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     $scope.formData.aimType = "1";
     $scope.getList = function(page,size,callback) {
         var url=$scope.app.host + "/shortSlab/teaching/getShortSlabStudentList?requestId=test123456";
@@ -1161,8 +1170,10 @@ app.controller('DividingClassesCtrl', function($scope, $http,$log,$controller,$r
     };
     $scope.formData = {};
     $scope.formData.studentObjective = 1; //目标类型默认为二本
+    $scope.formData.minTotalScore = 1;
+    $scope.formData.maxTotalScore = 600;
     $scope.getList = function(page,size,callback) {
-        var url = $scope.app.host + '/student/accord/list?requestId=123456';//符合vip学生列表
+        var url = $scope.app.host + 'student/accord/list?requestId=123456';//符合vip学生列表
         $http.post(url,{    
             "pageNumber": page,
             "pageSize": size,
