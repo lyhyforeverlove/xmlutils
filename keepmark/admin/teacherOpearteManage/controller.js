@@ -578,7 +578,7 @@ app.controller("answerQuestionsController",function($scope,$http,$controller,$re
 
     $http.post(url,{
 
-        "teacherCode":"e97e313d9f6f4166b75c4e308529490e",
+        "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227",
         "doubtStatus":"0"
 
     }).success(function(data){
@@ -624,6 +624,7 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
             $scope.results = data.result;
 
             //console.log($scope.results.studentAnswerRecord[ContentPageasd])
+            //console.log($scope.results)
             $scope.ContentPageasd = $scope.results.studentAnswerRecord[ContentPageasd]
             var BookTreeData = JSON.stringify($scope.ContentPageasd);
             window.localStorage.setItem("BookObj",BookTreeData);

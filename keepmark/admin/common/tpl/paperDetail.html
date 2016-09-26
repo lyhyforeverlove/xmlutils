@@ -31,7 +31,7 @@
                            <!--<li><b>学科：</b>{{item.subjectName}}</li>
                            <li><b>标题：</b>{{item.title}}</li>
                            <li>{{item.productions}}</li>-->
-                           <li><b>({{$index+1}})、</b>{{item.stem | strToUrl }}</li>
+                           <li><b>({{$index+1}})、</b><span  ng-bind-html="item.stem | strToUrl "></span></li>
                            <li>
                                <div style="padding-left: 20px;">
                                    <div >
@@ -71,7 +71,7 @@
                                <img id="mp3Img" src="../img/a6.jpg" ng-click="mp3Play('HSK','1')" />-->
 
                               <!-- ../../images/msg.gif-->
-                               <!--<audio   width='100%' height="auto" >
+                              <!--<audio   width='100%' height="auto" >
                                    <source  ng-bind-template="{{item.audioAnalyzePath}}" ng-src="{{item.audioAnalyzePath}}">
                                </audio >--></li>
                            <li><b>分数：</b>{{item.score}}</li>

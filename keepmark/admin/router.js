@@ -518,7 +518,7 @@ angular.module('app')
                         templateUrl: 'admin/teacherOpearteManage/stageExams.html'
                     })
                     .state('app.teacherOpearteManage.paperDetail', {
-                        url: '/paperDetail:jsonstring',
+                        url: '/paperDetail:jsonString',
                         templateUrl: 'admin/teacherOpearteManage/paperDetail.html'
                     })
                     .state('app.teacherOpearteManage.paperChecked', {
