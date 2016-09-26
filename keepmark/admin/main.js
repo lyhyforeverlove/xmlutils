@@ -14,8 +14,8 @@ angular.module('app')
 
       // config
       $scope.app = {
-        testhost: 'http://192.168.1.142:8080/',
-        host:"http://192.168.1.12:7777/keepMark-teacher-business/",
+          testhost: 'http://192.168.1.169:8888/keepMark-teacher-business/',
+       host:"http://192.168.1.12:7777/keepMark-teacher-business/",
         name: '保分计划',
         version: '1.3.3',
         // for chart colors

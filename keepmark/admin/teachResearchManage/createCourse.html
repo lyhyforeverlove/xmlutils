@@ -20,6 +20,7 @@
             <h4>新增课程</h4>
         </div>
         <div class="wrapper">
+            <pre>{{formData}}</pre>
             <form class="form-horizontal" ng-init="load()">
                 <!--包含公共筛选条件 start-->
                 <!-- <div  ng-include="'admin/common/tpl/filter.html'"></div> -->
@@ -58,10 +59,9 @@
                     <h3 class="modal-title">列表</h3>
                 </div>
                 <div class="modal-body"  ng-init="load()">
-                    <p>{{message}}</p>
                     <div class="table-responsive">
-
-                        <table class="table table-striped b-t b-light">
+                        <h4>{{message}}</h4>
+                        <table class="table table-striped b-t b-light" ng-if="results != null">
                             <thead>
                                 <tr>
                                     <th>学科</th>
@@ -69,7 +69,7 @@
                                     <th>操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 <tr ng-repeat="data in results.smallList">
                                     <td>{{subjectName}}</td>
                                     <td>{{data.diagnosisPaperName}} | {{data.id}}</td>
