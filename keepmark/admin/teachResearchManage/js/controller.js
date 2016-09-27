@@ -771,9 +771,9 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
             "repositoryBigcourseCode": $scope.formData.bigCategoriesCode
         }).success(function(data){
             console.log(data);
-           /* if(data.message == "Success"){
+            if(data.message == "Success"){
                $state.go('app.teachResearchManage.courseList');
-            }*/
+            }
         }).error(function(data){
             console.log("fail");
         });
