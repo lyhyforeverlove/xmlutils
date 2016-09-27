@@ -52,8 +52,8 @@
                                 <td>{{data.subjectName}}</td>
                                 <td>{{ data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}
                                         <br />{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                <td>
-                                    <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">详情</button>
+                                <td><!--{{data.diagnosisPaperCode}}-->
+                                    <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
                                 </td>
                                 <td>{{data.impersonalityScore}}分</td>
                                 <td>{{data.subjectivityScore}}分</td>

@@ -79,6 +79,7 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     $scope.tongguo=function(data){
     	 var list=[];
     	 var obj={};
+    	 obj.studentCode=data.studentCode;
     	 obj.diagnosticRecordsCode=data.eduSingleDiagnosisRecordCode;
     	 list.push(obj);
     	$http.post($scope.app.host + 'section/diagnosis/review/through?requestId=test123456', {
@@ -92,7 +93,7 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
     }	
     //根据学年、类型、学科、教材 查询诊断列表
     $scope.getList = function (page, size, callback) {
-        $http.post($scope.app.testhost + '/section/diagnosis/getReviewPaper?requestId=test123456', {
+        $http.post($scope.app.host + '/section/diagnosis/getReviewPaper?requestId=test123456', {
             "gradeCode": "33",
             "oneDifference":$scope.formData.oneDifference,
             "oneTotalScore":$scope.formData.oneTotalScore,
@@ -120,8 +121,16 @@ app.controller('MarkReviewController', function($scope, $resource, $http, $modal
                 callback && callback(data.result);
             });
     }
-    
-    
+    	//试卷详情
+      $scope.GetPaperDetail = function(data){
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
+
 
 });
 
@@ -198,7 +207,7 @@ app.controller('reviwePaperDetailController', function($scope, $http, $controlle
 
 	//提交最终判卷结果
 	$scope.submitPaper = function() {
-		$http.post($scope.app.host + 'section/diagnosis/review?requestId=test123456', {
+		$http.post($scope.app.testhost + 'section/diagnosis/review?requestId=test123456', {
 				"diagnosticRecordsCode": markPaperRequestJson.eduSingleDiagnosisRecordCode,
 				"teacherCode": "111111",//获取登录教师的code
 				"teacherName": "教师名称",//获取登录教师的名称
@@ -241,11 +250,6 @@ function removeKnowledge(code,index,pro){
 app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $stateParams, $modal, $state,$log,$controller) {
     //$controller('ParentGetDataCtrl', {$scope: $scope});//继承
     $controller('getJsonData', {$scope: $scope});//继承  文理 目标类型
-    //$controller('constAll', {$scope: $scope});//继承 全选
- //$controller('getPaper', {$scope: $scope});//继承
- //$controller('btnSH', {$scope: $scope});//继承
- //$controller('disabled', {$scope: $scope});//继承
-
 
     //获取所有地区列表
     $scope.GetAreaAllProvince = function(){
@@ -274,20 +278,6 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
     $scope.status = function(val,type){
         return val==type;
     }
-  /*  //多选
-    $scope.x = false; //默认未选中
-    $scope.checkSub = function() { //单选或者多选
-
-        $scope.dataMap=new Array();
-        var $input = $("#confromToVipDiv").find(".toVipChecked");
-        $.each($input,function(index,item){
-            console.log(index);
-            if($(item).prop("checked") == true){
-                $scope.dataMap.push($(item).attr("id"));
-                console.log($scope.dataMap);
-            }
-        })
-    };*/
     //默认值
     $scope.formData.departmentType = "1";//文理科
     $scope.formData.isShortlabStatus = "1";//短板状态 默认为已分析
@@ -406,20 +396,9 @@ app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $statePara
 });
 //短板分析-弹出框 控制器
 app.controller('ModalShortSlabCtrlDR',function($scope,$http,$controller, $modalInstance,host,studentCodes) {
-    console.log(studentCodes);
+    //console.log(studentCodes);
     $controller('getJsonData', {$scope: $scope});//继承
 
-    /*$scope.formIndex = {};
-    $scope.isShow = true;
-    $scope.showOrHide = function() {
-        $scope.isShow = !$scope.isShow;
-    };*/
-
-    //获取学科（短板）
-   /* $scope.getIndex = function(value) {
-        $scope.formIndex[value] = $scope[value];
-    };
-*/
     //获取九大学科
     $scope.getSubject = function(){
         $http.post('admin/json/subject.json').success(function(data){
@@ -455,11 +434,13 @@ app.controller('ModalShortSlabCtrlDR',function($scope,$http,$controller, $modalI
             "studentCodes":studentCodes,
             "subjectCode": subjectCode
         }).success(function(data){
-            console.log(data);
+
             if(data.result == true){
-                $modalInstance.close(data);
+                alert("短板分析成功！");
+                location.reload(true);
+                //$modalInstance.close(data);
             }
-            //location.reload(true);重新加载页面
+            //location.reload(true); //重新加载页面
         });
     };
     //取消
@@ -469,36 +450,45 @@ app.controller('ModalShortSlabCtrlDR',function($scope,$http,$controller, $modalI
 });
 /*学生分类=》短板确认*/
 app.controller('SBConfrimCtrl', function($scope, $http, $resource, $stateParams, $modal,$log, $state,$controller,CalcService) {
-    $controller('getJsonData', {$scope: $scope});//继承
-    $controller('constAll', {$scope: $scope});//继承
-    $controller('btnSH', {$scope: $scope});//继承
-    $controller('getPaper', {$scope: $scope});//继承
-    $controller('disabled', {$scope: $scope});//继承
-    $scope.dataMap=new Array();
-    //多选
+    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+    //$controller('getJsonData', {$scope: $scope});//继承
+    //$controller('constAll', {$scope: $scope});//继承
+    //$controller('btnSH', {$scope: $scope});//继承
+    //$controller('getPaper', {$scope: $scope});//继承
+    //$controller('disabled', {$scope: $scope});//继承
+   // $scope.dataMap=new Array();
+    //全选
+    $scope.choseArr = []; //定义数组用于存放前端显示
+    var str = ""; //
+    var flag = ''; //是否点击了全选，是为a
     $scope.x = false; //默认未选中
-    $scope.checkSub = function() { //单选或者多选
 
-        $scope.dataMap=new Array();
-        var $input = $("#shortBoardConfrimDiv").find(".shortBoardChecked");
-        $.each($input,function(index,item){
-            console.log(index);
-            if($(item).prop("checked") == true){
-                $scope.dataMap.push($(item).attr("id"));
-                console.log($scope.dataMap);
-            }
-        })
-    };
-      //默认选中函数
-    function checked(data,ele,value){
-        for(var i=0; i<data.length; i++){
-            if(data[i].checked == true){
-                ele.eq(i).prop("checked",true);
-                $scope.formData[value] = data[i][value];
-                break;
-            }
+    $scope.checkAll = function(c, v) { //全选
+        if (c == true) {
+            $scope.x = true;
+            $scope.choseArr = v;
+        } else {
+            $scope.x = false;
+            $scope.choseArr = [""];
         }
-    }
+        flag = 'a';
+    };
+    $scope.chk = function(z, x) { //单选或者多选
+
+        if (flag == 'a') { //在全选的基础上操作
+            str = $scope.choseArr.join(',') + ',';
+        }
+        if (x == true) { //选中
+            str = str + z + ',';
+        } else {
+            str = str.replace(z + ',', ''); //取消选中
+        }
+
+        $scope.choseArr = (str.substr(0, str.length - 1)).split(',');
+        //console.log($scope.choseArr);
+
+    };
+
     //默认值
     $scope.formData = {};
     $scope.formData.departmentType = "0";
@@ -512,135 +502,124 @@ app.controller('SBConfrimCtrl', function($scope, $http, $resource, $stateParams,
     //目标分类
     $scope.target = function(type){
         $scope.formData.aimType = type;
-        $scope.query(1,5,null);
+        $scope.getList(1,5,null);
     }
-    $scope.query = function(page,size,callback) {
-        $http.post($scope.app.testhost + '/shortSlab/teaching/getShortSlabStudentList?requestId=test123456', {
+    $scope.getList = function(page,size,callback) {
+        $http.post($scope.app.host + 'shortSlab/teaching/getShortSlabStudentList?requestId=test123456', {
             "departmentType": $scope.formData.departmentType,          //$scope.formData.departmentType
             "subjectCode": $scope.formData.subjectCode,             //$scope.formData.subjectCode,
             "bookVersionCode": $scope.formData.bookVersionCode,         //$scope.formData.bookVersionCode,
             "aimType": $scope.formData.aimType,                 //$scope.formData.aimType,
             "currentPage": page,
             "pageSize": size
-        })
-            .success(function (data) {
-                console.log(data);
-                $scope.data = data;
-                $scope.result = data.result.list;
+        }).success(function (data) {
+            $scope.data = data;
+            $scope.result = data.result.list;
+            $scope.tesarry = []; //初始化数据
+            angular.forEach($scope.result, function(data){
+                if(data.diagnosisPaperCode == null){
+                    $scope.tesarry.push(data.eduVulnerabilityAnalyzeRecordCode);
+                }
+            });
+            if(data.message == "Success"){
                 $scope.totalPage = data.result.totalPage;
                 callback && callback(data.result);
-            });
+            }
+        });
     }
-
-    $scope.open = function(size,dataMap) {
-        alert(dataMap);
-        if (dataMap == "" || dataMap.length == 0) { //没有选择一个的时候提示
-            alert("请至少选中一条数据在操作！");
+    $scope.open = function(size,data) {
+        if ($scope.choseArr[0] == "" || $scope.choseArr.length == 0) { //没有选择一个的时候提示
+            alert("请至少选中一条数据在操作！")
             return;
-        }
-        var modalShortSlabConfrimCtrlDR = $modal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalShortSlabConfrimCtrlDR',
-            size: size,
-            resolve: {
-                dataMap : function(){
-                    // return $scope.diagnosticRecordsCodes;
-                    return dataMap;
-                },
+        };
+        var modalInstance = $modal.open({
+            templateUrl : 'myModelContent.html',
+            controller : 'ModalShortSlabConfrimCtrlDR', // specify controller for modal
+            size : size,
+            resolve : {
                 host : function(){
                     return $scope.app.host;
+                },
+                data : function(){
+                    return data;
                 }
             }
         });
         // modal return result
-        modalShortSlabConfrimCtrlDR.result.then(function(selectedItem) {
+        modalInstance.result.then(function(selectedItem) {
             $scope.selected = selectedItem;
         }, function() {
             $log.info('Modal dismissed at: ' + new Date())
         });
     };
-});
-app.controller('ModalShortSlabConfrimCtrlDR',function($scope,$http,$controller, $modalInstance, dataMap,host) {
 
-    /* $scope.selected = {
-     item: $scope.items
-     };*/
-//    $controller('getJsonData', {$scope: $scope});//继承
-    $scope.formIndex = {};
-    //  取消
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
-    $scope.isShow = true;
-    $scope.showOrHide = function() {
-        $scope.isShow = !$scope.isShow;
-    };
-
-    //添加短板诊断用卷
-    $scope.addShortBoardDiag = function(){
-        $modalInstance.close($scope.selected.item);
-        var $shortBoardBox = $("#shortBoardController").find(".isChecked");
-        var $SBConfrimCtrlBox = $("#SBConfrimCtrl").find(".isChecked");
-        //获取试卷Code
-        var $aInput = $shortBoardBox.find("input:radio");
-        for(var i=0; i<$aInput.length; i++){
-            if($($aInput).eq(i).prop("checked") == true){
-                $scope.diagnosisPaperCode = $($aInput).eq(i).siblings("input:hidden").val();
-                break;
-            }
-        }
-        //获取短板分析Code
-        var $inputs = $SBConfrimCtrlBox.find("input:checked");
-        var arr = [];
-        $.each($inputs,function(index,item){
-            if($(item).prop("checked") == true){
-                if($scope.selected.item){
-                    if($(item).siblings("input").val() != $scope.selected.item.eduVulnerabilityAnalyzeRecordCode){
-                        arr.push($(item).siblings("input").val());
-                    }
-                } else {
-                    arr.push($(item).siblings("input").val());
-                }
-            }
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
         });
-        if($scope.selected.item){
-            arr.push($scope.selected.item.eduVulnerabilityAnalyzeRecordCode);
-        }
-        $.each(arr,function(index,item){
-            $http.post(window.host1 + '/shortSlab/section/add/paper?requestId=test123456', {
-                "shortSlabAnalysisRecordCode":item,
-                "paperCode":$scope.diagnosisPaperCode
-            })
-                .success(function (data) {
-                    console.log(data);
-                    location.reload(true);
-                });
-        })
-    };
-//    $controller('getJsonData', {$scope: $scope});//继承
+    }
+
+});
+app.controller('ModalShortSlabConfrimCtrlDR',function($scope,$http,$controller, $modalInstance,host,data,CalcService) {
+    $controller('ParentGetDataCtrl', {$scope: $scope});//继承筛选条件
     $scope.formData = {};
     //默认值
+    $scope.formData.departmentType = 1;
     $scope.formData.subjectCode = 1;
     $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
     $scope.formData.paperUseType = "p_005";
+    $scope.formData.aimType = 1;
     //筛选条件改变时执行
     $scope.change = function(val,name){
         $scope.formData[name] = val;
     };
-    $scope.query = function(page,size,callback){
-        $http.post(window.testhost + '/diagnosis/list?requestId=test123456', {
+    $scope.getList = function(page,size,callback){
+        $http.post(host + '/diagnosis/list?requestId=test123456', {
             "subjectCode":$scope.formData.subjectCode,                  //$scope.formData.subjectCode
             "bookVersionCode":$scope.formData.bookVersionCode,       //$scope.formData.bookVersionCode
             "paperUseType":$scope.formData.paperUseType,                //$scope.formData.paperUseType
             "currentPage":page,
             "pageSize":size
-        }).then(function (data) {
+        }).success(function (data) {
             console.log(data);
-            $scope.result = data.data.result.list;
-            $scope.totalPage = data.result.totalPage;
-            callback && callback(data.result);
+            if(data.message == "Success"){
+                $scope.result = data.result.list;
+                $scope.totalPage = data.result.totalPage;
+                callback && callback(data.result);
+            }
+        }).error(function(data){
+            alert("请求服务失败！");
         });
+    };
+    //  取消
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+    $scope.GetPaperCode = function(paperCode){
+        $scope.paperCode = paperCode;
+        console.log(paperCode);
     }
+    //添加短板诊断用卷
+    $scope.addShortBoardDiagOK = function(){
+
+        console.log(data);
+        console.log($scope.paperCode);
+        $http.post(host + 'shortSlab/section/add/paper?requestId=test123456', {
+            "shortSlabAnalysisRecordCodes":data,
+            "paperCode":$scope.paperCode
+        }).success(function (data) {
+            if(data.result == true){
+                alert("短板诊断用卷添加成功！");
+                location.reload(true);
+            };
+        });
+    };
 });
 
 /*学生分类=》短板加课时排课*/
@@ -845,9 +824,9 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'items', '$http
     };
 }]);
 /*更换学生课程类型*/
-app.controller('ChangeCourseTypeCtrl', function($scope, $http, $controller, CalcService) {
-    $controller('getJsonData', {$scope: $scope});//继承
-    $controller('getValue', {$scope: $scope});//继承
+app.controller('ChangeCourseTypeCtrl', function($scope, $http, $controller, CalcService,$modal) {
+
+    var baseHost = $scope.app.host;
     //默认选中函数
     function checked(data,ele,value){
         for(var i=0; i<data.length; i++){
@@ -858,58 +837,195 @@ app.controller('ChangeCourseTypeCtrl', function($scope, $http, $controller, Calc
             }
         }
     }
+    // 上课类型
+    $scope.courseTypeAll=[{code:0,name:'平时班'},{code:1,name:'平时晚班+周末'}];
+    $scope.departmentTypeAll = [];
+    $scope.studentTypeAll = [];
+    $scope.inScrollYearAll = [{code:2016,name:2016}];
+    $scope.aimTypesAll = [];
+    $scope.centerAll = [];
+    $scope.classesAll = [];
     //默认值
     $scope.formData = {};
-    $scope.formData.departmentType = "all";
-    $scope.formData.aimType = "all";
-    $scope.formData.classes = "all";
-    $scope.formData.center = "all";
-    $scope.formData.studentType = "all";
-    $scope.formData.inScrollYear = "all";
-
-    //班级默认值（点击中心后）
-    $scope.first = function(){
-        if($scope.formData.classes){
-            $scope.formData.classes = "09d4eefcbb924c1fb529f0d27c641295";
-        }
+    // 学科类型
+    $scope.formData.departmentType = "";
+    //目标
+  //  $scope.formData.aimType = "";
+    //班级
+   // $scope.formData.classesCode = "";
+    //中心
+    $scope.formData.centerCode = "";
+    //考生类型
+    $scope.formData.studentTypeCode = "";
+    //入学年份
+    $scope.formData.inScrollYearCode = "2016";
+    //修改某人课程类型
+    $scope.changeDepartmentType = function(person){
+        var instance = $modal.open({
+            templateUrl: 'admin/common/tpl/changeCourseType.html',
+            controller: 'ChangePersonCourseTypeAlertCtrl',
+            size:'lg',
+            resolve:{
+                person:function(){  return person;  },
+                types:function(){  return angular.copy($scope.departmentTypeAll);  },
+                baseHost:function(){return baseHost}
+            }
+        });
+        instance.result.then(function(flag){
+           if(flag=='ok'){
+                $scope.query($scope.currentPage);
+           }else if(flag=='error'){
+                modalAlert({content:'抱歉，修改失败!'});
+           }
+        });
     };
+
     //筛选条件改变时执行
     $scope.change = function(val,name){
         $scope.formData[name] = val;
     };
     //根据类型、目标、中心、班级 查询列表
-    $scope.query = function(page,size,callback) {
-        var obj = {};
-        for(var key in $scope.formData){
-            if($scope.formData[key] != "all"){
-                if(key == "inScrollYear"){
-                    obj[key] = $scope.getScrollYearName($scope.formData[key]);
-
-                } else {
-                    obj[key] = $scope.formData[key];
+    $scope.query = function(page,ex) {
+        if(ex)return null;
+        $http.post(baseHost + 'section/change/students?requestId=test123456',
+            {
+                "currentPage":page||1,
+                "pageSize":"10",
+                "targetType": $scope.formData.aimType||null,
+                "accessionYear": $scope.formData.inScrollYearCode||null,
+                "artType": $scope.formData.departmentType||null,
+                "centerCode":$scope.formData.centerCode ||null,
+                "classCode": $scope.formData.classesCode||null,
+                "examAttr":  $scope.formData.studentTypeCode||null,
+                "name":$scope.formData.studentName||null
+            })
+            .success(function (data) {
+                if(data.code=='Success'){
+                    $scope.currentPage = data.result.pageNumber;
+                    $scope.pagination = makePagination(data.result.pageNumber,data.result.totalPage);
+                    $scope.studentList = data.result;
+                }else{
+                    modalAlert({content:'查询学生列表失败!'});
                 }
+            });
+    };
+    //组装分页
+    function makePagination(pageNo,totalPage){
+        var arr=[], upage=pageNo,lpage=pageNo,showIndexs= 5,half = parseInt(showIndexs/2);
+        if(totalPage>1){
+            if(pageNo==1){
+                upage=totalPage>showIndexs?pageNo+showIndexs-1:totalPage;
+            }else if(pageNo>1){
+                upage = totalPage-pageNo > half ? pageNo+half:totalPage;
+                lpage = upage -showIndexs > 0 ? upage-showIndexs+1 :1;
             }
         }
-        //console.log(obj);//数据用obj代替（选全部时不传数据）
-        $http.post($scope.app.host + 'section/change/students?requestId=test123456', {
-            "targetType": "1",
-            "accessionYear": "2016",
-            "artType": 1,
-            /*"centerCode": "62c60cc618d64f2fa80787647bbe3e78",
-             "classCode": "7ea1fd8c6ca942ea8a4ac76c0cb28f5b",*/
-            "examAttr": "1",
-            "currentPage": page,
-            "pageSize": size
-        })
-            .success(function (data) {
-                console.log(data);
-                $scope.data = data;
-                $scope.result = data.result.authStudentModels;
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
-            });
+        arr.push({page:1,name:'首页',className:pageNo==1?'active':'',edge:pageNo==1?'e':''});
+        arr.push({page:pageNo-1>1?pageNo-1:1,name:'上一页',className:pageNo==1?'disabled':''});
+        for(var i=lpage;i<=upage;i++){
+            arr.push({page:i,name:i,className:pageNo==i?'active':''});
+        }
+        arr.push({page:pageNo+1>totalPage?totalPage:pageNo+1,name:'下一页',className:totalPage==pageNo?'disabled':''});
+        arr.push({page:totalPage,name:'尾页',className:totalPage==pageNo?'active':'',edge:'e'});
+        return arr;
     }
+    // 弹框提醒用户(作用似alert)
+    function modalAlert(data){
+        $modal.open({
+            templateUrl: 'admin/warning.html',
+            controller: 'WarningController',
+            size:data.size||'lg',
+            resolve:{
+                data:function(){  return data;  }
+            }
+        });
+    }
+    //获取学科类型
+    CalcService.filterData().then(function(d){
+       $scope.departmentTypeAll = d.filterData;
+       $scope.departmentTypeAll.unshift({  "departmentType": '', "departmentName": "全部",selected:true});
+
+    });
+    //获取考生类型（集合）
+    $http.get("admin/json/studentType.json").then(function(result) {
+        $scope.studentTypeAll =result.data.studentType;
+        $scope.studentTypeAll.unshift({studentTypeCode:"",studentTypeName:"全部"});
+    });
+    //获取中心列表
+    $http.post(baseHost+'teaching/organization/centers?requestId='+Math.random())
+        .success(function(b){
+           if(b.code=='Success'){
+              $scope.centerAll = b.result;
+              $scope.formData.centerCode = b.result[0].code;
+               $scope.getClasses();
+           }else{
+               modalAlert({content:'获取中心失败!'});
+           }
+        });
+    //获取班级列表
+    $scope.getClasses = function(){
+        $http.post(baseHost + '/teaching/organization/list?requestId='+Math.random(),{
+            "pageSize":99999,
+            "pageNumber":1,
+            "type":6,
+            "centerCode":$scope.formData.centerCode
+        }).then(function (result) {
+            $scope.formData.classesCode = "";
+            if(result.status==200&&result.data.code=='Success'){
+                $scope.classesAll = result.data.result;
+                $scope.classesAll.unshift({code:"",name:"全部"});
+            }else{
+                modalAlert({content:'获取班级列表失败!'});
+                $scope.classesAll= [{code:"",name:"全部"}];
+            }
+        });
+    };
+    //获取目标（集合）
+    $http.get("./admin/json/aimData.json").then(function(result){
+        var data = result.data.aimData;
+        $scope.formData.aimType = "";
+        $scope.aimTypesAll = [{aimType:"",aimName:"全部"}].concat(result.data.aimData);
+
+
+
+    });
 });
+// alert优雅弹框
+app.controller('WarningController', function($scope, $modalInstance,data){
+    $scope.warning = data.content;
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+});
+//更换某人课程类型--弹框
+app.controller('ChangePersonCourseTypeAlertCtrl', function($scope, $modalInstance, $http,person,types,baseHost){
+    console.log(baseHost);
+    $scope.person = person;
+    types.shift();
+    $scope.types = types;
+    $scope.departmentType = types[0].departmentType;
+    $scope.ok = function () {
+        $http.post(baseHost+'section/update/LessionLevel?requestId='+Math.random(),
+            {
+                "studentCode":person.code,
+                "lessonLevel":$scope.departmentType
+            })
+            .success(function(b){
+                if(b.code=='Success'&& b.result){
+                    $modalInstance.close('ok');
+                }else{
+                    $modalInstance.close('error');
+                }
+            })
+            .error(function(e){
+                $modalInstance.close('error');
+            });
+    };
+    $scope.cancel = function () {
+        $modalInstance.close('cancel');
+    };
+});
+
 /*试卷详情*/
 app.controller("testpaperController",function($scope,$http, $controller, CalcService){
     $controller('getJsonData', {$scope: $scope});//继承

@@ -5,7 +5,7 @@
         </div>
         <div class="wrapper" id="confromToVipDiv">
             <div class="panel-heading m-b-xl">
-                <pre>{{formData}}</pre>
+                <!--<pre>{{formData}}</pre>-->
                 <form action="" class="ConfromToVipCtrl_form form-horizontal" >
                     <div class="radio form-group">
                         <label class="col-sm-2 control-label">类型：</label>
@@ -182,7 +182,7 @@
                                             <i></i>不需要短板
                                         </label>
                                     </div>
-                                    <div ng-show="display" class="col-sm-4">
+                                    <div ng-show="display" class="col-sm-6">
                                         <b>短板学科：</b>
                                         <select class="form-control" ng-model="subjectCode" ng-options="m.subjectCode as m.subjectName for m in subjects">
                                             <option value="">-- 请选择短板科目 --</option>
@@ -192,8 +192,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-warning" ng-click="cancel()">取消</button>
-                            <button class="btn btn-primary" ng-click="shortBoardOk(subjectCode)">确认</button>
+                            <button class="btn btn-warning" ng-click="cancel()"><span class="p-d">取消</span></button>
+                            <button class="btn btn-primary" ng-click="shortBoardOk(subjectCode)"><span class="p-d">确认</span></button>
                         </div>
                     </div>
 

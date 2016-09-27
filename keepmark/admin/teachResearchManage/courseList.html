@@ -78,7 +78,7 @@
                         <td>{{data.courseName}}</td>
                         <td>{{data.subjectCode}}</td>
                         <td>{{data.courseSystemType}}</td>
-                        <td>{{data.classType }}</td>
+                        <td>{{classTypeName}}</td>
                         <td>统考</td>
                         <td>{{data.courseImgUrl}}</td>
                         <td>{{data.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}<!--{{data.code}}--></td>
@@ -116,6 +116,7 @@
                 </div>
                 <div class="line line-solid b-b line-lg pull-in"></div>
                 <div>
+                    <h4>{{message}}</h4>
                     <label class="i-checks m-b-none"  ng-repeat="data in results">
                         <input type="checkbox" id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk({code:data.code,name:data.name},x)"><i></i>{{data.name}}
                     </label>

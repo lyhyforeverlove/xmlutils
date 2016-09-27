@@ -10,25 +10,34 @@ app.controller('CourseListCtrl', function($scope, $http,$controller,$resource, $
     //默认保分类型
     $scope.formData.aimType = 0;
     //默认班型
-    $scope.formData.classType = 1;
+    $scope.formData.classType = 0;
 
     //根据考生类型、班型、保分类型、科目 查询列表
     $scope.getList = function(page,size,callback) {
         var url = $scope.app.host + "course/list?requestId=1";
         $http.post(url,{
             "aimType":  $scope.formData.aimType,
-            "classType": $scope.formData.categoriesCode,
+            "classType": $scope.formData.classType,
             "subjectCode": $scope.formData.subjectCode,
             "pageSize":size,
             "pageNumber":page
         }).success(function(data){
             if(data.message == "Success"){
-                console.log(data);
+                //console.log(data);
                 $scope.results = data.result;
+                var list = data.result.list;
+                angular.forEach(list,function(cb,index){
+                    if (cb.classType === "BIGCLASS") {
+                        $scope.classTypeName = "大班课";
+                    }else if(cb.classType === "SMALLCLASS"){
+                        $scope.classTypeName = "小班课";
+                    }else{
+                        $scope.classTypeName = "1对1";
+                    }
+                });
                 $scope.totalPage = data.result.totalPage;
                 callback && callback(data.result);
             }
-            
         }).error(function(data){
             console.log("fail");
         });
@@ -85,13 +94,14 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
     };
      // ok click
     $scope.ok = function() {
-        var url = 'http://192.168.1.35:8070/keepMark-teacher-business/course/distribute/teacher?requestId=1';
+        var url = host + 'course/distribute/teacher?requestId=1';
         $http.post(url,{
             "subject": data.subjectCode,
             "targetType": $scope.teacherGoalType,
             "courseSystemCode": data.courseCode,
             "authTeacherModels": $scope.authTeacherModels
         }).success(function(data){
+            //console.log(data);
             $modalInstance.close();
         }).error(function(data){
 
@@ -108,8 +118,11 @@ app.controller('TeachingDistributeCtrl', function($scope, $http,$controller,$mod
     // ）
     var url = host +'teaching/course/getTeachers?requestId=test123456';
     $http.post(url,{"type":1,"subjectCode":data.subjectCode}).success(function(data){
-       console.log(data);
+       //console.log(data);
         $scope.results = data.result;
+        if(data.result.length === 0 ){
+           $scope.message = '没有符合课程的教师!';
+        }
     }).error(function(data){
         console.log("fail");
     })
@@ -218,8 +231,6 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
 
     //详情跳转传参数
     $scope.GetPaperDetail = function(data){
-       // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
-        console.log(data);
         var jsonString = angular.toJson(data);
         $state.go('app.paperDetail', {
             jsonString: jsonString
@@ -608,9 +619,9 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
             $scope.diagnosisPaperCode = selectedItem.diagnosisPaperCode;
             $scope.removePaperCode = selectedItem.removePaperCode;
 
-            console.log($scope.removePaperCode);
-            console.log($scope.subjectCode);
-            console.log($scope.diagnosisPaperCode);
+            //console.log($scope.removePaperCode);
+            //console.log($scope.subjectCode);
+            //console.log($scope.diagnosisPaperCode);
 
             if(state == 0){
                 $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);
@@ -781,19 +792,21 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
     $scope.conf = [];
     $scope.AddCourse = function(){
         var url = $scope.app.host + "/course/add?requestId=1";
-        $http.post(url,{
+        $http.post(url,{/*repositoryBigcourseCode*/
             "bookVersion":$scope.formData.bookVersionCode,
-            "subjectCode":$scope.formCourseData.subjectCode,
-            "gradeCode":$scope.formCourseData.gradeCode,
+            "subjectCode":$scope.formData.subjectCode,
+            "gradeCode":$scope.formData.gradeCode,
             "courseName":$scope.formData.name,
             "courseImgUrl":$scope.formData.coverUrl,
             "repositoryCourseCode":$scope.formData.repositoryCourseCode ,
             "repositoryBigcourseCode": $scope.formData.bigCategoriesCode,
             "categoriesCode":$scope.formData.categoriesCode,
-            "classType":$scope.formCourseData.classType
+            "classType":$scope.formData.classType
         }).success(function(data){
             console.log(data);
-
+            if(data.message == "Success"){
+               $state.go('app.teachResearchManage.courseList');
+            }
         }).error(function(data){
             console.log("fail");
         });

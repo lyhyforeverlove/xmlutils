@@ -44,6 +44,16 @@ app.controller('RoundController', function($scope, $http, $controller, $resource
 		});
 
 	};
+	
+	 $scope.GetPaperDetail = function(data){
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
+
 
 });
 /*二轮判*/
@@ -94,6 +104,17 @@ app.controller('SecondRoundController', function($scope, $http, $controller, $re
 		});
 
 	};
+	
+	
+	 $scope.GetPaperDetail = function(data){
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
+
 
 	//	$scope.sayHello = function() {
 	//		$scope.$emit('$fromSubControllerClick','hello');

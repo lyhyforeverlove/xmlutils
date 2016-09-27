@@ -51,10 +51,11 @@
                                         <td>诊断</td>
                                         <td></td>
                                         <td>{{data.eduSingleDiagnosisRecordCode }}</td>
-                                        <td>{{subjectName}}</td>
+                                        <td>{{subjectName}}{{data.diagnosisPaperCode}}</td>
                                         <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.diagnosisPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
+                                           <!-- ui-sref="app.teachResearchManage.detail({'paperCode':data.diagnosisPaperCode})"-->
+                                            <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
                                         <td> {{data.distributionStatus}}</td>
                                         <td>
@@ -80,7 +81,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="8" class="text-center">
+                                        <td colspan="9" class="text-center">
                                             <!-- 指令调用代码 -->
                                             <xl-page size="10" method="getList" class="text-center"></xl-page>
                                             <!-- 指令模板[pagination.html] -->
@@ -122,7 +123,7 @@
                                         <td>{{data.subjectCode}}</td>
                                         <td>{{data.examStartTime | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.examEndTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                                         <td>
-                                            <button class="btn btn-primary"  ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
+                                            <button class="btn btn-primary"  ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">&nbsp;详&nbsp;情&nbsp;</button>
                                         </td>
                                         <td> {{data.distributionStatus}}</td>
                                         <td>
@@ -132,7 +133,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="8" class="text-center">
+                                        <td colspan="9" class="text-center">
                                             <!-- 指令调用代码 -->
                                             <xl-page size="10" method="getList1" class="text-center"></xl-page>
                                             <!-- 指令模板[pagination.html] -->
