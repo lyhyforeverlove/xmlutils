@@ -160,7 +160,7 @@ app.controller('studentWorkController', function($scope, $state, $controller){
 
 })
 //自主推送学习资源-------------chc
-app.controller('autonmousPushResourcesController', function($scope,$rootScope,$http, $controller,$q, $timeout,$modal, CalcService){
+app.controller('autonmousPushResourcesController', function($scope,$rootScope,$http,$localStorage, $controller,$q, $timeout,$modal, CalcService){
 
     $controller('ParentGetDataCtrl', {$scope: $scope}); //继承
     $scope.name = "自主推送学习资源";
@@ -168,6 +168,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     $scope.difficultStar = 1;
     // 教师自己的code(需后期登录改成活的)
     $scope.teacherCode = 'e44a0c2ad33a40d1a9c54bf4e801c227';
+    var myData = $localStorage.user;
 
     //待定
     $scope.paperType = [];
@@ -190,16 +191,19 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             }
         });
         console.log(question);
-        $scope.selectedQuestions.push({typeId:question.enlargeId,id:question.id});
+        $scope.selectedQuestions.push({typeId:question.enlargeId,
+            id:question.id,
+            knowledgeCode:searchCondition.paperKnowledge.ctbCode,
+            knowledgeName:searchCondition.paperKnowledge.knowledgeName});
     };
     //预处理试题
     function preDealQuestions(qList){
         angular.forEach(qList,function(t,i){
             angular.forEach($scope.selectedQuestions,function(tt,ii){
-               if(tt.id== t.id){
-                   t.added = true;
-                   return false;
-               }
+                if(tt.id== t.id){
+                    t.added = true;
+                    return false;
+                }
             });
             if(t.type==6){
                 angular.forEach(t.Subtitle,function(ttt,iii){
@@ -232,7 +236,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
         searchCondition.listsXHR = $q.defer();
         $http.post(baseHost+'fullTeacher/getMyStudentList?requestId='+Math.random(),
             {
-                "teacherCode": $scope.teacherCode
+                "teacherCode": myData.code
             }
         ).success(function(b){
                 if(b.code=='Success'&& b.result){
@@ -244,12 +248,12 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
                 }else{
                     modalAlert({content:'抱歉，请求获取学生列表失败!'});
                 }
-        }).error(function(data,header,config,status){
-            if(status.timeout&&status.timeout.$$state.value=='abort'){
-                return false;
-            }
-            modalAlert({content:'抱歉，请求获取学生列表失败!'});
-        });
+            }).error(function(data,header,config,status){
+                if(status.timeout&&status.timeout.$$state.value=='abort'){
+                    return false;
+                }
+                modalAlert({content:'抱歉，请求获取学生列表失败!'});
+            });
     };
     //选择或者取消学生选择
     $scope.toggleStudent = function(s){
@@ -300,29 +304,29 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     $scope.isActiveTab = function(tabUrl){
         return tabUrl == $scope.currentTab;
     };
-    $scope.dedepartmentType=[];
-    $scope.category=[];
-    $scope.bookVersion=[];
+    /* $scope.dedepartmentType=[];
+     $scope.category=[];
+     $scope.bookVersion=[];*/
     //初始化学科学年学段教材
     CalcService.filterData().then(function(data){
         $scope.formData.gradeCode = data.filterData[0].gradeCode;
-        $scope.dedepartmentType = data.filterData;
-        $scope.category = $scope.dedepartmentType[0].category;
-        $scope.bookVersion = $scope.dedepartmentType[0].category[0].bookVersion;
-        $scope.formData.departmentType = $scope.dedepartmentType[0].departmentType;
-        $scope.formData.subjectCode = $scope.dedepartmentType[0].category[0].subjectCode;
+        //    $scope.dedepartmentType = data.filterData;
+        //    $scope.category = $scope.dedepartmentType[0].category;
+        //    $scope.bookVersion = $scope.dedepartmentType[0].category[0].bookVersion;
+        $scope.formData.departmentType = 1;
+        $scope.formData.subjectCode = 1;
         initQuestionTypes();
     });
     //初始化试卷类型
-   function initQuestionTypes(){
-       CalcService.getQuestionTypes($scope.formData.subjectCode).then(function(data){
-           if(typeof data=='object'){
-               $scope.questionTypes = data;
-               $scope.nowQuestionType = data.types[0].id;
-           }else
-               modalAlert({content:'获取试题类型出错!'});
-       });
-   }
+    function initQuestionTypes(){
+        CalcService.getQuestionTypes($scope.formData.subjectCode).then(function(data){
+            if(typeof data=='object'){
+                $scope.questionTypes = data;
+                $scope.nowQuestionType = data.types[0].id;
+            }else
+                modalAlert({content:'获取试题类型出错!'});
+        });
+    }
 
     $scope.my_data = []; // 知识树数据
 
@@ -336,20 +340,43 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     //被选中的视频列表
     $scope.selectedVideos = [];
     //视频列表多选框选择
-    $scope.toggleSelectVideo = function(video){
+    $scope.toggleSelectVideo = function(knowledge,video){
         for(var i= 0,l=$scope.selectedVideos.length;i<l;i++){
-            if($scope.selectedVideos[i].id == video.id){
-                $scope.selectedVideos.splice(i,1);
+            if($scope.selectedVideos[i].treeNodeCode == knowledge.knowledge){
+                for(var j=0;j<$scope.selectedVideos[i].pushResourcesDtos.length;j++){
+                    if($scope.selectedVideos[i].pushResourcesDtos[j].resourcesCode==video.id){
+                        $scope.selectedVideos[i].pushResourcesDtos[j].splice(j,1);
+                        if($scope.selectedVideos[i].pushResourcesDtos.length==0){
+                            $scope.selectedVideos[i].splice(i,1);
+                        }
+                        return false;
+                    }
+                }
+                $scope.selectedVideos[i].pushResourcesDtos.push({
+                    "repositoryTreeCode":knowledge.knowledge,
+                    "resourcesCode":video.id,
+                    "resourcesType":"1",
+                    "repositoryTreeName":knowledge.knowledgeName,
+                    "resourcesName":video.videoName
+                });
                 return false;
             }
         }
-        $scope.selectedVideos.push(video);
+        $scope.selectedVideos.push({treeNodeCode:knowledge.knowledge,treeNodeName:knowledge.knowledgeName,
+            pushResourcesDtos:[
+                {"repositoryTreeCode":knowledge.knowledge,
+                    "resourcesCode":video.id,
+                    "resourcesType":"1",
+                    "repositoryTreeName":knowledge.knowledgeName,
+                    "resourcesName":video.videoName
+                }
+            ]});
     };
     //试题列表
     $scope.papers = [];
     //组装分页
     function makePagination(pageNo,totalPage){
-       var arr=[], upage=pageNo,lpage=pageNo,showIndexs= 5,half = parseInt(showIndexs/2);
+        var arr=[], upage=pageNo,lpage=pageNo,showIndexs= 5,half = parseInt(showIndexs/2);
         if(totalPage>1){
             if(pageNo==1){
                 upage=totalPage>showIndexs?pageNo+showIndexs-1:totalPage;
@@ -385,17 +412,17 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             },
             {timeout:searchCondition.listsXHR.promise}
         ).success(function(b){
-            if(b.code=='Success'){
-                $scope.videos = b.result;
-            }else{
+                if(b.code=='Success'){
+                    $scope.videos = b.result;
+                }else{
+                    modalAlert({content:'抱歉，请求树失败!'});
+                }
+            }).error(function(data,header,config,status){
+                if(status.timeout&&status.timeout.$$state.value=='abort'){
+                    return false;
+                }
                 modalAlert({content:'抱歉，请求树失败!'});
-            }
-        }).error(function(data,header,config,status){
-            if(status.timeout&&status.timeout.$$state.value=='abort'){
-                return false;
-            }
-            modalAlert({content:'抱歉，请求树失败!'});
-        });
+            });
     };
     //试题列表
     $scope.getQuestionList= function (page,ex){
@@ -417,50 +444,74 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             },
             {timeout:searchCondition.questionlistXHR.promise}
         ).success(function(b){
-            if(b.code=='Success'&& b.result&& b.result.datas&& b.result.datas.data){
-                preDealQuestions(b.result.datas.data);
-                $scope.questionDatas = b.result.datas;
-                $scope.pagination=makePagination(parseInt(b.result.datas.pageNum),parseInt(b.result.datas.pages));
-            }else{
-                modalAlert({content:'没用符合条件的试题!'});
-            }
-        }).error(function(data,header,config,status){
-            if(status.timeout&&status.timeout.$$state.value=='abort'){
-                return false;
-            }
-            modalAlert({content:'抱歉，请求获取卷子列表失败!'});
-        });
+                if(b.code=='Success'&& b.result&& b.result.datas&& b.result.datas.data){
+                    preDealQuestions(b.result.datas.data);
+                    $scope.questionDatas = b.result.datas;
+                    $scope.pagination=makePagination(parseInt(b.result.datas.pageNum),parseInt(b.result.datas.pages));
+                }else{
+                    modalAlert({content:'没用符合条件的试题!'});
+                }
+            }).error(function(data,header,config,status){
+                if(status.timeout&&status.timeout.$$state.value=='abort'){
+                    return false;
+                }
+                modalAlert({content:'抱歉，请求获取卷子列表失败!'});
+            });
     };
     //将已选择的题组合成试卷
     $scope.packagePaper = function(){
-       var paperModal =  $modal.open({
+        var paperModal =  $modal.open({
             templateUrl: 'admin/teacherOpearteManage/autonomousPushResourcesPaper.html',
             controller: 'AutoPushResourcePaperController',
             size:'lg',
             resolve:{
-
             }
         });
         paperModal.result.then(function(result){
             result.questions = $scope.selectedQuestions;
             finishedPaper = result;
-            console.log('papermodal .....',finishedPaper)
         });
     };
     //推送学习资源
     $scope.pushSource = function(){
-
+        if(searchCondition.pushingData)return false;
+        var pushData;
         if($scope.currentTab=='video.tpl.html'){ //视频
-            alert('咋推送视频？？？')
+            pushData ={
+                subjectCode:searchCondition.subjectCode,
+                teacherCode:'ce70fe795fd040328061a548862d7918',
+                teacherName:'章子怡',
+                aimType:$scope.choosedStudents[0].artType,
+                burls:$scope.selectedVideos,
+                studentCode:[]
+            };
+            angular.forEach($scope.choosedStudents,function(t){
+                pushData.studentCode.push(t.code);
+            });
+            console.log('selected videos-- ',$scope.selectedVideos,'-- students --' ,$scope.choosedStudents,pushData);
+
         }else{ //试卷
+
             if(!finishedPaper){
                 return modalAlert({content:'请先组合一份试卷!'});
             }else if(finishedPaper.questions.length==0){
                 return modalAlert({content:'请至少选择一道题!'});
             }else{
-                alert('推送试卷了...',angular.toJson(finishedPaper));
+                console.log('推送试卷了...',finishedPaper);
             }
+            return false;
         }
+        searchCondition.pushingData = true;
+        $http.post(baseHost+'fullTeacher/pushVedioOrPaperToStudents?requestId='+Math.random(),pushData)
+            .then(function(b){
+                console.log('push result...',b)
+                if(b.data&& b.data.code=="Success"){
+                    modalAlert({content:'资源推送成功!'});
+                }else{
+                    modalAlert({content:'抱歉!资源推送失败!'});
+                }
+                searchCondition.pushingData = false;
+            });
     };
 
     // 弹框提醒用户(作用似alert)
@@ -492,31 +543,31 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             {gradeCode:$scope.formData.gradeCode,subjectCode:$scope.formData.subjectCode,booktypeCode:$scope.formData.bookVersionCode,knowledgeType:1},
             {timeout:searchCondition.KlistXHR.promise}
         ).success(function(data,header,config,status){
-            if(!data.code=='Success'){
-                return modalAlert({content:'抱歉，请求知识点失败!'});
-            }else if(!data.result.datas||data.result.datas.length==0){
-                return modalAlert({content:'未获取到相应知识点!'});
-            }
-            var result = [];
-            data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
-            for(var i = 0, l = data.result.datas.length; i < l; i++){
-                findTreeChild(result, data.result.datas[i]);
-            }
-            console.log('tree data....',result);
-            $scope.my_data = result;
-            result = data.result.datas=null;
-        }).error(function(data,header,config,status){
-            if(status.timeout&&status.timeout.$$state.value=='abort'){
-                return false;
-            }
-            modalAlert({content:'抱歉，请求知识点失败!'});
-        });
+                if(!data.code=='Success'){
+                    return modalAlert({content:'抱歉，请求知识点失败!'});
+                }else if(!data.result.datas||data.result.datas.length==0){
+                    return modalAlert({content:'未获取到相应知识点!'});
+                }
+                var result = [];
+                data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
+                for(var i = 0, l = data.result.datas.length; i < l; i++){
+                    findTreeChild(result, data.result.datas[i]);
+                }
+                console.log('tree data....',result);
+                $scope.my_data = result;
+                result = data.result.datas=null;
+            }).error(function(data,header,config,status){
+                if(status.timeout&&status.timeout.$$state.value=='abort'){
+                    return false;
+                }
+                modalAlert({content:'抱歉，请求知识点失败!'});
+            });
         initQuestionTypes();
     };
     // 试题知识点选择
     $scope.showSelected = function(node,selected){
-         // 查询试题时 old = false ,强制页码为1
-        searchCondition.paperKnowledge={ctbCode:node.ctbCode,old:false};
+        // 查询试题时 old = false ,强制页码为1
+        searchCondition.paperKnowledge={ctbCode:node.ctbCode,old:false,knowledgeName:node.knowledgeName};
     };
     //视频知识树被选中节点
     $scope.selectedNodes = [];
@@ -866,52 +917,21 @@ app.controller("paperCheckedController", function($scope, $state){
 //试卷详情
 app.controller()
 //诊断监考
-app.controller("diagnoseInvigilationController", function($scope,$http,$modal,$q){
+app.controller("diagnoseInvigilationController", function($scope,$http,$localStorage,$modal,$q){
     $scope.name = "诊断监考";
     var temp={}; // 临时变量存放
     temp.preEnterLiveRoom = 10*60*1000; //  提前10分钟进入直播间
-    $scope.mayEnter =  {
-        "eduGoodsCode": "1234567890",
-        "onsaleStatus": 0,
-        "price": 1,
-        "operateTeacher": "1",
-        "gradeCode": "33",
-        "egCreateTime": 1475567421000,
-        "bookVersionCode": "1",
-        "subjectType": 1,
-        "diagnosisType": 1,
-        "pictureUrl": "1",
-        "multiPaperCode": "1",
-        "egUpdateTime": 1474335892000,
-        "type": "1",
-        "eduDiagnosisGoodsCode": "0A6E061EDB2B4AAC864FDAB787EB17C8",
-        "studioRoomUrl": "www.baidu.com",
-        "examStartDate": 1473177600000,
-        "invigilatorTeacher": "a",
-        "studioStudentRoomUrl": "www.baidu.com",
-        "createTime": 1472715555000,
-        "studioAttendRoomUrl": "www.baidu.com",
-        "imageUrl": "www.baidu.com",
-        "examEndDate": 1473177600000,
-        "updateTime": 1473316671000,
-        "subjectCode": "1",
-        "number": 12,
-        "eduDiagnosisGoodsDetailCode": "1",
-        "edgdExamStartDate": 1473239781000,
-        "edgdExamEndDate": 1473239785000,
-        "purchaserLimit": 1,
-        "edgdCreateTime": 1473239790000,
-        "currentNumber": 1,
-        "edgdUpdateTime": null
-    }; // 可进入直播间的时间段数据
+    $scope.mayEnter =  {}; // 可进入直播间的时间段数据
     $scope.timeContents = {am:[],pm:[],empty:null}; //某一天的课程安排列表
     var baseHost = $scope.app.host;
-    $scope.teacherCode = 'a'; // 老师code(需改活)
-
+    var myData = $localStorage.user;
+    console.log(myData)
+    // 选择日期
    $scope.$watch('dt',function(){
        if($scope.dt==null)return false;
         getDateCourses();
    });
+    //预处理时间段列表
     var preDealTimeContents = function(list){
         $scope.timeContents = {am:[],pm:[],empty:null};
         if(list.length==0){
@@ -932,12 +952,13 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$modal,$q
             $scope.timeContents[po].push(t);
         });
     };
+    //获取某一天课程
     var getDateCourses = function(){
         if(temp.DateCoursesXHR)temp.DateCoursesXHR.resolve('abort');
         temp.DateCoursesXHR = $q.defer();
         $http.post(baseHost+'fullTeacher/getTeacherDiagnosisExaminationList?requestId='+Math.random(),
             {
-                "teacherCode":$scope.teacherCode,
+                "teacherCode":'a',//myData.code,
                 "lessonDate":moment($scope.dt).format('YYYY-MM-DD')
             },
             {timeout:temp.DateCoursesXHR.promiss}
@@ -959,13 +980,20 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$modal,$q
     //进入直播室
     $scope.enterLiveRoom = function(){
         if(!$scope.mayEnter)return modalAlert({content:'时间还没到哦!'});
+        console.log('may=====', $scope.mayEnter)
         var room =  $modal.open({
             templateUrl: 'admin/teacherOpearteManage/enterLiveRoom.html',
             controller: 'EnterLiveRoomController',
             size:'lg',
-            resolve:{
+            resolve:{ // $scope.mayEnter
                 data:function(){
-                    return {teacherCode:$scope.teacherCode,baseHost:baseHost,temp:$scope.mayEnter,nickName:$scope.nickName||'老师'};
+                    return {
+                        teacherCode:myData.code,
+                        baseHost:baseHost,
+                        temp:{
+                            diagnosisGoodsDetailCode:$scope.mayEnter.diagnosisGoodsDetailCode
+                        },
+                        nickName:myData.name};
                 }
             }
         });
@@ -993,9 +1021,13 @@ app.controller('EnterLiveRoomController',function($scope, $modalInstance,$http,$
     var getURL = function(){
         // http://192.168.1.142:8080/
         $http.post(data.baseHost+'fullTeacher/enter/invigilator?requestId='+Math.random(),
-            {
+            /*{
                 "teacherCode":data.teacherCode,
                 "diagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsCode
+            }*/
+            {
+                "teacherCode":"6ed3cf000fa84d6e947f37dc9fe347b5",
+                "diagnosisGoodsDetailCode":"416E26FEF5724F7887C8EC2522F68029"
             }
         ).success(function(data){
             if(data.code=='Success'){
@@ -1008,11 +1040,11 @@ app.controller('EnterLiveRoomController',function($scope, $modalInstance,$http,$
         });
     };
     //混淆url地址
-    var markUrl = function(datas){
-        $http.get(data.temp.geesenModel.teacherJoinUrl+"?nickname="+data.nickName+"&token="+data.temp.geesenModel.teacherToken+"&type=jsonp&jsonpcallback=j"
-        ).success(function(data){
+    var markUrl = function(geen){
+        $http.get(geen.geesenModel.teacherJoinUrl+"?nickname="+encodeURIComponent(data.nickName)+"&token="+geen.geesenModel.teacherToken+"&type=jsonp&jsonpcallback=j"
+        ).success(function(b){
                 try{
-                    var  result = angular.fromJson(data.substring(data.indexOf("(") + 1, data.lastIndexOf(")")));
+                    var  result = angular.fromJson(b.substring(b.indexOf("(") + 1, b.lastIndexOf(")")));
                     $scope.geenses = result;
                     $scope.downloadClient = result.download;
                     $scope.loading = false;

@@ -15,7 +15,7 @@
             overflow: inherit !important;
         }
         .knowledgeTree  .modal-body{
-           overflow-x: auto !important;
+            overflow-x: auto !important;
         }
         .knowledgeTree{
             margin-top: 26px;
@@ -24,7 +24,7 @@
             overflow-x: auto;
         }
         .resource-list{
-           margin: 0;
+            margin: 0;
             width: 100%;
         }
         .btn-margin{
@@ -73,7 +73,8 @@
 
             <div class="resource-list">
                 <button class="btn btn-primary btn-margin pull-right" ng-click="chooseStudents()">选择学生</button>
-              <!--  <button class="btn btn-primary btn-margin" ng-click="getList()">查询</button>-->
+                <div style="clear: both;"></div>
+                <!--  <button class="btn btn-primary btn-margin" ng-click="getList()">查询</button>-->
                 <div id="tabs" ng-show="!studentsShow">
                     <ul class="tabs_ul">
                         <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
@@ -112,11 +113,11 @@
                             </tr>
                             </thead>
                             <tbody ng-repeat="v in videos">
-                                <tr ng-if="v.resourceVideoList.length>0" ng-repeat="vd in v.resourceVideoList">
-                                    <td><label class="i-checks" ><input type="checkbox" ng-click="toggleSelectVideo(vd)"><i></i>{{vd.videoName}}</label></td>
-                                    <td>{{v.knowledgeName}}</td>
-                                    <td>{{vd.videoUrl}}</td>
-                                </tr>
+                            <tr ng-if="v.resourceVideoList.length>0" ng-repeat="vd in v.resourceVideoList">
+                                <td><label class="i-checks" ><input type="checkbox" ng-click="toggleSelectVideo(v,vd)"><i></i>{{vd.videoName}}</label></td>
+                                <td>{{v.knowledgeName}}</td>
+                                <td>{{vd.videoUrl}}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
