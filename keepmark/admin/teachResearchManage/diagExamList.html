@@ -42,7 +42,7 @@
                         <tr ng-repeat="data in results.list">
                             <td>{{$index+1}}</td>
                             <td>{{data.diagnosisPaperName}}</td>
-                            <td>{{subjectName}}{{data.subjectCode |translator:subjectCodeAll:'code':'name'}}}</td>
+                            <td>{{subjectName}}</td>
                             <td>{{data.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
                             <td>{{data.operator}}</td>
                             <td>

@@ -36,9 +36,9 @@
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <ul class="list-group"><!--  ng-click="toggleActive(service)" ng-class="{active:service.active}" ng-model="postData.service.id" -->
-                        <li class="list-group-item" ng-repeat="(key,val) in category"> <!--  ng-model="$parent.postData[val.code]"  -->
-                        {{val.subjectName}} <!--{{val.code}} | -->{{val.subjectCode}} {{val.code}}
-                            <span class="pull-right"><button ng-if="postData[val.code] != null" class="btn m-b-xs w-xs btn-primary"  ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:postData.paperUseType},'getPapersByDiagCtrl',{code:val.code})">更换</button><button ng-if="postData[val.code] == null" class="btn m-b-xs w-xs btn-info"  ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:postData.paperUseType},'getPapersByDiagCtrl',{code:val.code})">添加</button></span>
+                        <li class="list-group-item" ng-repeat="(key,val) in category" > <!--  ng-model="$parent.postData[val.code]"  -->
+                        {{val.subjectName}} <!--{{val.code}} | {{val.subjectCode}}-->
+                            <span class="pull-right"><button class="btn m-b-xs w-xs btn-info"  ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:postData.paperUseType},'getPapersByDiagCtrl',{code:val.code})">添加</button></span>
                         </li>
                     </ul>
                     <script type="text/ng-template" id="myModelContent.html">
