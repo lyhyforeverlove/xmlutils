@@ -198,7 +198,7 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
     var diagnosisGoodsModels = []; //定义诊断商品列表
     //$scope.list = [{ teacherCode: 0, beginDate: 30, endDate: '张三' }];
     $scope.addTeacher = function(postData) {
-        $scope.postData.times = [];
+       // $scope.postData.times = [];
         $scope.postData.beginDate = angular.element("#beginDate").val();//开始时间
         $scope.postData.endDate = angular.element("#endDate").val();//结束时间
 
@@ -213,6 +213,8 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
         $scope.V_GoodsAddJson = angular.fromJson($scope.V_GoodsAddJson);
         $scope.V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
 
+        console.log(diagnosisGoodsModels);
+        console.log( $scope.V_GoodsAddJson);
         $scope.postData  = {};
 
         angular.forEach($scope.groups, function(s) {
@@ -263,28 +265,21 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
         group: '一组:5人',
         active: false
     }];
-
     $scope.toggleActive = function(s) {
         s.active = !s.active;
     };
-
     $scope.times = function() {
-
         $scope.postData.times = [];
-
         angular.forEach($scope.groups, function(s) {
             if (s.active) {
                 $scope.postData.times.push(s.id);
             }
         });
-
         return $scope.postData.times;
     };
     //确定上架
     $scope.ConfirmShelves = function() {
-
         console.log($scope.V_GoodsAddJson);
-
         $http.post($scope.app.host + '/teacher/diagnosis/distribution/invigilate?requestId=test123456', $scope.V_GoodsAddJson)
             .success(function(data) {
                 if (data.result == true) {
