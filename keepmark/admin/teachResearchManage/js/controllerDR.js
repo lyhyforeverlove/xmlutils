@@ -424,6 +424,14 @@ app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $moda
         $scope.currentTab = tab.url;
         $scope.formData.tabUrl=tab.url;
         $scope.searchStudent();
+        /* searchData = angular.copy($scope.formData);
+         angular.forEach($scope.subjectTypes,function(t){
+         if(t.departmentType == searchData.departmentType){
+         $scope.shortSubjects = t.category;
+         $scope.formData.shortSubject =$scope.shortSubjects[0];
+         return false;
+         }
+         });*/
     };
 
     //组装分页
@@ -436,20 +444,20 @@ app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $moda
                 upage = totalPage-pageNo > half ? pageNo+half:totalPage;
                 lpage = upage -showIndexs > 0 ? upage-showIndexs+1 :1;
             }
+            arr.push({page:1,name:'首页',className:pageNo==1?'active':'',edge:pageNo==1?'e':''});
+            arr.push({page:pageNo-1>1?pageNo-1:1,name:'上一页',className:pageNo==1?'disabled':''});
+            for(var i=lpage;i<=upage;i++){
+                arr.push({page:i,name:i,className:pageNo==i?'active':''});
+            }
+            arr.push({page:pageNo+1>totalPage?totalPage:pageNo+1,name:'下一页',className:totalPage==pageNo?'disabled':''});
+            arr.push({page:totalPage,name:'尾页',className:totalPage==pageNo?'active':'',edge:'e'});
         }
-        arr.push({page:1,name:'首页',className:pageNo==1?'active':'',edge:pageNo==1?'e':''});
-        arr.push({page:pageNo-1>1?pageNo-1:1,name:'上一页',className:pageNo==1?'disabled':''});
-        for(var i=lpage;i<=upage;i++){
-            arr.push({page:i,name:i,className:pageNo==i?'active':''});
-        }
-        arr.push({page:pageNo+1>totalPage?totalPage:pageNo+1,name:'下一页',className:totalPage==pageNo?'disabled':''});
-        arr.push({page:totalPage,name:'尾页',className:totalPage==pageNo?'active':'',edge:'e'});
         return arr;
     }
 
     // 全部地区
     CalcService.filterData().then(function(data){
-       $scope.subjectTypes = data.filterData;
+        $scope.subjectTypes = data.filterData;
         $scope.formData.departmentType = data.filterData[0].departmentType;
     });
     //获取全布地区
@@ -486,87 +494,109 @@ app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $moda
         $scope.formData.lowScore&&($scope.formData.lowScore = $scope.formData.lowScore.replace(/^\s+|\s+$/g,''));
         $scope.formData.highScore&&($scope.formData.highScore = $scope.formData.highScore.replace(/^\s+|\s+$/g,''));
         if($scope.formData.lowScore&&!/^\d*$/.test($scope.formData.lowScore)||(!/^\d*$/.test($scope.formData.highScore)&&$scope.formData.highScore)){
-           return modalAlert({content:'输入总分数只能是正整数!'});
+            return modalAlert({content:'输入总分数只能是正整数!'});
         }
         if(/^\d+$/.test($scope.formData.lowScore)&&/^\d+$/.test($scope.formData.highScore)&&parseInt($scope.formData.lowScore)>parseInt($scope.formData.highScore)){
             return modalAlert({content:'分数范围只能是从小到大！'});
         }
+        var flag = false;
+        if(searchData.departmentType != $scope.formData.departmentType){
+            flag = true;
+        }
         searchData = angular.copy($scope.formData);
-
-        angular.forEach($scope.subjectTypes,function(t){
-           if(t.departmentType == searchData.departmentType){
-               $scope.shortSubjects = t.category;
-               $scope.formData.shortSubjectCode =$scope.shortSubjects[0].subjectCode;
-               return false;
-           }
-        });
+        if(flag)
+            angular.forEach($scope.subjectTypes,function(t){
+                if(t.departmentType == searchData.departmentType){
+                    $scope.shortSubjects = t.category;
+                    $scope.formData.shortSubject =$scope.shortSubjects[0];
+                    return false;
+                }
+            });
         $scope.getStudentList(1);
     };
     //分页查询不合格名单
     $scope.getStudentList = function(p,e){
+
         $scope.studentsList={};
         $scope.pagination=[];
         if(searchData.studentListXHR)searchData.studentListXHR.resolve('abort');
         searchData.studentListXHR = $q.defer();
         var page = p||1;
 
-        var url='http://192.168.1.156:8090/'+ 'shortSlab/getdisAccordVipList?requestId='+Math.random(),data={},page = p|1;
+        var url=/* 'http://192.168.1.156:8090/'*/ baseHost+ 'shortSlab/getdisAccordVipList?requestId='+Math.random(),data={},page = p|1;
         if($scope.currentTab=='two.tpl.html'){ //未诊断
-            url ='http://192.168.1.156:8090/'+ 'shortSlab/getdisAgreeListBySubjectCode?requestId='+Math.random();
+            if(!$scope.formData.shortSubject)return modalAlert({content:'请先选择学科'});
+            url =/* 'http://192.168.1.156:8090/'*/ baseHost+ 'shortSlab/getdisAgreeListBySubjectCode?requestId='+Math.random();
             data = {
                 "departmentType":searchData.departmentType,
-                "subjectCode":$scope.formData.shortSubjectCode,
-                "areaCode":searchData.provinceCode,
+                      "subjectCode":$scope.formData.shortSubject.subjectCode,
+                       "areaCode":searchData.provinceCode,
                 "isAgreeShortSlabDiagnosis":"0",
-                "startTotalScore":searchData.lowScore||null,
-                "endTotalScore":searchData.highScore||null,
+                "startTotalScore":searchData.lowScore||undefined,
+                "endTotalScore":searchData.highScore||undefined,
                 "currentPage":page,
                 "pageSize":"10"
-            }
+            };
+            $scope.formData.shortSubjectName = $scope.formData.shortSubject.subjectName;
         }else if($scope.currentTab=='three.tpl.html'){ // 诊断拒绝
-            url = 'http://192.168.1.156:8090/'+ 'shortSlab/getDoNotShortSlabList?requestId='+Math.random();
+            if(!$scope.formData.shortSubject)return modalAlert({content:'请先选择学科'});
+            url =/* 'http://192.168.1.156:8090/'*/ baseHost+ 'shortSlab/getDoNotShortSlabList?requestId='+Math.random();
             data = {
                 "departmentType":searchData.departmentType,
-                "subjectCode":$scope.formData.shortSubjectCode,
-                "areaCode":searchData.provinceCode,
+                     "subjectCode":$scope.formData.shortSubject.subjectCode,
+                     "areaCode":searchData.provinceCode,
                 "isAgreeAddHour":"0",
-                "startTotalScore":searchData.lowScore||null,
-                "endTotalScore":searchData.highScore||null,
+                "startTotalScore":searchData.lowScore||undefined,
+                "endTotalScore":searchData.highScore||undefined,
                 "currentPage":page,
                 "pageSize":"10"
-            }
+            };
+            $scope.formData.shortSubjectName = $scope.formData.shortSubject.subjectName;
         }else{ // 不符合
             data = {
                 "departmentType":searchData.departmentType,
                 "areaCode":searchData.provinceCode,
                 "isAccordVip":"0",
-                "startTotalScore":searchData.lowScore||null,
-                "endTotalScore":searchData.highScore||null,
+                "startTotalScore":searchData.lowScore||undefined,
+                "endTotalScore":searchData.highScore||undefined,
                 "currentPage":page,
                 "pageSize":"10"
             }
         }
         $http
-        .post(url,data,{timeout: searchData.studentListXHR.promise})
-        .success(function(b){
-            if(b.code=="Success"){
-                $scope.studentsList = b.result.list;
-            }else{
+            .post(url,data,{timeout: searchData.studentListXHR.promise})
+            .success(function(b){
+                if(b.code=="Success"){
+                    if(b.result){
+                        $scope.studentsList = b.result.list;
+                        $scope.pagination = makePagination(b.result.pageNumber, b.result.totalPage);
+                    }else{
+                        $scope.studentsList =[];
+                    }
+                }else{
+                    modalAlert({content:'查询列表失败!'});
+                }
+            })
+            .error(function(data,header,config,status){
+                if(status.timeout&&status.timeout.$$state.value=='abort'){
+                    return false;
+                }
                 modalAlert({content:'查询列表失败!'});
-            }
-        })
-        .error(function(data,header,config,status){
-            if(status.timeout&&status.timeout.$$state.value=='abort'){
-                return false;
-            }
-            modalAlert({content:'查询列表失败!'});
-        });
+            });
     };
+    $scope.GetPaperDetail = function(data){
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    }
+
 
 });
 // alert优雅弹框
 app.controller('WarningController', function($scope, $modalInstance,data){
-
     $scope.warning = data.content;
     $scope.ok = function () {
         $modalInstance.close();
