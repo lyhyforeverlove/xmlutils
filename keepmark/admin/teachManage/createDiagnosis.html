@@ -1,7 +1,7 @@
 <div class="wrapper-md" ng-controller="DiagShelvesController">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>教学管理 &gt; 由诊断试卷置为诊断商品<span class="pull-right">负责监考教师:</span></h4>
+            <h4>教学管理 &gt; 由诊断试卷置为诊断商品<span class="pull-right">负责监考教师：<b>{{name}}</b> </span></h4>
         </div>
         <div class="wrapper">
 
@@ -27,16 +27,16 @@
                     <!-- <div  ng-include="'admin/common/tpl/filter.html'"></div> -->
                     <!--包含公共筛选条件 end-->
                     <div class="panel-select">
-                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                       <!-- <div class="line line-dashed b-b line-lg pull-in"></div>-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label">类型：</label>
                             <div class="radio">
                                 <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
-                                    <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+                                    <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="formData.departmentType"  ng-click="getList(1,10)"><i></i>{{val.departmentName}}
                                 </label>
                             </div>
                         </div>
-                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <!--div class="line line-dashed b-b line-lg pull-in"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
                             <div class="radio">
@@ -45,8 +45,8 @@
                                     <i></i>{{obj.bookVersionName}}
                                 </label>
                             </div>
-                        </div>
-                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        </div>-->
+                       <!-- <div class="line line-dashed b-b line-lg pull-in"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input-id-1">试卷用途：</label>
                             <div class="radio">
@@ -55,9 +55,9 @@
                                     <i></i>综合类型
                                 </label>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
-                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
+                    <!--<button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>-->
                 </form>
             </div>
             <div class="panel-container">

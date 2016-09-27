@@ -1,7 +1,7 @@
 'use strict';
 /*新增诊断商品*/
 app.constant('tesarry', []);    //定义全选数组
-app.controller('DiagShelvesController', function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService,tesarry) {
+app.controller('DiagShelvesController', function($scope, $http, $controller, $resource, $stateParams,$localStorage, $modal, $state, CalcService,tesarry) {
 
     //继承筛选条件控制器
     $controller('ParentGetDataCtrl', { $scope: $scope }); //继承
@@ -9,15 +9,7 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
     $scope.formData = {};
     //默认类型为理科
     $scope.formData.departmentType = 1;
-    //默认为语文
-    //$scope.formData.subjectCode = 1;
-    //默认为全国卷一
-    //$scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
-    //默认学年为33
-    //$scope.formData.gradeCode = 33;
-    //默认为短板诊断
-    //$scope.formData.paperUseType = "p_004";
-
+    $scope.name = $localStorage.user.name;//监考老师
     //全选
     $scope.choseArr = []; //定义数组用于存放前端显示
     var str = ""; //
@@ -112,17 +104,14 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
     };
     //console.log($scope.tesarry);
 });//诊断商品列表
-app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, $stateParams, $modal, $state, CalcService,passParameter) {
+app.controller("DiagGoodsCtrl", function($scope, $http, $localStorage,$controller, $resource, $stateParams, $modal, $state, CalcService,passParameter) {
+        $scope.name = $localStorage.user.name;//监考老师
         //继承筛选条件控制器
         $controller('ParentGetDataCtrl', { $scope: $scope }); //继承
 
         $scope.formData = {};
         //默认类型为理科
         $scope.formData.departmentType = 1;
-        //默认为语文
-        $scope.formData.subjectCode = 1;
-        //默认为全国卷一
-        $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
         //默认学年为33
         $scope.formData.gradeCode = 33;
 
@@ -138,18 +127,22 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $controller, $resource, 
                 .success(function(data) {
                    if(data.message == "Success"){
                        console.log(data);
+
                        $scope.results = data.result;
-
-                       $scope.list = data.result.list;
-
+                       var list = data.result.list;
+                       angular.forEach(list,function(data){
+                           if(data.subjectType == 1){
+                               $scope.dedepartmentName = "理科";
+                           }else{
+                               $scope.dedepartmentName = "文科";
+                           }
+                       });
                        $scope.totalPage = data.result.totalPage;
-
                        callback && callback(data.result);
                    }
-
                 }).error(function(data) {
-
-                })
+                    alert("请求服务失败！");
+                });
         };
         //修改诊断商品上下架
         $scope.UpdateGoodsStatus = function(diagnosisGoodsCode) {
@@ -563,7 +556,7 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
         console.log(data);
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -780,7 +773,7 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
     //详情跳转传参数
     $scope.GetPaperDetail = function(data){
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -922,7 +915,7 @@ app.controller('MonitorController', function($scope, $http,$controller,$resource
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
         console.log(data);
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -974,7 +967,7 @@ app.controller('ShortBoardDiagCtrl', function($scope,$http,$controller,$resource
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
         console.log(data);
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -1028,7 +1021,7 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
         console.log(data);
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -1436,8 +1429,6 @@ app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resourc
         flag = 'a';
     };
     $scope.chk = function(z, x) { //单选或者多选
-
-       
         if (flag == 'a') { //在全选的基础上操作
             str = $scope.choseArr.join(',') + ',';
         }
@@ -1446,10 +1437,8 @@ app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resourc
         } else {
             str = str.replace(z + ',', ''); //取消选中
         }
-
         $scope.choseArr = (str.substr(0, str.length - 1)).split(',');
         //console.log($scope.choseArr);
-
     };
     //获取九大学科
     $scope.getSubject = function(){
@@ -1464,7 +1453,7 @@ app.controller('MonitorTeacherCtrl', function($scope, $http,$controller,$resourc
     $scope.getList = function(subjectCode,page,size,callback){
         //$scope.getSubject();
         //console.log(subjectCode);
-        var url = $scope.app.host + 'teaching/organization/teacher/page?requestId=test123456';
+        var url = $scope.app.host + 'teaching/organization/invTeacher/page?requestId=test123456';
         $http.post(url,{
             "pageNumber":page,
             "pageSize":size,
