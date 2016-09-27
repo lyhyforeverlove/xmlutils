@@ -69,6 +69,7 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
 app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataService,$state){
     $scope.titleName="添加兼职教师";
     $scope.spareTimeShow = false;
+    $scope.isSubmitted = false;
     $scope.chooseSpareTime = function(){
         //初始化空余时间表
         $http.get("admin/json/freeTime.json").success(function(data){
@@ -109,6 +110,7 @@ app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataS
     };
     var free_time =[];
     $scope.savePartTimeTeacher = function(){
+        $scope.isSubmitted = true;
         $scope.teacher.subjectName = $scope.subject.subjectName;
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
         $scope.teacher.roleType = 7;
@@ -285,6 +287,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
 });
 //增加全职教师
 app.controller("addFullTimeTeacherController",function($scope,acquireDataService,$http,$state){
+    $scope.isSubmitted = false;
     $scope.titleName="添加全职教师";
     $scope.teachingType = "";
     $scope.teacherEducation = "";
@@ -326,6 +329,7 @@ app.controller("addFullTimeTeacherController",function($scope,acquireDataService
     }
 
     $scope.saveFullTimeTeacher = function(){
+        $scope.isSubmitted = true;
         $scope.teacher.subjectName = $scope.subject.subjectName;
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
         $scope.teacher.type = 1;

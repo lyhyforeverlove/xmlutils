@@ -32,7 +32,7 @@
                 <!-- 弹框 model 开始 -->
                 <script type="text/ng-template" id="myModelContent.html">
                     <div class="modal-header">
-                        <h3 class="modal-title">模态框</h3>
+                        <h3 class="modal-title">添加地区</h3>
                     </div>
                     <div class="modal-body" ng-init="load()">
                         <div class="form-group">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">                       
-                        <button class="btn btn-primary" ng-click="saveresult()"   ng-disabled>
+                        <button class="btn btn-primary" ng-click="saveresult()" ng-disabled="isSubmitted">
                         确认
                         </button>
                         <button class="btn btn-warning" ng-click="cancel()">退出</button>

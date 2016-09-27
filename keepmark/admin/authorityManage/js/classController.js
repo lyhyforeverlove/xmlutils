@@ -17,30 +17,27 @@ app.controller("largeClassesController",function($scope,$controller,$http,$state
     }
 });
 //大班课课程表
-app.controller("largeClassScheduleController",["$scope","$modal",'$http','scheduleService','$stateParams','$controller',"$rootScope",function($scope,$modal,$http,scheduleService,$stateParams,$controller,$rootScope){
+app.controller("largeClassScheduleController",["$scope","$modal",'$http','scheduleService','$stateParams','$controller',function($scope,$modal,$http,scheduleService,$stateParams,$controller){
     $scope.titleName = "排大班课表";
-
     $controller("getSchoolInfo",{$scope:$scope});
     $scope.scheduleStatus = "0";
-    $rootScope.centreOfSchool =JSON.parse( $stateParams.centreOfSchool);
-
+    $scope.centreOfSchool =JSON.parse($stateParams.centreOfSchool);
+    var centreOfSchool = JSON.parse($scope.centreOfSchool);
     //根据教学周期获取课程表
     $scope.getLargeClassSchedule = function(weekTimeCode){
-        var centreOfSchool = $rootScope.centreOfSchool;
-            centreOfSchool = JSON.parse(centreOfSchool);
         if(typeof(weekTimeCode)!=="undefined"){
             var parameters = {
-                "weekTimeCode":weekTimeCode,
+                "weekTimeCode":weekTimeCode.eduWeekTimeCode,
                 "bigClassCode":centreOfSchool.code
             };
             $scope.weekTimeCode = weekTimeCode;
+            $scope.weekNumber = weekTimeCode.weekNumber;
             var url = "http://192.168.1.12:7777/keepMark-teacher-business/teaching/course/createBigClassSchedule?requestId=WEUOW343KL34L26NBSK3";
             scheduleService.getScheduleList(url,parameters).then(function(data){
                 if(data.result !== null){
                     $scope.scheduleUrl ='admin/common/tpl/schedule.html';
                     $scope.courses = data.result.sections;
-                    $rootScope.eduScheduleCode = data.result.eduScheduleCode;
-
+                    $scope.eduScheduleCode = data.result.eduScheduleCode;
                 }else{
                     $scope.scheduleUrl ="";
                 }
@@ -52,8 +49,11 @@ app.controller("largeClassScheduleController",["$scope","$modal",'$http','schedu
     $scope.chooseScheduleModal = function(eduSectionCode,eduDayCode) {
         $scope.info = {
                         "eduSectionCode":eduSectionCode,
-                        "eduDayCode":eduDayCode
-                      };
+                        "eduDayCode":eduDayCode,
+                        "weekNumber":$scope.weekNumber,
+                        "eduScheduleCode":$scope.eduScheduleCode,
+                        "centreOfSchool":centreOfSchool
+        };
         var modalInstance = $modal.open({
             templateUrl: 'admin/common/tpl/chooseSchedule.html',
             size: "lg",
@@ -68,16 +68,18 @@ app.controller("largeClassScheduleController",["$scope","$modal",'$http','schedu
         modalInstance.result.then(function() {
             $scope.getLargeClassSchedule($scope.weekTimeCode);
         }, function() {
-            $log.info('Modal dismissed at: ' + new Date())
+             $log.info('Modal dismissed at: ' + new Date())
         });
     }
 }]);
+
 //弹框数据
 var largeClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope,$controller,$state){
     $controller("largeClassScheduleController",{$scope:$scope});
     $scope.teacherDiv = false;
-    var centreOfSchool = $rootScope.centreOfSchool;
-        centreOfSchool = JSON.parse(centreOfSchool);
+    $scope.sectionDiv = false;
+    $scope.weekNumber = info.weekNumber;
+    var centreOfSchool = info.centreOfSchool;
     $scope.formData = {};
     //根据学部获取学科
     $scope.getSubjectByDivisionType = function(){
@@ -102,7 +104,7 @@ var largeClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope
             });
         }
     };
-    //根据学科中心获取教师
+    //根据学科中心获取教师和课程小节
     $scope.getTeacherByCourse = function(courseCode){
         if(typeof(courseCode) !== "undefined"){
             $http.post("http://192.168.1.12:7777/keepMark-teacher-business/teaching/course/getBigClassTeacher?requestId=WEUOW343KL34L26NBSK3",
@@ -113,18 +115,30 @@ var largeClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope
                     if(data.result) $scope.teacherList = data.result.teachers;
                     $scope.teacherDiv = !$scope.teacherDiv;
             });
+            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/course/getBurlBySmallCourseCode?requestId=1",
+                {
+                    "smallCourseCode": courseCode
+
+                }).success(function(data){
+                    if(data.result)
+                    {
+                        $scope.sectionList = data.result;
+                        $scope.sectionDiv = !$scope.sectionDiv;
+                    }
+
+            });
         }
     };
     //保存课程信息
     $scope.saveCourse = function(){
         var formData = {
-             "eduScheduleCode":$rootScope.eduScheduleCode,//课程表的code
+             "eduScheduleCode":info.eduScheduleCode,//课程表的code
              "eduDayCode":info.eduDayCode,//天
              "eduSectionCode":info.eduSectionCode,//节
              "subjectCode":""+$scope.subject.subjectCode+"",//学科code
              "subjectName":$scope.subject.subjectName,//学科名称
              "auditTeacherCode":$scope.formData.teacherCode,//旁听老师code
-             "curriculumCode":$scope.course.code,//课程体系code
+             "curriculumCode":$scope.formData.sectionCode,//课程体系code
              "mainTeacherCode":$scope.formData.teacherCode,//主讲教师code
              "lessonType":"0",
              "courseType":"0"//0为大班课，1是小班课，2是1对1
@@ -182,29 +196,30 @@ app.controller("smallClassController",function($scope,$controller,$http,$state){
     };
 });
 //排小班课课表
-app.controller("smallClassScheduleController",["$scope","$modal","scheduleService","$controller","$rootScope","$stateParams",function($scope,$modal,scheduleService,$controller,$rootScope,$stateParams){
+app.controller("smallClassScheduleController",["$scope","$modal","scheduleService","$controller","$stateParams",function($scope,$modal,scheduleService,$controller,$stateParams){
     $scope.titleName = "排小班课表";
     var host = "http://192.168.1.12:7777/keepMark-teacher-business/";
     $scope.scheduleStatus = "0";
     $controller("getSchoolInfo",{$scope:$scope});
-    $rootScope.studyGroup =JSON.parse($stateParams.studyGroup);
+    $scope.studyGroup =JSON.parse($stateParams.studyGroup);
 
     //根据教学周期获取课程表
     $scope.getSmallClassesSchedule = function(weekTimeCode){
-        var studyGroup = $rootScope.studyGroup;
         $scope.weekTimeCode = weekTimeCode;
         if(typeof(weekTimeCode)!=="undefined"){
             var parameters = {
-                "smallClass":studyGroup.groupCode,//组code
-                "weekTimeCode":weekTimeCode,
-                "bigClassCode":studyGroup.centreCode//中心code
+                "smallClass":$scope.studyGroup.groupCode,//组code
+                "weekTimeCode":weekTimeCode.eduWeekTimeCode,
+                "bigClassCode":$scope.studyGroup.centreCode//中心code
             };
+            $scope.weekTimeCode = weekTimeCode;
+            $scope.weekNumber = weekTimeCode.weekNumber;
             var url = host +"teaching/course/createSmallClassSchedule?requestId=WEUOW343KL34L26NBSK3";
             scheduleService.getScheduleList(url,parameters).then(function(data){
                 if(data.result !== null){
                     $scope.courses = data.result.sections;
                     $scope.scheduleUrl ='admin/common/tpl/schedule.html';
-                    $rootScope.eduScheduleCode = data.result.eduScheduleCode;
+                    $scope.eduScheduleCode = data.result.eduScheduleCode;
                 }else{
                     $scope.scheduleUrl ="";
                 }
@@ -216,7 +231,11 @@ app.controller("smallClassScheduleController",["$scope","$modal","scheduleServic
     $scope.chooseScheduleModal = function(eduSectionCode,eduDayCode) {
         $scope.info = {
             "eduSectionCode":eduSectionCode,
-            "eduDayCode":eduDayCode
+            "eduDayCode":eduDayCode,
+            "weekNumber":$scope.weekNumber,
+            "studyGroup":$scope.studyGroup,
+            "eduScheduleCode":$scope.eduScheduleCode,
+            "weekTimeCode":$scope.weekTimeCode.eduWeekTimeCode
         };
         var modalInstance = $modal.open({
             templateUrl: 'admin/common/tpl/chooseSchedule.html',
@@ -238,9 +257,12 @@ app.controller("smallClassScheduleController",["$scope","$modal","scheduleServic
     }
 }]);
 //弹框数据
-var smallClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope){
+var smallClassesModalCtrl = function($scope,$modalInstance,info,$http){
     $scope.teacherDiv = false;
-    var studyGroup = $rootScope.studyGroup;
+    $scope.sectionDiv = false;
+    $scope.weekNumber = info.weekNumber;
+    var studyGroup = info.studyGroup;
+
     var host = "http://192.168.1.12:7777/keepMark-teacher-business/";
     $scope.formData = {};
     //根据学部获取学科
@@ -268,38 +290,49 @@ var smallClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope
     };
     //根据学科中心获取教师
     $scope.getTeacherByCourse = function(courseCode){
-        if(typeof(courseCode) !== "undefined"){
-            $http.post(host+"teaching/course/findTeacherByFreeTimeAndCourseCode?requestId=WEUOW343KL34L26NBSK3",
+        if(typeof(courseCode) !== "undefined") {
+            $http.post(host + "teaching/course/findTeacherByFreeTimeAndCourseCode?requestId=WEUOW343KL34L26NBSK3",
                 {
-                    "weekTimeCode":$rootScope.weekTimeCode,
-                    "dayCode":info.eduDayCode,
-                    "sectionCode":info.eduSectionCode,
-                    "courseCode":courseCode
+                    "weekTimeCode": info.weekTimeCode,
+                    "dayCode": info.eduDayCode,
+                    "sectionCode": info.eduSectionCode,
+                    "courseCode": courseCode
                 }
-            ).success(function(data){
-                    if(data.result)
-                    {
-                        $scope.teacherList = data.result.teachers;
-                        $scope.teacherDiv = !$scope.teacherDiv;
-                    }
+            ).success(function (data) {
+                if (data.result) {
+                    $scope.teacherList = data.result.teachers;
+                    $scope.teacherDiv = !$scope.teacherDiv;
+                }
+            });
+
+            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/course/getBurlBySmallCourseCode?requestId=1",
+                {
+                    "smallCourseCode": courseCode
+
+                }).success(function (data) {
+                if (data.result) {
+                    $scope.sectionList = data.result;
+                    $scope.sectionDiv = !$scope.sectionDiv;
+                }
             });
         }
     };
     //保存课程信息
     $scope.saveCourse = function(){
+        console.log($scope.formData.code);
         var formData = {
-            "eduScheduleCode":$rootScope.eduScheduleCode,//课程表的code
+            "eduScheduleCode":info.eduScheduleCode,//课程表的code
             "eduDayCode":info.eduDayCode,//天
             "eduSectionCode":info.eduSectionCode,//节
             "subjectCode":""+$scope.subject.subjectCode+"",//学科code
             "subjectName":$scope.subject.subjectName,//学科名称
             "auditTeacherCode":$scope.formData.teacherCode,//旁听老师code
-            "curriculumCode":$scope.course.code,//课程体系code
+            "curriculumCode":$scope.formData.sectionCode,//课程体系code
             "mainTeacherCode":$scope.formData.teacherCode,//主讲教师code
             "lessonType":"1",
             "courseType":"1"//0为大班课，1是小班课，2是1对1
         };
-        console.log(formData);
+
         $http.post(host+"teaching/course/addLesson?requestId=WEUOW343KL34L26NBSK3",
             formData).success(function(data){
             if(data.result.isAddLesson){
@@ -349,41 +382,43 @@ app.controller("oneToOneClassesController",function($scope,$controller,$http,$st
     };
 });
 //一对一课表
-app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleService",'$rootScope',"$stateParams","$controller",function($scope,$modal,scheduleService,$rootScope,$stateParams,$controller){
+app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleService","$stateParams","$controller",function($scope,$modal,scheduleService,$stateParams,$controller){
     $scope.titleName = "排一对一课表";
     $scope.scheduleStatus = "0";
     $controller("getSchoolInfo",{$scope:$scope});
-    $rootScope.oneToOneClass =JSON.parse($stateParams.oneToOneClass);
+    $scope.oneToOneClass =JSON.parse($stateParams.oneToOneClass);
 
     //根据教学周期获取课程表
     $scope.getOneToOneClassesSchedule = function(weekTimeCode){
-        var oneToOneClass = $rootScope.oneToOneClass;
         $scope.weekTimeCode = weekTimeCode;
         if(typeof(weekTimeCode)!=="undefined"){
             var parameters = {
                 "weekTimeCode":weekTimeCode,
-                "smallClassCode":oneToOneClass.smallClassCode,
-                "studentCode":oneToOneClass.studentCode
-
-            }
+                "smallClassCode":$scope.oneToOneClass.smallClassCode,
+                "studentCode":$scope.oneToOneClass.studentCode
+            };
+            $scope.weekTimeCode = weekTimeCode;
+            $scope.weekNumber = weekTimeCode.weekNumber;
             var url = $scope.app.host +"teaching/course/createStudentSchedule?requestId=WEUOW343KL34L26NBSK3";
             scheduleService.getScheduleList(url,parameters).then(function(data){
                 if(data.result !== null){
                     $scope.scheduleUrl = 'admin/common/tpl/schedule.html';
                     $scope.courses = data.result.sections;
-                    $rootScope.eduScheduleCode = data.result.eduScheduleCode;
+                    $scope.eduScheduleCode = data.result.eduScheduleCode;
                 }else{
                     $scope.scheduleUrl = "";
                 }
             });
         }
     };
-
     //一对一课表弹框
     $scope.chooseScheduleModal = function(eduSectionCode,eduDayCode) {
         $scope.info = {
             "eduSectionCode":eduSectionCode,
-            "eduDayCode":eduDayCode
+            "eduDayCode":eduDayCode,
+            "weekNumber":$scope.weekNumber,
+            "eduScheduleCode":$scope.eduScheduleCode,
+            "oneToOneClass":$scope.oneToOneClass
         };
         var modalInstance = $modal.open({
             templateUrl: 'admin/common/tpl/chooseSchedule.html',
@@ -405,9 +440,10 @@ app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleS
     };
 }]);
 //弹框数据
-var oneToOneClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope){
-    $scope.teacherDiv =false;
-    var oneToOneClass = $rootScope.oneToOneClass;
+var oneToOneClassesModalCtrl = function($scope,$modalInstance,info,$http){
+    $scope.teacherDiv = false;
+    $scope.sectionDiv = false;
+    var oneToOneClass = info.oneToOneClass;
     var host ="http://192.168.1.12:7777/keepMark-teacher-business/";
     $scope.scheduleStatus = "0";
     $scope.formData = {};
@@ -436,17 +472,29 @@ var oneToOneClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootSc
     };
     //根据学科中心获取教师
     $scope.getTeacherByCourse = function(courseCode){
+        if(typeof(courseCode) !== "undefined"){
+            $http.post("http://192.168.1.12:7777/keepMark-teacher-business/course/getBurlBySmallCourseCode?requestId=1",
+                {
+                    "smallCourseCode": courseCode
+
+                }).success(function(data){
+                if(data.result) {
+                    $scope.sectionList = data.result;
+                    $scope.sectionDiv = !$scope.sectionDiv;
+                }
+            });
+        };
     };
     //保存课程信息
     $scope.saveCourse = function(){
         var formData = {
-            "eduScheduleCode":$rootScope.eduScheduleCode,//课程表的code
+            "eduScheduleCode":info.eduScheduleCode,//课程表的code
             "eduDayCode":info.eduDayCode,//天
             "eduSectionCode":info.eduSectionCode,//节
             "subjectCode":""+$scope.subject.subjectCode+"",//学科code
             "subjectName":$scope.subject.subjectName,//学科名称
             "auditTeacherCode":"3505088EAE604A29954E16EC3C0A5632",//旁听老师code
-            "curriculumCode":$scope.course.code,//课程体系code
+            "curriculumCode":$scope.formData.sectionCode,//课程体系code
             "mainTeacherCode":"3505088EAE604A29954E16EC3C0A5632",//主讲教师code
             "lessonType":"2",
             "courseType":"2"//0为大班课，1是小班课，2是1对1

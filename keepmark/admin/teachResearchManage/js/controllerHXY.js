@@ -691,9 +691,15 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
     };
     //添加课程
     $scope.addCourse = function(item){
-        console.log(item);
-        $state.go("app.teachResearchManage.courseTree",{"item":JSON.stringify(item)});
-    }
+        var course = {
+            "shortSlabAnalysisRecordCode":item.shortSlabAnalysisRecordCode,
+            "subjectCode":item.subjectCode,
+            "targetType":item.targetType,//目标类型
+            "classType":3
+        };
+        //subjectCode学科code，targetType目标类型,classType：3 为短板课时
+        $state.go("app.teachResearchManage.courseTree",{"item":JSON.stringify(course)});
+    };
     //根据学年、类型、学科、教材 查询列表
     $scope.query = function(page,size,callback) {
         $http.post($scope.app.host + '/shortSlab/teaching/getShortSlabStudentList?requestId=test123456', {
@@ -714,6 +720,8 @@ app.controller('SBAddClassCtrl',function($scope, $controller, CalcService, $http
             });
     }
 });
+
+
 //弹窗
 app.controller('categoryCtrl', ['$scope', '$modal', '$log', function($scope, $modal, $log) {
     $scope.open = function(size,city) {
@@ -919,6 +927,106 @@ app.controller("testpaperController",function($scope,$http, $controller, CalcSer
 
 
 //添加课程体系
-app.controller('AbnTestController', function($scope,$http) {
+app.controller('AbnTestController', function($scope,$http,$stateParams,$controller,CalcService) {
+    $scope.formData = {};
+    $controller("ParentGetDataCtrl",{$scope:$scope});
+    var course = JSON.parse($stateParams.item);
+    var shortSlabAnalysisRecordCode = course.shortSlabAnalysisRecordCode;
+    var url = $scope.app.host + "course/list?requestId=1";
 
+
+    CalcService.filterData().then(function(data){
+        $scope.formData.gradeCode = data.filterData[0].gradeCode;
+        $scope.dedepartmentType = data.filterData;
+        $scope.category = $scope.dedepartmentType[0].category;
+        $scope.bookVersion = $scope.dedepartmentType[0].category[0].bookVersion;
+        $scope.formData.departmentType = $scope.dedepartmentType[0].departmentType;
+        $scope.formData.subjectCode = $scope.dedepartmentType[0].category[0].subjectCode;
+    });
+
+    //获取课程体系
+    $scope.getKnowledgeTree = function(){
+        $scope.my_data = [];
+        var parameter = {
+            gradeCode: $scope.formData.gradeCode,
+            subjectCode: $scope.formData.subjectCode,
+            booktypeCode: $scope.formData.bookVersionCode,
+            knowledgeType: 1
+        };
+        $http.post($scope.app.host + 'resource/knowledge/tree?requestId=' + (Math.random() * 100),
+            parameter).success(function (data) {
+                if(!data.code == 'Success'){
+                    //return modalAlert({content:'抱歉，请求知识点失败!'});
+                }else if(!data.result.datas||data.result.datas.length==0){
+                   //return modalAlert({content:'未获取到相应知识点!'});
+                }
+                var result = [];
+                data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
+                for(var i = 0, l = data.result.datas.length; i < l; i++){
+                    findTreeChild(result, data.result.datas[i]);
+                }
+                $scope.my_data = result;
+                result = data.result.datas=null;
+
+        }).error(function(data){
+             // modalAlert({content:'抱歉，请求知识点失败!'});
+        });
+
+        // 试题树配置
+        $scope.treeOptions = {
+            multiSelection: false,
+            dirSelectable:false
+        };
+
+        // 将节点放到已有json树的合适位置
+        function findTreeChild(arr, tmp, isChild){
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i].ctbCode == tmp.parentCode){
+                    if(!arr[i].children)arr[i].children = [];
+                    arr[i].children.push(tmp);
+                    return true;
+                }else if(arr[i].parentCode == tmp.ctbCode){
+                    tmp.children =[arr[i]];
+                    arr.splice(i, 1);
+                    arr.unshift(tmp);
+                    return true;
+                }else if(arr[i].children){
+                    if(findTreeChild(arr[i].children, tmp, true)){
+                        return true;
+                    }
+                }
+            }
+            if(!isChild){
+                arr.push(tmp);
+            }
+        }
+    };
+
+    $scope.getList = function(){
+        $http.post(url,{
+            "aimType":course.targetType,
+            "classType":course.classType,
+            "subjectCode": course.subjectCode,
+            "pageSize":100,
+            "pageNumber":1
+        }).success(function(data){
+            if(data.message == "Success"){
+                $scope.results = data.result.list;
+            }
+        }).error(function(data){
+            console.log("fail");
+        });
+    };
+    //短板加课时排课
+    $scope.saveCourse = function(){
+        var course ={
+            "shortSlabAnalysisRecordCode":shortSlabAnalysisRecordCode,
+            "courseCode":$scope.formData.course,
+            "knowledgeCodes":[
+                {"KnowledgeCode":"test","KnowledgeName":"test"},
+                {"KnowledgeCode":"test","KnowledgeName":"test"}
+            ]
+        };
+
+    };
 });

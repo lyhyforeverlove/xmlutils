@@ -85,23 +85,23 @@
                         <th>课时</th>
                     </tr>
                     </thead>
-                    <tbody ng-repeat="item in result track by $index">
-                    <tr>
+                    <tbody>
+                    <tr ng-repeat="item in result track by $index">
                         <td class="index">{{$index+1}}</td>
                         <td>{{item.userName}}</td>
                         <td>{{item.studentName }}</td>
                         <td>{{getSubjectName(item.subjectCode,item.subjectType )}}</td>
                         <td>2016.7.28：18：00</td>
-                        <td><span class="btn btn-default" ng-click="getPaper(item.diagnosisPaperCode)">详情</span></td>
+                        <td><span class="btn btn-primary" ng-click="getPaper(item.diagnosisPaperCode)">详情</span></td>
                         <td>{{item.impersonalityScore }}</td>
                         <td>{{item.subjectivityScore}}</td>
                         <td>--</td>
-                        <td><button class="btn btn-default">详情</button></td>
+                        <td><button class="btn btn-primary">详情</button></td>
                         <td>{{item.operator }}</td>
                         <td>{{item.mobile }}</td>
                         <td>{{item.parent }}</td>
                         <td>--</td>
-                        <td><button class="btn btn-default" ng-click='addCourse(item)'>添加课程</button></td>
+                        <td><button class="btn btn-primary" ng-click='addCourse(item)'>添加课程</button></td>
                         <td class="shortBoardHour" data-ng-init="btnSH('shortBoardAddClass','shortBoardHour',item,$index,'addHourNumber',item.addHourNumber+'课时')"><button class="btn btn-default" ng-click="addHour(item.eduVulnerabilityAnalyzeRecordCode)">添加课时</button></td>
                     </tr>
                     </tbody>
