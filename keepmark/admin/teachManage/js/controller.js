@@ -985,6 +985,17 @@ app.controller('ShortBoardDiagCtrl', function($scope,$http,$controller,$resource
             reload: true
         });
     };
+    //判卷
+    $scope.markPaper = function(data) {
+        data.goHtml=0;
+        var jsonString = angular.toJson(data);
+        $state.go('app.teachManage.exam', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+
+    };
 });
 /*短板加课确认*/
 app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
@@ -1156,6 +1167,7 @@ app.controller('NotConformCtrl', function($scope, $http, $controller, $resource,
 /*分班*/
 app.controller('DividingClassesCtrl', function($scope, $http,$log,$controller,$resource, $stateParams, $modal, $state,CalcService) {
     $controller('ParentGetDataCtrl', { $scope: $scope });
+    $controller('getSchoolInfo', { $scope: $scope });
     //分班 文理科 Tab 切换
     $scope.code = 1;
     $scope.tabs = [{
@@ -1270,7 +1282,6 @@ app.controller('DividingClassesCtrl', function($scope, $http,$log,$controller,$r
 // modal controller
 app.controller('ClassesController', function($scope,$http, $controller,$modalInstance,host,userCodeList ) {
     $controller('getSchoolInfo', { $scope: $scope });
-    
     //得到班级
     $scope.getClassesList = function(code){
         //console.log(code);

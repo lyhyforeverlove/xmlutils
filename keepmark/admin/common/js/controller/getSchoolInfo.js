@@ -2,7 +2,6 @@
  * Created by ying on 2016/9/7.
  */
 app.controller("getSchoolInfo",function($scope,$http){
-
     //总校列表
     $scope.initMasterSchool =function(){
         $http.post($scope.app.host +'teaching/organization/list?requestId=test123456',
