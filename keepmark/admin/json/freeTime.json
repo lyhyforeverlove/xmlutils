@@ -1,9 +1,6 @@
 {"freeTime":
     [{"time_code":"a","course":[
       {
-        "free_time":"8:00-9:00","day_code":"1"
-      },
-      {
         "free_time":"8:00-9:00","day_code":"2"},
       {
         "free_time":"8:00-9:00","day_code":"3"},
@@ -14,11 +11,11 @@
       {
         "free_time":"8:00-9:00","day_code":"6"},
       {
-        "free_time":"8:00-9:00","day_code":"7"}
+        "free_time":"8:00-9:00","day_code":"7"},
+      {
+        "free_time":"8:00-9:00","day_code":"1"}
     ]},
     {"time_code":"b","course":[
-      {
-        "free_time":"9:00-10:00","day_code":"1"},
       {
         "free_time":"9:00-10:00","day_code":"2"},
       {
@@ -30,12 +27,14 @@
       {
         "free_time":"9:00-10:00","day_code":"6"},
       {
-        "free_time":"9:00-10:00","day_code":"7"}
+        "free_time":"9:00-10:00","day_code":"7"},
+      {
+        "free_time":"9:00-10:00","day_code":"1"}
+
 
     ]},
     {"time_code":"c","course":[
-      {
-        "free_time":"10:00-11:00","day_code":"1"},
+
       {
         "free_time":"10:00-11:00","day_code":"2"},
       {
@@ -47,11 +46,11 @@
       {
         "free_time":"10:00-11:00","day_code":"6"},
       {
-        "free_time":"10:00-11:00","day_code":"7"}
+        "free_time":"10:00-11:00","day_code":"7"},
+      {
+        "free_time":"10:00-11:00","day_code":"1"}
     ]},
     {"time_code":"d","course":[
-      {
-        "free_time":"11:00-12:00","day_code":"1"},
       {
         "free_time":"11:00-12:00","day_code":"2"},
       {
@@ -63,11 +62,12 @@
       {
         "free_time":"11:00-12:00","day_code":"6"},
       {
-        "free_time":"11:00-12:00","day_code":"7"}
+        "free_time":"11:00-12:00","day_code":"7"},
+      {
+        "free_time":"11:00-12:00","day_code":"1"}
     ]},
     {"time_code":"e","course":[
-      {
-        "free_time":"12:00-13:00","day_code":"1"},
+
       {
         "free_time":"12:00-13:00","day_code":"2"},
       {
@@ -79,11 +79,12 @@
       {
         "free_time":"12:00-13:00","day_code":"6"},
       {
-        "free_time":"12:00-13:00","day_code":"7"}
+        "free_time":"12:00-13:00","day_code":"7"},
+      {
+        "free_time":"12:00-13:00","day_code":"1"}
     ]},
     {"time_code":"f","course":[
-      {
-        "free_time":"13:00-14:00","day_code":"1"},
+
       {
         "free_time":"13:00-14:00","day_code":"2"},
       {
@@ -95,11 +96,12 @@
       {
         "free_time":"13:00-14:00","day_code":"6"},
       {
-        "free_time":"13:00-14:00","day_code":"7"}
+        "free_time":"13:00-14:00","day_code":"7"},
+      {
+        "free_time":"13:00-14:00","day_code":"1"}
     ]},
     {"time_code":"g","course":[
-      {
-        "free_time":"14:00-15:00","day_code":"1"},
+
       {
         "free_time":"14:00-15:00","day_code":"2"},
       {
@@ -111,11 +113,11 @@
       {
         "free_time":"14:00-15:00","day_code":"6"},
       {
-        "free_time":"14:00-15:00","day_code":"7"}
+        "free_time":"14:00-15:00","day_code":"7"},
+      {
+        "free_time":"14:00-15:00","day_code":"1"}
     ]},
     {"time_code":"h","course":[
-      {
-        "free_time":"15:00-16:00","day_code":"1"},
       {
         "free_time":"15:00-16:00","day_code":"2"},
       {
@@ -127,11 +129,11 @@
       {
         "free_time":"15:00-16:00","day_code":"6"},
       {
-        "free_time":"15:00-16:00","day_code":"7"}
+        "free_time":"15:00-16:00","day_code":"7"},
+      {
+        "free_time":"15:00-16:00","day_code":"1"}
     ]},
     {"time_code":"i","course":[
-      {
-        "free_time":"16:00-17:00","day_code":"1"},
       {
         "free_time":"16:00-17:00","day_code":"2"},
       {
@@ -143,11 +145,11 @@
       {
         "free_time":"16:00-17:00","day_code":"6"},
       {
-        "free_time":"16:00-17:00","day_code":"7"}
+        "free_time":"16:00-17:00","day_code":"7"},
+      {
+        "free_time":"16:00-17:00","day_code":"1"}
     ]},
     {"time_code":"j","course":[
-      {
-        "free_time":"17:00-18:00","day_code":"1"},
       {
         "free_time":"17:00-18:00","day_code":"2"},
       {
@@ -159,11 +161,11 @@
       {
         "free_time":"17:00-18:00","day_code":"6"},
       {
-        "free_time":"17:00-18:00","day_code":"7"}
+        "free_time":"17:00-18:00","day_code":"7"},
+      {
+        "free_time":"17:00-18:00","day_code":"1"}
     ]},
     {"time_code":"k","course":[
-      {
-        "free_time":"18:00-19:00","day_code":"1"},
       {
         "free_time":"18:00-19:00","day_code":"2"},
       {
@@ -175,11 +177,12 @@
       {
         "free_time":"18:00-19:00","day_code":"6"},
       {
-        "free_time":"18:00-19:00","day_code":"7"}
+        "free_time":"18:00-19:00","day_code":"7"},
+      {
+        "free_time":"18:00-19:00","day_code":"1"}
     ]},
     {"time_code":"l","course":[
-      {
-        "free_time":"19:00-20:00","day_code":"1"},
+
       {
         "free_time":"19:00-20:00","day_code":"2"},
       {
@@ -191,11 +194,11 @@
       {
         "free_time":"19:00-20:00","day_code":"6"},
       {
-        "free_time":"19:00-20:00","day_code":"7"}
+        "free_time":"19:00-20:00","day_code":"7"},
+      {
+        "free_time":"19:00-20:00","day_code":"1"}
     ]},
       {"time_code":"m","course":[
-        {
-          "free_time":"20:00-21:00","day_code":"1"},
         {
           "free_time":"20:00-21:00","day_code":"2"},
         {
@@ -207,11 +210,11 @@
         {
           "free_time":"20:00-21:00","day_code":"6"},
         {
-          "free_time":"20:00-21:00","day_code":"7"}
+          "free_time":"20:00-21:00","day_code":"7"},
+        {
+          "free_time":"20:00-21:00","day_code":"1"}
       ]},
       {"time_code":"n","course":[
-        {
-          "free_time":"21:00-22:00","day_code":"1"},
         {
           "free_time":"21:00-22:00","day_code":"2"},
         {
@@ -223,11 +226,12 @@
         {
           "free_time":"21:00-22:00","day_code":"6"},
         {
-          "free_time":"21:00-22:00","day_code":"7"}
+          "free_time":"21:00-22:00","day_code":"7"},
+        {
+          "free_time":"21:00-22:00","day_code":"1"}
       ]},
       {"time_code":"o","course":[
-        {
-          "free_time":"22:00-23:00","day_code":"1"},
+
         {
           "free_time":"22:00-23:00","day_code":"2"},
         {
@@ -239,11 +243,12 @@
         {
           "free_time":"22:00-23:00","day_code":"6"},
         {
-          "free_time":"22:00-23:00","day_code":"7"}
+          "free_time":"22:00-23:00","day_code":"7"},
+        {
+          "free_time":"22:00-23:00","day_code":"1"}
       ]},
       {"time_code":"p","course":[
-        {
-          "free_time":"23:00-24:00","day_code":"1"},
+
         {
           "free_time":"23:00-24:00","day_code":"2"},
         {
@@ -255,7 +260,9 @@
         {
           "free_time":"23:00-24:00","day_code":"6"},
         {
-          "free_time":"23:00-24:00","day_code":"7"}
+          "free_time":"23:00-24:00","day_code":"7"},
+        {
+          "free_time":"23:00-24:00","day_code":"1"}
       ]}
   ]
 }

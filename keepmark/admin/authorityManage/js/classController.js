@@ -67,8 +67,6 @@ app.controller("largeClassScheduleController",["$scope","$modal",'$http','schedu
         //模态框关闭时返回数据
         modalInstance.result.then(function() {
             $scope.getLargeClassSchedule($scope.weekTimeCode);
-        }, function() {
-             $log.info('Modal dismissed at: ' + new Date())
         });
     }
 }]);
@@ -252,8 +250,6 @@ app.controller("smallClassScheduleController",["$scope","$modal","scheduleServic
         //模态框关闭时返回数据
         modalInstance.result.then(function() {
             $scope.getSmallClassesSchedule($scope.weekTimeCode);
-        }, function() {
-            $log.info('Modal dismissed at: ' + new Date())
         });
     }
 }]);
@@ -435,8 +431,6 @@ app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleS
         //模态框关闭时返回数据
         modalInstance.result.then(function() {
             $scope.getOneToOneClassesSchedule($scope.weekTimeCode);
-        }, function() {
-            $log.info('Modal dismissed at: ' + new Date())
         });
     };
 }]);

@@ -951,17 +951,17 @@ app.controller('AbnTestController', function($scope,$http,$stateParams,$controll
     }
 
     // 获取知识点列表
-    $scope.getKnowledgeList = function(){
+    $scope.getKnowledgeTree = function(){
         if(!$scope.formData.bookVersionCode){
             //modalAlert({content:'请先选择教材版本!',size:'sm'});
             return false;
         }
         $scope.my_data = [];
         var parameter = {
-            gradeCode: $scope.formData.gradeCode,
-            subjectCode: $scope.formData.subjectCode,
-            booktypeCode: $scope.formData.bookVersionCode,
-            knowledgeType: 1
+            "gradeCode" : $scope.formData.gradeCode,
+            "subjectCode": $scope.formData.subjectCode,
+            "booktypeCode": $scope.formData.bookVersionCode,
+            "knowledgeType": 1
         };
 
         $http.post($scope.app.host +'resource/knowledge/tree?requestId='+(Math.random()*100),
@@ -995,7 +995,28 @@ app.controller('AbnTestController', function($scope,$http,$stateParams,$controll
         dirSelectable:false
     };
 
-
+    // 将节点放到已有json树的合适位置
+    function findTreeChild(arr, tmp, isChild){
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i].ctbCode == tmp.parentCode){
+                if(!arr[i].children)arr[i].children = [];
+                arr[i].children.push(tmp);
+                return true;
+            }else if(arr[i].parentCode == tmp.ctbCode){
+                tmp.children =[arr[i]];
+                arr.splice(i, 1);
+                arr.unshift(tmp);
+                return true;
+            }else if(arr[i].children){
+                if(findTreeChild(arr[i].children, tmp, true)){
+                    return true;
+                }
+            }
+        }
+        if(!isChild){
+            arr.push(tmp);
+        }
+    }
 
     //获取课程体系
     $scope.getList = function(){
