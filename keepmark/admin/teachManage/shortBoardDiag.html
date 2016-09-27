@@ -26,7 +26,7 @@
                         </label>
                     </div>
 
-                    <div class="pull-right p-d"><button class="btn btn-primary" ng-click="getList()"><span class="p-d">查询</span></button></div>
+                    <div class="pull-right p-d"><button class="btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button></div>
                 </div>
             </form>
             <!-- select close -->
@@ -57,11 +57,11 @@
                             <td>{{data.subjectName }}</td>
                             <td>{{data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss'}}-{{data.appointmentExamEndDate  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                             <td>
-                                <button class="btn btn-primary">详情</button>
+                                <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
                             </td>
                             <td>{{data.impersonalityScore}}分</td>
                             <td>{{data.subjectivityScore }}</td>
-                            <td>未判</td>
+                            <td></td>
                             <td>
                                 <button class="btn btn-primary" ui-sref="app.teachManage.exam()">判卷</button>
                             </td>

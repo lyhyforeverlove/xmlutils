@@ -3,6 +3,7 @@
         <div class="panel-heading">
             <h4>教学管理 &gt;短板加课确认</h4>
         </div>
+        <pre>{{formData}}</pre>
         <div class="wrapper">
             <form class="form-horizontal" ng-init="load()">
                 <!--包含公共筛选条件 start-->
@@ -71,7 +72,7 @@
                         <td>{{data.subjectName }}</td>
                          <td>开始时间:{{ data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}<br />结束时间:{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>
-                            <button class="btn btn-primary">详情</button>
+                            <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
                         </td>
                         <td>{{data.impersonalityScore}}分</td>
                         <td>{{data.subjectivityScore}}分</td>

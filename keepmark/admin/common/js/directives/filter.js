@@ -39,4 +39,14 @@ angular.module('app')
             }
         }
     }
+}).filter('translator',function(){
+    return function(input,dictionary,code,name){
+        if(angular.isArray(dictionary))
+        for(var i =0;i<dictionary.length;i++){
+            if(dictionary[i][code]==input){
+                return dictionary[i][name];
+            }
+        }
+        return input;
+    }
 });

@@ -709,7 +709,7 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
         }).success(function(data){
             if(data.message == "Success"){
 
-                console.log(data);
+                //console.log(data);
                 $scope.results = data.result;
 
                 var isAgreeArr = data.result.list;
@@ -782,8 +782,15 @@ app.controller('ShortSlabController', function($scope, $http,$compile,$log,$cont
             $log.info('Modal dismissed at: ' + new Date())
         });
     }
-    
-    
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    };
 });
 // 教学管理=>短板考试确认 => 预约时间modal controller
 app.controller('ModalAppointmentCtrl', function($scope, $http,$modalInstance, data,host) {
@@ -915,6 +922,17 @@ app.controller('MonitorController', function($scope, $http,$controller,$resource
         });
        
     }
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    };
 });
 /*短板诊断判卷*/
 app.controller('ShortBoardDiagCtrl', function($scope,$http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
@@ -955,8 +973,18 @@ app.controller('ShortBoardDiagCtrl', function($scope,$http,$controller,$resource
         }).error(function(data){
             console.log("fail");
         });
-       
-    }
+    };
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    };
 });
 /*短板加课确认*/
 app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
@@ -965,17 +993,17 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
     $scope.formData = {};
     $scope.formData.departmentType = "1";
     $scope.formData.subjectCode = "1";
-    $scope.formData.bookVersionCode = "1";
-    $scope.formData.aimType = "1";
+    $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8";
+    $scope.formData.aimType = "2";
 
-    $scope.getList = function(isAgreeHour,page,size,callback) {
+    $scope.getList = function(page,size,callback) {
         var url=$scope.app.host + "/shortSlab/teaching/getShortSlabStudentList?requestId=test123456";
         $http.post(url,{
             "departmentType":$scope.formData.departmentType,
             "subjectCode":$scope.formData.subjectCode,
             "bookVersionCode":$scope.formData.bookVersionCode,
             "aimType":$scope.formData.aimType,
-            "isAgreeAddHour":isAgreeHour,
+            /*"isAgreeAddHour":isAgreeHour,*/
             "currentPage":page,
             "pageSize":size 
         }).success(function(data){
@@ -999,8 +1027,18 @@ app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resourc
         }).error(function(data){
             console.log("fail");
         });
-       
-    }
+    };
+    //详情跳转传参数
+    $scope.GetPaperDetail = function(data){
+        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.paperDetail', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });
+    };
 
     //确认学生同意添加课时
     $scope.AgreeAddClassHour = function(shortSlabAnalysisRecordCode){
@@ -1173,7 +1211,7 @@ app.controller('DividingClassesCtrl', function($scope, $http,$log,$controller,$r
     $scope.formData.minTotalScore = 1;
     $scope.formData.maxTotalScore = 600;
     $scope.getList = function(page,size,callback) {
-        var url = $scope.app.host + 'student/accord/list?requestId=123456';//符合vip学生列表
+        var url = $scope.app.testhost + 'student/accord/list?requestId=123456';//符合vip学生列表
         $http.post(url,{    
             "pageNumber": page,
             "pageSize": size,
