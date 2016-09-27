@@ -85,7 +85,7 @@
                         <!-- ui-sref="app.teachResearchManage.courseDetail({id:data.id})" -->
                         <td>
                             <button class="btn btn-primary" ui-sref="app.teachResearchManage.courseDeatil({courseSystemCode:data.code})"><span class="p-d">详情</span></button>
-                            <button ng-if="data.classType != 'SMALLCLASS'" class="btn btn-primary" ng-click="open('lg',{courseCode:data.code,subjectCode:data.subjectCode})"><span class="p-d">分配</span></button>
+                            <button ng-if="data.classType == 'SMALLCLASS'" class="btn btn-primary" ng-click="open('lg',{courseCode:data.code,subjectCode:data.subjectCode})"><span class="p-d">分配</span></button>
                         </td>
                     </tr>
                 </tbody>

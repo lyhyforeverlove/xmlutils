@@ -572,7 +572,7 @@ app.controller('TestPoolControler', function($scope, $http, $controller,$log, $r
 
     var teacherList;
     var url = $scope.app.host + "/teaching/organization/teacher/list?requestId=test123456";
-    $http.post(url,{"type": 0}).success(function(data){
+    $http.post(url,{"type": 1}).success(function(data){
         console.log(data);
         $scope.teacherList = data.result;
         var teacherList = data.result;

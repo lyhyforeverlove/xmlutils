@@ -16,5 +16,6 @@ angular.module('app', [
     'oc.lazyLoad',
     'pascalprecht.translate',
     'ncy-angular-breadcrumb',
-    'treeControl'
+    'treeControl',
+    'angular-md5'
 ]);

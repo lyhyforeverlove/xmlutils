@@ -30,11 +30,11 @@ html {
                 </div>
                 <div class="list-group-item m-b-lg">
                     <label for="">用户名:</label>
-                    <input style="margin-left:60px;width:230px" type="text" placeholder="username" class="login-txt form-control no-border" ng-model="user.username" required>
+                    <input style="margin-left:60px;width:230px" type="text" placeholder="username" class="login-txt form-control no-border" ng-init="user.username='liushishi'" ng-model="user.username" required>
                 </div>
                 <div class="list-group-item m-b-lg">
                     <label for="">密&nbsp;&nbsp;码:</label>
-                    <input style="margin-left:60px;width:230px" type="password" placeholder="password" class="login-txt form-control no-border" ng-model="user.password" required>
+                    <input style="margin-left:60px;width:230px" type="password" placeholder="password" class="login-txt form-control no-border" ng-init="user.password='123'" ng-model="user.password" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-lg loginBtn btn-block" ng-click="login()" ng-disabled='form.$invalid'>登录</button>

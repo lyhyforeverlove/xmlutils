@@ -638,7 +638,9 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
 
         $http.post(url,stageFormData).success(function(data){
             console.log(data);
-            $state.go('app.teachResearchManage.stageList');
+            if(data.result != null){
+                $state.go('app.teachResearchManage.stageList');
+            }
         }).error(function(data) {
             console.log("fail");
         })
