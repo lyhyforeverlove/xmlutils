@@ -13,10 +13,10 @@
                             <input type="radio" name="aa" ng-checked="$index==0" ng-click="formData.departmentType=st.departmentType">
                             <i></i>{{st.departmentName}}
                         </label>
-                       <!-- <label class="i-checks">
-                            <input type="radio" name="aa" value="option2" checked>
-                            <i></i>理科
-                        </label>-->
+                        <!-- <label class="i-checks">
+                             <input type="radio" name="aa" value="option2" checked>
+                             <i></i>理科
+                         </label>-->
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
@@ -49,7 +49,7 @@
             <div class="line line-dashed b-b line-lg"></div>
             <!-- tab -->
             <div>
-                 <p>备注：<b>未短板诊断</b>(教研确认需要短板而用户未参加)</p>
+                <p>备注：<b>未短板诊断</b>(教研确认需要短板而用户未参加)</p>
                 <div id="tabs">
                     <ul>
                         <li ng-repeat="tab in tabs" ng-class="{active:currentTab==tab.url}" ng-click="onClickTab(tab)">{{tab.title}}</li>
@@ -64,86 +64,86 @@
                         <div class="table-responsive">
                             <table class="table table-striped b-t b-light">
                                 <thead>
-                                    <tr >
-                                        <th>序号</th>
-                                        <th>用户名</th>
-                                        <th>姓名</th>
-                                        <th>考试时间</th>
-                                        <th>总分</th>
-                                        <th>数学</th>
-                                        <th>语文</th>
-                                        <th>英语</th>
-                                        <th>物理</th>
-                                        <th>化学</th>
-                                        <th>生物</th>
-                                        <th>地区</th>
-                                        <th>电话通知确认</th>
-                                        <th>备注赠送课程</th>
-                                        <th>上次操作人</th>
-                                        <th>操作</th>
-                                    </tr>
+                                <tr >
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>考试时间</th>
+                                    <th>总分</th>
+                                    <th>数学</th>
+                                    <th>语文</th>
+                                    <th>英语</th>
+                                    <th>物理</th>
+                                    <th>化学</th>
+                                    <th>生物</th>
+                                    <th>地区</th>
+                                    <th>电话通知确认</th>
+                                    <th>备注赠送课程</th>
+
+                                    <th>操作</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="st in studentsList">
-                                        <th>{{$index+1}}</th>
-                                        <th>{{st.studentCode}}</th>
-                                        <th>{{st.studentName}}</th>
-                                        <th>{{st.examinationTime }}</th>
-                                        <th>{{st.maxTotalScore }}</th>
-                                        <th>{{st.mathScore }}</th>
-                                        <th>{{st.chineseScore }}</th>
-                                        <th>{{st.englishScore}}</th>
-                                        <th>{{st.physicsScore }}</th>
-                                        <th>{{st.chemistryScore }}</th>
-                                        <th>{{st.biologyScore }}</th>
-                                        <th>{{st.areaName }}</th>
-                                        <th>电话通知确认</th>
-                                        <th>备注赠送课程</th>
-                                        <th>上次操作人</th>
-                                        <td>
-                                            <a>查看</a>
-                                        </td>
-                                    </tr>
-                                   <!-- <tr>
-                                        <td>2</td>
-                                        <td>1821058560</td>
-                                        <td>XXX</td>
-                                        <td>2016.7.28：18：00-19：00</td>
-                                        <td>430分</td>
-                                        <td>90分</td>
-                                        <td>100分</td>
-                                        <td>100分</td>
-                                        <td>180分</td>
-                                        <td>50分</td>
-                                        <td>100分</td>
-                                        <td>北京</td>
-                                        <td>已确认</td>
-                                        <td>已赠送</td>
-                                        <td>XXXX</td>
-                                        <td>
-                                            <a>查看</a>
-                                        </td>
-                                    </tr>-->
+                                <tr ng-repeat="st in studentsList">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{st.studentCode}}</td>
+                                    <td>{{st.studentName}}</td>
+                                    <td>{{st.examinationTime | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{st.totalScore  }}</td>
+                                    <td>{{st.mathScore }}</td>
+                                    <td>{{st.chineseScore }}</td>
+                                    <td>{{st.englishScore}}</td>
+                                    <td>{{st.physicsScore }}</td>
+                                    <td>{{st.chemistryScore }}</td>
+                                    <td>{{st.biologyScore }}</td>
+                                    <td>{{st.areaName }}</td>
+                                    <td>{{st.phoneAffirmStatus==1?'已确认':'未确认'}}</td>
+                                    <td><span ng-if="st.presentationStatus==1">已赠送</span><a class="btn btn-primary small" ng-if="st.presentationStatus==0">赠送</a></td>
+
+                                    <td title="暂未做">
+                                        <a>查看</a>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                     <td>2</td>
+                                     <td>1821058560</td>
+                                     <td>XXX</td>
+                                     <td>2016.7.28：18：00-19：00</td>
+                                     <td>430分</td>
+                                     <td>90分</td>
+                                     <td>100分</td>
+                                     <td>100分</td>
+                                     <td>180分</td>
+                                     <td>50分</td>
+                                     <td>100分</td>
+                                     <td>北京</td>
+                                     <td>已确认</td>
+                                     <td>已赠送</td>
+                                     <td>XXXX</td>
+                                     <td>
+                                         <a>查看</a>
+                                     </td>
+                                 </tr>-->
                                 </tbody>
                                 <tfoot class="hide-if-no-paging">
-                                    <tr>
-                                        <td colspan="16" class="text-center">
-                                            <!-- <ul class="pagination"> -->
-                                            <!-- pagination -->
-                                            <!--<div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                            </div>-->
-                                            <!-- / pagination -->
-                                            <!-- </ul> -->
-                                            <div class="center-block">
-                                                <ul class="pagination">
-                                                    <li ng-repeat="p in pagination" class="{{p.className}}">
-                                                        <a ng-click="getStudentList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="16" class="text-center">
+                                        <!-- <ul class="pagination"> -->
+                                        <!-- pagination -->
+                                        <!--<div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                        </div>-->
+                                        <!-- / pagination -->
+                                        <!-- </ul> -->
+                                        <div class="center-block">
+                                            <ul class="pagination">
+                                                <li ng-repeat="p in pagination" class="{{p.className}}">
+                                                    <a ng-click="getStudentList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -151,73 +151,74 @@
                 </script>
                 <script type="text/ng-template" id="two.tpl.html">
                     <div id="viewTwo">
-                         <p>
-                             <label>短板学科：</label>
-                             <select class="input-sm form-control w-sm inline v-middle" ng-model="formData.shortSubjectCode" ng-options="ss.subjectCode as ss.subjectName for ss in shortSubjects" ng-change="getStudentList(1)">
-                             </select>
+                        <p>
+                            <label>短板学科：</label>
+                            <select class="input-sm form-control w-sm inline v-middle" ng-model="formData.shortSubject" ng-options=" ss.subjectName for ss in shortSubjects" ng-change="getStudentList(1)">
+
+                            </select>
                         </p>
                         <div class="table-responsive">
-                           
+
                             <table class="table table-striped b-t b-light">
                                 <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>用户名</th>
-                                        <th>姓名</th>
-                                        <th>考试时间</th>
-                                        <th>总分</th>
-                                        <th>数学</th>
-                                        <th>语文</th>
-                                        <th>英语</th>
-                                        <th>物理</th>
-                                        <th>化学</th>
-                                        <th>生物</th>
-                                        <th>短板学科</th>
-                                        <th>备注</th>
-                                        <th>状态</th>
-                                        <th>操作</th>
-                                    </tr>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>考试时间</th>
+                                    <th>总分</th>
+                                    <th>数学</th>
+                                    <th>语文</th>
+                                    <th>英语</th>
+                                    <th>物理</th>
+                                    <th>化学</th>
+                                    <th>生物</th>
+                                    <th>短板学科</th>
+                                    <th>备注</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1821058560</td>
-                                        <td>XXX</td>
-                                        <td>2016.7.28：18：00-19：00</td>
-                                        <td>430分</td>
-                                        <td>90分</td>
-                                        <td>100分</td>
-                                        <td>100分</td>
-                                        <td>180分</td>
-                                        <td>50分</td>
-                                        <td>100分</td>
-                                        <td>英语</td>
-                                        <td>不参加短板诊断</td>
-                                        <td> 未参加</td>
-                                        <td>
-                                            <a>试卷详情</a>
-                                        </td>
-                                    </tr>
+                                <tr ng-repeat="st in studentsList">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{st.studentCode}}</td>
+                                    <td>{{st.studentName}}</td>
+                                    <td>{{st.examinationTime | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{st.totalScore  }}</td>
+                                    <td>{{st.mathScore }}</td>
+                                    <td>{{st.chineseScore }}</td>
+                                    <td>{{st.englishScore}}</td>
+                                    <td>{{st.physicsScore }}</td>
+                                    <td>{{st.chemistryScore }}</td>
+                                    <td>{{st.biologyScore }}</td>
+                                    <td>{{formData.shortSubjectName }}</td>
+                                    <td title="没字段">--不参加短板诊断--</td>
+                                    <td>{{st.isAgreeJoinVulnerability==0?'未参加':'已参加'}}</td>
+                                    <td title="没code">
+                                        <a ng-click="GetPaperDetail({paperCode:st.eduStudentDiagnoseResultCode})">--试卷详情--</a>
+                                    </td>
+                                </tr>
                                 </tbody>
                                 <tfoot class="hide-if-no-paging">
-                                    <tr>
-                                        <td colspan="16" class="text-center">
-                                            <!-- <ul class="pagination"> -->
-                                            <!-- pagination -->
-                                           <!-- <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                            </div>-->
-                                            <!-- / pagination -->
-                                            <!-- </ul> -->
-                                            <div class="center-block">
-                                                <ul class="pagination">
-                                                    <li ng-repeat="p in pagination" class="{{p.className}}">
-                                                        <a ng-click="getStudentList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="16" class="text-center">
+                                        <!-- <ul class="pagination"> -->
+                                        <!-- pagination -->
+                                        <!-- <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                             <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                         </div>-->
+                                        <!-- / pagination -->
+                                        <!-- </ul> -->
+                                        <div class="center-block">
+                                            <ul class="pagination">
+                                                <li ng-repeat="p in pagination" class="{{p.className}}">
+                                                    <a ng-click="getStudentList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -225,75 +226,76 @@
                 </script>
                 <script type="text/ng-template" id="three.tpl.html">
                     <div id="viewThree">
-                         <p>
-                             <label>短板学科：</label>
-                  <!--           <select name="centers" class="form-control" ng-model="formData.center" ng-click="checked(obj.code,'center')" ng-options="obj.code as obj.name for obj in centerAll" ng-change="getClasses(formData.center)" ng-click="first()" ng-selected="formData.center">
-                             </select>-->
-                             <select class="input-sm form-control w-sm inline v-middle" ng-model="formData.shortSubjectCode" ng-options="ss.subjectCode as ss.subjectName for ss in shortSubjects" ng-change="getStudentList(1)">
-                             </select>
+                        <p>
+                            <label>短板学科：</label>
+                            <!--           <select name="centers" class="form-control" ng-model="formData.center" ng-click="checked(obj.code,'center')" ng-options="obj.code as obj.name for obj in centerAll" ng-change="getClasses(formData.center)" ng-click="first()" ng-selected="formData.center">
+                                       </select>-->
+                            <select class="input-sm form-control w-sm inline v-middle" ng-model="formData.shortSubject" ng-options=" ss.subjectName for ss in shortSubjects" ng-change="getStudentList(1)">
+
+                            </select>
 
                         </p>
                         <div class="table-responsive">
                             <table class="table table-striped b-t b-light">
                                 <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>用户名</th>
-                                        <th>姓名</th>
-                                        <th>考试时间</th>
-                                        <th>总分</th>
-                                        <th>数学</th>
-                                        <th>语文</th>
-                                        <th>英语</th>
-                                        <th>物理</th>
-                                        <th>化学</th>
-                                        <th>生物</th>
-                                        <th>短板学科</th>
-                                        <th>参加分数</th>
-                                        <th>需加课时</th>
-                                        <th>备注</th>
-                                        <th>状态</th>
-                                    </tr>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>考试时间</th>
+                                    <th>总分</th>
+                                    <th>数学</th>
+                                    <th>语文</th>
+                                    <th>英语</th>
+                                    <th>物理</th>
+                                    <th>化学</th>
+                                    <th>生物</th>
+                                    <th>短板学科</th>
+                                    <th>参加分数</th>
+                                    <th>需加课时</th>
+                                    <th>备注</th>
+                                    <th>状态</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1821058560</td>
-                                        <td>XXX</td>
-                                        <td>2016.7.28：18：00-19：00</td>
-                                        <td>430分</td>
-                                        <td>90分</td>
-                                        <td>100分</td>
-                                        <td>100分</td>
-                                        <td>180分</td>
-                                        <td>50分</td>
-                                        <td>100分</td>
-                                        <td>英语</td>
-                                        <td>100分</td>
-                                        <td>50课时 <a>修改</a></td>
-                                        <td>课时太多</td>
-                                        <td> 拒绝</td>
-                                    </tr>
+                                <tr  ng-repeat="st in studentsList">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{st.studentCode}}</td>
+                                    <td>{{st.studentName}}</td>
+                                    <td>{{st.examinationTime | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{st.totalScore  }}</td>
+                                    <td>{{st.mathScore }}</td>
+                                    <td>{{st.chineseScore }}</td>
+                                    <td>{{st.englishScore}}</td>
+                                    <td>{{st.physicsScore }}</td>
+                                    <td>{{st.chemistryScore }}</td>
+                                    <td>{{st.biologyScore }}</td>
+                                    <td>{{formData.shortSubjectName }}</td>
+                                    <td>100分</td>
+                                    <td>50课时 <a>修改</a></td>
+                                    <td>课时太多</td>
+                                    <td> 拒绝</td>
+                                </tr>
                                 </tbody>
                                 <tfoot class="hide-if-no-paging">
-                                    <tr>
-                                        <td colspan="16" class="text-center">
-                                            <!-- <ul class="pagination"> -->
-                                            <!-- pagination -->
-                                           <!-- <div ng-controller="PaginationDemoCtrl" class="m-t-md">
-                                                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
-                                            </div>-->
-                                            <!-- / pagination -->
-                                            <!-- </ul> -->
-                                            <div class="center-block">
-                                                <ul class="pagination">
-                                                    <li ng-repeat="p in pagination" class="{{p.className}}">
-                                                        <a ng-click="getStudentList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="16" class="text-center">
+                                        <!-- <ul class="pagination"> -->
+                                        <!-- pagination -->
+                                        <!-- <div ng-controller="PaginationDemoCtrl" class="m-t-md">
+                                             <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                         </div>-->
+                                        <!-- / pagination -->
+                                        <!-- </ul> -->
+                                        <div class="center-block">
+                                            <ul class="pagination">
+                                                <li ng-repeat="p in pagination" class="{{p.className}}">
+                                                    <a ng-click="getStudentList({{p.page}},'{{p.className}}{{p.edge==null?'':'e'}}')">{{p.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
