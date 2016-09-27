@@ -182,9 +182,10 @@ app.controller("smallClassController",function($scope,$controller,$http,$state){
     };
     //小班课表
     $scope.smallClassSchedule = function(weekTimeCode){
+        var  studyGroup = JSON.parse($scope.formData.studyGroup);
         var data = {
             "centreCode": $scope.centreOfSchool.code,
-            "groupCode":JSON.parse($scope.formData.studyGroup).code,
+            "groupCode":studyGroup.code,
             "divisionType":$scope.departmentSchool.code,
             "goalType":$scope.centreOfSchool.goalType
         };

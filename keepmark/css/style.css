@@ -253,7 +253,8 @@ h4>span{
     color:#fff;
 }
 .form-group span{
-    margin:0 10px 0 0;
+    float: left;
+    margin: 10px;
 }
 
 .btn-a{

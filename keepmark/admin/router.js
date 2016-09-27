@@ -337,7 +337,14 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.courseTree', {
                         url: '/courseTree/{item}',
-                        templateUrl: 'admin/teachResearchManage/courseTree.html'
+                        templateUrl: 'admin/teachResearchManage/courseTree.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('angularBootstrapNavTree');
+                                }
+                            ]
+                        }
                     })
 /*                    .state('app.teachResearchManage.testPaper', {
                         url: '/testPaper',

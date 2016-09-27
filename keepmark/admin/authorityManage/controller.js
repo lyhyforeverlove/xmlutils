@@ -113,6 +113,7 @@ app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataS
         $scope.isSubmitted = true;
         $scope.teacher.subjectName = $scope.subject.subjectName;
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
+        $scope.teacher.invigilator  = 0;
         $scope.teacher.roleType = 7;
         $scope.teacher.type = 0;
         $scope.teacher.state = 2;
@@ -169,6 +170,7 @@ app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDa
     });
 
 });
+
 //查看兼职教师
 app.controller("partTimeTeacherDetailController",function($scope,$stateParams){
     $scope.partTeacher = JSON.parse($stateParams.partTeacher);
@@ -332,6 +334,8 @@ app.controller("addFullTimeTeacherController",function($scope,acquireDataService
         $scope.isSubmitted = true;
         $scope.teacher.subjectName = $scope.subject.subjectName;
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
+        $scope.teacher.invigilator  = 0;
+
         $scope.teacher.type = 1;
         $scope.teacher.state = 2;
         $http.post($scope.app.host +"teaching/organization/create/fullTeacher?requestId=test123456",
@@ -357,14 +361,6 @@ app.controller("updateFullTimeTeacherController",function($scope,acquireDataServ
             $scope.teacherEducationList = data.teacherEducationList;
         });
     };
-
-    $scope.provinces = ['黑龙江', '吉林', '辽宁', '河北'];
-    $scope.$watch('province', function(newVal) {
-        if (newVal) $scope.cities = ['大连', '长春'];
-    });
-    $scope.$watch('city', function(newVal) {
-        if (newVal) $scope.suburbs = ['鸡冠区', '隶属', 'A区'];
-    });
 });
 //全职教师查看
 app.controller("fullTimeTeacherDetailController",function($scope,$stateParams){

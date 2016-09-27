@@ -945,7 +945,17 @@ app.controller('AbnTestController', function($scope,$http,$stateParams,$controll
     });
 
     //获取课程体系
-    $scope.getKnowledgeTree = function(){
+    $scope.getKnowledgeTree = function() {
+        $scope.my_data = [];
+
+    }
+
+    // 获取知识点列表
+    $scope.getKnowledgeList = function(){
+        if(!$scope.formData.bookVersionCode){
+            //modalAlert({content:'请先选择教材版本!',size:'sm'});
+            return false;
+        }
         $scope.my_data = [];
         var parameter = {
             gradeCode: $scope.formData.gradeCode,
@@ -953,55 +963,41 @@ app.controller('AbnTestController', function($scope,$http,$stateParams,$controll
             booktypeCode: $scope.formData.bookVersionCode,
             knowledgeType: 1
         };
-        $http.post($scope.app.host + 'resource/knowledge/tree?requestId=' + (Math.random() * 100),
-            parameter).success(function (data) {
-                if(!data.code == 'Success'){
-                    //return modalAlert({content:'抱歉，请求知识点失败!'});
-                }else if(!data.result.datas||data.result.datas.length==0){
-                   //return modalAlert({content:'未获取到相应知识点!'});
-                }
-                var result = [];
-                data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
-                for(var i = 0, l = data.result.datas.length; i < l; i++){
-                    findTreeChild(result, data.result.datas[i]);
-                }
-                $scope.my_data = result;
-                result = data.result.datas=null;
 
-        }).error(function(data){
-             // modalAlert({content:'抱歉，请求知识点失败!'});
+        $http.post($scope.app.host +'resource/knowledge/tree?requestId='+(Math.random()*100),
+            parameter
+        ).success(function(data,header,config,status){
+            var result = [];
+            data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
+            for(var i = 0, l = data.result.datas.length; i < l; i++){
+                findTreeChild(result, data.result.datas[i]);
+            }
+            console.log('tree data....',result);
+            $scope.my_data = result;
+            result = data.result.datas=null;
+        }).error(function(data,header,config,status){
+            if(status.timeout&&status.timeout.$$state.value=='abort'){
+                return false;
+            }
+            //modalAlert({content:'抱歉，请求知识点失败!'});
         });
-
-        // 试题树配置
-        $scope.treeOptions = {
-            multiSelection: false,
-            dirSelectable:false
-        };
-
-        // 将节点放到已有json树的合适位置
-        function findTreeChild(arr, tmp, isChild){
-            for(var i = 0; i < arr.length; i++){
-                if(arr[i].ctbCode == tmp.parentCode){
-                    if(!arr[i].children)arr[i].children = [];
-                    arr[i].children.push(tmp);
-                    return true;
-                }else if(arr[i].parentCode == tmp.ctbCode){
-                    tmp.children =[arr[i]];
-                    arr.splice(i, 1);
-                    arr.unshift(tmp);
-                    return true;
-                }else if(arr[i].children){
-                    if(findTreeChild(arr[i].children, tmp, true)){
-                        return true;
-                    }
-                }
-            }
-            if(!isChild){
-                arr.push(tmp);
-            }
-        }
+    };
+    // 试题知识点选择
+    $scope.showSelected = function(node,selected){
+        // 查询试题时 old = false ,强制页码为1
+        searchCondition.paperKnowledge={ctbCode:node.ctbCode,old:false};
+    };
+    //视频知识树被选中节点
+    $scope.selectedNodes = [];
+    // 知识树配置
+    $scope.videoTreeOptions = {
+        multiSelection: true,
+        dirSelectable:false
     };
 
+
+
+    //获取课程体系
     $scope.getList = function(){
         $http.post(url,{
             "aimType":course.targetType,
@@ -1017,6 +1013,16 @@ app.controller('AbnTestController', function($scope,$http,$stateParams,$controll
             console.log("fail");
         });
     };
+
+
+
+    angular.forEach($scope.selectedNodes,function(t,i){
+        ks.push(t.ctbCode);
+    });
+
+
+
+
     //短板加课时排课
     $scope.saveCourse = function(){
         var course ={
