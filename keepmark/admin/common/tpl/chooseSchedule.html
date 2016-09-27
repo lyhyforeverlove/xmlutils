@@ -18,30 +18,27 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper">
-            <div class="col-sm-12" ng-show="teacherDiv">
+        <div class="wrapper  btn-margin">
+            <div class="col-sm-12 btn-margin" ng-show="teacherDiv">
                 <h4>教师列表</h4>
                 <ul class="teacher-list">
                     <li ng-repeat="teacher in teacherList"><label class="i-checks"><input type="radio" ng-model="formData.teacherCode" value={{teacher.teacherCode}}><i></i>{{teacher.teacherName}}</label></li>
                 </ul>
             </div>
-            <button class="btn btn-primary pull-right" ng-click="saveCourse()">保存</button>
-            <!--<div class="table-responsive col-sm-12" ng-show="courseList">
+            <div class="table-responsive col-sm-12" ng-show ="sectionDiv">
+                <h4>课程列表</h4>
                 <table class="table table-striped  b-t b-light">
                     <tbody>
-                        <tr>
-                            <td>第一节</td>
-                            <td>cxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
-                            <td>已排课</td>
-                        </tr>
-                        <tr>
-                            <td>第二节</td>
-                            <td>cxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
-                            <td><label class="i-checks" style="padding-left:0"><input type="radio" ><i></i>选择</label></td>
+                        <tr ng-repeat="section in sectionList  | orderBy: 'burlSn'">
+                            <td>第{{section.burlSn}}节</td>
+                            <td>{{section.repositoryBurlName}}</td>
+                            <td ng-if="weekNumber == section.burlSn"><label class="i-checks" style="padding-left:0"><input type="radio" ng-model="formData.sectionCode" value={{section.code}}><i></i>选择</label></td>
+                            <td ng-if="weekNumber !==section.burlSn" >已排课</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>-->
+            </div>
+            <button class="btn btn-primary pull-right" ng-click="saveCourse()">保存</button>
         </div>
     </div>
 </div>

@@ -17,7 +17,12 @@
 			"ctb_code":"003001",
 			"ct_name":"1对1",
 			"classType":2
-		}]
+		},{
+            "id":3,
+            "ctb_code":"004001",
+            "ct_name":"短板学科1对1直播课A",
+            "classType":3
+        }]
 	},{
 		"id":1,
 		"category_code":"c_002",
@@ -37,7 +42,12 @@
 			"ctb_code":"003002",
 			"ct_name":"1对1",
 			"classType":2
-		}]
+		},{
+            "id":3,
+            "ctb_code":"004002",
+            "ct_name":"短板学科1对1直播课B",
+            "classType":3
+        }]
 	},{
 		"id":2,
 		"category_code":"c_003",
@@ -57,6 +67,11 @@
 			"ctb_code":"003003",
 			"ct_name":"1对1",
 			"classType":2
-		}]
+		},{
+            "id":3,
+            "ctb_code":"004003",
+            "ct_name":"短板学科1对1直播课C",
+            "classType":3
+        }]
 	}]
 }

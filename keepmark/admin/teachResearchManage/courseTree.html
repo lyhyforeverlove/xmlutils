@@ -1,8 +1,27 @@
 <div class="wrapper-md" ng-controller="AbnTestController">
   <div class="panel panel-default">
     <div class="wrapper">
-        <div class="table-responsive ">
-            <table class="table table-striped b-t b-light">
+        <form class="form-horizontal" ng-init="load()">
+            <!--包含公共筛选条件 start-->
+            <div ng-include="'admin/common/tpl/filter.html'"></div>
+            <!--包含公共筛选条件 end-->
+            <div class="form-group col-sm-12">
+                <button class="pull-right btn btn-primary" ng-click="getKnowledgeTree()">查询知识点</button>
+            </div>
+        </form>
+        <div class="knowledgeTree">
+            <div class="modal-header">
+                <h3 class="modal-title">知识点选择</h3>
+            </div>
+            <div class="modal-body">
+                <span ng-if="doing_async">...loading...</span>
+                <treecontrol class="tree-classic" tree-model="my_data" selected-nodes="selectedNodes" options="treeOptions">
+                    {{node.knowledgeName}}
+                </treecontrol>
+            </div>
+        </div>
+        <!--<div class="table-responsive col-sm-12">
+            <table class="table table-striped b-t b-light" ng-init="getList()">
                 <thead>
                 <tr>
                     <th>序号</th>
@@ -10,36 +29,26 @@
                     <th>学科</th>
                     <th>课程类型</th>
                     <th>班型</th>
-                    <!--<th>适用考生类型</th>-->
+
                     <th>操作</th>
                 </tr>
                 </thead>
-                <tbody> <!---->
-                <tr  ng-repeat="data in results.list" >
+                <tbody>
+                <tr  ng-repeat="data in results" >
                     <td>{{$index+1}}</td>
                     <td>{{data.courseName}}</td>
                     <td>{{data.subjectCode}}</td>
                     <td>{{data.courseSystemType}}</td>
                     <td>{{data.classType }}</td>
-                    <!--<td>统考</td>-->
                     <td>
                         <label class="i-checks">
-                            <input type="radio" ng-model="formData.course" value={{data}}><i></i>
+                            <input type="radio" ng-model="formData.course" value={{data.code}}><i></i>
                         </label>
                     </td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="9" class="text-center">
-                        <!-- 指令调用代码
-                        <xl-page size="10" method="getList" class="text-center"></xl-page>-->
-                        <!-- 指令模板[pagination.html] -->
-                    </td>
-                </tr>
-                </tfoot>
             </table>
-        </div>
+        </div>-->
     </div>
   </div>
 </div>

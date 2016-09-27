@@ -69,6 +69,7 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
 app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataService,$state){
     $scope.titleName="添加兼职教师";
     $scope.spareTimeShow = false;
+    $scope.isSubmitted = false;
     $scope.chooseSpareTime = function(){
         //初始化空余时间表
         $http.get("admin/json/freeTime.json").success(function(data){
@@ -109,8 +110,10 @@ app.controller("addPartTimeTeacherController",function($scope,$http,acquireDataS
     };
     var free_time =[];
     $scope.savePartTimeTeacher = function(){
+        $scope.isSubmitted = true;
         $scope.teacher.subjectName = $scope.subject.subjectName;
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
+        $scope.teacher.invigilator  = 0;
         $scope.teacher.roleType = 7;
         $scope.teacher.type = 0;
         $scope.teacher.state = 2;
@@ -167,6 +170,7 @@ app.controller("updatePartTimeTeacherController",function($scope,$http,acquireDa
     });
 
 });
+
 //查看兼职教师
 app.controller("partTimeTeacherDetailController",function($scope,$stateParams){
     $scope.partTeacher = JSON.parse($stateParams.partTeacher);
@@ -285,6 +289,7 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
 });
 //增加全职教师
 app.controller("addFullTimeTeacherController",function($scope,acquireDataService,$http,$state){
+    $scope.isSubmitted = false;
     $scope.titleName="添加全职教师";
     $scope.teachingType = "";
     $scope.teacherEducation = "";
@@ -326,8 +331,11 @@ app.controller("addFullTimeTeacherController",function($scope,acquireDataService
     }
 
     $scope.saveFullTimeTeacher = function(){
+        $scope.isSubmitted = true;
         $scope.teacher.subjectName = $scope.subject.subjectName;
         $scope.teacher.subjectCode  = $scope.subject.subjectCode;
+        $scope.teacher.invigilator  = 0;
+
         $scope.teacher.type = 1;
         $scope.teacher.state = 2;
         $http.post($scope.app.host +"teaching/organization/create/fullTeacher?requestId=test123456",
@@ -353,14 +361,6 @@ app.controller("updateFullTimeTeacherController",function($scope,acquireDataServ
             $scope.teacherEducationList = data.teacherEducationList;
         });
     };
-
-    $scope.provinces = ['黑龙江', '吉林', '辽宁', '河北'];
-    $scope.$watch('province', function(newVal) {
-        if (newVal) $scope.cities = ['大连', '长春'];
-    });
-    $scope.$watch('city', function(newVal) {
-        if (newVal) $scope.suburbs = ['鸡冠区', '隶属', 'A区'];
-    });
 });
 //全职教师查看
 app.controller("fullTimeTeacherDetailController",function($scope,$stateParams){

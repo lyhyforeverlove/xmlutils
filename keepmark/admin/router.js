@@ -17,8 +17,8 @@ angular.module('app')
         ['$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider
-                    .otherwise('/app/teachManage/diagGoods');
-                    /*.otherwise('/auth/loading');*/
+                    /*.otherwise('/app/teachManage/diagGoods');*/
+                    .otherwise('/auth/loading');
                 $stateProvider
                     .state('auth', {
                         abstract: true,
@@ -337,7 +337,14 @@ angular.module('app')
                     })
                     .state('app.teachResearchManage.courseTree', {
                         url: '/courseTree/{item}',
-                        templateUrl: 'admin/teachResearchManage/courseTree.html'
+                        templateUrl: 'admin/teachResearchManage/courseTree.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('angularBootstrapNavTree');
+                                }
+                            ]
+                        }
                     })
 /*                    .state('app.teachResearchManage.testPaper', {
                         url: '/testPaper',

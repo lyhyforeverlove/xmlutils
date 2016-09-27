@@ -215,10 +215,27 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                     console.log(data);
                     $scope.results = data.result;
                     results = data.result.list;
-                    //var subjectCode = data.result.list[0].subjectCode;
-                    /*if(subjectCode == 1){
-                        $scope.subjectName = "语文";
-                    }*/
+                    angular.forEach(results, function(data,index,array){
+                        if(data.subjectCode == 1){
+                            $scope.subjectName = "语文";
+                        }else if(data.subjectCode == 2){
+                            $scope.subjectName = "数学";
+                        }else if(data.subjectCode == 3){
+                            $scope.subjectName = "英语";
+                        }else if(data.subjectCode == 4){
+                            $scope.subjectName = "物理";
+                        }else if(data.subjectCode == 5){
+                            $scope.subjectName = "化学";
+                        }else if(data.subjectCode == 6){
+                            $scope.subjectName = "生物";
+                        }else if(data.subjectCode == 7){
+                            $scope.subjectName = "历史";
+                        }else if(data.subjectCode == 8){
+                            $scope.subjectName = "政治";
+                        }else{
+                            $scope.subjectName = "地理";
+                        }
+                    });
                     $scope.totalPage = data.result.totalPage;
 
                     callback && callback(data.result);
@@ -442,32 +459,24 @@ app.controller('CreateGroupController', function($scope, $http,$controller, $res
     var defaultTitle = '#诊断介绍说明#';
     var defaultPlaceholder = '（建议教学管理组给出统一模板，创建教师统一复制粘贴统一介绍说明即可）';
     $scope.placeholder = defaultTitle + ' ' + defaultPlaceholder;
-
-    
     $scope.postData.describe = '';
-
     $scope.focus = function() {
-       
         if (!$scope.postData.describe) {
             $scope.postData.describe = defaultTitle;
         }
     };
-
     $scope.blur = function() {
         if ($scope.postData.describe === defaultTitle) {
             $scope.postData.describe = '';
         }
     };
-
     //获取图片路径
     $scope.getFile = function() {
         fileReader.readAsDataUrl($scope.file, $scope)
             .then(function(result) {
-
                // $scope.formData.coverUrl = result;
             });
     };
-
     $scope.submit = function(){
        /* var ext = angular.element('#file').files[0].name.split('.').pop();*/
         var date =parseInt((new Date().getTime() + 3600000) / 1000);
@@ -479,25 +488,17 @@ app.controller('CreateGroupController', function($scope, $http,$controller, $res
             // 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
             form_api_secret: 'WwbrepSiLMoTpx/+D2c+3klosIA='
         };
-
         var instance = new Sand(config);
-
         var options = {
             'notify_url': 'http://upyun.com'
         };
-
         instance.setOptions(options);
-    
         instance.upload('/upload/test' + parseInt((new Date().getTime() + 3600000) / 1000) + '.jpg');
-    }
-   
-
+    };
     document.addEventListener('uploaded', function(e) {
         $scope.postData.coverUrl= 'http://keepmark.b0.upaiyun.com'+e.detail.path;
       
-    });    
-
-   
+    });
     /*弹出模态框 （公共模态框）
     *@params size  模态框大小
     *@params selectedJson 根据学年、类型、学科、教材查询资源库/诊断试卷列表列表
@@ -515,24 +516,19 @@ app.controller('CreateGroupController', function($scope, $http,$controller, $res
                     return $scope.app.host;
                 },
                 codeJson : function(){
-                    return codeJson;
+                    return codeJson; //chineseCode...
                 }
             }
         });
         // model返回结果
         modalInstance.result.then(function(selectedItem) {
-
-            $scope.postData[codeJson.code] = selectedItem;
-
+            $scope.postData[codeJson.code] = selectedItem; //返回值动态赋给postData对象
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
         });
     }
-
-
     //默认类型为理科
     $scope.postData.departmentType = 1;
-
     /*
     *组成全科(文/理)诊断用卷
     */
@@ -550,29 +546,20 @@ app.controller('CreateGroupController', function($scope, $http,$controller, $res
 app.controller('CreateStageController', function($scope, $http,$controller, $resource, $stateParams, $modal,$log, $state ,fileReader,CalcService) {
     
     $controller('ParentGetDataCtrl', {$scope: $scope}); //
-
     $scope.stageFormData = {};//组织阶段考对象
-
     $scope.stageFormData.diagnosisPaperCode = [];//诊断卷code列表
-    
     $scope.stageFormData.departmentType = 1;//默认为理科
-   
     $scope.stageFormData.stage = 1; //默认为第一阶段
-
     $scope.stageFormData.paperUseType = "p_014";
-
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
     };
-
     $scope.getName = function() {
         $('#text_name').attr('disabled', 'disabled');
     };
-
     $scope.editName = function() {
         $('#text_name').removeAttr('disabled');
-    }
-   
+    };
     /*弹出模态框 （公共模态框）
     *@params size  模态框大小
     *@params selectedJson 根据学年、类型、学科、教材查询资源库/诊断试卷列表列表
@@ -603,18 +590,16 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
                 }
             }
         });
-
-
         // model返回结果
         modalInstance.result.then(function(selectedItem) {
             angular.forEach($scope.subjectCode, function(data,index,array){
+                console.log(array);
                 //data等价于array[index]
                 if($scope.subjectCode[index] == selectedItem.subjectCode){
                     //console.log(true);
                     $scope.subjectCode.splice(index,1);//删除之前的
                 }
             });
-
             $scope.subjectCode.push(selectedItem.subjectCode);
             $scope.diagnosisPaperCode = selectedItem.diagnosisPaperCode;
             $scope.removePaperCode = selectedItem.removePaperCode;
@@ -628,13 +613,12 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
             }else{
                 console.log($scope.stageFormData.diagnosisPaperCode); //splice
                 angular.forEach($scope.stageFormData.diagnosisPaperCode, function(data,index,array){
-                    //data等价于array[index]
                     if($scope.removePaperCode == $scope.stageFormData.diagnosisPaperCode[index]){
                         console.log(index);
                         $scope.stageFormData.diagnosisPaperCode.splice(index,1);//删除之前的
                     }
                 });
-                console.log($scope.stageFormData.diagnosisPaperCode);
+                //console.log($scope.stageFormData.diagnosisPaperCode);
                 $scope.stageFormData.diagnosisPaperCode.push( $scope.diagnosisPaperCode);//再追加
             }
         }, function() {
@@ -654,7 +638,9 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
 
         $http.post(url,stageFormData).success(function(data){
             console.log(data);
-            $state.go('app.teachResearchManage.stageList');
+            if(data.result != null){
+                $state.go('app.teachResearchManage.stageList');
+            }
         }).error(function(data) {
             console.log("fail");
         })
@@ -760,7 +746,7 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
         // model返回结果
         modalInstance.result.then(function(selectedItem) {
 
-            $scope.formData.resourcePaperCode= selectedItem;
+            $scope.formData.repositoryCourseCode= selectedItem;
             //$scope.formCourseData
 
         }, function() {
@@ -794,14 +780,14 @@ app.controller('CreateCourseController', function($scope, $http,$controller, $re
         var url = $scope.app.host + "/course/add?requestId=1";
         $http.post(url,{/*repositoryBigcourseCode*/
             "bookVersion":$scope.formData.bookVersionCode,
+            "categoriesCode":$scope.formData.categoriesCode,
+            "classType":$scope.formData.classType,
             "subjectCode":$scope.formData.subjectCode,
             "gradeCode":$scope.formData.gradeCode,
             "courseName":$scope.formData.name,
             "courseImgUrl":$scope.formData.coverUrl,
             "repositoryCourseCode":$scope.formData.repositoryCourseCode ,
-            "repositoryBigcourseCode": $scope.formData.bigCategoriesCode,
-            "categoriesCode":$scope.formData.categoriesCode,
-            "classType":$scope.formData.classType
+            "repositoryBigcourseCode": $scope.formData.bigCategoriesCode
         }).success(function(data){
             console.log(data);
             if(data.message == "Success"){
@@ -818,12 +804,13 @@ app.controller("getPapersController", function($scope, $http, $resource, $stateP
     $scope.formData = {};  //formData.resourcePaperCode
     //选用按钮
     $scope.GetResourcePaperCode = function(resourcePaperCode){
-        $scope.formData.resourcePaperCode = resourcePaperCode;
+        console.log( $scope.formData.repositoryCourseCode);
+        $scope.formData.repositoryCourseCode = resourcePaperCode;
        // angular.element("#"+resourcePaperCode).remove("btn-default")
     }
     // ok click
     $scope.ok = function() {
-        $modalInstance.close($scope.formData.resourcePaperCode);
+        $modalInstance.close($scope.formData.repositoryCourseCode);
         //$modalInstance.close($scope.selected.item);
     };
     // cancel click
@@ -891,7 +878,7 @@ app.controller("getPapersByDiagCtrl", function($scope, $http, $resource, $stateP
         var url = host + "diagnosis/list?requestId=test123456";
         $http.post(url,V_PapersListJson).success(function(data) {
 
-            if(data.message = "Success"){
+            if(data.message == "Success"){
                 console.log(data);
                 $scope.results = data.result;
                 $scope.totalPage = data.result.totalPage;
@@ -990,6 +977,12 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
                     console.log("fail");
                 });
     };
+    //获取学科类型
+   /* CalcService.filterData().then(function(d){
+        $scope.departmentTypeAll = d.filterData;
+        $scope.departmentTypeAll.unshift({  "departmentType": '', "departmentName": "全部",selected:true});
+
+    });*/
     //点击全科详情
     $scope.GetGroupDetail = function(data){
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
