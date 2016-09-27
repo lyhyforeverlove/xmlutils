@@ -11,7 +11,7 @@ app.controller('myStudentsController', function($scope,$http,$controller,$resour
     $http.post(url,{
         "teacherCode":"e44a0c2ad33a40d1a9c54bf4e801c227"
     }).success(function(data){
-        console.log(data)
+       // console.log(data)
         if(data.message == "Success"){
             $scope.results = data.result;
         }
@@ -111,6 +111,17 @@ app.controller("chooseScheduleController", function($scope){
 app.controller('learningDetailController', function($scope){
     $scope.name = '学习情况';
     $scope.total_count = 10;
+    var url = $scope.app.host+"";//路径拼接未完成
+    $http.post(url,{
+        "teacherCode":""
+    }).success(function(data){
+        console.log(data);
+        if(data.message=="Success"){
+            $scope.studyres = data.result;
+        }
+    }).error(function(data){
+        console.log("fail");
+    })
 
 })
 //一对一老师操作页面
@@ -663,33 +674,19 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
     $scope.addErrorKnown = function () {
         //var BookData = JSON.parse(window.localStorage.getItem("BookObj"));
         //var subjectCode = BookData.subjectCode;
-        $http.post($scope.app.host +'/resource/knowledge/tree?requestId=test123456',
-            {gradeCode:33,subjectCode:1,booktypeCode:'7HCcMZTzpcThi6RaByWysKQPPbtTHSj8',knowledgeType:"1" }
-        ).success(function(data,header,config,status){
-                //console.log(data)
-                if(!data.code=='Success'){
-                    return alert('抱歉，请求知识点失败!');
-                }else if(!data.result.datas||data.result.datas.length==0){
-                    return alert('未获取到相应知识点!');
+        //弹窗
+       // var scope = $rootScope.$new();
+        //scope.tree = result;
+        var modalInstance = $modal.open({
+            templateUrl: 'admin/teacherOpearteManage/knowledgeTree.html',
+            controller:'knowledgeTreeController',
+            size: 'lg',
+            resolve: {
+                host : function() {
+                    return $scope.app.host;
                 }
-                var result = [];
-                data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
-                for(var i = 0, l = data.result.datas.length; i < l; i++){
-                    data.result.datas[i].label = data.result.datas[i].knowledgeName;
-                    findTreeChild(result, data.result.datas[i]);
-                }
-                var scope = $rootScope.$new();
-                scope.tree = result;
-                var modalInstance = $modal.open({
-                    templateUrl: 'admin/teacherOpearteManage/knowledgeTree.html',
-                    size: "lg",
-                    scope:scope,
-                    resolve: {}
-                });
-                result = data=null;
-            }).error(function(data,header,config,status){
-                return alert('抱歉，请求知识点失败!');
-            });
+            }
+        });
     }
     //又拍云服务
     $scope.submit = function(){
@@ -746,15 +743,70 @@ app.controller("studentWorkDetailController",function($scope,$rootScope,$http,$m
 })
 
 //知识点树
-app.controller("knowledgeTreeController",function($scope,$timeout,$rootScope,$http,$modal,$stateParams,$controller,$state,CalcService){
+app.controller("knowledgeTreeController",function($scope,$http,$modalInstance,host){
     var  tree;
-    $scope.my_tree_handler = function(branch) {
-
+    // 将json串解析成tree结构(将节点放到已有json树的合适位置)
+    function findTreeChild(arr, tmp, isChild){
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i].ctbCode == tmp.parentCode){
+                if(!arr[i].children)arr[i].children = [];
+                arr[i].children.push(tmp);
+                return true;
+            }else if(arr[i].parentCode == tmp.ctbCode){
+                tmp.children =[arr[i]];
+                arr.splice(i, 1);
+                arr.unshift(tmp);
+                return true;
+            }else if(arr[i].children){
+                if(findTreeChild(arr[i].children, tmp, true)){
+                    return true;
+                }
+            }
+        }
+        if(!isChild){
+            arr.push(tmp);
+        }
+    }
+    //树选项设置
+    $scope.videoTreeOptions = {
+        //多选
+        multiSelection: true,
+        //点击文字是否可以展开下一层树
+        dirSelectable:false
     };
-    $scope.my_data = $scope.tree;
-    console.log('-----000------',$scope.tree);
-    $scope.my_tree = tree = {};
+    //树内容
+    //console.log(host);
+    var url = host +'/resource/knowledge/tree?requestId=test123456';
+    $http.post(url,
+        {gradeCode:33,subjectCode:1,booktypeCode:'7HCcMZTzpcThi6RaByWysKQPPbtTHSj8',knowledgeType:"1" }
+    ).success(function(data,header,config,status){
+        //console.log(data)
+        if(!data.code =='Success'){
+            return alert('抱歉，请求知识点失败!');
+        }else if(!data.result.datas||data.result.datas.length==0){
+            return alert('未获取到相应知识点!');
+        }
+        //将接口数据渲染为tree结构 start
+        var result = [];
+        data.result.datas = data.result.datas.sort(function(a,b){return parseInt(a.level)- parseInt(b.level);});
+        for(var i = 0, l = data.result.datas.length; i < l; i++){
+            findTreeChild(result, data.result.datas[i]);
+        }
+        $scope.my_data = result;
+        //end
+    }).error(function(data,header,config,status){
+        return alert('抱歉，请求知识点失败!');
+    });
 
+    //关闭弹窗
+    $scope.cancel = function () {
+        //alert(111);
+        $modalInstance.dismiss('cancel');
+    };
+    $scope.ok = function () {
+        console.log($scope.selected);
+        $modalInstance.close($scope.selected);
+    };
 });
 //批改
 app.controller("studentWorkCheckedController",['$scope', '$modal',function($scope,$modal){
