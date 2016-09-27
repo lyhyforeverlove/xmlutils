@@ -1281,24 +1281,112 @@ app.controller('DividingClassesCtrl', function($scope, $http,$log,$controller,$r
 });
 // modal controller
 app.controller('ClassesController', function($scope,$http, $controller,$modalInstance,host,userCodeList ) {
-    $controller('getSchoolInfo', { $scope: $scope });
+
+   // $controller('getSchoolInfo', { $scope: $scope });
+    //总校列表
+    $scope.initMasterSchool =function(){
+        $http.post(host +'teaching/organization/list?requestId=test123456',
+            {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "1"
+
+            }).success(function (data) {
+                if(data) $scope.masterSchoolList = data.result;
+            });
+    };
+
+    //获取分校
+    $scope.getBranchSchoolList = function(masterSchoolCode){
+        if(typeof(masterSchoolCode) !=="undefined"){
+            $http.post( host +'teaching/organization/list?requestId=test123456',
+                {
+                    "pageSize": 100,
+                    "pageNumber": 1,
+                    "type": "2",
+                    "schoolMainCode":masterSchoolCode
+                })
+                .success(function (data) {
+                    if(data) $scope.branchSchoolList = data.result;
+                });
+        }
+    };
+
+    //获取学区
+    $scope.getDistrictSchoolList = function(branchSchoolCode){
+        if(typeof(branchSchoolCode) !== "undefined"){
+            $http.post(host +'teaching/organization/list?requestId=test123456',
+                {
+                    "pageSize": 100,
+                    "pageNumber": 1,
+                    "type": "3",
+                    "branchCode":branchSchoolCode
+                })
+                .success(function (data) {
+                    if(data) $scope.districtSchoolList = data.result;
+                });
+        }
+    };
+
+    //获取学部
+    $scope.getDepartmentSchoolList = function(districtSchoolCode){
+        if(typeof(districtSchoolCode) !== "undefined"){
+            $http.post(host +'teaching/organization/list?requestId=test123456', {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "4",
+                "districtCode":districtSchoolCode
+            }).success(function (data) {
+                if(data) $scope.departmentSchoolList = data.result;
+            });
+        }
+    };
+
+    //获取中心
+    $scope.getCentreSchoolList = function(departmentSchoolCode){
+        if(typeof(departmentSchoolCode) !== "undefined"){
+            $http.post(host +'teaching/organization/list?requestId=test123456', {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "5",
+                "divisionCode":departmentSchoolCode
+            }).success(function (data) {
+                $scope.centreOfSchoolList = data.result;
+            });
+        }
+    };
+/*
+    //获取班级
+    $scope.getClassAndGrade= function(centreSchoolCode){
+        if(typeof(centreSchoolCode) !== "undefined"){
+            $http.post($scope.app.host +'teaching/organization/list?requestId=test123456', {
+                "pageSize": 100,
+                "pageNumber": 1,
+                "type": "6",
+                "centerCode":centreSchoolCode
+            }).success(function (data) {
+                if(data) $scope.classAndGradeList = data.result;
+            });
+        }
+    };*/
     //得到班级
     $scope.getClassesList = function(code){
         //console.log(code);
-        var url = host + '/teaching/organization/list?requestId=test123456';
-        $http.post(url,{
-            "pageSize":20,
-            "pageNumber":1,
-            "type":6,
-            "centerCode":code 
-        }).success(function(data){
-            console.log(data);
-            $scope.results = data.result;
-
-        }).error(function(data){
-            console.log('fail');
-        })
-    }
+        if(typeof(code) !== "undefined"){
+            var url = host + '/teaching/organization/list?requestId=test123456';
+            $http.post(url,{
+                "pageSize":20,
+                "pageNumber":1,
+                "type":6,
+                "centerCode":code
+            }).success(function(data){
+                //console.log(data);
+                $scope.results = data.result;
+            }).error(function(data){
+                alert("请求服务失败！");
+            })
+        }
+    };
     //选中的班级
     $scope.selectedClasses = function(data){
         $scope.data = data;

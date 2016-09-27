@@ -215,10 +215,27 @@ app.controller('DiagListController', function($scope, $http,$controller, $resour
                     console.log(data);
                     $scope.results = data.result;
                     results = data.result.list;
-                    //var subjectCode = data.result.list[0].subjectCode;
-                    /*if(subjectCode == 1){
-                        $scope.subjectName = "语文";
-                    }*/
+                    angular.forEach(results, function(data,index,array){
+                        if(data.subjectCode == 1){
+                            $scope.subjectName = "语文";
+                        }else if(data.subjectCode == 2){
+                            $scope.subjectName = "数学";
+                        }else if(data.subjectCode == 3){
+                            $scope.subjectName = "英语";
+                        }else if(data.subjectCode == 4){
+                            $scope.subjectName = "物理";
+                        }else if(data.subjectCode == 5){
+                            $scope.subjectName = "化学";
+                        }else if(data.subjectCode == 6){
+                            $scope.subjectName = "生物";
+                        }else if(data.subjectCode == 7){
+                            $scope.subjectName = "历史";
+                        }else if(data.subjectCode == 8){
+                            $scope.subjectName = "政治";
+                        }else{
+                            $scope.subjectName = "地理";
+                        }
+                    });
                     $scope.totalPage = data.result.totalPage;
 
                     callback && callback(data.result);
