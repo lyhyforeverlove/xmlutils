@@ -11,101 +11,70 @@
                     <span class="input-group-btn"><button class="btn btn-primary" ng-click="query('1')">&nbsp;查&nbsp;&nbsp;询&nbsp;</button></span>
                 </div>
                 <div class="line line-dashed b-b line-lg"></div>
-                <form class="form-horizontal">
-                    <!-- <div class="radio form-group col-sm-12">
-                         <label class="col-sm-1 control-label">类型：</label>
-                         <div class="radio">
-                             <label class="i-checks" ng-repeat="(key, val) in departmentType ">
-                                 <input type="radio" name="departmentType" ng-value='val.departmentType' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"  ng-change="checked(formData.departmentType,'departmentType')">
-                                 <i></i>{{val.departmentName}}
-                             </label>
-                         </div>
-                     </div>-->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">课程类型：</label>
-                        <div class="col-sm-2">
-                           <!-- <select name="centers" class="form-control" ng-model="formData.departmentType"  ng-options="d.departmentType as d.departmentName for d in departmentTypeAll"> </select>-->
-                            <select name="centers" class="form-control" ng-model="formData.departmentType">
-                                <option ng-repeat="d in departmentTypeAll" value="{{d.departmentType}}">{{d.departmentName}}</option>
-                            </select>
-                        </div>
+                <!-- <div class="form-group col-sm-12">
+                     <label class="col-sm-1 control-label">课程类型：</label>
+                     <div class="col-sm-2">
+                         <select ng-model="formData.courseType" class="form-control" ng-options="c.name for c in courseTypeAll">
+                             <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                         </select>
+                     </div>
+                 </div>-->
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="formData.masterSchool" class="form-control" ng-init="initMasterSchool()" ng-options="m.name for m in masterSchoolList" ng-change="getBranchSchoolList(formData.masterSchool.code);formData.branchSchool=''">
+                            <option value="">--请选择--</option>
+                        </select>
                     </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <!-- <div class="radio form-group col-sm-12">
-                         <label class="col-sm-1 control-label">考生类型：</label>
-                         <div class="radio">
-                             <label class="i-checks" ng-repeat="item in studentType">
-                                 <input type="radio" name="studentType" ng-value='item.studentTypeCode' ng-model="formData.studentType" ng-change="checked(formData.studentType,'studentType')">
-                                 <i></i>{{item.studentTypeName}}
-                             </label>
-                         </div>
-                     </div>-->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">考生类型：</label>
-                        <div class="col-sm-2">
-                            <select name="centers" class="form-control" ng-model="formData.studentTypeCode">
-                                <option ng-repeat="d in studentTypeAll" value="{{d.studentTypeCode}}">{{d.studentTypeName}}</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="formData.branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList" ng-change="getDistrictSchoolList(formData.branchSchool.code);formData.districtSchool=''">
+                            <option value="">--请选择--</option>
+                        </select>
                     </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <!-- <div class="radio form-group col-sm-12">
-                         <label class="col-sm-1 control-label">入学年份：</label>
-                         <div class="radio">
-                             <label class="i-checks" ng-repeat="item in inScrollYear">
-                                 <input type="radio" name="inScrollYear" ng-value='item.inScrollYearName' ng-model="formData.inScrollYear" ng-change="checked(formData.inScrollYear,'inScrollYear')">
-                                 <i></i>{{item.inScrollYearName}}
-                             </label>
-                         </div>
-                     </div>-->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">入学年份：</label>
-                        <div class="col-sm-2">
-                            <select name="centers" class="form-control" ng-model="formData.inScrollYearCode">
-                                <option ng-repeat="d in inScrollYearAll" value="{{d.code}}">{{d.name}}</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学区：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="formData.districtSchool" class="form-control" ng-options="d.name for d in districtSchoolList" ng-change="getDepartmentSchoolList(formData.districtSchool.code);formData.departmentSchool=''">
+                            <option value="">--请选择--</option>
+                        </select>
                     </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <!-- <div class="radio form-group col-sm-12">
-                         <label class="col-sm-1 control-label" for="input-id-1">目标：</label>
-                         <div class="radio">
-                             <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
-                                 <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="checked(formData.aimType,'aimType')">
-                                 <i></i>{{obj.aimName}}
-                             </label>
-                         </div>
-                     </div>-->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">目标：</label>
-                        <div class="col-sm-2">
-                            <select name="centers" class="form-control" ng-model="formData.aimType">
-                                <option ng-repeat="d in aimTypesAll" value="{{d.aimType}}">{{d.aimName}}</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学部：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="formData.departmentSchool" class="form-control" ng-options="d.name for d in departmentSchoolList" ng-change="getCentreSchoolList(formData.departmentSchool.code);formData.centreOfSchool=''">
+                            <option value="">--请选择--</option>
+                        </select>
                     </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">中心：</label>
-                        <div class="col-sm-2">
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">中心：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="formData.centreOfSchool" class="form-control" ng-options="c.name for c in centreOfSchoolList" ng-change="getClassAndGrade(formData.centreOfSchool.code);formData.classAndGrade=''">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">班级：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="formData.classAndGrade" class="form-control" ng-options="c.name for c in classAndGradeList" >
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
 
-                            <select name="centers" class="form-control" ng-model="formData.centerCode" ng-change="getClasses()">
-                                <option ng-repeat="d in centerAll" value="{{d.code}}">{{d.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">班级：</label>
-                        <div class="col-sm-2">
-                            <select name="centers" class="form-control" ng-model="formData.classesCode" ng-options="d.code as d.name for d in classesAll">
-                               <!-- <option ng-repeat="d in classesAll"  value="{{d.code}}">{{d.name}}</option>-->
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary m-p" ng-click="query('1')">查&nbsp;询</button>
-                    </div>
-                    <div class="line line-dashed b-b line-lg"></div>
-                </form>
             </div>
         </div>
         <div class="table-responsive">
@@ -116,42 +85,42 @@
             </div>
             <table class="table table-striped b-t b-light">
                 <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>学生姓名</th>
-                        <th>保分目标</th>
-                        <th>考生类型</th>
-                        <th>上课类型</th>
-                        <th>课程类型</th>
-                        <th>操作</th>
-                    </tr>
+                <tr>
+                    <th>序号</th>
+                    <th>学生姓名</th>
+                    <th>保分目标</th>
+                    <th>考生类型</th>
+                    <th>上课类型</th>
+                    <th>课程类型</th>
+                    <th>操作</th>
+                </tr>
                 </thead>
                 <tbody >
-                    <tr ng-repeat="item in studentList.list track by $index">
-                        <td>
-                            <label class="i-checks i-checks-sm">
-                                <input type="checkbox"><i></i>{{$index+1}}
-                            </label>
-                        </td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.goalType | translator:aimTypesAll:'aimType':'aimName'}}</td>
-                        <td>{{item.type| translator:studentTypeAll:'studentTypeCode':'studentTypeName'}}</td>
-                        <td>{{item.courseType|translator:courseTypeAll:'code':'name'}}</td>
-                        <td>{{item.artType| translator : departmentTypeAll :'departmentType':'departmentName'}}</td>
-                        <td>
-                            <!-- 更换课程类型 modal -->
-                            <div ng-controller="categoryCtrl">
-                                <button class="btn btn-primary" ng-click="changeDepartmentType(item)">更换</button>
-                            </div>
-                            <!-- 更换课程类型/modal -->
-                        </td>
-                    </tr>
+                <tr ng-repeat="item in studentList.list track by $index">
+                    <td>
+                        <label class="i-checks i-checks-sm">
+                            <input type="checkbox"><i></i>{{$index+1}}
+                        </label>
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.goalType | translator:aimTypesAll:'id':'aimName'}}</td>
+                    <td>{{item.type| translator:studentTypeAll:'studentTypeCode':'studentTypeName'}}</td>
+                    <td>{{item.courseType|translator:courseTypeAll:'code':'name'}}</td>
+                    <td>{{item.artType| translator : departmentTypeAll :'departmentType':'departmentName'}}</td>
+                    <td>
+                        <!-- 更换课程类型 modal -->
+                        <div ng-controller="categoryCtrl">
+                            <button class="btn btn-primary" ng-click="changeDepartmentType(item)">更换</button>
+                        </div>
+                        <!-- 更换课程类型/modal -->
+                    </td>
+                </tr>
                 </tbody>
                 <tfood>
                     <tr>
                         <td colspan="13" class="text-center">
                             <!-- 指令调用代码-->
-                          <!--  <xl-page size="5" method="query" class="text-center"></xl-page>-->
+                            <!--  <xl-page size="5" method="query" class="text-center"></xl-page>-->
                             <!--指令模板（pagination.html）-->
                             <div class="center-block">
                                 <ul class="pagination">

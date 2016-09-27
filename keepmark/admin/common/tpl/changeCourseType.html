@@ -13,11 +13,11 @@
             <label class="col-sm-2 control-label">课程类型:</label>
             <div class="col-sm-10">
                 <select name="account" class="form-control" ng-model="departmentType" >
-                    <option ng-repeat="t in types"  value="{{t.departmentType}}">{{t.departmentName}}</option>
+                    <option ng-repeat="t in types"  value="{{t.code}}">{{t.name}}</option>
                 </select>
             </div>
         </div>
-        <p>您选中的课程: <b>{{index}}</b></p>
+        <p>&nbsp;<b></b></p>
     </div>
     <div class="modal-footer">
         <button class="btn btn-default" ng-click="cancel()">Cancel</button>
