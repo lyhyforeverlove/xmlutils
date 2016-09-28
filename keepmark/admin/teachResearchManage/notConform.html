@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>教研管理&gt;学生分类 &gt; 不符合名单</h4>
-            <div>{{formData}}</div>
+            <!--<div>{{formData}}</div>-->
         </div>
         <div class="wrapper">
             <div class="panel-heading m-b-xl">
@@ -101,7 +101,7 @@
                                     <td><span ng-if="st.presentationStatus==1">已赠送</span><a class="btn btn-primary small" ng-if="st.presentationStatus==0">赠送</a></td>
 
                                     <td title="暂未做">
-                                        <a>查看</a>
+                                        <a>--查看--</a>
                                     </td>
                                 </tr>
                                 <!-- <tr>
@@ -196,7 +196,7 @@
                                     <td title="没字段">--不参加短板诊断--</td>
                                     <td>{{st.isAgreeJoinVulnerability==0?'未参加':'已参加'}}</td>
                                     <td title="没code">
-                                        <a ng-click="GetPaperDetail({paperCode:st.eduStudentDiagnoseResultCode})">--试卷详情--</a>
+                                        <a ng-click="GetPaperDetail({paperCode:st.eduStudentDiagnoseResultCode})">试卷详情</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -271,11 +271,12 @@
                                     <td>{{st.chemistryScore }}</td>
                                     <td>{{st.biologyScore }}</td>
                                     <td>{{formData.shortSubjectName }}</td>
-                                    <td>100分</td>
-                                    <td>50课时 <a>修改</a></td>
-                                    <td>课时太多</td>
-                                    <td> 拒绝</td>
+                                    <td>{{st.shortTotalScore}}</td>
+                                    <td>{{st.addHourNumber}}课时 <a ng-hide="true">修改</a></td>
+                                    <td>--课时太多--</td>
+                                    <td> {{st.isAgreeAddHour ==0 ? '拒绝':'同意'}}</td>
                                 </tr>
+
                                 </tbody>
                                 <tfoot class="hide-if-no-paging">
                                 <tr>

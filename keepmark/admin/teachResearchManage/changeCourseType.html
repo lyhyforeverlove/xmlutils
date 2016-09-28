@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>教研管理 &gt; 更换课程类型</h4>
-            <div>{{formData}}</div>
+          <!--  <div>{{formData}}</div>-->
         </div>
         <div class="wrapper">
             <div class="">
@@ -103,7 +103,7 @@
                         </label>
                     </td>
                     <td>{{item.name}}</td>
-                    <td>{{item.goalType | translator:aimTypesAll:'id':'aimName'}}</td>
+                    <td>{{item.goalType | translator:aimTypesAll:'aimType':'aimName'}}</td>
                     <td>{{item.type| translator:studentTypeAll:'studentTypeCode':'studentTypeName'}}</td>
                     <td>{{item.courseType|translator:courseTypeAll:'code':'name'}}</td>
                     <td>{{item.artType| translator : departmentTypeAll :'departmentType':'departmentName'}}</td>

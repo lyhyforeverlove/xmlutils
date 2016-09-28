@@ -138,7 +138,7 @@
                     <div class="table-responsive">
                         <div style="clear: both;" class="questionTypes">
                             试题类型：<label class="i-checks" ng-repeat="t in questionTypes.types"><input
-                                type="radio" name="QType" ng-checked="$index==0" ng-click="nowQuestionType=='{{t.id}}'"><i></i>{{t.enlargeType}}</label>
+                                type="radio" name="QType" ng-checked="$index==0" ng-click="nowQuestionType=t.id"><i></i>{{t.enlargeType}}</label>
 
                         </div>
                         <div>
@@ -154,7 +154,7 @@
                             <div class="questionSelect" ng-if="questionDatas!=null&&questionDatas.data.length>0" ng-repeat="q in questionDatas.data  track by $index ">
                                 <div class="title" ><span>{{$index+1}}</span>.&nbsp;<span ng-bind-html="q.stem | strToUrl "></span></div>
                                 <div class="opt">
-                                    <button class="btn btn-primary" ng-if="!q.added" ng-click="questionAdd(q)">加入试卷</button>
+                                    <button class="btn btn-primary" ng-if="!q.added" ng-click="questionAdd(q,'{{questionDatas.subjectCode}}')">加入试卷</button>
                                     <button class="btn btn-primary" ng-if="!!q.added">已加入</button>
                                     <button class="btn btn-primary" ng-if="q.type==6" ng-click="q.showSmallQ = !q.showSmallQ">展开小题</button>
                                     <button class="btn btn-primary" ng-click="q.showAnswer=!q.showAnswer">显示解析</button>
