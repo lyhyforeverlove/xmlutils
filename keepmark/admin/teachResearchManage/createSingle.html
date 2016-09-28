@@ -15,6 +15,7 @@
             <h4>创建单科诊断{{name}}</h4>
         </div>
         <div class="wrapper">
+            <pre>{{formData}}</pre>
             <form class="form-horizontal">
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
@@ -22,8 +23,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">目标类型：</label>
                     <div class="radio">
-                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
-                            <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.aimType"><i></i>{{val.aimName}}
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
+                            <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.difficultStar"><i></i>{{val.aimName}}
                         </label>
                     </div>
                 </div>

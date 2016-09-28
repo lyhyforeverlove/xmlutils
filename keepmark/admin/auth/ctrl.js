@@ -19,7 +19,7 @@ app.controller('LoginController',function($scope,$state,$http,$resource,Base64,$
         if($scope.user.type=="0"){//教学
 
         }*/
-        var url=$scope.app.host + "/teacherLogin/teaLogin?requestId=test123";
+        var url=$scope.app.host + "teacherLogin/teaLogin?requestId=test123";
         $http.post(url,{
             "userName":$scope.user.username,
             "password": md5.createHash($scope.user.password || '')

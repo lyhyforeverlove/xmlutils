@@ -96,7 +96,7 @@ app.controller('DiagShelvesController', function($scope, $http, $controller, $re
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
         console.log(data);
         var jsonString = angular.toJson(data);
-        $state.go('app.groupsDetail', {
+        $state.go('app.teachManage.groupsDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -131,10 +131,11 @@ app.controller("DiagGoodsCtrl", function($scope, $http, $localStorage,$controlle
                        $scope.results = data.result;
                        var list = data.result.list;
                        angular.forEach(list,function(data){
+                           console.log(data.subjectType);
                            if(data.subjectType == 1){
-                               $scope.dedepartmentName = "理科";
+                               $scope.departmentName = "理科";
                            }else{
-                               $scope.dedepartmentName = "文科";
+                               $scope.departmentName = "文科";
                            }
                        });
                        $scope.totalPage = data.result.totalPage;
@@ -185,39 +186,6 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
             console.log("fail");
         })
     };
-    //添加老师
-    $scope.V_GoodsAddJson = null;
-
-    var diagnosisGoodsModels = []; //定义诊断商品列表
-    //$scope.list = [{ teacherCode: 0, beginDate: 30, endDate: '张三' }];
-    $scope.addTeacher = function(postData) {
-       // $scope.postData.times = [];
-        $scope.postData.beginDate = angular.element("#beginDate").val();//开始时间
-        $scope.postData.endDate = angular.element("#endDate").val();//结束时间
-
-        // 获取上个界面传递的数据，并进行解析
-        if ($stateParams.jsonString != '') {
-            $scope.V_GoodsAddJson = angular.fromJson($stateParams.jsonString);
-        }
-
-        var goodsArr = angular.fromJson($scope.postData);
-        //console.log(goodsArr);
-        diagnosisGoodsModels.push(goodsArr);
-        $scope.V_GoodsAddJson = angular.fromJson($scope.V_GoodsAddJson);
-        $scope.V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
-
-        console.log(diagnosisGoodsModels);
-        console.log( $scope.V_GoodsAddJson);
-        $scope.postData  = {};
-
-        angular.forEach($scope.groups, function(s) {
-            angular.element(".times li").removeClass('active');
-        });
-        //console.log($scope.V_GoodsAddJson);
-    };
-   /* $scope.del = function(idx) {
-        $scope.list.splice(idx, 1);
-    };*/
     //诊断时间
     $scope.groups = [{
         id: 1,
@@ -225,7 +193,7 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
         date: "2016.6.18 16:00 ~ 2016.6.18 18:00",
         group: '一组:5人',
         AM: '上午',
-        active: true
+        active: false
     }, {
         id: 2,
         name: '第二组时间',
@@ -258,18 +226,54 @@ app.controller("DistributionCtrl", function($scope, $http, $controller, $resourc
         group: '一组:5人',
         active: false
     }];
+
+    $scope.postData.times = [];
     $scope.toggleActive = function(s) {
         s.active = !s.active;
+        $scope.times();
     };
     $scope.times = function() {
         $scope.postData.times = [];
         angular.forEach($scope.groups, function(s) {
             if (s.active) {
+                console.log($scope.postData.times);
                 $scope.postData.times.push(s.id);
             }
         });
         return $scope.postData.times;
     };
+    //添加老师
+    $scope.V_GoodsAddJson = null;
+    var diagnosisGoodsModels = []; //定义诊断商品列表
+    //$scope.list = [{ teacherCode: 0, beginDate: 30, endDate: '张三' }];
+    $scope.addTeacher = function(postData) {
+        console.log( $scope.postData.times);
+        $scope.postData.beginDate = angular.element("#beginDate").val();//开始时间
+        $scope.postData.endDate = angular.element("#endDate").val();//结束时间
+
+        // 获取上个界面传递的数据，并进行解析
+        if ($stateParams.jsonString != '') {
+            $scope.V_GoodsAddJson = angular.fromJson($stateParams.jsonString);
+        }
+        var goodsArr = angular.fromJson($scope.postData);
+        diagnosisGoodsModels.push(goodsArr);
+        $scope.V_GoodsAddJson = angular.fromJson($scope.V_GoodsAddJson);
+        $scope.V_GoodsAddJson['diagnosisGoodsModels'] = diagnosisGoodsModels; //组合商品上架json数据
+
+        console.log(diagnosisGoodsModels);
+        console.log($scope.V_GoodsAddJson);
+        $scope.postData  = {};
+        angular.forEach($scope.groups, function(data,index) {
+            angular.element(".times li").removeClass('active');
+        });
+        angular.forEach($scope.postData.times, function(data,index) {
+            alert(index);
+            $scope.postData.times.splice(index, 1);
+        });
+    };
+     $scope.del = function(idx) {
+        $scope.postData.times.splice(idx, 1);
+     };
     //确定上架
     $scope.ConfirmShelves = function() {
         console.log($scope.V_GoodsAddJson);
@@ -867,7 +871,7 @@ app.controller('ModalAppointmentCtrl', function($scope, $http,$modalInstance, da
     
 });
 /*短板考试监考*/
-app.controller('MonitorController', function($scope, $http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
+app.controller('MonitorController', function($scope, $http,$controller,$resource, $stateParams, $modal, $state,$localStorage,CalcService) {
     $controller('ParentGetDataCtrl', { $scope: $scope }); //继承
     $scope.formData = {};
     if( $scope.formData.subjectCode == 1){
@@ -912,14 +916,198 @@ app.controller('MonitorController', function($scope, $http,$controller,$resource
     }
     //详情跳转传参数
     $scope.GetPaperDetail = function(data){
-        // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
-        console.log(data);
         var jsonString = angular.toJson(data);
         $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
         });
+    };
+    $scope.allSubjectTypes = [];
+    CalcService.filterData().then(function(b){
+        $scope.allSubjectTypes = b.filterData;
+    });
+    //进入直播室
+    $scope.enterLiveRoom = function(data){
+
+        var temp={}; // 临时变量存放
+        temp.preEnterLiveRoom = 10*60*1000; //  提前10分钟进入直播间
+        $scope.mayEnter = data; //null; // 可进入直播间的时间段数据
+        $scope.timeContents = {am:[],pm:[],empty:null}; //某一天的课程安排列表
+        var myData = $localStorage.user;
+
+        if(!$scope.mayEnter)return modalAlert({content:'时间还没到哦!'});
+        var subjects = $scope.allSubjectTypes[$scope.mayEnter.subjectType];
+        if(!subjects)return modalAlert({content:'抱歉，数据异常!'});
+       /* app.teachManage.monitorRoom*/
+       /* console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go('app.teachManage.monitorRoom', {
+            jsonString: jsonString
+        }, {
+            reload: true
+        });*/
+        console.log(data);
+        var room =  $modal.open({
+            templateUrl: 'admin/teacherOpearteManage/enterLiveRoom.html',
+            controller: 'EnterLiveRoomController',
+            size:'lg',
+            resolve:{ // $scope.mayEnter
+                data:function(){
+                    return {
+                        teacherCode:myData.code,
+                        baseHost: $scope.app.host,
+                        subjects:subjects.category,
+                        temp:{
+                            eduDiagnosisGoodsCode:$scope.mayEnter.eduDiagnosisGoodsCode, //诊断商品code
+                            eduDiagnosisGoodsDetailCode:$scope.mayEnter.eduDiagnosisGoodsDetailCode //诊断商品详情code
+                        },
+                        nickName:myData.name};
+                }
+            }
+        });
+    };
+    // 弹框提醒用户(作用似alert)
+    function modalAlert(data){
+        $modal.open({
+            templateUrl: 'admin/warning.html',
+            controller: 'WarningController',
+            size:data.size||'lg',
+            resolve:{
+                data:function(){  return data;  }
+            }
+        });
+    }
+});
+// 诊断监考--进入课堂
+app.controller('EnterLiveRoomController',function($scope, $modalInstance,$http,$modal, data){
+    $scope.loading = true;
+    $scope.loadingMsg = '网速有点慢，请耐心等待一会...';
+    $scope.nowTime = new Date();
+    $scope.subjects = data.subjects; // 所有学科
+    $scope.subjectCode = data.subjects[0].subjectCode; //  被选中学科
+    $scope.geenses = {};
+    $scope.myStudents = [];
+    //获取所有学生 http://192.168.1.142:8080/'fullTeacher/invigilator/getUserList?requestId=test123',
+    $http.post(data.baseHost+'shortSlab/teaching/invigilate/getStudentList?requestId=test123456',
+        {
+            "invigilatorTeacher":"1",
+            "invigilatorClassCode":"test"
+        }
+/*{
+            "eduDiagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsDetailCode, // 1
+            "eduDiagnosisGoodsCode":data.temp.eduDiagnosisGoodsCode  // "0A6E061EDB2B4AAC864FDAB787EB17C8"
+        }*/
+    ).then(function(re){
+            if(re.data&&re.data.code=="Success"){
+                console.log(re.data.result);
+                $scope.myStudents = re.data.result;
+            }else{
+                modalAlert({content:'请求学生列表失败!'});
+            }
+        });
+    //获取展示互动地址
+    var getURL = function(){
+        // http://192.168.1.142:8080/
+        $http.post(data.baseHost+'fullTeacher/enter/invigilator?requestId='+Math.random(),
+            {
+                "teacherCode":data.teacherCode, // "6ed3cf000fa84d6e947f37dc9fe347b5"
+                "diagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsCode // "416E26FEF5724F7887C8EC2522F68029"
+            }
+        ).success(function(data){
+                if(data.code=='Success'){
+                    markUrl(data.result);
+                }else{
+                    $scope.loadingMsg = '请求直播间失败!';
+                }
+            }).error(function(){
+                $scope.loadingMsg = '请求直播间失败!';
+            });
+    };
+    //混淆url地址
+    var markUrl = function(geen){
+        $http.get(geen.geesenModel.teacherJoinUrl+"?nickname="+encodeURIComponent(data.nickName)+"&token="+geen.geesenModel.teacherToken+"&type=jsonp&jsonpcallback=j"
+        ).success(function(b){
+                try{
+                    var  result = angular.fromJson(b.substring(b.indexOf("(") + 1, b.lastIndexOf(")")));
+                    $scope.geenses = result;
+                    $scope.downloadClient = result.download;
+                    $scope.loading = false;
+                }catch(e){
+                    $scope.loadingMsg = '请求直播间失败!';
+                }
+            }).error(function(){
+                $scope.loadingMsg = '请求直播间失败!';
+            });
+    };
+    getURL();
+    // 进入课堂
+    $scope.enterRoom = function(){
+        window.open($scope.geenses.protocol+'://'+$scope.geenses.code);
+    };
+    // 弹框提醒用户(作用似alert)
+    function modalAlert(data){
+        $modal.open({
+            templateUrl: 'admin/warning.html',
+            controller: 'WarningController',
+            size:data.size||'lg',
+            resolve:{
+                data:function(){  return data;  }
+            }
+        });
+    }
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+    //切换学科改变checkbox状态
+    $scope.changeCheckStat = function(subjectCode){
+        $scope.subjectCode = subjectCode;
+    };
+    //发送试卷
+    $scope.sendPaper = function(){
+        var sendable = [];
+        angular.forEach($scope.myStudents,function(t){
+            if(!t['check'+$scope.subjectCode]&& t.checked){
+                sendable.push(t.studentCode);
+            }
+        });
+
+        if(sendable.length==0){return modalAlert({content:'无未发送过的学生'})}
+        angular.forEach($scope.myStudents,function(t){ // 设置学科checked状态
+            t['check'+$scope.subjectCode]=true;
+        });
+        $http.post(data.baseHost+'fullTeacher/push/paper?requestId=test12345',
+            {
+                "teacherCode":data.teacherCode,  // '6ed3cf000fa84d6e947f37dc9fe347b5',
+                "diagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsCode, //  "416E26FEF5724F7887C8EC2522F68029",
+                "subject":$scope.subjectCode,
+                "studentCodeList":sendable
+            }
+        )
+            .then(function(b){
+                if(b.data&& b.data.code=="Success"||true){
+                    modalAlert({content:'发送成功!'});
+                    angular.forEach($scope.myStudents,function(t){ // 设置学科checked状态
+                        t['check'+$scope.subjectCode]=true;
+                    });
+                }else{
+                    modalAlert({content:'发送失败!'});
+                }
+            })
+    };
+    //点击checkbox时
+    $scope.toggleStudent = function(st){
+        if(st['check'+$scope.subjectCode]){
+            st.checked = true;
+        }
+    }
+});
+// alert优雅弹框
+app.controller('WarningController', function($scope, $modalInstance,data){
+
+    $scope.warning = data.content;
+    $scope.ok = function () {
+        $modalInstance.close();
     };
 });
 /*短板诊断判卷*/
@@ -973,8 +1161,18 @@ app.controller('ShortBoardDiagCtrl', function($scope,$http,$controller,$resource
             reload: true
         });
     };
+    //判卷操作
+    //复审判卷操作
+    $scope.markReview=function(data){
+        console.log(data);
+        var jsonString = angular.toJson(data);
+        $state.go("app.teachManage.MarkPaperDetail",{jsonString: jsonString}, {reload: true});
+    }
 });
+
+
 /*短板加课确认*/
+
 app.controller('ShortBoardClassCtrl', function($scope,$http,$controller,$resource, $stateParams, $modal, $state,CalcService) {
     $controller('ParentGetDataCtrl', { $scope: $scope });
     //根据类型、地区、总分数、用户名不符合名单通知确认

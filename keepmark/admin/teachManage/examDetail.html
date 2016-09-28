@@ -37,19 +37,19 @@
                     <div class="error-Knowledge Knowledge">
                         <p>错误知识点：</p>
                         <div id="selectKnow_{{data.code}}" class="selectKnow">
-                        	
-                        	
+
+
                         </div>
-                    
+
                     </div>
                     <div class="survey-knowledge Knowledge">
                         <p>本题考察知识点范围：</p>
                         <div id="useKnow_{{data.code}}">
                         <a id="prodution{{$index}}_{{pro.productionCode}}"  ng-repeat="pro in data.productionJson" ng-click="addErrorKnown(data.code,pro,$index)" class="btn btn-default " role="button">{{pro.productionName}}</a>
                         </div>
-                    </div>   
+                    </div>
                 </section>
-                
+
 
             </div>
         </div>

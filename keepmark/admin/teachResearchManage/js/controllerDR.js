@@ -318,13 +318,17 @@ app.controller('CourseCategoryCtrlDR', function($scope, $resource, $stateParams,
         $http.post($scope.app.host +"/shortSlab/getStudentClassifyList?requestId=test123456",
             dataString
         ).success(function (data) {
-                $scope.list = data.result.list;
-                $scope.totalPage = data.result.totalPage;
-                callback && callback(data.result);
-                if(dataMap.get("departmentType")==0){
-                    $(".sub-science-tr").hide();
-                    $(".sub-arts-tr").show();
+                if(data.message == "Success"){
+                    $scope.list = data.result.list;
+                    $scope.totalPage = data.result.totalPage;
+                    callback && callback(data.result);
+                    if(dataMap.get("departmentType")==0){
+                        $(".sub-science-tr").hide();
+                        $(".sub-arts-tr").show();
+                    }
                 }
+            }).error(function(data){
+                console.log("服务请求失败");
             });
     };
     //全选

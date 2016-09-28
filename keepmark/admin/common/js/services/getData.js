@@ -26,10 +26,21 @@ app.factory('GetDataFactory', function($http, $q) {
             })
         return deferred.promise;
     };
-    //获取目标类型（）
+    //获取目标类型（资源库对应目标类型）
     factory.getAimType = function(){
         var deferred = $q.defer();
         $http.get('admin/json/aimData.json')
+            .success(function(data) {
+                deferred.resolve(data);
+            }).error(function() {
+                deferred.reject("there was an error");
+            })
+        return deferred.promise;
+    };
+    //获取目标类型（本地对应目标类型）
+    factory.getLocalAimType = function(){
+        var deferred = $q.defer();
+        $http.get('admin/json/localAimData.json')
             .success(function(data) {
                 deferred.resolve(data);
             }).error(function() {
@@ -91,6 +102,9 @@ app.service('CalcService', function(GetDataFactory) {
     }*/
     this.AimTypeData = function() {
         return GetDataFactory.getAimType();
+    };
+    this.LocalAimTypeData = function() {
+        return GetDataFactory.getLocalAimType();
     };
     this.StageData = function() {
         return GetDataFactory.getStage();

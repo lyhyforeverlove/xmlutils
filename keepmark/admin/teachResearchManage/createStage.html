@@ -35,7 +35,6 @@
                             </label>
                         </div>
                     </div>
-                    <pre> {{stageFormData}}</pre>
                     <h4>阶段考用卷(共6份)</h4>
                     <div>
                         
@@ -47,7 +46,7 @@
                                 <span class="pull-right" ng-if="subjectCode[key] == val.subjectCode"><button class="btn m-b-xs w-xs btn-info" ng-click="open('lg',{subjectCode:val.subjectCode,paperUseType:stageFormData.paperUseType},'getPapersByDiagStageCtrl',{code:val.code},1,diagnosisPaperCode)">更换</button></span>
                             </li>
                         </ul>
-                        {{subjectCode}}
+                        <!--{{subjectCode}}-->
                     </div>
                     <!-- <p>
                         <button class="btn btn-info"  ng-click="open('lg',{subjectCode:val.subjectCode,bookVersionCode:formData.bookVersionCode,paperUseType:formData.paperUseType},'getPapersByDiagCtrl')"><span class="p-d">查询</span></button>
@@ -109,7 +108,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">目标类型：</label>
                         <div class="radio">
-                            <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                            <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
                                 <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="stageFormData.aimType"><i></i>{{val.aimName}}
                             </label>
                         </div>

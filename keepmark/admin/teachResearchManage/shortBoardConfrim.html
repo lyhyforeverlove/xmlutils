@@ -12,7 +12,7 @@
                     <div class="form-group ">
                         <label class="col-sm-2 control-label">目标：</label>
                         <div class="radio">
-                            <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
+                            <label class="i-checks" ng-repeat="obj in LocalAimTypes track by $index">
                                 <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="target(formData.aimType)">
                                 <i></i>{{obj.aimName}}
                             </label>

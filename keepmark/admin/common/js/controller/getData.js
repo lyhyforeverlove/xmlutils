@@ -44,6 +44,10 @@ app.controller('ParentGetDataCtrl', function($scope,CalcService) {
         CalcService.AimTypeData().then(function(data){
             $scope.aimTypes = data.aimData;
         });
+        //目标
+        CalcService.LocalAimTypeData().then(function(data){
+            $scope.LocalAimTypes = data.LocalAimData;
+        });
 
         //阶段
         CalcService.StageData().then(function(data){

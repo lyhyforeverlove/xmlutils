@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>-->
-                   <!-- <pre>{{formData}}</pre>-->
+                   <!--<pre>{{formData}}</pre>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label">总分数：</label>
                         <div class="col-sm-2">
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">目标类型：</label>
                         <div class="radio">
-                            <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                            <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
                                 <input type="radio" name="category_code" ng-value='val.aimType' ng-model="formData.studentObjective"><i></i>{{val.aimName}}
                             </label>
                         </div>

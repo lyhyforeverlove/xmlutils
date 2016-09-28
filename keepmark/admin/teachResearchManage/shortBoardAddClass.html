@@ -1,10 +1,10 @@
 <div class="wrapper-md" ng-controller="SBAddClassCtrl" id="shortBoardAddClass">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}} &gt; 短板加课时排课</h4>
+            <h4>教研管理 &gt; 学生分类 &gt; 短板加课时排课</h4>
         </div>
         <div class="wrapper">
-            <div class="panel-select">
+            <!--<div class="panel-select" ng-init="load()">
                 <table class="table">
                     <tr>
                         <td width="8%">学年:</td>
@@ -49,14 +49,19 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>-->
+            <form class="form-horizontal" ng-init="load()">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
+            </form>
             <div class="table-responsive">
                 <table>
                     <tr>
                         <td>目标:</td>
                         <td>
                             <div class="radio" colspan="10">
-                                <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
+                                <label class="i-checks" ng-repeat="obj in LocalAimTypes track by $index">
                                     <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-change="target(formData.aimType,'aimType')">
                                     <i></i>{{obj.aimName}}
                                 </label>

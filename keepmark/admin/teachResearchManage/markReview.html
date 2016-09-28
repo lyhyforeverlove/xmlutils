@@ -1,10 +1,7 @@
-<pre>
-    {{ formData }}
-</pre>
 <div class="wrapper-md" ng-controller="MarkReviewController" id="MarkReviewController">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h4>}教研管理 &gt; 阅卷复审</h4>
+			<h4>教研管理 &gt; 阅卷复审</h4>
 		</div>
 		<div class="wrapper">
 			<form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" ng-init="load()">
@@ -38,7 +35,7 @@
 			<!-- tab -->
 			<div>
 				<div id="tabs">
-					<ul>
+					<ul class="tabs_ul">
 						<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
 					</ul>
 					<div id="mainView">
@@ -48,68 +45,67 @@
 				<script type="text/ng-template" id="one.tpl.html">
 					<div id="viewOne">
 						<div class="table-responsive">
-							<table class="table table-striped b-t b-light">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>用户名</th>
-										<th>姓名</th>
-										<th>学科</th>
-										<th>考试时间</th>
-										<th>试卷</th>
-										<th>客观题得分</th>
-										<th>判卷人(1)得分</th>
-										<th>判卷人(2)得分</th>
-										<th>总分</th>
-										<th>差值</th>
-										<th>操作</th>
-										<th>教研复审</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="item in result track by $index">
-										<td>{{$index+1}}</td>
-										<td>{{item.studentCode}}</td>
-										<td>{{item.studentCode}}</td>
-										<td>{{item.subjectCode}}</td>
-										<td>{{item.createTime   | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-										<td>
-											<button class="btn btn-default" ng-click="GetPaperDetail({paperCode:item.diagnosisPaperCode})">详情</button>
-										</td>
-										<td>{{item.impersonalityScore}}</td>
-										<td>{{item.subjectivityOneScore}}</td>
-										<td>{{item.subjectivityTwoScore }}</td>
-										<td>(1):{{item.impersonalityScore+item.subjectivityOneScore}}&nbsp;&nbsp;(2):{{item.impersonalityScore+item.subjectivityTwoScore}}</td>
-										<td>{{item.subjectivityOneScore-item.subjectivityTwoScore<0?item.subjectivityTwoScore-item.subjectivityOneScore:item.subjectivityOneScore-item.subjectivityTwoScore}}</td>
-										<td>
-												<label class="i-checks">
-                              					  <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
-											</label>
-										</td>
-										<td>
-											<span ng-if="item.distributionStatus==1">已复审</span>
-											<div ng-if="item.distributionStatus!=1">
-											<button class="btn btn-primary" ng-click="markReview(item)">复审</button>
-											<button class="btn btn-primary" ng-click="tongguo(item)">通过</button>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-								<tfoot class="hide-if-no-paging">
-									<tr>
-										<td colspan="11"></td>
-										<td>
-											<span>已选{{num}}人</span>
-											<label class="i-checks constAll">
-                                         <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
-                                   		 </label>
-										</td>
-										<td>
-											<button class="btn btn-primary">批量 通过</button>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
+
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>学科</th>
+                                    <th>考试时间</th>
+                                    <th>试卷</th>
+                                    <th>客观题得分</th>
+                                    <th>判卷人(1)得分</th>
+                                    <th>判卷人(2)得分</th>
+                                    <th>总分</th>
+                                    <th>差值</th>
+                                    <th>操作</th>
+                                    <th>教研复审</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in result track by $index">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.studentCode}}</td>
+                                    <td>{{item.studentCode}}</td>
+                                    <td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
+                                    <td>2016.7.28：18：00-19：00</td>
+                                    <td>
+                                        <button class="btn btn-default" ng-click="GetPaperDetail({paperCode:item.diagnosisPaperCode})">详情</button>
+                                    </td>
+                                    <td>{{item.impersonalityScore}}</td>
+                                    <td>{{item.subjectivityOneScore}}</td>
+                                    <td>{{item.subjectivityTwoScore }}</td>
+                                    <td>{{item.diagnosisScore}}</td>
+                                    <td>{{D_value(item.subjectivityOneScore,item.subjectivityTwoScore)}}</td>
+                                    <td>
+                                        <label class="i-checks">
+                                            <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
+                                        </label>
+
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" ng-click="markReview(item)">复审</button>
+                                        <button class="btn btn-primary" ng-click="tongguo(item)">通过</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot class="hide-if-no-paging">
+                                <tr>
+                                    <td colspan="11"></td>
+                                    <td>
+                                        <span>已选{{num}}人</span>
+                                        <label class="i-checks constAll">
+                                            <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary">批量 通过</button>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
 						</div>
 					</div>
 				</script>
@@ -117,66 +113,68 @@
 				<script type="text/ng-template" id="two.tpl.html">
 					<div id="viewTwo">
 						<div class="table-responsive">
-							<table class="table table-striped b-t b-light">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>用户名</th>
-										<th>姓名</th>
-										<th>学科</th>
-										<th>考试时间</th>
-										<th>试卷</th>
-										<th>客观题得分</th>
-										<th>判卷人(1)得分</th>
-										<th>判卷人(2)得分</th>
-										<th>总分</th>
-										<th>差值</th>
-										<th>操作</th>
-										<th>教研复审</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="item in result track by $index">
-										<td>{{$index+1}}</td>
-										<td>{{item.studentCode}}</td>
-										<td>{{item.studentCode}}</td>
-										<td>{{getSubjectName(item.subjectCode,item.subjectType)}}</td>
-										<td>2016.7.28：18：00-19：00</td>
-										<td>
-											<button class="btn btn-default" ng-click="GetPaperDetail({paperCode:item.diagnosisPaperCode})">详情</button>
-										</td>
-										<td>{{item.impersonalityScore}}</td>
-										<td>{{item.subjectivityOneScore}}</td>
-										<td>{{item.subjectivityTwoScore }}</td>
-										<td>{{item.diagnosisScore}}</td>
-										<td>{{D_value(item.subjectivityOneScore,item.subjectivityTwoScore)}}</td>
-										<td>
-											<label class="i-checks">
-                              					  <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
-											</label>
-
-										</td>
-										<td>
-											<button class="btn btn-primary" ng-click="markReview(item)">复审</button>
-											<button class="btn btn-primary" ng-click="tongguo(item)">通过</button>
-										</td>
-									</tr>
-								</tbody>
-								<tfoot class="hide-if-no-paging">
-									<tr>
-										<td colspan="11"></td>
-										<td>
-											<span>已选{{num}}人</span>
-											<label class="i-checks constAll">
-                                         <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
-                                   		 </label>
-										</td>
-										<td>
-											<button class="btn btn-primary">批量 通过</button> 
-										</td>
-									</tr>
-								</tfoot>
-							</table>
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>学科</th>
+                                    <th>考试时间</th>
+                                    <th>试卷</th>
+                                    <th>客观题得分</th>
+                                    <th>判卷人(1)得分</th>
+                                    <th>判卷人(2)得分</th>
+                                    <th>总分</th>
+                                    <th>差值</th>
+                                    <th>操作</th>
+                                    <th>教研复审</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in result track by $index">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.studentCode}}</td>
+                                    <td>{{item.studentCode}}</td>
+                                    <td>{{item.subjectCode}}</td>
+                                    <td>{{item.createTime   | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>
+                                        <button class="btn btn-default" ng-click="GetPaperDetail({paperCode:item.diagnosisPaperCode})">详情</button>
+                                    </td>
+                                    <td>{{item.impersonalityScore}}</td>
+                                    <td>{{item.subjectivityOneScore}}</td>
+                                    <td>{{item.subjectivityTwoScore }}</td>
+                                    <td>(1):{{item.impersonalityScore+item.subjectivityOneScore}}&nbsp;&nbsp;(2):{{item.impersonalityScore+item.subjectivityTwoScore}}</td>
+                                    <td>{{item.subjectivityOneScore-item.subjectivityTwoScore<0?item.subjectivityTwoScore-item.subjectivityOneScore:item.subjectivityOneScore-item.subjectivityTwoScore}}</td>
+                                    <td>
+                                        <label class="i-checks">
+                                            <input id={{item.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(item.studentCode ,x)"><i></i>选择</label>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <span ng-if="item.distributionStatus==1">已复审</span>
+                                        <div ng-if="item.distributionStatus!=1">
+                                            <button class="btn btn-primary" ng-click="markReview(item)">复审</button>
+                                            <button class="btn btn-primary" ng-click="tongguo(item)">通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot class="hide-if-no-paging">
+                                <tr>
+                                    <td colspan="11"></td>
+                                    <td>
+                                        <span>已选{{num}}人</span>
+                                        <label class="i-checks constAll">
+                                            <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary">批量 通过</button>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
 						</div>
 					</div>
 				</script>

@@ -47,7 +47,7 @@ app.controller('RoundController', function($scope, $http, $controller, $resource
 	
 	 $scope.GetPaperDetail = function(data){
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -108,7 +108,7 @@ app.controller('SecondRoundController', function($scope, $http, $controller, $re
 	
 	 $scope.GetPaperDetail = function(data){
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true

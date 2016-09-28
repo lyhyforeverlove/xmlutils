@@ -3,7 +3,6 @@
         <div class="panel-heading">
             <h4>教学管理 &gt;短板加课确认</h4>
         </div>
-        <pre>{{formData}}</pre>
         <div class="wrapper">
             <form class="form-horizontal" ng-init="load()">
                 <!--包含公共筛选条件 start-->
@@ -12,7 +11,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">目标类型：</label>
                     <div class="radio">
-                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
                             <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
                         </label>
                     </div>

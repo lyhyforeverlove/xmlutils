@@ -1,25 +1,25 @@
-<div ng-controller="reviwePaperDetailController">
-    <div class="wrapper-md" ng-init="load()">
+<div>
+    <div class="wrapper-md" ng-init="load()" ng-controller="MarkPaperDetailController">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="text-center">{{diagnosisPaperName}}</h3>
             </div>
             <div class="wrapper">
-               <h4 align="center">
-                  <span class="p-d">学科：{{paperDetail.subjectCode}}</span>
-                  <span class="p-d">考试时间：{{paperDetail.examStartTime | date:'yyyy-MM-dd HH:mm:ss'}}--{{paperDetail.examEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
-                  <span class="p-d">监考教师：{{paperDetail.invigilatorTeacherName}}</span>
-                  <span class="p-d">考试用时：{{paperDetail.userTime}}</span>
-                 <span class="p-d">总题数：{{paperDatail.total}}题</span>
-                  <span class="p-d">判卷老师：{{name}}</span>
+                <h4 align="center">
+                    <span class="p-d">学科：{{paperDetail.subjectCode}}</span>
+                    <span class="p-d">考试时间：{{paperDetail.examStartTime | date:'yyyy-MM-dd HH:mm:ss'}}--{{paperDetail.examEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                    <span class="p-d">监考教师：{{paperDetail.invigilatorTeacherName}}</span>
+                    <span class="p-d">考试用时：{{paperDetail.userTime}}</span>
+                    <span class="p-d">总题数：{{paperDatail.total}}题</span>
+                    <span class="p-d">判卷老师：{{name}}</span>
                 </h4>
-               <!-- <div class="line line-dashed b-b line-lg"></div>-->
+               <div class="line line-dashed b-b line-lg"></div>
                 <div class="m-t total-score col-sm-12">
-                  <p class="col-sm-6">
-                  	<span>客观部分：{{paperDetail.impersonalityScore}}分</span>
-                 <!-- <span>主观部分：{{paperDetail.impersonalityScore}}分</span>-->
-                  </p>
-                 <p class="col-sm-6">60分</p>
+                    <p class="col-sm-6">
+                        <span>客观部分：{{paperDetail.impersonalityScore}}分</span>
+                      <!-- <span>主观部分：{{paperDetail.impersonalityScore}}分</span>-->
+                    </p>
+                    <p class="col-sm-6">60分</p>
                 </div>
                 <form class="form-horizontal">
                     <section ng-if="data.isImg==1" ng-repeat="data in results">
@@ -55,7 +55,6 @@
                 <button ng-click='submitPaper()' class="pull-right btn btn-primary"><span class="p-d">提交</span></button>
             </div>
         </div>
-
     </div>
 </div>
 <!--<div class="examLayer">

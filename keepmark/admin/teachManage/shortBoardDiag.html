@@ -62,8 +62,8 @@
                             <td>{{data.impersonalityScore}}分</td>
                             <td>{{data.subjectivityScore }}</td>
                             <td></td>
-                            <td>
-                                <button class="btn btn-primary" ui-sref="app.teachManage.exam()">判卷</button>
+                            <td><!-- ui-sref="app.teachManage.exam()"-->
+                                <button class="btn btn-primary" ng-click="markReview({paperCode:data.diagnosisPaperCode})" >判卷</button>
                             </td>
                         </tr>
                     </tbody>

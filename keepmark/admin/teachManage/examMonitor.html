@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">目标类型：</label>
                     <div class="radio">
-                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
                             <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
                         </label>
                     </div>
@@ -37,6 +37,7 @@
                         <th>客观题得分</th>
                         <th>主观题分数</th>
                         <th>考试确认</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,11 +49,12 @@
                         <td>{{data.subjectName}}</td>
                         <td>{{data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}-{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                         <td>
-                            <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
+                           <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
                         </td>
                         <td>{{data.impersonalityScore}}分</td>
                         <td>{{data.subjectivityScore}}分</td>
                         <td>参加考试</td>
+                        <td><button class="btn btn-primary pull-right" ng-click="enterLiveRoom(data)">进入监考教室</button></td>
                     </tr>
                     
                 </tbody>
@@ -65,8 +67,7 @@
                             </td>
                         </tr>
                     </tfoot>
-            </table>
-            <button class="btn btn-primary pull-right"  ui-sref="app.teachManage.monitorRoom()">进入监考教室</button>
+            </table><!-- ui-sref="app.teachManage.monitorRoom()"-->
         </div>
         </div>
         

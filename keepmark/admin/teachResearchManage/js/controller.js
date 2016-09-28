@@ -307,7 +307,7 @@ app.controller('CreateSingleController', function($scope, $http,$controller, $re
     $scope.formData.bookVersionCode = "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8"; //默认为全国卷一
     $scope.formData.gradeCode = 33; //默认高考
     $scope.formData.paperUseType = "p_004";//默认为短板诊断
-    $scope.formData.aimType = 2;//目标类型
+    $scope.formData.difficultStar = 2;//目标类型
 
     /*$scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
@@ -393,9 +393,17 @@ app.controller('CreateSingleController', function($scope, $http,$controller, $re
     //组成单科诊断用卷
     $scope.createSingle = function(formData) {
         if($scope.formData.coverUrl == null){
-            alert("请上传封面到又拍云！");
+            alert("请选择封面上传到又拍云！");
             return;
         }
+        if($scope.formData.difficultStar == 3){
+            $scope.formData.difficultStar = 0;
+        }else if($scope.formData.difficultStar == 2){
+            $scope.formData.difficultStar = 1;
+        }else{
+            $scope.formData.difficultStar = 2;
+        }
+        console.log($scope.formData.difficultStar);
         var url = $scope.app.host + "/section/diagnosis/paper/add?requestId=test123456";
         $http.post(url, formData).success(function(data) {
             if($scope.formData.resourcePaperCode == null){
@@ -526,6 +534,7 @@ app.controller('CreateStageController', function($scope, $http,$controller, $res
     $scope.stageFormData.departmentType = 1;//默认为理科
     $scope.stageFormData.stage = 1; //默认为第一阶段
     $scope.stageFormData.paperUseType = "p_014";
+    $scope.stageFormData.aimType = 0;//目标类型 一本上线30分
     $scope.getSubjectName = function(subjectName){
         $scope.subjectName = subjectName;
     };
@@ -956,7 +965,7 @@ app.controller('GroupListController', function($scope, $http,$controller, $resou
         // $state.go(app.paperDetail({'paperCode':data.diagnosisPaperCode});
         console.log(data);
         var jsonString = angular.toJson(data);
-        $state.go('app.groupsDetail', {
+        $state.go('app.teachResearchManage.groupsDetail', {
             jsonString: jsonString
         }, {
             reload: true
@@ -983,7 +992,7 @@ app.controller('StageListController', function($scope, $http,$controller, $resou
     //默认为短板诊断
    // $scope.formData.paperUseType = 0;
     //默认目标类型为一本上线30分
-    $scope.formData.aimType = 3;
+    $scope.formData.aimType = 2;
     //默认为第几阶段
     $scope.formData.stage = 1;
 

@@ -1,11 +1,11 @@
 <div class="wrapper-md ng-scope" ng-controller="CourseCategoryCtrlDR" ng-init="loadAreaList()">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{name}}&gt;符合确认名单-课程分类</h4>
+            <h4>教研管理&gt;符合确认名单-课程分类</h4>
         </div>
         <div class="wrapper" id="courseCategory-div" >
             <div class="panel-heading ">
-
+                    <!--<pre>{{formData}}</pre>-->
                     <div class="form-group  col-sm-12">
                         <label class="col-sm-1 control-label">类型：</label>
                         <div class="radio">
@@ -135,7 +135,7 @@
             <div class="form-group">
                 <label class="col-sm-1 control-label">目标类型：</label>
                 <div class="radio" style="margin-left: 20px;">
-                    <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                    <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
                         <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getAimType(val.id)"><i></i>{{val.aimName}}
                     </label>
                 </div>
@@ -145,10 +145,10 @@
                  <p><span class="p-d">分配状态:</span><span class="p-d"><label class="i-checks">
                     <input type="radio" name="f" value="-1" checked ng-click="conditionSel(-1,'state')">
                     <i></i>全部
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="conditionSel(0,'state')">
+                </label></span><span class="p-d"><label class="i-checks" ng-click="conditionSel(0,'state')">
                     <input type="radio" name="f" value="0">
                     <i></i>已分配
-                </label></span>|<span class="p-d"><label class="i-checks" ng-click="conditionSel(1,'state')">
+                </label></span><span class="p-d"><label class="i-checks" ng-click="conditionSel(1,'state')">
                     <input type="radio" name="f" value="1">
                     <i></i>未分配
                 </label></span></p>

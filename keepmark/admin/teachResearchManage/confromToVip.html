@@ -5,8 +5,8 @@
         </div>
         <div class="wrapper" id="confromToVipDiv">
             <div class="panel-heading m-b-xl">
-                <!--<pre>{{formData}}</pre>-->
-                <form action="" class="ConfromToVipCtrl_form form-horizontal" >
+                <pre>{{formData}}</pre>
+                <form action="" class="ConfromToVipCtrl_form form-horizontal" ng-init="load()" >
                     <div class="radio form-group">
                         <label class="col-sm-2 control-label">类型：</label>
                         <div class="radio col-sm-10 ">
@@ -55,11 +55,10 @@
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="radio form-group">
-                        <label class="col-sm-2 control-label" for="input-id-1">目标类型：</label>
+                        <label class="col-sm-2 control-label">目标类型：</label>
                         <div class="radio">
-                            <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
-                                <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-click="target(formData.aimType)">
-                                <i></i>{{obj.aimName}}
+                            <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
+                                <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.aimType"><i></i>{{val.aimName}}{{val.aimType}}
                             </label>
                         </div>
                     </div>

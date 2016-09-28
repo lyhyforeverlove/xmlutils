@@ -5,6 +5,7 @@
         </div>
         <div class="wrapper">
             <div class="panel-body">
+                <pre>{{formData}}</pre>
                 <form class="form-horizontal" ng-init="load()">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">类型：</label>
@@ -18,7 +19,7 @@
                     <div class="form-group">
                     <label class="col-sm-2 control-label">目标类型：</label>
                     <div class="radio">
-                        <label class="i-checks" ng-repeat="(key, val) in aimTypes track by $index">
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
                             <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.aimType"><i></i>{{val.aimName}}{{val.aimType}}
                         </label>
                     </div>

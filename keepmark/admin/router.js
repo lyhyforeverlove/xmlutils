@@ -18,7 +18,8 @@ angular.module('app')
             function($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider
                     /*.otherwise('/app/teachManage/diagGoods');*/
-                    .otherwise('/auth/loading');
+                    /*.otherwise('/auth/loading');*/
+                    .otherwise('/auth/login');
                 $stateProvider
                     .state('auth', {
                         abstract: true,
@@ -82,6 +83,17 @@ angular.module('app')
                             deps: ['$ocLazyLoad',
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load("admin/teachManage/js/controller.js");
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachManage.MarkPaperDetail', {
+                        url: '/MarkPaperDetail/:jsonString',
+                        templateUrl: 'admin/common/tpl/MarkPaperDetail.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load("admin/common/js/controller/markPaperCtrl.js");
                                 }
                             ]
                         }
@@ -152,7 +164,7 @@ angular.module('app')
                         templateUrl: 'admin/teachManage/examMonitor.html',
                     })
                     .state('app.teachManage.monitorRoom', {
-                        url: '/monitorRoom',
+                        url: '/monitorRoom/:jsonString',
                         templateUrl: 'admin/teachManage/monitorRoom.html',
                     })
                     .state('app.teachManage.shortBoard', {
@@ -228,7 +240,19 @@ angular.module('app')
                         url: '/ExamPaperDetails/{id}',
                         templateUrl: 'admin/common/tpl/ExamPaperDetails.html',
                     })
-                    .state('app.groupsDetail', {
+                    .state('app.teachManage.groupsDetail', {
+                        url: '/groupsDetail/:jsonString',
+                        templateUrl: 'admin/common/tpl/groupsDetail.html',
+                        controller:'GroupDetailController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load("admin/common/js/controller/paperDetailCtrl.js");
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.groupsDetail', {
                         url: '/groupsDetail/:jsonString',
                         templateUrl: 'admin/common/tpl/groupsDetail.html',
                         controller:'GroupDetailController',
