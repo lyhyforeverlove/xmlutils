@@ -19,7 +19,6 @@ directives.directive('xlPage', [function () {
             };
             //上一页
             scope.prev = function () {
-                scope.pages = [];
                 if (scope.currentPage > 1) {
                     scope.currentPage--;
                     scope.getData();
@@ -31,7 +30,8 @@ directives.directive('xlPage', [function () {
                 //标签加载方法
                 scope[attrs.method](scope.currentPage, scope.pageSize, function (data) {
                     scope.totalPage = data.totalPage;
-                    if (scope.currentPage > 1 && scope.currentPage < scope.totalPage) {
+                    if (scope.currentPage > 1 && scope.currentPage < scope.totalPage)
+                    {
                         if(scope.totalPage>5){
                             if(scope.currentPage -2 >= 1 && scope.currentPage + 2<= scope.totalPage){
                                 scope.pages = [
@@ -43,8 +43,10 @@ directives.directive('xlPage', [function () {
                                 ];
                             }
                         }
-                    } else if (scope.currentPage == 1 && scope.totalPage > 1) {
-                        if(scope.totalPage > 5){
+                    }
+                    else if (scope.currentPage == 1 && scope.totalPage > 1)
+                    {
+                        if(scope.totalPage >= 5){
                             scope.pages = [
                                 scope.currentPage,
                                 scope.currentPage + 1,
@@ -53,7 +55,6 @@ directives.directive('xlPage', [function () {
                                 scope.currentPage + 4
                             ]
                         }else{
-                            scope.pages = [];
                             for(var i=0;i<scope.totalPage;i++){
                                 scope.pages.push(i+1);
                             }

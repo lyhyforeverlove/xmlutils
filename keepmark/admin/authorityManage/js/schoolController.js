@@ -424,7 +424,7 @@ app.controller("addCentreOfSchoolController",function($scope,$controller, $state
     };
     //获取各科教师
     $scope.addTeacher = function(code){
-        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
+        $http.post($scope.app.host +'teaching/organization/teacher/listForAdd?requestId=test123456',
             {
                 "type":1,
                 "roleType":7,
@@ -572,7 +572,7 @@ app.controller("addClassAndGradeController",function($scope,$http,$controller,$s
     };
     //获取各科教师
     $scope.addTeacher = function(code){
-        $http.post($scope.app.host +'teaching/organization/teacher/list?requestId=test123456',
+        $http.post($scope.app.host +'teaching/organization/teacher/listForAdd?requestId=test123456',
             {
                 "type":1,
                 "roleType":7,

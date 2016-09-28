@@ -8,6 +8,7 @@
 app.controller("partTimeTeacherManageController",function($scope,$http,$state){
     $scope.titleName = "兼职教师管理";
     //查看兼职教师
+    $scope.list = [];
     $scope.partTimeTeacherDetail = function(partTimeTeacher){
         var partTeacher={};
         partTeacher.userName = partTimeTeacher.userName;
@@ -29,34 +30,43 @@ app.controller("partTimeTeacherManageController",function($scope,$http,$state){
         url: 'dimissionTeacher.tpl.html'
     }];
     $scope.currentTab = 'onJobTeacher.tpl.html';
-    $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
-        {
-            "type":0,
-            "roleType":7,
-            "state":2
-        }).success(function(data){
-        $scope.list = data.result;
-    });
+
+    $scope.parameter= {
+        "type":0,
+        "roleType":7,
+        "state":2
+    };
+    $scope.searchPartTimeTeacher = function(page,size,callback){
+        $scope.currentPage = page;
+        $scope.parameter.cp = page;
+        $scope.parameter.pageSize = size;
+        $http.post($scope.app.host +"teaching/organization/teacher/page?requestId=test123456",
+            $scope.parameter).success(function(data){
+                if(data.result !== null){
+                    $scope.list = data.result.list;
+                    $scope.totalPage = data.result.totalPage;
+                    callback && callback(data.result);
+                }
+            });
+    };
     $scope.onClickTab = function(tab) {
         // 1是离职 2 是在职
+        $scope.list = [];
         if($scope.currentTab === "dimissionTeacher.tpl.html"){
-            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
-                {
-                    "type":0,
-                    "roleType":7,
-                    "state":2
-                }).success(function(data){
-                $scope.list = data.result;
-            });
-        }else{
-            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
-                {
-                    "type":0,
-                    "roleType":7,
-                    "state":1
-                }).success(function(data){
-                $scope.list = data.result;
-            });
+            $scope.parameter = {
+                "type":0,
+                "roleType":7,
+                "state":2
+            };
+            $scope.searchPartTimeTeacher(1,10);
+        }
+        else{
+            $scope.parameter = {
+               "type":0,
+               "roleType":7,
+               "state":1
+            };
+            $scope.searchPartTimeTeacher(1,10);
         }
         $scope.currentTab = tab.url;
     }
@@ -247,38 +257,42 @@ app.controller("fullTimeTeacherManageController",function($scope,$http,$state){
         title: '离职员工名单',
         url: 'dimissionTeacher.tpl.html'
     }];
-
-    $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
-        {
-            "type":1,
-            "roleType":7,
-            "state":2
-        }).success(function(data){
-        $scope.list = data.result;
-    });
+    $scope.parameter = {
+        "type":1,
+        "roleType":7,
+        "state":2
+    };
+    $scope.getFullTimeTeacher = function(page,size,callback){
+        $scope.currentPage = page;
+        $scope.parameter.cp = page;
+        $scope.parameter.pageSize = size;
+        $http.post($scope.app.host +"teaching/organization/teacher/page?requestId=test123456",
+                $scope.parameter).success(function(data){
+                $scope.list = data.result.list;
+                $scope.totalPage = data.result.totalPage;
+                callback && callback(data.result);
+        });
+    };
 
     // 1是离职 2 是在职
     $scope.currentTab = 'onJobTeacher.tpl.html';
     $scope.onClickTab = function(tab) {
         // 1是离职 2 是在职
+        $scope.list = [];
         if($scope.currentTab === "dimissionTeacher.tpl.html"){
-            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
-                {
-                    "type":1,
-                    "roleType":7,
-                    "state":2
-                }).success(function(data){
-                $scope.list = data.result;
-            });
+            $scope.parameter = {
+                "type":1,
+                "roleType":7,
+                "state":2
+            };
+            $scope.getFullTimeTeacher(1,10);
         }else{
-            $http.post($scope.app.host +"teaching/organization/teacher/list?requestId=test123456",
-                {
-                    "type":1,
-                    "roleType":7,
-                    "state":1
-                }).success(function(data){
-                $scope.list = data.result;
-            });
+            $scope.parameter = {
+                "type":1,
+                "roleType":7,
+                "state":1
+            };
+            $scope.getFullTimeTeacher(1,10);
         }
         $scope.currentTab = tab.url;
     }

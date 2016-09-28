@@ -535,7 +535,7 @@ app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $moda
                 "departmentType":searchData.departmentType,
                       "subjectCode":$scope.formData.shortSubject.subjectCode,
                        "areaCode":searchData.provinceCode,
-                "isAgreeShortSlabDiagnosis":"0",
+                "isShortlabStatus":"0",
                 "startTotalScore":searchData.lowScore||undefined,
                 "endTotalScore":searchData.highScore||undefined,
                 "currentPage":page,
@@ -588,15 +588,15 @@ app.controller('NotConformCtrl', function($scope, $resource, $stateParams, $moda
                 modalAlert({content:'查询列表失败!'});
             });
     };
+    //查看试卷详情
     $scope.GetPaperDetail = function(data){
         var jsonString = angular.toJson(data);
-        $state.go('app.paperDetail', {
+        $state.go('app.teachResearchManage.paperDetail', {
             jsonString: jsonString
         }, {
             reload: true
         });
     }
-
 
 });
 // alert优雅弹框

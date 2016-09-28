@@ -26,15 +26,30 @@
         <!--scheduleStatus为2时， 课表为1对1老师调课的课表，课表可以修改-->
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='0'">
             <td eduSectionCode ={{schedule.eduSectionCode}} class="td-week">{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
-            <td ng-repeat="lesson in schedule.lessons track by $index" update={{lesson==null}} schedule-status >{{lesson.subjectName}}</td>
+            <td ng-repeat="lesson in schedule.lessons track by $index" update={{lesson==null}} schedule-status >
+                {{lesson.subjectName}}
+                <span class="schedelSource" ng-if="lesson.courseType?true:false">
+                    {{lesson.courseType==0?"大班课表":lesson.courseType==1?"小班课表":lesson.courseType==2?"一对一课表":""}}
+                </span>
+            </td>
         </tr>
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='1'">
             <td eduSectionCode ={{schedule.eduSectionCode}} class="td-week">{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
-            <td ng-repeat="lesson in schedule.lessons  track by $index" schedule-status >{{lesson.subjectName}}</td>
+            <td ng-repeat="lesson in schedule.lessons  track by $index" schedule-status >
+                {{lesson.subjectName}}
+                <span class="schedelSource"  ng-if="lesson.courseType?true:false">
+                    {{lesson.courseType==0?"大班课表":lesson.courseType==1?"小班课表":lesson.courseType==2?"一对一课表":""}}
+                </span>
+            </td>
         </tr>
         <tr ng-repeat="schedule in courses" ng-if="scheduleStatus =='2'">
             <td eduSectionCode ={{schedule.eduSectionCode}} class="td-week">{{schedule.sectionName}}</br>{{schedule.startTime}}-{{schedule.endTime}}</td>
-            <td ng-repeat="lesson in schedule.lessons  track by $index" update={{lesson==null||lesson.mainTeacherCode=='e44a0c2ad33a40d1a9c54bf4e801c227'}} schedule-status >{{lesson.subjectName}}</td>
+            <td ng-repeat="lesson in schedule.lessons  track by $index" update={{lesson==null||lesson.mainTeacherCode=='e44a0c2ad33a40d1a9c54bf4e801c227'}} schedule-status >
+                {{lesson.subjectName}}
+                <span  class="schedelSource"  ng-if="lesson.courseType?true:false">
+                    {{lesson.courseType==0?"大班课表":lesson.courseType==1?"小班课表":lesson.courseType==2?"一对一课表":""}}
+                </span>
+            </td>
         </tr>
     </table>
 </div>
