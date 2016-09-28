@@ -8,7 +8,11 @@
                 <table class="table table-striped  b-t b-light">
                     <tbody>
                         <tr ng-repeat="homeWork in homeWorkList">
-                            <td><label class="i-checks" style="padding-left:0"><input type="radio" ng-model="formData.homeWork" value={{homeWork}}><i></i></label></td>
+                            <td ng-if="homeWork.isPush==0">
+                                <label class="i-checks" style="padding-left:0"><input type="radio" ng-model="formData.homeWork" value={{homeWork}}>
+                                    <i></i></label>
+                            </td>
+                            <td ng-if="homeWork.isPush==1">已发送</td>
                             <td>{{homeWork.papersName}}</td>
                         </tr>
                     </tbody>
