@@ -69,6 +69,18 @@
     height:auto;
     padding-bottom:30px;
 }
+.answer-div span{
+    display: inline-block;
+    padding:6px 10px;
+    margin: 10px 5px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+}
+.answerQuestions-div span{
+    display: inline-block;
+    padding:6px 10px;
+    margin: 10px 5px;
+}
 .question-div label,.answer-div label{
     width:100px;
     text-align: left;
@@ -288,3 +300,5 @@ h4>span{
     font-size: 18px;
     margin-top:30px;
 }
+
+

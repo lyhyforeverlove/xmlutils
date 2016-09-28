@@ -242,7 +242,7 @@ angular.module('app')
                             ]
                         }
                     })
-                    .state('app.paperDetail', {
+                    .state('app.teachManage.paperDetail', {
                         url: '/paperDetail/:jsonString',
                         templateUrl: 'admin/common/tpl/paperDetail.html',
                         controller:'paperDetailController',
@@ -251,6 +251,20 @@ angular.module('app')
                                 function($ocLazyLoad) {
                                     return $ocLazyLoad.load(
                                          "admin/common/js/controller/paperDetailCtrl.js"
+                                    );
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.teachResearchManage.paperDetail', {
+                        url: '/paperDetail/:jsonString',
+                        templateUrl: 'admin/common/tpl/paperDetail.html',
+                        controller:'paperDetailController',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function($ocLazyLoad) {
+                                    return $ocLazyLoad.load(
+                                        "admin/common/js/controller/paperDetailCtrl.js"
                                     );
                                 }
                             ]

@@ -18,6 +18,7 @@
             <form class="form-horizontal">
                 <!--包含公共筛选条件 start-->
                 <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--<pre>{{formData}}</pre>-->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">目标类型：</label>
                     <div class="radio">
@@ -31,9 +32,10 @@
                     <div class="list-group">
                         <a href class="list-group-item"  ng-model="formData.resourcePaperCode" >
                             <span>{{subjectName}}</span>
-                            <span class="name">诊断卷名称</span>
+                            <span class="name">{{paperName}}<span ng-if="paperName == null">诊断卷名称</span></span>
                             <span class="pull-right">
-                                <button class="btn m-b-xs w-xs btn-info" ng-click="open('lg',formData,'getPapersController')">添加</button>
+                                <button ng-if="formData.resourcePaperCode == null" class="btn m-b-xs w-xs btn-info" ng-click="open('lg',formData,'getPapersController')">添加</button>
+                                <button ng-if="formData.resourcePaperCode != null" class="btn m-b-xs w-xs btn-primary" ng-click="open('lg',formData,'getPapersController')">更换</button>
                             </span>
                         </a>
                         <hr>
@@ -63,7 +65,7 @@
                                             <td>{{subjectCode}}</td>
                                             <td>{{data.paperName}}</td>
                                             <td>
-                                           <button id="{{data.id}}" class="btn btn-default" ng-click="GetResourcePaperCode(data.id)"><span class="p-d">选用</span></button>
+                                           <button id="{{data.id}}" class="btn btn-default" ng-click="GetResourcePaperCode({id:data.id,paperName:data.paperName})"><span class="p-d">选用</span></button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -78,7 +80,6 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            {{formData.resourcePaperCode}}
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-primary" ng-click="ok()">
@@ -101,7 +102,8 @@
                         <!-- ng-model="diagnosis.name" -->
                         <label class="col-sm-2 control-label">诊断名称：</label>
                         <span class="col-sm-4"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required ></span>
-                        <span class="col-sm-4"><button class="btn btn-primary m-r" ng-click="getName()">确定</button><button class="btn btn-primary" ng-click="editName()">编辑</button></span>
+                        <span class="col-sm-4"><button ng-if="formData.name.length > 1 && flag==false" class="btn btn-primary m-r" ng-click="getName()">确定</button>
+                            <button ng-if="flag == true" class="btn btn-primary" ng-click="editName()">编辑</button></span>
                     </div>
                     <div class="line line-dashed b-b line-lg"></div>
                     <div class="form-group">
@@ -111,7 +113,7 @@
                              <div>
                                <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
                            </div> 
-                            <button class="btn btn-default pull-right" id="submit" ng-click="submit()" required>上传又拍云图片预览</button>
+                            <button class="btn btn-primary pull-right" id="submit" ng-click="submit()" required>上传又拍云图片预览</button>
                             <!-- <div id="log"></div> -->
                         </span>
                     </div>
