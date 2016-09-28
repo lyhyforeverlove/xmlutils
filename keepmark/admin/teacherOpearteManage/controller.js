@@ -917,15 +917,17 @@ app.controller("paperCheckedController", function($scope, $state){
 //试卷详情
 app.controller()
 //诊断监考
-app.controller("diagnoseInvigilationController", function($scope,$http,$localStorage,$modal,$q){
+app.controller("diagnoseInvigilationController", function($scope,$http,$localStorage,$modal,$q,CalcService){
     $scope.name = "诊断监考";
     var temp={}; // 临时变量存放
     temp.preEnterLiveRoom = 10*60*1000; //  提前10分钟进入直播间
-    $scope.mayEnter =  {}; // 可进入直播间的时间段数据
+    $scope.mayEnter =  null; // 可进入直播间的时间段数据
     $scope.timeContents = {am:[],pm:[],empty:null}; //某一天的课程安排列表
     var baseHost = $scope.app.host;
     var myData = $localStorage.user;
-    console.log(myData)
+    CalcService.filterData().then(function(b){
+       $scope.allSubjectTypes = b.filterData;
+    });
     // 选择日期
    $scope.$watch('dt',function(){
        if($scope.dt==null)return false;
@@ -951,6 +953,8 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$localSto
             t.index = i+1;
             $scope.timeContents[po].push(t);
         });
+
+       /* 测试时放开 $scope.mayEnter = list[0];*/
     };
     //获取某一天课程
     var getDateCourses = function(){
@@ -958,7 +962,7 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$localSto
         temp.DateCoursesXHR = $q.defer();
         $http.post(baseHost+'fullTeacher/getTeacherDiagnosisExaminationList?requestId='+Math.random(),
             {
-                "teacherCode":'a',//myData.code,
+                "teacherCode":myData.code, // 'a',
                 "lessonDate":moment($scope.dt).format('YYYY-MM-DD')
             },
             {timeout:temp.DateCoursesXHR.promiss}
@@ -975,12 +979,11 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$localSto
             modalAlert({content:'请求时间安排出错!'});
         });
     };
-
-
     //进入直播室
     $scope.enterLiveRoom = function(){
         if(!$scope.mayEnter)return modalAlert({content:'时间还没到哦!'});
-        console.log('may=====', $scope.mayEnter)
+        var subjects = $scope.allSubjectTypes[$scope.mayEnter.subjectType];
+        if(!subjects)return modalAlert({content:'抱歉，数据异常!'});
         var room =  $modal.open({
             templateUrl: 'admin/teacherOpearteManage/enterLiveRoom.html',
             controller: 'EnterLiveRoomController',
@@ -990,8 +993,10 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$localSto
                     return {
                         teacherCode:myData.code,
                         baseHost:baseHost,
+                        subjects:subjects.category,
                         temp:{
-                            diagnosisGoodsDetailCode:$scope.mayEnter.diagnosisGoodsDetailCode
+                            eduDiagnosisGoodsCode:$scope.mayEnter.eduDiagnosisGoodsCode, //诊断商品code
+                            eduDiagnosisGoodsDetailCode:$scope.mayEnter.eduDiagnosisGoodsDetailCode //诊断商品详情code
                         },
                         nickName:myData.name};
                 }
@@ -1014,20 +1019,31 @@ app.controller("diagnoseInvigilationController", function($scope,$http,$localSto
 app.controller('EnterLiveRoomController',function($scope, $modalInstance,$http,$modal, data){
     $scope.loading = true;
     $scope.loadingMsg = '网速有点慢，请耐心等待一会...';
-    $scope.otherUrl = "";
-   // data.teacherCode = '6ed3cf000fa84d6e947f37dc9fe347b5';
+    $scope.nowTime = new Date();
+    $scope.subjects = data.subjects; // 所有学科
+     $scope.subjectCode = data.subjects[0].subjectCode; //  被选中学科
     $scope.geenses = {};
+    $scope.myStudents = [];
+    //获取所有学生 http://192.168.1.142:8080/
+    $http.post(data.baseHost+'fullTeacher/invigilator/getUserList?requestId=test123',
+        {
+            "eduDiagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsDetailCode, // 1
+            "eduDiagnosisGoodsCode":data.temp.eduDiagnosisGoodsCode  // "0A6E061EDB2B4AAC864FDAB787EB17C8"
+        }
+    ).then(function(re){
+            if(re.data&&re.data.code=="Success"){
+                $scope.myStudents = re.data.result;
+            }else{
+                modalAlert({content:'请求学生列表失败!'});
+            }
+        });
     //获取展示互动地址
     var getURL = function(){
         // http://192.168.1.142:8080/
         $http.post(data.baseHost+'fullTeacher/enter/invigilator?requestId='+Math.random(),
-            /*{
-                "teacherCode":data.teacherCode,
-                "diagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsCode
-            }*/
             {
-                "teacherCode":"6ed3cf000fa84d6e947f37dc9fe347b5",
-                "diagnosisGoodsDetailCode":"416E26FEF5724F7887C8EC2522F68029"
+                "teacherCode":data.teacherCode, // "6ed3cf000fa84d6e947f37dc9fe347b5"
+                "diagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsCode // "416E26FEF5724F7887C8EC2522F68029"
             }
         ).success(function(data){
             if(data.code=='Success'){
@@ -1074,7 +1090,48 @@ app.controller('EnterLiveRoomController',function($scope, $modalInstance,$http,$
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+    //切换学科改变checkbox状态
+    $scope.changeCheckStat = function(subjectCode){
+        $scope.subjectCode = subjectCode;
+    };
+    //发送试卷
+    $scope.sendPaper = function(){
+        var sendable = [];
+        angular.forEach($scope.myStudents,function(t){
+            if(!t['check'+$scope.subjectCode]&& t.checked){
+                sendable.push(t.studentCode);
+            }
+        });
 
+        if(sendable.length==0){return modalAlert({content:'无未发送过的学生'})}
+        angular.forEach($scope.myStudents,function(t){ // 设置学科checked状态
+            t['check'+$scope.subjectCode]=true;
+        });
+        $http.post(data.baseHost+'fullTeacher/push/paper?requestId=test12345',
+            {
+                "teacherCode":data.teacherCode,  // '6ed3cf000fa84d6e947f37dc9fe347b5',
+                "diagnosisGoodsDetailCode":data.temp.eduDiagnosisGoodsCode, //  "416E26FEF5724F7887C8EC2522F68029",
+                "subject":$scope.subjectCode,
+                "studentCodeList":sendable
+            }
+        )
+            .then(function(b){
+                if(b.data&& b.data.code=="Success"||true){
+                    modalAlert({content:'发送成功!'});
+                    angular.forEach($scope.myStudents,function(t){ // 设置学科checked状态
+                        t['check'+$scope.subjectCode]=true;
+                    });
+                }else{
+                    modalAlert({content:'发送失败!'});
+                }
+            })
+    };
+    //点击checkbox时
+    $scope.toggleStudent = function(st){
+        if(st['check'+$scope.subjectCode]){
+            st.checked = true;
+        }
+    }
 });
 //教辅材料
 app.controller("supplementaryMaterialsController", ['$scope', '$modal', function($scope, $modal){

@@ -1,9 +1,36 @@
 <div ng-hide="loading">
     <div class="modal-header">
-        <div style="font-style: italic;">还没对接口</div>
         <a ng-click="enterRoom()" class="btn btn-primary">进入课堂</a>
 
         <div>没有安装客户端？<a href="{{downloadClient}}" target="_blank">下载客户端</a>。</div>
+    </div>
+    <div class="modal-body">
+        <div>{{nowTime| date:'yyyy年MM月dd日 HH:mm'}}</div>
+        <div>已预约的学生</div>
+        <div>
+            <table class="table" style="width: 100%;">
+                <tr>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>考试时间(分钟)</th>
+                    <th>诊断用卷</th>
+                </tr>
+                <tr ng-repeat="st in myStudents">
+                    <td><label class="i-checks" ><input type="checkbox" ng-model="st.checked"  ng-checked="checkedAll||st.checked" ng-click="toggleStudent(st)"><i></i>{{st.name}}</label>{{$index+1}}</td>
+                    <td>{{st.username}}</td>
+                    <td>{{st.studentName}}</td>
+                    <td>30</td>
+                    <td>{{st.multiPaperName}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="line line-dashed b-b line-lg"></div>
+        <div> <label class="i-checks pull-right" ><input type="checkbox"  ng-model="checkedAll" ><i></i>全选</label></div>
+        <div class="line line-dashed b-b line-lg"></div>
+        <div>
+            学科： <label class="i-checks" ng-repeat="sj in subjects"><input type="radio" ng-checked="$index==0"  ng-click="changeCheckStat(sj.subjectCode)" name="subject"><i></i>{{sj.subjectName}}</label><button ng-click="sendPaper()" class="btn btn-primary" style="margin-left: 50px;">发送试卷</button>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="cancel()">关闭</button>
