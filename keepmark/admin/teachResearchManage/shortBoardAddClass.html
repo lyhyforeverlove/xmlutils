@@ -105,7 +105,7 @@
                         <td>{{item.mobile }}</td>
                         <td>{{item.parent }}</td>
                         <td>--</td>
-                        <td><button class="btn btn-primary" ng-click='addCourse(item)'>添加课程</button></td>
+                        <td><button class="btn btn-primary" ng-click='addCourse(item)' ng-if="item.eduVulnerabilityInvigilatorClassCode?true:false">添加课程</button></td>
                         <td class="shortBoardHour" data-ng-init="btnSH('shortBoardAddClass','shortBoardHour',item,$index,'addHourNumber',item.addHourNumber+'课时')"><button class="btn btn-default" ng-click="addHour(item.eduVulnerabilityAnalyzeRecordCode)">添加课时</button></td>
                     </tr>
                     </tbody>

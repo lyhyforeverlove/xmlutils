@@ -312,3 +312,13 @@ td#rowSty{
 .pad>table>tbody>tr>td{
     vertical-align: middle;
 }
+
+.schedelSource{
+    background-color:#7266ba;
+    color: #fff;
+    width:100%;
+    padding:3px 0;
+    display:block;
+    position: relative;
+    bottom: -10px;
+}
