@@ -237,9 +237,9 @@ function removeKnowledge(code,index,pro){
 }
 
 /*学生分类=》符合VIP报分短板分析*/
-app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $stateParams, $modal, $state,$log,$controller) {
-    //$controller('ParentGetDataCtrl', {$scope: $scope});//继承
-    $controller('getJsonData', {$scope: $scope});//继承  文理 目标类型
+app.controller('ConfromToVipCtrl', function($scope, $http, $resource, $stateParams, $modal, $state,$log,$controller,CalcService) {
+    $controller('ParentGetDataCtrl', {$scope: $scope});//继承
+    //$controller('getJsonData', {$scope: $scope});//继承  文理 目标类型
 
     //获取所有地区列表
     $scope.GetAreaAllProvince = function(){
