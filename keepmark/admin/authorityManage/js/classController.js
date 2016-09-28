@@ -139,7 +139,9 @@ var largeClassesModalCtrl = function($scope,$modalInstance,info,$http,$rootScope
              "curriculumCode":$scope.formData.sectionCode,//课程体系code
              "mainTeacherCode":$scope.formData.teacherCode,//主讲教师code
              "lessonType":"0",
-             "courseType":"0"//0为大班课，1是小班课，2是1对1
+             "courseType":"0",//0为大班课，1是小班课，2是1对1
+             "ownerCode":centreOfSchool.code,//中心code
+             "ownerName":centreOfSchool.name//中心名称
          };
         $http.post("http://192.168.1.12:7777/keepMark-teacher-business/teaching/course/addLesson?requestId=WEUOW343KL34L26NBSK3",
             formData).success(function(data){
@@ -185,7 +187,8 @@ app.controller("smallClassController",function($scope,$controller,$http,$state){
             "centreCode": $scope.centreOfSchool.code,
             "groupCode":studyGroup.code,
             "divisionType":$scope.departmentSchool.code,
-            "goalType":$scope.centreOfSchool.goalType
+            "goalType":$scope.centreOfSchool.goalType,
+            "groupName":studyGroup.name
         };
         if(data.divisionType){
             $state.go("app.authorityManage.smallClassSchedule",{"studyGroup":JSON.stringify(data)});
@@ -211,7 +214,6 @@ app.controller("smallClassScheduleController",["$scope","$modal","scheduleServic
                 "weekTimeCode":weekTimeCode.eduWeekTimeCode,
                 "bigClassCode":$scope.studyGroup.centreCode//中心code
             };
-            $scope.weekTimeCode = weekTimeCode;
             $scope.weekNumber = weekTimeCode.weekNumber;
             var url = host +"teaching/course/createSmallClassSchedule?requestId=WEUOW343KL34L26NBSK3";
             scheduleService.getScheduleList(url,parameters).then(function(data){
@@ -234,7 +236,9 @@ app.controller("smallClassScheduleController",["$scope","$modal","scheduleServic
             "weekNumber":$scope.weekNumber,
             "studyGroup":$scope.studyGroup,
             "eduScheduleCode":$scope.eduScheduleCode,
-            "weekTimeCode":$scope.weekTimeCode.eduWeekTimeCode
+            "weekTimeCode":$scope.weekTimeCode.eduWeekTimeCode,
+            "groupCode":$scope.studyGroup.groupCode,
+            "groupName":$scope.studyGroup.groupName
         };
         var modalInstance = $modal.open({
             templateUrl: 'admin/common/tpl/chooseSchedule.html',
@@ -327,7 +331,9 @@ var smallClassesModalCtrl = function($scope,$modalInstance,info,$http){
             "curriculumCode":$scope.formData.sectionCode,//课程体系code
             "mainTeacherCode":$scope.formData.teacherCode,//主讲教师code
             "lessonType":"1",
-            "courseType":"1"//0为大班课，1是小班课，2是1对1
+            "courseType":"1",//0为大班课，1是小班课，2是1对1
+            "ownerCode":studyGroup.groupCode,//中心code
+            "ownerName":studyGroup.groupName//中心名称
         };
 
         $http.post(host+"teaching/course/addLesson?requestId=WEUOW343KL34L26NBSK3",
@@ -370,7 +376,8 @@ app.controller("oneToOneClassesController",function($scope,$controller,$http,$st
                 "studentCode":JSON.parse($scope.formData.student).code,
                 "divisionType":$scope.departmentSchool.code,
                 "goalType":$scope.centreOfSchool.goalType,
-                "bigClassCode":$scope.classAndGrade.code
+                "bigClassCode":$scope.classAndGrade.code,
+                "studentName":JSON.parse($scope.formData.student).name
             };
             $state.go("app.authorityManage.oneToOneClassesSchedule",{"oneToOneClass":JSON.stringify(data)});
         }else{
@@ -387,10 +394,9 @@ app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleS
 
     //根据教学周期获取课程表
     $scope.getOneToOneClassesSchedule = function(weekTimeCode){
-        $scope.weekTimeCode = weekTimeCode;
         if(typeof(weekTimeCode)!=="undefined"){
             var parameters = {
-                "weekTimeCode":weekTimeCode,
+                "weekTimeCode":weekTimeCode.eduWeekTimeCode,
                 "smallClassCode":$scope.oneToOneClass.smallClassCode,
                 "studentCode":$scope.oneToOneClass.studentCode
             };
@@ -415,7 +421,9 @@ app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleS
             "eduDayCode":eduDayCode,
             "weekNumber":$scope.weekNumber,
             "eduScheduleCode":$scope.eduScheduleCode,
-            "oneToOneClass":$scope.oneToOneClass
+            "oneToOneClass":$scope.oneToOneClass,
+            "studentName":$scope.oneToOneClass.studentName,
+            "studentCode":$scope.oneToOneClass.studentCode
         };
         var modalInstance = $modal.open({
             templateUrl: 'admin/common/tpl/chooseSchedule.html',
@@ -438,6 +446,8 @@ app.controller("oneToOneClassesScheduleController",["$scope","$modal","scheduleS
 var oneToOneClassesModalCtrl = function($scope,$modalInstance,info,$http){
     $scope.teacherDiv = false;
     $scope.sectionDiv = false;
+    $scope.weekNumber = info.weekNumber;
+
     var oneToOneClass = info.oneToOneClass;
     var host ="http://192.168.1.12:7777/keepMark-teacher-business/";
     $scope.scheduleStatus = "0";
@@ -465,7 +475,7 @@ var oneToOneClassesModalCtrl = function($scope,$modalInstance,info,$http){
             });
         }
     };
-    //根据学科中心获取教师
+    //根据学科
     $scope.getTeacherByCourse = function(courseCode){
         if(typeof(courseCode) !== "undefined"){
             $http.post("http://192.168.1.12:7777/keepMark-teacher-business/course/getBurlBySmallCourseCode?requestId=1",
@@ -492,7 +502,9 @@ var oneToOneClassesModalCtrl = function($scope,$modalInstance,info,$http){
             "curriculumCode":$scope.formData.sectionCode,//课程体系code
             "mainTeacherCode":"3505088EAE604A29954E16EC3C0A5632",//主讲教师code
             "lessonType":"2",
-            "courseType":"2"//0为大班课，1是小班课，2是1对1
+            "courseType":"2",//0为大班课，1是小班课，2是1对1
+            "ownerCode":oneToOneClass.studentCode,//中心code
+            "ownerName":oneToOneClass.studentName//中心名称
         };
         $http.post(host+"teaching/course/addLesson?requestId=WEUOW343KL34L26NBSK3",
             formData).success(function(data){

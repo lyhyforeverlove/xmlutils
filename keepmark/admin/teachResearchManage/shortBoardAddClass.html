@@ -5,7 +5,7 @@
         </div>
         <div class="wrapper">
             <div class="panel-select">
-                <table class="table">
+                <!--<table class="table">
                     <tr>
                         <td width="8%">学年:</td>
                         <td>高考</td>
@@ -45,25 +45,29 @@
                                     <i></i>{{obj.bookVersionName}}
                                 </label>
                             </div>
-                            <button class="btn m-b-xs w-xs btn-primary pull-right" ng-click="query(1,3,null)">查询</button>
+
                         </td>
                     </tr>
-                </table>
+                </table>-->
+                <!--select start-->
+                <form class="form-horizontal"  ng-init="load()">
+                    <!--包含公共筛选条件 start-->
+                    <div ng-include="'admin/common/tpl/filter.html'"></div>
+                    <!--包含公共筛选条件 end-->
+                </form>
+                <!-- select close -->
             </div>
             <div class="table-responsive">
-                <table>
-                    <tr>
-                        <td>目标:</td>
-                        <td>
-                            <div class="radio" colspan="10">
-                                <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
-                                    <input type="radio" name="aimType" ng-value="obj.aimType" ng-model="formData.aimType" ng-change="target(formData.aimType,'aimType')">
-                                    <i></i>{{obj.aimName}}
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div class="form-group">
+                    <label class="control-label">目标：</label>
+                    <div class="radio-inline">
+                        <label class="i-checks" ng-repeat="obj in aimTypes track by $index">
+                            <input type="radio" name="aimType" ng-model="formData.aimType" value={{obj.id}} >
+                            <i></i>{{obj.aimName}}
+                        </label>
+                    </div>
+                    <button class="btn m-b-xs w-xs btn-primary pull-right btn-margin" ng-click="query(1,3,null)">查询</button>
+                </div>
                 <table class="table table-striped b-t b-light">
                     <thead>
                     <tr>
@@ -101,7 +105,7 @@
                         <td>{{item.mobile }}</td>
                         <td>{{item.parent }}</td>
                         <td>--</td>
-                        <td><button class="btn btn-primary" ng-click='addCourse(item)'>添加课程</button></td>
+                        <td><button class="btn btn-primary" ng-click='addCourse(item)' ng-if="item.eduVulnerabilityInvigilatorClassCode?true:false">添加课程</button></td>
                         <td class="shortBoardHour" data-ng-init="btnSH('shortBoardAddClass','shortBoardHour',item,$index,'addHourNumber',item.addHourNumber+'课时')"><button class="btn btn-default" ng-click="addHour(item.eduVulnerabilityAnalyzeRecordCode)">添加课时</button></td>
                     </tr>
                     </tbody>
