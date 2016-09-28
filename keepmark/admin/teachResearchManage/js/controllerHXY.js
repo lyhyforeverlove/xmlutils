@@ -868,8 +868,9 @@ app.controller('ChangeCourseTypeCtrl', function($scope, $http, $controller, Calc
             "accessionYear": '2016',
             "centerCode":$scope.formData.centreOfSchool&&$scope.formData.centreOfSchool.code||undefined,
             "classCode": $scope.formData.classAndGrade&& $scope.formData.classAndGrade.code||undefined,
-                "examAttr":  0,
+            "examAttr":  0
         };
+            //从中心里获取
             q.targetType= $scope.formData.centreOfSchool==null ? undefined : $scope.formData.centreOfSchool.goalType;
             q.artType= $scope.formData.departmentSchool==null ? undefined : $scope.formData.departmentSchool.divisionType;
         q.name= $scope.formData.studentName==null ? undefined : $scope.formData.studentName;

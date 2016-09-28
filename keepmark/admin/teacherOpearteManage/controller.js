@@ -164,10 +164,9 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
 
     $controller('ParentGetDataCtrl', {$scope: $scope}); //继承
     $scope.name = "自主推送学习资源";
-    // 学生目标类型(需后期登录改成活的)
-    $scope.difficultStar = 1;
+
     // 教师自己的code(需后期登录改成活的)
-    $scope.teacherCode = 'e44a0c2ad33a40d1a9c54bf4e801c227';
+    $scope.teacherCode = $localStorage.user.code; //'e44a0c2ad33a40d1a9c54bf4e801c227';
     var myData = $localStorage.user;
 
     //待定
@@ -182,7 +181,10 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     $scope.myStudents = []; // 初始化我的学生列表
     var finishedPaper = null; // 组装好的试卷
     // 添加试题
-    $scope.questionAdd = function(question){
+    $scope.questionAdd = function(question,subjectCode){
+        if(subjectCode !=searchCondition.subjectCode){ // 非bug用不到
+            return modalAlert({content:'当前试题和科目不匹配!'});
+        }
         question.added = true;
         angular.forEach( $scope.questionDatas.list,function(t){
             if(t.id==question.id){
@@ -190,7 +192,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
                 return true;
             }
         });
-        console.log(question);
+
         $scope.selectedQuestions.push({typeId:question.enlargeId,
             id:question.id,
             knowledgeCode:searchCondition.paperKnowledge.ctbCode,
@@ -446,6 +448,7 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
         ).success(function(b){
                 if(b.code=='Success'&& b.result&& b.result.datas&& b.result.datas.data){
                     preDealQuestions(b.result.datas.data);
+                    b.result.datas.subjectCode = searchCondition.subjectCode;
                     $scope.questionDatas = b.result.datas;
                     $scope.pagination=makePagination(parseInt(b.result.datas.pageNum),parseInt(b.result.datas.pages));
                 }else{
@@ -476,44 +479,86 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
     $scope.pushSource = function(){
         if(searchCondition.pushingData)return false;
         var pushData;
+        searchCondition.pushingData = true; // 禁止再次发送
         if($scope.currentTab=='video.tpl.html'){ //视频
             pushData ={
                 subjectCode:searchCondition.subjectCode,
-                teacherCode:'ce70fe795fd040328061a548862d7918',
-                teacherName:'章子怡',
-                aimType:$scope.choosedStudents[0].artType,
+                teacherCode:myData.code, //'ce70fe795fd040328061a548862d7918',
+                teacherName:myData.name, //'章子怡',
+                aimType:1,// TODO 以后从老师信息里拿
                 burls:$scope.selectedVideos,
                 studentCode:[]
             };
             angular.forEach($scope.choosedStudents,function(t){
                 pushData.studentCode.push(t.code);
             });
-            console.log('selected videos-- ',$scope.selectedVideos,'-- students --' ,$scope.choosedStudents,pushData);
+          //  console.log('selected videos-- ',$scope.selectedVideos,'-- students --' ,$scope.choosedStudents,pushData);
 
+            pushResource(pushData);
         }else{ //试卷
-
             if(!finishedPaper){
                 return modalAlert({content:'请先组合一份试卷!'});
             }else if(finishedPaper.questions.length==0){
                 return modalAlert({content:'请至少选择一道题!'});
             }else{
-                console.log('推送试卷了...',finishedPaper);
+                console.log('推送试卷了...',finishedPaper,$localStorage.user);
             }
-            return false;
+            var makePaper = {
+                "questions":[],
+                "gradeCode":$scope.departmentType[0].gradeCode,
+                "subjectCode":searchCondition.subjectCode,
+                "aimType": 1, // TODO 以后从老师信息里拿
+                "departmentType":searchCondition.departmentType,
+                "name":finishedPaper.paperName,
+                "description":finishedPaper.paperDesc,
+                "examTimeLong":finishedPaper.time
+            };
+            angular.forEach(finishedPaper.questions,function(t){
+                makePaper.questions.push(t.id);
+            });
+            $http.post('http://192.168.1.156:8090/'+'fullTeacher/createPaperByQuestions?requestId='+Math.random(),makePaper)
+                .then(function(data){
+                   if(data.data&&data.data.code=='Success'){
+                        console.log("组卷back...", data.data);
+                        var  pushData ={
+                            subjectCode:searchCondition.subjectCode,
+                            teacherCode:myData.code, //'ce70fe795fd040328061a548862d7918',
+                            teacherName:myData.name, //'章子怡',
+                            aimType:1, // TODO 以后从老师信息里拿
+                            burls: [{
+                                "pushResourcesDtos":[
+                                    {
+                                        "resourcesCode":data.data.result,
+                                        "resourcesType":"0",
+                                        "resourcesName":makePaper.name
+                                    }
+                                ]}],
+                            studentCode:[]
+                        };
+                       angular.forEach($scope.choosedStudents,function(t){
+                           pushData.studentCode.push(t.code);
+                       });
+                       pushResource(pushData);
+                   }else{
+                       modalAlert({content:'抱歉组卷失败!'});
+                       searchCondition.pushingData = false;
+                   }
+                });
         }
-        searchCondition.pushingData = true;
-        $http.post(baseHost+'fullTeacher/pushVedioOrPaperToStudents?requestId='+Math.random(),pushData)
+    };
+    // 推送资源
+    var pushResource = function(pushData){
+        $http.post('http://192.168.1.156:8090/'+'fullTeacher/pushVedioOrPaperToStudents?requestId='+Math.random(),pushData)
             .then(function(b){
-                console.log('push result...',b)
                 if(b.data&& b.data.code=="Success"){
                     modalAlert({content:'资源推送成功!'});
+                    finishedPaper = null; // 清理试卷
                 }else{
                     modalAlert({content:'抱歉!资源推送失败!'});
                 }
                 searchCondition.pushingData = false;
             });
     };
-
     // 弹框提醒用户(作用似alert)
     function modalAlert(data){
         $modal.open({
@@ -532,7 +577,18 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             return false;
         }
         $scope.my_data = [];
+        if(searchCondition.subjectCode != $scope.formData.subjectCode){
+            finishedPaper = null; // 只能单学科组卷-清空已组试卷
+            $scope.selectedVideos = []; // 只能单学科发送视频-清空已选视频
+            $scope.selectedQuestions = []; // 只能单学科发送试卷-清空已选试题避免混合科目发送
+            $scope.questionDatas = {list:[]}; //清空当前试题列表
+            $scope.pagination = []; // 分页清空
+            $scope.videos = []; // 清空视频列表
+        }
+        $scope.selectedNodes = []; // 清空已选的视频知识点
+        searchCondition.paperKnowledge = {};// 清空已选的试题知识点
         searchCondition.subjectCode = $scope.formData.subjectCode;
+        searchCondition.departmentType = $scope.formData.departmentType;
         searchCondition.gradeCode = $scope.formData.gradeCode;
         searchCondition.bookVersionCode = $scope.formData.bookVersionCode;
 
@@ -594,6 +650,7 @@ app.controller('WarningController', function($scope, $modalInstance,data){
 });
 // 自主推送学习资源 组卷卷头弹框
 app.controller('AutoPushResourcePaperController', function($scope, $modalInstance){
+
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
