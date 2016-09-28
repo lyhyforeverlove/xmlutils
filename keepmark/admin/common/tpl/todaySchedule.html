@@ -1,0 +1,20 @@
+<div class="wrapper-md" ng-init ="getHomeWorkList()">
+    <div class="panel panel-default">
+        <div class="wrapper  btn-margin">
+            <div class="table-responsive col-sm-12">
+                <div class="modal-header modal-bg col-sm-12 text-center">
+                    <h4 class="modal-title">选择作业</h4>
+                </div>
+                <table class="table table-striped  b-t b-light">
+                    <tbody>
+                        <tr ng-repeat="homeWork in homeWorkList">
+                            <td><label class="i-checks" style="padding-left:0"><input type="radio" ng-model="formData.homeWork" value={{homeWork}}><i></i></label></td>
+                            <td>{{homeWork.papersName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" ng-click="saveHomeWorkToStudent()" ng-disabled="formData.homeWork?false:true">发送作业</button>
+            </div>
+        </div>
+    </div>
+</div>
