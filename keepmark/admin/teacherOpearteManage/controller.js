@@ -515,8 +515,8 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
             };
             angular.forEach(finishedPaper.questions,function(t){
                 makePaper.questions.push(t.id);
-            });
-            $http.post('http://192.168.1.156:8090/'+'fullTeacher/createPaperByQuestions?requestId='+Math.random(),makePaper)
+            }); // 'http://192.168.1.156:8090/'
+            $http.post(baseHost+'fullTeacher/createPaperByQuestions?requestId='+Math.random(),makePaper)
                 .then(function(data){
                    if(data.data&&data.data.code=='Success'){
                         console.log("组卷back...", data.data);
@@ -547,12 +547,16 @@ app.controller('autonmousPushResourcesController', function($scope,$rootScope,$h
         }
     };
     // 推送资源
-    var pushResource = function(pushData){
-        $http.post('http://192.168.1.156:8090/'+'fullTeacher/pushVedioOrPaperToStudents?requestId='+Math.random(),pushData)
+    var pushResource = function(pushData){ // 'http://192.168.1.156:8090/'
+        $http.post(baseHost+'fullTeacher/pushVedioOrPaperToStudents?requestId='+Math.random(),pushData)
             .then(function(b){
                 if(b.data&& b.data.code=="Success"){
                     modalAlert({content:'资源推送成功!'});
+                    angular.forEach($scope.selectedQuestions,function(t){
+                        t.added = false;
+                    });
                     finishedPaper = null; // 清理试卷
+                    $scope.selectedQuestions = []; // 清空已选试题
                 }else{
                     modalAlert({content:'抱歉!资源推送失败!'});
                 }
