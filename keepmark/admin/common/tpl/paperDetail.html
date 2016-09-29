@@ -1,0 +1,85 @@
+<style>
+    #log {
+        /*border: 2px solid #f8f8f8;*/
+    }
+    #log ul {
+        list-style: none;
+        font: 14px;
+        line-height: 30px;
+        color: #666;
+    }
+    #log ul li strong {
+        display: inline-block;
+        min-width: 140px;
+        color: #39b3d7;
+        text-align:right;
+    }
+</style>
+<div class="wrapper-md" ng-controller="paperDetailController">
+    <div class="panel panel-default" ng-init="GetPaperDetail()">
+        <div class="panel-heading">
+            <h4 class="text-center">{{diagnosisName}}</h4>
+        </div>
+        <div class="wrapper">
+            <!--<p>{{paperSystem}}</p>-->
+            <div id="log">
+                <ul ng-repeat="data in bigQusetions track by $index">
+                   <li>
+                       <h4>{{$index+1}}、{{data.itemContent}}</h4>
+                       <!--<p>大题分数：{{data.itemScore}}</p>-->
+                       <ul ng-repeat="item in data.list track by $index">
+                           <!--<li><b>学科：</b>{{item.subjectName}}</li>
+                           <li><b>标题：</b>{{item.title}}</li>
+                           <li>{{item.productions}}</li>-->
+                           <li><b>({{$index+1}})、</b><span  ng-bind-html="item.stem | strToUrl "></span></li>
+                           <li>
+                               <div style="padding-left: 20px;">
+                                   <div >
+                                       <b>选项：</b>
+                                       <ul>
+                                           <li ng-repeat="option in item.quesOption">
+                                               <span>{{option.optionKey}}</span>
+                                               <span ng-bind-html="option.optionValue| strToUrl"></span>
+                                           </li>
+                                       </ul>
+                                   </div>
+                                   <button class="btn btn-primary pull-right" ng-click="q.showAnswer=!q.showAnswer">显示解析</button>
+                                   <div ng-show="q.showAnswer">
+                                       <div><b>答案：</b>{{item.answer}}</div>
+                                       <b>解析：</b>
+                                       <ul>
+                                           <li ng-repeat="ana in item.quesAnalyze ">
+                                               <span>{{ana.analyzeKey||''}}</span>
+                                               <span ng-bind-html="ana.analyzeValue| strToUrl"></span>
+                                           </li>
+                                       </ul>
+                                   </div>
+                               </div>
+                           </li>
+                           <li><b>难度系数：</b>
+                               <span ng-init="xx = item.difficultStar" class="m-b text-lg">
+                                   <rating ng-model="xx" max="item.difficultStar" state-on="'fa fa-star text-warning'" state-off="'fa fa-star-o'"></rating>
+                               </span>
+                           </li>
+                           <li><b>视频路径：</b>{{item.videoPath}}</li>
+                           <li><b>音频：{{item.audioAnalyzePath}}</b>
+
+                             <!--  <audio autoplay="{{mp31}}">
+                                   <source ng-src="{{HSKMp3Path1}}" type="audio/mpeg" />
+                               </audio>
+                               <i ng-bind-html="Mp3Path1 | to_trusted"></i>
+                               <img id="mp3Img" src="../img/a6.jpg" ng-click="mp3Play('HSK','1')" />-->
+
+                              <!-- ../../images/msg.gif-->
+                              <!--<audio   width='100%' height="auto" >
+                                   <source  ng-bind-template="{{item.audioAnalyzePath}}" ng-src="{{item.audioAnalyzePath}}">
+                               </audio >--></li>
+                           <li><b>分数：</b>{{item.score}}</li>
+                           <li><b>知识点：</b>{{item.knowledges}}</li>
+                       </ul>
+                   </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

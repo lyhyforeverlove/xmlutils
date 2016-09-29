@@ -1,0 +1,88 @@
+<div class="wrapper-md" ng-controller="DiagGoodsCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教学管理 &gt; 诊断商品<span class="pull-right">负责监考教师：<b>{{name}}</b> </span></h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-body">
+                <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" ng-init="load()">
+                    <!--包含公共筛选条件 start-->
+                    <!--<div ng-include="'admin/common/tpl/filter.html'"></div>-->
+                    <!--包含公共筛选条件 end-->
+                    <div class="panel-select">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学年：</label>
+                            <label class="control-label" ng-model="formData.gradeCode">高考</label>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">类型：</label>
+                            <div class="radio">
+                                <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                                    <input type="radio" name="departmentType" ng-value='val.departmentType' ng-model="formData.departmentType" ng-click="getList(1,10)"><i></i>{{val.departmentName}}
+                                </label>
+                            </div>
+                        </div>
+                        <!--<div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
+                            <div class="radio">
+                                <label class="i-checks" ng-repeat="obj in bookVersion">
+                                    <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode">
+                                    <i></i>{{obj.bookVersionName}}
+                                </label>
+                            </div>
+                        </div>-->
+                        <!--<div class="line line-dashed b-b line-lg"></div>-->
+                    </div>
+                    <!--<button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>-->
+                </form>
+            </div>
+            <div class="panel-container">
+                <h4>诊断商品列表</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">序号</th>
+                                <th style="width:10%">文理类型</th>
+                                <th style="width:20%">诊断卷名称</th>
+                                <th style="width:15%">创建时间</th>
+                                <th style="width:15%">封面</th>
+                                <th style="width:20%">状态</th>
+                                <th style="width:10%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>  <!--  -->
+                            <tr ng-repeat="data in results.list">
+                                <td>{{$index+1}}</td>
+                                <td>{{departmentName}}</td>
+                                <td><!--{{data.goodsName}}-->{{data.paperName}}</td>
+                                <td>{{data.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                                <td><img src="{{data.pictureUrl}}" width="100px" height="50px" /></td>
+                                <td>
+                                    <p><button ng-if="data.onsaleStatus == 0" class="btn btn-info" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:1})">上架</button>
+                                &nbsp;<button ng-if="data.onsaleStatus == 1" class="btn btn-primary" ng-click="UpdateGoodsStatus({goodsCode:data.eduGoodsCode,status:0})">下架</button>
+                                        &nbsp;&nbsp;<button class="btn btn-default" ng-click="GetGoodsDetail({'goodsCode':data.eduGoodsCode})">详情</button></p>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" ng-click="allotBtn({goodsCode:data.eduGoodsCode})">分配监考人</button>
+                                     <!--  ui-sref="app.teachManage.allot()"-->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    <!-- 指令调用代码 -->
+                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                    <!-- 指令模板[pagination.html] -->
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<style>
+.list-group-item {
+    border-radius: 0;
+    line-height: 36px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+<div class="wrapper-md" ng-controller="DiagListController">
+    <div class="panel panel-default" ng-init="getList()">
+        <div class="panel-heading">
+            <h4>试卷</h4>
+        </div>
+        <div class="row wrapper">
+            <!-- ng-if="data.totalPage>0" -->
+            <div class="table-responsive">
+                
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>学科</th>
+                            <th>诊断试卷名称</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in results.content">
+                            <td>{{data.subjectCode}}</td>
+                            <td>{{data.repositoryPaperCode}}{{data.diagnosisPaperName}}</td>
+
+                            <td>
+                                <button class="btn btn-primary" ui-sref="app.teachResearchManage.createDouble({diagnosisPaperCode:data.repositoryPaperCode})"><span class="p-d
+                                ">选用</span></button> 
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="load" class="text-center"></xl-page>
+                                <!-- 指令模板[pagination.html] -->
+                            </td>
+                        </tr> 
+                    </tfoot>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

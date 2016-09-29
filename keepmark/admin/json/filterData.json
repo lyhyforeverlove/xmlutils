@@ -1,0 +1,319 @@
+{
+    "filterData": [{
+        "id": "0",
+        "gradeCode":33,
+        "gradeName":"高考",
+        "departmentType": 0,
+        "departmentName": "文科",
+        "checked" : false,
+        "category": [{
+            "id": "0",
+            "subjectCode": 1,
+            "subjectName": "语文",
+            "checked": true,
+            "code":"chineseCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "FaBnQDnrGSxTwDmxEMHCx2TAbwSXfphB",
+                "bookVersionName": "新课标Ⅱ卷"
+            }, {
+                "id": "2",
+                "bookVersionCode": "SB3JrhkQjNCQsXEtkM6tpbAEs6nXwcex",
+                "bookVersionName": "新课标Ⅲ卷"
+            },{
+                "id": "3",
+                "bookVersionCode": "bd9bfc91c6a540c2bbe0866ebc6df1b8",
+                "bookVersionName": "自主命题北京卷"
+            }, {
+                "id": "4",
+                "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "1",
+            "subjectCode": 2,
+            "subjectName": "数学",
+            "checked": false,
+            "code":"mathCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "WTGPXWmhRy52eY3PG6A4GQ3nhxGcbEAE",
+                "bookVersionName": "新课标Ⅰ、Ⅱ卷（文科）"
+            }, {
+                "id": "1",
+                "bookVersionCode": "yaGEXxhwSh3PBz3wE5xD3fp8BsciwWmY",
+                "bookVersionName": "自主命题北京卷（文科）"
+            }, {
+                "id": "2",
+                "bookVersionCode": "brDeik4N7iRTmb76nC2kcDrQiCYBat8W",
+                "bookVersionName": "自主命题天津卷（文科）"
+            }]
+        }, {
+            "id": "2",
+            "subjectCode": 3,
+            "subjectName": "英语",
+            "checked": false,
+            "code":"englishCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "rMYcDBZARPMKnzscKXNC5bXHnkRBMYst",
+                "bookVersionName": "新课标I卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "7BeTfTKneksj2MCn7hicxtChAWcswemC",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "HihQkSaet4CnhdNScntrhfn3TNezpf5A",
+                "bookVersionName": "新课标III卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "7RX6YWSm86wP6bxrzbttN5KBtFBhkC3j",
+                "bookVersionName": "自主命题北京卷 "
+            }, {
+                "id": "4",
+                "bookVersionCode": "KSGKCyHpNT6NFJQeDTcnxM4ESAiwshrN",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "3",
+            "subjectCode": 7,
+            "subjectName": "历史",
+            "checked": false,
+            "code":"historyCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "be193bd53bf944b6b52164d8f061736c",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "e6a9d37631ff4d45bdda97287a03c031",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "TXTxsEkjisXt5DpCTxSnnXkbzre56WXS",
+                "bookVersionName": "新课标III卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "429108a18ad94437806048be07ad90fc",
+                "bookVersionName": "自主命题北京卷 "
+            }, {
+                "id": "4",
+                "bookVersionCode": "c06c196f304e46a7be315b0c414d93f5",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "4",
+            "subjectCode": 8,
+            "subjectName": "地理",
+            "checked": false,
+            "code":"geographyCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "acaa84070c25440c9b553cd028c41744",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "f2e75d7cd273467799010a47f612817c",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "3JXNMPS5TsxZB8mxdwHrQMT52mZS7BP2",
+                "bookVersionName": "新课标III卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "9377bae9d75445f49ed8fbc631bdeb48",
+                "bookVersionName": "自主命题北京卷 "
+            }, {
+                "id": "4",
+                "bookVersionCode": "jQBpSijBTfBdbBkFF7s3wGREyrkxsiAY",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "5",
+            "subjectCode": 9,
+            "subjectName": "政治",
+            "checked": false,
+            "code":"politicsCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "40fb3303d42d41f6926fae5b475a2db6",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "03289b7cbac9489c81e2dda1b5373a63",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "i8DfbCByti8XHXh5H7Q3iAyAkMZFi3Wt",
+                "bookVersionName": "新课标III卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "EyNyZZZ7te8fFDZhTQFKDhsZpExRkXXP",
+                "bookVersionName": "自主命题北京卷 "
+            }, {
+                "id": "4",
+                "bookVersionCode": "b4bFnCTASBEjH5tf6dppDKwWRXpdmxJ4",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }]
+    }, {
+        "id": "1",
+        "gradeCode":33,
+        "gradeName":"高考",
+        "departmentType": 1,
+        "departmentName": "理科",
+        "checked" : "checked",
+        "category": [{
+            "id": "0",
+            "subjectCode": 1,
+            "subjectName": "语文",
+            "checked": true,
+            "code":"chineseCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "7HCcMZTzpcThi6RaByWysKQPPbtTHSj8",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "FaBnQDnrGSxTwDmxEMHCx2TAbwSXfphB",
+                "bookVersionName": "新课标Ⅱ卷"
+            }, {
+                "id": "2",
+                "bookVersionCode": "SB3JrhkQjNCQsXEtkM6tpbAEs6nXwcex",
+                "bookVersionName": "新课标Ⅲ卷"
+            },{
+                "id": "3",
+                "bookVersionCode": "bd9bfc91c6a540c2bbe0866ebc6df1b8",
+                "bookVersionName": "自主命题北京卷"
+            }, {
+                "id": "4",
+                "bookVersionCode": "cc8b1214375f402ba48803b9b766384a",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "1",
+            "subjectCode": 2,
+            "subjectName": "数学",
+            "checked": false,
+            "code":"mathCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "4f9acfe14266449f8fd034c02563303b",
+                "bookVersionName": "新课标Ⅰ、Ⅱ卷（理科）"
+            }, {
+                "id": "1",
+                "bookVersionCode": "b9a8320392c04661bfcee5117ba53260",
+                "bookVersionName": "自主命题北京卷（理科） "
+            }, {
+                "id": "2",
+                "bookVersionCode": "f0feb18fb79847e59b12b3797be7ce66",
+                "bookVersionName": "自主命题天津卷（理科）"
+            }]
+        }, {
+            "id": "2",
+            "subjectCode": 3,
+            "subjectName": "英语",
+            "checked": false,
+            "code":"englishCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "rMYcDBZARPMKnzscKXNC5bXHnkRBMYst",
+                "bookVersionName": "新课标I卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "7BeTfTKneksj2MCn7hicxtChAWcswemC",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "HihQkSaet4CnhdNScntrhfn3TNezpf5A",
+                "bookVersionName": "新课标III卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "7RX6YWSm86wP6bxrzbttN5KBtFBhkC3j",
+                "bookVersionName": "自主命题北京卷 "
+            }, {
+                "id": "4",
+                "bookVersionCode": "KSGKCyHpNT6NFJQeDTcnxM4ESAiwshrN",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "3",
+            "subjectCode": 4,
+            "subjectName": "物理",
+            "checked": false,
+            "code":"physicsCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "db84874bb6944ccea03253785ea29f93",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "c0ac746ee52841bca68742af0cef3fee",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "b20f9df0c1fe4a1d883bb36c447dac10",
+                "bookVersionName": "自主命题北京卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "5725590470854d4ba2f182140a5ff833",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "4",
+            "subjectCode": 5,
+            "subjectName": "化学",
+            "checked": false,
+            "code":"chemistryCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "b0029d426d794ebba8695dbec8277833",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "1bad3cec27dc446d9a6652c148ab7855",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "002770a34b04454fa6626e28ba67fa4c",
+                "bookVersionName": "自主命题北京卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "REwT6kmsxhfNdCQKTKxK3E2rFsBJTr7Q",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }, {
+            "id": "5",
+            "subjectCode": 6,
+            "subjectName": "生物",
+            "checked": false,
+            "code":"biologyCode",
+            "bookVersion": [{
+                "id": "0",
+                "bookVersionCode": "47bee8fe84b8486cbbba649d106a4f40",
+                "bookVersionName": "新课标Ⅰ卷"
+            }, {
+                "id": "1",
+                "bookVersionCode": "43d7e3d01e5d430b9b627d1b7c22ded7",
+                "bookVersionName": "新课标II卷 "
+            }, {
+                "id": "2",
+                "bookVersionCode": "YHamNGPTZmPKGKycTs7j3BwKWSf5NZt4",
+                "bookVersionName": "新课标III卷"
+            }, {
+                "id": "3",
+                "bookVersionCode": "1c80f6ca492d42328df552b124f222d3",
+                "bookVersionName": "自主命题北京卷"
+            },  {
+                "id": "4",
+                "bookVersionCode": "82d24a52343e45d08cb6efc4f9481315",
+                "bookVersionName": "自主命题天津卷"
+            }]
+        }]
+    }]
+}

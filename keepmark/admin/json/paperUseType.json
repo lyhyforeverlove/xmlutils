@@ -1,0 +1,15 @@
+{
+	"paperUse":[{
+		"paperUseType":"p_004",
+		"paperUseName":"诊断卷",
+		"checked":true
+	},{
+		"paperUseType":"p_005",
+		"paperUseName":"短板诊断卷",
+		"checked":false
+	},{
+		"paperUseType":"p_014",
+		"paperUseName":"阶段考试卷",
+		"checked":false
+	}]
+}

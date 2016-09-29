@@ -1,0 +1,82 @@
+<div class="wrapper-md ng-scope" ng-controller="classAndGradeController" ng-init="initMasterSchool()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理 &gt; 班级 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-heading ">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="masterSchool" class="form-control" ng-options="m.name for m in masterSchoolList" ng-click="getBranchSchoolList(masterSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList" ng-click="getDistrictSchoolList(branchSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学区：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="districtSchool" class="form-control" ng-options="d.name for d in districtSchoolList" ng-click="getDepartmentSchoolList(districtSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学部：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="departmentSchool" class="form-control" ng-options="d.name for d in departmentSchoolList" ng-click="getCentreSchoolList(departmentSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">中心：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="centreOfSchool" class="form-control" ng-options="c.name for c in centreOfSchoolList" ng-click="getClassAndGrade(centreOfSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addClassAndGrade()">添加班级</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped  b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>班级名称</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in classAndGradeList">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>
+                                <a class="btn-a" ng-click ="classAndGradeDetail(item)">查看</a>
+                                <a class="btn-a" ng-click ="updateClassAndGrade(item)">修改</a>
+                                <!--<a ng-click="deleteClassAndGradeSchool()">删除</a>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

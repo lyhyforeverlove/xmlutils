@@ -1,0 +1,12 @@
+<div class="wrapper-md" ng-controller="CourseDetailController">
+  <div class="panel panel-default" ng-init="load()">
+    <div class="panel-heading">
+      <h4>教研管理 &gt; 课程详情</h4>
+    </div>
+    <div class="wrapper">
+      <ul ng-repeat="data in results">
+        <li><b>第{{$index+1}}小节：</b>{{data.repositoryBurlName}}<!--{{data.courseSystemCode}}--></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,280 @@
+<div class="wrapper-md" ng-controller="DividingClassesCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教学管理 &gt; 分班</h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-heading m-b-xl">
+                <form class="form-horizontal" ng-init="load()">
+                   <!--<div class="form-group">
+                        <label class="col-sm-2 control-label">类型：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                                <input type="radio" name="departmentType" ng-value='{{val.departmentType}}' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地区：</label>
+                        <div class="col-sm-2">
+                            <select name="account" class="form-control">
+                                <option>全部</option>
+                                <option>北京</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>-->
+                   <!--<pre>{{formData}}</pre>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">总分数：</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="460" ng-model="formData.minTotalScore" minlength="1" maxlength="3">
+                        </div>
+                        <label class="col-sm-1" style="width:10px">-</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" value="500" ng-model="formData.maxTotalScore" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">目标类型：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
+                                <input type="radio" name="category_code" ng-value='val.aimType' ng-model="formData.studentObjective"><i></i>{{val.aimName}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <button type="button" class="btn m-b-xs w-xs btn-primary pull-right" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
+                </form>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="panel-body">
+                <div id="tabs">
+                    <ul class="tabs_ul">
+                        <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+                    </ul>
+                    <div id="mainView">
+                        <div ng-include="currentTab"></div>
+                    </div>
+                </div>
+                <script type="text/ng-template" id="one.tpl.html">
+                    <div id="viewOne">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>地区</th>
+                                        <th>姓名</th>
+                                        <th>用户名</th>
+                                        <th>家长联系方式</th>
+                                        <th>语文</th>
+                                        <th>数学</th>
+                                        <th>英语</th>
+                                        <th>历史</th>
+                                        <th>政治</th>
+                                        <th>地理</th>
+                                        <th>总分</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="data in results.list">
+                                        <td>{{$index+1}}{{data.repositoryPaperCode}}</td>
+                                        <td>{{data.areaName}}</td>
+                                        <td>{{data.studentName}}</td>
+                                        <td>{{data.studentCode}} | 用户名</td>
+                                        <td>家长联系方式</td>
+                                        <td>{{data.chineseScore}}分</td>
+                                        <td>{{data.mathScore}}分</td>
+                                        <td>{{data.englishScore}}分</td>
+                                        <td>{{data.physicsScore}}分</td>
+                                        <td>{{data.chemistryScore}}分</td>
+                                        <td>生物（没找到字段）分</td>
+                                        <td>{{data.totalScore}}分</td>
+                                        <td>
+                                            <label class="i-checks">
+                                                <input id={{data.studentCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.studentCode,x)"><i></i>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="12"></td>
+                                        <td>
+                                            <label class="i-checks m-b-none">
+                                                <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="13" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                            <!--指令模板[pagination.html] -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </script>
+                <script type="text/ng-template" id="two.tpl.html">
+                    <div id="viewTwo">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>地区</th>
+                                        <th>姓名</th>
+                                        <th>用户名</th>
+                                        <th>家长联系方式</th>
+                                        <th>语文</th>
+                                        <th>数学</th>
+                                        <th>英语</th>
+                                        <th>物理</th>
+                                        <th>化学</th>
+                                        <th>生物</th>
+                                        <th>总分</th>
+                                        <th>空余时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="data in results.list">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{data.areaName}}</td>
+                                        <td>{{data.studentName}}</td>
+                                        <td>{{data.studentCode}} | 用户名</td>
+                                        <td>家长联系方式</td>
+                                        <td>{{data.chineseScore}}分</td>
+                                        <td>{{data.mathScore}}分</td>
+                                        <td>{{data.englishScore}}分</td>
+                                        <td>{{data.physicsScore}}分</td>
+                                        <td>{{data.chemistryScore}}分</td>
+                                        <td>生物（没找到字段）分</td>
+                                        <td>{{data.totalScore}}分</td>
+                                        <td>周六日</td>
+                                        <td>
+                                            <label class="i-checks">
+                                                <input id={{data.repositoryPaperCode}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.repositoryPaperCode,x)"><i></i>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="13"></td>
+                                        <td>
+                                            <label class="i-checks m-b-none">
+                                                <input type="checkbox" ng-model="master" ng-click="checkAll(master,tesarry)"><i></i>全选
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="15" class="text-center">
+                                            <!-- 指令调用代码 -->
+                                            <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                            <!--指令模板[pagination.html] -->
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </script>
+                <!--{{choseArr}}-->
+                <!-- modal -->
+                <button class="btn btn-primary m-b-xs w-xs pull-right" ng-click="open('lg',choseArr)">班</button>
+                <script type="text/ng-template" id="myModelContent.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title">班型</h3>
+                    </div>
+                    <div class="modal-body" ng-init="initMasterSchool()">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">总校：</label>
+                            <div class="col-sm-10">
+                                <select ng-model="masterSchool" class="form-control" ng-options="m.name for m in masterSchoolList" ng-click="getBranchSchoolList(masterSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分校：</label>
+                            <div class="col-sm-10">
+                                <select ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList" ng-click="getDistrictSchoolList(branchSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学区：</label>
+                            <div class="col-sm-10">
+                                <select ng-model="districtSchool" class="form-control" ng-options="d.name for d in districtSchoolList" ng-click="getDepartmentSchoolList(districtSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学部：</label>
+                            <div class="col-sm-10">
+                                <select ng-model="departmentSchool" class="form-control" ng-options="d.name for d in departmentSchoolList" ng-click="getCentreSchoolList(departmentSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">中心：</label>
+                            <div class="col-sm-10">
+                                <select ng-model="centreOfSchool" class="form-control" ng-options="c.name for c in centreOfSchoolList" ng-change="getClassesList(centreOfSchool.code)">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg"></div>
+                        <ul class="classesUl clearfix">
+                            <li ng-repeat="data in results"  id="{{data.code}}"><!--  -->
+                                <a ng-click="selectedClasses({code:data.code,centerCode:data.centerCode})">{{data.name}}</a>
+                                <!-- <label class="i-checks">
+                                    <input id={{data.code}} type="checkbox" ng-model="x" ng-checked="master" ng-click="chk(data.code,x)"><i></i>
+                                </label> -->
+                            </li>
+                            <div class="h2">  <b>{{choseArr}}</b></div>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="placementOk()">
+                            <span class="p-d">确认</span>
+                        </button>
+                        <button class="btn btn-warning" ng-click="cancel()">
+                            <span class="p-d">退出</span>
+                        </button>
+                    </div>
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+{{selected}}
+<style>
+.classesUl li{float:left;}
+.classesUl li{
+    border:1px solid #ccc;
+    border-radius:4px;
+    display: inline-block;
+    padding:4px 10px;
+    margin:4px 10px;
+}
+.classesUl li.active{
+    border:1px solid green;
+    background:#fff;
+}
+</style>

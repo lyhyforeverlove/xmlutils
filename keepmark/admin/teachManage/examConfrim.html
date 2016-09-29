@@ -1,0 +1,202 @@
+<div class="wrapper-md" ng-controller="ShortSlabController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教学管理 &gt; 短板考试确认</h4>
+        </div>
+        <div class="wrapper">
+            <form class="form-horizontal" ng-init="load()">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">目标类型：</label>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
+                            <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+                        </label>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
+                </div>
+            </form>
+            <div>
+                <h4>学科：教研专属学科显示</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th width="5%">序号</th>
+                                <th width="5%">用户名</th>
+                                <th width="5%">姓名</th>
+                                <th width="5%">学科</th>
+                                <th width="14%">考试时间</th>
+                                <th width="10%">试卷</th>
+                                <th width="7%">客观题得分</th>
+                                <th width="5%">主观分</th>
+                                <th width="5%">总分</th>
+                                <th width="7%">诊断报告</th>
+                                <th width="5%">操作人</th>
+                                <th width="5%">联系</th>
+                                <th width="5%">家长</th>
+                                <th width="5%">短板用卷</th>
+                                <th width="12%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in results.list">
+                                <td>{{$index+1}}</td>
+                                <td>{{data.userName}}</td>
+                                <td>{{data.studentName }}</td>
+                                <td>{{data.subjectName}}</td>
+                                <td>{{ data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}
+                                        <br />{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td><!--{{data.diagnosisPaperCode}}-->
+                                    <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
+                                </td>
+                                <td>{{data.impersonalityScore}}分</td>
+                                <td>{{data.subjectivityScore}}分</td>
+                                <td>{{data.impersonalityScore }}分</td>
+                                <td>
+                                    <button class="btn btn-primary" ui-sref="app.teachResearchManage.detail({'paperCode':data.repositoryPaperCode})">详情</button>
+                                </td>
+                                <td>{{data.operator}}</td>
+                                <td>{{data.mobile}}</td>
+                                <td>{{data.parent}}</td>
+                                <td>{{data.diagnosisPaperName}}<!-- {{data.isAgreeJoinVulnerability }}--></td>
+                                <td>
+
+                                    <div id="{{data.eduVulnerabilityAnalyzeRecordCode}}">
+                                    <!-- {{data.isAgreeJoinVulnerability}}   "-->
+                                        <p class="p_btn_1"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">拒绝短板诊断</button></p>
+                                        <p class="p_btn_2"><button class="btn btn-primary"  ng-if="data.isAgreeJoinVulnerability == -1" ng-click="DiagDisagree({shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,isAgreeJoinVulnerability:data.isAgreeJoinVulnerability})">同意短板诊断</button></p>
+                                        <p ng-if="data.isAgreeJoinVulnerability == 0">已拒绝</p>
+                                        <p ng-if="data.isAgreeJoinVulnerability == 1">已同意</p>
+                                        <p class="p_btn_3"><button ng-if="data.appointmentExamStartDate.length == 0" class="btn btn-primary" id="{{$index}}" ng-click="open('lg',{shortSlabAnalysisRecordCode:data.eduVulnerabilityAnalyzeRecordCode,broadcastBoothUrl:data.broadcastBoothUrl,invigilatorTeacher:data.invigilatorTeacher})">预约时间</button></p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                            <td>2</td>
+                            <td>1821058560</td>
+                            <td>LiLy</td>
+                            <td>英语</td>
+                            <td>2016.7.28 18:00-19:00</td>
+                            <td>
+                                <button class="btn btn-primary">详情</button>
+                            </td>
+                            <td>80分</td>
+                            <td>100分</td>
+                            <td>130分</td>
+                            <td>
+                                <button class="btn btn-primary">详情</button>
+                            </td>
+                            <td>XXX</td>
+                            <td>138XXXXXXXX</td>
+                            <td>XXX</td>
+                            <td>诊断卷名称(A)</td>
+                            <td>
+                                <span>已确认</span>
+                                <span>时间:16:00-18:00</span>
+                                 <button class="btn btn-primary" ng-click="">拒绝短板诊断</button>
+                               <button class="btn btn-primary" ng-click="open('lg')">预约时间</button> 
+                                <hr>
+                                <div class="h1" ng-show="selected">当前选择：{{selected}}</div>
+                            </td>
+                        </tr> -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    <!-- 指令调用代码 -->
+                                    <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                    <!--指令模板[pagination.html] -->
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!-- 弹出框 预约时间 start -->
+            <script type="text/ng-template" id="myModelContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">预约时间</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="wrapper">
+                        <p>直播间地址：{{postData.broadcastBoothUrl}}</p>
+                        <p>监考教师：{{postData.invigilatorTeacher}}</p>
+                        <form action="">
+                            <div class="panel-container">
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <!-- <input type="text" ng-model="postData.appointmentExamStartDate">
+                                <input type="text" ng-model="postData.appointmentExamEndDate"> -->
+                                <div class="checkDate">
+                                    <ul class="list-group" id="date"><!-- ng-click="toggleActive(service)"  ng-class="{active:service.active}"-->
+                                        <li ng-repeat="service in groups" ng-click="getDate(service,$index)" id="{{$index}}">
+                                            {{item.AM}}{{item.PM}}{{service.name}} {{service.startDate}}-{{service.endDate}}<span>{{service.group}} </span><span>{{service.date}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  <!--   <ul>
+                      <li ng-repeat="item in items">
+                          <a ng-click="selected.item = item">{{item}}</a>
+                      </li>
+                      <div class="h2">当前选择： <b>{{selected.item}}</b></div>
+                  </ul> -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="AppointmentOK(postData)">
+                        确认
+                    </button>
+                    <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                </div>
+            </script>
+            <!-- 弹出框 预约时间 end -->
+        </div>
+    </div>
+</div>
+<style>
+form ul {
+    list-style: none;
+    color: #333;
+    font-size: 16px;
+    text-align: left;
+    margin: 20px 0 15px;
+}
+
+form ul li {
+    padding: 10px 20px;
+    background-color: #fff;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+form ul li span {
+    float: right;
+}
+
+form ul li.active {
+    border: 1px solid #8ec16d;
+    color: #333;
+}
+
+div.total {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #000;
+}
+
+div.total span {
+    float: right;
+}
+</style>

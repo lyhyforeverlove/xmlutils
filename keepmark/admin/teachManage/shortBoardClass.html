@@ -1,0 +1,110 @@
+<div class="wrapper-md" ng-controller="ShortBoardClassCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教学管理 &gt;短板加课确认</h4>
+        </div>
+        <div class="wrapper">
+            <form class="form-horizontal" ng-init="load()">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--包含公共筛选条件 end-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">目标类型：</label>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
+                            <input type="radio" name="category_code" ng-value='{{val.aimType}}' ng-model="formData.aimType" ng-click="getCtb(val.id)"><i></i>{{val.aimName}}
+                        </label>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="col-sm-12"><button class="btn btn-primary pull-right" ng-click="getList(null,1,10)"><span class="p-d">查询</span></button></div>
+            </form>
+            <div class="panel-heading">
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="radio">
+                    <!--<label class="i-checks">
+                        <input type="radio" name="f" value="option3" checked ng-click="getList()">
+                        <i></i>全部
+                    </label>-->
+                   <label class="i-checks">
+                        <input type="radio" name="f" value="option4" ng-model="formData.isAgreeAddHour" ng-click="getList(-1,1,10)">
+                        <i></i>待参加<!-- (待确认)--></label>
+                    <label class="i-checks">
+                        <input type="radio" name="f" value="yes" ng-model="formData.isAgreeAddHour" ng-click="getList(1,1,10)">
+                        <i></i>已参加
+                    </label>
+                    <label class="i-checks">
+                        <input type="radio" name="f" value="no" ng-model="formData.isAgreeAddHour" ng-click="getList(0,1,10)">
+                        <i></i>不参加
+                    </label>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>学科</th>
+                        <th>考试时间</th>
+                        <th>试卷</th>
+                        <th>客观题得分</th>
+                        <th>主观分</th>
+                        <th>总分</th>
+                        <th>诊断报告</th>
+                        <th>操作人</th>
+                        <th>联系</th>
+                        <th>家长</th>
+                        <th>短板诊断得分</th>
+                        <th>加课时</th>
+                        <th>上课内容</th>
+                        <th>加课确认</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat = "data in results.list">
+                        <td>{{$index+1}}</td>
+                        <td>{{data.userName}}</td>
+                        <td>{{data.studentName}}</td>
+                        <td>{{data.subjectName }}</td>
+                         <td>开始时间:{{ data.appointmentExamStartDate | date:'yyyy-MM-dd HH:mm:ss' }}<br />结束时间:{{data.appointmentExamEndDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详情</button>
+                        </td>
+                        <td>{{data.impersonalityScore}}分</td>
+                        <td>{{data.subjectivityScore}}分</td>
+                        <td>{{data.impersonalityScore+data.subjectivityScore}}分</td>
+                        <td><button class="btn btn-primary">详情</button></td>
+                        <td>{{data.operator}}</td>
+                        <td>{{data.mobile}}</td>
+                        <td>{{data.parent}}</td>
+                        <td></td>
+                        <td>{{data.addHourNumber}}</td>
+                        <td><button class="btn btn-primary">查看</button></td>
+                        <td>
+                            <div id="{{data.eduVulnerabilityAnalyzeRecordCode}}">
+                                <p class="p_btn_1"><button ng-if="data.isAgreeAddHour == -1" class="btn btn-primary" ng-click="AgreeAddClassHour(data.eduVulnerabilityAnalyzeRecordCode)">不参加</button></p>
+                                <p class="p_btn_2"><button  ng-if="data.isAgreeAddHour == -1" class="btn btn-primary" ng-click="DisAgreeAddClassHour(data.eduVulnerabilityAnalyzeRecordCode)">参加</button></p>
+                                <p ng-if="data.isAgreeAddHour == 0">已确认不同意加课</p>
+                                <p ng-if="data.isAgreeAddHour == 1">已确认同意加课</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                <!--指令模板[pagination.html] -->
+                            </td>
+                        </tr>
+                    </tfoot>
+            </table>
+        </div>
+        </div>
+        
+    </div>
+</div>

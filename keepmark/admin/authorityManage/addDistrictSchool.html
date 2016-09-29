@@ -1,0 +1,40 @@
+<div class="wrapper-md ng-scope" ng-controller="addDistrictSchoolController"  ng-init="initMasterSchool()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{titleName}}
+                <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.departmentDistrictSchool()" ><span class="p-d">返回</span></button>
+            </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">总校：</label>
+                <div class="col-sm-2">
+                    <select id="masterSchool" ng-model="schoolMain"  ng-click="getBranchSchoolList(schoolMain.code)" class="form-control" ng-options="m.name for m in masterSchoolList">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">分校：</label>
+                <div class="col-sm-2">
+                    <select ng-model="formData.branchCode" class="form-control" ng-options="b.code as b.name for b in branchSchoolList" >
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">学区名称:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入学区名称"  ng-model="formData.name">
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">学区负责人:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入学区负责人" ng-model="formData.personCharge">
+                </div>
+            </div>
+            <button class="btn btn-primary pull-right" ng-click="saveDistrictSchool(formData)">保存</button>
+        </div>
+    </div>
+</div>

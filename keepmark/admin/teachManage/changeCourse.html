@@ -1,0 +1,99 @@
+<div class="wrapper-md" ng-controller="RoundController">
+    <div class="panel panel-default">
+        <div class="wrapper">
+            <div class="panel-heading m-b-xl">
+                <div class="input-group  col-sm-4">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn"><button class="btn btn-default">查询</button></span>
+                </div>
+
+                <div class="line line-dashed b-b line-lg"></div>
+               <form action="" class="form-inline ng-pristine ng-valid  col-sm-12">
+                     
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">年份:</label>
+                    <div  class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>2016年</option>
+                            <option>2015年</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">目标:</label>
+                    <div  class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>保一本</option>
+                            <option>2015年</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">考生类型:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>艺考</option>
+                            <option>统考</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">中心班级:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>中心一1班</option>
+                            <option>中心一2班</option>
+                        </select>
+                    </div>
+                </div>
+               </form>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <p>
+                <button class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-plus"></i>新增</button>
+                <button class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-graduation-cap"></i>毕业</button>
+                <button class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-trash-o"></i>删除</button>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学生姓名</th>
+                            <th>保分目标</th>
+                            <th>考生类型</th>
+                            <th>所在班级</th>
+                            <th>课程类型</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label class="i-checks i-checks-sm"><input type="checkbox"><i></i>1</label></td>
+                            <td>王XXX</td>
+                            <td>一本</td>
+                            <td>统考</td>
+                            <td>中心一1班</td>
+                            <td>A课程</td>
+                            <td>更换
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="i-checks i-checks-sm"><input type="checkbox"><i></i>2</label></td>
+                            <td>王XXX</td>
+                            <td>一本</td>
+                            <td>统考</td>
+                            <td>中心一1班</td>
+                            <td>A课程</td>
+                            <td>更换
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+        
+    </div>
+</div>
+

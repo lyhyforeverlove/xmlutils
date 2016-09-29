@@ -1,0 +1,71 @@
+<div class="wrapper-md ng-scope" ng-controller="departmentSchoolController" ng-init="initMasterSchool()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{titleName}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-heading ">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select id="masterSchool" ng-click="getBranchSchoolList(masterSchool.code)" ng-model="masterSchool"  class="form-control" ng-options="m.name for m in masterSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select id="branchSchool" ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学区：</label>
+                    <div class="col-sm-2">
+                        <select ng-model="districtSchool" ng-click="getDepartmentSchoolList(districtSchool.code)"  class="form-control" ng-options="d.name for d in districtSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addDepartmentSchool()">添加学部</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped  b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                       <!--     <th>学区名称</th>
+                            <th>学区负责人</th>-->
+                            <th>学部名称</th>
+                            <th>学部负责人</th>
+                            <th>学部类型</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in departmentSchoolList">
+                            <td>{{$index+1}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.personCharge}}</td>
+                            <td>{{data.divisionType==0?"文学部":"理学部"}}</td>
+                            <td>
+                                <a class="btn-a" ng-click="viewDepartmentSchool(data)">查看</a>
+                                <a class="btn-a" ng-click="updateVDepartmentSchool(data)">修改</a>
+                                <!--<a ng-click="deleteCenterSchool()">删除</a>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

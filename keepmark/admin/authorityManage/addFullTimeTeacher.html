@@ -1,0 +1,154 @@
+<div class="wrapper-md ng-scope" ng-controller="addFullTimeTeacherController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label">用户名：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b" ng-model="teacher.userName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">姓名：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b" ng-model="teacher.name">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">性别：</label>
+                    <div class="col-sm-8 control-label">
+                        <label class="i-checks "><input type="radio" ng-model="teacher.authTeacherDetailModel.sex" value=1><i></i>男</label>
+                        <label class="i-checks "><input type="radio" ng-model="teacher.authTeacherDetailModel.sex" value=0><i></i>女</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">初始密码：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b" ng-model="teacher.password">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">工号：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b" ng-model="teacher.teacherNum">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">授课类型：</label>
+                    <div class="col-sm-8">
+                        <select ng-model ="teacher.lectureType " ng-options="m.teachingType as  m.teachingTypeName for m in teachingTypeList" class="form-control m-b select-inline" ng-click="seacherTeachingType()">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">职称：</label>
+                    <div class="col-sm-8">
+                        <select ng-model ="teacher.authTeacherDetailModel.proTitle" ng-options="m.teacherPro as  m.teacherProName for m in teacherProList" class="form-control m-b select-inline" ng-click="seacherTeacherPro()">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">学历：</label>
+                    <div class="col-sm-8">
+                        <select ng-model ="teacher.authTeacherDetailModel.education" ng-options="m.teacherEducation as  m.teacherEducationName for m in teacherEducationList" class="form-control m-b select-inline" ng-click="seacherTeacherEducation()">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+                <!--<div class="col-sm-3">
+                    <label class="control-label col-sm-4">省：</label>
+                    <div class="col-sm-8">
+                        <select id="province" ng-model="province" ng-options="province for province in provinces" class="form-control m-b select-inline">
+                            <option value="">{{province}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">市：</label>
+                    <div class="col-sm-8">
+                        <select  id="city" ng-disabled="!cities" ng-model="city" ng-options="city for city in cities" class="form-control m-b select-inline">
+                            <option value="">{{city}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">区：</label>
+                    <div class="col-sm-8">
+                        <select id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs" class="form-control m-b select-inline">
+                            <option value="">{{suburb}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+               <div class="col-sm-3">
+                    <label class="control-label col-sm-4">教龄：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b">
+                    </div>
+                </div>
+
+
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">联系电话：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b">
+                    </div>
+                </div>
+            </div>
+           <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">备用电话：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">身份证号码：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">邮箱地址：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">联系地址：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control m-b">
+                    </div>
+                </div>
+            </div>-->
+            <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">学科：</label>
+                    <div class="col-sm-8">
+                        <select ng-model="subject" ng-options="subject.subjectName for subject in subjectList" class="form-control m-b select-inline" ng-init="getSubject()">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">职务：</label>
+                    <div class="col-sm-8">
+                        <select ng-model="teacher.roleType" ng-options="duty.dutyType as duty.dutyName for duty in dutyList" class="form-control m-b select-inline" ng-click="getDutyList()">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class ="btn btn-primary pull-right" ng-click="saveFullTimeTeacher()" ng-disabled="isSubmitted" >保存</button>
+        </div>
+    </div>
+</div>

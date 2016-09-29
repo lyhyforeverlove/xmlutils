@@ -1,0 +1,45 @@
+<div class="wrapper-md" ng-controller="AbnTestController"  ng-init="getKnowledgeTree()">
+  <div class="panel panel-default">
+    <div class="wrapper">
+        <div class="col-sm-12">
+            <div class="knowledgeTree">
+                <div class="modal-header modal-bg">
+                    <h4 class="modal-title">知识点选择</h4>
+                </div>
+                <div class="modal-body">
+                    <span ng-if="doing_async">...loading...</span>
+                    <treecontrol class="tree-classic" tree-model="my_data" on-selection="showSelected(node)" options="treeOptions">
+                        {{node.knowledgeName}}
+                    </treecontrol>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <ul>
+                            <li  ng-repeat="data in knowledgeList" class="knowledge-point">
+                                <a ng-click="remove(data.knowledgeCode)" ng-model="knowledge" >{{data.knowledgeName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary pull-right btn-margin" ng-click="chooseCourse()" ng-show="knowledgeList.length>0?true:false">选择课程体系</button>
+                    </div>
+                    <div class="form-group" ng-show="courseListStatus">
+                        <ul>
+                            <li ng-repeat="data in datas">
+                                <label class="i-checks">
+                                    <input type="radio" ng-model="formData.course" value={{data.code}}><i></i>
+                                </label>{{data.courseName}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary pull-right" ng-click="saveCourse()" ng-show="formData.course?true:false">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

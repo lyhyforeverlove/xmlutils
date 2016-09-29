@@ -1,0 +1,142 @@
+<style>
+.list-group-item {
+    border-radius: 4px;
+    line-height: 36px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+<script src="admin/lib/spark-md5.js"></script>
+<script src="admin/lib/async.js"></script>
+<script src="admin/lib/upyun-mu.js"></script>
+<div class="wrapper-md" ng-controller="CreateSingleController">
+    <div class="panel panel-default" ng-init="load()">
+        <div class="panel-heading">
+            <h4>创建单科诊断{{name}}</h4>
+        </div>
+        <div class="wrapper">
+            <pre>{{formData}}</pre>
+            <form class="form-horizontal">
+                <!--包含公共筛选条件 start-->
+                <div ng-include="'admin/common/tpl/filter.html'"></div>
+                <!--<pre>{{formData}}</pre>-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">目标类型：</label>
+                    <div class="radio">
+                        <label class="i-checks" ng-repeat="(key, val) in LocalAimTypes track by $index">
+                            <input type="radio" name="aimType" ng-value='{{val.aimType}}' ng-model="formData.difficultStar"><i></i>{{val.aimName}}
+                        </label>
+                    </div>
+                </div>
+                <!--包含公共筛选条件 end-->
+                <div class="">
+                    <div class="list-group">
+                        <a href class="list-group-item"  ng-model="formData.resourcePaperCode" >
+                            <span>{{subjectName}}</span>
+                            <span class="name">{{paperName}}<span ng-if="paperName == null">诊断卷名称</span></span>
+                            <span class="pull-right">
+                                <button ng-if="formData.resourcePaperCode == null" class="btn m-b-xs w-xs btn-info" ng-click="open('lg',formData,'getPapersController')">添加</button>
+                                <button ng-if="formData.resourcePaperCode != null" class="btn m-b-xs w-xs btn-primary" ng-click="open('lg',formData,'getPapersController')">更换</button>
+                            </span>
+                        </a>
+                        <hr>
+                        
+                    </div>
+                    <script type="text/ng-template" id="myModelContent.html">
+                        <div class="modal-header">
+                            <h3 class="modal-title">读取资源库列表</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div ng-if="results.datas == null" >
+                                <h4>没用符合条件的卷子</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light" >
+                                    <thead ng-if="results.datas != null">
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>学科</th>
+                                            <th>诊断试卷名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in results.datas.data">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{subjectCode}}</td>
+                                            <td>{{data.paperName}}</td>
+                                            <td>
+                                           <button id="{{data.id}}" class="btn btn-default" ng-click="GetResourcePaperCode({id:data.id,paperName:data.paperName})"><span class="p-d">选用</span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                               <!--  指令调用代码 -->
+                                                <xl-page size="20" method="load" class="text-center"></xl-page>
+                                                <!-- 指令模板[pagination.html] -->
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-click="ok()">
+                                确认
+                            </button>
+                            <button class="btn btn-warning" ng-click="cancel()">退出</button>
+                        </div>
+                    </script>
+                </div>
+                <div class="radio">
+                    <label class="col-sm-2 control-label" for="input-id-1">试卷用途：</label>
+                    <label class="i-checks" ng-repeat="obj in paperUseType">
+                        <input type="radio" name="paperUseType" ng-value="obj.paperUseType" ng-checked="{{obj.checked}}" ng-model="formData.paperUseType">
+                        <i></i>{{obj.paperUseName}}
+                    </label>
+                </div>
+                <div class="">
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <!-- ng-model="diagnosis.name" -->
+                        <label class="col-sm-2 control-label">诊断名称：</label>
+                        <span class="col-sm-4"><input type="text" class="form-control" ng-model="formData.name"  id="text_name" required ></span>
+                        <span class="col-sm-4"><button ng-if="formData.name.length > 1 && flag==false" class="btn btn-primary m-r" ng-click="getName()">确定</button>
+                            <button ng-if="flag == true" class="btn btn-primary" ng-click="editName()">编辑</button></span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择封面：</label>
+                        <span class="col-sm-8"> 
+                            <input type="file" name="file" id="file" file-model="myFile" required>
+                             <div>
+                               <img ng-src="{{formData.coverUrl}}" ng-model="formData.coverUrl" style="max-width:200px;max-height:100px;margin:0 auto;display:block;" />
+                           </div> 
+                            <button class="btn btn-primary pull-right" id="submit" ng-click="submit()" required>上传又拍云图片预览</button>
+                            <!-- <div id="log"></div> -->
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">售价：</label>
+                        <span class="col-sm-8"> 
+                            <input type="number" name="price" ng-model="formData.diagnosisPaperPrice" class="col-sm-6 form-control" required>   
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">描述：</label>
+                        <span class="col-sm-8"> 
+                            <textarea placeholder="{{placeholder}}" ng-model="formData.describe" ng-focus="focus()" ng-blur="blur()" class="form-control" rows="6" cols="20" required>
+                            </textarea>
+                        </span>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                    <button class="btn btn-primary pull-right" ng-click="createSingle(formData)">确定单科诊断用卷</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

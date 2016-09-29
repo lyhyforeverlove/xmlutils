@@ -1,0 +1,63 @@
+<div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+    <div class="panel panel-default">
+        <div class="wrapper">
+            <div class="panel-heading m-b-xl">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">学科:</label>
+                    <div class="col-sm-2">
+                        <select name="account" class="form-control">
+                            <option>语文</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-content">
+                <h3>试卷 名称XXXXX</h3>
+                <p><span>考试时间：</span><span>监考教师：</span><span>考试用时：</span><span>总题数：55题</span>
+                    <span>判卷老师：</span></p>
+                <p><strong>总得分</strong></p>
+                <div>
+                    <ul>
+                        <li>客观部分：60分</li>
+                        <li>填空部分：60分</li>
+                        <li>主观部分：60分</li>
+                    </ul>
+                    <span>180分</span>
+                </div>
+                <div class="line line-solid b-b line-lg"></div>
+                <div>
+                    <h4>错误知识点</h4>
+                    <ul>
+                        <li>宾语从句</li>
+                        <li>定语从句</li>
+                        <li>倒装句</li>
+                        <li>宾语前置</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Order bar</div>
+                    <div class="panel-body">
+                        <div ui-jq="plot" ui-options="
+                  [ 
+                    { label: '知识点1', data: {{d1_1}} },
+                    { label: '知识点2', data: {{d1_2}} },
+                    { label: '知识点3', data: {{d1_3}} }
+                  ],
+                  {
+                    bars: { show: true, fill: true, lineWidth: 1, order: 1, fillColor: { colors: [{ opacity: 0.5 }, { opacity: 0.9}] } },
+                    colors: ['{{app.color.info}}', '{{app.color.success}}', '{{app.color.primary}}'],
+                    series: { shadowSize: 1 },
+                    xaxis:{ font: { color: '#ccc' } },
+                    yaxis:{ font: { color: '#ccc' } },
+                    grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#ccc' },                
+                    tooltip: true
+                  }
+                " style="height:240px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

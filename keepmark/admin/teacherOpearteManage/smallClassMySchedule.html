@@ -1,0 +1,40 @@
+<div class="wrapper-md ng-scope" ng-controller="smallClassMyScheduleController" ng-init="getTeacherSchedule()">
+ <div class="panel panel-default">
+  <div class="panel-heading">
+   <h4>权限管理 &gt; 排课 &gt; 排小班课 &gt; {{name}} </h4>
+  </div>
+  <div class="wrapper">
+      <div class="col-sm-12">
+          <button class="btn btn-primary pull-right" ng-click="scheduleShow=!scheduleShow">
+              {{scheduleShow?"隐藏我的课表":"查看我的课表"}}
+          </button>
+      </div>
+       <!--<div class="form-group col-sm-12">
+            <label class="col-sm-1 control-label">教学周期：</label>
+            <div class="col-sm-2">
+                 <select ng-click="getTeacherSchedule(weekTime.eduWeekTimeCode)" ng-model="weekTime" class="form-control" ng-options="w.weekTimeName for w in weekTimes">
+                    <option value="">--请选择--</option>
+                 </select>
+            </div>
+       </div>-->
+       <div ng-include="scheduleUrl" ng-show="scheduleShow"></div>
+       <!--今日作业-->
+       <div class="col-sm-12 margin-top" ng-init="getTodaySchedule()">
+            <div class="modal-header modal-bg col-sm-2 text-center">
+             <h4 class="modal-title">今日课表</h4>
+            </div>
+            <div class="col-sm-12 pad">
+             <table class="table table-striped b-t b-light">
+                 <td class="text-center col-sm-2" id="rowSty"   rowspan="{{todaySchedule.length+1}}"><h4>{{todaySchedule[0].subjectName}}</h4></td>
+                 <tr ng-repeat="data in todaySchedule">
+                    <td class="text-center">{{data.time}}</td>
+                    <td class="text-right">
+                        <button class="btn btn-primary" ng-click="sendHomework(data)">发送作业</button>
+                    </td>
+                </tr>
+             </table>
+            </div>
+       </div>
+    </div>
+  </div>
+</div>

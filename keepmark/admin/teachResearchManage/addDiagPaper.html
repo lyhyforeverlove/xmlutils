@@ -1,0 +1,51 @@
+<style>
+.list-group-item {
+    border-radius: 0;
+    line-height: 36px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+<div class="wrapper-md" ng-controller="getPapersController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>试卷</h4>
+        </div>
+        <div class="row wrapper">
+            <!-- ng-if="data.totalPage>0" -->
+            <div class="table-responsive">
+                ccc
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>学科</th>
+                            <th>诊断试卷名称</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in results.data">
+                            <td>{{subjectCode}}</td>
+                            <td>{{data.paperName}}</td>
+                            <td>
+                                <button class="btn btn-primary" ui-sref="app.teachResearchManage.createSingle({resourcePaperCode:data.id})"><span class="p-d
+                                ">选用</span></button> 
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="load" class="text-center"></xl-page>
+                                <!-- 指令模板[pagination.html] -->
+                            </td>
+                        </tr> 
+                    </tfoot>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

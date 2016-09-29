@@ -1,0 +1,72 @@
+<div class="wrapper-md" ng-controller="DiagListController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>试卷管理&gt;诊断单科试卷
+            <button type="button" class="pull-right btn btn-primary" ui-sref='app.teachResearchManage.createSingle'>创建单科诊断试卷</button></h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-body">
+                <form class="form-horizontal" ng-init="load()">
+                    <!--包含公共筛选条件 start-->
+                    <div  ng-include="'admin/common/tpl/filter.html'"></div>
+                    <!--包含公共筛选条件 end-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">试卷用途：</label>
+                        <div class="radio">
+                            <label class="i-checks" ng-repeat="obj in paperUseType">
+                                <input type="radio" name="paperUseType" ng-value="obj.paperUseType" ng-checked="{{obj.checked}}" ng-model="formData.paperUseType">
+                                <i></i>{{obj.paperUseName}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <button class="pull-right btn btn-primary" ng-click="getList(1,10)"><span class="p-d">查询</span></button>
+                </form>
+            </div>
+            <!-- ng-if="data.total_count>0" -->
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th width="5%">序号</th>
+                            <th width="20%">诊断名称</th>
+                            <th width="5%">学科</th>
+                            <th width="15%">创建时间</th>
+                            <th width="15%">创建人</th>
+                            <th width="20%">封面</th>
+                            <th width="10%">状态</th>
+                            <th width="10%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in results.list">
+                            <td>{{$index+1}}</td>
+                            <td>{{data.diagnosisPaperName}}</td>
+                            <td>{{subjectName}}</td>
+                            <td>{{data.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{data.operator}}</td>
+                            <td>
+                                <img ng-src="{{data.diagnosisImgUrl}}" width="100" height="50" /> </td>
+                            <td>{{data.diagnosisExplanation}}<!--{{data.diagnosisPaperCode }}--></td>
+                            <td>
+                                <!--  ui-sref="app.teachManage.detail({id:data.id})" -->
+                                <!-- <button type="button" class="btn btn-primary" ng-click="getDiagnosisDetail({paperCode:data.diagnosisPaperCode})">详&nbsp;情</button> -->
+                                <button type="button" class="btn btn-primary" ng-click="GetPaperDetail({paperCode:data.diagnosisPaperCode})">详&nbsp;情</button>
+                                <!--  ng-click="getDiagnosisDetail('796EBDDCBDF7492CB7CCDA5729817767')" -->
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <!-- 指令调用代码 -->
+                                <xl-page size="10" method="getList" class="text-center"></xl-page>
+                                <!-- 指令模板[pagination.html] -->
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

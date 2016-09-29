@@ -1,0 +1,149 @@
+<div class="wrapper-md" ng-controller="learningDetailController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; 我的学生 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="count-down">
+                倒计时51day
+            </div>
+            <div class="learning-progress">
+                <p><label>数学：</label>学习进度</p>
+                <div class="progressbar-div">
+                    <progressbar  max="15" value="9" type="success"><i>9/15 共15个阶段</i></progressbar>
+                </div>
+                <tabset justified="true" class="tab-container">
+                    <tab heading="已学阶段">弱项知识点：1XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：2XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：3XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：4XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：5XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：6XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：7XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：8XXX知识模块</tab>
+                    <tab heading="已学阶段">弱项知识点：9XXX知识模块</tab>
+                    <tab heading="未学阶段">弱项知识点：10XXX知识模块</tab>
+                    <tab heading="未学阶段">弱项知识点：11XXX知识模块</tab>
+                    <tab heading="未学阶段">弱项知识点：12XXX知识模块</tab>
+                    <tab heading="未学阶段">弱项知识点：10XXX知识模块</tab>
+                    <tab heading="未学阶段">弱项知识点：11XXX知识模块</tab>
+                    <tab heading="未学阶段">弱项知识点：12XXX知识模块</tab>
+                </tabset>
+            </div>
+            <div class="tab-container ng-isolate-scope">
+                <tabset  class="tab-container">
+                    <li class="tab-title">作业完成情况</li>
+                    <tab heading="大班课" >
+                        <div class="table-responsive">
+                            <table class="table .table-condensed b-t b-light">
+                                <thead>
+                                    <th>序号</th>
+                                    <th>时间</th>
+                                    <th>课程名称</th>
+                                    <th>作业情况</th>
+                                    <th>得分率</th>
+                                    <th>错误知识点</th>
+                                    <th>核心考察知识点</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in studyres">
+                                    <td>{{$index+1}}</td>
+                                    <td>9月1号</td>
+                                    <td></td>
+                                    <td>XXXX</td>
+                                    <td>完成</td>
+                                    <td>90%</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td>9月1号</td>
+                                    <td></td>
+                                    <td>XXXX</td>
+                                    <td>完成</td>
+                                    <td>90%</td>
+                                    <td>--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
+                    <tab heading="小班课">
+                        <div class="table-responsive">
+                            <table class="table .table-condensed b-t b-light">
+                                <thead>
+                                    <th>序号</th>
+                                    <th>时间</th>
+                                    <th>课程名称</th>
+                                    <th>作业情况</th>
+                                    <th>得分率</th>
+                                    <th>错误知识点</th>
+                                    <th>核心考察知识点</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>9月1号</td>
+                                    <td></td>
+                                    <td>XXXX</td>
+                                    <td>完成</td>
+                                    <td>90%</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>9月1号</td>
+                                    <td></td>
+                                    <td>XXXX</td>
+                                    <td>完成</td>
+                                    <td>90%</td>
+                                    <td>--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
+                    <tab heading="我的课">
+                        <div class="table-responsive">
+                            <table class="table .table-condensed b-t b-light">
+                                <thead>
+                                    <th>序号</th>
+                                    <th>时间</th>
+                                    <th>课程名称</th>
+                                    <th>作业情况</th>
+                                    <th>得分率</th>
+                                    <th>错误知识点</th>
+                                    <th>核心考察知识点</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td>9月1号</td>
+                                        <td></td>
+                                        <td>XXXX</td>
+                                        <td>完成</td>
+                                        <td>90%</td>
+                                        <td>--</td>
+                                    </tr>
+                                <tr>
+                                    <td>3.</td>
+                                    <td>9月1号</td>
+                                    <td></td>
+                                    <td>XXXX</td>
+                                    <td>完成</td>
+                                    <td>90%</td>
+                                    <td>--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+            <div class="">
+               <div>模拟考情况：XXX知识模块</div>
+               <div>阶段考情况：XXX知识模块</div>
+            </div>
+        </div>
+    </div>
+</div>

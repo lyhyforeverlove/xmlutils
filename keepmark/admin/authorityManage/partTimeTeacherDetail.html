@@ -1,0 +1,54 @@
+<div class="wrapper-md ng-scope" ng-controller="partTimeTeacherDetailController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}}
+                <button class ="btn btn-primary pull-right" ui-sref="app.authorityManage.partTimeTeacherManage()">返回</button>
+            </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="col-sm-4 control-label">用户名：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.userName}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">姓名：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.name}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">性别：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.authTeacherDetailModel.sex}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">工号：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.teacherNum}}</label>
+                </div>
+
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">授课类型：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.lectureType}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">职称：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.invigilator}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">学历：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.authTeacherDetailModel.education}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">学科：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.subjectName}}</label>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-3">
+                    <label class="control-label col-sm-4">合作关系：</label>
+                    <label class="col-sm-8 control-label">{{partTeacher.teacherShip}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<style>
+	#log ul {
+			list-style: none;
+			font: 14px;
+			line-height: 30px;
+			color: #666;
+		}
+	#log ul li strong {
+		display: inline-block;
+		min-width: 140px;
+		color: #39b3d7;
+		text-align:right;
+	}
+</style>
+<div class="wrapper-md" ng-controller="GoodsDetailController">
+    <div class="panel panel-default" ng-init="GetGoodsDetailList()">
+        <div class="panel-heading">
+           <h4 class="text-center">诊断商品详情</h4>
+        </div>
+        <div class="wrapper">
+        	<p>{{question}}</p>
+        	<div id="log">
+        		<ul>
+        			<li ng-repeat="data in results">
+        				<p><strong>诊断商品名称：</strong>{{data.diagnosisGoodsName}}</p>
+        				<p><strong>封面：</strong><img ng-src='{{data.imageUrl}}' width="100px" height="50px" /></p>
+        				<p><strong>开始时间：</strong>{{data.examStartDate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+        				<p><strong>结束时间：</strong>{{data.examEndDate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+        			</li>
+	        		<!-- <li><strong>试卷名称：</strong>{{diagnosisName}}</li>
+	        		<li><strong>学年：</strong>{{gradeCode}}</li>
+	        		<li><strong>版本：</strong>{{bookVersion}}</li>
+	        		<li><strong>诊断试卷价格：</strong>{{diagnosisPrice }}</li>
+	        		<li><strong>诊断类型：</strong>{{diagnosisType}}</li>
+	        		<li><strong>操作：</strong>{{operator}}</li>
+	        		<li><strong>创建时间：</strong>{{createTime}}</li>
+	        		<li><strong>诊断封面地址：</strong>{{diagnosisImgUrl }}</li>
+	        		<li><strong>文理类型：</strong>{{artsType }}</li>
+	        		<li><strong>地区：</strong>{{area}}</li>
+	        		<li><strong>诊断试卷说明：</strong>{{diagnosisExplanation }}</li>
+	        		<li><strong>诊断试卷状态：</strong>{{diagnosisStatus}}</li> -->
+	        	</ul> 
+
+        	
+        	</div>
+        </div>
+    </div>
+</div>

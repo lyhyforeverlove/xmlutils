@@ -1,0 +1,43 @@
+<div class="wrapper-md" ng-controller="answerQuestionsController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <h4><span>我的学生</span><span>中心1班</span>|<span>一本线上30分</span></h4>
+            <div class="answerQuestions-div">
+                <p><span>共有 {{studentCount}}名学生向我发起答疑</span><span> 共有 {{notStudentCount}} 名学生未向我发起答疑</span></p>
+                <p><span>已接受到 {{answerCount}}份 答疑申请</span><span> 已解决{{doAnswerCount}}份答疑申请</span><span> 未解决{{notAnswerCount}}份答疑申请</span></p>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>地区</th>
+                            <th>学生名称</th>
+                            <th>用户名</th>
+                            <th>答疑时间</th>
+                            <th>问题描述</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ContentPageasd in results">
+
+                            <td>{{$index+1}}</td>
+                            <td>{{ContentPageasd.area}}</td>
+                            <td>{{ContentPageasd.studentName}}</td>
+                            <td>{{ContentPageasd.userName}}</td>
+                            <td>{{ContentPageasd.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{ContentPageasd.answerDescribe | limitToNum:10}}</td>
+                            <td>
+                                <button class="btn btn-primary" ng-click="answerQuestions(ContentPageasd)">答疑</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

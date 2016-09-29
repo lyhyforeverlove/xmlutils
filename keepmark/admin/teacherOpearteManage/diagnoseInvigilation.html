@@ -1,0 +1,37 @@
+<div class="wrapper-md ng-scope" ng-controller="diagnoseInvigilationController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>教师操作 &gt; 1对1老师操作页面 &gt; {{name}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="from-group">
+                <label class="control-label pull-left">时间</label>
+                <div class="m-b inline">
+                    <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="datepicker"></datepicker>
+                </div>
+            </div>
+            <div class="timeContent" >
+                <div class="amExams" ng-hide="timeContents.empty||timeContents.empty==null|| timeContents.am.length==0">
+                    <label  class="control-label time">上午</label>
+                    <div class="inline">
+                        <p ng-repeat="am in timeContents.am"><label class="grouping">第{{am.index}}组 时间 {{am.edgdExamStartDate | date:'HH:ss'}}-{{am.edgdExamEndDate | date:'HH:ss'}}</label><span>一组：{{am.currentNumber}}人</span></p>
+                        <!--<p><label class="grouping">第二组 时间 10:00-11:00</label><span>一组：5人</span></p>-->
+                    </div>
+                </div>
+                <div class="pmExams" ng-hide="timeContents.empty||timeContents.empty==null|| timeContents.pm.length==0">
+                    <label  class="control-label time">下午</label>
+                    <div class="inline">
+                        <p ng-repeat="am in timeContents.pm"><label class="grouping">第{{am.index}}组 时间 {{am.edgdExamStartDate | date:'HH:ss'}}-{{am.edgdExamEndDate | date:'HH:ss'}}</label><span>一组：{{am.currentNumber}}人</span></p>
+
+                    </div>
+                </div>
+                <div ng-show="timeContents.empty">
+                    当前日期您无课程安排
+                </div>
+            </div>
+
+            <button class="btn btn-primary pull-right" ng-disabled="!mayEnter" ng-click="enterLiveRoom()">进入监考教室</button>
+        </div>
+
+    </div>
+</div>

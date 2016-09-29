@@ -1,0 +1,38 @@
+<!--<pre>
+    {{ formData }}
+</pre>-->
+<div class="panel-select">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学年：</label>
+        <label class="control-label" ng-model="formData.gradeCode">高考</label>
+    </div>
+    <div class="line line-dashed b-b line-lg"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">类型：</label>
+        <div class="radio">
+            <label class="i-checks" ng-repeat="(key, val) in departmentType track by $index">
+                <input type="radio" name="departmentType" ng-value='val.departmentType' ng-model="formData.departmentType" ng-click="getSubject(val.departmentType)"><i></i>{{val.departmentName}}
+            </label>
+        </div>
+    </div>
+    <div class="line line-dashed b-b line-lg"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学科：</label>
+        <div class="radio">
+            <label class="i-checks" ng-repeat="(key, val) in category track by $index">
+                <input type="radio" name="subjectCode" ng-value='val.subjectCode' ng-model="formData.subjectCode" ng-click="getBookVersion(formData.departmentType,val.id)" ><i></i>{{val.subjectName}}{{val.subjectCode}}
+            </label>
+        </div>
+    </div>
+    <div class="line line-dashed b-b line-lg"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="input-id-1">教材：</label>
+        <div class="radio">
+            <label class="i-checks" ng-repeat="obj in bookVersion">
+                <input type="radio" name="bookVersionCode" ng-value="obj.bookVersionCode" ng-model="formData.bookVersionCode">
+                <i></i>{{obj.bookVersionName}}
+            </label>
+        </div>
+    </div>
+    <div class="line line-dashed b-b line-lg"></div>
+</div>

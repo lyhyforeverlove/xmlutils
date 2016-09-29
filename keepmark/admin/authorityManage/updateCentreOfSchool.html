@@ -1,0 +1,133 @@
+<div class="wrapper-md ng-scope" ng-controller="updateCentreOfSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{name}}
+                <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.centreOfSchool()" ><span class="p-d">返回</span></button>
+            </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">中心名称:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" placeholder="请输入中心名称" ng-model="centreSchool.name" >
+                </div>
+            </div>
+           <!-- <div class="form-group">
+                <label class="col-sm-1 control-label">中心负责人:</label>
+                <div class="col-sm-11">
+                    <select name="account" class="form-control m-b" ng-model="formData.personCharge" value="{{personCharge}}">
+                        <option value="1">张老师</option>
+                        <option value="2">李老师</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">保分级别:</label>
+                <div class="col-sm-11">
+                    <select name="account" class="form-control m-b" ng-model="formData.goalType" value="{{goalType}}">
+                        <option value="0">保一本30分上</option>
+                        <option value="1">保一本</option>
+                        <option value="1">保二本</option>
+                    </select>
+                </div>
+            </div>
+            <div class="groupLeader">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">组长:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">语文老师:</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                        <button class="btn btn-primary form-inline">添加</button>
+                    </div>
+                    <div class="form-group">
+                        <span>XXX老师 <a class="btn-a">删除</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">数学老师:</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                        <button class="btn btn-primary form-inline">添加</button>
+                    </div>
+                    <div class="form-group">
+                        <span>XXX老师 <a class="btn-a">删除</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">英语老师:</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                        <button class="btn btn-primary form-inline">添加</button>
+                    </div>
+                    <div class="form-group">
+                        <span>XXX老师 <a class="btn-a">删除</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="artsAndScience">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">物理老师:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">化学老师:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">生物老师:</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control m-b" placeholder="输入工号查询">
+                        <div class="form-group">
+                            <span class="form-inline">张老师</span>
+                            <button class="btn btn-primary form-inline">添加</button>
+                        </div>
+                        <div class="form-group">
+                            <span>XXX老师 <a class="btn-a">删除</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+-->
+            <button class="btn btn-primary pull-right" ng-click="saveUpdateCentreSchool()">保存</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div>
+    <div class="wrapper-md" ng-init="load()" ng-controller="MarkPaperDetailController">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="text-center">{{diagnosisPaperName}}</h3>
+            </div>
+            <div class="wrapper">
+                <h4 align="center">
+                    <span class="p-d">学科：{{paperDetail.subjectCode}}</span>
+                    <span class="p-d">考试时间：{{paperDetail.examStartTime | date:'yyyy-MM-dd HH:mm:ss'}}--{{paperDetail.examEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                    <span class="p-d">监考教师：{{paperDetail.invigilatorTeacherName}}</span>
+                    <span class="p-d">考试用时：{{paperDetail.userTime}}</span>
+                    <span class="p-d">总题数：{{paperDatail.total}}题</span>
+                    <span class="p-d">判卷老师：{{name}}</span>
+                </h4>
+               <div class="line line-dashed b-b line-lg"></div>
+                <div class="m-t total-score col-sm-12">
+                    <p class="col-sm-6">
+                        <span>客观部分：{{paperDetail.impersonalityScore}}分</span>
+                      <!-- <span>主观部分：{{paperDetail.impersonalityScore}}分</span>-->
+                    </p>
+                    <p class="col-sm-6">60分</p>
+                </div>
+                <form class="form-horizontal">
+                    <section ng-if="data.isImg==1" ng-repeat="data in results">
+                        <div class="line line-solid b-b line-lg"></div>
+                        <div class="col-sm-12">
+                            <h4  class="col-sm-1">{{data.questionSn}}</h4>
+                            <div class="col-sm-4"><img ng-src="{{data.answerResult}}" alt="" width="100" height="80"></div>
+                            <div class="col-sm-4" ><textarea name="textare" class="form-control" id="" cols="30"  >{{data.rightResult}}</textarea></div>
+                            <div class="col-sm-3">
+                                <span><label class="control-label">得分</label><input type="text" class="form-control" ng-model="data.questionScore"  class="score"></span>
+                                <span><label class="control-label">卷面得分</label><input type="text" class="form-control"  ng-model="data.paperScore" class="score1"></span>
+                                <button ng-click='submitQuestion(data)' id={{data.code}} class="btn btn-primary pull-right m-t"><span class="p-d">提交</span></button>
+                            </div>
+                            <div class="col-sm-12 line line-dashed b-b line-lg  m-t" ></div>
+                        </div>
+                        <div class="error-Knowledge Knowledge">
+                            <p>错误知识点：</p>
+                            <div id="selectKnow_{{data.code}}" class="selectKnow">
+
+
+                            </div>
+
+                        </div>
+                        <div class="survey-knowledge Knowledge">
+                            <p>本题考察知识点范围：</p>
+                            <div id="useKnow_{{data.code}}">
+                                <a id="prodution{{$index}}_{{pro.productionCode}}"  ng-repeat="pro in data.productionJson" ng-click="addErrorKnown(data.code,pro,$index)" class="btn btn-default " role="button">{{pro.productionName}}</a>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+                <div class="line line-solid b-b line-lg"></div>
+                <button ng-click='submitPaper()' class="pull-right btn btn-primary"><span class="p-d">提交</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="examLayer">
+  <h4>客观题：30题</h4>
+  <p>对:15 <a href="">1</a></p>
+  <p>错:15 <a href="">2</a></p>
+  <h4>填空题：(10题未判)</h4>
+  <p><a href="">31</a><a href="">32</a></p>
+  <p>对:n </p>
+  <p>错:n </p>
+  <h4>主观题：(10题未判)</h4>
+  <p><a href="">31</a><a href="">32</a></p>
+  <p>对:n </p>
+  <p>错:n </p>
+</div>-->

@@ -1,0 +1,39 @@
+<div class="wrapper-md ng-scope" ng-controller="addMasterSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{titleName}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">总校名称:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入总校名称" ng-model="formData.name">
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">总校编号:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入总校编号" ng-model="formData.schoolNum">
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">总校校长:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入总校校长" ng-model="formData.president" >
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">副校长:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control m-b" placeholder="请输入总校副校长" ng-model="formData.vicePresident">
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg"></div>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="saveMasterSchool(formData)">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

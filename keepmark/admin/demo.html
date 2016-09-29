@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo</title>
+	<script src="lib/spark-md5.js"></script>
+	<script src="lib/async.js"></script>
+
+	<script src="lib/upyun-mu.js"></script>
+	<script src="lib/md5.js"></script>
+	<style>
+		input,
+		a#submit {
+			display: block;
+			margin: 10px;
+			height: 40px;
+		}
+
+		#submit {
+			width: 100px;
+			background: #02a3c6;
+			border: none;
+			color: #fff;
+			line-height: 40px;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		#submit:hover {
+			background: #09f;
+		}
+
+		#log {
+			border: 2px solid #f8f8f8;
+		}
+
+		#log ul {
+			list-style: none;
+			font: 14px;
+			line-height: 1.5;
+			color: #666;
+		}
+
+		#log ul li strong {
+			display: inline-block;
+			min-width: 100px;
+			color: #39b3d7;
+		}
+
+
+
+	</style>
+
+</head>
+<body>
+
+<form action="">
+	<input type="file" name="file" id="file">
+	<a id="submit">UPLOAD</a>
+</form>
+
+<div id="log">
+
+</div>
+
+
+<script>
+var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+function encode64(input) {
+        var output = "";
+        var chr1, chr2, chr3 = "";
+        var enc1, enc2, enc3, enc4 = "";
+        var i = 0;
+        do {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+            output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4);
+            chr1 = chr2 = chr3 = "";
+            enc1 = enc2 = enc3 = enc4 = "";
+        } while (i < input.length);
+        return output;
+    }
+   
+	document.getElementById('submit').onclick = function() {
+		var ext = '.' + document.getElementById('file').files[0].name.split('.').pop();
+		console.log(ext);
+		var date =parseInt((new Date().getTime() + 3600000) / 1000);
+		
+		 var de = encode64('{"bucket":"keepmark","expiration":date,"save-key","/img.jpg"}');
+		 console.log(de);
+		var dd = de+'&WwbrepSiLMoTpx/+D2c+3klosIA=';
+		var aaaa = hex_md5(dd);
+  console.log(date);
+/*parseInt((new Date().getTime() + 3600000) / 1000)*/
+		var config = {
+			"bucket": 'keepmark', //空间名称
+			"expiration": date, //上传请求过期时间
+			"save-key":"/img.jpg",
+			"signature" : aaaa
+			// 尽量不要使用直接传表单 API 的方式，以防泄露造成安全隐患
+			//form_api_secret: 'WwbrepSiLMoTpx/+D2c+3klosIA='
+		};
+
+		console.log(config);
+		var instance = new Sand(config);
+	
+		instance.upload('/upload/test' + parseInt((new Date().getTime() + 3600000) / 1000) + ext);
+	};
+
+
+	// demo stuff
+	function addLog(data) {
+        var elem = document.createElement("ul");
+        for (var key in data) {
+        	if(key === 'path') {
+        		elem.innerHTML += '<li><strong>' + key + ':</strong>' + '<a target="_blank"  href="http://keepmark.b0.upaiyun.com' + data[key] + '">' + data[key] + '</a>' + '</li>';
+        	} else {
+        		elem.innerHTML += '<li><strong>' + key + ':</strong>' + data[key] + '</li>';
+        	}
+
+        }
+        log.appendChild(elem);
+    }
+
+	document.addEventListener('uploaded', function(e) {
+		var log = document.getElementById("log");
+		addLog(e.detail);
+	});
+</script>
+</body>
+</html>

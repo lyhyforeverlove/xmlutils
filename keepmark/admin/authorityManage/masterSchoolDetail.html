@@ -1,0 +1,31 @@
+<div class="wrapper-md ng-scope" ng-controller="masterSchoolDetailController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{titleName}}
+                <button class="pull-right btn btn-primary"  ui-sref="app.authorityManage.masterSchool()" ><span class="p-d">返回</span></button>
+            </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">总校名称:</label>
+                <label class="col-sm-11 control-label">{{formData.name}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">总校编号:</label>
+                <label class="col-sm-11 control-label">{{formData.schoolNum}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">总校校长:</label>
+                <label class="col-sm-11 control-label">{{formData.president}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">副校长:</label>
+                <label class="col-sm-11 control-label">{{formData.vicePresident}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">创建时间:</label>
+                <label class="col-sm-11 control-label">{{formData.createDate}}</label>
+            </div>
+        </div>
+    </div>
+</div>

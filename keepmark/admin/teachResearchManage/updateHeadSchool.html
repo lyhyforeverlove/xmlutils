@@ -1,0 +1,29 @@
+<div class="wrapper-md ng-scope" ng-controller="updateHeadSchoolController">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{titleName}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">总校名称:</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control m-b" placeholder="请输入总校名称" ng-model="headSchool.name" >
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <label class="col-sm-1 control-label">总校负责人:</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control m-b" placeholder="请输入员工号查询" ng-model="headSchool.personCharge">
+                    <div class="form-group">
+                        <span class="form-inline">张老师</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary pull-right" ng-click="saveUpdateHeadSchool()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

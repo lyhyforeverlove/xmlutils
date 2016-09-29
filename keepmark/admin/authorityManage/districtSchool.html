@@ -1,0 +1,59 @@
+<div class="wrapper-md ng-scope" ng-controller="districtSchoolController" ng-init="initMasterSchool()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>权限管理  &gt; {{titleName}} </h4>
+        </div>
+        <div class="wrapper">
+            <div class="panel-heading ">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">总校：</label>
+                    <div class="col-sm-2">
+                        <select  ng-model="masterSchool"  class="form-control" ng-options="m.name for m in masterSchoolList" ng-click="getBranchSchoolList(masterSchool.code)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">分校：</label>
+                    <div class="col-sm-2">
+                        <select id="branchSchool" ng-click="getDistrictSchoolList(branchSchool.code)" ng-model="branchSchool" class="form-control" ng-options="b.name for b in branchSchoolList">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg"></div>
+                <div class="form-group col-sm-12">
+                    <!--<button class="btn btn-primary pull-left" ng-click="getDistrictList(branchSchool)">查询</button>-->
+                    <button class="btn btn-primary pull-right" ui-sref="app.authorityManage.addDistrictSchool()">添加学区</button>
+                </div>
+                <div class="line line-dashed b-b line-lg"></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped  b-t b-light">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>学区名称</th>
+                        <th>学区负责人</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in districtSchoolList">
+                            <td>{{$index+1}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.personCharge}}</td>
+                            <td>
+                                <a class="btn-a" ng-click="viewDistrictSchool(data)">查看</a>
+                                <a class="btn-a" ng-click="updateVDistrictSchool(data)">修改</a>
+                                <!--<a ng-click="deleteDistrictSchool(item.id)">删除</a>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
