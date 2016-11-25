@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<result>
+	<errorCode>01</errorCode>
+	<url>http://127.0.0.1:8080/LiveClass/tests/joinClass/index.jsp</url>
+	<param>
+		<siteId>admin</siteId>
+		<classID>1419338704</classID>
+		<userName>shanghai</userName>
+		<userId>2000012</userId>
+		<nopassword>false</nopassword>
+		<userType>8</userType>
+		<portalIP>127.0.0.1</portalIP>
+		<portalPort>8080</portalPort>
+		<md5>790a9c17892e99c89d6bef2cb1b5d2e6</md5>
+	</param>
+	<timestamp>1447815907543</timestamp>
+	<meetingNumber>1419338704</meetingNumber>
+</result>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<result>
+	<timestamp></timestamp>
+	<param>
+		<mtgTitle></mtgTitle>
+		<mediaID></mediaID>
+		<oneOrMany></oneOrMany>
+		<whiteboardModule></whiteboardModule>
+		<maxVideoChannels></maxVideoChannels>
+		<docModule></docModule>
+		<interaction></interaction>
+		<isPublic></isPublic>
+		<videoModule></videoModule>
+		<endTime></endTime>
+		<maxAudioChannels></maxAudioChannels>
+		<mediaModule></mediaModule>
+		<screenModule></screenModule>
+		<userType></userType>
+		<startTime></startTime>
+		<backUrl></backUrl>
+		<nickName></nickName>
+		<authId></authId>
+		<recordModule></recordModule>
+		<userId></userId>
+		<autoRecord></autoRecord>
+		<userName></userName>
+		<docID></docID>
+		<meetingType></meetingType>
+		<mtgKey></mtgKey>
+		<hostPwd></hostPwd>
+	</param>
+	<meetingNumber></meetingNumber>
+	<errorCode></errorCode>
+	<list>
+		<param>
+			<mtgTitle></mtgTitle>
+			<mediaID></mediaID>
+			<oneOrMany></oneOrMany>
+			<whiteboardModule></whiteboardModule>
+			<maxVideoChannels></maxVideoChannels>
+			<docModule></docModule>
+			<interaction></interaction>
+			<isPublic></isPublic>
+			<videoModule></videoModule>
+			<endTime></endTime>
+			<maxAudioChannels></maxAudioChannels>
+			<mediaModule></mediaModule>
+			<screenModule></screenModule>
+			<userType></userType>
+			<startTime></startTime>
+			<backUrl></backUrl>
+			<nickName></nickName>
+			<authId></authId>
+			<recordModule></recordModule>
+			<userId></userId>
+			<autoRecord></autoRecord>
+			<userName></userName>
+			<docID></docID>
+			<meetingType></meetingType>
+			<mtgKey></mtgKey>
+			<hostPwd></hostPwd>
+		</param>
+		<param>
+			<mtgTitle></mtgTitle>
+			<mediaID></mediaID>
+			<oneOrMany></oneOrMany>
+			<whiteboardModule></whiteboardModule>
+			<maxVideoChannels></maxVideoChannels>
+			<docModule></docModule>
+			<interaction></interaction>
+			<isPublic></isPublic>
+			<videoModule></videoModule>
+			<endTime></endTime>
+			<maxAudioChannels></maxAudioChannels>
+			<mediaModule></mediaModule>
+			<screenModule></screenModule>
+			<userType></userType>
+			<startTime></startTime>
+			<backUrl></backUrl>
+			<nickName></nickName>
+			<authId></authId>
+			<recordModule></recordModule>
+			<userId></userId>
+			<autoRecord></autoRecord>
+			<userName></userName>
+			<docID></docID>
+			<meetingType></meetingType>
+			<mtgKey></mtgKey>
+			<hostPwd></hostPwd>
+		</param>
+	</list>
+	<password></password>
+	<url></url>
+</result>
+
+
+
+
+
+
