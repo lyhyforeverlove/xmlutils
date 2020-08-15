@@ -30,7 +30,7 @@ public class XmlTest {
         models.add(model);
         models.add(model2);
         resultModel.setMtgModels(models);
-        String result = XmlUtils.beanToXml(resultModel, "utf-8");
+        String result = XmlUtils.beanToXml(resultModel,"UTF-8",true,true,true);
         System.out.println(result);
 
 
